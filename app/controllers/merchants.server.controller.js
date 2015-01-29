@@ -13,7 +13,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var merchant = new Merchant(req.body);
-	merchant.user = req.user;
 	merchant.save(function(err) {
 		if (err) {
 			return res.status(400).send({
