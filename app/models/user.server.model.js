@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
 /**
  * A Validation function for local strategy properties
  */
+// I want to know what this is for and how it works.
 var validateLocalStrategyProperty = function(property) {
 	return ((this.provider !== 'local' && !this.updated) || property.length);
 };

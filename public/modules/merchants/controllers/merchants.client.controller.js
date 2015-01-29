@@ -9,9 +9,14 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Merchant object
 			var merchant = new Merchants ({
-				name: this.name
+				ownerFirstName: this.ownerFirstName,
+				ownerLastName: this.ownerLastName,
+				phoneNumber: this.phoneNumber,
+				storeFrontName: this.storeFrontName,
+				routingNumber: this.routingNumber,
+				accountNumber: this.accountNumber
 			});
-
+// compare screens open, try to use signup from user to signup merchant. think about removing passport for now, and strategies.
 			// Redirect after save
 			merchant.$save(function(response) {
 				$location.path('merchants/' + response._id);
@@ -25,7 +30,7 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 
 		// Remove existing Merchant
 		$scope.remove = function(merchant) {
-			if ( merchant ) { 
+			if ( merchant ) {
 				merchant.$remove();
 
 				for (var i in $scope.merchants) {
@@ -58,9 +63,22 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 
 		// Find existing Merchant
 		$scope.findOne = function() {
-			$scope.merchant = Merchants.get({ 
+			$scope.merchant = Merchants.get({
 				merchantId: $stateParams.merchantId
 			});
 		};
+
+		// save this for later
+		// $scope.signin = function() {
+		// 	$http.post('/auth/signin', $scope.credentials).success(function(response) {
+		// 		// If successful we assign the response to the global user model
+		// 		$scope.authentication.user = response;
+		//
+		// 		// And redirect to the index page
+		// 		$location.path('/');
+		// 	}).error(function(response) {
+		// 		$scope.error = response.message;
+		// 	});
+		// };
 	}
 ]);

@@ -1,19 +1,53 @@
+<!-- My idea is to create a few screens each with a little info to  -->
 <section data-ng-controller="MerchantsController">
     <div class="page-header">
-        <h1>New Merchant</h1>
+        <h1>New Merchant Basic Info
+        </h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                   <label class="control-label" for="ownerFirstName">First Name</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="basicInfo.ownerFirstName" id="ownerFirstName" class="form-control" placeholder="Owner's First Name" required>
                     </div>
+                    <label class="control-label" for="ownerLastName">Last Name</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="basicInfo.ownerLastName" id="ownerLastName" class="form-control" placeholder="Owner's Last Name" required>
+                    </div>
+                    <label class="control-label" for="storeFrontName">Store Front Name</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="basicInfo.storeFrontName" id="storeFrontName" class="form-control" placeholder="Store Front Name" required>
+                    </div>
+                    <label class="control-label" for="email">Email Address</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="basicInfo.email" id="email" class="form-control" placeholder="Email Address" required>
+                    </div>
+                    <label class="control-label" for="phoneNumber">Phone Number</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="basicInfo.phoneNumber" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
+                    </div>
+                    <label class="control-label" for="legalCompanyName">Legal Company Name</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="bankPayoutInfo.legalCompanyName" id="legalCompanyName" class="form-control" placeholder="Legal Company Name" required>
+                    </div>
+                    <label class="control-label" for="accountNumber">Bank Account Number</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="bankPayoutInfo.accountNumber" id="accountNumber" class="form-control" placeholder="Account Number" required>
+                    </div>
+                    <label class="control-label" for="routingNumber">Bank Routing Number</label>
+                    <div class="controls">
+                      <input type="text" data-ng-model="bankPayoutInfo.routingNumber" id="routingNumber" class="form-control" placeholder="Account Routing Number" required>
+                    </div>
+                  </div>
                 </div>
+              <!--   I want to submit this information and make sure that it's not in the database already. -->
+              <!-- on click, though I want to be taken to the next screen. -->
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
+
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>

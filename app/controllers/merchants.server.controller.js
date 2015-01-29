@@ -14,7 +14,6 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var merchant = new Merchant(req.body);
 	merchant.user = req.user;
-
 	merchant.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -72,7 +71,7 @@ exports.delete = function(req, res) {
 /**
  * List of Merchants
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Merchant.find().sort('-created').populate('user', 'displayName').exec(function(err, merchants) {
 		if (err) {
 			return res.status(400).send({
@@ -87,7 +86,7 @@ exports.list = function(req, res) {
 /**
  * Merchant middleware
  */
-exports.merchantByID = function(req, res, next, id) { 
+exports.merchantByID = function(req, res, next, id) {
 	Merchant.findById(id).populate('user', 'displayName').exec(function(err, merchant) {
 		if (err) return next(err);
 		if (! merchant) return next(new Error('Failed to load Merchant ' + id));

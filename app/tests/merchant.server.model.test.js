@@ -5,60 +5,62 @@
  */
 var should = require('should'),
 	mongoose = require('mongoose'),
-	User = mongoose.model('User'),
+	//User = mongoose.model('User'),
 	Merchant = mongoose.model('Merchant');
 
 /**
  * Globals
  */
-var user, merchant;
+var merchant;
+var merchant2;
 
 /**
  * Unit tests
  */
-describe('Merchant Model Unit Tests:', function() {
-	beforeEach(function(done) {
-		user = new User({
-			firstName: 'Full',
-			lastName: 'Name',
-			displayName: 'Full Name',
-			email: 'test@test.com',
-			username: 'username',
-			password: 'password'
+describe('Merchant Model Unit Test:', function(){
+	before(function(done){
+		merchant = new Merchant({
+			basicInfo:{
+				ownerFirstName: 'Joe',
+				ownerLastName: 'Smith',
+				storeFrontName: 'store',
+			}
 		});
-
-		user.save(function() { 
-			merchant = new Merchant({
-				name: 'Merchant Name',
-				user: user
-			});
-
-			done();
-		});
+		merchant2 = new Merchant({
+			basicInfo:{
+				ownerFirstName: 'Joe',
+				ownerLastName: 'Smith',
+				storeFrontName: 'store',
+			}
+		})
+		done();
 	});
-
 	describe('Method Save', function() {
-		it('should be able to save without problems', function(done) {
-			return merchant.save(function(err) {
-				should.not.exist(err);
+		it('should begin with no users', function(done) {
+			Merchant.find({}, function(err, merchants) {
+				merchants.should.have.length(0);
 				done();
 			});
 		});
+		it('should be able to save without problems', function(done) {
+			merchant.save(done);
+		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			merchant.name = '';
+		// need to work on this one.
+		//  it('should fail to save an existing user again', function(done) {
+		//  	merchant.save();
+		//  	return merchant2.save(function(err) {
+		//  		should.exist(err);
+		//  		done();
+		//  	});
+		//  });
 
+		it('should be able to show an error when try to save without first name', function(done) {
+			merchant.firstName = '';
 			return merchant.save(function(err) {
 				should.exist(err);
 				done();
 			});
 		});
-	});
-
-	afterEach(function(done) { 
-		Merchant.remove().exec();
-		User.remove().exec();
-
-		done();
 	});
 });

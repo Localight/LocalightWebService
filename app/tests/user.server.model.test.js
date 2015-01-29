@@ -35,7 +35,6 @@ describe('User Model Unit Tests:', function() {
 			password: 'password',
 			provider: 'local'
 		});
-
 		done();
 	});
 
