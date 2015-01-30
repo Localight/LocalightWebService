@@ -6,16 +6,22 @@
 */
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
-
-
-/**
-* A Validation function for local strategy properties
-*/
-// I want to know what this is for and how it works.
-var validateLocalStrategyProperty = function(property) {
-	return ((this.provider !== 'local' && !this.updated) || property.length);
-};
-
+// var validate = require('mongoose-validator');
+// need to work on the validations.
+// get help with validator and move on.
+// what we will use validators for, make sure numbers are correct, and lengths are the right size.
+// var nameValidator = [
+// 	validate({
+// 		validator: 'isLength',
+// 		arguments: [5, 20],
+// 		message: 'Name should be between 3 and 20 characters'
+// 	}),
+// 	validate({
+// 		validator: 'isAlphanumeric',
+// 		passIfEmpty: true,
+// 		message: 'Name should contain alpha-numeric characters only'
+// 	}),
+// ];
 /**
 * Merchant Schema
 */
@@ -28,8 +34,8 @@ var MerchantSchema = new Schema({
 	basicOwnerInfo:{
 		ownerFirstName:{
 			type:String,
-			maxLength: 20,
-			required: 'First Name of owner required'
+			required: 'First Name of owner required',
+			// validate:'nameValidator'
 		},
 		ownerLastName:{
 			type:String,
@@ -56,8 +62,9 @@ var MerchantSchema = new Schema({
 	 	companyWebsite:{
 	 		type:String,
 	 	}
-	 	//TODO: come back and work on address, I remember Address being tricky
+	 	//TODO: come back and work on address, I remember Address being tricky.
 	 },
+	// for testing purpose only:
 		bankPayoutInfo:{
 			accountNumber:{
 				type:Number,
@@ -67,35 +74,41 @@ var MerchantSchema = new Schema({
 				type:Number,
 				required:'please fill in routing number'
 			}
-		}
-	// for testing purpose only:
+		},
+		// need to figu
+		 	kickbackSplit : [{
+		 		merchant: String,
+		 		percentage: Number
+			}]
 	// TODO: when working with the routing and account numbers, be sure the forms validate.
 });
+// want to make sure that phonenumber is unique in database,
+/**
+* Find possible not used username
+*/
+
+//TODO: write method to validate that phonenumber is unique in database.
+// MerchantSchema.statics.findUniquePhoneNumber = function(phoneNumber, suffix, callback) {
+// 	var _this = this;// I don't understand this line.
+//
+// 	var possiblePhoneNumber = phoneNumber + (suffix || '');// interesting a conditional in a assignment
+//
+// 	_this.findOne({
+// 		phoneNumber: possiblePhoneNumber
+// 	}, function(err, merchant) {
+// 		if (!err) {
+// 			if (!merchant) {
+// 				callback(possiblePhoneNumber);
+// 			} else {
+// 				return _this.findUniquePhoneNumber(phoneNumber, (suffix || 0) + 1, callback);
+// 			}
+// 		} else {
+// 			callback(null);
+// 		}
+// 	});
+// };
 module.exports = mongoose.model('Merchant', MerchantSchema);
 
-	// generalManagerFirstName: String,
-	// generalManagerLastname: String,
-//	basicInfo: {
-	// 	ownerFirstName:{
-	// 		type: String,
-	// 		// trim: true,
-	// 		// required: 'First Name is required'
-	// 	//	default: '',
-	// 	//	validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-	// 	},
-	// 	ownerLastName:{
-	// 		type: String,
-	// 		//trim: true,
-	// 	//	default: '',
-	// 	//	validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-	// 	},
-	// 	// Legal Company Name could be a Unqiue thing.
-	// 	storeFrontName:{
-	// 		type: String,
-	// 		//trim: true,
-	// 	//	default: '',
-	// 	//	validate: [validateLocalStrategyProperty, 'Please fill in your store Front Name']
-	// 	},
 	// 	address: String,// come back too.
 	// 	phoneNumber: Number,
 	// 	website: String,
@@ -137,6 +150,8 @@ module.exports = mongoose.model('Merchant', MerchantSchema);
 	// 	clerks: [{
 	// 		name: String
 	// 	}],
+	// I think transactions should be a separte schema
+
 	// 	transactions: [{
 	// 		amountSpent: Number,
 	// 		timestamp: {

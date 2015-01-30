@@ -19,11 +19,20 @@ var merchant2;
  */
 describe('Merchant Model Unit Test:', function(){
 	before(function(done){
+
 		merchant = new Merchant({
 			basicInfo:{
 				ownerFirstName: 'Joe',
 				ownerLastName: 'Smith',
-				storeFrontName: 'store',
+				ownerPhoneNumber:1234567890,
+				ownerEmailAddress:'something@gmail.com',
+			},
+			businessInfo:{
+				legalCompanyName:'something'
+			},
+			bankPayoutInfo:{
+				accountNumber:234235235,
+				routingNumber:243253534,
 			}
 		});
 		merchant2 = new Merchant({
@@ -32,7 +41,7 @@ describe('Merchant Model Unit Test:', function(){
 				ownerLastName: 'Smith',
 				storeFrontName: 'store',
 			}
-		})
+		});
 		done();
 	});
 	describe('Method Save', function() {
@@ -42,6 +51,7 @@ describe('Merchant Model Unit Test:', function(){
 				done();
 			});
 		});
+
 		it('should be able to save without problems', function(done) {
 			merchant.save(done);
 		});
