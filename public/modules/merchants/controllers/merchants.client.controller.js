@@ -1,25 +1,34 @@
 'use strict';
 
 // Merchants controller
-angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Merchants',
-	function($scope, $stateParams, $location, Authentication, Merchants) {
-		$scope.authentication = Authentication;
-
-		// Create new Merchant
+angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Merchants',
+	function($scope, $stateParams, $location, Merchants) {
+		//$scope.authentication = Authentication;
+	// Create new Merchant
 		$scope.create = function() {
 			// Create new Merchant object
 			var merchant = new Merchants ({
-				ownerFirstName: this.ownerFirstName,
-				ownerLastName: this.ownerLastName,
-				phoneNumber: this.phoneNumber,
-				storeFrontName: this.storeFrontName,
-				routingNumber: this.routingNumber,
-				accountNumber: this.accountNumber
+				basicOwnerInfo:{
+					ownerFirstName: this.ownerFirstName,
+					ownerLastName: this.ownerLastName,
+					ownerPhoneNumber: this.ownerPhoneNumber,
+					ownerEmailAddress: this.ownerEmailAddress
+				},
+				 businessInfo:{
+				 	legalCompanyName: this.legalCompanyName,
+				 	companyWebsite: this.companyWebsite
+				 },
+				 bankPayoutInfo:{
+					accountNumber: this.accountNumber,
+				 	routingNumber: this.routingNumber
+				 }
 			});
+
 // compare screens open, try to use signup from user to signup merchant. think about removing passport for now, and strategies.
 			// Redirect after save
 			merchant.$save(function(response) {
-				$location.path('merchants/' + response._id);
+
+				$location.path('/merchants');
 
 				// Clear form fields
 				$scope.name = '';

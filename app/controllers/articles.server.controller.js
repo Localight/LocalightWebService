@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
   var article = new Article(req.body);
-  article.user = req.user;
+  article.user = req.user;// this assigns this article to this user.
 
   article.save(function(err) {
     if (err) {

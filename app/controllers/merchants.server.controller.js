@@ -12,14 +12,15 @@ var mongoose = require('mongoose'),
  * Create a Merchant
  */
 exports.create = function(req, res) {
+
 	var merchant = new Merchant(req.body);
-	merchant.save(function(err) {
+		merchant.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(merchant);
+			res.json(merchant);
 		}
 	});
 };
@@ -28,7 +29,7 @@ exports.create = function(req, res) {
  * Show the current Merchant
  */
 exports.read = function(req, res) {
-	res.jsonp(req.merchant);
+	res.json(req.merchant);
 };
 
 /**
@@ -45,7 +46,7 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(merchant);
+			res.json(merchant);
 		}
 	});
 };
@@ -62,7 +63,7 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(merchant);
+			res.json(merchant);
 		}
 	});
 };
@@ -77,7 +78,7 @@ exports.list = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(merchants);
+			res.json(merchants);
 		}
 	});
 };
