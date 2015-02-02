@@ -13,7 +13,11 @@ angular.module('merchants').config(['$stateProvider','$urlRouterProvider',
 		}).
 		state('home', {
 			url: '/',
-			templateUrl: 'modules/merchants/views/create-merchant.client.view.html'
+			templateUrl: 'modules/merchants/views/signup-merchant.client.view.html'
+		}).
+		state('confirmation',{
+			url:'/confirmation',
+			templateUrl:'modules/merchants/views/confirmation-merchant.client.view.html'
 		}).
 		state('viewMerchant', {
 			url: '/merchants/:merchantId',

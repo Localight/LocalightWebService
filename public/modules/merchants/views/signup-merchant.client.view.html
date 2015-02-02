@@ -1,8 +1,7 @@
 <!-- My idea is to create a few screens each with a little info to  -->
 <section data-ng-controller="MerchantsController">
     <div class="page-header">
-        <h1>New Merchant Basic Info
-        </h1>
+        <h1>New Merchant Basic Info</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
@@ -41,13 +40,11 @@
                       <input type="text" data-ng-model="routingNumber" id="routingNumber" class="form-control" placeholder="Account Routing Number" required>
                     </div>
                   </div>
-                </div>
               <!--   I want to submit this information and make sure that it's not in the database already. -->
               <!-- on click, though I want to be taken to the next screen. -->
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
-
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>

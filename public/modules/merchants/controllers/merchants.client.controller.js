@@ -15,6 +15,7 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 					ownerEmailAddress: this.ownerEmailAddress
 				},
 				 businessInfo:{
+					storeFrontName: this.storeFrontName,
 				 	legalCompanyName: this.legalCompanyName,
 				 	companyWebsite: this.companyWebsite
 				 },
@@ -27,8 +28,8 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 // compare screens open, try to use signup from user to signup merchant. think about removing passport for now, and strategies.
 			// Redirect after save
 			merchant.$save(function(response) {
-
-				$location.path('/merchants');
+				// when you save redirect to page that shows final information.
+				$location.path('/confirmation');
 
 				// Clear form fields
 				$scope.name = '';

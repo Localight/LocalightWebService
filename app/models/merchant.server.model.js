@@ -30,8 +30,7 @@ var MerchantSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-
-	basicOwnerInfo:{
+	ownerContactInfo:{
 		ownerFirstName:{
 			type:String,
 			required: 'First Name of owner required',
@@ -44,7 +43,6 @@ var MerchantSchema = new Schema({
 		},
 		ownerPhoneNumber:{
 			type:Number,
-			max: 10,
 			required:'Phone Number of owner required'
 		},
 		ownerEmailAddress:{
@@ -59,10 +57,37 @@ var MerchantSchema = new Schema({
 			max: 20,
 	 		required: 'company name required'
 	 	},
+		//TODO: validate that the address enter is valid.
+		businessBillingAddress: {
+			street:{
+				type:String,
+				max: 50,
+			//	required: 'please enter the billing address for the business'
+			},
+			city:{
+				type:String,
+				max:30,
+			//	required:'please enter a city'
+			},
+			state:{
+				type:String,
+				max: 14,
+			//	required:'please enter a state'
+			},
+			zipcode:{
+				type:Number,
+			//	required: 'plase enter a zipcode'
+			}
+		},
 	 	companyWebsite:{
 	 		type:String,
-	 	}
+	 	},
+		storeFrontName:{
+			type:String,
+			max:20
+		}
 	 	//TODO: come back and work on address, I remember Address being tricky.
+		//TODO: add tircon. or type.
 	 },
 	// for testing purpose only:
 		bankPayoutInfo:{
@@ -108,55 +133,3 @@ var MerchantSchema = new Schema({
 // 	});
 // };
 module.exports = mongoose.model('Merchant', MerchantSchema);
-
-	// 	address: String,// come back too.
-	// 	phoneNumber: Number,
-	// 	website: String,
-	// 	},
-	// bankPayoutInfo: {
-	// 	legalCompanyName:{
-	// 		type: String,
-	// 	//	default: '',
-	// 	//	validate: [validateLocalStrategyProperty, 'Please fill in your legal company name']
-	// 	},
-	// 	// this needs to be turned into a token, and can't store the actual bank account info.
-	// 	// need to store the token balance, look at balanced. so you can call the last 4 of a credit card.
-	// 	// PCI Complient
-	// 	routingNumber:{
-	// 		type: Number,
-	// 		//default: '',
-	// 	//	validate: [validateLocalStrategyProperty, 'Please fill in your routing number']
-	// 	},
-	// 	accountNumber:{
-	// 		type: Number,
-	// 	//	default: '',
-	// 	//	validate: [validateLocalStrategyProperty, 'Please fill in your account number']
-	// 	}},  // routing number? account number?
-	// locations: {
-	// 	basicInfo: {
-	// 		address: String,
-	// 		phoneNumber: Number,
-	// 		website: String
-	// 	},
-	// 	manager: String,
-	// 	account: String,
-	// 	tricons: String,
-	//
-	// 	kickbackSplit : [{
-	// 		merchant: String,
-	// 		percentage: Number
-	// 	}],
-	// 	// add in contract percent
-	// 	clerks: [{
-	// 		name: String
-	// 	}],
-	// I think transactions should be a separte schema
-
-	// 	transactions: [{
-	// 		amountSpent: Number,
-	// 		timestamp: {
-	// 			type: Date,
-	// 			default: Date.now
-	// 		},
-	// 	}]
-	// }
