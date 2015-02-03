@@ -12,8 +12,8 @@ angular.module('merchants').config(['$stateProvider','$urlRouterProvider',
 			templateUrl: 'modules/merchants/views/list-merchants.client.view.html'
 		}).
 		state('home', {
-			url: '/',
-			templateUrl: 'modules/merchants/views/signup-merchant.client.view.html'
+			url: '/',//need to come back to this.
+			templateUrl: 'modules/merchants/views/signup-basicinfo-merchant.client.view.html'
 		}).
 		state('confirmation',{
 			url:'/confirmation',

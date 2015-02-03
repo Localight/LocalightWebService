@@ -3,10 +3,21 @@
 // Merchants controller
 angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Merchants',
 	function($scope, $stateParams, $location, Merchants) {
+		// need to make this only avaible to signup or merchant change page.
+		$scope.tokenizeAccountInfo = function(){
+			var payload = {
+				name: this.ownerFirstName + ' ' + this.ownerLastName,
+				account_number:this.ba_number,
+				routing_number:this.ba_routing
+			};
+		};
+
 		//$scope.authentication = Authentication;
 	// Create new Merchant
 		$scope.create = function() {
 			// Create new Merchant object
+			// see if you can get the balaneced payments stuff to go off first.
+			// send the card information away.
 			var merchant = new Merchants ({
 				basicOwnerInfo:{
 					ownerFirstName: this.ownerFirstName,
@@ -19,10 +30,6 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 				 	legalCompanyName: this.legalCompanyName,
 				 	companyWebsite: this.companyWebsite
 				 },
-				 bankPayoutInfo:{
-					accountNumber: this.accountNumber,
-				 	routingNumber: this.routingNumber
-				 }
 			});
 
 // compare screens open, try to use signup from user to signup merchant. think about removing passport for now, and strategies.

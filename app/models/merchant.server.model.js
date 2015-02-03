@@ -1,14 +1,27 @@
 'use strict';
-
+// what's crucial is that we store the merchant's name, email, phone, and maybe a password at some point. We also
+// want to store the merchants bank info. the bank info is the most important part.
 /**
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
-// var validate = require('mongoose-validator');
+ var validate = require('mongoose-validator');
 // need to work on the validations.
 // get help with validator and move on.
 // what we will use validators for, make sure numbers are correct, and lengths are the right size.
+var nameValidator = [
+  validate({
+    validator: 'isLength',
+    arguments: [5,20],
+    message: 'Name should be between 3 and 15 characters'
+  }),
+  validate({
+    validator: 'isAlphanumeric',
+    passIfEmpty: true,
+    message: 'Name should contain alpha-numerica characters only',
+  })
+];
 // var nameValidator = [
 // 	validate({
 // 		validator: 'isLength',
@@ -34,12 +47,14 @@ var MerchantSchema = new Schema({
       type: String,
       maxLength: 20,
       required: 'First Name of owner required',
+    //  validate: nameValidator
       // validate:'nameValidator'
     },
     ownerLastName: {
       type: String,
       maxLength: 20,
-      required: 'Last Name of owner required'
+      required: 'Last Name of owner required',
+      //validate: nameValidator
     },
     ownerPhoneNumber: {
       type: Number,
@@ -117,23 +132,4 @@ var MerchantSchema = new Schema({
  */
 
 //TODO: write method to validate that phonenumber is unique in database.
-// MerchantSchema.statics.findUniquePhoneNumber = function(phoneNumber, suffix, callback) {
-// 	var _this = this;// I don't understand this line.
-//
-// 	var possiblePhoneNumber = phoneNumber + (suffix || '');// interesting a conditional in a assignment
-//
-// 	_this.findOne({
-// 		phoneNumber: possiblePhoneNumber
-// 	}, function(err, merchant) {
-// 		if (!err) {
-// 			if (!merchant) {
-// 				callback(possiblePhoneNumber);
-// 			} else {
-// 				return _this.findUniquePhoneNumber(phoneNumber, (suffix || 0) + 1, callback);
-// 			}
-// 		} else {
-// 			callback(null);
-// 		}
-// 	});
-// };
 module.exports = mongoose.model('Merchant', MerchantSchema);
