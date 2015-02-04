@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Merchant = mongoose.model('Merchant'),
+	balanced = require('balanced-official'),
 	_ = require('lodash');
 
 /**
@@ -14,6 +15,10 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 
 	var merchant = new Merchant(req.body);
+	balanced.marketplace.bank_accounts.crete({
+		'routing_number': req.body.routing_number,
+		'account_type': req.body.account_type,
+	});
 		merchant.save(function(err) {
 		if (err) {
 			return res.status(400).send({

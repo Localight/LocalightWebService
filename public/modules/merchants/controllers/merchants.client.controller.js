@@ -13,7 +13,7 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		};
 
 		//$scope.authentication = Authentication;
-	// Create new Merchant
+		// Create new Merchant
 		$scope.create = function() {
 			// Create new Merchant object
 			// see if you can get the balaneced payments stuff to go off first.
@@ -36,7 +36,7 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 			// Redirect after save
 			merchant.$save(function(response) {
 				// when you save redirect to page that shows final information.
-				$location.path('/confirmation');
+				$location.path('/billingInfo');
 
 				// Clear form fields
 				$scope.name = '';
