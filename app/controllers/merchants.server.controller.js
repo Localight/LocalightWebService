@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
 /**
  * Create a Merchant
  */
-exports.create = function(req, res) {
+exports.createMerchant = function(req, res) {
 
 	var merchant = new Merchant(req.body);
 		merchant.save(function(err) {
@@ -24,7 +24,6 @@ exports.create = function(req, res) {
 		}
 	});
 };
-
 /**
  * Show the current Merchant
  */

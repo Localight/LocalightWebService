@@ -1,50 +1,87 @@
 'use strict';
-
+var balanced = require('balanced-offical');
+balanced.configure('ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM');
 // Merchants controller
-angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Merchants',
-	function($scope, $stateParams, $location, Merchants) {
-		// need to make this only avaible to signup or merchant change page.
-		$scope.tokenizeAccountInfo = function(){
+angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location','$http', 'Merchants',
+	function($scope, $stateParams, $location, $http, Merchants) {
+		// think about authenticaiton with either authenticate or twilio. the page has to be protected.
+		// and phone number is the username
+		// Save from the form all the info you need and connect with the balanced api.
+		// will at some point need to create login and pass word stuff.
+		// if ($scope.authentication.user) $location.path('/');
+		//
+		$scope.signupMerchant = function() {
+			// get info from view,
+			// send info to token,
+			// get info back from token,
+			// save info to back end.
+			// redirect to confirmation page.
+
+			$http.post('/tokenize', $scope.credentials).sucess(function(response){
+				// could authorize at this point.
+				// $scope.authentication.user = response;
+				$location.path('/confirmation');
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+
+
+			 // end of merchant creation
+			// step one get info from labels.
+			// step 2 before submitting stuff to the backend, call balanced and tokenize stuff.
+			// step 3 send everything to backend.
+			var path = ((document.URL).substr((document.URL).lastIndexOf('d/')).substr(2));
+		  var cardId = path.substr(0, path.indexOf('#'));
+
+			function handleResponse(response) {
+				// if account is validated
+				if (response.status_code === 201) {
+					// get BP credit card href for buyer and store postObj
+					var fundingInstrument = response.cards !== null ? response.cards[0] : response.bank_accounts[0];
+					merchant.fundingInstrument = fundingInstrument;
+					merchant.uniqueLink = cardId;
+					// create Buyer and upon POST success create Recipient
+					$http.post('/merchants', merchant.createMerchant);
+					// now send a email to verify.
+					//TODO:, come back and
+					//	.success($http.post('/recipient', postObj));
+				}else {
+					console.log('handleResponse failed');
+				}
+			}
+			// configure month and year to BP parameter standards
+			// this has to do with parsing data.
+			// if ($scope.formData.Expiry.length === 7) {
+			// 	var year = '20' + $scope.formData.Expiry.substring(5,7);
+			// }
+			// else {
+			// 	var year = $scope.formData.Expiry.substr(5,9);
+		// j
+			// var month = $scope.formData.Expiry.substr(0,2);
+
+			//lets assume my data is correct.
+
+			// data object BP needs to validate/create card
 			var payload = {
 				name: this.ownerFirstName + ' ' + this.ownerLastName,
-				account_number:this.ba_number,
-				routing_number:this.ba_routing
+				account_number:this.account_number,
+				routing_number:this.routing_number,
+				account_type: this.account_type
 			};
-		};
 
-		//$scope.authentication = Authentication;
-	// Create new Merchant
-		$scope.create = function() {
-			// Create new Merchant object
-			// see if you can get the balaneced payments stuff to go off first.
-			// send the card information away.
-			var merchant = new Merchants ({
-				basicOwnerInfo:{
-					ownerFirstName: this.ownerFirstName,
-					ownerLastName: this.ownerLastName,
-					ownerPhoneNumber: this.ownerPhoneNumber,
-					ownerEmailAddress: this.ownerEmailAddress
-				},
-				 businessInfo:{
-					storeFrontName: this.storeFrontName,
-				 	legalCompanyName: this.legalCompanyName,
-				 	companyWebsite: this.companyWebsite
-				 },
-			});
-
+			balanced.marketplace.bank_accounts.create(payload, handleRespone);
 // compare screens open, try to use signup from user to signup merchant. think about removing passport for now, and strategies.
-			// Redirect after save
-			merchant.$save(function(response) {
-				// when you save redirect to page that shows final information.
-				$location.path('/confirmation');
+		// Redirect after save
+		merchant.$save(function(response) {
+			// when you save redirect to page that shows final information.
+			$location.path('/confirmation');
 
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
+			// Clear form fields
+			$scope.name = '';
+		}, function(errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
+	};
 		// Remove existing Merchant
 		$scope.remove = function(merchant) {
 			if ( merchant ) {

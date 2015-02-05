@@ -1,4 +1,5 @@
 'use strict';
+var balanced = require('balanced-offical');
 
 module.exports = {
 	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/clique',
@@ -33,7 +34,7 @@ module.exports = {
 					domain: 'https://api.mailgun.net/v2/rs56424.mailgun.org/messages',
 					from: 'auction@TeachArt.org'
 	},
-	balancedPayments: 'ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM',
+	balancedPayments: 'MP49D7DEEhJAukYqr8dLNdKM',
 	subledger: {
 			key: '88OpPqUhvGMhXnkGY6w47K',
 			secret: 'zXKdLPenIZ4B2r1cOjl46a',

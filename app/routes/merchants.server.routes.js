@@ -7,7 +7,7 @@ module.exports = function(app) {
 	// Merchants Routes
 	app.route('/merchants')
 		.get(merchants.list)
-		.post( merchants.create);
+		.post(merchants.createMerchant);
 
 	app.route('/merchants/:merchantId')
 		.get(merchants.read)

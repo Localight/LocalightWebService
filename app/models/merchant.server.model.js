@@ -107,16 +107,6 @@ var MerchantSchema = new Schema({
     //TODO: add tircon. or type.
   },
   // for testing purpose only:
-  bankPayoutInfo: {
-    accountNumber: {
-      type: Number,
-      required: 'please fill in account number'
-    },
-    routingNumber: {
-      type: Number,
-      required: 'please fill in routing number'
-    }
-  },
   // need to figu
   kickbackSplit: [{
       merchant: String,

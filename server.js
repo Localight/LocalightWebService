@@ -7,6 +7,14 @@ var init = require('./config/init')(),
 	mongoose = require('mongoose'),
 	chalk = require('chalk');
 
+	/**
+	* services
+	*/
+	var twilioService = require('./app/services/twilio-service'),
+			mailerService = require('./app/services/mailgun-service'),
+			balancedService = require('./app/services/balanced-payments-service'),
+			subledgerService = require('./app/services/subledger-service');
+
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
@@ -19,6 +27,19 @@ var db = mongoose.connect(config.db, function(err) {
 		console.log(chalk.red(err));
 	}
 });
+
+// In general I'm not sure how the boilerplate code gets configured, and this is how it was done in the other
+// project so this is how i'm going to try it.
+
+// Initialize Modules ************
+
+//twilioService.init(config.twilio.acctSid, config.twilio.authToken); // Twilio
+
+//mailerService.init(config.mailgun); // Mailgun
+
+balancedService.init(config.balancedPayments); // Balanced Payments
+
+//subledgerService.init(config.subledger.key, config.subledger.secret, config.subledger.org_id, config.subledger.book_id, config.subledger.depositor_category_id, config.subledger.uncleared_category_id, config.subledger.balance_sheet_id); // Subledger
 
 // Init the express application
 var app = require('./config/express')(db);
