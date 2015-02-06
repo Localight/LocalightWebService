@@ -13,7 +13,13 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$http'
 		// change to customer later
 		// singup - new customer
 $scope.createMerchant = function() {
-	$http.post('/merchants', $scope.secure).sucess(function(response) {
+	var merchant = new Merchants({
+		first_name: this.first_name,
+		last_name: this.last_name,
+		phone_number: this.phone_number,
+		email_address: this.email_address
+	});
+	merchant.$save(function(response) {
 		//$scope.contactInfo.href = response.data.href;
 		// you can take the response and the put it onto a single view for that single id.
 		// a review form or something.
