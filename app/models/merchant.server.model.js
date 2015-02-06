@@ -6,34 +6,7 @@
  */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
- var validate = require('mongoose-validator');
-// need to work on the validations.
-// get help with validator and move on.
-// what we will use validators for, make sure numbers are correct, and lengths are the right size.
-var nameValidator = [
-  validate({
-    validator: 'isLength',
-    arguments: [5,20],
-    message: 'Name should be between 3 and 15 characters'
-  }),
-  validate({
-    validator: 'isAlphanumeric',
-    passIfEmpty: true,
-    message: 'Name should contain alpha-numerica characters only',
-  })
-];
-// var nameValidator = [
-// 	validate({
-// 		validator: 'isLength',
-// 		arguments: [5, 20],
-// 		message: 'Name should be between 3 and 20 characters'
-// 	}),
-// 	validate({
-// 		validator: 'isAlphanumeric',
-// 		passIfEmpty: true,
-// 		message: 'Name should contain alpha-numeric characters only'
-// 	}),
-// ];
+
 /**
  * Merchant Schema
  */
@@ -42,25 +15,25 @@ var MerchantSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  ownerContactInfo: {
-    ownerFirstName: {
+  contactInfo: {
+    first_name: {
       type: String,
       maxLength: 20,
       required: 'First Name of owner required',
     //  validate: nameValidator
       // validate:'nameValidator'
     },
-    ownerLastName: {
+    last_name: {
       type: String,
       maxLength: 20,
       required: 'Last Name of owner required',
       //validate: nameValidator
     },
-    ownerPhoneNumber: {
+    phone_number: {
       type: Number,
       required: 'Phone Number of owner required'
     },
-    ownerEmailAddress: {
+    email_address: {
       type: String,
       maxLength: 20,
       match: [/.+\@.+\..+/, 'Please fill a valid email address'],
@@ -68,7 +41,7 @@ var MerchantSchema = new Schema({
     }
   },
   businessInfo: {
-    legalCompanyName: {
+    business_name: {
       type: String,
       max: 20,
       //		required: 'company name required'
@@ -106,12 +79,6 @@ var MerchantSchema = new Schema({
     //TODO: come back and work on address, I remember Address being tricky.
     //TODO: add tircon. or type.
   },
-  // for testing purpose only:
-  // need to figu
-  kickbackSplit: [{
-      merchant: String,
-      percentage: Number
-    }]
     // merchants need a percant
     // TODO: when working with the routing and account numbers, be sure the forms validate.
 });
@@ -122,4 +89,4 @@ var MerchantSchema = new Schema({
  */
 
 //TODO: write method to validate that phonenumber is unique in database.
-module.exports = mongoose.model('Merchant', MerchantSchema);
+mongoose.model('Merchant', MerchantSchema);
