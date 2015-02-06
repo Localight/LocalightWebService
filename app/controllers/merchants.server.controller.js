@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
 /**
  * Create a Merchant
  */
-exports.createMerchant = function(req, res) {
+exports.signupMerchant = function(req, res) {
 
 	var merchant = new Merchant(req.body);
 		merchant.save(function(err) {

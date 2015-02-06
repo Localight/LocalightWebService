@@ -1,13 +1,12 @@
 'use strict';
 
 module.exports = function(app) {
-	var users = require('../../app/controllers/users.server.controller');
 	var merchants = require('../../app/controllers/merchants.server.controller');
 
 	// Merchants Routes
 	app.route('/merchants')
 		.get(merchants.list)
-		.post(merchants.createMerchant);
+		.post(merchants.signupMerchant);
 
 	app.route('/merchants/:merchantId')
 		.get(merchants.read)

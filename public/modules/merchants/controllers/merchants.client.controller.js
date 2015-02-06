@@ -1,9 +1,8 @@
 'use strict';
-//var balanced = require('balanced-offical');
-//balanced.configure('ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM');
+// balanced.configure('ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM');
 // Merchants controller
-angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location','$http', 'Merchants',
-	function($scope, $stateParams, $location, $http, Merchants) {
+angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Merchants',
+	function($scope, $stateParams, $location, Merchants) {
 		// think about authenticaiton with either authenticate or twilio. the page has to be protected.
 		// and phone number is the username
 		// Save from the form all the info you need and connect with the balanced api.
@@ -32,45 +31,46 @@ $scope.signupMerchant = function() {
 			//	}
 			}
 		});
-		console.log(merchant);
-	var payload = {
-		email: this.email,
-			  // address:{
-				// 	city: this.city,
-				//  	country_code:this.country_code,
-				//  	line1: this.line1,
-				//  	line2: this.line2,
-				//  	postal_code: this.postal_code,
-				// 	state: this.state,
-				// 	},
-		name: this.firstName + ' ' +this.lastName,
-		business_name: this.business_name,
-		phone: this.phone,
-	};//end customerInfo
-	console.log(payload);
-  balanced.marketplace.customers.create(payload, function(response){
-		// Handle Errors (Anything that's not Success Code 201)
-		if(response.status !== 201){// come back and change status to status_code
-			alert(response.error.description);
-			return;
-		}else{
-		//TODO: put an error code here or something.
-		console.log('handleResponse failed');
-	}//
-	//var fundingInstrutment = response.cards !== null ? response.cards[0] : response.bank_accounts[0];
-	merchant.href = response.href;
+		merchant.$save(function(response) {
+			$location.path('/confirmation');
+		}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+		});
+	//	console.log(merchant);
+	// var payload = {
+	// 	email: this.email,
+	// 		  // address:{
+	// 			// 	city: this.city,
+	// 			//  	country_code:this.country_code,
+	// 			//  	line1: this.line1,
+	// 			//  	line2: this.line2,
+	// 			//  	postal_code: this.postal_code,
+	// 			// 	state: this.state,
+	// 			// 	},
+	// 	name: this.firstName + ' ' +this.lastName,
+	// 	business_name: this.business_name,
+	// 	phone: this.phone,
+	// };//end customerInfo
+
+//   balanced.marketplace.customers.create(payload, function(response){
+// 		// Handle Errors (Anything that's not Success Code 201)
+// 		if(response.status !== 201){// come back and change status to status_code
+// 			alert(response.error.description);
+// 			return;
+// 		}else{
+// 		//TODO: put an error code here or something.
+// 		console.log('handleResponse failed');
+// 	}
+// 	merchant.href = response.href;
+// 	//var fundingInstrutment = response.cards !== null ? response.cards[0] : response.bank_accounts[0];
+// });
 	// possible error right after this point,
 	// could be if the post in the next method throws an error message.
 	// then save the data to the backend with the response
-	// could authorize at this point.
+	// could authorize at this pint.
 	// $scope.authentication.user = response;
-	$http.post('/merchants', merchant).sucess(function(response){
-			$location.path('/confirmation');
-	}).error(function(response) {
-		$scope.error = response.message;
-	});// end http post
-});
-};//end merchant singup
+
+};
 
 // Remove existing Merchant
 $scope.remove = function(merchant) {
