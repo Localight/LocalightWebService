@@ -1,4 +1,5 @@
 'use strict';
+//var balanced = require('balanced-official');
 
 module.exports = {
 	db: 'mongodb://localhost/clique-dev',
@@ -25,7 +26,7 @@ module.exports = {
 					domain: 'https://api.mailgun.net/v2/rs56424.mailgun.org/messages',
 					from: 'auction@TeachArt.org'
 	},
-	balancedPayments: 'ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM',
+	balanced:'TEST-MP64VYOM3SE79TEgc4WIlgXu',
 	subledger: {
 			key: '88OpPqUhvGMhXnkGY6w47K',
 			secret: 'zXKdLPenIZ4B2r1cOjl46a',

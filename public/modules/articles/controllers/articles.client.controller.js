@@ -4,11 +4,13 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
   function($scope, $stateParams, $location, Authentication, Articles) {
     $scope.authentication = Authentication;
 
+    // this will just excute
     $scope.create = function() {
       var article = new Articles({
         title: this.title,
         content: this.content
       });
+      // after create excutes, and you get a response do this with it.
       article.$save(function(response) {
         $location.path('articles/' + response._id);
 

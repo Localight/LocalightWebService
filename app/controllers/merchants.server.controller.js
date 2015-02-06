@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 /**
  * Create a Merchant
  */
-exports.create = function(req, res) {
+exports.signupMerchant = function(req, res) {
 
 	var merchant = new Merchant(req.body);
 	balanced.marketplace.bank_accounts.crete({
@@ -29,7 +29,6 @@ exports.create = function(req, res) {
 		}
 	});
 };
-
 /**
  * Show the current Merchant
  */

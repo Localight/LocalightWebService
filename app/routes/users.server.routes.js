@@ -3,11 +3,20 @@
 /**
  * Module dependencies.
  */
+//TODO: put in correct routes
+//var twilio = require('../controllers/twilio-ctrl');
+//var gifts = require('../controllers/gifts-ctrl');
+//var ambassador = require('../controllers/ambassador');
+//var person = require('../controllers/persona-ctrl');
+//var cards = require('../controllers/cards-ctrl');
+//var balanced = require('../controllers/balanced-ctrl');
+
 var passport = require('passport');
 
 module.exports = function(app) {
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
+	var balance = require('../../app/controllers/balancedpayments.server.controller');
 
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
@@ -25,6 +34,8 @@ module.exports = function(app) {
 	app.route('/auth/signin').post(users.signin);
 	app.route('/auth/signout').get(users.signout);
 
+	//balancedpayments controller stuff
+//	app.route('balancedpayments/tokenize').post(balance.tokenize);
 
 
 	// Finish by binding the user middleware

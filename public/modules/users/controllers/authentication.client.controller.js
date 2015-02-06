@@ -8,9 +8,14 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		if ($scope.authentication.user) $location.path('/');
 
 		$scope.signup = function() {
+
+			// sending our stuff to backend in the event of success do this with the response.
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
+				// I could in theory try it here and see what happens or try making this in the backend.
 				// If successful we assign the response to the global user model
-				$scope.authentication.user = response;
+				// i'm still not sure what this does, but i think it has to somehting with store the session, if i'm write
+				// the signin should have similar logic somewhere
+				$scope.authentication.user = response;// actually logs a user in.
 
 				// And redirect to the index page
 				$location.path('/');

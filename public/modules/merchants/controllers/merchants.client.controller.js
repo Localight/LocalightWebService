@@ -1,8 +1,9 @@
 'use strict';
-
+// balanced.configure('ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM');
 // Merchants controller
 angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Merchants',
 	function($scope, $stateParams, $location, Merchants) {
+<<<<<<< HEAD
 		// need to make this only avaible to signup or merchant change page.
 		$scope.tokenizeAccountInfo = function(){
 			var payload = {
@@ -41,29 +42,94 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 				// Clear form fields
 				$scope.name = '';
 			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
-		// Remove existing Merchant
-		$scope.remove = function(merchant) {
-			if ( merchant ) {
-				merchant.$remove();
-
-				for (var i in $scope.merchants) {
-					if ($scope.merchants [i] === merchant) {
-						$scope.merchants.splice(i, 1);
-					}
-				}
-			} else {
-				$scope.merchant.$remove(function() {
-					$location.path('merchants');
-				});
+=======
+		// think about authenticaiton with either authenticate or twilio. the page has to be protected.
+		// and phone number is the username
+		// Save from the form all the info you need and connect with the balanced api.
+		// will at some point need to create login and pass word stuff.
+		// if ($scope.authentication.user) $location.path('/');
+		//
+$scope.signupMerchant = function() {
+	// or in balanced terms create a customer.
+	var merchant = new Merchants({
+		//get only the info we need for our model.
+		contactInfo:{
+			first_name:this.first_name,
+			last_name:this.last_name,
+			phone_number:this.phone_number,
+			email_address:this.email_address,
+			},
+		businessInfo:{
+			business_name:this.business_name,
+			// address:{
+			// 	city:this.city,
+			//   line1:this.line1,
+			// 	line2:this.line2,
+			// 	state:this.state,
+			// 	postal_code:this.postal_code,
+			// 	country_code:this.country_code
+			//	}
 			}
-		};
+		});
+		merchant.$save(function(response) {
+			$location.path('/confirmation');
+		}, function(errorResponse) {
+>>>>>>> blanceInFrontEnd
+				$scope.error = errorResponse.data.message;
+		});
+	//	console.log(merchant);
+	// var payload = {
+	// 	email: this.email,
+	// 		  // address:{
+	// 			// 	city: this.city,
+	// 			//  	country_code:this.country_code,
+	// 			//  	line1: this.line1,
+	// 			//  	line2: this.line2,
+	// 			//  	postal_code: this.postal_code,
+	// 			// 	state: this.state,
+	// 			// 	},
+	// 	name: this.firstName + ' ' +this.lastName,
+	// 	business_name: this.business_name,
+	// 	phone: this.phone,
+	// };//end customerInfo
+
+//   balanced.marketplace.customers.create(payload, function(response){
+// 		// Handle Errors (Anything that's not Success Code 201)
+// 		if(response.status !== 201){// come back and change status to status_code
+// 			alert(response.error.description);
+// 			return;
+// 		}else{
+// 		//TODO: put an error code here or something.
+// 		console.log('handleResponse failed');
+// 	}
+// 	merchant.href = response.href;
+// 	//var fundingInstrutment = response.cards !== null ? response.cards[0] : response.bank_accounts[0];
+// });
+	// possible error right after this point,
+	// could be if the post in the next method throws an error message.
+	// then save the data to the backend with the response
+	// could authorize at this pint.
+	// $scope.authentication.user = response;
+
+};
+
+// Remove existing Merchant
+$scope.remove = function(merchant) {
+	if ( merchant ) {
+		merchant.$remove();
+		for (var i in $scope.merchants) {
+			if ($scope.merchants [i] === merchant) {
+				$scope.merchants.splice(i, 1);
+				}
+			}
+	   } else {
+			$scope.merchant.$remove(function() {
+				$location.path('merchants');
+				});}
+	};
 
 		// Update existing Merchant
-		$scope.update = function() {
+$scope.update = function() {
 			var merchant = $scope.merchant;
 
 			merchant.$update(function() {
@@ -74,12 +140,12 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		};
 
 		// Find a list of Merchants
-		$scope.find = function() {
+$scope.find = function() {
 			$scope.merchants = Merchants.query();
 		};
 
 		// Find existing Merchant
-		$scope.findOne = function() {
+$scope.findOne = function() {
 			$scope.merchant = Merchants.get({
 				merchantId: $stateParams.merchantId
 			});
