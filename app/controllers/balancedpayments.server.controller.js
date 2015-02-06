@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var balanced = require('balanced-offical'),
+var balanced = require('balanced-official'),
   mongoose = require('mongoose'),
   errorHandler = require('./errors.server.controller'),
   Merchant = mongoose.model('Merchant'),// this is where I might change it to user, and keep merchant a type attribute

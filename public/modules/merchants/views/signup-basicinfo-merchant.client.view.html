@@ -4,39 +4,38 @@
     <h1>New Merchant Basic Info</h1>
   </div>
   <div class="col-md-12">
-    <form class="form-horizontal" ng-submit="signupMerchant()" validate>
+    <form class="form-horizontal" data-ng-submit="signupMerchant()" novalidate>
       <fieldset>
         <div class="form-group">
-          <label class="control-label" for="ownerFirstName">First Name</label>
+          <h1>Contact Info</h1>
+          <label class="control-label" for="first_name">First Name</label>
           <div class="controls">
-            <input type="text" data-ng-model="credentials.ownerFirstName" id="ownerFirstName" class="form-control" placeholder="Owner's First Name" required>
+            <input type="text" data-ng-model="contactInfo.first_name" id="first_name" class="form-control" placeholder="Owner's First Name" required>
           </div>
-          <label class="control-label" for="ownerLastName">Last Name</label>
+          <label class="control-label" for="last_name">Last Name</label>
           <div class="controls">
-            <input type="text" data-ng-model="credentials.ownerLastName" id="ownerLastName" class="form-control" placeholder="Owner's Last Name" required>
+            <input type="text" data-ng-model="contactInfo.last_name" id="last_name" class="form-control" placeholder="Owner's Last Name" required>
           </div>
+          <label class="control-label" for="phone_number">Phone Number</label>
+          <div class="controls">
+            <input type="text" data-ng-model="contactInfo.phone_number" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
+          </div>
+          <label class="control-label" for="email_address">Email Address</label>
+          <div class="controls">
+            <input type="text" data-ng-model="contactInfo.email_address" id="email_address" class="form-control" placeholder="Email Address" required>
+          </div>
+          <h1>Business Info</h1>
             <label class="control-label" for="business_name">Business Name</label>
           <div class="controls">
-            <input type="text" data-ng-model="credentials.business_name" id="business_name" class="form-control" placeholder="Business Name" required>
+            <input type="text" data-ng-model="businessInfo.business_name" id="business_name" class="form-control" placeholder="Business Name" required>
           </div>
-          <label class="control-label" for="email">Email Address</label>
-          <div class="controls">
-            <input type="text" data-ng-model="credentials.ownerEmailAddress" id="email" class="form-control" placeholder="Email Address" required>
-          </div>
-          <label class="control-label" for="phoneNumber">Phone Number</label>
-          <div class="controls">
-            <input type="text" data-ng-model="credentialsownerPhoneNumber" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
-          </div>
-          <label class="control-label" for="legalCompanyName">Legal Company Name</label>
-          <div class="controls">
-            <input type="text" data-ng-model="credentials.legalCompanyName" id="legalCompanyName" class="form-control" placeholder="Legal Company Name" required>
-          </div>
+          <h3>Business Billing Address</h3>
+          <h2>enter address stuff later</h2>
           <div>
             <label>Account Number </label>
             <input type="text" data-ng-mode="credentials.ba-number" id="ba-number" autocomplete="off" placeholder="account number">
           </div>
-          <div>
-            <label>Routing Number</label>
+          <div> <label>Routing Number</label>
             <input type="text" data-ng-model="credentials.ba-routing" id="ba-routing" autocomplete="off" placeholder="routing number">
           </div>
         </div>

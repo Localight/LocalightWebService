@@ -35,7 +35,7 @@ module.exports = function(app) {
 	app.route('/auth/signout').get(users.signout);
 
 	//balancedpayments controller stuff
-	app.route('balancedpayments/tokenize').post(balance.tokenize);
+//	app.route('balancedpayments/tokenize').post(balance.tokenize);
 
 
 	// Finish by binding the user middleware

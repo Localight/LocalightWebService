@@ -2,7 +2,7 @@
 
 'use strict';
 
-var balanced = require('balanced-offical');
+var balanced = require('balanced-official');
 
 exports.init = function(apiKey){
   balanced.configure(apiKey);

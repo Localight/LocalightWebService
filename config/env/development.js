@@ -1,5 +1,5 @@
 'use strict';
-var balanced = require('balanced-offical');
+//var balanced = require('balanced-official');
 
 module.exports = {
 	db: 'mongodb://localhost/clique-dev',

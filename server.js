@@ -10,10 +10,10 @@ var init = require('./config/init')(),
 	/**
 	* services
 	*/
-	var twilioService = require('./app/services/twilio-service'),
-			mailerService = require('./app/services/mailgun-service'),
-			balancedService = require('./app/services/balanced-payments-service'),
-			subledgerService = require('./app/services/subledger-service');
+	// var twilioService = require('./app/services/twilio-service'),
+	// 		mailerService = require('./app/services/mailgun-service'),
+		var	balancedService = require('./app/services/balanced-payments-service');
+			// subledgerService = require('./app/services/subledger-service');
 
 /**
  * Main application entry file.
