@@ -4,25 +4,25 @@
     <h1>New Merchant Basic Info</h1>
   </div>
   <div class="col-md-12">
-    <form class="form-horizontal" data-ng-submit="createCustomer()" novalidate>
+    <form class="form-horizontal" data-ng-submit="createMerchant()" novalidate>
       <fieldset>
         <div class="form-group">
           <h1>Contact Info</h1>
           <label class="control-label" for="first_name">First Name</label>
           <div class="controls">
-            <input type="text" data-ng-model="contactInfo.first_name" id="first_name" class="form-control" placeholder="Owner's First Name" required>
+            <input type="text" data-ng-model="secure.first_name" id="first_name" class="form-control" placeholder="Owner's First Name" required>
           </div>
           <label class="control-label" for="last_name">Last Name</label>
           <div class="controls">
-            <input type="text" data-ng-model="contactInfo.last_name" id="last_name" class="form-control" placeholder="Owner's Last Name" required>
+            <input type="text" data-ng-model="secure.last_name" id="last_name" class="form-control" placeholder="Owner's Last Name" required>
           </div>
           <label class="control-label" for="phone_number">Phone Number</label>
           <div class="controls">
-            <input type="text" data-ng-model="contactInfo.phone_number" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
+            <input type="text" data-ng-model="secure.phone_number" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
           </div>
           <label class="control-label" for="email_address">Email Address</label>
           <div class="controls">
-            <input type="text" data-ng-model="contactInfo.email_address" id="email_address" class="form-control" placeholder="Email Address" required>
+            <input type="text" data-ng-model="secure.email_address" id="email_address" class="form-control" placeholder="Email Address" required>
           </div>
           <h1>Business Info</h1>
             <label class="control-label" for="business_name">Business Name</label>

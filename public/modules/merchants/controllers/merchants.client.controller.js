@@ -1,8 +1,8 @@
 'use strict';
 //var balanced = require('balanced-official');
-// balanced.configure('ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM');
+ //balanced.configure('ak-test-1XRsGC5ekgHQMepPbyO6zc9GuMXmVG4JM');
 // Merchants controller
-angular.module('merchants').controller('MerchantsController', ['$scope', '$http','$stateParams', '$location', 'Merchants',
+angular.module('merchants').controller('MerchantsController', ['$scope', '$http', '$stateParams', '$location', 'Merchants',
 	function($scope, $http, $stateParams, $location, Merchants) {
 		// think about authenticaiton with either authenticate or twilio. the page has to be protected.
 		// and phone number is the username
@@ -10,15 +10,18 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$http'
 		// will at some point need to create login and pass word stuff.
 		// if ($scope.authentication.user) $location.path('/');
 		//
-$scope.createCustomer = function() {
-
-$http.post('/createCustomer', $scope.contactInfo).sucess(function(response){
-	$location.path('/confirmation');
-}).error(function(response){
-	$scope.error = response.message;
-});
-};
-
+		// change to customer later
+		// singup - new customer
+$scope.createMerchant = function() {
+	$http.post('/merchants', $scope.secure).sucess(function(response) {
+		//$scope.contactInfo.href = response.data.href;
+		// you can take the response and the put it onto a single view for that single id.
+		// a review form or something.
+		$location.path('/confirmation');
+		}).error(function(response) {
+			$scope.error = response.data.message;
+			});
+	};
 
 
  	//var fundingInstrutment = response.cards !== null ? response.cards[0] : response.bank_accounts[0];
