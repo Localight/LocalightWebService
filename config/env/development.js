@@ -26,7 +26,7 @@ module.exports = {
 					domain: 'https://api.mailgun.net/v2/rs56424.mailgun.org/messages',
 					from: 'auction@TeachArt.org'
 	},
-	balanced:'TEST-MP64VYOM3SE79TEgc4WIlgXu',
+	balanced:'ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft',
 	subledger: {
 			key: '88OpPqUhvGMhXnkGY6w47K',
 			secret: 'zXKdLPenIZ4B2r1cOjl46a',

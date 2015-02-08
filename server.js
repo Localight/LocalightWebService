@@ -12,7 +12,7 @@ var init = require('./config/init')(),
 	*/
 	// var twilioService = require('./app/services/twilio-service'),
 	// 		mailerService = require('./app/services/mailgun-service'),
-		var	balancedService = require('./app/services/balanced-payments-service');
+		//var	balancedController = require('./app/controllers/balancedpayments.server.controller');
 			// subledgerService = require('./app/services/subledger-service');
 
 /**
@@ -37,7 +37,7 @@ var db = mongoose.connect(config.db, function(err) {
 
 //mailerService.init(config.mailgun); // Mailgun
 
-balancedService.init(config.balancedPayments); // Balanced Payments
+//balancedController.init(config.balancedPayments); // Balanced Payments
 
 //subledgerService.init(config.subledger.key, config.subledger.secret, config.subledger.org_id, config.subledger.book_id, config.subledger.depositor_category_id, config.subledger.uncleared_category_id, config.subledger.balance_sheet_id); // Subledger
 
