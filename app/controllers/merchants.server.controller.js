@@ -5,49 +5,48 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
+	balanced = require('balanced-official'),
 	Merchant = mongoose.model('Merchant'),
 	_ = require('lodash');
+	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
 // I'm going to have to create a general class, that isn't merchant that describes this all better.
 /**
  * Create a Merchant
  */
+exports.init = function(apiKey){
+	balanced.configure(apiKey);
+};
+
 // createCustomer, and this is the customer controllers
 exports.createMerchant = function(req, res) {
 
 // var customer = new Customer(req.body);
 	var merchant = new Merchant(req.body);
 	var message = null;
-	//customer.save(function(err){
-	// if (err) {
-	// 	return res.status(400).send({
-	// 		message: errorHandler.getErrorMessage(err)
-	// 	});
-	// } else {
-	// 	res.json(customer);
-	// }
-  //});
-		merchant.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
+
+	var payload = {
+		email: merchant.contactInfo.email_address,
+		name: merchant.contactInfo.first_name + ' ' + merchant.contactInfo.last_name,
+		business_name: merchant.contactInfo.business_name,
+		phone: merchant.contactInfo.phone
+	};
+	 balanced.marketplace.customers.create(payload, function(response){
+		if(response.status !== 201){
+			alert(response.error.description);
+			return;
+			}else{
+				console.log(response.body.href);
+			}
+		     merchant.balancedStuff.customerToken = response.body.customers.uri;
+			   merchant.save(function(err) {
+		     if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.json(merchant);
+				}
 			});
-		} else {
-			// This what we need if we want to log in a mercant or customer right after they sign up.
-			// maybe to see their dashboard or something
-			// // Remove sensitive data before login
-			// user.password = undefined;
-			// user.salt = undefined;
-			// // req.login is a passport method, this creates the sessions or something.
-			// // that's what this does.
-			// req.login(user, function(err) {
-			// 	if (err) {
-			// 		res.status(400).send(err);
-			// 	} else {
-			// 		res.json(user);
-			// 	}
-			// });
-			res.json(merchant);
-		}
 	});
 };
 /**

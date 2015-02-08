@@ -16,6 +16,10 @@ var MerchantSchema = new Schema({
     default: Date.now
   },
 
+  balancedStuff:{
+    customerToken: '',
+    href:String,
+  },
   contactInfo: {
     first_name: {
       type: String,
