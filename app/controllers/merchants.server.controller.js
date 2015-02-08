@@ -7,36 +7,22 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	balanced = require('balanced-official'),
 	Merchant = mongoose.model('Merchant'),
-	balanced = require('balanced-official'),
+	Q = require('q'),
 	_ = require('lodash');
 	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
 // I'm going to have to create a general class, that isn't merchant that describes this all better.
 /**
  * Create a Merchant
  */
-<<<<<<< HEAD
-exports.signupMerchant = function(req, res) {
-=======
 exports.init = function(apiKey){
 	balanced.configure(apiKey);
 };
 
 // createCustomer, and this is the customer controllers
-exports.createMerchant = function(req, res) {
->>>>>>> balanceBackEnd
+exports.signupMerchant = function(req, res) {
 
 // var customer = new Customer(req.body);
 	var merchant = new Merchant(req.body);
-<<<<<<< HEAD
-	balanced.marketplace.bank_accounts.crete({
-		'routing_number': req.body.routing_number,
-		'account_type': req.body.account_type,
-	});
-		merchant.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-=======
 	var message = null;
 
 	var payload = {
@@ -45,26 +31,36 @@ exports.createMerchant = function(req, res) {
 		business_name: merchant.contactInfo.business_name,
 		phone: merchant.contactInfo.phone
 	};
-	 balanced.marketplace.customers.create(payload, function(response){
-		if(response.status !== 201){
-			alert(response.error.description);
-			return;
-			}else{
-				console.log(response.body.href);
-			}
-		     merchant.balancedStuff.customerToken = response.body.customers.uri;
-			   merchant.save(function(err) {
-		     if (err) {
+	function handleResponse(response) {
+		// Successful tokenization
+			if (response.status_code === 201) {
+					var fundingInstrument = response.cards !== null ? response.cards[0] : response.bank_accounts[0];
+
+			merchant.balancedStuff.customerToken = fundingInstrument.href;
+			merchant.save(function(err) {
+				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
 					});
 				} else {
 					res.json(merchant);
 				}
->>>>>>> balanceBackEnd
 			});
-	});
+		}
+	}
+
+	//var deferred = Q.defer();
+//	var customer = balanced.marketplace.customers.create(payload);
+  balanced.marketplace.customers.create(payload, handleResponse);
+//	merchant.balancedStuff.customerToken =
+	// Q.fcall(function(){
+	// //	var customer =
+	// 	//merchant.balancedStuff.customerToken = JSON.Strinify(customer);
+	// }).then(
+	// 	);
+
 };
+
 /**
  * Show the current Merchant
  */
