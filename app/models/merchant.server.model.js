@@ -42,28 +42,30 @@ var MerchantSchema = new Schema({
       max: 20,
       //		required: 'company name required'
     },
+    // 
+
     //TODO: validate that the address enter is valid.
-    businessBillingAddress: {
-      street: {
-        type: String,
-        max: 50,
-        //				required: 'please enter the billing address for the business'
-      },
-      city: {
-        type: String,
-        max: 30,
-        //			required:'please enter a city'
-      },
-      state: {
-        type: String,
-        max: 14,
-        //		required:'please enter a state'
-      },
-      zipcode: {
-        type: Number,
-        //			required: 'plase enter a zipcode'
-      }
-    },
+    // businessBillingAddress: {
+    //   street: {
+    //     type: String,
+    //     max: 50,
+    //     //				required: 'please enter the billing address for the business'
+    //   },
+    //   city: {
+    //     type: String,
+    //     max: 30,
+    //     //			required:'please enter a city'
+    //   },
+    //   state: {
+    //     type: String,
+    //     max: 14,
+    //     //		required:'please enter a state'
+    //   },
+    //   zipcode: {
+    //     type: Number,
+    //     //			required: 'plase enter a zipcode'
+    //   }
+    //},
     //TODO: come back and work on address, I remember Address being tricky.
     //TODO: add tircon. or type.
   },

@@ -1,7 +1,4 @@
 'use strict';
-var balanced = require('balanced-offical');
-balanced.configure('');
-
 angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Merchants',
 	function($scope, $stateParams, $location, Merchants) {
 		// need to make this only avaible to signup or merchant change page.
@@ -25,7 +22,6 @@ $scope.signupMerchant = function() {
 			//	}
 			}
 		});
-
 		merchant.$save(function(response) {
 			$location.path('/confirmation');
 		}, function(errorResponse) {
