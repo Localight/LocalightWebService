@@ -15,6 +15,7 @@ var MerchantSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  customerToken: String,
   contactInfo:{
     first_name:{
       type:String,
@@ -32,46 +33,39 @@ var MerchantSchema = new Schema({
       type:String,
     },
   },
-  balancedStuff:{
-    customerToken: String,
-    href:String,
-  },
   businessInfo: {
     business_name: {
       type: String,
       max: 20,
-      //		required: 'company name required'
+      required: 'company name required'
     },
-    // 
-
-    //TODO: validate that the address enter is valid.
-    // businessBillingAddress: {
-    //   street: {
-    //     type: String,
-    //     max: 50,
-    //     //				required: 'please enter the billing address for the business'
-    //   },
-    //   city: {
-    //     type: String,
-    //     max: 30,
-    //     //			required:'please enter a city'
-    //   },
-    //   state: {
-    //     type: String,
-    //     max: 14,
-    //     //		required:'please enter a state'
-    //   },
-    //   zipcode: {
-    //     type: Number,
-    //     //			required: 'plase enter a zipcode'
-    //   }
-    //},
-    //TODO: come back and work on address, I remember Address being tricky.
-    //TODO: add tircon. or type.
+    address:{
+      line1:{
+        type:String,
+        max: 50,
+        required: 'please enter a street address'
+      },
+      line2:{
+        type:String,
+        max: 50,
+      },
+      city:{
+        type:String,
+        max: 30,
+      },
+      state:{
+        type:String,
+        max: 14,
+      },
+      postal_code:{
+        type:String,
+        max:8
+      }
+    }
   },
     // merchants need a percant
     // TODO: when working with the routing and account numbers, be sure the forms validate.
-
+    // TODO: need to add percentage and tri con thing.
 });
 
 // want to make sure that phonenumber is unique in database,

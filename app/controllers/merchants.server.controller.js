@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 	Merchant = mongoose.model('Merchant'),
 	Q = require('q'),
 	_ = require('lodash');
-	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
+	balanced.configure('ak-test-243pOCxSDITqcndq40XGNK60zQ7Ft');
 // I'm going to have to create a general class, that isn't merchant that describes this all better.
 /**
  * Create a Merchant
@@ -29,68 +29,45 @@ exports.signupMerchant = function(req, res) {
 	var payload = {
 		email: merchant.contactInfo.email_address,
 		name: merchant.contactInfo.first_name + ' ' + merchant.contactInfo.last_name,
+		phone: merchant.contactInfo.phone,
 		business_name: merchant.businessInfo.business_name,
-		phone: merchant.contactInfo.phone
+		line1: merchant.businessInfo.address.line1,
+		line2: merchant.businessInfo.address.line2,
+		state: merchant.businessInfo.address.state,
+		postal_code: merchant.businessInfo.address.postal_code
+
 	};
 	// with this approach we get a promised object.
 	var promise = balanced.marketplace.customers.create(payload);
-	console.log(JSON.stringify());
-	promise.then(function(response){
-		//console.log(err);
+//TODO: make sure the errors work correctly.
+	promise.then(function(response, err){
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+				});
+		}else{
 		console.log(response);
-		// if (err) {
-		// 	return res.status(500).send({
-		// 		message: errorHandler.getErrorMessage(err)
-		// 	});
-		// } else {
-		//	console.log(promise);
-			merchant.balancedStuff.customerToken = response._href;
-			merchant.save(function(err) {
+			merchant.customerToken = response._href;
+
+			//	res.json(merchant);
+			merchant.save(function(err){
 				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-					// once everything reaches this point the program doesn't have to send the merchant obeject back.
-					// In fact the program shouldn't. Not until the merchant has a dashboard. and this is turned into
-					// redirects to a login feature.
 					res.json(merchant);//if i want to send back the saved object, I could do res.json(merchant);
-					// this sends back the merchant object.
+				//	this sends back the merchant object.
 				}
-			});
-	// }
- });
+			});// end of merchant save
+		}
+	});
 
-	// Q.fcall(balanced.marketplace.customers.create(payload)).then().
-
-
-//
-// 	console.log(JSON.stringify(balanced.marketplace.customers.create({
-//     'address': {
-//         'postal_code': '48120'
-//     },
-//     'name': 'Henry Ford',
-//     'dob_year': 1963,
-//     'dob_month': 7
-// })));
-// //	var promise = balanced.marketplace.customers.create(payload);
-// console.log(JSON.stringify(balanced.marketplace.customers.create(payload, function (err, response) {
-// 		if(err) {
-// 			// handle error
-// 			return res.status(500).send({
-// 				message: errorHandler.getErrorMessage(err)
-// 			});
-// 		} else {
-// 			// consider creating not a controller but a service..
-// 			// in this else branch, we have a good response from bp.
-// 			// now we can access the token and save the merchant.
-// 			// and also respond to the user request
-// 		merchant.balancedInfo.customerToken = response.body.customers.href;
-//
-// 			// now starts the second wrapped callback, save to mongo
-//
-// 		}//end else of balanced.market.place
-// 	})));
+	// 	catch(function errorHandler(err){
+	// return res.status(400).send({
+	// 	message: errorHandler.getErrorMessage(err)
+	// 	});
+	// });
 };
 
 /**

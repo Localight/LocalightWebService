@@ -12,14 +12,13 @@ $scope.signupMerchant = function() {
 			},
 		businessInfo:{
 			business_name:this.business_name,
-			// address:{
-			// 	city:this.city,
-			//   line1:this.line1,
-			// 	line2:this.line2,
-			// 	state:this.state,
-			// 	postal_code:this.postal_code,
-			// 	country_code:this.country_code
-			//	}
+			address:{
+				city:this.city,
+			  line1:this.line1,
+				line2:this.line2,
+				state:this.state,
+				postal_code:this.postal_code,
+				}
 			}
 		});
 		merchant.$save(function(response) {

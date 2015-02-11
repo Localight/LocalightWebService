@@ -25,9 +25,30 @@
             <input type="text" data-ng-model="email_address" id="email_address" class="form-control" placeholder="Email Address" required>
           </div>
           <h1>Business Info</h1>
-            <label class="control-label" for="business_name">Business Name</label>
+          <label class="control-label" for="business_name">Business Name</label>
           <div class="controls">
             <input type="text" data-ng-model="business_name" id="business_name" class="form-control" placeholder="Business Name" required>
+          </div>
+          <h3>Billing Address For Business</h3>
+          <label class="control-label" for="line1">Street Address</label>
+          <div class="controls">
+            <input type="text" data-ng-model="line1" id="line1" class="form-control" placeholder="123 somewhere pl." required>
+          </div>
+          <label class="control-label" for="line2">Street Address 2</label>
+          <div class="controls">
+            <input type="text" data-ng-model="line2" id="line2" class="form-control" placeholder="etc." required>
+          </div>
+          <label class="control-label" for="line1">City</label>
+          <div class="controls">
+            <input type="text" data-ng-model="city" id="city" class="form-control" placeholder="city" required>
+          </div>
+          <label class="control-label" for="state">State</label>
+          <div class="controls">
+              <input type="text" data-ng-model="state" id="state" class="form-control" placeholder="state" required>
+          </div>
+          <label class="control-label" for="postal_code">Zipcode</label>
+          <div class="controls">
+            <input type="text" data-ng-model="postal_code" id="postal_code" class="form-control" placeholder="zipcode" required>
           </div>
           <!-- <label class="control-label" for="legalCompanyName">Legal Company Name</label>
           <div class="controls">
@@ -50,14 +71,14 @@
         </div> -->
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-default">
+          <input type="submit" class="btn btn-default">
         </div>
         <!--   I want to submit this information and make sure that it's not in the database already. -->
         <!-- on click, though I want to be taken to the next screen. -->
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-     </fieldset>
-      </form>
-    </div>
+        <div data-ng-show="error" class="text-danger">
+          <strong data-ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </section>
