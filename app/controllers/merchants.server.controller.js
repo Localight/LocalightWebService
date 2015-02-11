@@ -14,9 +14,6 @@ var mongoose = require('mongoose'),
 /**
  * Create a Merchant
  */
-exports.init = function(apiKey){
-	balanced.configure(apiKey);
-};
 
 // createCustomer, and this is the customer controllers
 exports.signupMerchant = function(req, res) {
@@ -37,14 +34,17 @@ exports.signupMerchant = function(req, res) {
 	};
 	// with this approach we get a promised object.
 	var promise = balanced.marketplace.customers.create(payload);
-	promise.then(function(err, response){
-		if (err) {
-			return res.status(500).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			console.log(promise);
-			merchant.balancedStuff.customerToken = JSON.stringify(promise);
+	console.log(JSON.stringify());
+	promise.then(function(response){
+		//console.log(err);
+		console.log(response);
+		// if (err) {
+		// 	return res.status(500).send({
+		// 		message: errorHandler.getErrorMessage(err)
+		// 	});
+		// } else {
+		//	console.log(promise);
+			merchant.balancedStuff.customerToken = response._href;
 			merchant.save(function(err) {
 				if (err) {
 					return res.status(400).send({
@@ -58,7 +58,7 @@ exports.signupMerchant = function(req, res) {
 					// this sends back the merchant object.
 				}
 			});
-	}
+	// }
  });
 
 	// Q.fcall(balanced.marketplace.customers.create(payload)).then().
