@@ -7,64 +7,61 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	balanced = require('balanced-official'),
 	Merchant = mongoose.model('Merchant'),
-	balanced = require('balanced-official'),
+	Q = require('q'),
 	_ = require('lodash');
-	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
+	balanced.configure('ak-test-243pOCxSDITqcndq40XGNK60zQ7Ft');
 // I'm going to have to create a general class, that isn't merchant that describes this all better.
 /**
  * Create a Merchant
  */
-<<<<<<< HEAD
-exports.signupMerchant = function(req, res) {
-=======
-exports.init = function(apiKey){
-	balanced.configure(apiKey);
-};
 
 // createCustomer, and this is the customer controllers
-exports.createMerchant = function(req, res) {
->>>>>>> balanceBackEnd
+//might want to change this up.
+exports.signupMerchant = function(req, res) {
+//	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
 
 // var customer = new Customer(req.body);
 	var merchant = new Merchant(req.body);
-<<<<<<< HEAD
-	balanced.marketplace.bank_accounts.crete({
-		'routing_number': req.body.routing_number,
-		'account_type': req.body.account_type,
-	});
-		merchant.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-=======
 	var message = null;
 
+	// save like normal.
+
+	// even save the payload.
 	var payload = {
 		email: merchant.contactInfo.email_address,
 		name: merchant.contactInfo.first_name + ' ' + merchant.contactInfo.last_name,
-		business_name: merchant.contactInfo.business_name,
-		phone: merchant.contactInfo.phone
+		phone: merchant.contactInfo.phone,
+		business_name: merchant.businessInfo.business_name,
+		line1: merchant.businessInfo.address.line1,
+		line2: merchant.businessInfo.address.line2,
+		state: merchant.businessInfo.address.state,
+		postal_code: merchant.businessInfo.address.postal_code
 	};
-	 balanced.marketplace.customers.create(payload, function(response){
-		if(response.status !== 201){
-			alert(response.error.description);
-			return;
-			}else{
-				console.log(response.body.href);
-			}
-		     merchant.balancedStuff.customerToken = response.body.customers.uri;
-			   merchant.save(function(err) {
-		     if (err) {
+	// with this approach we get a promised object.
+	var promise = balanced.marketplace.customers.create(payload);
+//TODO: make sure the errors work correctly.
+	promise.then(function(response, err){
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+				});
+		}else{console.log(response);
+			merchant.customerToken = response._href;
+			//	res.json(merchant);
+			merchant.save(function(err){
+				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-					res.json(merchant);
+					res.json(merchant);//if i want to send back the saved object, I could do res.json(merchant);
+				//	this sends back the merchant object.
 				}
->>>>>>> balanceBackEnd
-			});
+			});// end of merchant save
+		}
 	});
 };
+
 /**
  * Show the current Merchant
  */

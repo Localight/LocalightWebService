@@ -1,10 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-<<<<<<< HEAD
-=======
 //	var users = require('../../app/controllers/users.server.controller');
->>>>>>> balanceBackEnd
 	var merchants = require('../../app/controllers/merchants.server.controller');
 
 	// Merchants Routes

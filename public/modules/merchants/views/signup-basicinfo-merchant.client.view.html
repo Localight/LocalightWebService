@@ -4,15 +4,7 @@
     <h1>New Merchant Basic Info</h1>
   </div>
   <div class="col-md-12">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <form class="form-horizontal" data-ng-submit="create()" validate>
-=======
     <form class="form-horizontal" data-ng-submit="signupMerchant()" novalidate>
->>>>>>> blanceInFrontEnd
-=======
-    <form class="form-horizontal" data-ng-submit="createMerchant()" novalidate>
->>>>>>> balanceBackEnd
       <fieldset>
         <div class="form-group">
           <h1>Contact Info</h1>
@@ -33,47 +25,68 @@
             <input type="text" data-ng-model="email_address" id="email_address" class="form-control" placeholder="Email Address" required>
           </div>
           <h1>Business Info</h1>
-            <label class="control-label" for="business_name">Business Name</label>
+          <label class="control-label" for="business_name">Business Name</label>
           <div class="controls">
             <input type="text" data-ng-model="business_name" id="business_name" class="form-control" placeholder="Business Name" required>
           </div>
-<<<<<<< HEAD
-          <label class="control-label" for="legalCompanyName">Legal Company Name</label>
+          <h3>Billing Address For Business</h3>
+          <label class="control-label" for="line1">Street Address</label>
+          <div class="controls">
+            <input type="text" data-ng-model="line1" id="line1" class="form-control" placeholder="123 somewhere pl." required>
+          </div>
+          <label class="control-label" for="line2">Street Address 2</label>
+          <div class="controls">
+            <input type="text" data-ng-model="line2" id="line2" class="form-control" placeholder="etc." required>
+          </div>
+          <label class="control-label" for="line1">City</label>
+          <div class="controls">
+            <input type="text" data-ng-model="city" id="city" class="form-control" placeholder="city" required>
+          </div>
+          <label class="control-label" for="state">State</label>
+          <div class="controls">
+              <input type="text" data-ng-model="state" id="state" class="form-control" placeholder="state" required>
+          </div>
+          <label class="control-label" for="postal_code">Zipcode</label>
+          <div class="controls">
+            <input type="text" data-ng-model="postal_code" id="postal_code" class="form-control" placeholder="zipcode" required>
+          </div>
+          <label class="control-label" for="account_number">account_number</label>
+          <div class="controls">
+              <input type="text" data-ng="account_number" id="account_number" class="form-control" placeholder="XXXXXXX" required>
+          </div>
+          <label class="control-label" for="routing_number">routing_number</label>
+          <div class="controls">
+            <input type="text" data-ng="routing_number" id="routing_number" class="form-control" placeholder="12344" required>
+          </div>
+          <!-- <label class="control-label" for="legalCompanyName">Legal Company Name</label>
           <div class="controls">
             <input type="text" data-ng-model="legalCompanyName" id="legalCompanyName" class="form-control" placeholder="Legal Company Name" required>
-          </div>
-          <div>
-=======
+          </div> -->
+          <!-- <div>
           <h3>Business Billing Address</h3>
           <h2>enter address stuff later</h2>
-<<<<<<< HEAD
-          <!-- <div>
+           <div>
             <label>Account Number </label>
             <input type="text" data-ng-model="credentials.ba-number" id="ba-number" autocomplete="off" placeholder="account number">
           </div>
           <div> <label>Routing Number</label>
-            <input type="text" data-ng-model="credentials.ba-routing" id="ba-routing" autocomplete="off" placeholder="routing number">
-          </div> -->
->>>>>>> blanceInFrontEnd
-=======
-        <!--   <div>
+           <div>
           <label>Account Number </label>
           <input type="text" data-ng-mode="credentials.ba-number" id="ba-number" autocomplete="off" placeholder="account number">
-        </div>
-        <div> <label>Routing Number</label>
+                  </div>
+                  <div> <label>Routing Number</label>
           <input type="text" data-ng-model="credentials.ba-routing" id="ba-routing" autocomplete="off" placeholder="routing number">
         </div> -->
->>>>>>> balanceBackEnd
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-default">
+          <input type="submit" class="btn btn-default">
         </div>
         <!--   I want to submit this information and make sure that it's not in the database already. -->
         <!-- on click, though I want to be taken to the next screen. -->
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-     </fieldset>
-      </form>
-    </div>
+        <div data-ng-show="error" class="text-danger">
+          <strong data-ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </section>
