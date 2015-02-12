@@ -16,6 +16,7 @@ var mongoose = require('mongoose'),
  */
 
 // createCustomer, and this is the customer controllers
+//might want to change this up.
 exports.signupMerchant = function(req, res) {
 //	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
 
@@ -35,7 +36,6 @@ exports.signupMerchant = function(req, res) {
 		line2: merchant.businessInfo.address.line2,
 		state: merchant.businessInfo.address.state,
 		postal_code: merchant.businessInfo.address.postal_code
-
 	};
 	// with this approach we get a promised object.
 	var promise = balanced.marketplace.customers.create(payload);
@@ -45,10 +45,8 @@ exports.signupMerchant = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 				});
-		}else{
-		console.log(response);
+		}else{console.log(response);
 			merchant.customerToken = response._href;
-
 			//	res.json(merchant);
 			merchant.save(function(err){
 				if (err) {
@@ -62,12 +60,6 @@ exports.signupMerchant = function(req, res) {
 			});// end of merchant save
 		}
 	});
-
-	// 	catch(function errorHandler(err){
-	// return res.status(400).send({
-	// 	message: errorHandler.getErrorMessage(err)
-	// 	});
-	// });
 };
 
 /**

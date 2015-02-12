@@ -15,8 +15,8 @@ angular.module('merchants').config(['$stateProvider','$urlRouterProvider',
 			url: '/',//need to come back to this.
 			templateUrl:'modules/merchants/views/signup-basicinfo-merchant.client.view.html'
 		}).
-		state('billingInfo', {
-			url: '/billingInfo',//need to come back to this.
+		state('bankInfo', {
+			url: '/bankInfo',//need to come back to this.
 			templateUrl: 'modules/merchants/views/signup-billinginfo-merchant.client.view.html'
 		}).
 		state('confirmation',{

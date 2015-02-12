@@ -1,39 +1,35 @@
+<!-- My idea is to create a few screens each with a little info to  -->
 <section data-ng-controller="MerchantsController">
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title"> Bank Account</h3>
+  <div class="page-header">
+    <h1>Bank Info</h1>
   </div>
-  <div class="panel-body">
-    <form role="form" class="form-horizontal" data-ng-submit="addBankAccountToCuso" validate>
-      <div class="form-group">
-        <label class="col-lg-5 control-label">Account Holder's Name</label>
-        <div class="col-lg-6">
-          <input type="text" id="ba-name" class="form-control" autocomplete="off" placeholder="John Doe">
+  <div class="col-md-12">
+    <form class="form-horizontal" data-ng-submit="addBankAccount()" novalidate>
+      <fieldset>
+        <div class="form-group">
+          <h1>Contact Info</h1>
+          <label class="control-label" for="first_name">Name as it appears on bank Account</label>
+          <div class="controls">
+            <input type="text" data-ng="name" id="name" class="form-control" placeholder="First and Last Name" required>
+          </div>
+          <label class="control-label" for="account_number">Bank Account Number</label>
+          <div class="controls">
+            <input type="text" data-ng="account_number" id="account_number" class="form-control" placeholder="XXXXXXXXXXXXXXXXXXXX" required>
+          </div>
+          <label class="control-label" for="routing_number">Routing Number</label>
+          <div class="controls">
+            <input type="text" data-ng-model="routing_number" id="routing_number" class="form-control" placeholder="routing_number" required>
+          </div>
         </div>
-    </div>
-    <div class="form-group">
-      <label class="col-lg-5 control-label">Routing Number</label>
-      <div class="col-lg-6">
-        <input type="text" id="ba-routing" class="form-control" autocomplete="off" placeholder="322271627">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-lg-5 control-label">Account Number</label>
-      <div class="col-lg-6">
-        <input type="text" id="ba-number" class="form-control" autocomplete="off" placeholder="9900000000">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-lg-5 control-label">Account Type</label>
-      <div class="col-lg-6">
-        <select id="ba-account-type" class="form-control">
-          <option value="checking">Checking</option>
-          <option value="savings">Savings</option>
-        </select>
-      </div>
-    </div>
-    <a id="ba-submit" class="btn btn-large btn-primary pull-right">Tokenize</a>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+        </div>
+        <!--   I want to submit this information and make sure that it's not in the database already. -->
+        <!-- on click, though I want to be taken to the next screen. -->
+        <div data-ng-show="error" class="text-danger">
+          <strong data-ng-bind="error"></strong>
+        </div>
+      </fieldset>
     </form>
   </div>
-</div>
 </section>
