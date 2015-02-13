@@ -16,14 +16,24 @@ var MerchantSchema = new Schema({
     default: Date.now
   },
   //TODO: come back and add option for account type, checking or savings.
-  customerToken:String,
-  accountToken:String,
-  first_name:String,
+  customer_Token:String,
+  bank_account_Token:String,
+  first_name:{
+    type:String,
+    required: 'Please fill in a first name',//TODO: go through and add required for other forms.
+  },
+  business_name:String,
   last_name:String,
   phone:String,
   email_address:String,
-  account_number:String,
-  routing_number:String,
+  account_number:{
+    type:String,
+    required: 'Please fill in a bank account number',//TODO: go through and add required for other forms.
+  },
+  routing_number:{
+    type:String,
+    required: 'Please fill in a routing number',//TODO: go through and add required for other forms.
+  },
   address:{
     line1: String,
     line2: String,

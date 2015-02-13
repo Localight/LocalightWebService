@@ -41,50 +41,74 @@ exports.signupMerchant = function(req, res) {
 		name: merchant.first_name + ' ' + merchant.last_name,
 		phone: merchant.phone,
 		business_name: merchant.business_name,
-		line1: merchant.address.line1,
-		line2: merchant.address.line2,
-		state: merchant.address.state,
-		postal_code: merchant.address.zipcode
+		line1: merchant.line1,
+		line2: merchant.line2,
+		state: merchant.state,
+		postal_code: merchant.zipcode
 	};// chain operations together.
 	// once stuff saves move on to next thing.
 	// add validation to front end,
 	// create page for review.
 	// look up merchant by phone number.
-	console.log('this is our payload: '+JSON.stringify(payload));
 	// take care of the senstive bank info first. If anything goes wrong, we never have the
 	// bank info for to long.
 	balanced.marketplace.bank_accounts.create(payload).then(function callback(response) {
-		console.log('this is the response from calling promise:' + response);
-		merchant.accountToken = response._href;// got the bank token
+		console.log('this is the response from the api after tryng to create an account:' + JSON.stringify(response));
+		merchant.bank_account_Token = response.href;// got the bank token
 		merchant.routing_number =' ';
 		merchant.account_number =' ';
-		console.log('this is the current value of the mercahnt with account token added:'+merchant);
+		merchant.saveQ();
 		}).catch(function handler(err){
-			console.log('this error came from calling promise:'+ err);
-			return res.status(400).send({
+			console.log('this error came from calling balanced to crete a bank account:'+ err);
+			res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+				});
+		});
+	balanced.marketplace.customers.create(payload2).then(function handler(response){
+		console.log('the response from creating a customer' + JSON.stringify(response));
+		merchant.customer_Token = response.href;
+		console.log('This is the value of the merchant after the customer token and account token have been added' + merchant);
+		merchant.saveQ();
+		return res.json(merchant);
+	}).catch(function handler(err){
+		console.log('this error came from creating a customer:'+ err);
+		res.status(400).send({
+			message: errorHandler.getErrorMessage(err)
+			});
+		});
+		balanced.get(merchant.bank_account_Token).associate_to_customer(merchant.customer_Token).then(function callback(response){
+			console.log('this came from asscoiating the customer with the account' + response);
+		}).catch(function handler(err){
+			console.log('this error came from asscoiating the customer with the account:'+ err);
+			res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 				});
 			});
-			var secondPromise = merchant.saveQ();
-			secondPromise.then(function responseFromDB(response){
-				res.json(merchant);
-			}).catch(function errorResponseFromDB(err){
-				console.log('this error came from calling second Promise or db:'+ err);
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-					});
-			});
-	console.log('this is the current value of the payload2' + payload2);
-	var promise2 = balanced.marketplace.customers.create(payload2);
-	console.log('this is the current value of the promise2' + JSON.stringify(promise2));
-	promise2.then(function something(response){
-	console.log('from promise 2'+ JSON.Stringify(response));
-	merchant.customerToken = response.body._href;// got the customer token
+		// balanced.get(merchant.bank_account_Token).associate_to_customer(merchant.customer_Token)
+		// .then(function Handler(response) {
+		// 	console.log('this is the whole thing after we combine the customer with the bank account' + JSON.stringify(response));
+		// }).catch(function handler(err){
+		// 	console.log('this error came from calling assoicate a bank account with a customer: '+ err);
+		// 	res.status(400).send({
+		// 		message: errorHandler.getErrorMessage(err)
+		// 		});
+		// 	});
+		console.log(balanced.get(merchant.customer_Token));
+		// console.log('this is the current value of the mercahnt with account token outside of promised being called added:'+merchant);
+		// merchant.routing_number = '';
+		// merchant.account_number = '';
+		// balanced.marketplace.customers.create(payload2).then(function handler(response){
+		// 	merchant.customerToken = response.href;
+		// 	balanced.get(merchant.bank_account_Token).associate_to_customer(merchant.customer_Token);
+		// 	console.log('This is the value of the merchant after the customer token and account token have been added' + merchant);
+		// 	return merchant.saveQ();
+		// }).catch(function handler(err){
+		// 	console.log('this error came from calling promise:'+ err);
+		// 	res.status(400).send({
+		// 		message: errorHandler.getErrorMessage(err)
+		// 		});
+		// 	});
 		// come back to the part below this.
-	console.log('This is the value of the merchant after the customer token and accoutn token have been added' + merchant.bank_account);
-
-	balanced.get(merchant.bank_account.accountToken).associate_to_customer(merchant.customerToken);
-
 		// I could put this in another promise and do something with what is returned,
 		// but I'm going to see if I can just send it off and not care what happens about it.
 		// I guesss I would need to know about an error though.
@@ -96,13 +120,6 @@ exports.signupMerchant = function(req, res) {
 		// update or fix his bank info, it's not setup like that.
 		//TODO: enter button in front end for checkings or savings.
 		//
-	}, function handler(err) {
-		console.log('error after promise2 sent payload' + err);
-		// need help understanding how to handle errors
-		return res.status(400).send({
-		message: errorHandler.getErrorMessage(err)
-	});
-});
 };
 
 /**
