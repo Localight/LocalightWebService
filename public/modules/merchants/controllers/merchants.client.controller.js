@@ -4,23 +4,35 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		// need to make this only avaible to signup or merchant change page.
 $scope.signupMerchant = function() {
 	var merchant = new Merchants({
-		first_name:this.first_name,
-		last_name:this.last_name,
-		phone_number:this.phone_number,
-		email_address:this.email_address,
-		business_name: this.business_name,
+		// first_name:this.first_name,
+		// last_name:this.last_name,
+		// phone_number:this.phone_number,
+		// email_address:this.email_address,
+		// business_name: this.business_name,
+		// address:{
+		// city:this.city,
+		// line1:this.line1,
+		// line2:this.line2,
+		// state:this.state,
+		// zipcode:this.zipcode,
+		// for testing purupose only!
+		first_name:'test',
+		last_name:'hall',
+		phone_number:'555555555555',
+		email_address:'email@email.com',
+		business_name: 'localism',
 		address:{
-		city:this.city,
-		line1:this.line1,
-		line2:this.line2,
-		state:this.state,
-		zipcode:this.zipcode,
+		city:'place',
+		line1:'234',
+		line2:'234',
+		state:'ca',
+		zipcode:'90802',
 		// TODO: need to add in ability to search database for phone, if phone not found add merchant,
 		// if merchant found, give error and response, to contact support. need to create support page.
-		// 
+		//
 	},
-		account_number:this.account_number,
-		routing_number:this.routing_number
+		account_number:'9900000002',
+		routing_number:'021000021'
 		});
 		// have fields for bank info, just need to take data, tokenize it, and associate it to the customer, and done.
 		merchant.$save(function(response) {
