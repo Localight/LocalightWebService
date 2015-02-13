@@ -25,7 +25,6 @@ var mongoose = require('mongoose-promised'),
 // createCustomer, and this is the customer controllers
 //might want to change this up.
 exports.signupMerchant = function(req, res) {
-
 	var merchant = new Merchant(req.body);
 	console.log('this is the status of the merchant as it hit the express controller' + merchant);
 	var message = null;
@@ -54,22 +53,27 @@ exports.signupMerchant = function(req, res) {
 	console.log('this is our payload: '+JSON.stringify(payload));
 	// take care of the senstive bank info first. If anything goes wrong, we never have the
 	// bank info for to long.
-	var promise = balanced.marketplace.bank_accounts.create(payload);
-
-	console.log('this is the current value of the promsie'+JSON.stringify(promise));
-	promise.then(function callback(response) {
+	balanced.marketplace.bank_accounts.create(payload).then(function callback(response) {
 		console.log('this is the response from calling promise:' + response);
 		merchant.accountToken = response._href;// got the bank token
 		merchant.routing_number =' ';
 		merchant.account_number =' ';
 		console.log('this is the current value of the mercahnt with account token added:'+merchant);
-	}, function handler(err){
-		console.log('this error came from calling promise:'+ err);
-		return res.status(400).send({
-		message: errorHandler.getErrorMessage(err)
-	});
-});// works.
-
+		}).catch(function handler(err){
+			console.log('this error came from calling promise:'+ err);
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+				});
+			});
+			var secondPromise = merchant.saveQ();
+			secondPromise.then(function responseFromDB(response){
+				res.json(merchant);
+			}).catch(function errorResponseFromDB(err){
+				console.log('this error came from calling second Promise or db:'+ err);
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+					});
+			});
 	console.log('this is the current value of the payload2' + payload2);
 	var promise2 = balanced.marketplace.customers.create(payload2);
 	console.log('this is the current value of the promise2' + JSON.stringify(promise2));
