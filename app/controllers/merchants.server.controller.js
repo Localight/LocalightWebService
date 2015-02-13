@@ -27,7 +27,7 @@ var mongoose = require('mongoose-promised'),
 exports.signupMerchant = function(req, res) {
 
 	var merchant = new Merchant(req.body);
-	console.log('this is the status of teh merchant' + merchant);
+	console.log('this is the status of the merchant as it hit the express controller' + merchant);
 	var message = null;
 	// save like normal.
 	// even save the payload.
@@ -46,43 +46,40 @@ exports.signupMerchant = function(req, res) {
 		line2: merchant.address.line2,
 		state: merchant.address.state,
 		postal_code: merchant.address.zipcode
-	};
-	console.log(JSON.stringify(payload));
+	};// chain operations together.
+	// once stuff saves move on to next thing.
+	// add validation to front end,
+	// create page for review.
+	// look up merchant by phone number.
+	console.log('this is our payload: '+JSON.stringify(payload));
 	// take care of the senstive bank info first. If anything goes wrong, we never have the
 	// bank info for to long.
 	var promise = balanced.marketplace.bank_accounts.create(payload);
 
-	console.log(JSON.stringify(promise));
+	console.log('this is the current value of the promsie'+JSON.stringify(promise));
 	promise.then(function callback(response) {
-		console.log(response);
-		merchant.accountToken = response.href;// got the bank token
+		console.log('this is the response from calling promise:' + response);
+		merchant.accountToken = response._href;// got the bank token
 		merchant.routing_number =' ';
 		merchant.account_number =' ';
-		console.log(merchant);
+		console.log('this is the current value of the mercahnt with account token added:'+merchant);
 	}, function handler(err){
-		console.log(err);
+		console.log('this error came from calling promise:'+ err);
 		return res.status(400).send({
 		message: errorHandler.getErrorMessage(err)
 	});
-});
+});// works.
 
-	console.log(payload2);
+	console.log('this is the current value of the payload2' + payload2);
 	var promise2 = balanced.marketplace.customers.create(payload2);
-	console.log(JSON.stringify(promise2));
+	console.log('this is the current value of the promise2' + JSON.stringify(promise2));
 	promise2.then(function something(response){
 	console.log('from promise 2'+ JSON.Stringify(response));
 	merchant.customerToken = response.body._href;// got the customer token
 		// come back to the part below this.
+	console.log('This is the value of the merchant after the customer token and accoutn token have been added' + merchant.bank_account);
+
 	balanced.get(merchant.bank_account.accountToken).associate_to_customer(merchant.customerToken);
-	merchant.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-				});
-				} else {
-					return res.json(merchant);
-					}
-				});
 
 		// I could put this in another promise and do something with what is returned,
 		// but I'm going to see if I can just send it off and not care what happens about it.
@@ -96,7 +93,7 @@ exports.signupMerchant = function(req, res) {
 		//TODO: enter button in front end for checkings or savings.
 		//
 	}, function handler(err) {
-		console.log(err);
+		console.log('error after promise2 sent payload' + err);
 		// need help understanding how to handle errors
 		return res.status(400).send({
 		message: errorHandler.getErrorMessage(err)

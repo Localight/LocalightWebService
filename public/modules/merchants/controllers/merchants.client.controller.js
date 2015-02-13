@@ -15,13 +15,16 @@ $scope.signupMerchant = function() {
 		line2:this.line2,
 		state:this.state,
 		zipcode:this.zipcode,
+		// TODO: need to add in ability to search database for phone, if phone not found add merchant,
+		// if merchant found, give error and response, to contact support. need to create support page.
+		// 
 	},
 		account_number:this.account_number,
 		routing_number:this.routing_number
 		});
 		// have fields for bank info, just need to take data, tokenize it, and associate it to the customer, and done.
 		merchant.$save(function(response) {
-			$location.path('/bankInfo');
+			$location.path('/confirmation');
 		}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 		});
