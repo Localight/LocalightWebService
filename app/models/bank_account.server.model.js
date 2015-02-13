@@ -1,10 +1,10 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose-promised'),
   Schema = mongoose.Schema;
 
 var Bank_AccountSchema = new Schema({
-  
+
   created: {
     type: Date,
     default: Date.now

@@ -4,7 +4,7 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose-promised'),
   Schema = mongoose.Schema;
 
 /**

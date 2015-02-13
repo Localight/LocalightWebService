@@ -5,7 +5,7 @@
  */
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
-	mongoose = require('mongoose'),
+	mongoose = require('mongoose-promised'),
 	passport = require('passport'),
 	User = mongoose.model('User');
 

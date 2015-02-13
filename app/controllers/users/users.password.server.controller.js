@@ -5,7 +5,7 @@
  */
 var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
-	mongoose = require('mongoose'),
+	mongoose = require('mongoose-promised'),
 	passport = require('passport'),
 	User = mongoose.model('User'),
 	config = require('../../../config/config'),
@@ -137,7 +137,7 @@ exports.reset = function(req, res, next) {
 									if (err) {
 										res.status(400).send(err);
 									} else {
-										// Return authenticated user 
+										// Return authenticated user
 										res.json(user);
 
 										done(err, user);

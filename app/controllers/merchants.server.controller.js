@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose-promised'),
 	errorHandler = require('./errors.server.controller'),
 	balanced = require('balanced-official'),
 	Merchant = mongoose.model('Merchant'),
@@ -33,31 +33,10 @@ exports.signupMerchant = function(req, res) {
 	// even save the payload.
 	var payload = {
 		routing_number: merchant.routing_number,
-		account_number: merchant.account_number,
 		acccount_type: 'checking',
 		name: merchant.first_name + ' ' + merchant.last_name,
+		account_number: merchant.account_number,
 	};
-	console.log(JSON.stringify(payload));
-	// take care of the senstive bank info first. If anything goes wrong, we never have the
-	// bank info for to long.
-	var promise = balanced.marketplace.bank_account.create(payload);
-
-	console.log(JSON.stringify(promise));
-	promise.then(function callback(response, err) {
-		console.log(response);
-		console.log(err);
-		if (err) {
-					return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			}else{
-				merchant.accountToken = response._href;// got the bank token
-				merchant.routing_number =' ';
-				merchant.account_number =' ';
-			}
-	});
-
-
 	var payload2 = {
 		email: merchant.email_address,
 		name: merchant.first_name + ' ' + merchant.last_name,
@@ -68,23 +47,42 @@ exports.signupMerchant = function(req, res) {
 		state: merchant.address.state,
 		postal_code: merchant.address.zipcode
 	};
-	console.log(JSON.stringify(payload2));
+	console.log(JSON.stringify(payload));
+	// take care of the senstive bank info first. If anything goes wrong, we never have the
+	// bank info for to long.
+	var promise = balanced.marketplace.bank_accounts.create(payload);
+
+	console.log(JSON.stringify(promise));
+	promise.then(function callback(response) {
+		console.log(response);
+		merchant.accountToken = response.href;// got the bank token
+		merchant.routing_number =' ';
+		merchant.account_number =' ';
+		console.log(merchant);
+	}, function handler(err){
+		console.log(err);
+		return res.status(400).send({
+		message: errorHandler.getErrorMessage(err)
+	});
+});
+
+	console.log(payload2);
 	var promise2 = balanced.marketplace.customers.create(payload2);
 	console.log(JSON.stringify(promise2));
 	promise2.then(function something(response){
-		console.log('from promise 2'+ JSON.Stringify(response));
-		merchant.customerToken = response.body._href;// got the customer token
+	console.log('from promise 2'+ JSON.Stringify(response));
+	merchant.customerToken = response.body._href;// got the customer token
 		// come back to the part below this.
-		balanced.get(merchant.bank_account.accountToken).associate_to_customer(merchant.customerToken);
-		merchant.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
+	balanced.get(merchant.bank_account.accountToken).associate_to_customer(merchant.customerToken);
+	merchant.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
 				});
-			} else {
-				return res.json(merchant);
-			}
-		});
+				} else {
+					return res.json(merchant);
+					}
+				});
 
 		// I could put this in another promise and do something with what is returned,
 		// but I'm going to see if I can just send it off and not care what happens about it.
@@ -97,11 +95,11 @@ exports.signupMerchant = function(req, res) {
 		// update or fix his bank info, it's not setup like that.
 		//TODO: enter button in front end for checkings or savings.
 		//
-	}, function (err){
+	}, function handler(err) {
 		console.log(err);
 		// need help understanding how to handle errors
-		return res.status(500).send({
-			message: errorHandler.getErrorMessage(err)
+		return res.status(400).send({
+		message: errorHandler.getErrorMessage(err)
 	});
 });
 };
