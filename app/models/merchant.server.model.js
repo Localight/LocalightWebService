@@ -16,11 +16,76 @@ var MerchantSchema = new Schema({
 		required: 'Please fill Merchant name',
 		trim: true
 	},
-	created: {
+	business_name:{
+		type:String,
+	},
+	ein:{
+		type:String,
+	},
+	email:{
+		type:String,
+		//TODO: get regular expression from other file.
+	},
+	phoneNumber:{
+		type:String,
+		//could be number or could be string, get regular expression from other file.
+	},
+	businessAddress:{
+		line1:{
+			type:String,
+		},
+		line2:{
+			type:String,
+		},
+		city:{
+			type:String,
+		},
+		state:{
+			type:String,
+		},
+	},
+	/**
+	* BANKING INFORMATION
+	* Default set to empty so they can never actually be filled and put into the database.
+	*/
+	accountNumber:{
+		type:String,
+		default: ''
+	},
+	routingNumber:{
+		type:String,
+		default: '',
+	},
+	/**
+	* BALANCED API STUFF
+	* Default set to empty so they can never actually be filled and put into the database.
+	*/
+	customerToken:{
+		type:String,
+	},
+	bankAccountTokens:[
+		{
+			type:String
+		}
+	],
+	bankAccountConfirmationTokens:[
+		{
+			type:String,
+		}
+	],
+	transactionTokens:[{
+		type:String
+	}],
+	
+
+
+
+
+	dateSignedUp: {
 		type: Date,
 		default: Date.now
 	},
-	user: {
+	signUpBy: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	}
