@@ -17,6 +17,7 @@ var mongoose = require('mongoose'),
 exports.createCustomer = function(req, res) {
 	var merchant = new Merchant(req.body);
 	merchant.user = req.user;
+
 	var payload = {
 		name: merchant.name,
 		business_name: merchant.business_name,
@@ -25,7 +26,7 @@ exports.createCustomer = function(req, res) {
 		phone_number: merchant.phoneNumber,
 	};
 	balanced.marketplace.customers.create(payload).then(function handler(response){
-		merchant.customerToken = response.href;
+		merchant.balancedStuff.customerTokenThing = response.href;
 		return merchant.save();
 	}).then(function anotherHandler(response){
 		res.jsonp(merchant);
@@ -50,11 +51,11 @@ exports.createBankAccount = function(req, res){
 	};
 	merchant.accountNumber = '';// clear out the account number from the merchant before you save it.
 	balanced.marketplace.bank_accounts.create(payload).then(function handler(response){
-		merchant.bankAccountTokens = response.href;
-		balanced.get(merchant.bankAccountToken).associate_to_customer(merchant.customerToken);
-		return balanced.get(merchant.bankAccountToken).verify();
+		merchant.balancedStuff.bankAccountTokenThing = response.href;
+		balanced.get(merchant.balancedStuff.bankAccountTokenThing).associate_to_customer(merchant.balancedStuff.customerTokenThing);
+		return balanced.get(merchant.balancedStuff.bankAccountTokenThing).verify();
 	}).then(function yetAnotherHanlder(response){
-		merchant.bankAcountConfirmationToken = response.href;
+		merchant.balancedStuff.bankAcountConfirmationTokenThing = response.href;
 		return merchant.save();
 	}).catch(function errHandler(err){
 		return res.status(400).send({

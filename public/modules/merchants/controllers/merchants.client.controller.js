@@ -9,8 +9,9 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		$scope.createCustomer = function() {
 			// Create new Merchant object
 			var merchant = new Merchants ({
+
 				name: this.name,
-				business_name:this.business_name,
+				business_name: this.business_name,
 				ein:this.ein,
 				email:this.email,
 				phoneNumber:this.phoneNumber,
@@ -45,9 +46,9 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 			// Create new Merchant object
 			var merchant = new Merchants ({
 				name: this.name,
-				account_number:this.accountNumber,
-				routing_number:this.routingNumber,
-				account_type:'checking',
+				account_number:this.account_number,
+				routing_number:this.account_number,
+				account_type:this.account_type,
 				// businessAddress:{
 				// 	line:this.line1,
 				// 	line2:this.line2,
@@ -90,7 +91,6 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		};
 
 		// Update existing Merchant
-		// make sure to update the basic contact in the balanced api as well.
 		$scope.update = function() {
 			var merchant = $scope.merchant;
 

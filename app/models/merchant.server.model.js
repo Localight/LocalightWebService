@@ -121,6 +121,7 @@ var MerchantSchema = new Schema({
 		type:String,
 		default: ''
 	}],
+	},
 	// this is the date the merchant was signed up by the given amassador.
 	dateSignedUp:{
 		type: Date,
@@ -131,8 +132,6 @@ var MerchantSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	}
-	},
-
 });
 
 mongoose.model('Merchant', MerchantSchema);
