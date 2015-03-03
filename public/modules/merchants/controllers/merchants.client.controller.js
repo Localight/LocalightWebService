@@ -90,6 +90,7 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		};
 
 		// Update existing Merchant
+		// make sure to update the basic contact in the balanced api as well.
 		$scope.update = function() {
 			var merchant = $scope.merchant;
 
