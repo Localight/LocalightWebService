@@ -12,10 +12,10 @@
 	</div>
 	<small>
 		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="merchant.created | date:'mediumDate'"></span>
+			Date Signed up:
+			<span data-ng-bind="merchant.dateSignedUp | date:'mediumDate'"></span>
 			by
-			<span data-ng-bind="merchant.user.displayName"></span>
+			<span data-ng-bind="merchant.signedUpBy.displayName"></span>
 		</em>
 	</small>
 </section>

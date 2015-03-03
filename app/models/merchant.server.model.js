@@ -18,31 +18,51 @@ var MerchantSchema = new Schema({
 	},
 	business_name:{
 		type:String,
+		default: '',
+		required: 'Please fill Business Name'
 	},
 	ein:{
 		type:String,
+		default: '',
+		required: 'Please fill EIN'
 	},
 	email:{
 		type:String,
+		default: '',
+		required: 'Please fill in Email'
 		//TODO: get regular expression from other file.
 	},
 	phoneNumber:{
 		type:String,
+		default: '',
+		required:'Please fill in Phone Number'
 		//could be number or could be string, get regular expression from other file.
 	},
 	businessAddress:{
 		line1:{
 			type:String,
+			default: '',
+		//	required:'Please fill in Street Address'
 		},
 		line2:{
 			type:String,
+			default: ''
 		},
 		city:{
 			type:String,
+			default: '',
+		//	required:'Please fill in City'
 		},
 		state:{
 			type:String,
+			default: '',
+			//required:'Please fill in State'
 		},
+		postal_code:{
+			type:String,
+			default: '',
+			//krkekquired:'Please fill in Postal code'
+		}
 	},
 	/**
 	* BANKING INFORMATION
@@ -62,30 +82,29 @@ var MerchantSchema = new Schema({
 	*/
 	customerToken:{
 		type:String,
+		default: ''
 	},
 	bankAccountTokens:[
 		{
-			type:String
+			type:String,
+			default: ''
 		}
 	],
 	bankAccountConfirmationTokens:[
 		{
 			type:String,
+			default: ''
 		}
 	],
 	transactionTokens:[{
-		type:String
+		type:String,
+		default: ''
 	}],
-	
-
-
-
-
 	dateSignedUp: {
 		type: Date,
 		default: Date.now
 	},
-	signUpBy: {
+	signedUpBy: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	}
