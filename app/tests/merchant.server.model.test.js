@@ -29,8 +29,8 @@ describe('Merchant Model Unit Tests:', function() {
 
 		user.save(function() { 
 			merchant = new Merchant({
-				name: 'Merchant Name',
-				user: user
+				// Add model fields
+				// ...
 			});
 
 			done();
@@ -44,21 +44,12 @@ describe('Merchant Model Unit Tests:', function() {
 				done();
 			});
 		});
-
-		it('should be able to show an error when try to save without name', function(done) { 
-			merchant.name = '';
-
-			return merchant.save(function(err) {
-				should.exist(err);
-				done();
-			});
-		});
 	});
 
 	afterEach(function(done) { 
 		Merchant.remove().exec();
 		User.remove().exec();
-
+		
 		done();
 	});
 });

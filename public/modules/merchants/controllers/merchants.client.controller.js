@@ -6,7 +6,7 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 		$scope.authentication = Authentication;
 
 		// Create new Merchant
-		$scope.create = function() {
+		$scope.createCustomer = function() {
 			// Create new Merchant object
 			var merchant = new Merchants ({
 				name: this.name,
@@ -41,6 +41,36 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 				$scope.error = errorResponse.data.message;
 			});
 		};
+		$scope.createBankAccount = function() {
+			// Create new Merchant object
+			var merchant = new Merchants ({
+				name: this.name,
+				account_number:this.account_number,
+				routing_number:this.account_number,
+				account_type:this.account_type,
+				// businessAddress:{
+				// 	line:this.line1,
+				// 	line2:this.line2,
+				// 	city:this.city,
+				// 	state:this.state,
+				// 	postal_code:this.postal_code
+				// }
+			});
+			// Redirect after save
+			merchant.$save(function(response) {
+				$location.path('merchants/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+				$scope.account_number = '';
+				$scope.routing_number = '';
+				$scope.account_type = '';
+
+}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
 
 		// Remove existing Merchanot
 		$scope.remove = function(merchant) {

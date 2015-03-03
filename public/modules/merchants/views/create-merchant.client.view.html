@@ -3,7 +3,7 @@
         <h1>New Merchant</h1>
     </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <form class="form-horizontal" data-ng-submit="createCustomer()" novalidate>
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
@@ -28,8 +28,8 @@
                     </div>
                     <label class="control-label" for="line1">Street Address</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="businessAddress.line1" id="line1" class="form-control" placeholder="123 someplace" required>
-                    </div>
+                        <input type="text" data-ng-model="line1" id="line1" class="form-control" placeholder="123 someplace" required>
+                      </div>
                     <label class="control-label" for="line2">Street 2</label>
                     <div class="controls">
                         <input type="text" data-ng-model="line2" id="line2" class="form-control" placeholder="somewhereelse" required>

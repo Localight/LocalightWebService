@@ -80,34 +80,59 @@ var MerchantSchema = new Schema({
 	* BALANCED API STUFF
 	* Default set to empty so they can never actually be filled and put into the database.
 	*/
-	customerToken:{
-		type:String,
-		default: ''
-	},
-	bankAccountTokens:[
-		{
+	balancedStuff:{
+		// the token we recive from balanced in place of the informaiton we sent.
+		customerTokenThing:{
 			type:String,
 			default: ''
-		}
-	],
-	bankAccountConfirmationTokens:[
-		{
+		},
+		// the account and routing number we sent to balanced to be tokenized.
+		// we have removed the sensitive informaiton and essentially encrypted it.
+		bankAccountTokenThing:{// in theory could actually have more than one bank account and bank account token.
+			type:String,//TODO: make this an array. or types.
+			default: ''// this could also contain any other infromation regarding the
+			// bank account.
+		},
+		// for every bank account added we must confirm the bank account belongs to the correct
+		// owner. each confirmation is assoicate with a bank account.
+		bankAccountConfirmationTokenThing:{// TODO: come back and make this an array.
 			type:String,
 			default: ''
-		}
-	],
+		},
+		// for every confirmaiton token the owner of the bank account has 3 attempts.
+		// after 3 attempts the token is invalidateded and the user must repeat
+		// the whole sequence again. that's what balanced says at least.
+		attempts:{
+			// max 3 at a time. maybe add a flag to state whether it is
+			// inproces or !inprocess
+			type:Number
+		},
+		attempts_remaining:{
+			type:Number
+			// again another thing we can recieve from balancd.
+			// each time the user attempts to enter bank information we could.
+			// store that info.
+		},
+		verificationStatus:{
+			type:String
+			// this is one is actually important, and we should keep track of what it is from balanced.
+		},
 	transactionTokens:[{
 		type:String,
 		default: ''
 	}],
-	dateSignedUp: {
+	// this is the date the merchant was signed up by the given amassador.
+	dateSignedUp:{
 		type: Date,
 		default: Date.now
 	},
-	signedUpBy: {
+	// obviously a user object.
+	user:{
 		type: Schema.ObjectId,
 		ref: 'User'
 	}
+	},
+
 });
 
 mongoose.model('Merchant', MerchantSchema);
