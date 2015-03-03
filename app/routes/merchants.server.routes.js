@@ -7,12 +7,12 @@ module.exports = function(app) {
 	// Merchants Routes
 	app.route('/merchants')
 		.get(merchants.list)
-		.post(users.requiresLogin, merchants.createCustomer)
-		.post(users.requiresLogin, merchants.createBankAccount);
+		.post(users.requiresLogin, merchants.createCustomer);
 
 	app.route('/merchants/:merchantId')
 		.get(merchants.read)
 		.put(users.requiresLogin, merchants.hasAuthorization, merchants.update)
+		.post(users.requiresLogin, merchants.hasAuthorization, merchants.createBankAccount)
 		.delete(users.requiresLogin, merchants.hasAuthorization, merchants.delete);
 
 	// Finish by binding the Merchant middleware

@@ -70,11 +70,11 @@ var MerchantSchema = new Schema({
 	*/
 	accountNumber:{
 		type:String,
-		default: ''
+		//default: ''
 	},
 	routingNumber:{
 		type:String,
-		default: '',
+		//default: '',
 	},
 	/**
 	* BALANCED API STUFF

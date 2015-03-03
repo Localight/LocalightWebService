@@ -43,14 +43,17 @@ exports.createCustomer = function(req, res) {
 exports.createBankAccount = function(req, res){
 	var merchant = req.merchant;
 	merchant = _.extend(merchant , req.body);
+	console.log('got here');
 	var payload = {
 		name: merchant.name,
 		account_type: 'checking',
 		account_number:merchant.accountNumber,
 		routing_number:merchant.routingNumber,
 	};
+	console.log(payload);
 	merchant.accountNumber = '';// clear out the account number from the merchant before you save it.
 	balanced.marketplace.bank_accounts.create(payload).then(function handler(response){
+		console.log(JSON.stringify(response));
 		merchant.balancedStuff.bankAccountTokenThing = response.href;
 		balanced.get(merchant.balancedStuff.bankAccountTokenThing).associate_to_customer(merchant.balancedStuff.customerTokenThing);
 		return balanced.get(merchant.balancedStuff.bankAccountTokenThing).verify();
@@ -58,6 +61,7 @@ exports.createBankAccount = function(req, res){
 		merchant.balancedStuff.bankAcountConfirmationTokenThing = response.href;
 		return merchant.save();
 	}).catch(function errHandler(err){
+		console.log('this error was sent from the createbankaccount method:' + err);
 		return res.status(400).send({
 			message: errorHandler.getErrorMessage(err)
 		});
