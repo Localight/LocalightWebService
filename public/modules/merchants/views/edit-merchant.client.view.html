@@ -1,3 +1,4 @@
+<section data-ng-controller="MerchantsController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1>Edit Merchant</h1>
 	</div>
@@ -17,7 +18,7 @@
 					<div class="form-group" ng-class="{ 'has-error' : submitted && merchantForm.business_name.$invalid}">
 						<label class="control-label" for="business_name">Business Name</label>
 						<div class="controls">
-							<input name="business_name" type="text" data-ng-model="merchant.business_name" id="business_name" class="form-control" placeholder="Localism!" required>
+							<input name="business_name" type="text" data-ng-model="business_name" id="business_name" class="form-control" placeholder="Localism!" required>
 						</div>
 						<div ng-show="submitted && merchantForm.business_name.$invalid" class="help-block">
 							<p ng-show="merchantForm.business_name.$error.required" class="text-danger">Business Name is required</p>

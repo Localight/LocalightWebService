@@ -45,9 +45,9 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 			// Create new Merchant object
 			var merchant = new Merchants ({
 				name: this.name,
-				account_number:this.account_number,
-				routing_number:this.account_number,
-				account_type:this.account_type,
+				account_number:this.accountNumber,
+				routing_number:this.routingNumber,
+				account_type:'checking',
 				// businessAddress:{
 				// 	line:this.line1,
 				// 	line2:this.line2,
