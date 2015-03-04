@@ -17,6 +17,7 @@ exports.tokenize_user_into_customer = function(req, res){
   // }else{
   //
   // }
+  console.log(JSON.stringify(req));
   var payload = {
     ein: req.body.ein,
     email: req.body.email,

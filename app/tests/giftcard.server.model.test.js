@@ -6,17 +6,17 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Merchant = mongoose.model('Merchant');
+	Giftcard = mongoose.model('Giftcard');
 
 /**
  * Globals
  */
-var user, merchant;
+var user, giftcard;
 
 /**
  * Unit tests
  */
-describe('Merchant Model Unit Tests:', function() {
+describe('Giftcard Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
 			firstName: 'Full',
@@ -28,9 +28,9 @@ describe('Merchant Model Unit Tests:', function() {
 		});
 
 		user.save(function() { 
-			merchant = new Merchant({
-				// Add model fields
-				// ...
+			giftcard = new Giftcard({
+				name: 'Giftcard Name',
+				user: user
 			});
 
 			done();
@@ -39,17 +39,26 @@ describe('Merchant Model Unit Tests:', function() {
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
-			return merchant.save(function(err) {
+			return giftcard.save(function(err) {
 				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without name', function(done) { 
+			giftcard.name = '';
+
+			return giftcard.save(function(err) {
+				should.exist(err);
 				done();
 			});
 		});
 	});
 
 	afterEach(function(done) { 
-		Merchant.remove().exec();
+		Giftcard.remove().exec();
 		User.remove().exec();
-		
+
 		done();
 	});
 });

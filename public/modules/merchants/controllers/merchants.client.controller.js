@@ -4,13 +4,13 @@
 angular.module('merchants').controller('MerchantsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Merchants',
 	function($scope, $stateParams, $location, Authentication, Merchants) {
 		$scope.authentication = Authentication;
+		// make a new merchant and tokenize them into a customer.
 
-		// Create new Merchant
-		$scope.create = function() {
+		$scope.createCustomer = function() {
 			// Create new Merchant object
 			var merchant = new Merchants ({
 				name: this.name,
-				business_name:this.business_name,
+				business_name: this.business_name,
 				ein:this.ein,
 				email:this.email,
 				phoneNumber:this.phoneNumber,
@@ -25,7 +25,6 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 			// Redirect after save
 			merchant.$save(function(response) {
 				$location.path('merchants/' + response._id);
-
 				// Clear form fields
 				$scope.name = '';
 				$scope.business_name ='';
@@ -37,10 +36,44 @@ angular.module('merchants').controller('MerchantsController', ['$scope', '$state
 				$scope.city ='';
 				$scope.state ='';
 				$scope.postal_code ='';
-}, function(errorResponse) {
+			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
+		$scope.createBankAccount = function() {
+			// Create new Merchant objectd
+			var merchant = $scope.merchant;
+			// TODO: need to pass the account number
+			// and routing number to the backend controller.
+			// need to look closer at how informaiton is being passed.
+			// currently getting a 404 error when tryign to submit.
+			merchant.accountNumber = this.accountNumber;
+			merchant.routingNumber = this.routingNumber;
+
+			// var merchant = new Merchants ({
+			// 	name: this.name,
+			// 	accountNumber:this.accountNumber,
+			// 	routingNumber:this.routingNumber,
+			// 	//account_type:'checking',
+			// 	// businessAddress:{
+			// 	// 	line:this.line1,
+			// 	// 	line2:this.line2,
+			// 	// 	city:this.city,
+			// 	// 	state:this.state,
+			// 	// 	postal_code:this.postal_code
+			// 	// }
+			// });
+			// Redirect after save
+			merchant.$save(function(response) {
+				$location.path('merchants/' + response._id);
+
+				// Clear form fields
+				$scope.accountNumber = '';
+				}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
 
 		// Remove existing Merchanot
 		$scope.remove = function(merchant) {

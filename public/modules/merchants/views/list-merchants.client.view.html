@@ -4,14 +4,18 @@
     </div>
     <div class="list-group">
         <a data-ng-repeat="merchant in merchants" data-ng-href="#!/merchants/{{merchant._id}}" class="list-group-item">
+        <h2>{{merchant.business_name}}</h3>
+        <small class="list-group-item-text">
+          merchant Contact
+        </small>
+        <h4> enter stuff here</h4>
 			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="merchant.created | date:'medium'"></span>
+				 Date Signed-up
+				<span data-ng-bind="merchant.dateSignedUp | date:'medium'"></span>
 				by
 				<span data-ng-bind="merchant.user.displayName"></span>
 			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="merchant.name"></h4>
-        </a>
+    </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!merchants.$resolved || merchants.length">
     	No Merchants yet, why don't you <a href="/#!/merchants/create">create one</a>?
