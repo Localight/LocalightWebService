@@ -34,6 +34,13 @@
 	<!-- Fav Icon -->
 	<link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
+	<!-- FormanceJS -->
+  <script src="../public/javascripts/jquery.formance.js"></script>
+
+	<!-- DatePicker -->
+  <script src="../public/javascripts/pickadateJS/picker.js"></script>
+  <script src="../public/javascripts/pickadateJS/picker.date.js"></script>
+
 	<!--Application CSS Files-->
 	{% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 
@@ -57,7 +64,7 @@
 	</script>
 
 	<!--Application JavaScript Files-->
-	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
+	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
