@@ -47,14 +47,19 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 
 		// Update existing Giftcard
 		$scope.send = function() {
+			//1. before we can send the giftcard to the user we need the user's id.
+			//2. save the giftcard to the that user's id.
+
 			var giftcard = $scope.giftcard;
 
-			giftcard.$send(function() {
+			giftcard.$save(function() {
 				$location.path('giftcards/' + giftcard._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+
 		// Update existing Giftcard
 		$scope.update = function() {
 			var giftcard = $scope.giftcard;

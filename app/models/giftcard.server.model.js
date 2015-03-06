@@ -88,7 +88,7 @@ var GiftcardSchema = new Schema({
 	// },
 	districtNumber:{
 		type:String,
-		required:'{lease enter a district number for this giftcard',
+		required:'Please enter a district number for this giftcard.',
 		//TODO: make sure district number matches a specific pattern.
 	},
 	//TODO: add the user who purchased the card,

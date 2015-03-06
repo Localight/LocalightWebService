@@ -11,7 +11,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var credentials, user, giftcard;
+var credentials, credentials2, user, user2, giftcard;
 
 /**
  * Giftcard routes tests
@@ -22,6 +22,10 @@ describe('Giftcard CRUD tests', function() {
 		credentials = {
 			username: 'username',
 			password: 'password'
+		};
+		credentials2 = {
+			username2: 'username',
+			password2: 'password'
 		};
 
 		// Create a new user
@@ -34,6 +38,16 @@ describe('Giftcard CRUD tests', function() {
 			password: credentials.password,
 			provider: 'local'
 		});
+		user2 = new User({
+			firstName: 'Full',
+			lastName: 'Name',
+			displayName: 'Full Name',
+			email: 'test@test.com',
+			username: credentials.username,
+			password: credentials.password,
+			provider: 'local'
+		});
+
 
 		// Save a user to the test db and create new Giftcard
 		user.save(function() {
@@ -42,6 +56,7 @@ describe('Giftcard CRUD tests', function() {
 				toUserUserName:'bob',
 				districtNumber:'something',
 			};
+			user2.save();
 			done();
 		});
 	});
@@ -93,6 +108,7 @@ describe('Giftcard CRUD tests', function() {
 				// Call the assertion callback
 				done(giftcardSaveErr);
 			});
+			// if a user can't post then a user can't update.
 	});
 // the thing about this is that, we cover some of this in the model. we could make this a more general case, but still include it.
 // i.e. in this method make sure all the informaiton is valid.
@@ -180,6 +196,10 @@ describe('Giftcard CRUD tests', function() {
 					});
 			});
 	});
+	/*
+	 * Update tests.
+	 * if a user is signed in they should be able to update their gifcards, if they aren't logged in we should have the giftcards protected.
+	 */
 	it('should be able to update Giftcard instance if signed in', function(done) {
 		agent.post('/auth/signin')
 			.send(credentials)
@@ -220,7 +240,6 @@ describe('Giftcard CRUD tests', function() {
 					});
 			});
 	});
-
 	it('should be able to get a list of Giftcards if not signed in', function(done) {
 		// Create new Giftcard model instance
 		var giftcardObj = new Giftcard(giftcard);
@@ -300,28 +319,76 @@ describe('Giftcard CRUD tests', function() {
 			});
 	});
 
-	it('should not be able to delete Giftcard instance if not signed in', function(done) {
-		// Set Giftcard user
-		giftcard.user = user;
 
-		// Create new Giftcard model instance
-		var giftcardObj = new Giftcard(giftcard);
+	/*
+	 * Test to send a giftcard to another user. What you need is a valid(existing) username, and a giftcard to send.
+	 *  essentially you should just be updating who the user property is in the existing giftcard class.
+	 */
+	it('should be able to update ownership of a Giftcard instance from userA to another userB if logged in', function(done){
+		// so how this should work, I am an exisint user, I create the giftcard, and then I send it to another user.
+		// I could change it to just send it to another user and not have a save feature. We will get to that later.
+		// I need to enter the name of an existing user, to send to.
+		agent.post('/auth/signin')
+		.send(credentials)
+		.expect(200)
+		.end(function(signinErr, signinRes){
+			if (signinErr) done (signinErr);
+			//Get the userId
+			var userId = user.id;
+			var userId2 = user2.id;
+			// so the user is posting this informaiton to the database, the user
+			// wants to save this information.
+			// I just thought of an easy way to do this. I model the update obejct, and just update the
+			// giftcard object, to reflect the new user.
+			// 1.) search for userBs user object id.
+			// 2.) take object id, and update the user object in property in the giftcard.
+			// make this a direct update function. you change a specific peice of info but always update.
+			// Save a new Giftcard
+			agent.post('/giftcards')
+				.send(giftcard)
+				.expect(200)
+				.end(function(giftcardSaveErr, giftcardSaveRes) {
+					// Handle Giftcard save err
+					if (giftcardSaveErr) done(giftcardSaveErr);
 
-		// Save the Giftcard
-		giftcardObj.save(function() {
-			// Try deleting Giftcard
-			request(app).delete('/giftcards/' + giftcardObj._id)
-			.expect(401)
-			.end(function(giftcardDeleteErr, giftcardDeleteRes) {
-				// Set message assertion
-				(giftcardDeleteRes.body.message).should.match('User is not logged in');
+					// Update User property of giftcard.
+					giftcard.user = user2;
+					// console.log('the current value of the user who owns the giftcard: '+ giftcard.user);
+					// console.log('UserBs id' + user2._id);
+					// now user doesn't have the giftcard in his collection anymore.
+					// or at least that is the outcome we should get.
+					// now the giftcard should appear under ownership of another user.
+					// we should test to see that user does not have any giftcards.
+					// then we should test that user2 does have a giftcard.
+					// Get a list of Giftcards
+					agent.put('/giftcards/' + giftcardSaveRes.body._id)
+						.send(giftcard)
+						.expect(200)
+						.end(function(giftcardUpdateErr, giftcardUpdateRes) {
+							// Handle Giftcard update error
+							if (giftcardUpdateErr) done(giftcardUpdateErr);
 
-				// Handle Giftcard error error
-				done(giftcardDeleteErr);
-			});
+							// Set assertions
+							(giftcardUpdateRes.body.user._id).should.equal(userId2);
+							// Call the assertion callback
+							done();
+						});
 
-		});
-	});
+				});// save giftcard
+
+
+		});// end signin
+	});// end should method
+	// it('should not be able to send a Giftcard to another user if the user is not Signed-in', function(done){
+	//
+	// });
+	// it('should be able to create a user if a user doesnt exist and add a giftcard to that user', function(done){
+	//
+	// });
+	//
+	// it('should be able to add a multiple giftcards to single user', function(done){
+	//
+	// });
 
 	afterEach(function(done) {
 		User.remove().exec();
