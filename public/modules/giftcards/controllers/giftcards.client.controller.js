@@ -9,8 +9,9 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
-				name: this.name,
-				amount: this.amount
+				amount: this.amount,
+				toUserUserName: this.toUserUserName,
+				districtNumber: this.districtNumber,
 			});
 
 			// Redirect after save
@@ -18,7 +19,10 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 				$location.path('giftcards/' + response._id);
 
 				// Clear form fields
-				$scope.name = '';
+				$scope.amount = '';
+				$scope.toUserUserName = '';
+				$scope.districtNumber = '';
+
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -42,6 +46,16 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		};
 
 		// Update existing Giftcard
+		$scope.send = function() {
+			var giftcard = $scope.giftcard;
+
+			giftcard.$send(function() {
+				$location.path('giftcards/' + giftcard._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+		// Update existing Giftcard
 		$scope.update = function() {
 			var giftcard = $scope.giftcard;
 
@@ -51,6 +65,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
 
 		// Find a list of Giftcards
 		$scope.find = function() {
