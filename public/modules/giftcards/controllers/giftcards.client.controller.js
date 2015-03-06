@@ -9,7 +9,8 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
-				name: this.name
+				name: this.name,
+				amount: this.amount
 			});
 
 			// Redirect after save
@@ -25,7 +26,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 
 		// Remove existing Giftcard
 		$scope.remove = function(giftcard) {
-			if ( giftcard ) { 
+			if ( giftcard ) {
 				giftcard.$remove();
 
 				for (var i in $scope.giftcards) {
@@ -58,7 +59,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 
 		// Find existing Giftcard
 		$scope.findOne = function() {
-			$scope.giftcard = Giftcards.get({ 
+			$scope.giftcard = Giftcards.get({
 				giftcardId: $stateParams.giftcardId
 			});
 		};
