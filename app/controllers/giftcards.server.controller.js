@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	Giftcard = mongoose.model('Giftcard'),balanced = require('balanced-official'),
+	Giftcard = mongoose.model('Giftcard'),
+	balanced = require('balanced-official'),
 	Q = require('q'),
 	_ = require('lodash');
 	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
@@ -15,8 +16,9 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var giftcard = new Giftcard(req.body);
 	// putting the charge in here temp
-	giftcard.user = req.user;
-	
+	giftcard.user = req.user;// why we don't assign the user in the test.
+	// part of the test was just give it any value and have it save it to the database.
+
 	giftcard.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -28,7 +30,7 @@ exports.create = function(req, res) {
 	});
 };
 
-	// creating a temporary giftcard to test things.
+		// creating a temporary giftcard to test things.
 	// var payload = {
 	// 	expiration_month:08,
 	// 	expiration_year:2018,
@@ -63,7 +65,7 @@ exports.read = function(req, res) {
  * Update a Giftcard
  */
 exports.update = function(req, res) {
-	var giftcard = req.giftcard ;
+	var giftcard = req.giftcard;
 
 	giftcard = _.extend(giftcard , req.body);
 
@@ -116,8 +118,8 @@ exports.list = function(req, res) {
 exports.giftcardByID = function(req, res, next, id) {
 	Giftcard.findById(id).populate('user', 'displayName').exec(function(err, giftcard) {
 		if (err) return next(err);
-		if (! giftcard) return next(new Error('Failed to load Giftcard ' + id));
-		req.giftcard = giftcard ;
+		if (!giftcard) return next(new Error('Failed to load Giftcard ' + id));
+		req.giftcard = giftcard;
 		next();
 	});
 };
@@ -127,7 +129,9 @@ exports.giftcardByID = function(req, res, next, id) {
  */
 exports.hasAuthorization = function(req, res, next) {
 	if (req.giftcard.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
+		return res.status(403).send({
+			message: 'User is not authorized'
+		});
 	}
 	next();
 };

@@ -44,7 +44,7 @@ var UserSchema = new Schema({
 	customerTokenThing:{
 		type:String
 	},
-	
+
 	displayName: {
 		type: String,
 		trim: true

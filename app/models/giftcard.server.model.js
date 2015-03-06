@@ -34,7 +34,8 @@ var GiftcardSchema = new Schema({
   //   cliqueId: String,
   //   test: String
 	cardToken:{
-		type:String
+		type:String,
+		default: ''
 	},
 	/**
 	 * Amount, the value of which the card holds, to be spent at a merchant's busienss.
@@ -59,9 +60,9 @@ var GiftcardSchema = new Schema({
 	 */
 	toUserUserName:{
 		type:String,
-		required:'please enter someone to send this too.',
+		default:'',
+		required:'Please enter someone to send this too.'
 	},
-
 	// toUserPhoneNumber:{
 	// 	type:String // might have to be a number not sure yet.
 	//
@@ -70,10 +71,10 @@ var GiftcardSchema = new Schema({
 	 *  fromUserEmail, the email of the user who wishes to receive the reciept.
 	 */
 	// maybe "use" date?
-	activationDate:{
-		type: Date,
-		default: Date.now
-	},
+	// activationDate:{
+	// 	type: Date,
+	// 	default: Date.now
+	// },
 	// District Number, need to come back and enter.
 	// status
 
@@ -82,12 +83,12 @@ var GiftcardSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	typeOfCard: {
-		type:String
-	},
+	// typeOfCard: {
+	// 	type:String
+	// },
 	districtNumber:{
 		type:String,
-		required:'please enter a district number for this giftcard',
+		required:'Please enter a district number for this giftcard.',
 		//TODO: make sure district number matches a specific pattern.
 	},
 	//TODO: add the user who purchased the card,
@@ -97,11 +98,11 @@ var GiftcardSchema = new Schema({
 	// this is mostly for testing.
 	//TODO: figure out how to save use any amount with the user doesn't care what merchant value they spend at.
 	// for now jsut assume a gift card can only be used at one merchant store.
-	merchantGiftCard:{
-		type: Schema.ObjectId,
-		ref: 'Merchant'
-		// required: 'please select a merchant to spend this at.'
-	},
+	// merchantGiftCard:{
+	// 	type: Schema.ObjectId,
+	// 	ref: 'Merchant'
+	// 	// required: 'please select a merchant to spend this at.'
+	// },
 	/*
 	* USER BIND
 	* until the User B accepts the card, show that the gift card is still owned by user A
@@ -111,14 +112,14 @@ var GiftcardSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	fromUser: {
-		type:Schema.ObjectId,
-		ref:'User',
-	},
-	toUser:{
-		type:Schema.ObjectId,
-		ref:'User'
-	}
+	// fromUser: {
+	// 	type:Schema.ObjectId,
+	// 	ref:'User',
+	// },
+	// toUser:{
+	// 	type:Schema.ObjectId,
+	// 	ref:'User'
+	// }
 });
 
 mongoose.model('Giftcard', GiftcardSchema);
