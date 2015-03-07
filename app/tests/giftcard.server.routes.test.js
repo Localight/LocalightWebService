@@ -394,6 +394,7 @@ describe('Giftcard CRUD tests', function() {
 	// I'm thinking of creating a new method based on the update method
 	it('should be able to send the giftcard to another user if logged in', function(done){
 
+
 	});
 	// it('should not be able to send a Giftcard to another user if the user is not Signed-in', function(done){
 	//

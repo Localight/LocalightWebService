@@ -13,9 +13,20 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 				amount:1000,
 				merchant:'aMerchantId here',
 				yourName:'theUsersname here',
+				message:'A gift for you!',
+
 				toUserUserName:'toSomeone',
 				districtNumber: 'number',
 			});
+			var payload = {
+				cardNumber:'16-digit number',
+				cvv:'3-digit number',
+				nameOnCard:'Your Full Name',
+				month:'month of expiration',
+				year:'year of expiration',
+				// check balanced for what they need.
+				// either way we need the credit card info for part of this.
+			};
 
 			// Redirect after save
 			giftcard.$save(function(response) {

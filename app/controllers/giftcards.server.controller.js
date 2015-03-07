@@ -37,7 +37,21 @@ exports.create = function(req, res) {
 		}
 	});
 };
+exports.send = function(req, res, id){
 
+	var giftcard = new Giftcard(req.body);
+	giftcard.user = id;
+
+	giftcard.save(function(err){
+		if(err){
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}else{
+			res.jsonp(giftcard);
+		}
+	});
+};
 		// creating a temporary giftcard to test things.
 	// var payload = {
 	// 	expiration_month:08,
