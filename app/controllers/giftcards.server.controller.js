@@ -13,10 +13,18 @@ var mongoose = require('mongoose'),
 /**
  * Create a Giftcard
  */
+// for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 exports.create = function(req, res) {
+
 	var giftcard = new Giftcard(req.body);
 	// putting the charge in here temp
-	giftcard.user = req.user;// why we don't assign the user in the test.
+	// all we need is the object data that is the user we are sending it to.
+	// we then get the giftcard object, and say this is who you are equal to.
+
+	 giftcard.user = req.user;
+	// giftcard.fromUser = req.user;// why we don't assign the user in the test.
+	// giftcard.merchant = req.body.merchant;
+	// giftcard.toUser = req.body.
 	// part of the test was just give it any value and have it save it to the database.
 
 	giftcard.save(function(err) {
@@ -60,7 +68,8 @@ exports.create = function(req, res) {
 exports.read = function(req, res) {
 	res.jsonp(req.giftcard);
 };
-
+// Don't write new code, use the update and find methods to change ownder ship of the giftcard.
+// the update and find methods work find.
 /**
  * Update a Giftcard
  */

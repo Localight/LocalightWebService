@@ -33,9 +33,14 @@ var GiftcardSchema = new Schema({
   //   mobileNumber: String,
   //   cliqueId: String,
   //   test: String
-	cardToken:{
+	// cardToken:{
+	// 	type:String,
+	// 	default: ''
+	// },
+	giftRecipientName:{
 		type:String,
-		default: ''
+		// TODO: add regualer expressions.
+		required:'Please enter the recipients name.'
 	},
 	/**
 	 * Amount, the value of which the card holds, to be spent at a merchant's busienss.
@@ -44,13 +49,18 @@ var GiftcardSchema = new Schema({
 		type:Number,
 		required:'Please enter an amount to purchase.'
 	},
+	mobileNumber:{
+		type:Number,
+		required:'Please enter the recipients phone number',
+		//TODO: enter in regular expression, and make sure no spaces.
+	},
 	/**
 	 *  Message, the message that the user wishes for another user to see.
 	 *  a message doesn't need to have a string attached to it.
 	 */
 	message:{
 		type:String,
-		default:''
+		default:'A gift for you!'
 	},
 	/**
 	 *  toUserPhoneNumber, the phone number of the giftcard receiver. so we can send it threw text.
@@ -112,14 +122,18 @@ var GiftcardSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	// fromUser: {
-	// 	type:Schema.ObjectId,
-	// 	ref:'User',
-	// },
-	// toUser:{
-	// 	type:Schema.ObjectId,
-	// 	ref:'User'
-	// }
+	merchant:{
+		type:Schema.ObjectId,
+		ref:'Merchant'
+	},
+	fromUser: {
+		type:Schema.ObjectId,
+		ref:'User',
+	},
+	toUser:{
+		type:Schema.ObjectId,
+		ref:'User'
+	}
 });
 
 mongoose.model('Giftcard', GiftcardSchema);

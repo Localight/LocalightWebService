@@ -39,10 +39,10 @@ describe('Giftcard CRUD tests', function() {
 			provider: 'local'
 		});
 		user2 = new User({
-			firstName: 'Full',
-			lastName: 'Name',
-			displayName: 'Full Name',
-			email: 'test@test.com',
+			firstName: 'Full2',
+			lastName: 'Name2',
+			displayName: 'Full2 Name2',
+			email: 'test@test.com2',
 			username: credentials.username,
 			password: credentials.password,
 			provider: 'local'
@@ -52,9 +52,12 @@ describe('Giftcard CRUD tests', function() {
 		// Save a user to the test db and create new Giftcard
 		user.save(function() {
 			giftcard = {
+				giftRecipientName:'your friends name here',
 				amount: 1000,
-				toUserUserName:'bob',
-				districtNumber:'something',
+				mobileNumber:5456541234,
+				message: 'A gift for you!',
+				toUserUserName:'aUserName',
+				districtNumber:'aDistrictNumber',
 			};
 			user2.save();
 			done();
@@ -231,7 +234,8 @@ describe('Giftcard CRUD tests', function() {
 								if (giftcardUpdateErr) done(giftcardUpdateErr);
 
 								// Set assertions
-								(giftcardUpdateRes.body._id).should.equal(giftcardSaveRes.body._id);
+								(giftcardUpdateRes.body._id)
+								.should.equal(giftcardSaveRes.body._id);
 								(giftcardUpdateRes.body.amount).should.match(200);
 
 								// Call the assertion callback
@@ -319,7 +323,6 @@ describe('Giftcard CRUD tests', function() {
 			});
 	});
 
-
 	/*
 	 * Test to send a giftcard to another user. What you need is a valid(existing) username, and a giftcard to send.
 	 *  essentially you should just be updating who the user property is in the existing giftcard class.
@@ -334,7 +337,6 @@ describe('Giftcard CRUD tests', function() {
 		.end(function(signinErr, signinRes){
 			if (signinErr) done (signinErr);
 			//Get the userId
-			var userId = user.id;
 			var userId2 = user2.id;
 			// so the user is posting this informaiton to the database, the user
 			// wants to save this information.
@@ -352,7 +354,7 @@ describe('Giftcard CRUD tests', function() {
 					if (giftcardSaveErr) done(giftcardSaveErr);
 
 					// Update User property of giftcard.
-					giftcard.user = user2;
+					giftcard.user = user2._id;
 					// console.log('the current value of the user who owns the giftcard: '+ giftcard.user);
 					// console.log('UserBs id' + user2._id);
 					// now user doesn't have the giftcard in his collection anymore.
@@ -369,7 +371,17 @@ describe('Giftcard CRUD tests', function() {
 							if (giftcardUpdateErr) done(giftcardUpdateErr);
 
 							// Set assertions
-							(giftcardUpdateRes.body.user._id).should.equal(userId2);
+							(giftcardUpdateRes.body.mobileNumber).should.equal(5456541234);
+							(giftcardUpdateRes.body.message).should.equal('A gift for you!');
+
+							(giftcardUpdateRes.body.toUserUserName).should.equal('aUserName');
+
+							(giftcardUpdateRes.body.districtNumber).should
+							.equal('aDistrictNumber');
+			   			(giftcardUpdateRes.body.amount).should.match(1000);
+							console.log(giftcard);
+							console.log(user);
+							console.log(user2);
 							// Call the assertion callback
 							done();
 						});
@@ -379,6 +391,10 @@ describe('Giftcard CRUD tests', function() {
 
 		});// end signin
 	});// end should method
+	// I'm thinking of creating a new method based on the update method
+	it('should be able to send the giftcard to another user if logged in', function(done){
+
+	});
 	// it('should not be able to send a Giftcard to another user if the user is not Signed-in', function(done){
 	//
 	// });

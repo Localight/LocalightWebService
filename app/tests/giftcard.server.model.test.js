@@ -29,10 +29,13 @@ describe('Giftcard Model Unit Tests:', function() {
 
 		user.save(function() {
 			giftcard = new Giftcard({
+				giftRecipientName:'your friends name here',
 				amount: 10000,
-				user: user,// the user that purchases the gift card holds it until they send it.
-				toUserUserName:'bob', // for now this doesn't do anying.
-				districtNumber:'something',
+				mobileNumber:5456541234,
+				message: 'A gift for you!',
+				toUserUserName:'aUserName',
+				districtNumber:'aDistrictNumber',
+				user: user
 				// In a few hours it will use the string entered to looj for a user with the same matching string.
 				// in actuaality. the gift card is bought by one user and sent to another user.
 				// in the production app, the user will assign a user for the giftcard to be saved too.

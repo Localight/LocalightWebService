@@ -9,9 +9,12 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
-				amount: this.amount,
-				toUserUserName: this.toUserUserName,
-				districtNumber: this.districtNumber,
+				toUser:'my friends name',
+				amount:1000,
+				merchant:'aMerchantId here',
+				yourName:'theUsersname here',
+				toUserUserName:'toSomeone',
+				districtNumber: 'number',
 			});
 
 			// Redirect after save
