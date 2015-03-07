@@ -9,7 +9,12 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
-				name: this.name
+				toUser:'my friends name',
+				amount:1000,
+				merchant:'aMerchantId here',
+				yourName:'theUsersname here',
+				toUserUserName:'toSomeone',
+				districtNumber: 'number',
 			});
 
 			// Redirect after save
@@ -17,7 +22,10 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 				$location.path('giftcards/' + response._id);
 
 				// Clear form fields
-				$scope.name = '';
+				$scope.amount = '';
+				$scope.toUserUserName = '';
+				$scope.districtNumber = '';
+
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -25,7 +33,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 
 		// Remove existing Giftcard
 		$scope.remove = function(giftcard) {
-			if ( giftcard ) { 
+			if ( giftcard ) {
 				giftcard.$remove();
 
 				for (var i in $scope.giftcards) {
@@ -41,6 +49,21 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		};
 
 		// Update existing Giftcard
+		$scope.send = function() {
+			//1. before we can send the giftcard to the user we need the user's id.
+			//2. save the giftcard to the that user's id.
+
+			var giftcard = $scope.giftcard;
+
+			giftcard.$save(function() {
+				$location.path('giftcards/' + giftcard._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+
+		// Update existing Giftcard
 		$scope.update = function() {
 			var giftcard = $scope.giftcard;
 
@@ -51,6 +74,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 			});
 		};
 
+
 		// Find a list of Giftcards
 		$scope.find = function() {
 			$scope.giftcards = Giftcards.query();
@@ -58,7 +82,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 
 		// Find existing Giftcard
 		$scope.findOne = function() {
-			$scope.giftcard = Giftcards.get({ 
+			$scope.giftcard = Giftcards.get({
 				giftcardId: $stateParams.giftcardId
 			});
 		};

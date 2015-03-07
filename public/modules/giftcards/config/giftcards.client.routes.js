@@ -21,5 +21,9 @@ angular.module('giftcards').config(['$stateProvider',
 			url: '/giftcards/:giftcardId/edit',
 			templateUrl: 'modules/giftcards/views/edit-giftcard.client.view.html'
 		});
+		// state('listGiftcards', {
+		// 	url: '/giftcards/:giftcardId/send',
+		// 	templateUrl: 'modules/giftcards/views/send-giftcards.client.view.html'
+		// });
 	}
 ]);

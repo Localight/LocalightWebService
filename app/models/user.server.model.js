@@ -37,6 +37,14 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
+	/*
+	 * For Testing Purpose only!
+	 * customerToken
+	 */
+	customerTokenThing:{
+		type:String
+	},
+
 	displayName: {
 		type: String,
 		trim: true

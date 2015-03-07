@@ -7,7 +7,11 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
+	balanced = require('balanced-official'),
+	Q = require('q'),
 	User = mongoose.model('User');
+	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
+
 
 /**
  * Signup
@@ -23,27 +27,51 @@ exports.signup = function(req, res) {
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
+	var payload = {
+		name: user.displayName,
+		email: user.email,
+	};
+	balanced.marketplace.customers.create(payload).then(function handler(response){
+		user.balancedStuff.customerTokenThing = response.href;
+		return user.save();
+	}).then(function anotherHandler(response){
+		// Remove sensitive data before login
+		user.password = undefined;
+		user.salt = undefined;
 
-	// Then save the user 
-	user.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			// Remove sensitive data before login
-			user.password = undefined;
-			user.salt = undefined;
-
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.json(user);
-				}
-			});
-		}
+		req.login(user, function(err) {
+			if (err) {
+				res.status(400).send(err);
+			} else {
+				res.json(user);
+			}
+		});
+	}).catch(function errHandler(err){
+		console.log('This error came from trying to create a customer' + err);
+		return res.status(400).send({
+			message: errorHandler.getErrorMessage(err)
+		});
 	});
+	// Then save the user
+	// user.save(function(err) {
+	// 	if (err) {
+	// 		return res.status(400).send({
+	// 			message: errorHandler.getErrorMessage(err)
+	// 		});
+	// 	} else {
+	// 		// Remove sensitive data before login
+	// 		user.password = undefined;
+	// 		user.salt = undefined;
+	//
+	// 		req.login(user, function(err) {
+	// 			if (err) {
+	// 				res.status(400).send(err);
+	// 			} else {
+	// 				res.json(user);
+	// 			}
+	// 		});
+	// 	}
+	// });
 };
 
 /**

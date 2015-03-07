@@ -11,12 +11,12 @@ var mongoose = require('mongoose'),
  * Giftcard Schema
  */
 var GiftcardSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Giftcard name',
-		trim: true
-	},
+	// name: {
+	// 	type: String,
+	// 	default: '',
+	// 	required: 'Please fill Giftcard name',
+	// 	trim: true
+	// },
 	// this is currently the information stored from the clique giftcard in the persona of clique_1
 	// typeOfCard: String, // purchased or received
   //   issueDate: { type: Date, default: Date.now },
@@ -33,35 +33,58 @@ var GiftcardSchema = new Schema({
   //   mobileNumber: String,
   //   cliqueId: String,
   //   test: String
-
-	/**
-	 * Amount, the value of which the card holds, to be transfered.
-	 */
-	amount:{
-		type:Number
+	// cardToken:{
+	// 	type:String,
+	// 	default: ''
+	// },
+	giftRecipientName:{
+		type:String,
+		// TODO: add regualer expressions.
+		required:'Please enter the recipients name.'
 	},
 	/**
-	 *  Message, the message that the user wishes for another user to se.
+	 * Amount, the value of which the card holds, to be spent at a merchant's busienss.
+	 */
+	amount:{
+		type:Number,
+		required:'Please enter an amount to purchase.'
+	},
+	mobileNumber:{
+		type:Number,
+		required:'Please enter the recipients phone number',
+		//TODO: enter in regular expression, and make sure no spaces.
+	},
+	/**
+	 *  Message, the message that the user wishes for another user to see.
+	 *  a message doesn't need to have a string attached to it.
 	 */
 	message:{
-		type:String
+		type:String,
+		default:'A gift for you!'
 	},
 	/**
 	 *  toUserPhoneNumber, the phone number of the giftcard receiver. so we can send it threw text.
+	 *  in order for a gift to get made it must have a number of someone to send it too. that number for testing purpose could also be a username.
+	 *  for now the user userPhonNumber is going to be toUserName, so I can test his mechanism immediataly.
+	 *
 	 */
-	toUserPhoneNumber:{
-		type:String // might have to be a number not sure yet.
+	toUserUserName:{
+		type:String,
+		default:'',
+		required:'Please enter someone to send this too.'
 	},
+	// toUserPhoneNumber:{
+	// 	type:String // might have to be a number not sure yet.
+	//
+	// },
 	/**
 	 *  fromUserEmail, the email of the user who wishes to receive the reciept.
 	 */
-	fromUserEmail:{
-		type:String
-	},
 	// maybe "use" date?
-	activationDate:{
-		type: Date,
-	},
+	// activationDate:{
+	// 	type: Date,
+	// 	default: Date.now
+	// },
 	// District Number, need to come back and enter.
 	// status
 
@@ -70,19 +93,26 @@ var GiftcardSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-
-	typeOfCard: {
-		type:String
-	},
+	// typeOfCard: {
+	// 	type:String
+	// },
 	districtNumber:{
 		type:String,
+		required:'Please enter a district number for this giftcard.',
+		//TODO: make sure district number matches a specific pattern.
 	},
 	//TODO: add the user who purchased the card,
 	//TODO: add the user who it is going to be sent to.
 	//TODO: think if the user is sending a giftcard to someone who isn't a in the database, it needs to sign that person up,
 	// the amount still needs to get charged, but that person needs to know who they sent it too.
 	// this is mostly for testing.
-
+	//TODO: figure out how to save use any amount with the user doesn't care what merchant value they spend at.
+	// for now jsut assume a gift card can only be used at one merchant store.
+	// merchantGiftCard:{
+	// 	type: Schema.ObjectId,
+	// 	ref: 'Merchant'
+	// 	// required: 'please select a merchant to spend this at.'
+	// },
 	/*
 	* USER BIND
 	* until the User B accepts the card, show that the gift card is still owned by user A
@@ -91,8 +121,19 @@ var GiftcardSchema = new Schema({
 	user: {// this is how the object is stored when it is created.
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	merchant:{
+		type:Schema.ObjectId,
+		ref:'Merchant'
+	},
+	fromUser: {
+		type:Schema.ObjectId,
+		ref:'User',
+	},
+	toUser:{
+		type:Schema.ObjectId,
+		ref:'User'
 	}
-
 });
 
 mongoose.model('Giftcard', GiftcardSchema);

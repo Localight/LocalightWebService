@@ -4,8 +4,12 @@
     </div>
     <div class="list-group">
         <a data-ng-repeat="giftcard in giftcards" data-ng-href="#!/giftcards/{{giftcard._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
+          <h1>{{giftcard.amount}}</h1>
+          <p>you are sending this to
+            >>> {{giftcard.toUserUserName}}</p>
+          <small class="list-group-item-text">
+				This is the districtNumber
+        <p>{{giftcard.districtNumber}}</p>
 				<span data-ng-bind="giftcard.created | date:'medium'"></span>
 				by
 				<span data-ng-bind="giftcard.user.displayName"></span>

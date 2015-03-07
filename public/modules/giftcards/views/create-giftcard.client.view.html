@@ -7,22 +7,21 @@
       <fieldset>
         <div class="form-group">
           <!-- To Someone -->
-          <label class="control-label" for="recieverOfGiftCard">To</label>
+          <label class="control-label" for="toUserUserName">Enter an Exister UserName</label>
           <div class="controls">
-            <input type="text" data-ng-model="recieverOfGiftCard" id="recieverOfGiftCard" class="form-control" placeholder="Someone's Name" required>
+            <input type="text" data-ng-model="toUserUserName" id="recieverOfGiftCard" class="form-control" placeholder="username" required>
           </div>
           <!-- Amount -->
           <label class="control-label" for="amount">Amount</label>
           <div class="controls">
-            <input type="text" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
+            <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
+          </div>
+          <label class="control-label" for="districtNumber">District Number</label>
+          <div class="controls">
+            <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
           </div>
         </div>
         <!-- From someone -->
-        <label class="control-label" for="name">From</label>
-        <div class="controls">
-          <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Your Name" required>
-        </div>
-        <!-- Code -->
         <div class="form-group">
           <input type="submit" class="btn btn-default">
        </div>
