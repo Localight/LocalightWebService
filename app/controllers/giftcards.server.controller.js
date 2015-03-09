@@ -15,7 +15,6 @@ var mongoose = require('mongoose'),
  */
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 exports.create = function(req, res) {
-
 	var giftcard = new Giftcard(req.body);
 	// putting the charge in here temp
 	// all we need is the object data that is the user we are sending it to.
@@ -38,12 +37,7 @@ exports.create = function(req, res) {
 	});
 };
 exports.send = function(req, res, id){
-	// here is a giftcard.
-	// now here is the name of a user.
-	// go find this user's user name.
-	// once you find the user name get the id.
-	// save the user id to the property in the giftcard.
-	// save the giftcard
+
 	var giftcard = new Giftcard(req.body);
 	giftcard.user = id;
 

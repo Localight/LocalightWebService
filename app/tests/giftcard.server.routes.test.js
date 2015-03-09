@@ -393,8 +393,41 @@ describe('Giftcard CRUD tests', function() {
 	});// end should method
 	// I'm thinking of creating a new method based on the update method
 	it('should be able to send the giftcard to another user if logged in', function(done){
+		agent.post('/auth/signin')
+			.send(credentials)
+			.expect(200)
+			.end(function(signinErr, signinRes) { // Handle signin error
+				if (signinErr) done(signinErr);
 
+				// Get the userId
+				var userId = user.id;
 
+				// Save a new Giftcard
+				agent.post('/giftcards')
+					.send(giftcard)
+					.expect(200)
+					.end(function(giftcardSaveErr, giftcardSaveRes) {
+						// Handle Giftcard save error
+						if (giftcardSaveErr) done(giftcardSaveErr);
+
+						// Get a list of Giftcards
+						agent.get('/giftcards')
+							.end(function(giftcardsGetErr, giftcardsGetRes) {
+								// Handle Giftcard save error
+								if (giftcardsGetErr) done(giftcardsGetErr);
+
+								// Get Giftcards list
+								var giftcards = giftcardsGetRes.body;
+
+								// Set assertions
+								(giftcards[0].user._id).should.equal(userId);
+								(giftcards[0].amount).should.match(1000);
+
+								// Call the assertion callback
+								done();
+							});
+					});
+			});
 	});
 	// it('should not be able to send a Giftcard to another user if the user is not Signed-in', function(done){
 	//
