@@ -32,7 +32,7 @@ exports.signup = function(req, res) {
 		email: user.email,
 	};
 	balanced.marketplace.customers.create(payload).then(function handler(response){
-		user.balancedStuff.customerTokenThing = response.href;
+		//user.balancedStuff.customerTokenThing = response.href;
 		return user.save();
 	}).then(function anotherHandler(response){
 		// Remove sensitive data before login

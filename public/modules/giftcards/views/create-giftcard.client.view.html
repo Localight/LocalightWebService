@@ -3,11 +3,10 @@
     <h1>New Giftcard</h1>
   </div>
   <div class="col-md-12">
-    <form class="form-horizontal" data-ng-submit="create()" novalidate>
+    <form name="giftcardForm"class="form-horizontal" data-ng-submit="create(merchantForm$valid)" novalidate>
       <fieldset>
-        <div class="form-group">
-          <!-- To Someone -->
-          <label class="control-label" for="toUserUserName">Enter an Exister UserName</label>
+          <!-- To Someone's phone -->
+          <label class="control-label" for="username">Enter an Exister UserName</label>
           <div class="controls">
             <input type="text" data-ng-model="toUserUserName" id="recieverOfGiftCard" class="form-control" placeholder="username" required>
           </div>
@@ -16,12 +15,11 @@
           <div class="controls">
             <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
           </div>
-          <label class="control-label" for="districtNumber">District Number</label>
+          <!-- <label class="control-label" for="districtNumber">District Number</label>
           <div class="controls">
             <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
-          </div>
+          </div> -->
         </div>
-        <!-- From someone -->
         <div class="form-group">
           <input type="submit" class="btn btn-default">
        </div>
