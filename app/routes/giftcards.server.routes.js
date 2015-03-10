@@ -7,7 +7,8 @@ module.exports = function(app) {
 	// Giftcards Routes
 	app.route('/giftcards')
 		.get(giftcards.list)
-		.post(users.requiresLogin, giftcards.create);
+		.post(users.requiresLogin, giftcards.create)
+		.post(users.requiresLogin, giftcards.send);
 
 	app.route('/giftcards/:giftcardId')
 		.get(giftcards.read)
@@ -18,4 +19,5 @@ module.exports = function(app) {
 
 	// Finish by binding the Giftcard middleware
 	app.param('giftcardId', giftcards.giftcardByID);
+	//app.param('giftcardUserName', giftcards.giftcardByUserName);
 };
