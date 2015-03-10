@@ -15,8 +15,11 @@ var user, giftcard;
 
 /**
  * Unit tests
+ * These tests enusre that the giftcard is saved properly, and if it has any methods that it excutes those corretly.
  */
+// Fix {} thing
 describe('Giftcard Model Unit Tests:', function() {
+
 	beforeEach(function(done) {
 		user = new User({
 			firstName: 'Full',
@@ -26,15 +29,14 @@ describe('Giftcard Model Unit Tests:', function() {
 			username: 'username',
 			password: 'password'
 		});
-
+		// TODO: giftcard mobile number should not match the mobile number of the user.
 		user.save(function() {
 			giftcard = new Giftcard({
 				giftRecipientName:'your friends name here',
-				amount: 10000,
-				mobileNumber:5456541234,
+				amount: 1000,
+				mobileNumberOfRecipient:5456541234,// make sure it's someone else.
 				message: 'A gift for you!',
-				toUserUserName:'aUserName',
-				districtNumber:'aDistrictNumber',
+				//districtNumber:'aDistrictNumber',
 				user: user
 				// In a few hours it will use the string entered to looj for a user with the same matching string.
 				// in actuaality. the gift card is bought by one user and sent to another user.
@@ -59,36 +61,40 @@ describe('Giftcard Model Unit Tests:', function() {
 		// the most crucial thing is that every giftcard has an amount.
 		it('should be able to show an error when try to save without an amount', function(done) {
 			giftcard.amount = '';
-
 			return giftcard.save(function(err) {
 				should.exist(err);
 				done();
 			});
 		});
-		it('should be able to show an error when trying to save withouth a UserUserName entered.', function(done){
-			giftcard.toUserUserName = '';
+		it('should be able to show an error when trying to save withouth a Mobile Number entered.', function(done){
+			giftcard.mobileNumberOfRecipient = '';
 			return giftcard.save(function(err){
 				should.exist(err);
 				done();
 			});
 		});
-		it('should be able to show an error when trying to save without a UserUserName and a amount.', function(done){
-			giftcard.toUserUserName = '';
-			giftcard.amount = '';
+		// TODO: expand this to make sure only the correct number of interegers is saved as well 9-digits
+		it('should show an error when ever anyting other than intergers have been added into the mobile number', function(done){
+			giftcard.mobileNumberOfRecipient = 'asdf';
 			return giftcard.save(function(err){
 				should.exist(err);
 				done();
+				});
 			});
-		});
+
+
 	it('should show an error when ever anyting other than intergers have been added into the amounts', function(done){
-		giftcard.toUserUserName = '';
 		giftcard.amount = 'asdf';
+
 		return giftcard.save(function(err){
 			should.exist(err);
 			done();
 			});
 		});
 	});
+	//TODO: add the other things in like the district number.
+	//TODO:
+
 // 		it('should show an error when ever try to save without district number', function(done){
 // 			giftcard.toUserUserName = 'bob';
 // 			giftcard.amount = 12;
@@ -98,13 +104,6 @@ describe('Giftcard Model Unit Tests:', function() {
 // 				done();
 // 			});
 // 	});
-// 	it('should show an error when you try to save and you a merchant hasnt been recorded. and or an invalid one has been entered.', function(done){
-// 		giftcard.districtNumber = '';
-// 		giftcard.toUserUserName = 'bob';
-// 		giftcard.amount = '';
-// 	});
-// });
-//
 
 // so this is what we need to test so that the backend controller does everyting it's suppose.
 // first we make sure the model is saving correctly, and that the requirements are all set.

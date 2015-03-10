@@ -17,49 +17,27 @@ var mongoose = require('mongoose'),
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 exports.create = function(req, res) {
 
-		var giftcard = new Giftcard(req.body);
-		// putting the charge in here temp
-		// all we need is the object data that is the user we are sending it to.
-		// we then get the giftcard object, and say this is who you are equal to.
-
-		 giftcard.user = req.user;
-		// giftcard.fromUser = req.user;// why we don't assign the user in the test.
-		// giftcard.merchant = req.body.merchant;
-		// giftcard.toUser = req.body.
-		// part of the test was just give it any value and have it save it to the database.
-
-		giftcard.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				res.jsonp(giftcard);
-			}
-		});
-	};
-
-
-exports.send = function(req, res){
-// I would like to have the search method put with the user, so it's modular.
 	var giftcard = new Giftcard(req.body);
 	// now that this works, I need to go through the tests and create method to update them with this logic.
-	// I need to make it so a user can not create a giftcard for themselves. 
-	console.log(giftcard);
+	// I need to make it so a user can not create a giftcard for themselves.
+	//console.log(giftcard);
+
 	User.findOne({
-			username: giftcard.toUserUserName
+		mobileNumber: giftcard.mobileNumberOfRecipient
 	}).populate('user').exec(function(err, user) {
-		console.log('this is the value of the err'+err);
-		console.log('this is the value of the user'+user);
+		// console.log('this is the value of the err'+err);
+		// console.log('this is the value of the user'+user);
 		if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else{
+			console.log(err);
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else{
+			console.log('this is the response from the user'+user);
 			giftcard.user = user._id;
 			giftcard.save(function(err){
 				if(err){
-					console.log(err);
+				//	console.log(err);
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
 					});
@@ -67,9 +45,15 @@ exports.send = function(req, res){
 					res.jsonp(giftcard);
 				}
 			});
-    }
+		}
 	});
 };
+
+
+// exports.send = function(req, res){
+// // I would like to have the search method put with the user, so it's modular.
+//
+// };
 		// creating a temporary giftcard to test things.
 	// var payload = {
 	// 	expiration_month:08,
@@ -144,7 +128,7 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
 	// hopefully this will only list the giftcards assoicated with this user.
 	Giftcard.find({
-		username:req.user.username
+		user: req.user.id
 		}).populate('user', 'displayName').exec(function(err, giftcards) {
 		if (err) {
 			return res.status(400).send({

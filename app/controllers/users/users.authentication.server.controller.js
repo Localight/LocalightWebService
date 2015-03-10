@@ -23,55 +23,57 @@ exports.signup = function(req, res) {
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
-
-	// Add missing user fields
-	user.provider = 'local';
-	user.displayName = user.firstName + ' ' + user.lastName;
-	var payload = {
-		name: user.displayName,
-		email: user.email,
-	};
-	balanced.marketplace.customers.create(payload).then(function handler(response){
-		//user.balancedStuff.customerTokenThing = response.href;
-		return user.save();
-	}).then(function anotherHandler(response){
-		// Remove sensitive data before login
-		user.password = undefined;
-		user.salt = undefined;
-
-		req.login(user, function(err) {
-			if (err) {
-				res.status(400).send(err);
-			} else {
-				res.json(user);
-			}
-		});
-	}).catch(function errHandler(err){
-		console.log('This error came from trying to create a customer' + err);
-		return res.status(400).send({
-			message: errorHandler.getErrorMessage(err)
-		});
-	});
-	// Then save the user
-	// user.save(function(err) {
-	// 	if (err) {
-	// 		return res.status(400).send({
-	// 			message: errorHandler.getErrorMessage(err)
-	// 		});
-	// 	} else {
-	// 		// Remove sensitive data before login
-	// 		user.password = undefined;
-	// 		user.salt = undefined;
+	//TODO://Come back and add balanced stuff.
+	// // Add missing user fields
+	// user.provider = 'local';
+	// user.displayName = user.firstName + ' ' + user.lastName;
+	// var payload = {
+	// 	name: user.displayName,
+	// 	email: user.email,
+	// };
+	// balanced.marketplace.customers.create(payload).then(function handler(response){
+	// 	user.customerTokenThing = response.href;
+	// 	return user.save();
+	// }).then(function anotherHandler(response){
+	// 	console.log('response from saving. ' + response);
+	// 	// Remove sensitive data before login
+	// 	user.password = undefined;
+	// 	user.salt = undefined;
 	//
-	// 		req.login(user, function(err) {
-	// 			if (err) {
-	// 				res.status(400).send(err);
-	// 			} else {
-	// 				res.json(user);
-	// 			}
-	// 		});
-	// 	}
+	// 	return req.login(user);
+	// }).then(function lastHandler(response){
+	// 	return res.json(user);
+	// }).catch(function errHandler(err){
+	// 	console.log('This error came from trying to create a customer' + err);
+	// 	return res.status(400).send({
+	// 		message: errorHandler.getErrorMessage(err)
+	// 	});
 	// });
+
+  // Add missing user fields
+  user.provider = 'local';
+  user.displayName = user.firstName + ' ' + user.lastName;
+
+  // Then save the user
+  user.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // Remove sensitive data before login
+      user.password = undefined;
+      user.salt = undefined;
+
+      req.login(user, function (err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.json(user);
+        }
+      });
+    }
+  });
 };
 
 /**
@@ -162,6 +164,8 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 							username: availableUsername,
 							displayName: providerUserProfile.displayName,
 							email: providerUserProfile.email,
+							mobileNumber:providerUserProfile.
+mobileNumber,
 							provider: providerUserProfile.provider,
 							providerData: providerUserProfile.providerData
 						});

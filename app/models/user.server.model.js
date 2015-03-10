@@ -44,6 +44,14 @@ var UserSchema = new Schema({
 	customerTokenThing:{
 		type:String
 	},
+	/*
+	 * Mobile Number, 9-digit number we need to have for the giftcard
+	 */
+	mobileNumber:{
+		type:Number
+		// TODO: add Regularexpression.
+		// required: 'Please enter a 9-digit mobile number'
+	},
 
 	displayName: {
 		type: String,

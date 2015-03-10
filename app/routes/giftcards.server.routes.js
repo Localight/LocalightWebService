@@ -7,9 +7,8 @@ module.exports = function(app) {
 	// Giftcards Routes
 	app.route('/giftcards')
 		.get(giftcards.list)
-		.post(users.requiresLogin, giftcards.create)
-		.post(users.requiresLogin, giftcards.send);
-
+		.post(users.requiresLogin, giftcards.create);
+		
 	app.route('/giftcards/:giftcardId')
 		.get(giftcards.read)
 		.put(users.requiresLogin, giftcards.hasAuthorization, giftcards.update)

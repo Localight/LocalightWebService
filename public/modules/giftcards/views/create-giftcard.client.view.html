@@ -6,14 +6,18 @@
     <form name="giftcardForm"class="form-horizontal" data-ng-submit="create(merchantForm$valid)" novalidate>
       <fieldset>
           <!-- To Someone's phone -->
-          <label class="control-label" for="username">Enter an Exister UserName</label>
+          <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
           <div class="controls">
-            <input type="text" data-ng-model="toUserUserName" id="recieverOfGiftCard" class="form-control" placeholder="username" required>
+            <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="A friends name" required>
           </div>
           <!-- Amount -->
           <label class="control-label" for="amount">Amount</label>
           <div class="controls">
             <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
+          </div>
+          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
+          <div class="controls">
+            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" required>
           </div>
           <!-- <label class="control-label" for="districtNumber">District Number</label>
           <div class="controls">

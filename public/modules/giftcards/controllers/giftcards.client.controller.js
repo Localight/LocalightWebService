@@ -9,23 +9,23 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
-				giftRecipientName:'my friends name',
-				amount:1000,
-				mobileNumber: 123456790,
+				giftRecipientName:this.giftRecipientName,
+				amount:this.amount,
+				mobileNumberOfRecipient:this.mobileNumberOfRecipient,
 				//ourName:'theUsersname here',
 				message:'A gift for you!',
-				toUserUserName:'username',
-				districtNumber: 'number',
+				//toUserUserName:'username',
+			//	districtNumber: 'number',
 			});
-			var payload = {
-				cardNumber:'16-digit number',
-				cvv:'3-digit number',
-				nameOnCard:'Your Full Name',
-				month:'month of expiration',
-				year:'year of expiration',
-				// check balanced for what they need.
-				// either way we need the credit card info for part of this.
-			};
+			// var payload = {
+			// 	cardNumber:'16-digit number',
+			// 	cvv:'3-digit number',
+			// 	nameOnCard:'Your Full Name',
+			// 	month:'month of expiration',
+			// 	year:'year of expiration',
+			// 	// check balanced for what they need.
+			// 	// either way we need the credit card info for part of this.
+			// };
 
 			// Redirect after save
 			giftcard.$save(function(response) {
@@ -65,7 +65,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 			var giftcard = new Giftcards ({
 				giftRecipientName:'my friends name',
 				amount:1000,
-				mobileNumber:1234567890,
+				mobileNumberOfRecipient:1234567890,
 				merchant:'aMerchantId here',
 				toUserUserName:'username',
 				message:'A gift for you!',

@@ -37,6 +37,9 @@ var GiftcardSchema = new Schema({
 	// 	type:String,
 	// 	default: ''
 	// },
+	/*
+	 * The Name of the person to send this giftcard too.
+	 */
 	giftRecipientName:{
 		type:String,
 		// TODO: add regualer expressions.
@@ -49,7 +52,11 @@ var GiftcardSchema = new Schema({
 		type:Number,
 		required:'Please enter an amount to purchase.'
 	},
-	mobileNumber:{
+	/*
+	 * Crucial part, we need a mobile number to send the giftcard too. this is a primary key.
+	 * it also gives us the means to verify this users phone.
+	 */
+	mobileNumberOfRecipient:{
 		type:Number,
 		required:'Please enter the recipients phone number',
 		//TODO: enter in regular expression, and make sure no spaces.
@@ -68,11 +75,7 @@ var GiftcardSchema = new Schema({
 	 *  for now the user userPhonNumber is going to be toUserName, so I can test his mechanism immediataly.
 	 *
 	 */
-	toUserUserName:{
-		type:String,
-	//	default:'',
-		required:'Please enter someone to send this too.'
-	},
+
 	// toUserPhoneNumber:{
 	// 	type:String // might have to be a number not sure yet.
 	//
@@ -96,11 +99,12 @@ var GiftcardSchema = new Schema({
 	// typeOfCard: {
 	// 	type:String
 	// },
-	districtNumber:{
-		type:String,
-		required:'Please enter a district number for this giftcard.',
-		//TODO: make sure district number matches a specific pattern.
-	},
+	// TODO: come back and clean up the district
+	// districtNumber:{
+	// 	type:String,
+	// 	required:'Please enter a district number for this giftcard.',
+	// 	//TODO: make sure district number matches a specific pattern.
+	// },
 	//TODO: add the user who purchased the card,
 	//TODO: add the user who it is going to be sent to.
 	//TODO: think if the user is sending a giftcard to someone who isn't a in the database, it needs to sign that person up,
