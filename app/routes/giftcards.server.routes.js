@@ -19,4 +19,5 @@ module.exports = function(app) {
 
 	// Finish by binding the Giftcard middleware
 	app.param('giftcardId', giftcards.giftcardByID);
+	//app.param('giftcardUserName', giftcards.giftcardByUserName);
 };

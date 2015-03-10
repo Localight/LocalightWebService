@@ -70,7 +70,7 @@ var GiftcardSchema = new Schema({
 	 */
 	toUserUserName:{
 		type:String,
-		default:'',
+	//	default:'',
 		required:'Please enter someone to send this too.'
 	},
 	// toUserPhoneNumber:{
@@ -118,6 +118,8 @@ var GiftcardSchema = new Schema({
 	* until the User B accepts the card, show that the gift card is still owned by user A
 	*/
 	// Bind to User who Purchasesd the GiftCard
+	// change this to something else later
+
 	user: {// this is how the object is stored when it is created.
 		type: Schema.ObjectId,
 		ref: 'User'

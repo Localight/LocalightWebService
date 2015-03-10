@@ -9,13 +9,12 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
-				toUser:'my friends name',
+				giftRecipientName:'my friends name',
 				amount:1000,
-				merchant:'aMerchantId here',
-				yourName:'theUsersname here',
+				mobileNumber: 123456790,
+				//ourName:'theUsersname here',
 				message:'A gift for you!',
-
-				toUserUserName:'toSomeone',
+				toUserUserName:'username',
 				districtNumber: 'number',
 			});
 			var payload = {
@@ -63,11 +62,18 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 		$scope.send = function() {
 			//1. before we can send the giftcard to the user we need the user's id.
 			//2. save the giftcard to the that user's id.
-
-			var giftcard = $scope.giftcard;
+			var giftcard = new Giftcards ({
+				giftRecipientName:'my friends name',
+				amount:1000,
+				mobileNumber:1234567890,
+				merchant:'aMerchantId here',
+				toUserUserName:'username',
+				message:'A gift for you!',
+				districtNumber: 'number',
+			});
 
 			giftcard.$save(function() {
-				$location.path('giftcards/' + giftcard._id);
+				$location.path('giftcards/');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

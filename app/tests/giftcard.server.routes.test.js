@@ -24,8 +24,8 @@ describe('Giftcard CRUD tests', function() {
 			password: 'password'
 		};
 		credentials2 = {
-			username2: 'username',
-			password2: 'password'
+			username: 'username2',
+			password: 'password2'
 		};
 
 		// Create a new user
@@ -43,8 +43,8 @@ describe('Giftcard CRUD tests', function() {
 			lastName: 'Name2',
 			displayName: 'Full2 Name2',
 			email: 'test@test.com2',
-			username: credentials.username,
-			password: credentials.password,
+			username: credentials2.username,
+			password: credentials2.password,
 			provider: 'local'
 		});
 
@@ -56,7 +56,7 @@ describe('Giftcard CRUD tests', function() {
 				amount: 1000,
 				mobileNumber:5456541234,
 				message: 'A gift for you!',
-				toUserUserName:'aUserName',
+				toUserUserName:'username2',
 				districtNumber:'aDistrictNumber',
 			};
 			user2.save();
@@ -354,7 +354,7 @@ describe('Giftcard CRUD tests', function() {
 					if (giftcardSaveErr) done(giftcardSaveErr);
 
 					// Update User property of giftcard.
-					giftcard.user = user2._id;
+				//	giftcard.user = user2._id;
 					// console.log('the current value of the user who owns the giftcard: '+ giftcard.user);
 					// console.log('UserBs id' + user2._id);
 					// now user doesn't have the giftcard in his collection anymore.
@@ -371,17 +371,18 @@ describe('Giftcard CRUD tests', function() {
 							if (giftcardUpdateErr) done(giftcardUpdateErr);
 
 							// Set assertions
-							(giftcardUpdateRes.body.mobileNumber).should.equal(5456541234);
+							console.log(giftcard);
+							console.log(user);
+							console.log(user2);	(giftcardUpdateRes.body.mobileNumber).should.equal(5456541234);
 							(giftcardUpdateRes.body.message).should.equal('A gift for you!');
 
-							(giftcardUpdateRes.body.toUserUserName).should.equal('aUserName');
+							(giftcardUpdateRes.body.toUserUserName).should.equal('username2');
 
 							(giftcardUpdateRes.body.districtNumber).should
 							.equal('aDistrictNumber');
-			   			(giftcardUpdateRes.body.amount).should.match(1000);
-							console.log(giftcard);
-							console.log(user);
-							console.log(user2);
+			   		(giftcardUpdateRes.body.amount).should.match(1000);
+							(giftcardUpdateRes.body._id).should.match(userId2);
+
 							// Call the assertion callback
 							done();
 						});
@@ -392,43 +393,46 @@ describe('Giftcard CRUD tests', function() {
 		});// end signin
 	});// end should method
 	// I'm thinking of creating a new method based on the update method
-	it('should be able to send the giftcard to another user if logged in', function(done){
-		agent.post('/auth/signin')
-			.send(credentials)
-			.expect(200)
-			.end(function(signinErr, signinRes) { // Handle signin error
-				if (signinErr) done(signinErr);
-
-				// Get the userId
-				var userId = user.id;
-
-				// Save a new Giftcard
-				agent.post('/giftcards')
-					.send(giftcard)
-					.expect(200)
-					.end(function(giftcardSaveErr, giftcardSaveRes) {
-						// Handle Giftcard save error
-						if (giftcardSaveErr) done(giftcardSaveErr);
-
-						// Get a list of Giftcards
-						agent.get('/giftcards')
-							.end(function(giftcardsGetErr, giftcardsGetRes) {
-								// Handle Giftcard save error
-								if (giftcardsGetErr) done(giftcardsGetErr);
-
-								// Get Giftcards list
-								var giftcards = giftcardsGetRes.body;
-
-								// Set assertions
-								(giftcards[0].user._id).should.equal(userId);
-								(giftcards[0].amount).should.match(1000);
-
-								// Call the assertion callback
-								done();
-							});
-					});
-			});
-	});
+	// it('should be able to send the giftcard to another user if logged in', function(done){
+	// 	agent.post('/auth/signin')
+	// 		.send(credentials)
+	// 		.expect(200)
+	// 		.end(function(signinErr, signinRes) { // Handle signin error
+	// 			if (signinErr) done(signinErr);
+	//
+	// 			// Get the userId
+	// 			var userId = user.id;
+	//
+	// 			// Save a new Giftcard
+	// 			agent.post('/giftcards')
+	// 				.send(giftcard)
+	// 				.expect(200)
+	// 				.end(function(giftcardSaveErr, giftcardSaveRes) {
+	// 					// Handle Giftcard save error
+	// 					if (giftcardSaveErr) done(giftcardSaveErr);
+	//
+	// 					// Get a list of Giftcards
+	// 					agent.get('/giftcards')
+	// 						.end(function(giftcardsGetErr, giftcardsGetRes) {
+	// 							// Handle Giftcard save error
+	// 							if (giftcardsGetErr) done(giftcardsGetErr);
+	//
+	// 							// Get Giftcards list
+	// 							var giftcards = giftcardsGetRes.body;
+	//
+	// 							// Set assertions
+	// 							(giftcards[0].user._id).should.equal(userId);
+	// 							(giftcards[0].amount).should.match(1000);
+	//
+	// 							// Call the assertion callback
+	// 							console.log(giftcard);
+	// 							console.log(user);
+	// 							console.log(user2);
+	// 							done();
+	// 						});
+	// 				});
+	// 		});
+	// });
 	// it('should not be able to send a Giftcard to another user if the user is not Signed-in', function(done){
 	//
 	// });
