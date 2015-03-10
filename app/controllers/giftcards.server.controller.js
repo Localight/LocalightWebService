@@ -41,10 +41,11 @@ exports.create = function(req, res) {
 
 
 exports.send = function(req, res){
-
+// I would like to have the search method put with the user, so it's modular.
 	var giftcard = new Giftcard(req.body);
+	// now that this works, I need to go through the tests and create method to update them with this logic.
+	// I need to make it so a user can not create a giftcard for themselves. 
 	console.log(giftcard);
-
 	User.findOne({
 			username: giftcard.toUserUserName
 	}).populate('user').exec(function(err, user) {
@@ -141,7 +142,10 @@ exports.delete = function(req, res) {
  * List of Giftcards
  */
 exports.list = function(req, res) {
-	Giftcard.find().sort('-created').populate('user', 'displayName').exec(function(err, giftcards) {
+	// hopefully this will only list the giftcards assoicated with this user.
+	Giftcard.find({
+		username:req.user.username
+		}).populate('user', 'displayName').exec(function(err, giftcards) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
