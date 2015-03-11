@@ -73,9 +73,9 @@ describe('Giftcard CRUD tests', function() {
 			done();
 		});
 	});
-
+	// Write this test so that it tests that user1, does not have any giftcards.
+	// if he does that's wrong.
 	it('should not be able to save Giftcard instances that it created if logged in', function(done) {
-
 		agent.post('/auth/signin')
 			.send(credentials)
 			.expect(200)
@@ -84,7 +84,6 @@ describe('Giftcard CRUD tests', function() {
 
 				// Get the userId
 				var userId = user.id;
-
 				// Save a new Giftcard
 				agent.post('/giftcards')
 					.send(giftcard)
@@ -264,7 +263,7 @@ describe('Giftcard CRUD tests', function() {
 		// I could change it to just send it to another user and not have a save feature. We will get to that later.
 		// I need to enter the name of an existing user, to send to.
 		agent.post('/auth/signin')
-		.send(credentials)
+		.send(credentials2)
 		.expect(200)
 		.end(function(signinErr, signinRes){
 			if (signinErr) done (signinErr);

@@ -28,12 +28,13 @@ exports.create = function(req, res) {
 		// console.log('this is the value of the err'+err);
 		// console.log('this is the value of the user'+user);
 		if (err) {
-			console.log(err);
+			//console.log(err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
+			//TODO: this is where make the call to create the user if they don't exist.
 		} else{
-			console.log('this is the response from the user'+user);
+		//	console.log('this is the response from the user'+user);
 			giftcard.user = user._id;
 			giftcard.save(function(err){
 				if(err){
