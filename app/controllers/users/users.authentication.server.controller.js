@@ -24,56 +24,56 @@ exports.signup = function(req, res) {
 	var user = new User(req.body);
 	var message = null;
 	//TODO://Come back and add balanced stuff.
-	// // Add missing user fields
-	// user.provider = 'local';
-	// user.displayName = user.firstName + ' ' + user.lastName;
-	// var payload = {
-	// 	name: user.displayName,
-	// 	email: user.email,
-	// };
-	// balanced.marketplace.customers.create(payload).then(function handler(response){
-	// 	user.customerTokenThing = response.href;
-	// 	return user.save();
-	// }).then(function anotherHandler(response){
-	// 	console.log('response from saving. ' + response);
-	// 	// Remove sensitive data before login
-	// 	user.password = undefined;
-	// 	user.salt = undefined;
+	// Add missing user fields // user.provider = 'local';
+	user.displayName = user.firstName + ' ' + user.lastName;
+	var payload = {
+		name: user.displayName,
+		email: user.email,
+		phone_number:user.mobileNumber
+	};
+	balanced.marketplace.customers.create(payload).then(function handler(response){
+		user.customerTokenThing = response.href;
+		return user.save();
+	}).then(function anotherHandler(response){
+		console.log('response from saving. ' + response);
+		// Remove sensitive data before login
+		user.password = undefined;
+		user.salt = undefined;
+
+		return req.login(user);
+	}).then(function lastHandler(response){
+		return res.json(user);
+	}).catch(function errHandler(err){
+		console.log('This error came from trying to create a customer' + err);
+		return res.status(400).send({
+			message: errorHandler.getErrorMessage(err)
+		});
+	});
+
+  // // Add missing user fields
+  // user.provider = 'local';
+  // user.displayName = user.firstName + ' ' + user.lastName;
 	//
-	// 	return req.login(user);
-	// }).then(function lastHandler(response){
-	// 	return res.json(user);
-	// }).catch(function errHandler(err){
-	// 	console.log('This error came from trying to create a customer' + err);
-	// 	return res.status(400).send({
-	// 		message: errorHandler.getErrorMessage(err)
-	// 	});
-	// });
-
-  // Add missing user fields
-  user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
-
-  // Then save the user
-  user.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      req.login(user, function (err) {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.json(user);
-        }
-      });
-    }
-  });
+  // // Then save the user
+  // user.save(function (err) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     // Remove sensitive data before login
+  //     user.password = undefined;
+  //     user.salt = undefined;
+	//
+  //     req.login(user, function (err) {
+  //       if (err) {
+  //         res.status(400).send(err);
+  //       } else {
+  //         res.json(user);
+  //       }
+  //     });
+  //   }
+  // });
 };
 
 /**

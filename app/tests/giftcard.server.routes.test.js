@@ -75,44 +75,7 @@ describe('Giftcard CRUD tests', function() {
 	});
 	// Write this test so that it tests that user1, does not have any giftcards.
 	// if he does that's wrong.
-	it('should not be able to save Giftcard instances that it created if logged in', function(done) {
-		agent.post('/auth/signin')
-			.send(credentials)
-			.expect(200)
-			.end(function(signinErr, signinRes) { // Handle signin error
-				if (signinErr) done(signinErr);
 
-				// Get the userId
-				var userId = user.id;
-				// Save a new Giftcard
-				agent.post('/giftcards')
-					.send(giftcard)
-					.expect(200)
-					.end(function(giftcardSaveErr, giftcardSaveRes) {
-						// Handle Giftcard save error
-						if (giftcardSaveErr) done(giftcardSaveErr);
-
-						// Get a list of Giftcards
-						agent.get('/giftcards')
-							.end(function(giftcardsGetErr, giftcardsGetRes) {
-								// Handle Giftcard save error
-								// TODO: figure out how to test for null case,
-								// I want to make sure that this user has no giftcards.
-								if (giftcardsGetErr) done(giftcardsGetErr);
-
-								// Get Giftcards list
-								var giftcards = giftcardsGetRes.body;
-
-								// Set assertions
-								(giftcards[0].user._id).should.equal(null);
-								(giftcards[0].amount).should.match(null);
-
-								// Call the assertion callback
-								done();
-							});
-					});
-			});
-	});
 // if the user signs out in the middle of a transaction we should probably handle that, currently nothing is setup.
 // TODO: invalidate transaction, if user gets signed out or something, if something bad happens delet the info.
 	it('should not be able to save Giftcard instance if not logged in', function(done) {
@@ -132,47 +95,48 @@ describe('Giftcard CRUD tests', function() {
 	 * Update tests.
 	 * if a user is signed in they should be able to update their gifcards, if they aren't logged in we should have the giftcards protected.
 		 */
-	it('should be able to update Giftcard instance if signed in', function(done) {
-		agent.post('/auth/signin')
-			.send(credentials)
-			.expect(200)
-			.end(function(signinErr, signinRes) {
-				// Handle signin error
-				if (signinErr) done(signinErr);
-
-				// Get the userId
-				var userId = user.id;
-
-				// Save a new Giftcard
-				agent.post('/giftcards')
-					.send(giftcard)
-					.expect(200)
-					.end(function(giftcardSaveErr, giftcardSaveRes) {
-						// Handle Giftcard save error
-						if (giftcardSaveErr) done(giftcardSaveErr);
-
-						// Update Giftcard name
-						giftcard.amount = 200;
-
-						// Update existing Giftcard
-						agent.put('/giftcards/' + giftcardSaveRes.body._id)
-							.send(giftcard)
-							.expect(200)
-							.end(function(giftcardUpdateErr, giftcardUpdateRes) {
-								// Handle Giftcard update error
-								if (giftcardUpdateErr) done(giftcardUpdateErr);
-
-								// Set assertions
-								(giftcardUpdateRes.body._id)
-								.should.equal(giftcardSaveRes.body._id);
-								(giftcardUpdateRes.body.amount).should.match(200);
-
-								// Call the assertion callback
-								done();
-							});
-					});
-			});
-	});
+		// never going to update a giftcard unless its for a refund or something
+	// it('should be able to update Giftcard instance if signed in', function(done) {
+	// 	agent.post('/auth/signin')
+	// 		.send(credentials)
+	// 		.expect(200)
+	// 		.end(function(signinErr, signinRes) {
+	// 			// Handle signin error
+	// 			if (signinErr) done(signinErr);
+	//
+	// 			// Get the userId
+	// 			var userId = user.id;
+	//
+	// 			// Save a new Giftcard
+	// 			agent.post('/giftcards')
+	// 				.send(giftcard)
+	// 				.expect(200)
+	// 				.end(function(giftcardSaveErr, giftcardSaveRes) {
+	// 					// Handle Giftcard save error
+	// 					if (giftcardSaveErr) done(giftcardSaveErr);
+	//
+	// 					// Update Giftcard name
+	// 					giftcard.amount = 200;
+	//
+	// 					// Update existing Giftcard
+	// 					agent.put('/giftcards/' + giftcardSaveRes.body._id)
+	// 						.send(giftcard)
+	// 						.expect(200)
+	// 						.end(function(giftcardUpdateErr, giftcardUpdateRes) {
+	// 							// Handle Giftcard update error
+	// 							if (giftcardUpdateErr) done(giftcardUpdateErr);
+	//
+	// 							// Set assertions
+	// 							(giftcardUpdateRes.body._id)
+	// 							.should.equal(giftcardSaveRes.body._id);
+	// 							(giftcardUpdateRes.body.amount).should.match(200);
+	//
+	// 							// Call the assertion callback
+	// 							done();
+	// 						});
+	// 				});
+	// 		});
+	// });
 	it('should not be able to get a list of Giftcards if not signed in', function(done) {
 		// TODO: come back ands structure this.
 		// Create new Giftcard model instance
@@ -191,6 +155,44 @@ describe('Giftcard CRUD tests', function() {
 				});
 		});
 	});
+	// it('should be able to get a list of Giftcards if signed in', function(done){
+	// 	// Create a new Giftcard Model Instance
+	// 	agent.post('/auth/signin')
+	// 	.send(credentials2)
+	// 	.expect(200)
+	// 	.end(function(signinErr, signinREs){
+	// 		// Handle signin error
+	// 		if (signinErr) done(signinErr);
+	//
+	// 		// Get the userId2
+	// 		var userId = user2.id;
+	//
+	// 		// save a new giftcard
+	// 		agent.post('/giftcards')
+	// 		.send(giftcard)
+	// 		.expect(200)
+	// 		.end(function(giftcardSaveErr, giftcardSaveRes){
+	// 			// Handle giftcard article save error
+	// 			if(giftcardSaveErr) done(giftcardSaveErr);
+	//
+	// 			// update
+	// 		})
+	//
+	// 	})
+	// 	var giftcardObj = new Giftcard(giftcard);
+	//
+	// 	//Save the giftcard
+	// 	giftcardObj.save(function(){
+	// 		// Request gifftcards
+	// 		request(app).get('/giftcards')
+	// 		.end(function(req, res){
+	// 			// Set assertion
+	// 			res.body.should.be.an.Array.with.lengthOf(1);
+	// 			// Call the assertion callback
+	// 			done():
+	// 		});
+	// 	});
+	// });
 
 	it('should not be able to get a single Giftcard if not signed in', function(done) {
 		//TODO: If not signed in no giftcard for you!
@@ -218,6 +220,8 @@ describe('Giftcard CRUD tests', function() {
 	});
 	// Technically should not be able to delete giftcards.
 	it('should be able to delete Giftcard instance if signed in', function(done) {
+		// when a giftcard is deleted it's actually spent.,
+		// we need to elboarte the test to include that at some point
 		agent.post('/auth/signin')
 			.send(credentials)
 			.expect(200)

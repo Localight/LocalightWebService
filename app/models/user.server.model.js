@@ -29,13 +29,13 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+		//validate: [validateLocalStrategyProperty, 'Please fill in your first name']
 	},
 	lastName: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+		//validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
 	/*
 	 * For Testing Purpose only!
@@ -48,7 +48,8 @@ var UserSchema = new Schema({
 	 * Mobile Number, 9-digit number we need to have for the giftcard
 	 */
 	mobileNumber:{
-		type:Number
+		type:Number,
+		required: 'please enter in a mobile number',
 		// TODO: add Regularexpression.
 		// required: 'Please enter a 9-digit mobile number'
 	},
@@ -67,7 +68,7 @@ var UserSchema = new Schema({
 	username: {
 		type: String,
 		unique: 'testing error message',
-		required: 'Please fill in a username',
+		//required: 'Please fill in a username',
 		trim: true
 	},
 	password: {
