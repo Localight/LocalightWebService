@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	userCtrl = require(''),
+	// userCtrl = require(''),
 	Giftcard = mongoose.model('Giftcard'),
 	balanced = require('balanced-official'),
 	Q = require('q'),
@@ -22,20 +22,66 @@ exports.create = function(req, res) {
 	var userId = req.user.id;
 	// I'm giving you the phone number to look up.
 	// create a promise, because if a user isn't availble one needs to be made.
-	userCtrl.getUserIdByMobileNumber(giftcard.mobileNumberOfRecipient).then(function controllerHandler(responseFromController){
-		console.log('this is the response from saving to the model'+responseFromController);
-		giftcard.toUser = responseFromController.userThing;
-		giftcard.fromUser = userId;
-		return giftcard.save();
-	}).then(function handler(response){
-		console.log('this is the response from saving to the model'+response);
-		return res.json(giftcard);
-	}).catch(function errHandler(err){
-		console.log('This error came from trying to create a giftcard: '+err);
-		return res.status(400).send({
-			message: errorHandler.getErrorMessage(err)
-		});
+	var anotherUser= new User({
+		displayName: giftcard.giftRecipientName,
+		mobileNumber:giftcard.mobileNumberOfRecipient,
+		password:'password'
 	});
+	User.findOne({
+			mobileNumber: giftcard.mobileNumberOfRecipient
+		}).populate('user').exec(function(err, user) {
+			// console.log('this is the value of the err'+err);
+			// console.log('this is the value of the user'+user);
+			if (err) {
+				//console.log(err);
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+				//TODO: this is where make the call to create the user if they don't exist.
+			} else{
+			//	console.log('this is the response from the user'+user);
+			  giftcard.toUser = user._id;
+		   	giftcard.fromUser = req.user._id;
+				giftcard.save(function(err){
+					if(err){
+					//	console.log(err);
+						return res.status(400).send({
+  						message: errorHandler.getErrorMessage(err)
+						});
+					}else{
+						res.jsonp(giftcard);
+					}
+				});
+			}
+		// if(!user) return next(new Error('Failed to find that mobile number '+ giftcard.mobileNumberOfRecipient));
+		//TODO: come back and add ability to create users.
+	});
+			// var anotherUser = new User();
+			// anotherUser.displayName = giftcard.giftRecipientName;
+			// anotherUser.mobileNumber = giftcard.mobileNumberOfRecipient;
+			// anotherUser.password = 'password';
+			// anotherUser.save(function(err){
+			// 	if(err){
+			// 		return res.status(400).send({
+			// 			message: errorHandler.getErrorMessage(err)
+			// 		});
+			// 	}else{
+			// 		giftcard.toUser = anotherUser._id;
+			// 		giftcard.fromUser = req.user._id;
+			// 		giftcard.save(function(err){
+			// 			if(err){
+			// 			//	console.log(err);
+			// 				return res.status(400).send({
+			// 					message: errorHandler.getErrorMessage(err)
+			// 				});
+			// 			}else{
+			// 				return res.json(giftcard);
+			// 			}
+			// 		});
+			// 	}
+			// });
+			//console.log(err);
+
 };
 
 
