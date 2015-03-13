@@ -6,89 +6,46 @@
 <div class="wrapper">
   <!-- Logo -->
   <img id="clique_logo" src="../public/images/logo-local-gift-card-blk.png">
-  <!-- To -->
-  <form name="giftcardForm"class="form-horizontal" data-ng-submit="create(merchantForm$valid)" novalidate>
+  <form name="giftcardForm"class="form-horizontal" data-ng-submit="create()" novalidate>
     <fieldset>
+      <!-- To Someone's phone -->
+      <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
+        <div class="controls">
+          <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" autofocus required>
+        </div>
       <!-- Amount -->
+      <label class="control-label" for="amount">Amount</label>
+        <div class="controls">
+          <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="0.00" required>$
+        </div>
+      <!-- From -->
       <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
         <div class="controls">
-          <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="A friends name" autofocus required>
+          <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="A friends name" required>
         </div>
-      <!-- original from clique_1-->
-    <!--   <div id="clique_to">
-        <label for="To" class="inputlabel">To</label>
-        <input type="text" id="clique_input_to" class="heart rightColumn" placeholder="First Name" maxlength="16" ng-model="formData.To" autofocus required>
-      </div> -->
-      <!-- To Someone's phone -->
-      <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
-      <div class="controls">
-        <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="A friends name" required>
-      </div>
-      <!-- orginal from clique_1-->
-      <!--   <div id="clique_amt_wrapper">
-        <div id="clique_amt_selection">
-          <span class="leftarrow"></span>
-          <div id="clique_amt_scrollwindow">
-            <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price)"><small>$</small>{{price}}</span>
-          </div>
-          <span class="rightarrow"></span>
+        <!-- Code -->
+        <!-- quick note on the giftcard, the code they enter, is connected to a merchant, and all the code does is show you who
+        where this giftcard was bought, or something like that. it's a code that connects to a prepopulated pool -->
+      <label class="control-label" for="cliqueCode">Code</label>
+        <div class="controls">
+          <input type="text" data-ng-model="cliqueCode" id="cliqueCode" class="form-control" placeholder="code" maxlength="5" required>
         </div>
-
-    <div id="clique_amt" class="hide" ng-click="showHide('#clique_amt_selection', '#clique_amt')">
-      <label class="inputlabel">$</label>
-      <div class="helveticaInput rightColumn">{{formData.Amount}}</div>
-    </div>
-  </div>-->
-      <!-- From -->
-      <label class="control-label" for="fromUser">Amount</label>
-      <div class="controls">
-        <input type="number" data-ng-model="fromUser" id="fromUser" class="form-control" placeholder="Your Name" maxlength="16" required>
-      </div>
-      <!-- orginal from clique_1 -->
-      <!-- <div id="clique_from" ng-class="{nextInput: isNextInput('From')}">
-        <label for="From" class="inputlabel">From</label>
-        <input type="text" id="clique_input_from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-model="formData.From" required>
-        </div> -->
-
-      <!-- Code -->
-
-
-      </fieldset>
-
-
-    <!-- Occasion -->
-    <!-- Date -->
+        <!--  for now it is just a bucket, i'll add in the animations later -->
+        <!-- Occasion -->
+        <!-- TODO: another thing I can come back too, all this has to do is connect to a prepopulated database of phrases. -->
+        <!-- Date -->
+        <!--TODO: add in the date and picker later, don't need right now-->
+    </fieldset>
+    <div class="form-group">
+      <input type="submit" class="btn btn-default">
+   </div>
+     <div data-ng-show="error" class="text-danger">
+       <strong data-ng-bind="error"></strong>
+     </div>
   </form>
   <!-- Payment Type -->
+  <!-- TODO: add in the credit card stuff as a seperate form. -->
   <!-- Pay by Card -->
   <!-- Go to Order Review Page -->
-</div>
-
-  <div class="col-md-12">
-    <form name="giftcardForm"class="form-horizontal" data-ng-submit="create(merchantForm$valid)" novalidate>
-      <fieldset>
-
-          <!-- Amount -->
-          <label class="control-label" for="amount">Amount</label>
-          <div class="controls">
-            <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
-          </div>
-          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
-          <div class="controls">
-            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" required>
-          </div>
-          <!-- <label class="control-label" for="districtNumber">District Number</label>
-          <div class="controls">
-            <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
-          </div> -->
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-default">
-       </div>
-       <div data-ng-show="error" class="text-danger">
-         <strong data-ng-bind="error"></strong>
-       </div>
-     </fieldset>
-    </form>
   </div>
 </section>
