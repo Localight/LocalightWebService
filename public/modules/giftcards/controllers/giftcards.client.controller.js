@@ -4,8 +4,25 @@
 angular.module('giftcards').controller('GiftcardsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Giftcards',
 	function($scope, $stateParams, $location, Authentication, Giftcards) {
 		$scope.authentication = Authentication;
-
+		// Alright so this is what needs to happen.
+		// We are given all the information we need to create a giftcard.
+		// We have to charge the user before we create the giftcard.
+		// collect needed informaiton from forms.
+		// make separte form for credit card.
+		// tokenize creditcard or debitcard, make sure you know which it is too.
+		// assoicate credit card to user,
+		// confirm card or what ever.
+		// create order and charge card, send money to localism account,
+		// create reicpiet and email user the reciept.
 		// Create new Giftcard
+		$scope.formData = new Giftcards ({
+			gitfRecipientName:this.giftRecipientName,
+			amount:this.amount,
+	    mobileNumberOfRecipient: this.mobileNumberOfRecipient,
+			//ourName:'theUsersname here',
+			message:'A gift for you!',
+		});
+
 		$scope.create = function() {
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
@@ -104,4 +121,4 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope', '$state
 			});
 		};
 	}
-]);
+);

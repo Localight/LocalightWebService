@@ -23,14 +23,37 @@
           <div class="controls">
             <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
           </div> -->
+          <div class="form-group">
+            <!-- what makes more sense is to save this information, then submit it. as a package -->
+            <input type="submit" class="btn btn-default">
+         </div>
         </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-default">
-       </div>
+
        <div data-ng-show="error" class="text-danger">
          <strong data-ng-bind="error"></strong>
        </div>
      </fieldset>
     </form>
+    <form name="ccForm" class="form-horizontal" data-ng-submit="tokenizeCard()" novalidate>
+      <fieldset>
+        <div class="controls">
+          <input type="text" data-ng-model="creditCardNumber" id="creditCardNumber" class="form-control" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" required>
+        </div>
+        <div class="controls">
+          <input type="text" data-ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="MM / YYYY" size="9" pattern="\d*" required>
+        </div>
+        <div class="controls">
+          <input type="text" data-ng-model="creditCardCCV" id="creditCardCCV" class="form-control" placeholder="CVV" size="4" pattern="\d*" required>
+        </div>
+        <div class="controls">
+          <input type="text" data-ng-model="creditCardZip" id="creditCardZip" class="form-control" placeholder="ZIP" size="5" pattern="\d*" required>
+        </div>
+        <div class="form-group">
+          <!-- what makes more sense is to save this information, then submit it. as a package -->
+          <input type="submit" class="btn btn-default">
+       </div>
+      </fieldset>
+    </form>
   </div>
+
 </section>
