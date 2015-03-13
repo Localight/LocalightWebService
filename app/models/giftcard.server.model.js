@@ -61,6 +61,12 @@ var GiftcardSchema = new Schema({
 		required:'Please enter the recipients phone number',
 		//TODO: enter in regular expression, and make sure no spaces.
 	},
+	/*
+	 * We need a record of purchases from the giftcards.
+	 */
+	purchaseOrder:{
+		type:String,
+	},
 	/**
 	 *  Message, the message that the user wishes for another user to see.
 	 *  a message doesn't need to have a string attached to it.

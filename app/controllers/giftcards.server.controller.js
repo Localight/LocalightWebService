@@ -56,40 +56,16 @@ exports.create = function(req, res) {
 		// if(!user) return next(new Error('Failed to find that mobile number '+ giftcard.mobileNumberOfRecipient));
 		//TODO: come back and add ability to create users.
 	});
-			// var anotherUser = new User();
-			// anotherUser.displayName = giftcard.giftRecipientName;
-			// anotherUser.mobileNumber = giftcard.mobileNumberOfRecipient;
-			// anotherUser.password = 'password';
-			// anotherUser.save(function(err){
-			// 	if(err){
-			// 		return res.status(400).send({
-			// 			message: errorHandler.getErrorMessage(err)
-			// 		});
-			// 	}else{
-			// 		giftcard.toUser = anotherUser._id;
-			// 		giftcard.fromUser = req.user._id;
-			// 		giftcard.save(function(err){
-			// 			if(err){
-			// 			//	console.log(err);
-			// 				return res.status(400).send({
-			// 					message: errorHandler.getErrorMessage(err)
-			// 				});
-			// 			}else{
-			// 				return res.json(giftcard);
-			// 			}
-			// 		});
-			// 	}
-			// });
-			//console.log(err);
-
 };
-
-
+// From the front-end we want to get what we need for the giftcard, and also what we need for balanced.
+// when we have what we need for the giftcard we can create it, but first before we create the giftcard,
+// I need the user to pay for the giftcard. So I might have a method that calls this one, after the purchase is completed.
+// either way this does it
 // exports.send = function(req, res){
 // // I would like to have the search method put with the user, so it's modular.
 //
 // };
-		// creating a temporary giftcard to test things.
+	// creating a temporary giftcard to test things.
 	// var payload = {
 	// 	expiration_month:08,
 	// 	expiration_year:2018,
@@ -145,6 +121,8 @@ exports.read = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var giftcard = req.giftcard ;
+// The method gets called after the merchant enters the tricon and the amount has been transfered to him.
+// this is the final step to completing a transaction.
 
 	giftcard.remove(function(err) {
 		if (err) {

@@ -1,0 +1,70 @@
+<section data-ng-controller="GiftcardsController">
+  <!-- <div class="page-header">
+    Logo
+    <h1>New Giftcard</h1>
+  </div> -->
+<div class="wrapper">
+  <!-- Logo -->
+  <img id="clique_logo" src="../public/images/logo-local-gift-card-blk.png">
+  <!-- To -->
+  <form name="giftcardForm"class="form-horizontal" data-ng-submit="create(merchantForm$valid)" novalidate>
+    <fieldset>
+      <!-- Amount -->
+      <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
+        <div class="controls">
+          <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="A friends name" autofocus required>
+        </div>
+    
+      <!-- To Someone's phone -->
+      <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
+      <div class="controls">
+        <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="A friends name" required>
+      </div>
+    
+      <!-- From -->
+      <label class="control-label" for="fromUser">Amount</label>
+      <div class="controls">
+        <input type="number" data-ng-model="fromUser" id="fromUser" class="form-control" placeholder="Your Name" maxlength="16" required>
+      </div>
+      
+
+
+      </fieldset>
+
+
+    <!-- Occasion -->
+    <!-- Date -->
+  </form>
+  <!-- Payment Type -->
+  <!-- Pay by Card -->
+  <!-- Go to Order Review Page -->
+</div>
+
+  <div class="col-md-12">
+    <form name="giftcardForm"class="form-horizontal" data-ng-submit="create(merchantForm$valid)" novalidate>
+      <fieldset>
+
+          <!-- Amount -->
+          <label class="control-label" for="amount">Amount</label>
+          <div class="controls">
+            <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
+          </div>
+          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
+          <div class="controls">
+            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" required>
+          </div>
+          <!-- <label class="control-label" for="districtNumber">District Number</label>
+          <div class="controls">
+            <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
+          </div> -->
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+       </div>
+       <div data-ng-show="error" class="text-danger">
+         <strong data-ng-bind="error"></strong>
+       </div>
+     </fieldset>
+    </form>
+  </div>
+</section>
