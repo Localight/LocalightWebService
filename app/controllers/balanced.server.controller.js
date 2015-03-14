@@ -104,5 +104,10 @@ exports.confrimt_bank_account = function(req, res){
   balanced.get(req.body.balancedStuff.verification_token).confirm(req.body.value1, req.body.value2);
 };
 
+exports.debitBuyerCard = function(req, res){
+  
+  return balanced.get(req.giftcard.orderTokenThing).debit_from(req.user.cardTokenThing, req.body.giftcard.amount);
+  // it returns stuff but I don't know what to do with that right now.
+};
 
 // add other functions later.
