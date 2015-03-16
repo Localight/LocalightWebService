@@ -77,12 +77,21 @@ exports.tokenizeCard = function(req, res){
 exports.chargeCard = function(req, res){
   // could have the function right here.
   console.log(JSON.stringify(req.body));
-  balanced.get(req.user.customerTokenThing).orders.create().then(function(response){
-    return balanced.marketplace(req.body).debit({
-      appears_on_statement_as: 'first charge',
-      amount:1000,
-      description: 'Something',
-      order: response.href
+  var payload = {
+    appears_on_statement_as: 'first charge',
+    amount:1000,
+    description: 'Something',
+    // order: response.href
+  };
+
+  // charge card
+  balanced.get(req.user.customerTokenThing).orders.create({
+    description: 'Order #12341234'// create order
+  }).then(function handler(response){
+    // do something with the response.
+    console.log(JSON.stringify(response));
+    return balanced.marketplace(payload).debit({
+
     });
   }).catch(function errHandler(err){
     console.log('this error came from charging a card:'+ err);
