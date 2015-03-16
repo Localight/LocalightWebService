@@ -47,11 +47,24 @@ exports.tokenize_user_into_customer = function(req, res){
 * Tokenize a card
 */
 exports.tokenizeCard = function(req, res){
-  balanced.marketplace.bank_accounts.create(req.body.payload).then(function handler(response){
-    console.log('the response from creating a bank account in the balanced controller' + JSON.stringify(response));
-    return res.response.href;
+  // for testing.
+  // let's say we get a credit card number.
+  var payload = {
+    expiration_month:'12',
+    expiration_year:'2020',
+    number:'341111111111111',
+    cvv:'1234',
+    name:'Test User'
+    // check balanced for what they need.
+    // either way we need the credit card info for part of this.
+  };
+  // turn a valid credit/debit card into a token, and store it to the user.
+  //console.log(req.body);
+  balanced.marketplace.cards.create(payload).then(function handler(response){
+    console.log('the response from tokenizing a cc in the balanced controller' + JSON.stringify(response));
+    return response.href;
   }).catch(function handler(err){
-    console.log('this error came from creating a bank_account:'+ err);
+    console.log('this error came from creating a cc Token:'+ err);
     res.status(400).send({
       message: errorHandler.getErrorMessage(err)
       });
@@ -63,7 +76,8 @@ exports.tokenizeCard = function(req, res){
 */
 exports.chargeCard = function(req, res){
   // could have the function right here.
-  balanced.customer.orders.create().then(function(response){
+  console.log(JSON.stringify(req.body));
+  balanced.get(req.user.customerTokenThing).orders.create().then(function(response){
     return balanced.marketplace(req.body).debit({
       appears_on_statement_as: 'first charge',
       amount:1000,

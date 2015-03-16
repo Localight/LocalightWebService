@@ -20,6 +20,10 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope','$http',
 		// make sure form is valid.
 
 		$scope.create = function() {
+			// 1. Create Order
+			// 2. Tokenize Card
+			// 3. Charge Card
+			// 4. Save Gitcard
 			// Create new Giftcard object
 			var giftcard = new Giftcards ({
 				giftRecipientName:this.giftRecipientName,
@@ -30,28 +34,34 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope','$http',
 				//toUserUserName:'username',
 				//	districtNumber: 'number',
 			});
-			var payload = {
-				number:'341111111111111',
-				cvv:'1234',
-				name:'Test User',
-				expiration_month:'04',
-				expiration_year:'2020',
-				// check balanced for what they need.
-				// either way we need the credit card info for part of this.
-			};
+			// I could just make a credit card model.
+			// var payload = {
+			// 	expiration_month:'12',
+			// 	expiration_year:'2020',
+			// 	number:'341111111111111',
+			// 	cvv:'1234',
+			// 	name:'Test User'
+			// 	// check balanced for what they need.
+			// 	// either way we need the credit card info for part of this.
+			// };
 			// The payment sequence.
 			// 1. Tokenize credit card, if we haven't already.
-			$http.post('/balanced/tokenizeCard', payload).success(function(response){
+			$http.post('/tokenizeCard').success(function(response){
 				// if successsful we clear out the scope for the credit cards.
-				payload.number = '';
-				payload.cvv = '';
-				payload.number = '';
-				payload.expiration_month = '';
-				payload.expiration_year = '';
+				// payload.name = '';
+				// payload.number = '';
+				// payload.cvv = '';
+				// payload.number = '';
+				// payload.expiration_month = '';
+				// payload.expiration_year = '';
 				// create a variable in the scope to hold the token.
-				$scope.payingCardToken = response;// got thetoken,
+				$scope.cardTokenThing = response;// got thetoken,
+				}).error(function(response){
+					$scope.error = response.message;
+				});// for this run lets not assoicate it to a customer
+
 				// take amount, amount and charge card.
-				$http.post('/balanced/chargeCard', $scope.payingCardToken).success(function(resposne){
+				$http.post('/chargeCard', $scope.payingCardToken).success(function(resposne){
 					// assume it's been successfully charge,
 					// Redirect after save
 					giftcard.$save(function(response) {
@@ -66,9 +76,6 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope','$http',
 					}, function(errorResponse) {
 						$scope.error = errorResponse.data.message;
 					});
-				}).error(function(resposne){
-					$scope.error = response.message;
-				})
 
 				$location.path('/');// At the end of the sequence redirect home, or to the splash screen.
 				// if any error, show the user where the error is.
@@ -85,9 +92,6 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope','$http',
 			// create order and charge card
 			// email customer recipet,
 			// save giftcard.
-
-
-
 		};
 
 		// Remove existing Giftcard

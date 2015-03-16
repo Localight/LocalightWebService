@@ -29,34 +29,21 @@ exports.create = function(req, res) {
 	balanced.get(giftcard.OrderToken).debit_from(req.user.cardTokenThing, giftcard.amount).then(function handler() {
 		User.findOne({
 				mobileNumber: giftcard.mobileNumberOfRecipient
-			}).populate('user').exec(function(err, user) {
-				// console.log('this is the value of the err'+err);
-				// console.log('this is the value of the user'+user);
-				if (err) {
-					//console.log(err);
-					return res.status(400).send({
-						message: errorHandler.getErrorMessage(err)
-					});
-					//TODO: this is where make the call to create the user if they don't exist.
-				} else{
-				//	console.log('this is the response from the user'+user);
-				  giftcard.toUser = user._id;
-			   	giftcard.fromUser = req.user._id;
-					giftcard.save(function(err){
-						if(err){
-						//	console.log(err);
-							return res.status(400).send({
-	  						message: errorHandler.getErrorMessage(err)
-							});
-						}else{
-							res.jsonp(giftcard);
-						}
-					});
-				}
+			}).populate('user').then(function anotherHandler(response) {
+				giftcard.toUser = response._id;
+				giftcard.fromUser = req.user._id;
+				return giftcard.save();
+			}).then(function yetAnotherHanlder(response){
+				return res.jsonp(giftcard);
+			}).catch(function errHandler(err){
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			});
 			// if(!user) return next(new Error('Failed to find that mobile number '+ giftcard.mobileNumberOfRecipient));
 			//TODO: come back and add ability to create users.
 		});
-	}).catch();
+
 	// I'm giving you the phone number to look up.
 	// create a promise, because if a user isn't availble one needs to be made.
 

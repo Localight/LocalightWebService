@@ -37,6 +37,9 @@ var UserSchema = new Schema({
 		default: '',
 		//validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
+	cardTokenThing:{
+		type:String
+	},
 	/*
 	 * For Testing Purpose only!
 	 * customerToken
