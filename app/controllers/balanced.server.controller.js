@@ -7,9 +7,10 @@ var balanced = require('balanced-official'),
     Q = require('q');
     balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
 /**
-* Tokenize the user into a customer
+* Tokenize the user into a customer or merchant
 */
 exports.tokenize_user_into_customer = function(req, res){
+  // look at user role for this part.
   // if(req.body.roles == 'merchant'){
   //
   // }else if(req.body.roles == 'patron'){
@@ -40,6 +41,40 @@ exports.tokenize_user_into_customer = function(req, res){
     res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
+  });
+};
+/**
+* Tokenize a card
+*/
+exports.tokenizeCard = function(req, res){
+  balanced.marketplace.bank_accounts.create(req.body.payload).then(function handler(response){
+    console.log('the response from creating a bank account in the balanced controller' + JSON.stringify(response));
+    return res.response.href;
+  }).catch(function handler(err){
+    console.log('this error came from creating a bank_account:'+ err);
+    res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+      });
+  });
+};
+
+/**
+* Charge the Tokenized card
+*/
+exports.chargeCard = function(req, res){
+  // could have the function right here.
+  balanced.customer.orders.create().then(function(response){
+    return balanced.marketplace(req.body).debit({
+      appears_on_statement_as: 'first charge',
+      amount:1000,
+      description: 'Something',
+      order: response.href
+    });
+  }).catch(function errHandler(err){
+    console.log('this error came from charging a card:'+ err);
+    res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+      });
   });
 };
 /**
@@ -105,7 +140,7 @@ exports.confrimt_bank_account = function(req, res){
 };
 
 exports.debitBuyerCard = function(req, res){
-  
+
   return balanced.get(req.giftcard.orderTokenThing).debit_from(req.user.cardTokenThing, req.body.giftcard.amount);
   // it returns stuff but I don't know what to do with that right now.
 };

@@ -6,46 +6,39 @@
     <form name="giftcardForm"class="form-horizontal" data-ng-submit="create()" novalidate>
       <fieldset>
           <!-- To Someone's phone -->
+          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
+          <div class="controls">
+            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" required>
+          </div>
           <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
           <div class="controls">
-            <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="A friends name" required>
+            <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="Full Name" required>
           </div>
           <!-- Amount -->
           <label class="control-label" for="amount">Amount</label>
           <div class="controls">
             <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
           </div>
-          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
-          <div class="controls">
-            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" required>
-          </div>
+
           <!-- TODO: Show Amount Again -->
           <!-- TODO: Show Your Frinds Name -->
           <!-- Enter in Your Friends Mobile Number-->
-          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
-          <div class="controls">
-            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="(XXX)-XXX-XXXX" maxlength="10" autofocus required>
-          </div>
         <!--  Send Reciept to -->
           <label class="control-label" for="emailForReceipt">Enter an Email for the Reciept</label>
             <div class="controls">
   <!--             in final verison this probably won't exist, the user will just get an email, because we have that info
-  -->            <input type="emailForReceipt" data-ng-model="emailForReceipt" id="emailForReceipt" class="form-control" placeholder="your@email.com" required>
+  -->            <input type="emailForReceipt" data-ng-model="emailForReceipt" id="emailForReceipt" class="form-control" placeholder="someones@email.com" required>
             </div>
 
             <!-- <label class="control-label" for="districtNumber">District Number</label>
             <div class="controls">
               <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
             </div> -->
-    
+
           <!-- <label class="control-label" for="districtNumber">District Number</label>
           <div class="controls">
             <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
           </div> -->
-          <div class="form-group">
-            <!-- what makes more sense is to save this information, then submit it. as a package -->
-            <input type="submit" class="btn btn-default">
-         </div>
         </div>
 
        <div data-ng-show="error" class="text-danger">
@@ -53,7 +46,7 @@
        </div>
      </fieldset>
     </form>
-    <form name="ccForm" class="form-horizontal" data-ng-submit="tokenizeCard()" novalidate>
+    <form name="ccForm" class="form-horizontal" data-ng-submit="chargeCard()" novalidate>
       <fieldset>
         <div class="controls">
           <input type="text" data-ng-model="creditCardNumber" id="creditCardNumber" class="form-control" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" required>
@@ -67,12 +60,11 @@
         <div class="controls">
           <input type="text" data-ng-model="creditCardZip" id="creditCardZip" class="form-control" placeholder="ZIP" size="5" pattern="\d*" required>
         </div>
-        <div class="form-group">
-          <!-- what makes more sense is to save this information, then submit it. as a package -->
-          <input type="submit" class="btn btn-default">
-       </div>
       </fieldset>
+      <div class="form-group">
+        <!-- what makes more sense is to save this information, then submit it. as a package -->
+        <input type="submit" class="btn btn-default">
+     </div>
     </form>
   </div>
-
 </section>

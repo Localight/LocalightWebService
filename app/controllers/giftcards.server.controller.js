@@ -17,45 +17,50 @@ var mongoose = require('mongoose'),
  */
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 exports.create = function(req, res) {
-
+// if a user isn't found create one, otherwise find the user and save the giftcard.
 	var giftcard = new Giftcard(req.body);
 	var userId = req.user.id;
-	// I'm giving you the phone number to look up.
-	// create a promise, because if a user isn't availble one needs to be made.
 	var anotherUser= new User({
 		displayName: giftcard.giftRecipientName,
 		mobileNumber:giftcard.mobileNumberOfRecipient,
 		password:'password'
 	});
-	User.findOne({
-			mobileNumber: giftcard.mobileNumberOfRecipient
-		}).populate('user').exec(function(err, user) {
-			// console.log('this is the value of the err'+err);
-			// console.log('this is the value of the user'+user);
-			if (err) {
-				//console.log(err);
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-				//TODO: this is where make the call to create the user if they don't exist.
-			} else{
-			//	console.log('this is the response from the user'+user);
-			  giftcard.toUser = user._id;
-		   	giftcard.fromUser = req.user._id;
-				giftcard.save(function(err){
-					if(err){
-					//	console.log(err);
-						return res.status(400).send({
-  						message: errorHandler.getErrorMessage(err)
-						});
-					}else{
-						res.jsonp(giftcard);
-					}
-				});
-			}
-		// if(!user) return next(new Error('Failed to find that mobile number '+ giftcard.mobileNumberOfRecipient));
-		//TODO: come back and add ability to create users.
-	});
+	// charge the user.
+	balanced.get(giftcard.OrderToken).debit_from(req.user.cardTokenThing, giftcard.amount).then(function handler() {
+		User.findOne({
+				mobileNumber: giftcard.mobileNumberOfRecipient
+			}).populate('user').exec(function(err, user) {
+				// console.log('this is the value of the err'+err);
+				// console.log('this is the value of the user'+user);
+				if (err) {
+					//console.log(err);
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+					//TODO: this is where make the call to create the user if they don't exist.
+				} else{
+				//	console.log('this is the response from the user'+user);
+				  giftcard.toUser = user._id;
+			   	giftcard.fromUser = req.user._id;
+					giftcard.save(function(err){
+						if(err){
+						//	console.log(err);
+							return res.status(400).send({
+	  						message: errorHandler.getErrorMessage(err)
+							});
+						}else{
+							res.jsonp(giftcard);
+						}
+					});
+				}
+			// if(!user) return next(new Error('Failed to find that mobile number '+ giftcard.mobileNumberOfRecipient));
+			//TODO: come back and add ability to create users.
+		});
+	}).catch();
+	// I'm giving you the phone number to look up.
+	// create a promise, because if a user isn't availble one needs to be made.
+
+
 };
 // From the front-end we want to get what we need for the giftcard, and also what we need for balanced.
 // when we have what we need for the giftcard we can create it, but first before we create the giftcard,
