@@ -1,7 +1,4 @@
 <section data-ng-controller="GiftcardsController">
-  <div class="page-header">
-    <h1>New Giftcard</h1>
-  </div>
   <div class="col-md-12">
     <form name="giftcardForm" class="form-horizontal" data-ng-submit="create()" novalidate>
       <fieldset>
@@ -36,20 +33,20 @@
             </div> -->
         <label class="control-label" for="creditCardNumber">Credit Card Number</label>
         <div class="controls">
-          <input type="text" ng-model="creditCardNumber" id="mobileNumberOfRecipient" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required>
+          <input type="text" ng-model="ccStuff.creditCardNumber" id="mobileNumberOfRecipient" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required>
         </div>
         <label class="control-label" for="creditCardExpiration">Credit Card Expiration Date</label>
         <div class="controls">
-          <input type="text" ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="MM / YYYY
+          <input type="text" ng-model="ccStuff.creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="MM / YYYY
           " maxlength="9" size="10" pattern="\d*" required>
         </div>
         <label class="control-label" for="creditCardCCV">Credit Card CVV</label>
         <div class="controls">
-          <input type="text" ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="CVV" maxlength="4" size="4" pattern="\d*" required>
+          <input type="text" ng-model="ccStuff.creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="CVV" maxlength="4" size="4" pattern="\d*" required>
         </div>
         <label class="control-label" for="zipcode">Zipcode</label>
         <div class="controls">
-          <input type="text" ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="XXXXX" maxlength="5" size="6" pattern="\d*" required>
+          <input type="text" ng-model="ccStuff.zipcode" id="zipcode" class="form-control" placeholder="XXXXX" maxlength="5" size="6" pattern="\d*" required>
         </div>
   </div>
   <div class="form-group">

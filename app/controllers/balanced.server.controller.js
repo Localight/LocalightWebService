@@ -49,11 +49,11 @@ exports.tokenize_user_into_customer = function(req, res){
 exports.tokenizeCard = function(req, res){
   // let's say we get a credit card number.
   var payload = {
-    expiration_month:req.expiration_month,
-    expiration_year:req.expiration_month,
-    number: req.number,
-    cvv:req.cvv,
-    name:req.name
+    expiration_month:req.body.expiration_month,
+    expiration_year:req.body.expiration_month,
+    number: req.body.number,
+    cvv:req.body.cvv,
+    name:req.body.name
     // check balanced for what they need.
     // either way we need the credit card info for part of this.
   };
@@ -62,7 +62,7 @@ exports.tokenizeCard = function(req, res){
   //console.log(req.body);
   balanced.marketplace.cards.create(payload).then(function handler(response){
     console.log('the response from tokenizing a cc in the balanced controller' + JSON.stringify(response));
-    return response.href;
+    return response.href;// return the token.
   }).catch(function handler(err){
     console.log('this error came from creating a cc Token:'+ err);
     res.status(400).send({
@@ -75,12 +75,12 @@ exports.tokenizeCard = function(req, res){
 * Charge the Tokenized card
 */
 exports.chargeCard = function(req, res){
-  // could have the function right here.
   // to charge a card we need three things.
-  // card token
+  // card token,
   // order token,
   // amount.
-  // charge card
+
+  //get the customer token, then create an order for them.
   balanced.get(req.body.customerTokenThing).orders.create({
     // need more info about the order stuff.
     description: 'Order #12341234'// create order

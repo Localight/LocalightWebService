@@ -18,9 +18,17 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope','$http',
 		// In the async waterfall, first charge the card.
 		// charge the card then create the giftcard.
 		// make sure form is valid.
-
 		$scope.create = function() {
-			$http.post('/tokenizeCard').then(function handler(response){// grab the token
+			// now to create the water fall.
+			// first gather credit card info, we want to get rid of senstive data as soon as possible.
+			// 1. Tokenize credit card info
+			// 2. store token in scope for now.
+			// 3. charge card, get user customer token, and send that back.
+			// 4. find the user if the user doesn't exist create them.
+			// 5. get the new user id.
+			// 6. create the giftcard.
+			// 7. send recipent email, and text new user.
+			$http.post('/tokenizeCard', $scope.ccStuff).then(function handler(response){// grab the token
 				var holder = response;
 				return $http.post('/chargeCard', holder);// could add a step to create an order if we wanted too. charge the card and create an order
 			}).then(function anotherHandler(response){
