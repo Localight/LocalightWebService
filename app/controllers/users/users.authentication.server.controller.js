@@ -21,19 +21,15 @@ exports.signup = function(req, res) {
 	delete req.body.roles;
   // Init Variables
   var user = new User(req.body);
-
   var message = null;
-
   // Add missing user fields
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
-
 	var payload = {
 		name: user.displayName,
 		email: user.email,
 		phone_number: user.mobileNumber,
 	};
-
 	balanced.marketplace.customers.create(payload)
 	.then(function handler(response) {
 		// get and save the new users's token.
@@ -64,65 +60,46 @@ exports.signup = function(req, res) {
 	});
   // Then save the user
 };
-  // });
-	// // Init Variables
-	// var user = new User(req.body);
-	// var message = null;
-	//
-	// //TODO://Come back and add balanced stuff.
-	// // Add missing user fields // user.provider = 'local';
-	// user.provider = 'local';
-	// user.displayName = user.firstName + ' ' + user.lastName;
-	// var payload = {
-	// 	name: user.displayName,
-	// 	email: user.email,
-	// 	phone_number:user.mobileNumber
-	// };
-	// balanced.marketplace.customers.create(payload).then(function handler(response){
-	// 	user.customerTokenThing = response.href;
-	// 	return user.save();
-	// }).then(function anotherHandler(response){
-	// 	console.log('response from saving. ' + response);
-	// 	// Remove sensitive data before login
-	// 	user.password = undefined;
-	// 	user.salt = undefined;
-	//
-	// 	return req.login(user);
-	// }).then(function lastHandler(response){
-	// 	return res.json(user);
-	// }).catch(function errHandler(err){
-	// 	console.log('This error came from trying to create a customer' + err);
-	// 	return res.status(400).send({
-	// 		message: errorHandler.getErrorMessage(err)
-	// 	});
-	// });
-
-  // // Add missing user fields
-  // user.provider = 'local';
-  // user.displayName = user.firstName + ' ' + user.lastName;
-	//
-  // // Then save the user
-  // user.save(function (err) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     // Remove sensitive data before login
-  //     user.password = undefined;
-  //     user.salt = undefined;
-	//
-  //     req.login(user, function (err) {
-  //       if (err) {
-  //         res.status(400).send(err);
-  //       } else {
-  //         res.json(user);
-  //       }
-  //     });
-  //   }
-  // });
-
-
+/**
+ * Find or create user based on mobile number
+ */
+exports.findOrCreateUser = function(req, res){
+	User.findOne({
+		'mobileNumber':req.body.mobileNumber
+		}, function(err, user) {
+		// In case of any error return
+		if (err){
+			console.log('Error in SignUp: '+err);
+			return (err);
+		}
+		// already exists
+		if (user) {
+			console.log('User already exists');
+			return user._id;
+		} else {
+			// if there is no user with that email
+			// create the user
+			var newUser = new User();
+			// set the user's local credentials
+			newUser.displayName = req.body.giftRecipientName;
+			// newUser.password = createHash(password);//TODO: come back to this.
+			newUser.password = 'password';
+			newUser.mobileNumber = req.body.mobileNumber;
+			// newUser.email = req.param('email');
+			// newUser.firstName = req.param('firstName');
+			// newUser.lastName = req.param('lastName');
+			// save the user
+			newUser.save(function(err) {
+				if (err){
+					console.log('Error in Saving user: '+err);
+					throw err;
+				}
+				console.log('User Registration succesful');
+				return newUser._id;
+			});
+		}
+	});
+};
 /**
  * Signin after passport authentication
  */

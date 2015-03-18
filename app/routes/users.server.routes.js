@@ -21,6 +21,8 @@ module.exports = function(app) {
 	app.route('/auth/reset/:token').post(users.reset);
 
 	// Setting up the users authentication api
+	app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
+	// TODO: make sure only logged in users can do this.
 	app.route('/auth/signup').post(users.signup);// hum...
 	app.route('/auth/signin').post(users.signin);
 	app.route('/auth/signout').get(users.signout);

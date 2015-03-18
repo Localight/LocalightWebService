@@ -50,7 +50,7 @@ exports.tokenizeCard = function(req, res){
   // let's say we get a credit card number.
   var payload = {
     expiration_month:req.body.expiration_month,
-    expiration_year:req.body.expiration_month,
+    expiration_year:req.body.expiration_year,
     number: req.body.number,
     cvv:req.body.cvv,
     name:req.body.name
@@ -83,13 +83,13 @@ exports.chargeCard = function(req, res){
   //get the customer token, then create an order for them.
   balanced.get(req.body.customerTokenThing).orders.create({
     // need more info about the order stuff.
-    description: 'Order #12341234'// create order
+    description: 'Order #Godizlla'// create order
   }).then(function handler(response){
     // do something with the response.
     console.log(JSON.stringify(response));
     return balanced.get(response.href).debit_from(req.body.cardTokenThing, req.body.amount);
   }).then(function anotherHandler(response){
-    console.log(JSON.stringify(response));
+    console.log(JSON.stringify('The response from creating an order'+response));
   }).catch(function errHandler(err){
     console.log('this error came from charging a card:'+ err);
     res.status(400).send({
