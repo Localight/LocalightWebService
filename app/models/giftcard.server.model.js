@@ -71,7 +71,7 @@ var GiftcardSchema = new Schema({
 	 *  Message, the message that the user wishes for another user to see.
 	 *  a message doesn't need to have a string attached to it.
 	 */
-	message:{
+	giftMessage:{
 		type:String,
 		default:'A gift for you!'
 	},

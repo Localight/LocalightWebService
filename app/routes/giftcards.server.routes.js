@@ -6,11 +6,11 @@ module.exports = function(app) {
 
 	// Giftcards Routes
 	app.route('/giftcards')
-		.get(giftcards.list)
+		.get(users.requiresLogin, giftcards.list)
 		.post(users.requiresLogin, giftcards.create);
 
 	app.route('/giftcards/:giftcardId')
-		.get(giftcards.read)
+		.get(users.requiresLogin, giftcards.hasAuthorization, giftcards.read)
 		// .put(users.requiresLogin, giftcards.hasAuthorization, giftcards.update)
 		.delete(users.requiresLogin, giftcards.hasAuthorization, giftcards.delete);
 		//.post(users.requireLogin, giftcards.hasAuthorization, giftcards.send);// to send a giftcard we need two things.

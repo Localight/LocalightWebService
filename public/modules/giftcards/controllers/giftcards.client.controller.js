@@ -1,8 +1,8 @@
 'use strict';
 
 // Giftcards controller
-angular.module('giftcards').controller('GiftcardsController', ['$scope','$http', '$stateParams', '$location', 'Authentication', 'Giftcards',
-	function($scope, $http, $stateParams, $location, Authentication, Giftcards) {
+angular.module('giftcards').controller('GiftcardsController', ['$scope','$http', '$stateParams', '$location', 'Authentication', 'Giftcards', '$q',
+	function($scope, $http, $stateParams, $location, Authentication, Giftcards, $q) {
 		$scope.authentication = Authentication;
 		// Alright so this is what needs to happen.
 		// We are given all the information we need to create a giftcard.
@@ -20,20 +20,43 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope','$http',
 		// make sure form is valid.
 
 		$scope.create = function() {
+			$http.post('/tokenizeCard').then(function handler(response){// grab the token
+				var holder = response;
+				return $http.post('/chargeCard', holder);// could add a step to create an order if we wanted too. charge the card and create an order
+			}).then(function anotherHandler(response){
+				// give the giftcard the order number or debit token
+				var giftcard = new Giftcards ({
+					giftRecipientName:this.giftRecipientName,
+					amount:this.amount,
+					mobileNumberOfRecipient:this.mobileNumberOfRecipient,
+					//ourName:'theUsersname here',
+					message:'A gift for you!',
+					purchaseOrder:response
+					//toUserUserName:'username',
+					//	districtNumber: 'number',
+				});
+				return giftcard.$save();
+			}).then(function yetAnotherHandler(response) {
+				// not sure what you get back at this point.
+					// Clear form fields
+					$scope.amount = '';
+					$scope.toUserUserName = '';
+					$scope.districtNumber = '';
+					$scope.mobileNumberOfRecipient = '';
+					// reset all fields
+					$scope.payingCardToken = '';
+					$location.path('/');
+				}).catch(function(errorResponse){
+					$scope.error = errorResponse.data.message;
+				});
+
+
 			// 1. Create Order
 			// 2. Tokenize Card
 			// 3. Charge Card
 			// 4. Save Gitcard
 			// Create new Giftcard object
-			var giftcard = new Giftcards ({
-				giftRecipientName:this.giftRecipientName,
-				amount:this.amount,
-				mobileNumberOfRecipient:this.mobileNumberOfRecipient,
-				//ourName:'theUsersname here',
-				message:'A gift for you!',
-				//toUserUserName:'username',
-				//	districtNumber: 'number',
-			});
+
 			// I could just make a credit card model.
 			// var payload = {
 			// 	expiration_month:'12',
@@ -45,43 +68,7 @@ angular.module('giftcards').controller('GiftcardsController', ['$scope','$http',
 			// 	// either way we need the credit card info for part of this.
 			// };
 			// The payment sequence.
-			// 1. Tokenize credit card, if we haven't already.
-			$http.post('/tokenizeCard').success(function(response){
-				// if successsful we clear out the scope for the credit cards.
-				// payload.name = '';
-				// payload.number = '';
-				// payload.cvv = '';
-				// payload.number = '';
-				// payload.expiration_month = '';
-				// payload.expiration_year = '';
-				// create a variable in the scope to hold the token.
-				$scope.cardTokenThing = response;// got thetoken,
-				}).error(function(response){
-					$scope.error = response.message;
-				});// for this run lets not assoicate it to a customer
-
-				// take amount, amount and charge card.
-				$http.post('/chargeCard', $scope.payingCardToken).success(function(resposne){
-					// assume it's been successfully charge,
-					// Redirect after save
-					giftcard.$save(function(response) {
-						// Clear form fields
-						$scope.amount = '';
-						$scope.toUserUserName = '';
-						$scope.districtNumber = '';
-						$scope.mobileNumberOfRecipient = '';
-						// reset all fields
-						$scope.payingCardToken = '';
-						$location.path('/');
-					}, function(errorResponse) {
-						$scope.error = errorResponse.data.message;
-					});
-
-				$location.path('/');// At the end of the sequence redirect home, or to the splash screen.
-				// if any error, show the user where the error is.
-			}).error(function(response){
-				$scope.error = response.message;
-			});// for this run lets not assoicate it to a customer just make a charge.
+			// 1. Tokenize credit card, if we haven't already
 
 			// step 1. Charge Card,
 			// step 2. Create giftcard,

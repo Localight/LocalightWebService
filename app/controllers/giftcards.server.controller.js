@@ -25,37 +25,36 @@ exports.create = function(req, res) {
 		mobileNumber:giftcard.mobileNumberOfRecipient,
 		password:'password'
 	});
-	// charge the user.
-	balanced.get(giftcard.OrderToken).debit_from(req.user.cardTokenThing, giftcard.amount).then(function handler() {
-		User.findOne({
-				mobileNumber: giftcard.mobileNumberOfRecipient
-			}).populate('user').then(function anotherHandler(response) {
-				giftcard.toUser = response._id;
-				giftcard.fromUser = req.user._id;
-				return giftcard.save();
-			}).then(function yetAnotherHanlder(response){
-				return res.jsonp(giftcard);
-			}).catch(function errHandler(err){
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			});
-			// if(!user) return next(new Error('Failed to find that mobile number '+ giftcard.mobileNumberOfRecipient));
-			//TODO: come back and add ability to create users.
+	// assuming card and customer are already tokenized.
+	// create an order
+	var order = {
+		description:'something number'
+	};
+	//get customer token, then create order token
+		balanced.get(req.user.customerTokenThing).orders.create(order).then(function handler(response){
+		return balanced.get(response.href).debit_from(req.user.cardTokenThing, giftcard.amount);// take order token, and charge card.
+	}).then(function anotherHandler(response){
+		return 	User.findOne({
+					mobileNumber: giftcard.mobileNumberOfRecipient
+				}).populate('user');// go find this user, if not found, create.
+	}).then(function yetAnotherHanlder(response){
+		giftcard.toUser = response._id;
+		giftcard.fromUser = req.user._id;
+		return giftcard.save();// save giftcard to other user.
+	}).then(function yetAnotherHanlder(response){
+		return res.jsonp(giftcard);// return giftcard.
+	}).catch(function errHandler(err){
+		console.log('This error came from trying to create a customer: ' + err);
+		return res.status(400).send({
+			message: errorHandler.getErrorMessage(err)
 		});
-
+	});
+	// get order token
+	// charge tokenized card.
+	// charge the user
 	// I'm giving you the phone number to look up.
 	// create a promise, because if a user isn't availble one needs to be made.
-
-
 };
-// From the front-end we want to get what we need for the giftcard, and also what we need for balanced.
-// when we have what we need for the giftcard we can create it, but first before we create the giftcard,
-// I need the user to pay for the giftcard. So I might have a method that calls this one, after the purchase is completed.
-// either way this does it
-// exports.send = function(req, res){
-// // I would like to have the search method put with the user, so it's modular.
-//
 // };
 	// creating a temporary giftcard to test things.
 	// var payload = {
@@ -144,13 +143,11 @@ exports.list = function(req, res) {
 		}
 	});
 };
-
-
 /**
  * Giftcard middleware
  */
 exports.giftcardByID = function(req, res, next, id) {
-	Giftcard.findById(id).populate('user', 'displayName').exec(function(err, giftcard) {
+Giftcard.findById(id).populate('user').exec(function(err, giftcard) {
 		if (err) return next(err);
 		if (!giftcard) return next(new Error('Failed to load Giftcard ' + id));
 		req.giftcard = giftcard;

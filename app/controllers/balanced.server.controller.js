@@ -54,7 +54,7 @@ exports.tokenizeCard = function(req, res){
     expiration_year:'2020',
     number:'341111111111111',
     cvv:'1234',
-    name:'Test User'
+    name:'Test User' 
     // check balanced for what they need.
     // either way we need the credit card info for part of this.
   };
@@ -76,23 +76,21 @@ exports.tokenizeCard = function(req, res){
 */
 exports.chargeCard = function(req, res){
   // could have the function right here.
-  console.log(JSON.stringify(req.body));
   var payload = {
     appears_on_statement_as: 'first charge',
     amount:1000,
     description: 'Something',
     // order: response.href
   };
-
   // charge card
-  balanced.get(req.user.customerTokenThing).orders.create({
+  balanced.get(req.body.cardTokenThing).orders.create({
     description: 'Order #12341234'// create order
   }).then(function handler(response){
     // do something with the response.
     console.log(JSON.stringify(response));
-    return balanced.marketplace(payload).debit({
-
-    });
+    return balanced.get(response.href).debit_from(req.body.cardTokenThing, payload.amount);
+  }).then(function anotherHandler(response){
+    console.log(JSON.stringify(response));
   }).catch(function errHandler(err){
     console.log('this error came from charging a card:'+ err);
     res.status(400).send({

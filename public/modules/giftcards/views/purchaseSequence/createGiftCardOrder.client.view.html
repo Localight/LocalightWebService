@@ -3,68 +3,83 @@
     <h1>New Giftcard</h1>
   </div>
   <div class="col-md-12">
-    <form name="giftcardForm"class="form-horizontal" data-ng-submit="create()" novalidate>
+    <form name="giftcardForm" class="form-horizontal" data-ng-submit="create()" novalidate>
       <fieldset>
-          <!-- To Someone's phone -->
-          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
-          <div class="controls">
-            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" required>
-          </div>
-          <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
-          <div class="controls">
-            <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="Full Name" required>
-          </div>
-          <!-- Amount -->
-          <label class="control-label" for="amount">Amount</label>
-          <div class="controls">
-            <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
-          </div>
+        <!-- To Someone's phone -->
+        <label class="control-label" for="mobileNumberOfRecipient">Recipient's Mobile Number</label>
+        <div class="controls">
+          <input type="text" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" maxlength="10" size="14" required>
+        </div>
+        <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
+        <div class="controls">
+          <input type="text" data-ng-model="giftRecipientName" id="giftRecipientName" class="form-control" placeholder="Full Name" required>
+        </div>
+        <!-- Amount -->
+        <label class="control-label" for="amount">Amount</label>
+        <div class="controls">
+          <input type="text" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
+        </div>
 
-          <!-- TODO: Show Amount Again -->
-          <!-- TODO: Show Your Frinds Name -->
-          <!-- Enter in Your Friends Mobile Number-->
+        <!-- TODO: Show Amount Again -->
+        <!-- TODO: Show Your Frinds Name -->
+        <!-- Enter in Your Friends Mobile Number-->
         <!--  Send Reciept to -->
-          <label class="control-label" for="emailForReceipt">Enter an Email for the Reciept</label>
-            <div class="controls">
-  <!--             in final verison this probably won't exist, the user will just get an email, because we have that info
-  -->            <input type="emailForReceipt" data-ng-model="emailForReceipt" id="emailForReceipt" class="form-control" placeholder="someones@email.com" required>
-            </div>
-
-            <!-- <label class="control-label" for="districtNumber">District Number</label>
+        <label class="control-label" for="emailForReceipt">Enter an Email for the Reciept</label>
+        <div class="controls">
+          <!--             in final verison this probably won't exist, the user will just get an email, because we have that info
+  -->
+          <input type="emailForReceipt" data-ng-model="emailForReceipt" id="emailForReceipt" class="form-control" placeholder="someones@email.com" required>
+        </div>
+        <!-- <label class="control-label" for="districtNumber">District Number</label>
             <div class="controls">
               <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
             </div> -->
+        <label class="control-label" for="creditCardNumber">Credit Card Number</label>
+        <div class="controls">
+          <input type="text" ng-model="creditCardNumber" id="mobileNumberOfRecipient" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required>
+        </div>
+        <label class="control-label" for="creditCardExpiration">Credit Card Expiration Date</label>
+        <div class="controls">
+          <input type="text" ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="MM / YYYY
+          " maxlength="9" size="10" pattern="\d*" required>
+        </div>
+        <label class="control-label" for="creditCardCCV">Credit Card CVV</label>
+        <div class="controls">
+          <input type="text" ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="CVV" maxlength="4" size="4" pattern="\d*" required>
+        </div>
+        <label class="control-label" for="zipcode">Zipcode</label>
+        <div class="controls">
+          <input type="text" ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="XXXXX" maxlength="5" size="6" pattern="\d*" required>
+        </div>
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-default">
+  </div>
+  <div data-ng-show="error" class="text-danger">
+    <strong data-ng-bind="error"></strong>
+  </div>
+  </fieldset>
+  <!-- <fieldset>
+    Pay by card
+    <div id="clique_payment_card" class="roundWhiteBorder"
+      ng-show="allDirtyBefore('CreditCardNumber')">
+      <div id="creditcardnumbercontainer" class="paymentcontainer">
+        <img id="creditcardimg" ng-src="{{cardTypeImg}}">
 
-          <!-- <label class="control-label" for="districtNumber">District Number</label>
-          <div class="controls">
-            <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
-          </div> -->
-        </div>
+        <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="formData.CreditCardNumber" ng-change="updateCreditCardImg()" ng-focus="ccnFocus()" required>
+        <div class="checkmark"></div>
+      </div>
+      <div id="creditcardinfo" class="paymentcontainer filledIn">
 
-       <div data-ng-show="error" class="text-danger">
-         <strong data-ng-bind="error"></strong>
-       </div>
-     </fieldset>
-    </form>
-    <form name="ccForm" class="form-horizontal" data-ng-submit="chargeCard()" novalidate>
-      <fieldset>
-        <div class="controls">
-          <input type="text" data-ng-model="creditCardNumber" id="creditCardNumber" class="form-control" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" required>
-        </div>
-        <div class="controls">
-          <input type="text" data-ng-model="creditCardExpiration" id="creditCardExpiration" class="form-control" placeholder="MM / YYYY" size="9" pattern="\d*" required>
-        </div>
-        <div class="controls">
-          <input type="text" data-ng-model="creditCardCCV" id="creditCardCCV" class="form-control" placeholder="CVV" size="4" pattern="\d*" required>
-        </div>
-        <div class="controls">
-          <input type="text" data-ng-model="creditCardZip" id="creditCardZip" class="form-control" placeholder="ZIP" size="5" pattern="\d*" required>
-        </div>
-      </fieldset>
-      <div class="form-group">
-        <!-- what makes more sense is to save this information, then submit it. as a package -->
-        <input type="submit" class="btn btn-default">
-     </div>
-    </form>
+        <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
+
+        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVV" maxlength="4" size="4" pattern="\d*" ng-model="formData.CVV" ng-focus="expiryFocus()" required>
+
+        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
+        <div class="checkmark"></div>
+      </div>
+    </div>
+  </fieldset> -->
+  </form>
   </div>
 </section>

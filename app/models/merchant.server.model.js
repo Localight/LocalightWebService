@@ -16,7 +16,7 @@ var MerchantSchema = new Schema({
 		required: 'Please fill Merchant first name',
 		trim: true
 
-		//TODO: 
+		//TODO:
 	},
 	last_name: {
 		type: String,
@@ -28,14 +28,14 @@ var MerchantSchema = new Schema({
 		type:String,
 		default: '',
 		required: 'Please fill Business Name',
-		match : [ /[a-z]{3,50}/, "please fill out business name"]
+		match : [ /[a-z]{3,50}/, 'please fill out business name']
 		//TODO: all strings should be all lowercase before saving
 	},
 	shortname:{
 		type:String,
 		default: '',
 		required: 'Please fill Business Name',
-		match: [ /[a-z]{3,18}/, "please fill out a short name between 3 and 18 charcters"]
+		match: [ /[a-z]{3,18}/, 'please fill out a short name between 3 and 18 charcters']
 	},
 	locationNumber:{
 		type:Number,
@@ -55,7 +55,7 @@ var MerchantSchema = new Schema({
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 		//TODO: get regular expression from other file.
 	},
-	
+
 	//TODO: add an array of types for merchant model (and a front end menu to select out of the 9 options)
 	// type:[
 	// 	{
@@ -117,7 +117,7 @@ var MerchantSchema = new Schema({
 		type:String,
 // <<<<<<< HEAD
 		default: ''
-		
+
 		//never save account number
 		//4 17
 	},
