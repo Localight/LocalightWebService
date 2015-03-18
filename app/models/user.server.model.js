@@ -56,7 +56,6 @@ var UserSchema = new Schema({
 		// TODO: add Regularexpression.
 		// required: 'Please enter a 9-digit mobile number'
 	},
-
 	displayName: {
 		type: String,
 		trim: true

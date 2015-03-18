@@ -43,7 +43,6 @@ exports.signup = function(req, res) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
-
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);
@@ -85,6 +84,9 @@ exports.findOrCreateUser = function(req, res){
 			// newUser.password = createHash(password);//TODO: come back to this.
 			newUser.password = 'password';
 			newUser.mobileNumber = req.body.mobileNumber;
+			// tokenize user as well.
+			//TODO: need to figure out how and when to do that for user.
+			// in theory could add it to the sign in, then if they have a token already it doesn't fire.
 			// newUser.email = req.param('email');
 			// newUser.firstName = req.param('firstName');
 			// newUser.lastName = req.param('lastName');
