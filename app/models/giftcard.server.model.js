@@ -11,37 +11,12 @@ var mongoose = require('mongoose'),
  * Giftcard Schema
  */
 var GiftcardSchema = new Schema({
-	// name: {
-	// 	type: String,
-	// 	default: '',
-	// 	required: 'Please fill Giftcard name',
-	// 	trim: true
-	// },
-	// this is currently the information stored from the clique giftcard in the persona of clique_1
-	// typeOfCard: String, // purchased or received
-  //   issueDate: { type: Date, default: Date.now },
-  //   activationDate: String,
-  //   districtNumber: String,
-  //   keyword: String,
-  //   uniqueLink: String,
-  //   status: String,
-  //   amount: String,
-  //   giftRecipient: String,
-  //   giftBuyer: String,
-  //   occassion: String,
-  //   cliqueCardCode: String,
-  //   mobileNumber: String,
-  //   cliqueId: String,
-  //   test: String
-	// cardToken:{
-	// 	type:String,
-	// 	default: ''
-	// },
 	/*
 	 * The Name of the person to send this giftcard too.
 	 */
 	giftRecipientName:{
 		type:String,
+		// should have spaces to indcate first name and last name.
 		// TODO: add regualer expressions.
 		required:'Please enter the recipients name.'
 	},
@@ -75,6 +50,55 @@ var GiftcardSchema = new Schema({
 		type:String,
 		default:'A gift for you!'
 	},
+	// Date card created or purchased, might want to change the number.
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	user: {// this is how the object is stored when it is created.
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	merchant:{
+		type:Schema.ObjectId,
+		ref:'Merchant'
+	},
+	fromUser: {
+		type:Schema.ObjectId,
+		ref:'User',
+	},
+	toUser:{
+		type:Schema.ObjectId,
+		ref:'User',
+		require:'Please Enter a User to send this too.'
+	}
+	// name: {
+	// 	type: String,
+	// 	default: '',
+	// 	required: 'Please fill Giftcard name',
+	// 	trim: true
+	// },
+	// this is currently the information stored from the clique giftcard in the persona of clique_1
+	// typeOfCard: String, // purchased or received
+  //   issueDate: { type: Date, default: Date.now },
+  //   activationDate: String,
+  //   districtNumber: String,
+  //   keyword: String,
+  //   uniqueLink: String,
+  //   status: String,
+  //   amount: String,
+  //   giftRecipient: String,
+  //   giftBuyer: String,
+  //   occassion: String,
+  //   cliqueCardCode: String,
+  //   mobileNumber: String,
+  //   cliqueId: String,
+  //   test: String
+	// cardToken:{
+	// 	type:String,
+	// 	default: ''
+	// },
+
 	/**
 	 *  toUserPhoneNumber, the phone number of the giftcard receiver. so we can send it threw text.
 	 *  in order for a gift to get made it must have a number of someone to send it too. that number for testing purpose could also be a username.
@@ -97,11 +121,7 @@ var GiftcardSchema = new Schema({
 	// District Number, need to come back and enter.
 	// status
 
-	// Date card created or purchased, might want to change the number.
-	created: {
-		type: Date,
-		default: Date.now
-	},
+
 	// typeOfCard: {
 	// 	type:String
 	// },
@@ -130,22 +150,7 @@ var GiftcardSchema = new Schema({
 	// Bind to User who Purchasesd the GiftCard
 	// change this to something else later
 
-	user: {// this is how the object is stored when it is created.
-		type: Schema.ObjectId,
-		ref: 'User'
-	},
-	merchant:{
-		type:Schema.ObjectId,
-		ref:'Merchant'
-	},
-	fromUser: {
-		type:Schema.ObjectId,
-		ref:'User',
-	},
-	toUser:{
-		type:Schema.ObjectId,
-		ref:'User'
-	}
+
 });
 
 mongoose.model('Giftcard', GiftcardSchema);

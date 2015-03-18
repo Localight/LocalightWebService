@@ -91,43 +91,8 @@ describe('Giftcard CRUD tests', function() {
       });
     // if a user can't post then a user can't update.
   });
-  
-  // it('should be able to charge, send, and create a giftcard', function(done) {
-  //   agent.post('/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function(signinErr, signinRes) {
-  //       // handle signin error
-  //       if (signinErr) done(signinErr);
-  //       //Get the userId
-  //       var userId2 = user2.id;
-  //       // test teh create method now
-  //       agent.post('/giftcards')
-  //         .send(giftcard)
-  //         .expect(200)
-  //         .end(function(giftcardSaveErr, giftcardSaveRes) {
-  //           // Handle Giftcard save err
-  //           if (giftcardSaveErr) done(giftcardSaveErr);
-  //           agent.get('/giftcards/' + giftcardSaveRes.body._id)
-  //             .end(function(giftcardGetErr, giftcardGetRes) {
-  //               // Handle Giftcard update error
-  //               if (giftcardGetRes) done(giftcardGetRes);
-  //               // Set assertions
-  //               // console.log(giftcard);
-  //               // console.log(user);
-  //               // console.log(user2);	(giftcardUpdateRes.body.mobileNumberOfRecipient).should.equal(5456541234);
-  //               (giftcardGetRes.body.giftMessage).should.equal('A gift for you!');
-  //               (giftcardGetRes.body.mobileNumberOfRecipient).should.equal('5456541234');
-  //               // (giftcardGetRes.body.districtNumber).should
-  //               //   .equal('aDistrictNumber');
-  //               (giftcardGetRes.body.amount).should.match(1234);
-  //               (giftcardGetRes.body._id).should.match(userId2);
-  //               // Call the assertion callback
-  //               done();
-  //             });
-  //         });
-  //     }); // save giftcard
-  // }); // end signin
+
+
   /*
    * Update tests.
    * if a user is signed in they should be able to update their gifcards, if they aren't logged in we should have the giftcards protected.
@@ -357,6 +322,43 @@ describe('Giftcard CRUD tests', function() {
   //         }); // save giftcard
   //     }); // end signin
   // }); // end should method
+	it('should be able to charge, send, and create a giftcard', function(done) {
+    agent.post('/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function(signinErr, signinRes) {
+        // handle signin error
+        if (signinErr) done(signinErr);
+        //Get the userId
+				var userId = user.id;
+        var userId2 = user2.id;
+        // test teh create method now
+        agent.post('/giftcards')
+          .send(giftcard)
+          .expect(200)
+          .end(function(giftcardSaveErr, giftcardSaveRes) {
+            // Handle Giftcard save err
+            if (giftcardSaveErr) done(giftcardSaveErr);
+            agent.get('/giftcards/' + giftcardSaveRes.body._id)
+              .end(function(giftcardGetErr, giftcardGetRes) {
+                // Handle Giftcard update error
+                if (giftcardGetRes) done(giftcardGetRes);
+                // Set assertions
+                // console.log(giftcard);
+                // console.log(user);
+                // console.log(user2);	(giftcardUpdateRes.body.mobileNumberOfRecipient).should.equal(5456541234);
+                (giftcardGetRes.body.giftMessage).should.equal('A gift for you!');
+                (giftcardGetRes.body.mobileNumberOfRecipient).should.equal('5456541234');
+                // (giftcardGetRes.body.districtNumber).should
+                //   .equal('aDistrictNumber');
+                (giftcardGetRes.body.amount).should.match(1234);
+                (giftcardGetRes.body._id).should.match(userId2);
+                // Call the assertion callback
+                done();
+              });
+          });
+      }); // save giftcard
+  }); // end signin
 
   afterEach(function(done) {
     User.remove().exec();

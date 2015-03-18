@@ -7,53 +7,41 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	// userCtrl = require(''),
 	Giftcard = mongoose.model('Giftcard'),
-	balanced = require('balanced-official'),
-	Q = require('q'),
 	User = mongoose.model('User'),
-	_ = require('lodash');
-	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
+	mailgun = require('mailgun'),
+	_ = require('lodash'),
+	message = null;
+
 /**
  * Create a Giftcard
  */
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
+// all the giftcard should do is save it's self. don't make it work to hard.
 exports.create = function(req, res) {
 // if a user isn't found create one, otherwise find the user and save the giftcard.
 	var giftcard = new Giftcard(req.body);
-	var userId = req.user.id;
-	var anotherUser= new User({
-		displayName: giftcard.giftRecipientName,
-		mobileNumber:giftcard.mobileNumberOfRecipient,
-		password:'password'
+	// assign the toUser before when you get it from the other method.
+	giftcard.fromUser = req.user._id;
+	giftcard.save(function(err){
+		if(err){
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}else{
+			mailgun.sendEmail(
+				// TODO: turn this into a service with it's own templates later.
+				'gift-confirm@clique.cc',
+				req.user.email,
+				'\nTo: ' + req.user.Email +
+				'From: gift-confirmation@clique.cc' +
+				'\nContent-Type: text/html; charset=utf-8' +
+          '\nSubject: Your Clique Card has been sent!' +
+          // '\n\nYou have just sent '+ request.body.To +' a $'+ request.body.Amount +' Clique Gift Card.',
+          '\n\n'+ req.user.displayName+', your gift of $'+ giftcard.amount +' is on it&#39;s way to '+ giftcard.giftRecipientName +'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area');
+			res.jsonp(giftcard);
+		}
 	});
-	// assuming card and customer are already tokenized.
-	// create an order
-	var order = {
-		description:'something number'
-	};
-	//get customer token, then create order token
-		balanced.get(req.user.customerTokenThing).orders.create(order).then(function handler(response){
-		return balanced.get(response.href).debit_from(req.user.cardTokenThing, giftcard.amount);// take order token, and charge card.
-	}).then(function anotherHandler(response){
-		return 	User.findOne({
-					mobileNumber: giftcard.mobileNumberOfRecipient
-				}).populate('user');// go find this user, if not found, create.
-	}).then(function yetAnotherHanlder(response){
-		giftcard.toUser = response._id;
-		giftcard.fromUser = req.user._id;
-		return giftcard.save();// save giftcard to other user.
-	}).then(function yetAnotherHanlder(response){
-		return res.jsonp(giftcard);// return giftcard.
-	}).catch(function errHandler(err){
-		console.log('This error came from trying to create a customer: ' + err);
-		return res.status(400).send({
-			message: errorHandler.getErrorMessage(err)
-		});
-	});
-	// get order token
-	// charge tokenized card.
-	// charge the user
-	// I'm giving you the phone number to look up.
-	// create a promise, because if a user isn't availble one needs to be made.
+	// send email to user indicating that they created a giftcard.
 };
 // };
 	// creating a temporary giftcard to test things.
@@ -154,14 +142,6 @@ Giftcard.findById(id).populate('user').exec(function(err, giftcard) {
 		next();
 	});
 };
-// exports.giftcardByUserName = function(req, res, next, username) {
-// 	Giftcard.giftcardByUserName(username).populate('user').exec(function(err, user) {
-// 		if (err) return next(err);
-// 		if (!user) return next(new Error('Failed to load Giftcard ' + user ));
-// 		req.giftcard = user._id;
-// 		next();
-// 	});
-// };
 
 /**
  * Giftcard authorization middleware

@@ -47,17 +47,17 @@ exports.tokenize_user_into_customer = function(req, res){
 * Tokenize a card
 */
 exports.tokenizeCard = function(req, res){
-  // for testing.
   // let's say we get a credit card number.
   var payload = {
-    expiration_month:'12',
-    expiration_year:'2020',
-    number:'341111111111111',
-    cvv:'1234',
-    name:'Test User' 
+    expiration_month:req.expiration_month,
+    expiration_year:req.expiration_month,
+    number: req.number,
+    cvv:req.cvv,
+    name:req.name
     // check balanced for what they need.
     // either way we need the credit card info for part of this.
   };
+  // expect a credit card in it's form.
   // turn a valid credit/debit card into a token, and store it to the user.
   //console.log(req.body);
   balanced.marketplace.cards.create(payload).then(function handler(response){
@@ -76,19 +76,18 @@ exports.tokenizeCard = function(req, res){
 */
 exports.chargeCard = function(req, res){
   // could have the function right here.
-  var payload = {
-    appears_on_statement_as: 'first charge',
-    amount:1000,
-    description: 'Something',
-    // order: response.href
-  };
+  // to charge a card we need three things.
+  // card token
+  // order token,
+  // amount.
   // charge card
-  balanced.get(req.body.cardTokenThing).orders.create({
+  balanced.get(req.body.customerTokenThing).orders.create({
+    // need more info about the order stuff.
     description: 'Order #12341234'// create order
   }).then(function handler(response){
     // do something with the response.
     console.log(JSON.stringify(response));
-    return balanced.get(response.href).debit_from(req.body.cardTokenThing, payload.amount);
+    return balanced.get(response.href).debit_from(req.body.cardTokenThing, req.body.amount);
   }).then(function anotherHandler(response){
     console.log(JSON.stringify(response));
   }).catch(function errHandler(err){
