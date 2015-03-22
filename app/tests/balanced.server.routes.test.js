@@ -60,7 +60,6 @@ describe('Balanced-Controller API tests', function() {
       // Handle article save error
       if (tokenizationErr) done(tokenizationErr);
       // not sure what to check for. need to create a reqular expression that just checks for "/cards/", don't care about the part after.
-
       done();
     });
   });

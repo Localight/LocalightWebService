@@ -4,8 +4,10 @@
  */
 var balanced = require('balanced-official'),
     errorHandler = require('./errors.server.controller'),
+    message = null,
     Q = require('q');
     balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
+
 /**
 * Tokenize the user into a customer or merchant
 */
@@ -83,11 +85,12 @@ exports.chargeCard = function(req, res){
   //get the customer token, then create an order for them.
   balanced.get(req.body.customerTokenThing).orders.create({
     // need more info about the order stuff.
-    description: 'Order #Godizlla'// create order
+    description: 'Order #Godzilla'// create order
+
   }).then(function handler(response){
     // do something with the response.
     console.log(JSON.stringify(response));
-    return balanced.get(response.href).debit_from(req.body.cardTokenThing, req.body.amount);
+    return balanced.get(response.href).debit_from(req.body.cardTokenThing, 1234);
   }).then(function anotherHandler(response){
     console.log(JSON.stringify('The response from creating an order'+response));
   }).catch(function errHandler(err){
