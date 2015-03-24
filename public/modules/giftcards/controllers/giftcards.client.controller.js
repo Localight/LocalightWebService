@@ -8,7 +8,7 @@ angular.module('giftcards')
 
 		$scope.create = function() {
 
-			var payload1 ={
+			var payload1 = {
 				name: 'Some one',
 			  expiration_month:12,
 			  expiration_year:2020,
@@ -30,7 +30,13 @@ angular.module('giftcards')
 				//toUserUserName:'username',
 				//	districtNumber: 'number',
 			});
+      giftcard.$save(function(response){
+        $location.path('giftcards/' + response._id);
 
+        // clear form fields
+      }, function(errorResponse){
+        $scope.error = errorResponse.data.message;
+      });
 			// now to create the water fall.
 			// first gather credit card info, we want to get rid of senstive data as soon as possible.
 			// 1. get tokenized credit card.
@@ -41,35 +47,35 @@ angular.module('giftcards')
 			// 6. create the giftcard.
 			// 7. send recipent email, and text new user.
 
-			$http.post('/tokenizeCard', ).then(function handler(response){// grab the token
-				var holder = response;
-				return $http.post('/chargeCard', holder);// could add a step to create an order if we wanted too. charge the card and create an order
-			}).then(function anotherHandler(response){
-				// give the giftcard the order number or debit token
-				var giftcard = new Giftcards ({
-					giftRecipientName:this.giftRecipientName,
-					amount:this.amount,
-					mobileNumberOfRecipient:this.mobileNumberOfRecipient,
-					//ourName:'theUsersname here',
-					message:'A gift for you!',
-					purchaseOrder:response
-					//toUserUserName:'username',
-					//	districtNumber: 'number',
-				});
-				return giftcard.$save();
-			}).then(function yetAnotherHandler(response) {
-				// not sure what you get back at this point.
-					// Clear form fields
-					$scope.amount = '';
-					$scope.toUserUserName = '';
-					$scope.districtNumber = '';
-					$scope.mobileNumberOfRecipient = '';
-					// reset all fields
-					$scope.payingCardToken = '';
-					$location.path('/');
-				}).catch(function(errorResponse){
-					$scope.error = errorResponse.data.message;
-				});
+			// $http.post('/tokenizeCard', ).then(function handler(response){// grab the token
+			// 	var holder = response;
+			// 	return $http.post('/chargeCard', holder);// could add a step to create an order if we wanted too. charge the card and create an order
+			// }).then(function anotherHandler(response){
+			// 	// give the giftcard the order number or debit token
+			// 	var giftcard = new Giftcards ({
+			// 		giftRecipientName:this.giftRecipientName,
+			// 		amount:this.amount,
+			// 		mobileNumberOfRecipient:this.mobileNumberOfRecipient,
+			// 		//ourName:'theUsersname here',
+			// 		message:'A gift for you!',
+			// 		purchaseOrder:response
+			// 		//toUserUserName:'username',
+			// 		//	districtNumber: 'number',
+			// 	});
+			// 	return giftcard.$save();
+			// }).then(function yetAnotherHandler(response) {
+			// 	// not sure what you get back at this point.
+			// 		// Clear form fields
+			// 		$scope.amount = '';
+			// 		$scope.toUserUserName = '';
+			// 		$scope.districtNumber = '';
+			// 		$scope.mobileNumberOfRecipient = '';
+			// 		// reset all fields
+			// 		$scope.payingCardToken = '';
+			// 		$location.path('/');
+			// 	}).catch(function(errorResponse){
+			// 		$scope.error = errorResponse.data.message;
+			// 	});
 
 
 			// 1. Create Order

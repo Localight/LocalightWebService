@@ -53,31 +53,31 @@ describe('Balanced-Controller API tests', function() {
   //   // test everything!
   //   // Create a giftcard.
   // });
-  it('should be able to tokenize a credit card successfuly', function(done){
-    agent.post('/tokenizeCard')
-    .send(passingCreditCard)
-    .end(function(tokenizationErr, tokenizationRes){
-      // Handle article save error
-      if (tokenizationErr) done(tokenizationErr);
-      // not sure what to check for. need to create a reqular expression that just checks for "/cards/", don't care about the part after.
-      done();
-    });
-  });
-  it('should be able to charge a card succesfully', function(done){
-    var payload = {
-      amount: 233,
-      customerTokenThing:'/customers/CU5sGKYG4NcNr753rE2Qn5Pf',
-      cardTokenThing:'/cards/CC4GRkqY8x8uszvmEca6k9IX'
-    };
-    agent.post('/chargeCard')
-    .send(payload)
-    .end(function(balancedErr, balancedRes){
-      // handle errors
-      if (balancedErr) done(balancedErr);
-      // not sure what to check for. need to create a reqular expression that just checks for "/debits/", don't care about the part after.
-      done();
-    });
-  });
+  // it('should be able to tokenize a credit card successfuly', function(done){
+  //   agent.post('/tokenizeCard')
+  //   .send(passingCreditCard)
+  //   .end(function(tokenizationErr, tokenizationRes){
+  //     // Handle article save error
+  //     if (tokenizationErr) done(tokenizationErr);
+  //     // not sure what to check for. need to create a reqular expression that just checks for "/cards/", don't care about the part after.
+  //     done();
+  //   });
+  // });
+  // it('should be able to charge a card succesfully', function(done){
+  //   var payload = {
+  //     amount: 233,
+  //     customerTokenThing:'/customers/CU5sGKYG4NcNr753rE2Qn5Pf',
+  //     cardTokenThing:'/cards/CC4GRkqY8x8uszvmEca6k9IX'
+  //   };
+  //   agent.post('/chargeCard')
+  //   .send(payload)
+  //   .end(function(balancedErr, balancedRes){
+  //     // handle errors
+  //     if (balancedErr) done(balancedErr);
+  //     // not sure what to check for. need to create a reqular expression that just checks for "/debits/", don't care about the part after.
+  //     done();
+  //   });
+  // });
 
   afterEach(function(done){
     done();
