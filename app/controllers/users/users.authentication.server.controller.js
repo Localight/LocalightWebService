@@ -61,6 +61,7 @@ exports.signup = function(req, res) {
  * Find or create user based on mobile number
  */
 exports.findOrCreateUser = function(req, res){
+
 	User.findOne({
 		'mobileNumber':req.body.mobileNumber
 		}, function(err, user) {
@@ -74,29 +75,35 @@ exports.findOrCreateUser = function(req, res){
 			console.log('User already exists');
 			return user._id;
 		} else {
-			// if there is no user with that email
-			// create the user
-			var newUser = new User();
+			// if there is no user with that phoneNumber
+			// create the user, with the data entered on the giftcard
+			var anotherUser = new User();
 			// set the user's local credentials
-			newUser.displayName = req.body.giftRecipientName;
-			// newUser.password = createHash(password);//TODO: come back to this.
-			newUser.password = 'password';
-			newUser.mobileNumber = req.body.mobileNumber;
+			anotherUser.displayName = req.body.giftRecipientName;
+			// anotherUser.password = createHash(password);//TODO: come back to this.
+			anotherUser.password = 'password';//TODO: figure out how to handle new user signup later.
+			anotherUser.mobileNumber = req.body.mobileNumber;
+			var payload = {
+				description:anotherUser.displayName,
+				mobileNumber:anotherUser.mobileNumber
+			};
+			stripe.customers.create(payload).then(function handler(response) {
+				// get and save the new users's token.
+				anotherUser.customerTokenThing = response.id;
+				return anotherUser.save();
+			}).then(function anotherHandler(response){
+				return anotherUser._id;
+			}).catch(function errHandler(err){
+				console.log('this is the error from signing up' + JSON.stringify(err));
+				return res.status(400).send(err);
+			});
 			// tokenize user as well.
 			//TODO: need to figure out how and when to do that for user.
 			// in theory could add it to the sign in, then if they have a token already it doesn't fire.
-			// newUser.email = req.param('email');
+			// anotherUser.email = req.param('email');
 			// newUser.firstName = req.param('firstName');
 			// newUser.lastName = req.param('lastName');
 			// save the user
-			newUser.save(function(err) {
-				if (err){
-					console.log('Error in Saving user: '+err);
-					throw err;
-				}
-				console.log('User Registration succesful');
-				return newUser._id;
-			});
 		}
 	});
 };
