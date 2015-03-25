@@ -59,6 +59,12 @@ angular.module('giftcards')
 
       findOrCreateUser : function(giftcard)
       {
+        var dfd = $q.defer();
+        // make the call the backend
+        dfd.resolve({
+
+        });
+        return dfd.promise;
 
         // take in the mobile number and just send it to the backend and expect back a user id.
       },
