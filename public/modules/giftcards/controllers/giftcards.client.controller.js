@@ -1,13 +1,16 @@
 'use strict';
-
 // Giftcards controller
 angular.module('giftcards')
-  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService',
-    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService) {
+  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService','$log',
+    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log) {
       $scope.authentication = Authentication;
+
       $scope.create = function() {
+
+        processPaymentService.tokenizeCard($scope.user.customerTokenThing, displayName, this.creditCardNumber, this.month, this.year, this.cvv).then(function handler()) // this charges the card.
         // data filled from the forms
         var displayName = $scope.user.firstName + ' ' + $scope.user.lastName;
+
         var payload = {
           customer: $scope.user.customerTokenThing, // figure out how to get this users, displayname
           number: this.creditCardNumber,
@@ -17,12 +20,13 @@ angular.module('giftcards')
         };
 
         //TODO: figure out how to make sure we only accept debit cards.
-        processPaymentService.tokenizeCard($scope.user.customerTokenThing, displayName, this.creditCardNumber, this.month, this.year, this.cvv); // this charges the card.
+
         // next you need to create the giftcard.
         // before you can create the giftcard you need to find the other user.
 
 
         var giftcard = new Giftcards({
+
           giftRecipientName: 'James Hall',
           amount: 344444444,
           mobileNumberOfRecipient: 2132203433,

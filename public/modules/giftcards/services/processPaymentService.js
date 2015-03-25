@@ -2,13 +2,13 @@
 // this will handle sequence that leads up to a giftcard being purchased
 // Payment Service for managing calls to backend API
 angular.module('giftcards')
-  .service('processPaymentService', function($q) {
-
+  .service('processPaymentService', function($q, $http) {
     return {
       // should return a token
-      tokenizeCard: function(customerTokenThing, name, number, exp_month, exp_year, cvv, name)
+      tokenizeCard : function(customerTokenThing, name, number, exp_month, exp_year, cvv, name)
       {
         var error;
+
         if(!Stripe.card.validateCardNumber(number)){
           error = buildError('number', 'Your card number is incorrect.');
         }
@@ -22,6 +22,7 @@ angular.module('giftcards')
           error_callback(error);
           return;
         }
+
         // callback = function(status, response) {
         //   if (response.error) {
         //     error_callback(buildError('server', response.error.message));
@@ -53,21 +54,25 @@ angular.module('giftcards')
           number: number,
           exp_month: exp_month,
           exp_year: exp_year,
-          cvc: cvc
+          cvv: cvv
         }, callback);
       },
-
+      // this probably should be another service but, i'm not sure.
+      // if you are looking at this in the future sorry, i'm just learning how to this. @JamesHall03/24/2014
       findOrCreateUser : function(giftcard)
       {
-        var dfd = $q.defer();
-        // make the call the backend
-        dfd.resolve({
-
+        // need to turn this into a promise
+        $http.post('/auth/findOrCreateUser/', giftcard).success(function(data){
+          return data;// this should be the id of the user you are sending the giftcard too.
+        }).error(function(){
+          // need to research how to use errors, better
+          throw new Error('Cannont connect to server');
+          //handle the error.
         });
-        return dfd.promise;
-
         // take in the mobile number and just send it to the backend and expect back a user id.
       },
-
+      chargeCard : function(){
+      },
     };
+
   });

@@ -61,9 +61,8 @@ exports.signup = function(req, res) {
  * Find or create user based on mobile number
  */
 exports.findOrCreateUser = function(req, res){
-
 	User.findOne({
-		'mobileNumber':req.body.mobileNumber
+		'mobileNumber': req.body.mobileNumber
 		}, function(err, user) {
 		// In case of any error return
 		if (err){
