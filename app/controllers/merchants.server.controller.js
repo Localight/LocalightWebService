@@ -6,10 +6,9 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Merchant = mongoose.model('Merchant'),
-	balanced = require('balanced-official'),
 	Q = require('q'),
 	_ = require('lodash');
-	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
+
 
 /**
  * Take a Merchant and turn them into a customer.

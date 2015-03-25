@@ -7,10 +7,9 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	balanced = require('balanced-official'),
+	stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
 	Q = require('q'),
 	User = mongoose.model('User');
-	balanced.configure('ak-test-243p045kOCxSDITqcndq40XGNK60zQ7Ft');
 
 
 /**
@@ -26,14 +25,13 @@ exports.signup = function(req, res) {
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
 	var payload = {
-		name: user.displayName,
+		description:user.displayName,
 		email: user.email,
-		phone_number: user.mobileNumber,
 	};
-	balanced.marketplace.customers.create(payload)
+	stripe.customers.create(payload)
 	.then(function handler(response) {
 		// get and save the new users's token.
-		user.customerTokenThing = response.href;
+		user.customerTokenThing = response.id;
 		return user.save(function(err) {
 		if (err) {
 			return res.status(400).send({

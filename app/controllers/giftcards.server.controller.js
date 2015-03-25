@@ -28,16 +28,16 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		}else{
-			mailgun.sendEmail(
-				// TODO: turn this into a service with it's own templates later.
-				'gift-confirm@clique.cc',
-				req.user.email,
-				'\nTo: ' + req.user.Email +
-				'From: gift-confirmation@clique.cc' +
-				'\nContent-Type: text/html; charset=utf-8' +
-          '\nSubject: Your Clique Card has been sent!' +
-          // '\n\nYou have just sent '+ request.body.To +' a $'+ request.body.Amount +' Clique Gift Card.',
-          '\n\n'+ req.user.displayName+', your gift of $'+ giftcard.amount +' is on it&#39;s way to '+ giftcard.giftRecipientName +'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area');
+			// mailgun.sendEmail(
+			// 	// TODO: turn this into a service with it's own templates later.
+			// 	'gift-confirm@clique.cc',
+			// 	req.user.email,
+			// 	'\nTo: ' + req.user.Email +
+			// 	'From: gift-confirmation@clique.cc' +
+			// 	'\nContent-Type: text/html; charset=utf-8' +
+      //     '\nSubject: Your Clique Card has been sent!' +
+      //     // '\n\nYou have just sent '+ request.body.To +' a $'+ request.body.Amount +' Clique Gift Card.',
+      //     '\n\n'+ req.user.displayName+', your gift of $'+ giftcard.amount +' is on it&#39;s way to '+ giftcard.giftRecipientName +'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area');
 			res.jsonp(giftcard);
 		}
 	});
