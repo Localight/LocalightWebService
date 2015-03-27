@@ -66,11 +66,12 @@ var GiftcardSchema = new Schema({
 	fromUser: {
 		type:Schema.ObjectId,
 		ref:'User',
+		required:'Enter who this is from.'
 	},
 	toUser:{
 		type:Schema.ObjectId,
 		ref:'User',
-		require:'Please Enter a User to send this too.'
+		required:'Please Enter a User to send this too.'
 	}
 	// name: {
 	// 	type: String,

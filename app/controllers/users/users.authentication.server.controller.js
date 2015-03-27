@@ -61,6 +61,7 @@ exports.signup = function(req, res) {
  * Find or create user based on mobile number
  */
 exports.findOrCreateUser = function(req, res){
+
 	User.findOne({
 		'mobileNumber': req.body.mobileNumber
 		}, function(err, user) {
@@ -71,29 +72,34 @@ exports.findOrCreateUser = function(req, res){
 		}
 		// already exists
 		if (user) {
-			console.log('User already exists');
-			return user._id;
+			console.log('here is the user as he already exists: '+user);
+			return res.jsonp(user);
 		} else {
+			console.log('contents of response' + JSON.stringify(req.body));
 			// if there is no user with that phoneNumber
 			// create the user, with the data entered on the giftcard
-			var anotherUser = new User();
+			var anotherUser = new User(req.body);
+			console.log('contents of the otherUser as it is created: '+anotherUser);
 			// set the user's local credentials
-			anotherUser.displayName = req.body.giftRecipientName;
+			anotherUser.fullName = req.body.name;
 			// anotherUser.password = createHash(password);//TODO: come back to this.
 			anotherUser.password = 'password';//TODO: figure out how to handle new user signup later.
 			anotherUser.mobileNumber = req.body.mobileNumber;
+			anotherUser.provider = 'local';
 			var payload = {
-				description:anotherUser.displayName,
-				mobileNumber:anotherUser.mobileNumber
+				description : req.body.name
 			};
 			stripe.customers.create(payload).then(function handler(response) {
 				// get and save the new users's token.
+				console.log('reponse from stripe' + JSON.stringify(response));
 				anotherUser.customerTokenThing = response.id;
-				return anotherUser.save();
+				console.log('contents of anotherUser' + anotherUser);
+				 return anotherUser.save();
 			}).then(function anotherHandler(response){
-				return anotherUser._id;
+				console.log('response after saving the user: '+ JSON.stringify(response) );
+				return res.jsonp(anotherUser);
 			}).catch(function errHandler(err){
-				console.log('this is the error from signing up' + JSON.stringify(err));
+				console.log('this is the error from signing up at the end ' + err);
 				return res.status(400).send(err);
 			});
 			// tokenize user as well.

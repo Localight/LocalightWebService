@@ -1,51 +1,100 @@
 'use strict';
 // Giftcards controller
 angular.module('giftcards')
-  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService','$log',
-    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log) {
+  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
+    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q) {
       $scope.authentication = Authentication;
 
       $scope.create = function() {
+        // var payload = {
+        //   customer: $scope.user.customerTokenThing, // figure out how to get this users, displayname
+        //   number: this.creditCardNumber,
+        //   exp_month: this.month,
+        //   exp_year: this.year,
+        //   cvv: this.cvv,
+        // };
+         var aPhoneNumber = 123456789,
+         displayName = 'Bob something',
+          payload = {
+            card: {
+              name: displayName,
+              creditCardNumber: this.creditCardNumber,
+              month: this.month,
+              year: this.year,
+              cvv: this.cvv
+            }
+          };
+          // get the parameters from scope.
+        // processPaymentService.findOrCreateUser(aPhoneNumber, displayName).then(function handler(response) {
+        //   var holder = JSON.stringify(response);
+          // var giftcard = new Giftcards({
+          //     giftRecipientName: 'asdfas',
+          //     amount: 344444444,
+          //     mobileNumberOfRecipient: 5132403435,
+          //     //ourName:'theUsersname here',
+          //     message: 'A gift for you!',
+          //     toUser: holder
+          //     //purchaseOrder:response
+          //     //toUserUserName:'username',
+          //     //	districtNumber: 'number',
+          //   });
+        //   return giftcard.$save();
+        // }).then(function yetAnotherHandler(response) {
+        //   // at this point the giftcard has been made.
+        //   return $location.path('/giftcards');
+        // }).catch(function errorHandler(errorResponse) {
+        //   $scope.error = errorResponse.data.message;
+        // });
+        var giftcard = new Giftcards({
+            giftRecipientName: 'asdfas',
+            amount: 344444444,
+            mobileNumberOfRecipient: 5132403435,
+            //ourName:'theUsersname here',
+            message: 'A gift for you!',
+            //toUser: data._id
+            //purchaseOrder:response
+            //toUserUserName:'username',
+            //	districtNumber: 'number',
+          });
+         var getUserId = function(giftcard) {
+            return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName); // request #1
+          },
+          saveId = function(data) {
+            console.log('contents of the response from the server '+data);
+            var holder = JSON.parse(data._id);
+            giftcard.toUser = holder;
+            return processPaymentService.sendGiftCard(giftcard);
+          },
+          // lastThing = function(giftcard) {
+          //
+          // },
+          reportProblems = function(fault) {
+            $log.error(String(fault));
+          };
 
-        processPaymentService.tokenizeCard($scope.user.customerTokenThing, displayName, this.creditCardNumber, this.month, this.year, this.cvv).then(function handler()) // this charges the card.
+        getUserId(giftcard).then(saveId).catch(reportProblems);
+        //$location.path('/giftcards');
+
+
+        // .then(function anotherHandler(response) {
+        //    giftcard.toUser = response;
+        //    return giftcard.$save();
+        //  }).then(function (response){
+        //    $location.path('/giftcards');
+        //  }).catch(function errorHandler(errorResponse){
+        //    $scope.error = errorResponse.data.message;
+        //  });
+        // Stripe.card.createToken(payload,)
+        //   .then(function handler(response) {
+        //     $scope.authentication.user.cardTokenThing = response.id;
+        //   }).then()
+
+
         // data filled from the forms
-        var displayName = $scope.user.firstName + ' ' + $scope.user.lastName;
-
-        var payload = {
-          customer: $scope.user.customerTokenThing, // figure out how to get this users, displayname
-          number: this.creditCardNumber,
-          exp_month: this.month,
-          exp_year: this.year,
-          cvv: this.cvv,
-        };
 
         //TODO: figure out how to make sure we only accept debit cards.
-
         // next you need to create the giftcard.
         // before you can create the giftcard you need to find the other user.
-
-
-        var giftcard = new Giftcards({
-
-          giftRecipientName: 'James Hall',
-          amount: 344444444,
-          mobileNumberOfRecipient: 2132203433,
-          //ourName:'theUsersname here',
-          message: 'A gift for you!',
-          //purchaseOrder:response
-          //toUserUserName:'username',
-          //	districtNumber: 'number',
-        });
-        processPaymentService.findOrCreateUser(giftcard);
-        // tokenize the card
-        // charge the card, create giftcard.
-        //
-        giftcard.$save(function(response) {
-          $location.path('giftcards/');
-          // clear form fields
-        }, function(errorResponse) {
-          $scope.error = errorResponse.data.message;
-        });
 
 
         // now to create the water fall.

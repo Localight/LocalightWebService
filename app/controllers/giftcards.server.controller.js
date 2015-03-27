@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	mailgun = require('mailgun'),
 	_ = require('lodash'),
+	stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
 	message = null;
 
 /**
@@ -18,29 +19,43 @@ var mongoose = require('mongoose'),
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 // all the giftcard should do is save it's self. don't make it work to hard.
 exports.create = function(req, res) {
+	console.log('got here too');
 // if a user isn't found create one, otherwise find the user and save the giftcard.
 	var giftcard = new Giftcard(req.body);
+	console.log(giftcard);
 	// assign the toUser before when you get it from the other method.
-	giftcard.fromUser = req.user._id;
-	giftcard.save(function(err){
-		if(err){
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		}else{
-			// mailgun.sendEmail(
-			// 	// TODO: turn this into a service with it's own templates later.
-			// 	'gift-confirm@clique.cc',
-			// 	req.user.email,
-			// 	'\nTo: ' + req.user.Email +
-			// 	'From: gift-confirmation@clique.cc' +
-			// 	'\nContent-Type: text/html; charset=utf-8' +
-      //     '\nSubject: Your Clique Card has been sent!' +
-      //     // '\n\nYou have just sent '+ request.body.To +' a $'+ request.body.Amount +' Clique Gift Card.',
-      //     '\n\n'+ req.user.displayName+', your gift of $'+ giftcard.amount +' is on it&#39;s way to '+ giftcard.giftRecipientName +'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area');
-			res.jsonp(giftcard);
-		}
-	});
+		// var payload = {
+		// 	amount:giftcard.amount,
+		// 	currency: 'usd',
+		// 	source: req.body.user.cardTokenThing,
+		// 	description: 'test'
+		// };
+		giftcard.fromUser = req.user;
+		giftcard.save(function(err) {
+			if (err) {
+				console.log(err);
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.json(giftcard);
+			}
+		});
+	// stripe.charges.create(payload).then(function handler(response){
+	//
+	// 	giftcard.orderTokenThing = response.id;
+	// 	// emailing the recipet and saving the giftcard can happen at the same time.
+	// 	return giftcard.save();
+	// 	// email recipiet,
+	// 	//
+	// }).then(function anotherHandler(response){
+	// 	res.jsonp(giftcard);
+	// }).catch(function errHandler(err){
+	// 	return res.status(400).send({
+	// 		message: errHandler.getErrorMessage(err)
+	// 	});
+	// });
+
 	// send email to user indicating that they created a giftcard.
 };
 // };
