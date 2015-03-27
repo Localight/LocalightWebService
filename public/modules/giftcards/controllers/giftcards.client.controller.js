@@ -24,55 +24,56 @@ angular.module('giftcards')
               cvv: this.cvv
             }
           };
-          // get the parameters from scope.
-        // processPaymentService.findOrCreateUser(aPhoneNumber, displayName).then(function handler(response) {
-        //   var holder = JSON.stringify(response);
-          // var giftcard = new Giftcards({
-          //     giftRecipientName: 'asdfas',
-          //     amount: 344444444,
-          //     mobileNumberOfRecipient: 5132403435,
-          //     //ourName:'theUsersname here',
-          //     message: 'A gift for you!',
-          //     toUser: holder
-          //     //purchaseOrder:response
-          //     //toUserUserName:'username',
-          //     //	districtNumber: 'number',
-          //   });
-        //   return giftcard.$save();
-        // }).then(function yetAnotherHandler(response) {
-        //   // at this point the giftcard has been made.
-        //   return $location.path('/giftcards');
-        // }).catch(function errorHandler(errorResponse) {
-        //   $scope.error = errorResponse.data.message;
-        // });
-        var giftcard = new Giftcards({
-            giftRecipientName: 'asdfas',
-            amount: 344444444,
-            mobileNumberOfRecipient: 5132403435,
-            //ourName:'theUsersname here',
-            message: 'A gift for you!',
-            //toUser: data._id
-            //purchaseOrder:response
-            //toUserUserName:'username',
-            //	districtNumber: 'number',
-          });
-         var getUserId = function(giftcard) {
-            return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName); // request #1
-          },
-          saveId = function(data) {
-            console.log('contents of the response from the server '+data);
-            var holder = JSON.parse(data._id);
-            giftcard.toUser = holder;
-            return processPaymentService.sendGiftCard(giftcard);
-          },
-          // lastThing = function(giftcard) {
-          //
-          // },
-          reportProblems = function(fault) {
-            $log.error(String(fault));
-          };
+        // get the parameters from scope.
+        processPaymentService.findOrCreateUser(aPhoneNumber, displayName).then(function handler(response) {
+          var giftcard = new Giftcards({
+              giftRecipientName: 'asdfas',
+              amount: 344444444,
+              mobileNumberOfRecipient: 5132403435,
+              //ourName:'theUsersname here',
+              message: 'A gift for you!',
+              toUser:response.data._id
+              //purchaseOrder:response
+              //toUserUserName:'username',
+              //	districtNumber: 'number',
+            });
+          return giftcard.$save();
+        }).then(function yetAnotherHandler(response) {
+          // at this point the giftcard has been made.
+          return $location.path('/giftcards');
+        }).catch(function errorHandler(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
 
-        getUserId(giftcard).then(saveId).catch(reportProblems);
+        // var giftcard = new Giftcards({
+        //     giftRecipientName: 'asdfas',
+        //     amount: 344444444,
+        //     mobileNumberOfRecipient: 5132403435,
+        //     //ourName:'theUsersname here',
+        //     message: 'A gift for you!',
+        //     //toUser: data._id
+        //     //purchaseOrder:response
+        //     //toUserUserName:'username',
+        //     //	districtNumber: 'number',
+        //   });
+        //
+        //  var getUserId = function( giftcard ) {
+        //     return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName); // request #1
+        //   },
+        //   saveId = function( data ) {
+        //     console.log('contents of the response from the server '+data);
+        //     var holder = JSON.parse(data);
+        //     giftcard.toUser = holder;
+        //     return processPaymentService.sendGiftCard(giftcard);
+        //   },
+        //   // lastThing = function(giftcard) {
+        //   //
+        //   // },
+        //   reportProblems = function(fault) {
+        //     $log.error(String(fault));
+        //   };
+
+        // getUserId(giftcard).then(saveId).catch(reportProblems);
         //$location.path('/giftcards');
 
 

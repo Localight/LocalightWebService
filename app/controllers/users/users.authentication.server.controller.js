@@ -73,7 +73,7 @@ exports.findOrCreateUser = function(req, res){
 		// already exists
 		if (user) {
 			console.log('here is the user as he already exists: '+user);
-			return res.jsonp(user);
+			return res.json(user);
 		} else {
 			console.log('contents of response' + JSON.stringify(req.body));
 			// if there is no user with that phoneNumber
@@ -81,14 +81,15 @@ exports.findOrCreateUser = function(req, res){
 			var anotherUser = new User(req.body);
 			console.log('contents of the otherUser as it is created: '+anotherUser);
 			// set the user's local credentials
-			anotherUser.fullName = req.body.name;
+			anotherUser.fullName = req.body.fullName;
 			// anotherUser.password = createHash(password);//TODO: come back to this.
 			anotherUser.password = 'password';//TODO: figure out how to handle new user signup later.
 			anotherUser.mobileNumber = req.body.mobileNumber;
 			anotherUser.provider = 'local';
 			var payload = {
-				description : req.body.name
+				description : req.body.fullName
 			};
+
 			stripe.customers.create(payload).then(function handler(response) {
 				// get and save the new users's token.
 				console.log('reponse from stripe' + JSON.stringify(response));
@@ -97,11 +98,12 @@ exports.findOrCreateUser = function(req, res){
 				 return anotherUser.save();
 			}).then(function anotherHandler(response){
 				console.log('response after saving the user: '+ JSON.stringify(response) );
-				return res.jsonp(anotherUser);
+				return res.json(anotherUser);
 			}).catch(function errHandler(err){
 				console.log('this is the error from signing up at the end ' + err);
 				return res.status(400).send(err);
 			});
+
 			// tokenize user as well.
 			//TODO: need to figure out how and when to do that for user.
 			// in theory could add it to the sign in, then if they have a token already it doesn't fire.
