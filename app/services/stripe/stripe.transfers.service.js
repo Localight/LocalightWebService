@@ -8,7 +8,20 @@ message = null;
 /**
  * Create a Transfer
  */
+ exports.createATransfer = function(req, res){
 
+   stripe.charges.create({
+     amount: req.amount,
+     currency: 'usd',
+     recipient: req.Token,
+     }).then(function(response){
+       return response.id;
+     }).catch(function errHandler(err){
+       return res.status(400).send({
+         message: errorHandler.getErrorMessage(err)
+     });
+   });
+ };
 /**
  * Retrieve a Transfer
  */
