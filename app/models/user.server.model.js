@@ -25,6 +25,7 @@ var validateLocalStrategyPassword = function(password) {
  * User Schema
  */
 var UserSchema = new Schema({
+
 	firstName: {
 		type: String,
 		trim: true,
@@ -39,7 +40,8 @@ var UserSchema = new Schema({
 	},
 	fullName:{
 		type:String,
-		default: ''
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
 	},
 	cardTokenThing:{
 		type:String
@@ -150,7 +152,7 @@ UserSchema.methods.authenticate = function(password) {
 UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	var _this = this;
 	var possibleUsername = username + (suffix || '');
-
+	
 	_this.findOne({
 		username: possibleUsername
 	}, function(err, user) {

@@ -13,8 +13,8 @@ angular.module('giftcards')
         //   exp_year: this.year,
         //   cvv: this.cvv,
         // };
-         var aPhoneNumber = 123456789,
-         displayName = 'Bob something',
+        var aPhoneNumber = this.mobileNumberOfRecipient,
+          displayName = this.giftRecipientName,
           payload = {
             card: {
               name: displayName,
@@ -24,27 +24,31 @@ angular.module('giftcards')
               cvv: this.cvv
             }
           };
+        var giftcard = new Giftcards({
+          giftRecipientName: this.giftRecipientName,
+          amount: this.amount,
+          mobileNumberOfRecipient: this.mobileNumberOfRecipient,
+          //ourName:'theUsersname here',
+          message: 'A gift for you!',
+          //toUserUserName:'username',
+          //	districtNumber: 'number',
+        });
         // get the parameters from scope.
         processPaymentService.findOrCreateUser(aPhoneNumber, displayName).then(function handler(response) {
-          var giftcard = new Giftcards({
-              giftRecipientName: 'asdfas',
-              amount: 344444444,
-              mobileNumberOfRecipient: 5132403435,
-              //ourName:'theUsersname here',
-              message: 'A gift for you!',
-              toUser:response.data._id
-              //purchaseOrder:response
-              //toUserUserName:'username',
-              //	districtNumber: 'number',
-            });
+          giftcard.toUser = response.data._id;
           return giftcard.$save();
+          // return processPaymentService.tokenizeCard(payload);
+
+        // })
+        // .then(function anotherHandler(response) {
+        //   $scope.authentication.user.cardTokenThing = response.data._id;
+        //   // at this point the giftcard has been made.
+        //   return giftcard.$save();
         }).then(function yetAnotherHandler(response) {
-          // at this point the giftcard has been made.
           return $location.path('/giftcards');
         }).catch(function errorHandler(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
-
         // var giftcard = new Giftcards({
         //     giftRecipientName: 'asdfas',
         //     amount: 344444444,

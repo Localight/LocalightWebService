@@ -7,9 +7,10 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
 	Q = require('q'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	message = null;
+	var stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj');
 
 
 /**
@@ -20,7 +21,7 @@ exports.signup = function(req, res) {
 	delete req.body.roles;
   // Init Variables
   var user = new User(req.body);
-  var message = null;
+
   // Add missing user fields
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
@@ -61,7 +62,10 @@ exports.signup = function(req, res) {
  * Find or create user based on mobile number
  */
 exports.findOrCreateUser = function(req, res){
-
+	// this is a controller, but you do everything in a controller.
+	// getting user from database.
+	// doing to much in controller.
+	// user.service, pass in phone number. return the object as promise or callback.
 	User.findOne({
 		'mobileNumber': req.body.mobileNumber
 		}, function(err, user) {
@@ -75,6 +79,7 @@ exports.findOrCreateUser = function(req, res){
 			console.log('here is the user as he already exists: '+user);
 			return res.json(user);
 		} else {
+			// if user is not found create here.
 			console.log('contents of response' + JSON.stringify(req.body));
 			// if there is no user with that phoneNumber
 			// create the user, with the data entered on the giftcard
@@ -86,24 +91,32 @@ exports.findOrCreateUser = function(req, res){
 			anotherUser.password = 'password';//TODO: figure out how to handle new user signup later.
 			anotherUser.mobileNumber = req.body.mobileNumber;
 			anotherUser.provider = 'local';
+			anotherUser.email = req.body.email;
+
 			var payload = {
 				description : req.body.fullName
 			};
-
+			// passport
+			//
 			stripe.customers.create(payload).then(function handler(response) {
 				// get and save the new users's token.
 				console.log('reponse from stripe' + JSON.stringify(response));
 				anotherUser.customerTokenThing = response.id;
 				console.log('contents of anotherUser' + anotherUser);
-				 return anotherUser.save();
-			}).then(function anotherHandler(response){
-				console.log('response after saving the user: '+ JSON.stringify(response) );
-				return res.json(anotherUser);
+				 return anotherUser.save(function(err){
+					if(err){
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					}else{
+						console.log('User Registration succesful');
+						res.json(user);
+					}
+				});// saves user here.
 			}).catch(function errHandler(err){
 				console.log('this is the error from signing up at the end ' + err);
 				return res.status(400).send(err);
 			});
-
 			// tokenize user as well.
 			//TODO: need to figure out how and when to do that for user.
 			// in theory could add it to the sign in, then if they have a token already it doesn't fire.
@@ -114,6 +127,7 @@ exports.findOrCreateUser = function(req, res){
 		}
 	});
 };
+
 /**
  * Signin after passport authentication
  */

@@ -3,20 +3,13 @@
 // Payment Service for managing calls to backend API
 angular.module('giftcards')
   .service('processPaymentService', function($q, $http) {
-
-    // /** Private Helpers **/
-    // function buildError(key, message) {
-    //     return {
-    //       key: key,
-    //       message: message
-    //     };
-    //   }
     return {
       // should return a token
       tokenizeCard: function(payload) {
+        // TODO: add in some way to tell if user has token
+        // if user has token then use that token and don't create one.
 
         var dfd = $q.defer();
-
         var holder = Stripe.customers.createCard({
           card: {
             name: payload.displayName,
@@ -86,9 +79,9 @@ angular.module('giftcards')
            $http.post('/auth/findOrCreateUser',
             {
               mobileNumber : mobileNumber,
-              fullName     : name
-            })
-            );
+              fullName     : name,
+              email: 'something@something.com'
+            }));
            return dfd.promise;
           // need to turn this into a promise
         }
