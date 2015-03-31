@@ -26,7 +26,7 @@ passingCreditCard = {
   line2: 'ho eeh shesad',
   state: 'CA',
   postal_code: 94301,
-  cvv: 123
+  cvc: 123
 };
 cardTokenThing = '/cards/CC4GRkqY8x8uszvmEca6k9IX';
 customerTokenThing = '/customers/CU5sGKYG4NcNr753rE2Qn5Pf';

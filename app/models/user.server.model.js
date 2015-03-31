@@ -43,15 +43,13 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
 	},
-	cardTokenThing:{
-		type:String
+	stripeCustomerToken:{
+		type:String,
+		default: ''
 	},
-	/*
-	 * For Testing Purpose only!
-	 * customerToken
-	 */
-	customerTokenThing:{
-		type:String
+	stripeCardToken:{
+		type:String,
+		default: '',
 	},
 	/*
 	 * Mobile Number, 9-digit number we need to have for the giftcard
@@ -152,7 +150,7 @@ UserSchema.methods.authenticate = function(password) {
 UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	var _this = this;
 	var possibleUsername = username + (suffix || '');
-	
+
 	_this.findOne({
 		username: possibleUsername
 	}, function(err, user) {

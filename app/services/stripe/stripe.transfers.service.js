@@ -1,6 +1,6 @@
 'use strict';
 var stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
-errorHandler = require('./errors.server.controller'),
+// errorHandler = require('../controllers/errors.server.controller'),
 _ = require('lodash'),
 Q = require('q'),
 message = null;
@@ -17,9 +17,7 @@ message = null;
      }).then(function(response){
        return response.id;
      }).catch(function errHandler(err){
-       return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-     });
+       return res.send(500, err);
    });
  };
 /**

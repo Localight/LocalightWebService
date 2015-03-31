@@ -134,7 +134,7 @@
     </div>
     <div id="creditcardinfo" class="paymentcontainer filledIn">
       <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
-      <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVV" maxlength="4" size="4" pattern="\d*" ng-model="formData.CVV" ng-focus="expiryFocus()" required>
+      <input type="text" id="clique_input_cvc" class="profont expiry credit_card_cvc" placeholder="cvc" maxlength="4" size="4" pattern="\d*" ng-model="formData.cvc" ng-focus="expiryFocus()" required>
       <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
       <div class="checkmark"></div>
     </div>

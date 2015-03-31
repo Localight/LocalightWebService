@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	mailgun = require('mailgun'),
 	_ = require('lodash'),
-	stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
+  stripeChargesService = require('../services/stripe/stripe.charges.service'),
 	message = null;
 
 /**
@@ -23,24 +23,27 @@ exports.create = function(req, res) {
 // if a user isn't found create one, otherwise find the user and save the giftcard.
 	var giftcard = new Giftcard(req.body);
 	console.log(giftcard);
+		console.log(req.user);
 	// assign the toUser before when you get it from the other method.
-		// var payload = {
-		// 	amount:giftcard.amount,
-		// 	currency: 'usd',
-		// 	source: req.body.user.cardTokenThing,
-		// 	description: 'test'
-		// };
-		giftcard.fromUser = req.user;
-		giftcard.save(function(err) {
-			if (err) {
-				console.log(err);
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				res.json(giftcard);
-			}
+		var payload = {
+			amount:giftcard.amount,
+			source: req.user.stripeCardToken,
+			customer: req.user.stripeCustomerToken
+			// card: req.user.stripeCardToken
+		};
+		stripeChargesService.createACharge(payload)
+		.then(function handler(response){
+			giftcard.stripeOrderId = response.id;
+			return giftcard.save();// returns status of charge.
+		}).then(function anotherHanlder(response){// add in stuff for emailing recipient and texting other user.
+			return res.json(giftcard);
+		}).catch(function errHandler(err){
+			console.log('error from creating a giftcard.' + err);
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
 		});
+
 	// stripe.charges.create(payload).then(function handler(response){
 	//
 	// 	giftcard.orderTokenThing = response.id;
@@ -66,7 +69,7 @@ exports.create = function(req, res) {
 	// 	number:4111111111111111,
 	// 	card_brand:'VISA',
 	// 	card_type: 'Credit',
-	// 	cvv:'123',
+	// 	cvc:'123',
 	// };
 
 	// for now save the token to the giftcard
@@ -117,7 +120,9 @@ exports.delete = function(req, res) {
 	var giftcard = req.giftcard ;
 // The method gets called after the merchant enters the tricon and the amount has been transfered to him.
 // this is the final step to completing a transaction.
-
+// pay-out vendor create invoice,
+// delete giftcard
+// email vendor
 	giftcard.remove(function(err) {
 		if (err) {
 			return res.status(400).send({

@@ -5,30 +5,53 @@ angular.module('giftcards')
   .service('processPaymentService', function($q, $http) {
     return {
       // should return a token
-      tokenizeCard: function(payload) {
+      //   var aPhoneNumber = this.mobileNumberOfRecipient,
+      tokenizeCard: function(data) {
+
+        function stripeResponseHandler(status, response){
+
+          if (response.error){
+            return response.error.message;
+          }else{
+            return response;
+          }
+        }
+
+        Stripe.tokens.create({
+          card: {
+          //package  <-  un-package
+          number: '4242424242424242',
+          //this.number,
+          exp_month: 4,
+          //this.exp_month,
+          exp_year: 2020,
+          //this.exp_year,
+          cvc: '123'
+            //this.c1vc
+        }
+      }).then(function handle(response){
+        return response;
+      }).catc(function errorHandler(err){
+        return err.error.message;
+      });
+
+
         // TODO: add in some way to tell if user has token
         // if user has token then use that token and don't create one.
+        // var dfd = $q.defer();
+        // dfd.resolve(
 
-        var dfd = $q.defer();
-        var holder = Stripe.customers.createCard({
-          card: {
-            name: payload.displayName,
-            number: payload.number,
-            exp_month: payload.exp_month,
-            exp_year: payload.exp_year,
-            cvv: payload.cvv
-          }
-        });
-        dfd.resolve(holder);
-        return dfd.promise;
+        // );
+        // return dfd.promise;
+
         // TODO: add in a way to check if the user has a card token already or not, then don't tokenize if they already have one.
         // var error;
         // if (!Stripe.card.validateCardNumber(number)) {
         //   error = buildError('number', 'Your card number is incorrect.');
         // } else if (!Stripe.card.validateExpiry(exp_month, '20' + exp_year)) {
         //   error = buildError('expiry', 'Your expiration date is incorrect.');
-        // } else if (!Stripe.card.validateCVV(cvv)) {
-        //   error = buildError('cvv', 'Your cvv is incorrect');
+        // } else if (!Stripe.card.validatecvc(cvc)) {
+        //   error = buildError('cvc', 'Your cvc is incorrect');
         // }
         // if (error) {
         //   error_callback(error);
@@ -74,15 +97,15 @@ angular.module('giftcards')
       // this probably should be another service but, i'm not sure.
       // if you are looking at this in the future sorry, i'm just learning how to this. @JamesHall03/24/2014
       findOrCreateUser: function(mobileNumber, name) {
-           var dfd = $q.defer();
-           dfd.resolve(
-           $http.post('/auth/findOrCreateUser',
-            {
-              mobileNumber : mobileNumber,
-              fullName     : name,
-              email: 'something@something.com'
+          var dfd = $q.defer();
+          dfd.resolve(
+            $http.post('/auth/findOrCreateUser', {
+              mobileNumber: mobileNumber,
+              fullName: name,
+              email: 'something@something.com',
+              username: 'generic'
             }));
-           return dfd.promise;
+          return dfd.promise;
           // need to turn this into a promise
         }
         // take in the mobile number and just send it to the backend and expect back a user id.

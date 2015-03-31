@@ -54,7 +54,7 @@
 //     expiration_month:req.body.expiration_month,
 //     expiration_year:req.body.expiration_year,
 //     number: req.body.number,
-//     cvv:req.body.cvv,
+//     cvc:req.body.cvc,
 //     name:req.body.name
 //     // check balanced for what they need.
 //     // either way we need the credit card info for part of this.

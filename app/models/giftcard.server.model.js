@@ -36,11 +36,13 @@ var GiftcardSchema = new Schema({
 		required:'Please enter the recipients phone number',
 		//TODO: enter in regular expression, and make sure no spaces.
 	},
-	/*
-	 * We need a record of purchases from the giftcards.
+	/**
+	 * [stripeOrderId Provided everytime a gifcard is object, will for user to be refunded.]
+	 * @type {String}
 	 */
-	purchaseOrder:{
+	stripeOrderId:{
 		type:String,
+		required: 'You must save the order Id.'
 	},
 	/**
 	 *  Message, the message that the user wishes for another user to see.

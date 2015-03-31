@@ -6,48 +6,64 @@ angular.module('giftcards')
       $scope.authentication = Authentication;
 
       $scope.create = function() {
-        // var payload = {
-        //   customer: $scope.user.customerTokenThing, // figure out how to get this users, displayname
-        //   number: this.creditCardNumber,
-        //   exp_month: this.month,
-        //   exp_year: this.year,
-        //   cvv: this.cvv,
-        // };
-        var aPhoneNumber = this.mobileNumberOfRecipient,
-          displayName = this.giftRecipientName,
-          payload = {
-            card: {
-              name: displayName,
-              creditCardNumber: this.creditCardNumber,
-              month: this.month,
-              year: this.year,
-              cvv: this.cvv
-            }
-          };
+
+          // var payload = {
+          //   customer: $scope.authentication.user.stripeCustomerToken,
+          //   number:$scope.cc.number,
+          //   exp_month: $scope.cc.exp_month,
+          //   exp_year: $scope.cc.exp_year,
+          //   cvc: $scope.cc.cvc
+          // };
+          // var aPhoneNumber = 1234567890,
+          //   displayName = 'test user';
         var giftcard = new Giftcards({
-          giftRecipientName: this.giftRecipientName,
-          amount: this.amount,
-          mobileNumberOfRecipient: this.mobileNumberOfRecipient,
+          giftRecipientName: 'john smith',
+          amount: 12345,
+          mobileNumberOfRecipient: 1234567890,
           //ourName:'theUsersname here',
           message: 'A gift for you!',
-          //toUserUserName:'username',
-          //	districtNumber: 'number',
+          toUser: null
+            //toUserUserName:'username',
+            //	districtNumber: 'number',
         });
+        var payload = {
+        // source: $scope.authentication.user.stripeCustomerToken,
+          card: {
+            //package  <-  un-package
+            number: '4242424242424242',
+            //this.number,
+            exp_month: 4,
+            //this.exp_month,
+            exp_year: 2020,
+            //this.exp_year,
+            cvc: '123'
+              //this.c1vc
+          }
+        };
+        // check if this customer already has a card token or not. if they do use that one, if they don't,
+        // send this card and have it create a new token. but also re-assoicate this card with this user.
+        // then proceed to create the giftcard.
+        //
         // get the parameters from scope.
-        processPaymentService.findOrCreateUser(aPhoneNumber, displayName).then(function handler(response) {
+        //
+        // if($scope.authentication.useir.stripeCardId === null ){
+        //
+        // }else if ($scope.authentication.user.stripeCardId){
+        //
+        // } else{
+        //   // throw you did not enter in a card t
+        // }
+        //
+        processPaymentService.tokenizeCard(payload).then(function handler(response) {
+          $scope.authentication.user.stripeCardToken = response.id;
+          return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName);
+        }).then(function anotherHandler(response) {
           giftcard.toUser = response.data._id;
           return giftcard.$save();
-          // return processPaymentService.tokenizeCard(payload);
-
-        // })
-        // .then(function anotherHandler(response) {
-        //   $scope.authentication.user.cardTokenThing = response.data._id;
-        //   // at this point the giftcard has been made.
-        //   return giftcard.$save();
-        }).then(function yetAnotherHandler(response) {
+        }).then(function yetAnotherHanlder(response) {
           return $location.path('/giftcards');
-        }).catch(function errorHandler(errorResponse) {
-          $scope.error = errorResponse.data.message;
+        }).catch(function errHandler(errorResponse) {
+          $scope.error = errorResponse.error.message;
         });
         // var giftcard = new Giftcards({
         //     giftRecipientName: 'asdfas',
@@ -153,7 +169,7 @@ angular.module('giftcards')
         // 	expiration_month:'12',
         // 	expiration_year:'2020',
         // 	number:'341111111111111',
-        // 	cvv:'1234',
+        // 	cvc:'1234',
         // 	name:'Test User'
         // 	// check balanced for what they need.
         // 	// either way we need the credit card info for part of this.

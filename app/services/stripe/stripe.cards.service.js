@@ -1,6 +1,6 @@
 'use strict';
 var stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
-errorHandler = require('./errors.server.controller'),
+// errorHandler = require('../controllers/errors.server.controller'),
 _ = require('lodash'),
 Q = require('q'),
 message = null;
@@ -10,16 +10,13 @@ message = null;
  * Creates a new customer object.
  */
  exports.createACustomerToken = function(req, res){
-
    stripe.customers.create({
      userId : req._id,
      mobileNumber : req.mobileNumber
      }).then(function(response){
        return response.id;
      }).catch(function errHandler(err){
-       return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-     });
+       return res.send(500, err);
    });
  };
 
@@ -28,13 +25,10 @@ message = null;
  * Returns a customer object if a valid identifier was provided. When requesting the ID of a customer that has been deleted, a  * * subset of the customer's information will be returned, including a "deleted" property, which will be true.
  */
  exports.retreiveACustomerObject = function(req, res){
-
    stripe.customers.retrieve(req).then(function(response){
      return response;
      }).catch(function errHandler(err){
-       return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-     });
+       return res.send(500, err);
    });
  };
 /*
@@ -46,9 +40,7 @@ message = null;
    ).then(function(response){
      return response;
      }).catch(function errHandler(err){
-       return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-     });
+       return res.send(500, err);
    });
  };
 /*
@@ -58,9 +50,7 @@ message = null;
    stripe.customers.del(req).then(function(response){
      return response;
      }).catch(function errHandler(err){
-       return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-     });
+       return res.send(500, err);
    });
  };
 
@@ -71,8 +61,6 @@ message = null;
    stripe.customers.list(req.limit).then(function(response){
      return response;
      }).catch(function errHandler(err){
-       return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-     });
+       return res.send(500, err);
    });
  };

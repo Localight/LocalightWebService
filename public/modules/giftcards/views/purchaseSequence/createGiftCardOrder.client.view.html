@@ -27,25 +27,27 @@
         </div>
       </fieldset>
       <fieldset>
-        <label class="control-label" for="creditCardNumber">Credit Card Number</label>
-        <div class="controls">
-          <input type="text" size="20" data-stripe="number" placeholder="XXXX XXXX XXXX XXXX" required/>
-          <!-- <input type="text" data-ng-model="creditCardNumber" id="creditCardNumber" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required> -->
-        </div>
-        <label class="control-label" for="creditCardExpiration">(XX/YYYY)</label>
-        <div class="controls">
-          <input type="text" size="2" data-stripe="exp-month" placeholder="01"maxlength="2" size="2" required/>
-          <!-- <input type="text" data-ng-model="month" id="month" class="form-control" placeholder="01" maxlength="2" size="2" required> -->
-          <span> / </span>
-          <input type="text" size="4" data-stripe="exp-year"placeholder="YYYY
-          " maxlength="4" size="4" required/>
-          <!-- <input type="text" data-ng-model="year" id="year" class="form-control" placeholder="YYYY
-          " maxlength="4" size="4" required> -->
-        </div>
-        <label class="control-label" for="CCV">CVV</label>
-        <div class="controls">
-          <input type="text" data-ng-model="cvv" id="cvv" class="form-control" placeholder="CVV" maxlength="3" size="3" required>
-        </div>
+
+          <label class="control-label" for="creditCardNumber">Credit Card Number</label>
+          <div class="controls">
+            <input type="text" size="20" ng-model="number" id="number" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required/>
+            <!-- <input type="text" data-ng-model="creditCardNumber" id="creditCardNumber" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required> -->
+          </div>
+          <label class="control-label" for="creditCardExpiration">(XX/YYYY)</label>
+          <div class="controls">
+            <input type="text" size="2" data-ng-model="exp_month" id="cc.exp_month" class="form-control" placeholder="01" maxlength="2" size="2" required/>
+            <!-- <input type="text" data-ng-model="month" id="month" class="form-control" placeholder="01" maxlength="2" size="2" required> -->
+            <span> / </span>
+            <input type="text" data-ng-model="exp_year" id="cc.exp_year" class="form-control" size="4" placeholder="YYYY
+            " maxlength="4" size="4" required/>
+            <!-- <input type="text" data-ng-model="year" id="year" class="form-control" placeholder="YYYY
+            " maxlength="4" size="4" required> -->
+          </div>
+          <label class="control-label" for="CCV">cvc</label>
+          <div class="controls">
+              <input type="text" data-ng-model="cvc" id="cc.cvc" class="form-control" placeholder="cvc" maxlength="3" size="3" required>
+          </div>
+        
         <!-- <label class="control-label" for="zipcode">Zipcode</label>
         <div class="controls">
           <input type="text" data-ng-model="zipcode" id="zipcode" class="form-control" placeholder="XXXXX" maxlength="5" size="6" pattern="\d*" required>
@@ -72,7 +74,7 @@
 
         <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
 
-        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVV" maxlength="4" size="4" pattern="\d*" ng-model="formData.CVV" ng-focus="expiryFocus()" required>
+        <input type="text" id="clique_input_cvc" class="profont expiry credit_card_cvc" placeholder="cvc" maxlength="4" size="4" pattern="\d*" ng-model="formData.cvc" ng-focus="expiryFocus()" required>
 
         <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
         <div class="checkmark"></div>
