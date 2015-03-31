@@ -36,6 +36,9 @@ var GiftcardSchema = new Schema({
 		required:'Please enter the recipients phone number',
 		//TODO: enter in regular expression, and make sure no spaces.
 	},
+	stripeCardToken:{
+		type:String
+	},
 	/**
 	 * [stripeOrderId Provided everytime a gifcard is object, will for user to be refunded.]
 	 * @type {String}

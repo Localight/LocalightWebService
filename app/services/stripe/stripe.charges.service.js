@@ -8,6 +8,8 @@ message = null;
 /**
  * Create a Charges
  */
+// add int the idempotent requests function.
+// read docs and implement these https://stripe.com/docs/api#idempotent_requests
  exports.createACharge = function(payload) {
    console.log('contents of payload'+JSON.stringify(payload));
    var dfd = Q.defer();
@@ -15,11 +17,12 @@ message = null;
      stripe.charges.create({
        amount: payload.amount,
        currency: 'usd',
-       source: payload.source,
+       source: payload.aSource,
        customer: payload.customer,
+       //customer: payload.customer,
        description:'put stuff here.'
       //  card: payload.stripeCardToken
-       }));
+    }));
    return dfd.promise;
    // need to turn this into a promise
  };

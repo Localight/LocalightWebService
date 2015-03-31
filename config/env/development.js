@@ -19,5 +19,10 @@ module.exports = {
 				pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
 			}
 		}
-	}
+	},
+	stripe: {
+		clientID: process.env.STRIPE_KEY || 'pk_test_K9boQ4rhnqnHLA9hd5ZKPg64',
+		clientSecret: process.env.STRIPE_KEY || 'sk_test_aczvTWoQ4G9GG9XNrHLvMEIj',
+	},
+
 };

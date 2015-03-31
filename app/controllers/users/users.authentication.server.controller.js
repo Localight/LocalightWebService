@@ -107,19 +107,11 @@ exports.findOrCreateUser = function(req, res) {
       stripe.customers.create(payload).then(function handler(response) {
         // get and save the new users's token.
         console.log('reponse from stripe' + JSON.stringify(response));
-        anotherUser.customerTokenThing = response.id;
+        anotherUser.stripeCustomerTokenThing = response.id;
         console.log('contents of anotherUser' + anotherUser);
-        return anotherUser.save(function(err) {
-					console.log('the error from saving anotherUser' + err);
-          if (err) {
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-          } else {
-            console.log('User Registration succesful');
-            res.json(user);
-          }
-        }); // saves user here.
+        return anotherUser.save(); // saves user here.
+      }).then(function anotherHandler(response){
+        return res.json(anotherUser);
       }).catch(function errHandler(err) {
         console.log('this is the error from signing up at the end ' + err);
         return res.status(400).send(err);
