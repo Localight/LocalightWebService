@@ -28,8 +28,8 @@ angular.module('giftcards')
         });
         var payload = {
         // source: $scope.authentication.user.stripeCustomerToken,
-          card: {
             //package  <-  un-package
+          card:{
             number: '4242424242424242',
             //this.number,
             exp_month: 4,
@@ -38,7 +38,7 @@ angular.module('giftcards')
             //this.exp_year,
             cvc: '123'
               //this.c1vc
-          }
+            }
         };
         // check if this customer already has a card token or not. if they do use that one, if they don't,
         // send this card and have it create a new token. but also re-assoicate this card with this user.
@@ -54,17 +54,26 @@ angular.module('giftcards')
         //   // throw you did not enter in a card t
         // }
         //
-        processPaymentService.tokenizeCard(payload).then(function handler(response) {
-          $scope.authentication.user.stripeCardToken = response.id;
-          return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName);
-        }).then(function anotherHandler(response) {
-          giftcard.toUser = response.data._id;
-          return giftcard.$save();
-        }).then(function yetAnotherHanlder(response) {
-          return $location.path('/giftcards');
-        }).catch(function errHandler(errorResponse) {
-          $scope.error = errorResponse.error.message;
-        });
+        var callback = function(status, response){
+          if(response.error){
+            $scope.error = response.error.message;
+          }else{
+            $scope.authentication.user.stripeCardToken = response.id;
+            processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName)
+            .then(function anotherHandler(response) {
+              giftcard.toUser = response.data._id;
+              return giftcard.$save();
+            }).then(function yetAnotherHanlder(response) {
+              return $location.path('/giftcards');
+            }).catch(function errHandler(errorResponse) {
+              $scope.error = errorResponse.error.message;
+            });
+          }
+        };
+
+        Stripe.card.create(payload, callback);
+
+
         // var giftcard = new Giftcards({
         //     giftRecipientName: 'asdfas',
         //     amount: 344444444,

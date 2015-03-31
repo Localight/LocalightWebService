@@ -26,8 +26,7 @@
   <script type="text/javascript">
     Stripe.setPublishableKey('pk_test_K9boQ4rhnqnHLA9hd5ZKPg64');
   </script>
-  <script type="text/javascript" src="bower_components/angular-payments/lib/angular-payments.js">
-  </script>
+  
 
   <!-- FormanceJS -->
   <!-- // <script src="../public/javascripts/jquery.formance.js"></script> -->
@@ -56,11 +55,7 @@
 
   <!--Embedding The User Object-->
   <script type="text/javascript">
-    var user = {
-      {
-        user | json | safe
-      }
-    };
+    var user = {{user | json | safe}};
   </script>
 
   <!--Application JavaScript Files-->

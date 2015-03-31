@@ -8,15 +8,6 @@ angular.module('giftcards')
       //   var aPhoneNumber = this.mobileNumberOfRecipient,
       tokenizeCard: function(data) {
 
-        function stripeResponseHandler(status, response){
-
-          if (response.error){
-            return response.error.message;
-          }else{
-            return response;
-          }
-        }
-
         Stripe.tokens.create({
           card: {
           //package  <-  un-package
@@ -29,10 +20,6 @@ angular.module('giftcards')
           cvc: '123'
             //this.c1vc
         }
-      }).then(function handle(response){
-        return response;
-      }).catc(function errorHandler(err){
-        return err.error.message;
       });
 
 
