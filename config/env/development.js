@@ -6,9 +6,8 @@ module.exports = {
 		title: 'Clique - Development Environment'
 	},
 	mailgun: {
-					apiKey: 'key-212g0rzf7j9z-n9b7zdl797o3bxrsu38',
-					 domain: 'https://api.mailgun.net/v2/rs56424.mailgun.org/messages',
-					 from: 'auction@TeachArt.org'
+					apiKey: 'key-8972c0fdf717238d1f3cf94cb8e48b80',
+					 domain: 'https://api.mailgun.net/v3/sandbox428c48a0bb81470fa274a3dd60e05d8d.mailgun.org',
 	},
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',

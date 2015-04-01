@@ -19,7 +19,6 @@ angular.module('giftcards')
         var payload = {
         card : $scope.cc
         };
-
         var callback = function(status, response) {
           if (response.error) {
             $scope.error = response.error.message;

@@ -8,12 +8,20 @@ var mongoose = require('mongoose'),
   // userCtrl = require(''),
   Giftcard = mongoose.model('Giftcard'),
   User = mongoose.model('User'),
-  mailgun = require('mailgun'),
+  Mailgun = require('mailgun-js'),
   _ = require('lodash'),
   stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
   // stripeChargesService = require('../services/stripe/stripe.charges.service'),
   message = null;
-
+  var api_key = 'key-8972c0fdf717238d1f3cf94cb8e48b80';
+  var domain = 'https://api.mailgun.net/v3/sandbox428c48a0bb81470fa274a3dd60e05d8d.mailgun.org';
+  var theMailGun = new Mailgun({apiKey:api_key, domain:domain});
+var recipietEmail = {
+  from: 'noreply@localism.co',
+  to: '',
+  subject: 'Clique Card',
+  html:' '
+};
 /**
  * Create a Giftcard
  */
@@ -26,34 +34,50 @@ exports.create = function(req, res) {
   console.log(giftcard);
   console.log(req.user.stripeCustomerToken);
   // assign the toUser before when you get it from the other method.
-	console.log(giftcard.stripeCardToken);
+  console.log(giftcard.stripeCardToken);
   stripe.customers.createCard(req.user.stripeCustomerToken, {
-      card: giftcard.stripeCardToken
-    }).then(function handler(response) {
-			console.log('response from linking card and customer'+JSON.stringify(response));
-      return stripe.charges.create({
-        amount: giftcard.amount,
-        source: response.id,
-        customer: req.user.stripeCustomerToken,
-        currency: 'usd',
-        description: 'put something here'
-      });
-    })
-    .then(function handler(response) {
-			console.log('response from charging card'+JSON.stringify(response));
-      giftcard.stripeOrderId = response.id;
-			giftcard.fromUser = req.user._id;
-      return giftcard.save(function(err){
-				console.log(err);
-				if(err){
-					return res.status(400).send({
-		        message: errorHandler.getErrorMessage(err)
-		      });
-				}else{
-					return res.jsonp(giftcard);
-				}
-			}); // returns status of charge.
+    card: giftcard.stripeCardToken
+  }).then(function handler(response) {
+    console.log('response from linking card and customer' + JSON.stringify(response));
+    return stripe.charges.create({
+      amount: giftcard.amount,
+      source: response.id,
+      customer: req.user.stripeCustomerToken,
+      currency: 'usd',
+      description: 'put something here'
     });
+  }).then(function handler(response) {
+    console.log('response from charging card' + JSON.stringify(response));
+    giftcard.stripeOrderId = response.id;
+    giftcard.fromUser = req.user._id;
+    recipietEmail.to = req.user.email;
+    // recipietEmail.title = 'Localism Email';
+    recipietEmail.subject = 'Your Clique GiftCard Purchase.';
+    recipietEmail.html = 'Here is the recipeit for your giftcard purchase.';
+    console.log('the contents of the email'+ recipietEmail);
+    theMailGun.messages().send(recipietEmail, function(err, body) {
+      if (err) {
+        console.log('got an error: ', err);
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.send('Recipiet on its way');
+        console.log(body);
+      }
+    });
+
+    return giftcard.save(function(err) {
+      console.log(err);
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        return res.json(giftcard);
+      }
+    }); // returns status of charge.
+  });
 
   // stripe.charges.create(payload).then(function handler(response){
   //
