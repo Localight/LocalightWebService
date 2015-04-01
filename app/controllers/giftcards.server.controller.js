@@ -8,26 +8,33 @@ var mongoose = require('mongoose'),
   // userCtrl = require(''),
   Giftcard = mongoose.model('Giftcard'),
   User = mongoose.model('User'),
+  nodemailer = require('nodemailer'),
+  mg = require('nodemailer-mailgun-transport'),
   Mailgun = require('mailgun-js'),
   _ = require('lodash'),
   stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
   // stripeChargesService = require('../services/stripe/stripe.charges.service'),
-  message = null;
-  var api_key = 'key-8972c0fdf717238d1f3cf94cb8e48b80';
-  var domain = 'https://api.mailgun.net/v3/sandbox428c48a0bb81470fa274a3dd60e05d8d.mailgun.org';
-  var theMailGun = new Mailgun({apiKey:api_key, domain:domain});
-var recipietEmail = {
-  from: 'noreply@localism.co',
-  to: '',
-  subject: 'Clique Card',
-  html:' '
-};
+  message = null,
+  auth = {
+    auth:{
+      api_key : 'key-8972c0fdf717238d1f3cf94cb8e48b80',
+      domain : 'https://api.mailgun.net/v3/sandbox428c48a0bb81470fa274a3dd60e05d8d.mailgun.org'
+    }
+  };
 /**
  * Create a Giftcard
  */
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 // all the giftcard should do is save it's self. don't make it work to hard.
 exports.create = function(req, res) {
+  var nodemailerMailgun = nodemailer.createTransport(mg(auth));
+  var data = {
+    from: 'noreply@localism.co',
+    to: '',
+    subject: '',
+    text: ' '
+  };
+
   console.log('got here too');
   // if a user isn't found create one, otherwise find the user and save the giftcard.
   var giftcard = new Giftcard(req.body);
@@ -46,27 +53,18 @@ exports.create = function(req, res) {
       currency: 'usd',
       description: 'put something here'
     });
-  }).then(function handler(response) {
+  }).then(function anotherHandler(response) {
     console.log('response from charging card' + JSON.stringify(response));
     giftcard.stripeOrderId = response.id;
     giftcard.fromUser = req.user._id;
-    recipietEmail.to = req.user.email;
+    data.to = req.user.email;
     // recipietEmail.title = 'Localism Email';
-    recipietEmail.subject = 'Your Clique GiftCard Purchase.';
-    recipietEmail.html = 'Here is the recipeit for your giftcard purchase.';
-    console.log('the contents of the email'+ recipietEmail);
-    theMailGun.messages().send(recipietEmail, function(err, body) {
-      if (err) {
-        console.log('got an error: ', err);
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.send('Recipiet on its way');
-        console.log(body);
-      }
-    });
-
+    data.subject = 'Your Clique GiftCard Purchase.';
+    data.text = 'Here is the recipeit for your giftcard purchase.';
+    console.log('the contents of the email' + JSON.stringify(data));
+    return nodemailerMailgun.sendMail(data);
+  }).then(function yetAnotherHandler(response) {
+    console.log('response from yetanothe controller in giftcrd'+JSON.stringify(response));
     return giftcard.save(function(err) {
       console.log(err);
       if (err) {
@@ -76,7 +74,12 @@ exports.create = function(req, res) {
       } else {
         return res.json(giftcard);
       }
-    }); // returns status of charge.
+    });
+  }).catch(function errHandler(errorResponse) {
+    console.log('got an error: ', errorResponse);
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(errorResponse)
+    });
   });
 
   // stripe.charges.create(payload).then(function handler(response){
