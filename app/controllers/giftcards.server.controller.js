@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
   mg = require('nodemailer-mailgun-transport'),
   Mailgun = require('mailgun-js'),
   _ = require('lodash'),
-  stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj'),
+  stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt'),
   // stripeChargesService = require('../services/stripe/stripe.charges.service'),
   message = null,
   auth = {
@@ -51,7 +51,7 @@ exports.create = function(req, res) {
       source: response.id,
       customer: req.user.stripeCustomerToken,
       currency: 'usd',
-      description: 'put something here'
+      description: req.user.fullName +' bought a giftcard for ' + giftcard.giftRecipientName 
     });
   }).then(function anotherHandler(response) {
     console.log('response from charging card' + JSON.stringify(response));
@@ -64,7 +64,7 @@ exports.create = function(req, res) {
     console.log('the contents of the email' + JSON.stringify(data));
     return nodemailerMailgun.sendMail(data);
   }).then(function yetAnotherHandler(response) {
-    console.log('response from yetanothe controller in giftcrd'+JSON.stringify(response));
+    console.log('response from yetanother controller in giftcrd'+response);
     return giftcard.save(function(err) {
       console.log(err);
       if (err) {

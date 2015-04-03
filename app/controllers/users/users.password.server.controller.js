@@ -137,7 +137,7 @@ exports.reset = function(req, res, next) {
 									if (err) {
 										res.status(400).send(err);
 									} else {
-										// Return authenticated user 
+										// Return authenticated user
 										res.json(user);
 
 										done(err, user);
@@ -165,6 +165,10 @@ exports.reset = function(req, res, next) {
 				done(err, emailHTML, user);
 			});
 		},
+
+		// when you get back study how the config is connected, and how to apply what is being applied to this project, and
+		// specificly how to send emails. I need to figure out how emails sending works.
+
 		// If valid email, send reset email using service
 		function(emailHTML, user, done) {
 			var smtpTransport = nodemailer.createTransport(config.mailer.options);

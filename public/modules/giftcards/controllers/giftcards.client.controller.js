@@ -17,7 +17,7 @@ angular.module('giftcards')
         //   displayName = 'test user';
         var giftcard = new Giftcards($scope.gc);
         var payload = {
-        card : $scope.cc
+          card : $scope.cc
         };
         var callback = function(status, response) {
           if (response.error) {

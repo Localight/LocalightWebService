@@ -54,12 +54,12 @@ var UserSchema = new Schema({
 	/*
 	 * Mobile Number, 9-digit number we need to have for the giftcard
 	 */
-	mobileNumber:{
-		type: Number,
-		required: 'please enter in a mobile number',
-		// TODO: add Regularexpression.
-		// required: 'Please enter a 9-digit mobile number'
-	},
+	// mobileNumber:{
+	// 	type: Number,
+	// 	required: 'please enter in a ',
+	// 	// TODO: add Regularexpression.
+	// 	// required: 'Please enter a 9-digit mobile number'
+	// },
 	displayName: {
 		type: String,
 		trim: true
@@ -74,7 +74,7 @@ var UserSchema = new Schema({
 	username: {
 		type: String,
 		unique: 'testing error message',
-		//required: 'Please fill in a username',
+		required: 'Please fill in a mobile number',
 		trim: true
 	},
 	password: {

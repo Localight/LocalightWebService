@@ -87,10 +87,8 @@ angular.module('giftcards')
           var dfd = $q.defer();
           dfd.resolve(
             $http.post('/auth/findOrCreateUser', {
-              mobileNumber: mobileNumber,
               fullName: name,
-              email: 'something@something.com',
-              username: 'generic'
+              username: mobileNumber
             }));
           return dfd.promise;
           // need to turn this into a promise

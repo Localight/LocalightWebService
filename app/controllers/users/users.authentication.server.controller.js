@@ -10,7 +10,7 @@ var _ = require('lodash'),
   Q = require('q'),
   User = mongoose.model('User'),
   message = null;
-var stripe = require('stripe')('sk_test_aczvTWoQ4G9GG9XNrHLvMEIj');
+var stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt');
 
 
 /**
@@ -73,7 +73,7 @@ exports.findOrCreateUser = function(req, res) {
   // doing to much in controller.
   // user.service, pass in phone number. return the object as promise or callback.
   User.findOne({
-    'mobileNumber': req.body.mobileNumber
+    'mobileNumber': req.body.username
   }, function(err, user) {
     // In case of any error return
     if (err) {
