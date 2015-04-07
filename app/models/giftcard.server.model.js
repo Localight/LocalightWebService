@@ -4,8 +4,10 @@
 /**
  * Module dependencies.
  */
+var mailgunService = require('../services/mailgun/mailgun.sendReceiptEmail.service');
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+    async = require('async'),
+	  Schema = mongoose.Schema;
 
 /**
  * Giftcard Schema
@@ -158,5 +160,47 @@ var GiftcardSchema = new Schema({
 
 
 });
+/**
+ * Hook a pre save method to email the reciepiet
+ */
+GiftcardSchema.pre('save', function(done) {
 
+	async.waterfall([
+		function(done){
+			res.render('./../templates/receipt-email', {//TODO: need to re write this to work without render.
+				name: req.user.displayName,
+				appName: config.app.title,
+				amount: req.giftcard.amount,
+				orderNumber: req.giftcard.orderNumber,
+			}, function(err, emailHTML){
+				done(err, emailHTML);
+			});
+		},function(emailHTML, done){
+			var smtpTransport = nodemailer.createTransport(config.mailer.options);
+			var mailOptions = {
+				to: req.user.email,
+				from: config.mail.from,
+				subject: 'Your Recent Purchase',
+				html: emailHTML
+			};
+			smtpTransport.sendMail(mailOptions, function(err){
+				if(!err){
+					res.send({
+						message: 'Your Receipt has been sent to: '+req.user.email
+					});
+				}
+				done(err);
+			});
+		},
+	], function(err) {
+		if (err) return next(err);
+	});
+	done();
+});
+
+// GiftcardSchema.pre('save', function(next){
+// 	// call send email service, to send reciepiet to fromUser
+// 	mailgunService.sendReceiptEmail();
+// 	next();
+// });
 mongoose.model('Giftcard', GiftcardSchema);

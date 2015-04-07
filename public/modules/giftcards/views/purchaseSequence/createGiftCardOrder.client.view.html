@@ -1,11 +1,12 @@
 <section data-ng-controller="GiftcardsController">
   <div class="col-md-12">
+    <img id="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
     <form name="giftcardForm" class="form-horizontal" data-ng-submit="create()" novalidate>
       <fieldset>
         <!-- To Someone's phone -->
         <label class="control-label" for="mobileNumberOfRecipient">Recipient's Mobile Number</label>
         <div class="controls">
-          <input type="text" data-ng-model="gc.mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" maxlength="10" size="14" required>
+          <input type="text" phone-input data-ng-model="gc.mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="input-phone" placeholder="XXX-XXX-XXXX" maxlength="10" size="14" required>
         </div>
         <label class="control-label" for="giftRecipientName">Enter Your friends Name</label>
         <div class="controls">
