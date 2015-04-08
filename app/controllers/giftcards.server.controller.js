@@ -8,35 +8,18 @@ var mongoose = require('mongoose'),
   // userCtrl = require(''),
   Giftcard = mongoose.model('Giftcard'),
   User = mongoose.model('User'),
-  nodemailer = require('nodemailer'),
-  mg = require('nodemailer-mailgun-transport'),
-  Mailgun = require('mailgun-js'),
+  // nodemailer = require('nodemailer'),
   _ = require('lodash'),
-  Q = require('q'), 
+  Q = require('q'),
   stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt'),
-  // stripeChargesService = require('../services/stripe/stripe.charges.service'),
-  message = null,
-  auth = {
-    auth:{
-      api_key : 'key-8972c0fdf717238d1f3cf94cb8e48b80',
-      domain : 'https://api.mailgun.net/v3/sandbox428c48a0bb81470fa274a3dd60e05d8d.mailgun.org'
-    }
-  };
+  message = null;
+
 /**
  * Create a Giftcard
  */
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 // all the giftcard should do is save it's self. don't make it work to hard.
 exports.create = function(req, res) {
-  var nodemailerMailgun = nodemailer.createTransport(mg(auth));
-  var data = {
-    from: 'noreply@localism.co',
-    to: '',
-    subject: '',
-    text: ' '
-  };
-
-  console.log('got here too');
   // if a user isn't found create one, otherwise find the user and save the giftcard.
   var giftcard = new Giftcard(req.body);
   console.log(giftcard);
@@ -74,49 +57,7 @@ exports.create = function(req, res) {
       message: errorHandler.getErrorMessage(errorResponse)
     });
   });
-
-  // stripe.charges.create(payload).then(function handler(response){
-  //
-  // 	giftcard.orderTokenThing = response.id;
-  // 	// emailing the recipet and saving the giftcard can happen at the same time.
-  // 	return giftcard.save();
-  // 	// email recipiet,
-  // 	//
-  // }).then(function anotherHandler(response){
-  // 	res.jsonp(giftcard);
-  // }).catch(function errHandler(err){
-  // 	return res.status(400).send({
-  // 		message: errHandler.getErrorMessage(err)
-  // 	});
-  // });
-
-  // send email to user indicating that they created a giftcard.
 };
-// };
-// creating a temporary giftcard to test things.
-// var payload = {
-// 	expiration_month:08,
-// 	expiration_year:2018,
-// 	number:4111111111111111,
-// 	card_brand:'VISA',
-// 	card_type: 'Credit',
-// 	cvc:'123',
-// };
-
-// for now save the token to the giftcard
-// 	balanced.marketplace.cards.creat(payload).then(function handler(response){
-// 		giftcard.cardToken = response.href;
-// 		return giftcard.save();
-// 	}).then(function anotherHandler(response){
-// 		res.jsonp(giftcard);
-// 	}).catch(function errHandler(err){
-// 		console.log('This error came from trying to create a customer' + err);
-// 		return res.status(400).send({
-// 			message: errorHandler.getErrorMessage(err)
-// 			});
-// 		});
-// };
-
 /**
  * Show the current Giftcard
  */

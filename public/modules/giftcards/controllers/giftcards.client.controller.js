@@ -35,7 +35,6 @@ angular.module('giftcards')
             });
           }
         };
-
         Stripe.card.create(payload, callback);
       };
 
