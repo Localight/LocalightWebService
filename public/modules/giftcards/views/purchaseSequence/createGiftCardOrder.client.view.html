@@ -1,7 +1,7 @@
 <section data-ng-controller="GiftcardsController">
   <div class="wrapper">
     <!-- logo -->
-  <!--   <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png"> -->
+    <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
     <form name="giftcardForm" class="form-horizontal" data-ng-submit="create()" novalidate>
       <fieldset>
         <!-- To -->
@@ -58,18 +58,18 @@
     </div>
   </div> -->
 
-        <!-- Pay by card
+        <!--Pay by card-->
         <div class="clique_payment_card roundWhiteBorder">
-          ng-show="allDirtyBefore('CreditCardNumber')"
-          creditcardnumbercontainer
+          <!--ng-show="allDirtyBefore('CreditCardNumber')"-->
+          <!--           creditcardnumbercontainer -->
           <div class="paymentcontainer">
             <img id="creditcardimg" ng-src="{{cardTypeImg}}">
             <input type="text" size="19" data-ng-model="cc.number" id="number" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" pattern="\d*" required>
 
-            ng-change="updateCreditCardImg()" ng-focus="ccnFocus()" add to the above line when you know what it does.
+            <!--ng-change="updateCreditCardImg()" ng-focus="ccnFocus()" add to the above line when you know what it does.-->
 
-            <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="formData.CreditCardNumber" ng-change="updateCreditCardImg()" ng-focus="ccnFocus()"
-            required>
+            <!-- <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="formData.CreditCardNumber" ng-change="updateCreditCardImg()" ng-focus="ccnFocus()"
+            required> -->
 
             <div class="checkmark"></div>
           </div>
@@ -82,7 +82,7 @@
             <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
 
             <div class="checkmark"></div>
-          </div> -->
+          </div>
 
           <!-- <div id="creditcardinfo" class="paymentcontainer filledIn">
             <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
