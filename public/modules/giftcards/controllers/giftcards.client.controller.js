@@ -4,7 +4,7 @@ angular.module('giftcards')
   .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
     function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q) {
       $scope.authentication = Authentication;
-
+      $scope.prices = [5,10, 25,50,75,100,250,500];
       $scope.create = function() {
         // var payload = {
         //   customer: $scope.authentication.user.stripeCustomerToken,
