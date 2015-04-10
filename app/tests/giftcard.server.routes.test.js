@@ -66,7 +66,7 @@ describe('Giftcard CRUD tests', function() {
     // Save a user to the test db and create new Giftcard
     user.save(function() {
       giftcard = {
-        giftRecipientName:'Full2 Name2',
+        giftRecipientFirstName:'Full2 Name2',
         amount: 1234,
         mobileNumberOfRecipient: 5456541234,
 				giftMessage: 'A gift for you!',

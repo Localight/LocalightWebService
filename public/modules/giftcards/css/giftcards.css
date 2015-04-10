@@ -8,7 +8,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'profontwindowsregular';
     src: url('../fonts/ProFontWindows-webfont.eot');
@@ -19,15 +18,21 @@
     font-weight: normal;
     font-style: normal;
 }
-
-body {
+section {
   font-family: 'helvetica','sans-serif','arial';
   background-color: #58e6df;
-  padding: 0px;
-  margin: 0px;
+  /* padding: 0px;
+  margin: 0px;  */
   height: 100%;
 }
-
+/* Wrapper */
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+.wrapper > div {
+  margin-bottom: 2.5% !important;
+}
 
 /* General Styles */
 .hide {
@@ -64,7 +69,7 @@ input, textarea {
   border-radius: 7px;
   background-color: rgba(255,255,255,0.7);
 }
-
+i
 .filledIn {
   color: black;
   border-color: transparent;
@@ -119,7 +124,7 @@ input, textarea {
 
 #localStreetNoBlur {
   opacity: 1;
-  background-image: url('../images/local-street-bg.png');
+  background-image: url('modules/giftcards/img/local-street-bg.png');
 }
 
 #localStreetNoBlur.blur {
@@ -128,27 +133,18 @@ input, textarea {
 
 #localStreetBlur {
   /* background-image: url('images/local-street-low2-blur.png'); */
-  background-image: url('../images/local-street-bg-blur.png');
+  background-image: url('modules/giftcards/img/local-street-bg-blur.png');
 }
-
 /* Clique Logo */
-.clique_logo {
+#clique_logo {
   margin: 10px auto 5%;
   width: 40%;
+  /* clique_amt_wrapper */
   max-width: 300px;
   display: block;
 }
 /* End Clique Logo */
 
-/* Wrapper */
-.wrapper {
-  width: 90%;
-  margin: 0 auto;
-}
-
-.wrapper > div {
-  margin-bottom: 2.5% !important;
-}
 
 /*--- section styles ---*/
 .checkmark {
@@ -162,14 +158,14 @@ input, textarea {
   width: 10%;
   max-width: 25px;
   height: 80%;
-  background-image: url('../images/checkmark-blk.png');
+  background-image: url('modules/giftcards/img/checkmark-blk.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 
 .filledIn .checkmark {
-  background-image: url('../images/checkmark-wht.png');
+  background-image: url('modules/giftcards/img/checkmark-wht.png');
 }
 
 label.inputlabel {
@@ -180,7 +176,6 @@ label.inputlabel {
   top: 8px;
   float: left;
 }
-
 .inputlabel img {
   height: 25px;
 }
@@ -281,7 +276,6 @@ label.inputlabel {
   /* compensate for 3px border width */
   height: 95%;
   width: 97%;
-
   position: absolute;
   top: 0;
   border: 3px solid white;
@@ -296,7 +290,7 @@ label.inputlabel {
 }
 
 #front {
-  background-image: url('../images/logo-local-gift-card-wht.png');
+  background-image: url('modules/giftcards/img/logo-local-gift-card-wht.png');
   background-position: center;
   background-size: 70%;
   background-repeat: no-repeat;
@@ -326,6 +320,7 @@ label.inputlabel {
 }
 
 #back img {
+
 	position: absolute;
 	right: 0;
 	top: 8%;

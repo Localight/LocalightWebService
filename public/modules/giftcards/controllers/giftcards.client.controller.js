@@ -24,7 +24,7 @@ angular.module('giftcards')
             $scope.error = response.error.message;
           } else {
             giftcard.stripeCardToken = response.id;
-            return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName)
+            return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientFirstName)
             .then(function anotherHandler(response) {
               giftcard.toUser = response.data._id;
               return giftcard.$save();
@@ -56,7 +56,7 @@ angular.module('giftcards')
 
 
       // var giftcard = new Giftcards({
-      //     giftRecipientName: 'asdfas',
+      //     giftRecipientFirstName: 'asdfas',
       //     amount: 344444444,
       //     mobileNumberOfRecipient: 5132403435,
       //     //ourName:'theUsersname here',
@@ -68,7 +68,7 @@ angular.module('giftcards')
       //   });
       //
       //  var getUserId = function( giftcard ) {
-      //     return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName); // request #1
+      //     return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientFirstName); // request #1
       //   },
       //   saveId = function( data ) {
       //     console.log('contents of the response from the server '+data);
@@ -123,7 +123,7 @@ angular.module('giftcards')
       // }).then(function anotherHandler(response){
       // 	// give the giftcard the order number or debit token
       // 	var giftcard = new Giftcards ({
-      // 		giftRecipientName:this.giftRecipientName,
+      // 		giftRecipientFirstName:this.giftRecipientFirstName,
       // 		amount:this.amount,
       // 		mobileNumberOfRecipient:this.mobileNumberOfRecipient,
       // 		//ourName:'theUsersname here',
@@ -200,7 +200,7 @@ angular.module('giftcards')
         //1. before we can send the giftcard to the user we need the user's id.
         //2. save the giftcard to the that user's id.
         var giftcard = new Giftcards({
-          giftRecipientName: 'my friends name',
+          giftRecipientFirstName: 'my friends name',
           amount: 1000,
           mobileNumberOfRecipient: 1234567890,
           merchant: 'aMerchantId here',

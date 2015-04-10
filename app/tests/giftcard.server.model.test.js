@@ -32,7 +32,7 @@ describe('Giftcard Model Unit Tests:', function() {
 		// TODO: giftcard mobile number should not match the mobile number of the user.
 		user.save(function() {
 			giftcard = new Giftcard({
-				giftRecipientName:'your friends name here',
+				giftRecipientFirstName:'your friends name here',
 				amount: 1000,
 				mobileNumberOfRecipient:5456541234,// make sure it's someone else.
 				message: 'A gift for you!',

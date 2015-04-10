@@ -35,7 +35,7 @@ exports.create = function(req, res) {
       source: response.id,
       customer: req.user.stripeCustomerToken,
       currency: 'usd',
-      description: req.user.fullName +' bought a giftcard for ' + giftcard.giftRecipientName
+      description: req.user.fullName +' bought a giftcard for ' + giftcard.giftRecipientFirstName
     });
   }).then(function anotherHandler(response) {
     console.log('response from charging card' + JSON.stringify(response));
