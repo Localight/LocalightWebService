@@ -36,7 +36,6 @@
     "mongoose": "~3.8.8",
     "morgan": "~1.4.1",
     "nodemailer": "^1.3.2",
-    "nodemailer-mailgun-transport": "file:../../../../tmp/npm-53586-3b0b3558/git-cache-1227175715b7/079918d2d13809abae2bf8334e649d2eb37a9ff6",
     "npm": "^2.7.4",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",

@@ -51,6 +51,15 @@ var UserSchema = new Schema({
 		type:String,
 		default: '',
 	},
+
+	/**
+	 * [hasCompletedSignup If a user signedup through the form this should be true, otherwise false when a new user is added through twilio.]
+	 * @type {Object}
+	 */
+	hasCompletedSignup:{
+		type: Boolean,
+		default:false,
+	},
 	/*
 	 * Mobile Number, 9-digit number we need to have for the giftcard
 	 */

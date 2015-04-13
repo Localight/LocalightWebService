@@ -28,7 +28,7 @@ exports.signup = function(req, res) {
   user.provider = 'local';
   user.fullName = user.firstName + ' ' + user.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
-
+  user.hasCompletedSignup = true;
   stripe.customers.create({
     description: user.displayName,
     email: user.email,
