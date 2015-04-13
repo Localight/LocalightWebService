@@ -83,11 +83,11 @@ angular.module('giftcards')
 
       // this probably should be another service but, i'm not sure.
       // if you are looking at this in the future sorry, i'm just learning how to this. @JamesHall03/24/2014
-      findOrCreateUser: function(mobileNumber, name) {
+      findOrCreateUser: function(mobileNumber, firstName) {
           var dfd = $q.defer();
           dfd.resolve(
             $http.post('/auth/findOrCreateUser', {
-              fullName: name,
+              firstName: firstName,
               username: mobileNumber
             }));
           return dfd.promise;

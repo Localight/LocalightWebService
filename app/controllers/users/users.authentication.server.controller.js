@@ -92,7 +92,7 @@ exports.findOrCreateUser = function(req, res) {
       var anotherUser = new User(req.body);
       console.log('contents of the otherUser as it is created: ' + anotherUser);
       // set the user's local credentials
-      anotherUser.fullName = req.body.fullName;
+      anotherUser.firstName = req.body.firstName;
       // anotherUser.password = createHash(password);//TODO: come back to this.
       anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
       anotherUser.mobileNumber = req.body.mobileNumber;
