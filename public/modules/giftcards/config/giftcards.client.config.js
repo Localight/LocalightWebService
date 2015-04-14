@@ -7,6 +7,5 @@ angular.module('giftcards').run(['Menus',
 		Menus.addMenuItem('topbar', 'Giftcards', 'giftcards', 'dropdown', '/giftcards(/create)?');
 		Menus.addSubMenuItem('topbar', 'giftcards', 'List Giftcards', 'giftcards');
 		Menus.addSubMenuItem('topbar', 'giftcards', 'New Giftcard', 'giftcards/create');
-		Menus.addSubMenuItem('topbar', 'giftcards','Send Giftcard', 'giftcards/send');
 	}
 ]);
