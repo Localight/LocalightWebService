@@ -21,7 +21,7 @@ var GiftcardSchema = new Schema({
   /*
    * The Name of the person to send this giftcard too.
    */
-  giftRecipientName: {
+  giftRecipientFirstName: {
     type: String,
     // should have spaces to indcate first name and last name.
     // TODO: add regualer expressions.

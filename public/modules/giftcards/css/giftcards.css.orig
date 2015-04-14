@@ -8,6 +8,10 @@
     font-weight: normal;
     font-style: normal;
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> cliqueCSS
 @font-face {
     font-family: 'profontwindowsregular';
     src: url('../fonts/ProFontWindows-webfont.eot');
@@ -18,6 +22,17 @@
     font-weight: normal;
     font-style: normal;
 }
+<<<<<<< HEAD
+
+body {
+  font-family: 'helvetica','sans-serif','arial';
+  background-color: #58e6df;
+  /* padding: 0px;
+  margin: 0px; */
+  height: 100%;
+}
+
+=======
 section {
   font-family: 'helvetica','sans-serif','arial';
   background-color: #58e6df;
@@ -33,6 +48,7 @@ section {
 .wrapper > div {
   margin-bottom: 2.5% !important;
 }
+>>>>>>> cliqueCSS
 
 /* General Styles */
 .hide {
@@ -69,7 +85,11 @@ input, textarea {
   border-radius: 7px;
   background-color: rgba(255,255,255,0.7);
 }
+<<<<<<< HEAD
+
+=======
 i
+>>>>>>> cliqueCSS
 .filledIn {
   color: black;
   border-color: transparent;
@@ -124,7 +144,11 @@ i
 
 #localStreetNoBlur {
   opacity: 1;
+<<<<<<< HEAD
+  background-image: url('../images/local-street-bg.png');
+=======
   background-image: url('../img/local-street-bg.png');
+>>>>>>> cliqueCSS
 }
 
 #localStreetNoBlur.blur {
@@ -133,6 +157,15 @@ i
 
 #localStreetBlur {
   /* background-image: url('images/local-street-low2-blur.png'); */
+<<<<<<< HEAD
+  background-image: url('../images/local-street-bg-blur.png');
+}
+
+/* Clique Logo */
+.clique_logo {
+  margin: 10px auto 5%;
+  width: 40%;
+=======
   background-image: url('../img/local-street-bg-blur.png');
 }
 /* Clique Logo */
@@ -140,11 +173,24 @@ i
   margin: 10px auto 5%;
   width: 40%;
   /* clique_amt_wrapper */
+>>>>>>> cliqueCSS
   max-width: 300px;
   display: block;
 }
 /* End Clique Logo */
 
+<<<<<<< HEAD
+/* Wrapper */
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.wrapper > div {
+  margin-bottom: 2.5% !important;
+}
+=======
+>>>>>>> cliqueCSS
 
 /*--- section styles ---*/
 .checkmark {
@@ -158,14 +204,22 @@ i
   width: 10%;
   max-width: 25px;
   height: 80%;
+<<<<<<< HEAD
+  background-image: url('../images/checkmark-blk.png');
+=======
   background-image: url('../img/checkmark-blk.png');
+>>>>>>> cliqueCSS
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 
 .filledIn .checkmark {
+<<<<<<< HEAD
+  background-image: url('../images/checkmark-wht.png');
+=======
   background-image: url('../img/checkmark-wht.png');
+>>>>>>> cliqueCSS
 }
 
 label.inputlabel {
@@ -176,6 +230,10 @@ label.inputlabel {
   top: 8px;
   float: left;
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> cliqueCSS
 .inputlabel img {
   height: 25px;
 }
@@ -276,6 +334,10 @@ label.inputlabel {
   /* compensate for 3px border width */
   height: 95%;
   width: 97%;
+<<<<<<< HEAD
+
+=======
+>>>>>>> cliqueCSS
   position: absolute;
   top: 0;
   border: 3px solid white;
@@ -290,7 +352,11 @@ label.inputlabel {
 }
 
 #front {
+<<<<<<< HEAD
+  background-image: url('../images/logo-local-gift-card-wht.png');
+=======
   background-image: url('../img/logo-local-gift-card-wht.png');
+>>>>>>> cliqueCSS
   background-position: center;
   background-size: 70%;
   background-repeat: no-repeat;
@@ -320,7 +386,10 @@ label.inputlabel {
 }
 
 #back img {
+<<<<<<< HEAD
+=======
 
+>>>>>>> cliqueCSS
 	position: absolute;
 	right: 0;
 	top: 8%;
@@ -500,7 +569,11 @@ label.inputlabel {
 /* Proceed Button Styles */
 .proceed_button {
   background-color: black;
+<<<<<<< HEAD
+  background-image: url('../images/clique.png');
+=======
   background-image: url('../img/clique.png');
+>>>>>>> cliqueCSS
   background-size: auto 60%;
   background-position: 1em 60%;
   background-repeat: no-repeat;

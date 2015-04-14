@@ -4,7 +4,7 @@ angular.module('giftcards')
   .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
     function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q) {
       $scope.authentication = Authentication;
-
+      $scope.prices = [5,10, 25,50,75,100,250,500];
       $scope.create = function() {
         // var payload = {
         //   customer: $scope.authentication.user.stripeCustomerToken,
@@ -24,7 +24,7 @@ angular.module('giftcards')
             $scope.error = response.error.message;
           } else {
             giftcard.stripeCardToken = response.id;
-            return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientName)
+            return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientFirstName)
             .then(function anotherHandler(response) {
               giftcard.toUser = response.data._id;
               return giftcard.$save();
@@ -61,7 +61,7 @@ angular.module('giftcards')
         //1. before we can send the giftcard to the user we need the user's id.
         //2. save the giftcard to the that user's id.
         var giftcard = new Giftcards({
-          giftRecipientName: 'my friends name',
+          giftRecipientFirstName: 'my friends name',
           amount: 1000,
           mobileNumberOfRecipient: 1234567890,
           merchant: 'aMerchantId here',
