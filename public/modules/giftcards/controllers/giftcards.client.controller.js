@@ -4,7 +4,15 @@ angular.module('giftcards')
   .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
     function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q) {
       $scope.authentication = Authentication;
-      $scope.prices = [5,10, 25,50,75,100,250,500];
+      $scope.prices = [5, 10, 25, 50, 75, 100];
+
+      $scope.setAmount = function(anAmount) {
+        $scope.gc.amount = anAmount;
+      };
+      $scope.isAmount = function(checkAmount) {
+        return $scope.gc.amount === checkAmount; // boolean
+      };
+
       $scope.create = function() {
         // var payload = {
         //   customer: $scope.authentication.user.stripeCustomerToken,
@@ -17,7 +25,7 @@ angular.module('giftcards')
         //   displayName = 'test user';
         var giftcard = new Giftcards($scope.gc);
         var payload = {
-          card : $scope.cc
+          card: $scope.cc
         };
         var callback = function(status, response) {
           if (response.error) {
@@ -25,14 +33,14 @@ angular.module('giftcards')
           } else {
             giftcard.stripeCardToken = response.id;
             return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientFirstName)
-            .then(function anotherHandler(response) {
-              giftcard.toUser = response.data._id;
-              return giftcard.$save();
-            }).then(function yetAnotherHanlder(response) {
-              return $location.path('/giftcards');
-            }).catch(function errHandler(errorResponse) {
-              $scope.error = errorResponse.error.message;
-            });
+              .then(function anotherHandler(response) {
+                giftcard.toUser = response.data._id;
+                return giftcard.$save();
+              }).then(function yetAnotherHanlder(response) {
+                return $location.path('/giftcards');
+              }).catch(function errHandler(errorResponse) {
+                $scope.error = errorResponse.error.message;
+              });
           }
         };
         Stripe.card.create(payload, callback);

@@ -18,7 +18,7 @@
     font-weight: normal;
     font-style: normal;
 }
-section {
+body {
   font-family: 'helvetica','sans-serif','arial';
   background-color: #58e6df;
   /* padding: 0px;
@@ -136,7 +136,7 @@ i
   background-image: url('../img/local-street-bg-blur.png');
 }
 /* Clique Logo */
-#clique_logo {
+.clique_logo {
   margin: 10px auto 5%;
   width: 40%;
   /* clique_amt_wrapper */
