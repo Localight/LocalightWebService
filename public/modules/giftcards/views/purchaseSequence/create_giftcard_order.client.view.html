@@ -2,29 +2,35 @@
   <div class="wrapper">
     <!-- logo -->
     <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
+    <!-- To -->
+    <label class="inputlabel" for="giftRecipientName">To:</label>
 
-    <form name="giftcardForm" data-ng-submit="create()" novalidate>
-      <fieldset>
-        <!-- To -->
-        <label class="inputlabel" for="giftRecipientName">To:</label>
-        <input type="text" data-ng-model="gc.giftRecipientName" id="giftRecipientName" class="heart rightColumn" maxlength="16" placeholder="First Name" autofocus required>
+    <input type="text" data-ng-model="gc.giftRecipientFirstName" id="giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" autofocus required>
 
-        <!-- Amount -->
-        <div id="clique_amt_wrapper">
-          <div id="clique_amt_selection">
-            <!-- <input type="text" data-ng-model="gc.amount" id="amount" class="form-control" placeholder="$0.00" required> -->
-            <span class="leftarrow"></span>
-            <div id="clique_amt_scrollwindow">
-              <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price)">
-                <small>$</small>{{price}}</span>
-            </div>
-            <span class="rightarrow"></span>
-          </div>
+    <!-- Amount -->
+    <div id="clique_amt_wrapper">
+      <div id="clique_amt_selection">
+        <!-- <input type="text" data-ng-model="gc.amount" id="amount" class="form-control" placeholder="$0.00" required> -->
+        <span class="leftarrow"></span>
+        <div id="clique_amt_scrollwindow">
+          <span ng-repeat="price in prices" class="price">
+            <button class="btn btn-default" data-ng-model="amount" ng-click='setAmount(price)'>
+              <small>$</small>{{price}}
+            </button>
+          </span>
         </div>
-        <div id="clique_amt" class="hide" ng-click="showHide('#clique_amt_selection', '#clique_amt')">
-          <label class="inputlabel">$</label>
-          <div class="helveticaInput rightColumn">{{gc.Amount}}</div>
-        </div>
+        <span class="rightarrow"></span>
+      </div>
+    </div>
+    <button ng-click="toggle = !toggle">
+      <span ng-show="toggle">Toggle to Off</span>
+      <span ng-hide="toggle">Toggle to On</span>
+    </button>
+    <div class="box on" ng-show="toggle" ng-animate="'box'">On</div>
+    <div id="clique_amt" class="hide" ng-click="showHide('#clique_amt_selection', '#clique_amt')">
+      <label class="inputlabel">$</label>
+      <div class="helveticaInput rightColumn">{{gc.Amount}}</div>
+    </div>
   </div>
   <!--From-->
   <div id="clique_from" ng-class="{nextInput: isNextInput('From')}">
@@ -92,12 +98,6 @@
   <!-- TODO: Show Your Frinds Name -->
   <!-- Enter in Your Friends Mobile Number-->
   <!--  Send Reciept to -->
-  <label class="control-label" for="emailForReceipt">Enter an Email for the Reciept</label>
-  <div class="controls">
-    <!-- in final verison this probably won't exist, the user will just get an email, because we have that info-->
-    <input type="emailForReceipt" data-ng-model="gc.emailForReceipt" id="emailForReceipt" class="form-control" placeholder="someones@email.com" required>
-  </div>
-  </fieldset>
   <fieldset>
     <label class="control-label" for="creditCardNumber">Credit Card Number</label>
     <div class="controls">
@@ -153,6 +153,5 @@
       </div>
     </div>
   </fieldset> -->
-  </form>
   </div>
 </section>

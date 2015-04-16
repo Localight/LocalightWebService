@@ -139,7 +139,6 @@ i
 .clique_logo {
   margin: 10px auto 5%;
   width: 40%;
-  /* clique_amt_wrapper */
   max-width: 300px;
   display: block;
 }
@@ -199,11 +198,11 @@ label.inputlabel {
 }
 
 #clique_amt_scrollwindow {
-  width: 80%;
+  width: 70%;
   max-width: 600px;
   display: inline-block;
   overflow-x: scroll;
-  height: 10em; /* push scroll bar downwards out of field of view */
+  height: 3.6em; /* push scroll bar downwards out of field of view */
   white-space: nowrap; /* don't wrap the price spans */
 }
 
@@ -214,26 +213,47 @@ label.inputlabel {
   vertical-align: baseline;
   top: -0.6em;
 }
-
-.price {
+button{
   border: 2px solid white;
+  background: transparent;
   border-radius: 5px;
   color: white;
+  transition: color 0.2s ease-out;
   font-size: 1.6em;
   display: inline-block;
-  padding: 3px 0 0; /* top, left/right, bottom */
+  padding: 3px 0 0; top, left/right, bottom
   height: 38px;
   width: 25%;
   min-width: 68px;
   max-width: 100px;
-  margin: 0 1%; /* spacing between price boxes */
+  margin: 0 1%; spacing between price boxes
 }
-
-.price.active {
+button.active{
   background-color: white;
   border: 2px solid black;
   color: black;
 }
+
+/* .price {
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+  transition: color 0.2s ease-out;
+  font-size: 1.6em;
+  display: inline-block;
+  padding: 3px 0 0; top, left/right, bottom
+  height: 38px;
+  width: 25%;
+  min-width: 68px;
+  max-width: 100px;
+  margin: 0 1%; spacing between price boxes
+} */
+/*
+.price.active {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+} */
 
 .rightarrow,
 .leftarrow {

@@ -4,25 +4,19 @@ angular.module('giftcards')
   .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
     function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q) {
       $scope.authentication = Authentication;
-      $scope.prices = [5, 10, 25, 50, 75, 100];
+      $scope.gc = new Giftcards();
 
+      $scope.prices = [5, 10, 25, 50, 75, 100];
       $scope.setAmount = function(anAmount) {
+        console.log('amount selected: ' + anAmount);
         $scope.gc.amount = anAmount;
+        console.log('amount in scope: ' + $scope.gc.amount);
       };
       $scope.isAmount = function(checkAmount) {
         return $scope.gc.amount === checkAmount; // boolean
       };
 
       $scope.create = function() {
-        // var payload = {
-        //   customer: $scope.authentication.user.stripeCustomerToken,
-        //   number:$scope.cc.number,
-        //   exp_month: $scope.cc.exp_month,
-        //   exp_year: $scope.cc.exp_year,
-        //   cvc: $scope.cc.cvc
-        // };
-        // var aPhoneNumber = 1234567890,
-        //   displayName = 'test user';
         var giftcard = new Giftcards($scope.gc);
         var payload = {
           card: $scope.cc

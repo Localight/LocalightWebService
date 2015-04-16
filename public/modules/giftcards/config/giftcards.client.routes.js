@@ -11,7 +11,7 @@ angular.module('giftcards').config(['$stateProvider',
 		}).
 		state('createGiftcard', {
 			url: '/giftcards/create',
-			templateUrl: 'modules/giftcards/views/purchaseSequence/createGiftCardOrder.client.view.html'
+			templateUrl: 'modules/giftcards/views/purchaseSequence/create_giftcard_order.client.view.html'
 		}).
 		state('viewGiftcard', {
 			url: '/giftcards/:giftcardId',
@@ -20,10 +20,6 @@ angular.module('giftcards').config(['$stateProvider',
 		state('editGiftcard', {
 			url: '/giftcards/:giftcardId/edit',
 			templateUrl: 'modules/giftcards/views/edit-giftcard.client.view.html'
-		})
-		.state('sendGiftcard', {
-			url: '/giftcards/:giftcardId/send',
-			templateUrl: 'modules/giftcards/views/send-giftcards.client.view.html'
 		});
 	}
 ]);
