@@ -6,16 +6,14 @@ angular.module('giftcards')
       $scope.authentication = Authentication;
       $scope.gc = new Giftcards();
 
-      $scope.prices = [5, 10, 25, 50, 75, 100];
+      $scope.prices = [2, 5, 10, 25, 50, 75, 100];
       $scope.setAmount = function(anAmount) {
-        console.log('amount selected: ' + anAmount);
         $scope.gc.amount = anAmount;
         console.log('amount in scope: ' + $scope.gc.amount);
       };
       $scope.isAmount = function(checkAmount) {
         return $scope.gc.amount === checkAmount; // boolean
       };
-
       $scope.create = function() {
         var giftcard = new Giftcards($scope.gc);
         var payload = {

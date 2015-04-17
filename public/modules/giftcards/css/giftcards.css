@@ -213,25 +213,20 @@ label.inputlabel {
   vertical-align: baseline;
   top: -0.6em;
 }
-button{
+ button {
   border: 2px solid white;
   background: transparent;
   border-radius: 5px;
   color: white;
-  transition: color 0.2s ease-out;
+  /* transition: color 0.2s ease-out; */
   font-size: 1.6em;
   display: inline-block;
-  padding: 3px 0 0; top, left/right, bottom
+  padding: 3px; /* top, left/right, bottom */
   height: 38px;
-  width: 25%;
+  width: 25px;
   min-width: 68px;
   max-width: 100px;
-  margin: 0 1%; spacing between price boxes
-}
-button.active{
-  background-color: white;
-  border: 2px solid black;
-  color: black;
+  margin: 0 1;
 }
 
 /* .price {

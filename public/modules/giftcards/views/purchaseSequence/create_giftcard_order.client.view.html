@@ -14,7 +14,7 @@
         <span class="leftarrow"></span>
         <div id="clique_amt_scrollwindow">
           <span ng-repeat="price in prices" class="price">
-            <button class="btn btn-default" data-ng-model="amount" ng-click='setAmount(price)'>
+            <button data-ng-model="amount" ng-class="{active: isAmount(price)}" ng-click="setAmount(price)">
               <small>$</small>{{price}}
             </button>
           </span>
@@ -22,23 +22,13 @@
         <span class="rightarrow"></span>
       </div>
     </div>
-    <button ng-click="toggle = !toggle">
-      <span ng-show="toggle">Toggle to Off</span>
-      <span ng-hide="toggle">Toggle to On</span>
-    </button>
-    <div class="box on" ng-show="toggle" ng-animate="'box'">On</div>
-    <div id="clique_amt" class="hide" ng-click="showHide('#clique_amt_selection', '#clique_amt')">
-      <label class="inputlabel">$</label>
-      <div class="helveticaInput rightColumn">{{gc.Amount}}</div>
+    <!--From-->
+    <div id="clique_from" ng-class="{nextInput: isNextInput('From')}">
+      <label for="From" class="inputlabel">From:</label>
+      <input type="text" id="clique_input_from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-model="formData.From" required>
     </div>
-  </div>
-  <!--From-->
-  <div id="clique_from" ng-class="{nextInput: isNextInput('From')}">
-    <label for="From" class="inputlabel">From:</label>
-    <input type="text" id="clique_input_from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-model="formData.From" required>
-  </div>
 
-  <!-- Code
+    <!-- Code
   <div id="clique_code_wrapper" ng-show="allDirtyBefore('Code')">
     <div id="flip_container" class="marginBottom hide">
       <div class="dummy"></div>
@@ -63,7 +53,7 @@
     </div>
   </div> -->
 
-  <!-- Pay by card
+    <!-- Pay by card
         <div class="clique_payment_card roundWhiteBorder">
           ng-show="allDirtyBefore('CreditCardNumber')"
           creditcardnumbercontainer
@@ -82,7 +72,7 @@
             <div class="checkmark"></div>
           </div> -->
 
-  <!-- <div id="creditcardinfo" class="paymentcontainer filledIn">
+    <!-- <div id="creditcardinfo" class="paymentcontainer filledIn">
             <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
             <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVV" maxlength="4" size="4" pattern="\d*" ng-model="formData.CVV" ng-focus="expiryFocus()" required>
             <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
@@ -117,16 +107,6 @@
     <label class="control-label" for="CCV">cvc</label>
     <div class="controls">
       <input type="text" data-ng-model="cc.cvc" id="cvc" class="form-control" placeholder="cvc" maxlength="3" size="3" required>
-    </div>
-
-    <!-- <label class="control-label" for="zipcode">Zipcode</label>
-        <div class="controls">
-          <input type="text" data-ng-model="zipcode" id="zipcode" class="form-control" placeholder="XXXXX" maxlength="5" size="6" pattern="\d*" required>
-        </div> -->
-    <!-- To Someone's phone -->
-    <label class="control-label" for="mobileNumberOfRecipient">Recipient's Mobile Number</label>
-    <div class="controls">
-      <input type="text" data-ng-model="gc.mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" maxlength="10" size="14" required>
     </div>
   </fieldset>
   </div>
