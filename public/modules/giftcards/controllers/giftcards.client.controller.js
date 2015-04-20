@@ -2,12 +2,38 @@
 // Giftcards controller
 angular.module('giftcards')
   .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
-    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q) {
+  'OccasionService',
+    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
       $scope.authentication = Authentication;
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
       $scope.priceSelectionFlag = true;
+    /**********
+    * Occasion
+    **********/
+    // import occasions object from OccasionService
+    $scope.occasions = OccasionService;
+
+    // set default occasion icon to display
+    $scope.occasions.selectedIcon = 'modules/giftcards/img/occasion-custom-icon-blk.png';
+
+    $scope.occasions.charsLeft = 100;
+    var occCharLimit = 100; // no need to include the character limit inside $scope
+
+    $scope.setOccasion = function(occasion){
+      // change occasion text only if a new occasion is selected
+      if ($scope.formData.Icon !== occasion.name) {
+        $scope.formData.Occasion = occasion.text;
+        $scope.formData.Icon = occasion.name;
+        $scope.occasions.selectedIcon = occasion.images.selected;
+      }
+      $scope.limitOccText(); // limit occasion text to 100 characters
+
+      // $('#clique_occasion').show();
+// $('#clique_occasion_selection').hide();
+// $('#clique_input_occasion').focus();
+    };
       // $scope.checkFlag = function(){
       //   return $scope.priceSelectionFlag;
       // };

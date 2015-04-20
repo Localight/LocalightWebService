@@ -6,7 +6,7 @@
     <!-- To -->
     <label class="inputlabel" for="giftRecipientName">To:</label>
 
-    <input type="text" data-ng-model="gc.giftRecipientFirstName" id="giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" autofocus required>
+    <input type="text" data-ng-model="gc.giftRecipientFirstName" id="giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-pattern="/^\p{L}+$/" autofocus required>
 
     <!--Amount-->
     <div id="clique_amt_wrapper">
@@ -27,11 +27,11 @@
     <!--From-->
     <div id="clique_from" ng-class="{nextInput: isNextInput('giftSenderFirstName')}">
       <label for="From" class="inputlabel">From:</label>
-      <input type="text" id="clique_input_from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-model="gc.giftSenderFirstName" required>
+      <input type="text" id="clique_input_from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-pattern="/^\p{L}+$/" ng-model="gc.giftSenderFirstName" required>
     </div>
-
+    <!-- ng-show="dirty.Occasion || valid.Code" -->
     <!--Occasion-->
-    <div id="clique_occasion_wrapper" ng-show="dirty.Occasion || valid.Code">
+    <div id="clique_occasion_wrapper" >
       <div id="clique_occasion_selection" class="roundWhiteBorder">
         <ul>
           <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)">
