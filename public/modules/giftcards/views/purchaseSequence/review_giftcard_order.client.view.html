@@ -1,160 +1,60 @@
-<section data-ng-controller="GiftcardsController">
-  <div class="wrapper">
-    <!-- logo -->
-    <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
-    <form name="giftcardForm" data-ng-submit="create()" novalidate>
-      <fieldset>
-        <!-- To -->
-        <label class="inputlabel" for="giftRecipientName">To:</label>
-        <input type="text" data-ng-model="gc.giftRecipientName" id="giftRecipientName" class="heart rightColumn" maxlength="16" placeholder="First Name" autofocus required>
+<div id="clique_ordersummary" class="wrapper">
+  <!--Back-->
+  <!-- <a ui-sref="main">Back</a> -->
 
-        <!-- Amount -->
-        <div id="clique_amt_wrapper">
-          <div id="clique_amt_selection">
-            <!-- <input type="text" data-ng-model="gc.amount" id="amount" class="form-control" placeholder="$0.00" required> -->
-            <span class="leftarrow"></span>
-            <div id="clique_amt_scrollwindow">
-              <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price)">
-                <button></button>
-                <small>$</small>{{price}}</span>
-            </div>
-            <span class="rightarrow"></span>
-          </div>
-        </div>
-        <button ng-click="toggle = !toggle"><span ng-show="toggle">Toggle to Off</span><span ng-hide="toggle">Toggle to On</span></button>
-<div class="box on" ng-show="toggle" ng-animate="'box'">On</div>
-        <div id="clique_amt" class="hide" ng-click="showHide('#clique_amt_selection', '#clique_amt')">
-          <label class="inputlabel">$</label>
-          <div class="helveticaInput rightColumn">{{gc.Amount}}</div>
-        </div>
+  <!--Amount-->
+  <div class="summaryordertotal">
+    <label class="inputlabel">
+      <img alt="Bowtie" src="../modules/giftcards/img/bowtie.png" />
+    </label>
+    <div class="rightColumn helveticaText">
+      Send this gift of <span class="bold">${{ gc.amount }}</span>
+    </div>
   </div>
+
+  <!--To-->
+  <div class="summaryto">
+    <label class="inputlabel">To</label>
+    <div class="heart rightColumn">
+      {{ gc.giftRecipientFirstName }}
+    </div>
+  </div>
+  <!--Phone Number-->
+  <div id="clique_phonenumber" ng-class="{nextInput: !dirty.PhoneNumber}">
+    <label class="inputlabel" for="clique_input_phonenumber">
+      <img alt="Enter Phone Number" src="../modules/giftcards/img/phone.png" />
+    </label>
+    <input type="text" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="14" pattern="\d*" ng-model="gc.mobileNumberOfRecipient" autofocus required>
+  </div>
+
   <!--From-->
-  <div id="clique_from" ng-class="{nextInput: isNextInput('From')}">
-    <label for="From" class="inputlabel">From:</label>
-    <input type="text" id="clique_input_from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-model="formData.From" required>
+  <div>
+    <label class="inputlabel">From</label>
+    <div class="heart rightColumn">
+      {{ gc.giftSenderFirstName }}
+    </div>
+  </div>
+  <!--Send Receipt To-->
+  <div>
+    <label class="inputlabel">&nbsp;</label>
+    <div class="rightColumn helveticaText">Send receipt to</div>
   </div>
 
-  <!-- Code
-  <div id="clique_code_wrapper" ng-show="allDirtyBefore('Code')">
-    <div id="flip_container" class="marginBottom hide">
-      <div class="dummy"></div>
-      <div id="front" class="card"></div>
-      <div id="back" class="card">
-        <div class="profont blackstrip">XXXXX</div>
-        <img src="../public/images/circle-outline.png" alt="Clique Code Outline">
-      </div>
-    </div>
-    <div id="clique_code" class="marginBottom" ng-class="{nextInput: isNextInput('Code')}" ng-click="flipCard()">
-      <label for="Code" class="inputlabel">Code</label>
-      <input type="text" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()" required>
-    </div>
-    <div id="clique_code_message" class="hide">
-      <label class="inputlabel">
-        <img src="../public/images/at-icon-blk.png">
-      </label>
-      <div class="helveticaText rightColumn">
-        Good at <span class="bold">{{storeName}}</span>
-        <span class="italicMessage">and participating merchants</span>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- Pay by card
-        <div class="clique_payment_card roundWhiteBorder">
-          ng-show="allDirtyBefore('CreditCardNumber')"
-          creditcardnumbercontainer
-          <div class="paymentcontainer">
-            <img id="creditcardimg" ng-src="{{cardTypeImg}}">
-            <input type="text" size="19" data-ng-model="cc.number" id="number" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" pattern="\d*" required>
-            ng-change="updateCreditCardImg()" ng-focus="ccnFocus()" add to the above line when you know what it does.
-            <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="formData.CreditCardNumber" ng-change="updateCreditCardImg()" ng-focus="ccnFocus()"
-            required>
-            <div class="checkmark"></div>
-          </div>
-          <div id="creditcardinfo" class="paymentcontainer filledIn">
-            <input type="text" id="" class="profont expiry credit_card_expiry clique_input_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
-            <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVV" maxlength="4" size="4" pattern="\d*" ng-model="formData.CVV" ng-focus="expiryFocus()" required>
-            <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
-            <div class="checkmark"></div>
-          </div> -->
-
-  <!-- <div id="creditcardinfo" class="paymentcontainer filledIn">
-            <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
-            <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVV" maxlength="4" size="4" pattern="\d*" ng-model="formData.CVV" ng-focus="expiryFocus()" required>
-            <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
-            <div class="checkmark"></div>
-          </div> -->
+  <!--Email-->
+  <div id="clique_email" ng-class="{nextInput: !dirty.Email}">
+    <label class="inputlabel">
+      <img alt="Enter Email Address" src="../modules/giftcards/img/emailsign_blk.png" />
+    </label>
+    <input type="email" id="clique_input_email" class="rightColumn helveticaInput email" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.emailForReceipt">
   </div>
 
-  <!-- <label class="control-label" for="amount">Amount</label>
-  <div class="controls">
-    <input type="text" data-ng-model="gc.amount" id="amount" class="form-control" placeholder="$0.00" required>
-  </div> -->
-  <!-- TODO: Show Amount Again -->
-  <!-- TODO: Show Your Frinds Name -->
-  <!-- Enter in Your Friends Mobile Number-->
-  <!--  Send Reciept to -->
-  <label class="control-label" for="emailForReceipt">Enter an Email for the Reciept</label>
-  <div class="controls">
-    <!-- in final verison this probably won't exist, the user will just get an email, because we have that info-->
-    <input type="emailForReceipt" data-ng-model="gc.emailForReceipt" id="emailForReceipt" class="form-control" placeholder="someones@email.com" required>
+  <!--Schedule Gift-->
+  <div>
+    <a ui-sref="final" ng-show="dirty.Email">
+      <button class="proceed_button" ng-click="processForm()" ng-disabled="!pagesValid.main || !pagesValid.review">Schedule Order</button>
+    </a>
   </div>
-  </fieldset>
-  <fieldset>
-    <label class="control-label" for="creditCardNumber">Credit Card Number</label>
-    <div class="controls">
-      <input type="text" size="20" data-ng-model="cc.number" id="number" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required/>
-      <!-- <input type="text" data-ng-model="creditCardNumber" id="creditCardNumber" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required> -->
-    </div>
-    <label class="control-label" for="creditCardExpiration">(XX/YYYY)</label>
-    <div class="controls">
-      <input type="text" size="2" data-ng-model="cc.exp_month" id="exp_month" class="form-control" placeholder="01" maxlength="2" size="2" required/>
-      <!-- <input type="text" data-ng-model="month" id="month" class="form-control" placeholder="01" maxlength="2" size="2" required> -->
-      <span> / </span>
-      <input type="text" data-ng-model="cc.exp_year" id="exp_year" class="form-control" size="4" placeholder="YYYY
-            " maxlength="4" size="4" required/>
-      <!-- <input type="text" data-ng-model="year" id="year" class="form-control" placeholder="YYYY
-            " maxlength="4" size="4" required> -->
-    </div>
-    <label class="control-label" for="CCV">cvc</label>
-    <div class="controls">
-      <input type="text" data-ng-model="cc.cvc" id="cvc" class="form-control" placeholder="cvc" maxlength="3" size="3" required>
-    </div>
-
-    <!-- <label class="control-label" for="zipcode">Zipcode</label>
-        <div class="controls">
-          <input type="text" data-ng-model="zipcode" id="zipcode" class="form-control" placeholder="XXXXX" maxlength="5" size="6" pattern="\d*" required>
-        </div> -->
-    <!-- To Someone's phone -->
-    <label class="control-label" for="mobileNumberOfRecipient">Recipient's Mobile Number</label>
-    <div class="controls">
-      <input type="text" data-ng-model="gc.mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" maxlength="10" size="14" required>
-    </div>
-  </fieldset>
-  </div>
-  <div class="form-group">
-    <input type="submit" class="btn btn-default">
-  </div>
-  <div data-ng-show="error" class="text-danger">
-    <strong data-ng-bind="error"></strong>
-  </div>
-  <!-- <fieldset>
-    Pay by card
-    <div id="clique_payment_card" class="roundWhiteBorder"
-      ng-show="allDirtyBefore('CreditCardNumber')">
-      <div id="creditcardnumbercontainer" class="paymentcontainer">
-        <img id="creditcardimg" ng-src="{{cardTypeImg}}">
-        <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="formData.CreditCardNumber" ng-change="updateCreditCardImg()" ng-focus="ccnFocus()" required>
-        <div class="checkmark"></div>
-      </div>
-      <div id="creditcardinfo" class="paymentcontainer filledIn">
-        <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
-        <input type="text" id="clique_input_cvc" class="profont expiry credit_card_cvc" placeholder="cvc" maxlength="4" size="4" pattern="\d*" ng-model="formData.cvc" ng-focus="expiryFocus()" required>
-        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
-        <div class="checkmark"></div>
-      </div>
-    </div>
-  </fieldset> -->
-  </form>
-  </div>
-</section>
+  <a ng-href="/#!/sent">
+    <button class="proceed_button" >Submit</button>
+  </a>
+</div>

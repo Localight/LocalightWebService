@@ -44,6 +44,9 @@ var GiftcardSchema = new Schema({
     type:String,
     required:'please enter a email',
   },
+  giftSenderFirstName:{
+    type:String,
+  },
   /*
    * Crucial part, we need a mobile number to send the giftcard too. this is a primary key.
    * it also gives us the means to verify this users phone.
@@ -68,7 +71,7 @@ var GiftcardSchema = new Schema({
    *  Message, the message that the user wishes for another user to see.
    *  a message doesn't need to have a string attached to it.
    */
-  giftMessage: {
+  occasion: {
     type: String,
     default: 'A gift for you!'
   },

@@ -69,7 +69,7 @@ describe('Giftcard CRUD tests', function() {
         giftRecipientFirstName:'Full2 Name2',
         amount: 1234,
         mobileNumberOfRecipient: 5456541234,
-				giftMessage: 'A gift for you!',
+				occasion: 'A gift for you!',
         //districtNumber: 'aDistrictNumber',
       };
       done();
@@ -306,7 +306,7 @@ describe('Giftcard CRUD tests', function() {
   //               // console.log(giftcard);
   //               // console.log(user);
   //               // console.log(user2);	(giftcardUpdateRes.body.mobileNumberOfRecipient).should.equal(5456541234);
-  //               (giftcardUpdateRes.body.giftMessage).should.equal('A gift for you!');
+  //               (giftcardUpdateRes.body.occasion).should.equal('A gift for you!');
 	//
   //               (giftcardUpdateRes.body.toUserUserName).should.equal('username2');
 	//
@@ -347,7 +347,7 @@ describe('Giftcard CRUD tests', function() {
   //               // console.log(giftcard);
   //               // console.log(user);
   //               // console.log(user2);	(giftcardUpdateRes.body.mobileNumberOfRecipient).should.equal(5456541234);
-  //               (giftcardGetRes.body.giftMessage).should.equal('A gift for you!');
+  //               (giftcardGetRes.body.occasion).should.equal('A gift for you!');
   //               (giftcardGetRes.body.mobileNumberOfRecipient).should.equal('5456541234');
   //               // (giftcardGetRes.body.districtNumber).should
   //               //   .equal('aDistrictNumber');

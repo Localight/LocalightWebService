@@ -7,9 +7,18 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
+      $scope.priceSelectionFlag = true;
+      // $scope.checkFlag = function(){
+      //   return $scope.priceSelectionFlag;
+      // };
       $scope.setAmount = function(anAmount) {
         $scope.gc.amount = anAmount;
+        $scope.priceSelectionFlag = false;
+
         console.log('amount in scope: ' + $scope.gc.amount);
+      };
+      $scope.setBack = function(){
+        $scope.priceSelectionFlag = true;
       };
       $scope.isAmount = function(checkAmount) {
         return $scope.gc.amount === checkAmount; // boolean

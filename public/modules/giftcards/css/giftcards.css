@@ -8,6 +8,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'profontwindowsregular';
     src: url('../fonts/ProFontWindows-webfont.eot');
@@ -18,21 +19,15 @@
     font-weight: normal;
     font-style: normal;
 }
+
 body {
   font-family: 'helvetica','sans-serif','arial';
   background-color: #58e6df;
-  /* padding: 0px;
-  margin: 0px;  */
+  padding: 0px;
+  margin: 0px;
   height: 100%;
 }
-/* Wrapper */
-.wrapper {
-  width: 90%;
-  margin: 0 auto;
-}
-.wrapper > div {
-  margin-bottom: 2.5% !important;
-}
+
 
 /* General Styles */
 .hide {
@@ -69,7 +64,7 @@ input, textarea {
   border-radius: 7px;
   background-color: rgba(255,255,255,0.7);
 }
-i
+
 .filledIn {
   color: black;
   border-color: transparent;
@@ -132,9 +127,10 @@ i
 }
 
 #localStreetBlur {
-  /* background-image: url('images/local-street-low2-blur.png'); */
+  /* background-image: url('img/local-street-low2-blur.png'); */
   background-image: url('../img/local-street-bg-blur.png');
 }
+
 /* Clique Logo */
 .clique_logo {
   margin: 10px auto 5%;
@@ -144,6 +140,15 @@ i
 }
 /* End Clique Logo */
 
+/* Wrapper */
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.wrapper > div {
+  margin-bottom: 2.5% !important;
+}
 
 /*--- section styles ---*/
 .checkmark {
@@ -175,6 +180,7 @@ label.inputlabel {
   top: 8px;
   float: left;
 }
+
 .inputlabel img {
   height: 25px;
 }
@@ -198,11 +204,11 @@ label.inputlabel {
 }
 
 #clique_amt_scrollwindow {
-  width: 70%;
+  width: 80%;
   max-width: 600px;
   display: inline-block;
   overflow-x: scroll;
-  height: 3.6em; /* push scroll bar downwards out of field of view */
+  height: 10em; /* push scroll bar downwards out of field of view */
   white-space: nowrap; /* don't wrap the price spans */
 }
 
@@ -213,42 +219,26 @@ label.inputlabel {
   vertical-align: baseline;
   top: -0.6em;
 }
- button {
-  border: 2px solid white;
-  background: transparent;
-  border-radius: 5px;
-  color: white;
-  /* transition: color 0.2s ease-out; */
-  font-size: 1.6em;
-  display: inline-block;
-  padding: 3px; /* top, left/right, bottom */
-  height: 38px;
-  width: 25px;
-  min-width: 68px;
-  max-width: 100px;
-  margin: 0 1;
-}
 
-/* .price {
+.price {
   border: 2px solid white;
   border-radius: 5px;
   color: white;
-  transition: color 0.2s ease-out;
   font-size: 1.6em;
   display: inline-block;
-  padding: 3px 0 0; top, left/right, bottom
+  padding: 3px 0 0; /* top, left/right, bottom */
   height: 38px;
   width: 25%;
   min-width: 68px;
   max-width: 100px;
-  margin: 0 1%; spacing between price boxes
-} */
-/*
+  margin: 0 1%; /* spacing between price boxes */
+}
+
 .price.active {
-  background-color: white;
+  background-color: transparent;
   border: 2px solid black;
   color: black;
-} */
+}
 
 .rightarrow,
 .leftarrow {
@@ -291,6 +281,7 @@ label.inputlabel {
   /* compensate for 3px border width */
   height: 95%;
   width: 97%;
+
   position: absolute;
   top: 0;
   border: 3px solid white;
@@ -335,7 +326,6 @@ label.inputlabel {
 }
 
 #back img {
-
 	position: absolute;
 	right: 0;
 	top: 8%;

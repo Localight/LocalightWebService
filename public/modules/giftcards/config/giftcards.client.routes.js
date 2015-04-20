@@ -20,6 +20,14 @@ angular.module('giftcards').config(['$stateProvider',
 		state('editGiftcard', {
 			url: '/giftcards/:giftcardId/edit',
 			templateUrl: 'modules/giftcards/views/edit-giftcard.client.view.html'
+		}).
+		state('reviewGiftcard', {
+			url: '/review',
+			templateUrl: 'modules/giftcards/views/purchaseSequence/review_giftcard_order.client.view.html'
+		})
+		.state('sendGiftcard', {
+			url: '/sent',
+			templateUrl: 'modules/giftcards/views/purchaseSequence/giftcard_sent.client.view.html'
 		});
 	}
 ]);
