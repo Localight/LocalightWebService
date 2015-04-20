@@ -8,7 +8,10 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
+      // flag for Price Selctor
       $scope.priceSelectionFlag = true;
+      // flag for occasion Selector
+      $scope.occasionSelectionFlag = true;
     /**********
     * Occasion
     **********/
@@ -23,9 +26,10 @@ angular.module('giftcards')
 
     $scope.setOccasion = function(occasion){
       // change occasion text only if a new occasion is selected
-      if ($scope.formData.Icon !== occasion.name) {
-        $scope.formData.Occasion = occasion.text;
-        $scope.formData.Icon = occasion.name;
+      $scope.occasionSelectionFlag = false;
+      if ($scope.gc.Icon !== occasion.name) {
+        $scope.gc.occasion = occasion.text;
+        $scope.gc.Icon = occasion.name;
         $scope.occasions.selectedIcon = occasion.images.selected;
       }
       $scope.limitOccText(); // limit occasion text to 100 characters
@@ -43,8 +47,12 @@ angular.module('giftcards')
 
         console.log('amount in scope: ' + $scope.gc.amount);
       };
+
       $scope.setBack = function(){
         $scope.priceSelectionFlag = true;
+      };
+      $scope.setOccasionBack = function(){
+        $scope.occasionSelectionFlag = true;
       };
       $scope.isAmount = function(checkAmount) {
         return $scope.gc.amount === checkAmount; // boolean

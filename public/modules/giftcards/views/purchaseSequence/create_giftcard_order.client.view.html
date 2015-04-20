@@ -6,7 +6,7 @@
     <!-- To -->
     <label class="inputlabel" for="giftRecipientName">To:</label>
 
-    <input type="text" data-ng-model="gc.giftRecipientFirstName" id="giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-pattern="/^\p{L}+$/" autofocus required>
+    <input type="text" ng-model="gc.setOccasionBack" id="giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-pattern="/^\p{L}+$/" autofocus required>
 
     <!--Amount-->
     <div id="clique_amt_wrapper">
@@ -30,23 +30,23 @@
       <input type="text" id="clique_input_from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-pattern="/^\p{L}+$/" ng-model="gc.giftSenderFirstName" required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
+
     <!--Occasion-->
     <div id="clique_occasion_wrapper" >
-      <div id="clique_occasion_selection" class="roundWhiteBorder">
+      <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
         <ul>
           <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)">
             <img ng-src="{{occasion.images.normal}}">{{occasion.alt}}
           </li>
         </ul>
       </div>
-
-      <div id="clique_occasion" class="hide">
-        <label for="clique_input_occasion" class="inputlabel">
-          <img ng-src="{{occasions.selectedIcon}}">
+      <div id="clique_occasion" ng-hide="occasionSelectionFlag">
+        <label for="clique_input_occasion" class="inputlabel" ng-click="setOccasionBack()">
+          <img ng-src ="{{occasions.selectedIcon}}">
         </label>
         <div id="clique_input_occasion_wrapper" class="rightColumn">
-          <textarea id="clique_input_occasion" maxlength="100" ng-keypress="limitOccText()" ng-keyup="limitOccText()" ng-model="gc.occasion" required></textarea>
-          <span id="occCharCount">{{occasions.charsLeft}} characters left</span>
+          <textarea id="clique_input_occasion" maxlength="100"  ng-trim="false" ng-model="gc.occasion" autofocus required></textarea>
+          <span id="occCharCount">{{100 - gc.occasion.length}} characters left</span>
         </div>
         <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
       </div>
@@ -58,10 +58,10 @@
         <label class="inputlabel">Send</label>
         <div id="dateImages" class="rightColumn">
           <div id="sendToday" ng-click="setDateType('today')">
-            <img id="sendTodayImg" src="../public/images/send-today-wht.png" alt="Send Today"> Today
+            <img id="sendTodayImg" src="modules/giftcards/img/send-today-wht.png" alt="Send Today"> Today
           </div>
           <div id="sendOnDate" ng-click="setDateType('on-date')">
-            <img id="sendOnDateImg" src="../public/img/send-on-date-wht.png" alt="Choose a Date"> On date
+            <img id="sendOnDateImg" src="modules/giftcards/img/send-on-date-wht.png" alt="Choose a Date"> On date
           </div>
         </div>
       </div>
