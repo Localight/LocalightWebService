@@ -2,7 +2,7 @@
 // Giftcards controller
 angular.module('giftcards')
   .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
-  'OccasionService',
+    'OccasionService',
     function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
       $scope.authentication = Authentication;
       $scope.gc = new Giftcards();
@@ -12,35 +12,61 @@ angular.module('giftcards')
       $scope.priceSelectionFlag = true;
       // flag for occasion Selector
       $scope.occasionSelectionFlag = true;
-    /**********
-    * Occasion
-    **********/
-    // import occasions object from OccasionService
-    $scope.occasions = OccasionService;
+      // flag for send selection flag
+      $scope.sendSelectionFlag = true;
+      /**********
+       * Occasion
+       **********/
+      // import occasions object from OccasionService
+      $scope.occasions = OccasionService;
 
-    // set default occasion icon to display
-    $scope.occasions.selectedIcon = 'modules/giftcards/img/occasion-custom-icon-blk.png';
+      // set default occasion icon to display
+      $scope.occasions.selectedIcon = 'modules/giftcards/img/occasion-custom-icon-blk.png';
 
-    $scope.occasions.charsLeft = 100;
-    var occCharLimit = 100; // no need to include the character limit inside $scope
+      $scope.occasions.charsLeft = 100;
+      var occCharLimit = 100; // no need to include the character limit inside $scope
 
-    $scope.setOccasion = function(occasion){
-      // change occasion text only if a new occasion is selected
-      $scope.occasionSelectionFlag = false;
-      if ($scope.gc.Icon !== occasion.name) {
-        $scope.gc.occasion = occasion.text;
-        $scope.gc.Icon = occasion.name;
-        $scope.occasions.selectedIcon = occasion.images.selected;
-      }
-      $scope.limitOccText(); // limit occasion text to 100 characters
+      $scope.setOccasion = function(occasion) {
+        // change occasion text only if a new occasion is selected
+        $scope.occasionSelectionFlag = false;
+        if ($scope.gc.Icon !== occasion.name) {
+          $scope.gc.occasion = occasion.text;
+          $scope.gc.Icon = occasion.name;
+          $scope.occasions.selectedIcon = occasion.images.selected;
+        }
+        $scope.limitOccText(); // limit occasion text to 100 characters
+      };
+      /**********
+       * Date
+       **********/
+      // set default img
+      $scope.dateTypeImg = 'modules/giftcards/img/send-today-blk.png';
 
-      // $('#clique_occasion').show();
-// $('#clique_occasion_selection').hide();
-// $('#clique_input_occasion').focus();
-    };
-      // $scope.checkFlag = function(){
-      //   return $scope.priceSelectionFlag;
-      // };
+      $scope.setDateType = function(type) {
+        $scope.sendSelectionFlag = true;
+        if (type === 'today')
+          $scope.dateTypeImg = 'modules/giftcards/img/send-today-blk.png';
+        else if (type === 'on-date')
+          $scope.dateTypeImg = 'modules/giftcards/img/send-on-date-blk.png';
+
+      };
+      $scope.updateCreditCardImg = function() {
+        var type = $.formance.creditCardType($scope.formData.CreditCardNumber);
+
+        var acceptedTypes
+          = ['amex', 'discover', 'mastercard', 'visa'];
+
+        if (acceptedTypes.indexOf(type) !== -1)
+          $scope.cardTypeImg = 'modules/giftcards/img/cc-' + type;
+        else
+          $scope.cardTypeImg = 'modules/giftcards/img/cc-basic';
+
+        var filledIn = $('#creditcardnumbercontainer').hasClass('filledIn');
+        if (filledIn)
+          $scope.cardTypeImg += '-wht.png';
+        else
+          $scope.cardTypeImg += '-blk.png';
+      };
       $scope.setAmount = function(anAmount) {
         $scope.gc.amount = anAmount;
         $scope.priceSelectionFlag = false;
@@ -48,15 +74,17 @@ angular.module('giftcards')
         console.log('amount in scope: ' + $scope.gc.amount);
       };
 
-      $scope.setBack = function(){
+      $scope.setBack = function() {
         $scope.priceSelectionFlag = true;
       };
-      $scope.setOccasionBack = function(){
+      $scope.setOccasionBack = function() {
         $scope.occasionSelectionFlag = true;
       };
       $scope.isAmount = function(checkAmount) {
         return $scope.gc.amount === checkAmount; // boolean
       };
+
+
       $scope.create = function() {
         var giftcard = new Giftcards($scope.gc);
         var payload = {
