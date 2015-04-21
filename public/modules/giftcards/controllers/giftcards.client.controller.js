@@ -5,15 +5,22 @@ angular.module('giftcards')
     'OccasionService',
     function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
       $scope.authentication = Authentication;
+
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
+
       // flag for Price Selctor
       $scope.priceSelectionFlag = true;
       // flag for occasion Selector
       $scope.occasionSelectionFlag = true;
       // flag for send selection flag
       $scope.sendSelectionFlag = true;
+      // flag for pages
+      $scope.showPageFlag = true;
+      $scope.setShowPage = function(){
+        $scope.showPageFlag = false;
+      };
       /**********
        * Occasion
        **********/
