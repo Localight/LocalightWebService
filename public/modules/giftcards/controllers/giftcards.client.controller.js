@@ -18,9 +18,41 @@ angular.module('giftcards')
       $scope.sendSelectionFlag = true;
       // flag for pages
       $scope.showPageFlag = true;
+      $scope.showBorderFlag = false;
+      $scope.giftSenderFlag = false;
+      $scope.showFromBorderFlag = false;
+
       $scope.setShowPage = function(){
         $scope.showPageFlag = false;
       };
+      $scope.setToGiftRecipient = function(){
+        $scope.showBorderFlag = true;
+      };
+      $scope.setAmount = function(anAmount) {
+        $scope.gc.amount = anAmount;
+        $scope.priceSelectionFlag = false;
+        $scope.showBorderFlag = false;
+        $scope.showFromBorderFlag = true;
+
+        console.log('amount in scope: ' + $scope.gc.amount);
+      };
+      $scope.setBack = function() {
+        $scope.priceSelectionFlag = true;
+      };
+      $scope.setOccasionBack = function() {
+        $scope.occasionSelectionFlag = true;
+      };
+      $scope.isAmount = function(checkAmount) {
+        return $scope.gc.amount === checkAmount; // boolean
+      };
+      $scope.setGiftSender = function(){
+        $scope.giftSenderFlag = true;
+      };
+      $scope.setToFromSender = function(){
+        $scope.showFromBorderFlag = true;
+      };
+
+
       /**********
        * Occasion
        **********/
@@ -74,23 +106,6 @@ angular.module('giftcards')
         else
           $scope.cardTypeImg += '-blk.png';
       };
-      $scope.setAmount = function(anAmount) {
-        $scope.gc.amount = anAmount;
-        $scope.priceSelectionFlag = false;
-
-        console.log('amount in scope: ' + $scope.gc.amount);
-      };
-
-      $scope.setBack = function() {
-        $scope.priceSelectionFlag = true;
-      };
-      $scope.setOccasionBack = function() {
-        $scope.occasionSelectionFlag = true;
-      };
-      $scope.isAmount = function(checkAmount) {
-        return $scope.gc.amount === checkAmount; // boolean
-      };
-
 
       $scope.create = function() {
         var giftcard = new Giftcards($scope.gc);

@@ -1,11 +1,16 @@
-<section data-ng-controller="GiftcardsController" >
-  <section ng-show="showPageFlag">
+<section data-ng-controller="GiftcardsController">
+  <section ng-show="showPageFlag" data-ng-submit="setShowPage()">
+    <!-- call whatever method you want on submit -->
     <div class="wrapper">
+
       <!-- logo -->
       <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
+
       <!-- To -->
-      <label class="inputlabel" for="giftRecipientName">To:</label>
-      <input type="text" data-ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" pattern="/^\p{L}+$/" autofocus required>
+      <div id="clique_to" ng-class="{currentInput : showBorderFlag}">
+        <label class="inputlabel" for="giftRecipientName">To</label>
+        <input type="text" id="clique_input_to" ng-click="setToGiftRecipient()" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" pattern="^[a-zA-Z]+$" placeholder="First Name" autofocus required>
+      </div>
 
       <!--Amount-->
       <div id="clique_amt_selection" ng-show="priceSelectionFlag">
@@ -22,13 +27,41 @@
         <div class="helveticaInput rightColumn">{{gc.amount}}</div>
       </div>
     </div>
-    <!--From-->
-    <div id="clique_from">
-      <label for="From" class="inputlabel">From: </label>
-      <input type="text" data-ng-model="gc.giftSenderFirstName" class="heart rightColumn" placeholder="Your Name" maxlength="16" pattern="/^\p{L}+$/" required>
 
+    <!--From-->
+    <div id="clique_from" ng-class="{currentInput : showFromBorderFlag}">
+      <label for="From" class="inputlabel">From </label>
+      <input type="text" data-ng-model="gc.giftSenderFirstName" class="heart rightColumn" placeholder="Your Name" ng-click="setToFromSender()" maxlength="16" pattern="^[a-zA-Z]+$" autofocus required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
+
+    <!--Code-->
+    <div id="clique_code_wrapper">
+      <div id="flip_container" class="marginBottom hide">
+        <div class="dummy"></div>
+        <div id="front" class="card"></div>
+        <div id="back" class="card">
+          <div class="profont blackstrip">XXXXX</div>
+          <img src="modules/giftcards/img/circle-outline.png" alt="Clique Code Outline">
+        </div>
+      </div>
+
+      <div id="clique_code" class="marginBottom" ng-class="{nextInput: isNextInput('Code')}" ng-click="flipCard()">
+        <label for="Code" class="inputlabel">Code</label>
+        <input type="text" ng-click="showFromBorderFlag = false" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()" autofocus required>
+      </div>
+
+      <div id="clique_code_message" class="hide">
+        <label class="inputlabel">
+          <img src=".modules/giftcards/img/at-icon-blk.png">
+        </label>
+        <div class="helveticaText rightColumn">
+          Good at
+          <span class="bold">{{storeName}}</span>
+          <span class="italicMessage">and participating merchants</span>
+        </div>
+      </div>
+    </div>
 
     <!--Occasion-->
     <div id="clique_occasion_wrapper">
@@ -39,17 +72,20 @@
           </li>
         </ul>
       </div>
-      <div id="clique_occasion" ng-hide="occasionSelectionFlag">
+
+      <div id="clique_occasion"  ng-hide="occasionSelectionFlag">
         <label for="clique_input_occasion" class="inputlabel" ng-click="setOccasionBack()">
           <img ng-src="{{occasions.selectedIcon}}">
         </label>
-        <div id="clique_input_occasion_wrapper" class="rightColumn">
-          <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" autofocus required></textarea>
+
+        <div id="clique_input_occasion_wrapper" class="rightColum">
+          <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" class = "currentInput" autofocus required></textarea>
           <span id="occCharCount">{{100 - gc.occasion.length}} characters left</span>
         </div>
         <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
       </div>
     </div>
+
 
     <!--Date-->
     <div id="clique_date_wrapper">
@@ -81,25 +117,26 @@
         <!-- Credit Card Logo Img -->
         <img id="creditcardimg" ng-src="{{cardTypeImg}}">
         <!-- Credit Card Number Input -->
-        <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="cc.number" required>
+        <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="cc.number" autofocus required>
         <!-- Checkmark box to the left -->
         <div class="checkmark"></div>
       </div>
       <!-- lower box that within same box but differnet background -->
       <div id="creditcardinfo" class="paymentcontainer filledIn">
         <!-- Date input for credit card -->
-        <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" required>
+        <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" autofocus required>
         <!-- CVV for Credit Card -->
         <!-- TODO: Come back and split up the month and year -->
-        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="4" size="4" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()" required>
+        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="4" size="4" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()" autofocus required>
         <!-- Zip for credit card -->
-        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
+        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" autofocsrequired>
         <!-- Second checkbox -->
         <div class="checkmark"></div>
       </div>
     </div>
+
     <div class="form-group">
-        <button class="proceed_button" ng-click="setShowPage()">Continue</button>
+      <button class="proceed_button" ng-click="setShowPage()">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
