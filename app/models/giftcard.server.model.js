@@ -80,10 +80,6 @@ var GiftcardSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  user: { // this is how the object is stored when it is created.
-    type: Schema.ObjectId,
-    ref: 'User'
-  },
   merchant: {
     type: Schema.ObjectId,
     ref: 'Merchant'
