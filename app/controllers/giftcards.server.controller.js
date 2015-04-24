@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
   // userCtrl = require(''),
   Giftcard = mongoose.model('Giftcard'),
   User = mongoose.model('User'),
+  Transaction = mongoose.model('Transaction'),
   // nodemailer = require('nodemailer'),
   _ = require('lodash'),
   Q = require('q'),
@@ -69,21 +70,40 @@ exports.read = function(req, res) {
 /**
  * Update a Giftcard
  */
-// exports.update = function(req, res) {
-// 	var giftcard = req.giftcard;
-//
-// 	giftcard = _.extend(giftcard , req.body);
-//
-// 	giftcard.save(function(err) {
-// 		if (err) {
-// 			return res.status(400).send({
-// 				message: errorHandler.getErrorMessage(err)
-// 			});
-// 		} else {
-// 			res.jsonp(giftcard);
-// 		}
-// 	});
-// };
+exports.update = function(req, res) {
+	var giftcard = req.giftcard;
+
+	giftcard = _.extend(giftcard , req.body);
+
+  // every time the giftcard is updated create a transaction to reflect the change.
+  var transaction = new Transaction();
+  transaction.orderId = req.giftcard.orderId;
+  transaction.giftcardId = req.giftcard._id;
+  transaction.netAmount = req.giftcard.amount;//might need to turn this in a number or something not sure yet.
+  transaction.merchantId = req.giftcard.merchant;
+  transaction.recipientId = req.giftcard.toUser;
+  transaction.senderId = req.giftcard.fromUser;
+
+  //TODO: come back and more too, not sure what to do with this data.
+  transaction.save(function(err){
+    if (err){
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else{
+
+      giftcard.save(function(err) {
+    		if (err) {
+    			return res.status(400).send({
+    				message: errorHandler.getErrorMessage(err)
+    			});
+    		} else {
+    			res.jsonp(giftcard);
+    		}
+    	});
+    }
+  });
+};
 
 /**
  * Delete an Giftcard
