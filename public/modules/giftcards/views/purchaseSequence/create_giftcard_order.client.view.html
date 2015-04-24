@@ -9,7 +9,7 @@
       <!-- To -->
       <div id="clique_to" ng-class="{currentInput : showBorderFlag}">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" id="clique_input_to" ng-click="setToGiftRecipient()" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" pattern="^[a-zA-Z]+$" placeholder="First Name" autofocus required>
+        <input type="text" id="clique_input_to" ng-click="setBorderFlagOne()" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" autofocus required>
       </div>
 
       <!--Amount-->
@@ -21,7 +21,6 @@
         </div>
         <span class="rightarrow"></span>
       </div>
-
       <div id="clique_amt" ng-hide="priceSelectionFlag" ng-click="setBack()">
         <label class="inputlabel">$</label>
         <div class="helveticaInput rightColumn">{{gc.amount}}</div>
@@ -29,15 +28,16 @@
     </div>
 
     <!--From-->
-    <div id="clique_from" ng-class="{currentInput : showFromBorderFlag}">
+    <div id="clique_from" ng-class="{currentInput : showBorderFlagTwo}">
       <label for="From" class="inputlabel">From </label>
-      <input type="text" data-ng-model="gc.giftSenderFirstName" class="heart rightColumn" placeholder="Your Name" ng-click="setToFromSender()" maxlength="16" pattern="^[a-zA-Z]+$" autofocus required>
+      <input type="text" data-ng-model="gc.giftSenderFirstName" class="heart rightColumn" placeholder="Your Name" ng-click="setBorderFlagTwo()" maxlength="16" autofocus required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
 
     <!--Code-->
-    <div id="clique_code_wrapper">
-      <div id="flip_container" class="marginBottom hide">
+    <!-- little demo thing -->
+    <div id="clique_code_wrapper" >
+      <div id="flip_container">
         <div class="dummy"></div>
         <div id="front" class="card"></div>
         <div id="back" class="card">
@@ -46,9 +46,21 @@
         </div>
       </div>
 
-      <div id="clique_code" class="marginBottom" ng-class="{nextInput: isNextInput('Code')}" ng-click="flipCard()">
+      <div id = "clique_code"
+        class = "marginBottom"
+     ng-class = "{currentInput: showBorderFlagThree}"
+     ng-click = "flipCard()">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="text" ng-click="showFromBorderFlag = false" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()" autofocus required>
+        <input  type = "text"
+            ng-click = "setBorderFlagThree(); flipCard()"
+                  id = "clique_input_code"
+               class = "profont rightColumn number"
+         placeholder = "XXXXX"
+           maxlength = "5"
+             pattern = "\d*"
+        data-formance_length=5
+            ng-model = "formData.Code"
+           ng-change = "getStoreName()" autofocus required>
       </div>
 
       <div id="clique_code_message" class="hide">
@@ -73,13 +85,13 @@
         </ul>
       </div>
 
-      <div id="clique_occasion"  ng-hide="occasionSelectionFlag">
+      <div id="clique_occasion" ng-hide="occasionSelectionFlag">
         <label for="clique_input_occasion" class="inputlabel" ng-click="setOccasionBack()">
           <img ng-src="{{occasions.selectedIcon}}">
         </label>
 
         <div id="clique_input_occasion_wrapper" class="rightColum">
-          <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" class = "currentInput" autofocus required></textarea>
+          <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" class="currentInput" autofocus required></textarea>
           <span id="occCharCount">{{100 - gc.occasion.length}} characters left</span>
         </div>
         <!--note: <textarea maxlength="100"> is only supported in HTML 5-->

@@ -9,33 +9,50 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
-
-      // flag for Price Selctor
-      $scope.priceSelectionFlag = true;
-      // flag for occasion Selector
-      $scope.occasionSelectionFlag = true;
-      // flag for send selection flag
-      $scope.sendSelectionFlag = true;
-      // flag for pages
-      $scope.showPageFlag = true;
-      $scope.showBorderFlag = false;
-      $scope.giftSenderFlag = false;
-      $scope.showFromBorderFlag = false;
-
+      // flag to show other section.
       $scope.setShowPage = function(){
         $scope.showPageFlag = false;
       };
-      $scope.setToGiftRecipient = function(){
-        $scope.showBorderFlag = true;
+
+      //Flags for various things.
+      $scope.showBorderFlag = false;
+      $scope.showBorderFlagTwo = false;
+      $scope.priceSelectionFlag = true;
+      $scope.showPageFlag = true;
+      $scope.showBorderFlagThree = false;
+      $scope.flipCardFlag = false;
+      $scope.flipCard = function(){
+        $scope.flipCardFlag = false;
       };
+      $scope.setBorderFlagOne = function(){
+        $scope.showBorderFlag = true;
+        $scope.showBorderFlagTwo = false;
+        $scope.showBorderFlagThree = false;
+      };
+
+      $scope.setBorderFlagTwo = function(){
+        $scope.showBorderFlagTwo = true;
+        $scope.showBorderFlag = false;
+        $scope.showBorderFlagThree = false;
+      };
+      $scope.setBorderFlagThree = function(){
+        $scope.showBorderFlagTwo = false;
+        $scope.showBorderFlag = false;
+        $scope.showBorderFlagThree = true;
+      };
+
       $scope.setAmount = function(anAmount) {
         $scope.gc.amount = anAmount;
         $scope.priceSelectionFlag = false;
         $scope.showBorderFlag = false;
-        $scope.showFromBorderFlag = true;
-
-        console.log('amount in scope: ' + $scope.gc.amount);
       };
+
+      // flag for occasion Selector
+      $scope.occasionSelectionFlag = true;
+      // flag for send selection flag
+      $scope.sendSelectionFlag = true;
+
+
       $scope.setBack = function() {
         $scope.priceSelectionFlag = true;
       };
@@ -44,12 +61,6 @@ angular.module('giftcards')
       };
       $scope.isAmount = function(checkAmount) {
         return $scope.gc.amount === checkAmount; // boolean
-      };
-      $scope.setGiftSender = function(){
-        $scope.giftSenderFlag = true;
-      };
-      $scope.setToFromSender = function(){
-        $scope.showFromBorderFlag = true;
       };
 
 
