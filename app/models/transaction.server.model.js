@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 
 /**
  * Transaction Schema
+ * Any time a giftcard gets used or updated, a transaction is created.
  */
 var TransactionSchema = new Schema({
 	/**
