@@ -21,6 +21,10 @@
   <!-- StripeJS -->
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
+  <!-- FormanceJS -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="jquery.formance.min.js"></script>
+
   <script type="text/javascript">
     Stripe.setPublishableKey('pk_test_WHOQeKIKG2CfUsaGl5cAU2Dl');
   </script>
@@ -44,14 +48,14 @@
 </head>
 
 <body class="ng-cloak">
-   <header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header> 
-  <!-- <section class="content"> -->
+  <!--  <header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+    <section class="content"> -->
     <section class="container">
       {% block content %}{% endblock %}
-    </section>
-  <!-- </section> -->
+    <!-- </section> -->
+   </section>
   <div id="localStreetBlur" class="localStreet"></div>
-  <div id="localStreetNoBlur" class="localStreet"></div>
+  <!-- <div id="localStreetNoBlur" class="localStreet"></div> -->
   <!--Embedding The User Object-->
   <script type="text/javascript">
     var user = {{user | json | safe}};

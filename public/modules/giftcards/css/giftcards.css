@@ -235,7 +235,7 @@ label.inputlabel {
 }
 
 .price.active {
-  background-color: transparent;
+  background-color: white;
   border: 2px solid black;
   color: black;
 }

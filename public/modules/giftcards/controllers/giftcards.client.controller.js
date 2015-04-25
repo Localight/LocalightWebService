@@ -5,15 +5,65 @@ angular.module('giftcards')
     'OccasionService',
     function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
       $scope.authentication = Authentication;
+
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
-      // flag for Price Selctor
+      // flag to show other section.
+      $scope.setShowPage = function(){
+        $scope.showPageFlag = false;
+      };
+
+      //Flags for various things.
+      $scope.showBorderFlag = false;
+      $scope.showBorderFlagTwo = false;
       $scope.priceSelectionFlag = true;
+      $scope.showPageFlag = true;
+      $scope.showBorderFlagThree = false;
+      $scope.flipCardFlag = false;
+      $scope.flipCard = function(){
+        $scope.flipCardFlag = false;
+      };
+      $scope.setBorderFlagOne = function(){
+        $scope.showBorderFlag = true;
+        $scope.showBorderFlagTwo = false;
+        $scope.showBorderFlagThree = false;
+      };
+
+      $scope.setBorderFlagTwo = function(){
+        $scope.showBorderFlagTwo = true;
+        $scope.showBorderFlag = false;
+        $scope.showBorderFlagThree = false;
+      };
+      $scope.setBorderFlagThree = function(){
+        $scope.showBorderFlagTwo = false;
+        $scope.showBorderFlag = false;
+        $scope.showBorderFlagThree = true;
+      };
+
+      $scope.setAmount = function(anAmount) {
+        $scope.gc.amount = anAmount;
+        $scope.priceSelectionFlag = false;
+        $scope.showBorderFlag = false;
+      };
+
       // flag for occasion Selector
       $scope.occasionSelectionFlag = true;
       // flag for send selection flag
       $scope.sendSelectionFlag = true;
+
+
+      $scope.setBack = function() {
+        $scope.priceSelectionFlag = true;
+      };
+      $scope.setOccasionBack = function() {
+        $scope.occasionSelectionFlag = true;
+      };
+      $scope.isAmount = function(checkAmount) {
+        return $scope.gc.amount === checkAmount; // boolean
+      };
+
+
       /**********
        * Occasion
        **********/
@@ -67,23 +117,6 @@ angular.module('giftcards')
         else
           $scope.cardTypeImg += '-blk.png';
       };
-      $scope.setAmount = function(anAmount) {
-        $scope.gc.amount = anAmount;
-        $scope.priceSelectionFlag = false;
-
-        console.log('amount in scope: ' + $scope.gc.amount);
-      };
-
-      $scope.setBack = function() {
-        $scope.priceSelectionFlag = true;
-      };
-      $scope.setOccasionBack = function() {
-        $scope.occasionSelectionFlag = true;
-      };
-      $scope.isAmount = function(checkAmount) {
-        return $scope.gc.amount === checkAmount; // boolean
-      };
-
 
       $scope.create = function() {
         var giftcard = new Giftcards($scope.gc);
