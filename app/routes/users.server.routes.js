@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-var passport = require('passport');
 
 module.exports = function(app) {
 	// User Routes
@@ -26,9 +25,6 @@ module.exports = function(app) {
 	app.route('/auth/signup').post(users.signup);// hum...
 	app.route('/auth/signin').post(users.signin);
 	app.route('/auth/signout').get(users.signout);
-
-	//Twilio route catcher
-	app.route('/app//sms').post(users.giftWebHook);
 
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);

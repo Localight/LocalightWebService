@@ -5,6 +5,10 @@ module.exports = {
 	app: {
 		title: 'Clique - Development Environment'
 	},
+	twilio:{
+		acountSID: process.env.TWILIO_KEY || 'AC3f3d26948bcaffbde196abc45c3e7b89',
+		authTOKEN: process.env.TWILIO_AUTH_TOKEN || 'H@llF3rr',
+	},
 	mailgun: {
 					apiKey: 'key-212g0rzf7j9z-n9b7zdl797o3bxrsu38',
 					 domain: 'https://api.mailgun.net/v3/rs56424.mailgun.org',

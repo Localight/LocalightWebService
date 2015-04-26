@@ -43,7 +43,8 @@
     "passport-local": "~1.0.0",
     "q": "^1.2.0",
     "stripe": "^3.3.2",
-    "swig": "~1.4.1"
+    "swig": "~1.4.1",
+    "twilio": "^2.0.0"
   },
   "devDependencies": {
     "co": "^4.4.0",
