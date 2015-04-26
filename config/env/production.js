@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db:'mongodb://mongodb://localism2:localism@ord-c8-0.objectrocket.com:39020/havenly',
+	db: process.env.MONGO_URL,
 	assets: {
 		lib: {
 			css: [
