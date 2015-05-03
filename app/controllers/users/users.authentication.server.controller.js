@@ -71,7 +71,7 @@ exports.giftWebHook = function(req, res){
   // if the user is new the info is blank, if returning, info filled in.
   // no need to log the user in for buying a giftcard. make sure can't add own user name to giftcard too.
   // at some point make sure the url and or cookie seld denotates, so user's data is protected.
-  // remember to just return a static page. 
+  // remember to just return a static page.
 };
 /**
  * Find or create user based on mobile number

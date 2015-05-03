@@ -71,8 +71,8 @@ angular.module('giftcards')
         // that way when the user comes back to buy a card if they have a token,
         // we can pre-populate the form with the info from the token,
         // should return a user id
-
       },
+
       sendGiftCard: function(giftcard) {
         var dfd = $q.defer();
         dfd.resolve(
@@ -83,6 +83,7 @@ angular.module('giftcards')
 
       // this probably should be another service but, i'm not sure.
       // if you are looking at this in the future sorry, i'm just learning how to this. @JamesHall03/24/2014
+      
       findOrCreateUser: function(mobileNumber, firstName) {
           var dfd = $q.defer();
           dfd.resolve(

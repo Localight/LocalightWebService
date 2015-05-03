@@ -6,8 +6,8 @@ module.exports = {
 		title: 'Clique - Development Environment'
 	},
 	twilio:{
-		acountSID: process.env.TWILIO_KEY || 'AC3f3d26948bcaffbde196abc45c3e7b89',
-		authTOKEN: process.env.TWILIO_AUTH_TOKEN || 'H@llF3rr',
+		accountSID: process.env.ACCOUNT_SID || 'AC3f3d26948bcaffbde196abc45c3e7b89',
+		authTOKEN: process.env.AUTH_TOKEN || 'a6bfeeed497cfb9b8d10c329ce721759',
 	},
 	mailgun: {
 					apiKey: 'key-212g0rzf7j9z-n9b7zdl797o3bxrsu38',

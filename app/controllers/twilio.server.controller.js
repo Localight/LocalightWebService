@@ -4,14 +4,12 @@
  *  Module dependencies.
  *
  */
-var twilio = require('twilio'),
-  mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   errorHandler = require('./errors.server.controller'),
+  config = require('../../../config/config'),
+  client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
   // TODO: come back and delete these later.
-  accountSid = 'AC9bfd970cef5934b23e69f1ef72812a23',
-  authToken = 'a6bfeeed497cfb9b8d10c329ce721759',
-  client = require('twilio')(accountSid, authToken),
   Q = require('q'),
   _ = require('lodash');
 //require the Twilio module and create a REST client
