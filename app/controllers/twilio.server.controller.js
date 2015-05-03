@@ -7,7 +7,7 @@
 var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   errorHandler = require('./errors.server.controller'),
-  config = require('../../../config/config'),
+  config = require('../../config/config'),
   client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
   // TODO: come back and delete these later.
   Q = require('q'),
