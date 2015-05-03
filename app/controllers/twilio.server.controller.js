@@ -33,7 +33,7 @@ exports.interceptTwilioMesage = function(response, request) {
   } else {
     // start easy and just send back a url.
     client.messages.create({
-      body: '💌📲 Send a gift to anyone in Greater Long Beach ▸ ' + 'http://lbgift.com/giftcards/create',
+      body: '💌📲 Send a gift to anyone in Greater Long Beach ▸ ',
       to: response.body.From,
       from: '+15624454688',
     }).then(function handler(response){
