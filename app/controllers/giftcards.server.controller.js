@@ -74,7 +74,8 @@ exports.update = function(req, res) {
 	var giftcard = req.giftcard;
 
 	giftcard = _.extend(giftcard , req.body);
-
+  // might not need to create a transaction object, instead, since we are just updating the value of the object.
+  // 
   // every time the giftcard is updated create a transaction to reflect the change.
   var transaction = new Transaction();
   transaction.orderId = req.giftcard.orderId;

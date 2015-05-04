@@ -23,7 +23,6 @@ exports.interceptTwilioMesage = function(response, request) {
   console.log('got here');
   // this is what the response from twilio is sending.
   //
-  //
   // this is a controller, but you do everything in a controller.
   // getting user from database.
   // doing to much in controller.

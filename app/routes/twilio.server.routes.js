@@ -8,5 +8,6 @@ module.exports = function(app) {
 	var twilio = require('../../app/controllers/twilio.server.controller');
 	// setting up the incoming routes from twilio.
 	//
-	app.route('/sms/pingFromTwilio').post(twilio.interceptTwilioMesage); //http://lbgift.com/sms/pingFromTwilio
+	app.route('/sms/pingFromTwilio')
+		.post(twilio.interceptTwilioMesage); //http://lbgift.com/sms/pingFromTwilio
 };
