@@ -552,3 +552,10 @@ label.inputlabel {
   display: table-cell;
   vertical-align: middle;
 }
+.well{
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 7px;
+  background-position: center;
+
+}
