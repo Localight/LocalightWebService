@@ -15,36 +15,50 @@ angular.module('giftcards')
       };
 
       //Flags for various things.
-      $scope.showBorderFlag = false;
-      $scope.showBorderFlagTwo = false;
+      // Border Flags
+      $scope.showBackgroundFlag = false;
+      $scope.showBackgroundFlagTwo = false;
+      $scope.showBackgroundFlagThree = false;
+      $scope.showBackgroundFlagFour = false;
+
       $scope.priceSelectionFlag = true;
       $scope.showPageFlag = true;
-      $scope.showBorderFlagThree = false;
+
       $scope.flipCardFlag = false;
+
       $scope.flipCard = function() {
         $scope.flipCardFlag = false;
       };
       $scope.setBorderFlagOne = function() {
-        $scope.showBorderFlag = true;
-        $scope.showBorderFlagTwo = false;
-        $scope.showBorderFlagThree = false;
+        $scope.showBackgroundFlag = true;
+        $scope.showBackgroundFlagTwo = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = false;
       };
 
       $scope.setBorderFlagTwo = function() {
-        $scope.showBorderFlagTwo = true;
-        $scope.showBorderFlag = false;
-        $scope.showBorderFlagThree = false;
+        $scope.showBackgroundFlagTwo = true;
+        $scope.showBackgroundFlag = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = false;
       };
       $scope.setBorderFlagThree = function() {
-        $scope.showBorderFlagTwo = false;
-        $scope.showBorderFlag = false;
-        $scope.showBorderFlagThree = true;
+        $scope.showBackgroundFlagTwo = false;
+        $scope.showBackgroundFlag = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = true;
+      };
+      $scope.setBorderFlagFour = function() {
+        $scope.showBackgroundFlagTwo = false;
+        $scope.showBackgroundFlag = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = true;
       };
 
       $scope.setAmount = function(anAmount) {
         $scope.gc.amount = anAmount;
         $scope.priceSelectionFlag = false;
-        $scope.showBorderFlag = false;
+        $scope.showBackgroundFlag = false;
       };
 
       // flag for occasion Selector
@@ -79,6 +93,8 @@ angular.module('giftcards')
       $scope.setOccasion = function(occasion) {
         // change occasion text only if a new occasion is selected
         $scope.occasionSelectionFlag = false;
+        $scope.showBackgroundFlagFour = true;
+
         if ($scope.gc.Icon !== occasion.name) {
           $scope.gc.occasion = occasion.text;
           $scope.gc.Icon = occasion.name;
