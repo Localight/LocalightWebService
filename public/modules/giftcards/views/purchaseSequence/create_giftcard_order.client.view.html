@@ -50,7 +50,7 @@
         class = "marginBottom"
      ng-class = "{currentInput: showBorderFlagThree}"
      ng-click = "flipCard()">
-        <label for="Code" class="inputlabel">Code</label>
+        <label for = "Code" class = "inputlabel">Code</label>
         <input  type = "text"
             ng-click = "setBorderFlagThree(); flipCard()"
                   id = "clique_input_code"
@@ -98,8 +98,8 @@
       </div>
     </div>
 
-
-    <!--Date-->
+    <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-lg" custom-class="getDayClass(date, mode)"></datepicker>
+    <!-- Date
     <div id="clique_date_wrapper">
       <div id="clique_date_selection" ng-show="sendSelectionFlag" class="roundWhiteBorder">
         <label class="inputlabel">Send</label>
@@ -112,15 +112,15 @@
           </div>
         </div>
       </div>
-      <!-- TODO: come back and add date picker. and transition back. -->
+      TODO: come back and add date picker. and transition back.
 
       <div id="clique_date" ng-hide="sendSelectionFlag">
         <label for="clique_input_date" class="inputlabel">
           <img ng-src="{{dateTypeImg}}" alt="Chosen Date">
         </label>
-        <input type="text" id="clique_input_date" class="rightColumn" pick-a-date="" required>
+        <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
       </div>
-    </div>
+    </div> -->
 
     <!--Pay by card-->
     <div id="clique_payment_card" class="roundWhiteBorder">

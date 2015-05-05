@@ -10,7 +10,7 @@ angular.module('giftcards')
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
       // flag to show other section.
-      $scope.setShowPage = function(){
+      $scope.setShowPage = function() {
         $scope.showPageFlag = false;
       };
 
@@ -21,21 +21,21 @@ angular.module('giftcards')
       $scope.showPageFlag = true;
       $scope.showBorderFlagThree = false;
       $scope.flipCardFlag = false;
-      $scope.flipCard = function(){
+      $scope.flipCard = function() {
         $scope.flipCardFlag = false;
       };
-      $scope.setBorderFlagOne = function(){
+      $scope.setBorderFlagOne = function() {
         $scope.showBorderFlag = true;
         $scope.showBorderFlagTwo = false;
         $scope.showBorderFlagThree = false;
       };
 
-      $scope.setBorderFlagTwo = function(){
+      $scope.setBorderFlagTwo = function() {
         $scope.showBorderFlagTwo = true;
         $scope.showBorderFlag = false;
         $scope.showBorderFlagThree = false;
       };
-      $scope.setBorderFlagThree = function(){
+      $scope.setBorderFlagThree = function() {
         $scope.showBorderFlagTwo = false;
         $scope.showBorderFlag = false;
         $scope.showBorderFlagThree = true;
@@ -92,6 +92,21 @@ angular.module('giftcards')
       // set default img
       $scope.dateTypeImg = 'modules/giftcards/img/send-today-blk.png';
 
+      $scope.getDayClass = function(date, mode) {
+        if (mode === 'day') {
+          var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+          for (var i = 0; i < $scope.events.length; i++) {
+            var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+            if (dayToCheck === currentDay) {
+              return $scope.events[i].status;
+            }
+          }
+        }
+
+        return '';
+      };
       $scope.setDateType = function(type) {
         $scope.sendSelectionFlag = true;
         if (type === 'today')
@@ -103,8 +118,7 @@ angular.module('giftcards')
       $scope.updateCreditCardImg = function() {
         var type = $.formance.creditCardType($scope.formData.CreditCardNumber);
 
-        var acceptedTypes
-          = ['amex', 'discover', 'mastercard', 'visa'];
+        var acceptedTypes = ['amex', 'discover', 'mastercard', 'visa'];
 
         if (acceptedTypes.indexOf(type) !== -1)
           $scope.cardTypeImg = 'modules/giftcards/img/cc-' + type;
