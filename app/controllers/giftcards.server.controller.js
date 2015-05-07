@@ -75,35 +75,18 @@ exports.update = function(req, res) {
 
 	giftcard = _.extend(giftcard , req.body);
   // might not need to create a transaction object, instead, since we are just updating the value of the object.
-  // 
+  //
   // every time the giftcard is updated create a transaction to reflect the change.
-  var transaction = new Transaction();
-  transaction.orderId = req.giftcard.orderId;
-  transaction.giftcardId = req.giftcard._id;
-  transaction.netAmount = req.giftcard.amount;//might need to turn this in a number or something not sure yet.
-  transaction.merchantId = req.giftcard.merchant;
-  transaction.recipientId = req.giftcard.toUser;
-  transaction.senderId = req.giftcard.fromUser;
-
-  //TODO: come back and more too, not sure what to do with this data.
-  transaction.save(function(err){
-    if (err){
+  giftcard.save(function(err) {
+    if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else{
-
-      giftcard.save(function(err) {
-    		if (err) {
-    			return res.status(400).send({
-    				message: errorHandler.getErrorMessage(err)
-    			});
-    		} else {
-    			res.jsonp(giftcard);
-    		}
-    	});
+    } else {
+      res.jsonp(giftcard);
     }
   });
+  //TODO: come back and more too, not sure what to do with this data.
 };
 
 /**
