@@ -8,10 +8,8 @@
 var mongoose = require('mongoose'),
   nodemailer = require('nodemailer'),
   config = require('./../../config/config'),
-  // Mailgun = require('mailgun-js')({
-  //   apiKey: 'key-212g0rzf7j9z-n9b7zdl797o3bxrsu38',
-  //   domain: 'https://api.mailgun.net/v3/rs56424.mailgun.org'
-  // }),
+  validator = require('mongoose-validator'),
+  mailgunClient = require('mailgun-js')(config.mailgun.apiKey, config.mailgun.domian),
   Schema = mongoose.Schema;
 
 /**
@@ -21,10 +19,16 @@ var GiftcardSchema = new Schema({
   /*
    * The Name of the person to send this giftcard too.
    */
+  //TODO: create a validator that can be used for names.
+  //TODO: create a validator rule that can be used for amount
+  //TODO: create a validator rule that can be used for number
+  //TODO: create a validator rule that can be used for  email
+  //
   giftRecipientFirstName: {
     type: String,
     // should have spaces to indcate first name and last name.
     // TODO: add regualer expressions.
+    validate:[validator.isLength(3, 35), validator.isAlpha('Must contain letters only, Please.'), validator.isLowercase('Must be lowercase names when saving to database, Please.')],
     required: 'Please enter the recipients name.'
   },
 
@@ -34,7 +38,9 @@ var GiftcardSchema = new Schema({
    */
   amount: {
     type: Number,
+    validate:[validator.isNumeric('Please only enter numbers'), validator.isLength(3, 35), validator.isEmail('Please have the @ in your object')],
     required: 'Please enter an amount to purchase.'
+
   },
   /**
    * [receiptEmail description]
@@ -44,18 +50,23 @@ var GiftcardSchema = new Schema({
     type:String,
     required:'please enter a email',
   },
+
   giftSenderFirstName:{
     type:String,
+    validate:[validator.isLength(3, 35), validator.isAlpha('Must contain letters only, Please.'), validator.isLowercase('Must be lowercase names when saving to database, Please.')],
+    required: 'Please enter the senders name.'
   },
-  /*
-   * Crucial part, we need a mobile number to send the giftcard too. this is a primary key.
-   * it also gives us the means to verify this users phone.
+
+  /**
+   * [mobileNumberOfRecipient description]
+   * @type {Object}
    */
   mobileNumberOfRecipient: {
     type: Number,
     required: 'Please enter the recipients phone number',
     //TODO: enter in regular expression, and make sure no spaces.
   },
+
   stripeCardToken: {
     type: String
   },
