@@ -13,8 +13,35 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * Giftcard Schema
+ * Giftcard Schema,
+ * Included are the validations for the mongoose model.
+ *
  */
+
+ var nameValidator = [
+   validator({
+     validator: 'isLength',
+     arguments: [3, 50],
+     message: 'Name should be between 3 and 50 characters'
+   }),
+   validator({
+     validator: 'isAlphanumeric',
+     message: 'Name should contain alpha-numeric characters only'
+   })
+ ];
+ var phoneNumberValidator = [
+   validator({
+     validator: 'isLength',
+     arguments: [11, 12],
+     message:'Phone Number should be between 11 and 12 numbers'
+   }),
+   validator({
+     validator:'isNumeric',
+     message:'Phone Number should contain numbers only',
+   })
+ ];
+
+
 var GiftcardSchema = new Schema({
   /*
    * The Name of the person to send this giftcard too.
@@ -28,8 +55,8 @@ var GiftcardSchema = new Schema({
     type: String,
     // should have spaces to indcate first name and last name.
     // TODO: add regualer expressions.
-    validate:[validator.isLength(3, 35), validator.isAlpha('Must contain letters only, Please.'), validator.isLowercase('Must be lowercase names when saving to database, Please.')],
-    required: 'Please enter the recipients name.'
+    required: 'Please enter the recipients name.',
+    validate: nameValidator
   },
 
   /**
@@ -38,7 +65,6 @@ var GiftcardSchema = new Schema({
    */
   amount: {
     type: Number,
-    validate:[validator.isNumeric('Please only enter numbers'), validator.isLength(3, 35), validator.isEmail('Please have the @ in your object')],
     required: 'Please enter an amount to purchase.'
 
   },
@@ -53,8 +79,8 @@ var GiftcardSchema = new Schema({
 
   giftSenderFirstName:{
     type:String,
-    validate:[validator.isLength(3, 35), validator.isAlpha('Must contain letters only, Please.'), validator.isLowercase('Must be lowercase names when saving to database, Please.')],
-    required: 'Please enter the senders name.'
+    required: 'Please enter the senders name.',
+    validate: nameValidator
   },
 
   /**
