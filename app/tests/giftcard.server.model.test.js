@@ -16,23 +16,30 @@ var user, giftcard;
 /**
  * Unit tests
  * These tests enusre that the giftcard is saved properly, and if it has any methods that it excutes those corretly.
+ *
  */
 // Fix {} thing
 describe('Giftcard Model Unit Tests:', function() {
-
+	// WHAT AM I TESTING?
+	// I am testing the unit of the giftcard class object and all the things it could be doing.
 	beforeEach(function(done) {
+		// THE SETUP
+		// 1. create a fake user to use that simulates an actualy user.
+		// 2. create a fake giftcard for them to pass around,
+
 		user = new User({
-			firstName: 'Full',
-			lastName: 'Name',
-			displayName: 'Full Name',
-			email: 'test@test.com',
-			username: 'username',
+			// create what you need to make a bare minumn user.
+			firstName: 'Sebastion',
+			lastName: 'Ultron',
+			displayName: 'Sebastion Ultron',
+			email: 'test@tester.com',//TODO: use an actual email address for this user.
+			username: 'testUser',
 			password: 'password'
 		});
 		// TODO: giftcard mobile number should not match the mobile number of the user.
 		user.save(function() {
 			giftcard = new Giftcard({
-				giftRecipientFirstName:'your friends name here',
+				giftRecipientFirstName:'Allen',
 				amount: 1000,
 				mobileNumberOfRecipient:5456541234,// make sure it's someone else.
 				message: 'A gift for you!',
@@ -94,7 +101,11 @@ describe('Giftcard Model Unit Tests:', function() {
 	});
 	//TODO: add the other things in like the district number.
 	//TODO:
-
+	//TODO: write tests to make sure giftcard model is returning correct statements on save of object.
+	//TODO: make sure you have two different conditions for each test one that pass
+	// and one that fails, but passes.
+	// write a test for each validations condition, and make sure you have a
+	// negative and postive test. 
 // 		it('should show an error when ever try to save without district number', function(done){
 // 			giftcard.toUserUserName = 'bob';
 // 			giftcard.amount = 12;

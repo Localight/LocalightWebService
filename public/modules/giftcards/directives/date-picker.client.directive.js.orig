@@ -1,4 +1,21 @@
 'use strict';
+<<<<<<< HEAD
+
+angular.module('giftcards').directive('datePicker', [
+	function() {
+		return {
+			template: '<div></div>',
+			restrict: 'E',
+			link: function postLink(scope, element, attrs) {
+				// Date picker directive logic
+				// ...
+
+				element.text('this is the datePicker directive');
+			}
+		};
+	}
+]);
+=======
 angular.module('giftcards').directive('datePicker', [function() {
   return {
     restrict: 'A',
@@ -37,3 +54,4 @@ angular.module('giftcards').directive('datePicker', [function() {
      }
   };
 }]);
+>>>>>>> frontEnd

@@ -10,41 +10,55 @@ angular.module('giftcards')
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
       // flag to show other section.
-      $scope.setShowPage = function(){
+      $scope.setShowPage = function() {
         $scope.showPageFlag = false;
       };
 
       //Flags for various things.
-      $scope.showBorderFlag = false;
-      $scope.showBorderFlagTwo = false;
+      // Border Flags
+      $scope.showBackgroundFlag = false;
+      $scope.showBackgroundFlagTwo = false;
+      $scope.showBackgroundFlagThree = false;
+      $scope.showBackgroundFlagFour = false;
+
       $scope.priceSelectionFlag = true;
       $scope.showPageFlag = true;
-      $scope.showBorderFlagThree = false;
+
       $scope.flipCardFlag = false;
-      $scope.flipCard = function(){
+
+      $scope.flipCard = function() {
         $scope.flipCardFlag = false;
       };
-      $scope.setBorderFlagOne = function(){
-        $scope.showBorderFlag = true;
-        $scope.showBorderFlagTwo = false;
-        $scope.showBorderFlagThree = false;
+      $scope.setBorderFlagOne = function() {
+        $scope.showBackgroundFlag = true;
+        $scope.showBackgroundFlagTwo = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = false;
       };
 
-      $scope.setBorderFlagTwo = function(){
-        $scope.showBorderFlagTwo = true;
-        $scope.showBorderFlag = false;
-        $scope.showBorderFlagThree = false;
+      $scope.setBorderFlagTwo = function() {
+        $scope.showBackgroundFlagTwo = true;
+        $scope.showBackgroundFlag = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = false;
       };
-      $scope.setBorderFlagThree = function(){
-        $scope.showBorderFlagTwo = false;
-        $scope.showBorderFlag = false;
-        $scope.showBorderFlagThree = true;
+      $scope.setBorderFlagThree = function() {
+        $scope.showBackgroundFlagTwo = false;
+        $scope.showBackgroundFlag = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = true;
+      };
+      $scope.setBorderFlagFour = function() {
+        $scope.showBackgroundFlagTwo = false;
+        $scope.showBackgroundFlag = false;
+        $scope.showBackgroundFlagThree = false;
+        $scope.showBackgroundFlagFour = true;
       };
 
       $scope.setAmount = function(anAmount) {
         $scope.gc.amount = anAmount;
         $scope.priceSelectionFlag = false;
-        $scope.showBorderFlag = false;
+        $scope.showBackgroundFlag = false;
       };
 
       // flag for occasion Selector
@@ -79,6 +93,8 @@ angular.module('giftcards')
       $scope.setOccasion = function(occasion) {
         // change occasion text only if a new occasion is selected
         $scope.occasionSelectionFlag = false;
+        $scope.showBackgroundFlagFour = true;
+
         if ($scope.gc.Icon !== occasion.name) {
           $scope.gc.occasion = occasion.text;
           $scope.gc.Icon = occasion.name;
@@ -92,6 +108,21 @@ angular.module('giftcards')
       // set default img
       $scope.dateTypeImg = 'modules/giftcards/img/send-today-blk.png';
 
+      $scope.getDayClass = function(date, mode) {
+        if (mode === 'day') {
+          var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+          for (var i = 0; i < $scope.events.length; i++) {
+            var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+            if (dayToCheck === currentDay) {
+              return $scope.events[i].status;
+            }
+          }
+        }
+
+        return '';
+      };
       $scope.setDateType = function(type) {
         $scope.sendSelectionFlag = true;
         if (type === 'today')
@@ -103,8 +134,7 @@ angular.module('giftcards')
       $scope.updateCreditCardImg = function() {
         var type = $.formance.creditCardType($scope.formData.CreditCardNumber);
 
-        var acceptedTypes
-          = ['amex', 'discover', 'mastercard', 'visa'];
+        var acceptedTypes = ['amex', 'discover', 'mastercard', 'visa'];
 
         if (acceptedTypes.indexOf(type) !== -1)
           $scope.cardTypeImg = 'modules/giftcards/img/cc-' + type;
