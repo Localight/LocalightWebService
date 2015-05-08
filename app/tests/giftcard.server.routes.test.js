@@ -26,6 +26,10 @@ var credentials, credentials2, user, user2, giftcard;
 describe('Giftcard CRUD tests', function() {
 
   beforeEach(function(done) {
+    // create a version of the object that will be sent to the server from the client side.
+    // play around with all the different things that you could receive and plan
+    // for what you don't see.
+    //
     // Create user credentials
     credentials = {
       username: 'username',

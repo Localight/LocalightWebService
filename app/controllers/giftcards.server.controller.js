@@ -71,6 +71,9 @@ exports.read = function(req, res) {
  * Update a Giftcard
  */
 exports.update = function(req, res) {
+  // I know what merchant you are using the giftcard at so I just want to pay you out,
+  // or pay you out minus what we keep.
+  //
 	var giftcard = req.giftcard;
 
 	giftcard = _.extend(giftcard , req.body);

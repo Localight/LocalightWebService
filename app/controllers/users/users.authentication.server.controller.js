@@ -10,8 +10,8 @@ var _ = require('lodash'),
   passport = require('passport'),
   Q = require('q'),
   User = mongoose.model('User'),
-  message = null;
-var stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt');
+  message = null,
+  stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt');
 
 
 /**
