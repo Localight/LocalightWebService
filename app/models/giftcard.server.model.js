@@ -18,28 +18,28 @@ var mongoose = require('mongoose'),
  *
  */
 
- var nameValidator = [
-   validator({
-     validator: 'isLength',
-     arguments: [3, 50],
-     message: 'Name should be between 3 and 50 characters'
-   }),
-   validator({
-     validator: 'isAlphanumeric',
-     message: 'Name should contain alpha-numeric characters only'
-   })
- ];
- var phoneNumberValidator = [
-   validator({
-     validator: 'isLength',
-     arguments: [11, 12],
-     message:'Phone Number should be between 11 and 12 numbers'
-   }),
-   validator({
-     validator:'isNumeric',
-     message:'Phone Number should contain numbers only',
-   })
- ];
+var nameValidator = [
+  validator({
+    validator: 'isLength',
+    arguments: [3, 50],
+    message: 'Name should be between 3 and 50 characters'
+  }),
+  validator({
+    validator: 'isAlphanumeric',
+    message: 'Name should contain alpha-numeric characters only'
+  })
+];
+var phoneNumberValidator = [
+  // validator({
+  //   validator: 'isLength',
+  //   arguments: [11, 12],
+  //   message: 'Phone Number should be between 11 and 12 numbers'
+  // }),
+  validator({
+    validator: 'isNumeric',
+    message: 'Phone Number should contain numbers only',
+  })
+];
 
 
 var GiftcardSchema = new Schema({
@@ -72,13 +72,13 @@ var GiftcardSchema = new Schema({
    * [receiptEmail description]
    * @type {Object}
    */
-   emailForReceipt:{
-    type:String,
-    required:'please enter a email',
+  emailForReceipt: {
+    type: String,
+    required: 'please enter a email',
   },
-
-  giftSenderFirstName:{
-    type:String,
+  // Names
+  giftSenderFirstName: {
+    type: String,
     required: 'Please enter the senders name.',
     validate: nameValidator
   },
@@ -88,8 +88,9 @@ var GiftcardSchema = new Schema({
    * @type {Object}
    */
   mobileNumberOfRecipient: {
-    type: Number,
+    type: String,
     required: 'Please enter the recipients phone number',
+    validate: phoneNumberValidator
     //TODO: enter in regular expression, and make sure no spaces.
   },
 
@@ -102,7 +103,7 @@ var GiftcardSchema = new Schema({
    */
   stripeOrderId: {
     type: String,
-    required: 'You must save the order Id.'
+    //required: 'You must save the order Id.'
   },
   /**
    *  Message, the message that the user wishes for another user to see.
@@ -141,7 +142,7 @@ GiftcardSchema.pre('save', function(next) {
     to: this.emailForReceipt,
     from: 'gift-confirm@clique.cc',
     subject: 'Your Clique Card has been sent!',
-    text: '\n\n'+ this.fromUser.dipslayName +', your gift of $'+ this.amount + 'is on it&#39;s way to'+'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
+    text: '\n\n' + this.fromUser.dipslayName + ', your gift of $' + this.amount + 'is on it&#39;s way to' + '! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
   };
   smtpTransport.sendMail(mailOptions, function(error) {
     if (!error) {
