@@ -17,7 +17,10 @@ var mongoose = require('mongoose'),
  * Included are the validations for the mongoose model.
  *
  */
-
+/**
+ * validation for names
+ * @type {Array}
+ */
 var nameValidator = [
   validator({
     validator: 'isLength',
@@ -30,18 +33,22 @@ var nameValidator = [
   })
 ];
 var phoneNumberValidator = [
-  // validator({
-  //   validator: 'isLength',
-  //   arguments: [11, 12],
-  //   message: 'Phone Number should be between 11 and 12 numbers'
-  // }),
+  validator({
+    validator: 'isLength',
+    arguments: [10, 11],
+    message: 'Phone Number should be between 11 and 12 numbers'
+  }),
   validator({
     validator: 'isNumeric',
     message: 'Phone Number should contain numbers only',
   })
 ];
-
-
+var emailValidator = [
+  validator({
+    validator: 'isEmail',
+    message: 'Please enter correct email'
+  })
+];
 var GiftcardSchema = new Schema({
   /*
    * The Name of the person to send this giftcard too.
@@ -50,7 +57,11 @@ var GiftcardSchema = new Schema({
   //TODO: create a validator rule that can be used for amount
   //TODO: create a validator rule that can be used for number
   //TODO: create a validator rule that can be used for  email
-  //
+
+  /**
+   * [giftRecipientFirstName this is the name of who is receiving the email]
+   * @type {Object}
+   */
   giftRecipientFirstName: {
     type: String,
     // should have spaces to indcate first name and last name.
@@ -58,7 +69,15 @@ var GiftcardSchema = new Schema({
     required: 'Please enter the recipients name.',
     validate: nameValidator
   },
-
+  /**
+   * [giftSenderFirstName Name of the person who is sending the giftcard]
+   * @type {Object}
+   */
+  giftSenderFirstName: {
+    type: String,
+    required: 'Please enter the senders name.',
+    validate: nameValidator
+  },
   /**
    * Amount, the value of which the card holds, to be spent at a merchant's busienss.
    * @type {Object}
@@ -66,7 +85,6 @@ var GiftcardSchema = new Schema({
   amount: {
     type: Number,
     required: 'Please enter an amount to purchase.'
-
   },
   /**
    * [receiptEmail description]
@@ -74,13 +92,8 @@ var GiftcardSchema = new Schema({
    */
   emailForReceipt: {
     type: String,
+    validate:emailValidator,
     required: 'please enter a email',
-  },
-  // Names
-  giftSenderFirstName: {
-    type: String,
-    required: 'Please enter the senders name.',
-    validate: nameValidator
   },
 
   /**
@@ -93,12 +106,23 @@ var GiftcardSchema = new Schema({
     validate: phoneNumberValidator
     //TODO: enter in regular expression, and make sure no spaces.
   },
-
+  // mobile Number of Recipient can't be the same as the mobile number of the receiver.
+  //
+  mobileNumberOfSender: {
+    type: String,
+    required: 'Please enter the senders phone number',
+    validate: phoneNumberValidator
+    //TODO: enter in regular expression, and make sure no spaces.
+  },
+  /**
+   * [stripeCardToken token we use to charge the card, could be one time, not sure if I should be saving it.]
+   * @type {Object}// probably going to delete this.
+   */
   stripeCardToken: {
     type: String
   },
   /**
-   * [stripeOrderId Provided everytime a gifcard is object, will for user to be refunded.]
+   * [stripeOrderId Provided when the giftcard is first purchased, and used when or if we need to refund the giftcard.]
    * @type {String}
    */
   stripeOrderId: {
@@ -113,15 +137,20 @@ var GiftcardSchema = new Schema({
     type: String,
     default: 'A gift for you!'
   },
+ //  dateLastUpdate:{
+ //     type: Date,
+ //     default: Date.now
+ // },
   // Date card created or purchased, might want to change the number.
   created: {
     type: Date,
     default: Date.now
   },
-  merchant: {
-    type: Schema.ObjectId,
-    ref: 'Merchant'
-  },
+  // Do I need the mercahnt id, since each giftcard can be partially used.
+  // merchant: {
+  //   type: Schema.ObjectId,
+  //   ref: 'Merchant'
+  // },
   fromUser: {
     type: Schema.ObjectId,
     ref: 'User',

@@ -12,6 +12,9 @@ module.exports = function(app) {
 	app.route('/giftcards/:giftcardId')
 		.get(users.requiresLogin, giftcards.hasAuthorization, giftcards.read)
 		.put(users.requiresLogin, giftcards.hasAuthorization, giftcards.update)
+		//TODO: when you are working on the update method, make sure the program doesn't
+		// send emails each time the value is updated.
+
 		.delete(users.requiresLogin, giftcards.hasAuthorization, giftcards.delete);
 		//.post(users.requireLogin, giftcards.hasAuthorization, giftcards.send);// to send a giftcard we need two things.
 		// a username(later a phone number) and a giftcard to send.
