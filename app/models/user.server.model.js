@@ -131,7 +131,6 @@ UserSchema.pre('save', function(next) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
 	}
-
 	next();
 });
 
@@ -157,6 +156,7 @@ UserSchema.methods.authenticate = function(password) {
  * Find possible not used username
  */
 UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
+
 	var _this = this;
 	var possibleUsername = username + (suffix || '');
 
@@ -174,4 +174,5 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 		}
 	});
 };
+
 mongoose.model('User', UserSchema);

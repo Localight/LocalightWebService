@@ -13,10 +13,10 @@ var _ = require('lodash'),
   message = null,
   stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt');
 
-
 /**
  * Signup
  */
+
 exports.signup = function(req, res) {
 
   delete req.body.roles;

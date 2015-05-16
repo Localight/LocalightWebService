@@ -20,17 +20,22 @@ var mongoose = require('mongoose'),
  */
 // for sending the giftcard to another user, use update, but makde sure to accpet another parameter that
 // all the giftcard should do is save it's self. don't make it work to hard.
+
 exports.create = function(req, res) {
+
+   console.log('This is the response: '+ JSON.stringify(req));
+
   // if a user isn't found create one, otherwise find the user and save the giftcard.
   var giftcard = new Giftcard(req.body);
-  console.log(giftcard);
-  console.log(req.user.stripeCustomerToken);
+
   // assign the toUser before when you get it from the other method.
-  console.log(giftcard.stripeCardToken);
+  // check to make sure user has a stripe credit card token and customer token.
+  // if they don't have both then throw an error like a little bitch.
+
+
   stripe.customers.createCard(req.user.stripeCustomerToken, {
-    card: giftcard.stripeCardToken
+    card: req.user.stripeCardToken
   }).then(function handler(response) {
-    console.log('response from linking card and customer' + JSON.stringify(response));
     return stripe.charges.create({
       amount: giftcard.amount,
       source: response.id,
@@ -39,11 +44,11 @@ exports.create = function(req, res) {
       description: req.user.fullName +' bought a giftcard for ' + giftcard.giftRecipientFirstName
     });
   }).then(function anotherHandler(response) {
-    console.log('response from charging card' + JSON.stringify(response));
+
     giftcard.stripeOrderId = response.id;
     giftcard.fromUser = req.user._id;
     return giftcard.save(function(err) {
-      console.log(err);
+
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -53,7 +58,6 @@ exports.create = function(req, res) {
       }
     });
   }).catch(function errHandler(errorResponse) {
-    console.log('got an error: ', errorResponse);
     return res.status(400).send({
       message: errorHandler.getErrorMessage(errorResponse)
     });
