@@ -72,6 +72,15 @@ exports.read = function(req, res) {
 // Don't write new code, use the update and find methods to change ownder ship of the giftcard.
 // the update and find methods work find.
 /**
+ * [spend, this method will decrement a giftcard. it will not allow a giftcard to go below a negative number and when it has reached zero, a flag will be changed on the model.]
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+exports.spend = function(req, res){
+
+};
+/**
  * Update a Giftcard
  */
 exports.update = function(req, res) {

@@ -18,13 +18,16 @@ var mongoose = require('mongoose'),
 var GiftcardSchema = new Schema({
    /**
     * Amount, the value of which the card holds, to be spent at a merchant's busienss.
+    * A postive integery in teh smallest currency unit(e.g 100 cents to charge $1.00)
     * @type {Object}
     */
    amount: {
       type: Number,
+      min: 0,
+      max:50000,//equates to $500.00, 100 = $1.00, 50 = $.50
+      // need to make the number validate a number not less than zero.
       required: 'Please enter an amount to purchase.'
    }, // need to make sure it's always a number and never zero or a negative number.
-
 
    /**
     * [stripeOrderId Provided when the giftcard is first purchased, and used when or if we need to refund the giftcard.]
@@ -55,13 +58,22 @@ var GiftcardSchema = new Schema({
       type: Date,
       default: Date.now
    },
-
+   /**
+    * This is the user who will be purchasing the gitcard for another user.
+    * When this user purchases the giftcard they will be charged and sent a reciepit on
+    * successfull save of the object.
+    * @type {Object}
+    */
    fromUser: {
       type: Schema.ObjectId,
       ref: 'User',
       required: 'Please, enter the user id who is sending the giftcard.'
    },
-
+   /**
+    * This user will be the one receiving the giftcard and will be sent a text message when
+    * they receive the giftard.
+    * @type {Object}
+    */
    toUser: {
       type: Schema.ObjectId,
       ref: 'User',
