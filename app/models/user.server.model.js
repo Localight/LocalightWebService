@@ -156,7 +156,6 @@ UserSchema.methods.authenticate = function(password) {
  * Find possible not used username
  */
 UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
-
 	var _this = this;
 	var possibleUsername = username + (suffix || '');
 

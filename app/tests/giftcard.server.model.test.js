@@ -54,6 +54,9 @@ describe('Giftcard Model Unit Tests:', function() {
       giftcard.save();
       done();
    });
+   describe('Pre-Save Method', function(){
+
+   });
 
    describe('Method Save', function() {
       // when it saves should be able to save with out probelems it means, that the obejct is created, with alll the requirments,
@@ -65,8 +68,63 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
+
+      it('should throw an error when trying to save without a number', function(done) {
+         giftcard.amount = null;
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+      it('should throw an error when trying to save a negative number', function(done) {
+         giftcard.amount = -23432;
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+      it('should throw an error when trying to save above the max amount', function(done) {
+         giftcard.amount = 20000000;
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+      it('should throw an error when trying to save anything other than a number.', function(done) {
+         giftcard.amount = 'asdfsd';
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+      it('should throw an error when trying to save a without a fromUser', function(done) {
+         giftcard.fromUser = '';
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+      it('should throw an error when trying to save without a toUser', function(done) {
+         giftcard.toUser = '';
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+      it('should throw an error when trying to save without a stripeId', function(done) {
+         giftcard.stripeOrderId = '';
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+      //TODO: create a method or way to make sure the toUser and fromUser,
+      // are not the same value.
    });
 
+   describe('Post-Save Method', function(){
+
+   });
    afterEach(function(done) {
       Giftcard.remove().exec();
       User.remove().exec();
