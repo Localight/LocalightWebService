@@ -25,7 +25,8 @@ var validateLocalStrategyPassword = function(password) {
  * User Schema
  */
 var UserSchema = new Schema({
-
+	//TODO: work on user crdentials.
+	//TODO: convert username to only accept strings related to mobile numbers.
 	firstName: {
 		type: String,
 		trim: true,
@@ -38,11 +39,11 @@ var UserSchema = new Schema({
 		default: '',
 		//validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
-	fullName:{
-		type:String,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
-	},
+	// fullName:{
+	// 	type:String,
+	// 	default: '',
+	// 	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
+	// },
 	stripeCustomerToken:{
 		type:String,
 		default: ''

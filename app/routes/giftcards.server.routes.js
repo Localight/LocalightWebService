@@ -4,9 +4,11 @@ module.exports = function(app) {
 	var users = require('../../app/controllers/users.server.controller');
 	var giftcards = require('../../app/controllers/giftcards.server.controller');
 
+	app.route('/spendAGiftcard')
+	.post(giftcards.spendAGiftcard);
 	// Giftcards Routes
 	app.route('/giftcards')
-		.get(users.requiresLogin, giftcards.list)
+		.get(users.requiresLogin, giftcards.list)//
 		.post(giftcards.create);
 
 	app.route('/giftcards/:giftcardId')

@@ -35,7 +35,7 @@ var GiftcardSchema = new Schema({
    // for initial purchase.
    stripeOrderId: {
       type: String,
-      required: 'You must save the order Id.'
+      required: 'Please provide the stripeOrderId'
    }, // I should only get a order once
 
    /**
@@ -51,7 +51,7 @@ var GiftcardSchema = new Schema({
    //     default: Date.now
    // },
    // Date card created or purchased, might want to change the number.
-
+   //TODO: probably going to need to store the a refernce to the image the user is sending back.
    created: {
       type: Date,
       default: Date.now
@@ -78,28 +78,31 @@ var GiftcardSchema = new Schema({
       required: 'Please, enter the user id to send this giftcard too.'
    }
 });
-
+//TODO: I can make chainable pre-save methods, all I have to do is use next. This way I can check that
+// the users are not the same.
+// TODO: in the post method email the to different users.
+// TODO: also figure out how to do the cron job, for different times to send
 /**
  * Hook a pre save method to verify that the toUser and fromUser are not the
  * same user. could elborate later, and do a deep search to make sure these two
  * people are completely different and un related if we wanted too
  */
- GiftcardSchema.pre('save', function(next) {
-    // Make sure that the to and from users are different people and not the
-    // same. If they are the same stop, and throw an error.
-    // I don't think I can make this a validation thing, I think this needs to
-    // done before the giftcard reachees the save point. like the first line of defense.
-    // In theory, I could do the stripe transaction stuff here too. 
+//  GiftcardSchema.pre('save', function(next) {
+//     // Make sure that the to and from users are different people and not the
+//     // same. If they are the same stop, and throw an error.
+//     // I don't think I can make this a validation thing, I think this needs to
+//     // done before the giftcard reachees the save point. like the first line of defense.
+//     // In theory, I could do the stripe transaction stuff here too.
+//
+// });
 
-});
-
-GiftcardSchema.post('save', function(next){
-   // If everything worked out send an email to the fromUser with a reciepet, a
-   // and send a text message to the to user.
-   // when the giftcard is saved, based on the save the users will be able to
-   // the giftcard appear in there account.
-
-});
+// GiftcardSchema.post('save', function(next){
+//    // If everything worked out send an email to the fromUser with a reciepet, a
+//    // and send a text message to the to user.
+//    // when the giftcard is saved, based on the save the users will be able to
+//    // the giftcard appear in there account.
+//
+// });
 
 
 // GiftcardSchema.pre('save', function(next) {

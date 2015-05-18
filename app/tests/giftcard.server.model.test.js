@@ -48,16 +48,13 @@ describe('Giftcard Model Unit Tests:', function() {
       giftcard = new Giftcard({
          stripeOrderId: '34sdfsdf',
          amount: 1000,
-         toUser: user,
-         fromUser: user2,
+         toUser: user.id,
+         fromUser: user2.id,
       });
-      giftcard.save();
       done();
    });
-   describe('Pre-Save Method', function(){
-
-   });
-
+   // describe('Pre-Save Method', function(){
+   // });
    describe('Method Save', function() {
       // when it saves should be able to save with out probelems it means, that the obejct is created, with alll the requirments,
       // specified in the objects model schema. i.e, all the require functions are valid and the informaiton made it to the database.
@@ -90,6 +87,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
+
       it('should throw an error when trying to save anything other than a number.', function(done) {
          giftcard.amount = 'asdfsd';
          return giftcard.save(function(err) {
@@ -97,6 +95,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
+
       it('should throw an error when trying to save a without a fromUser', function(done) {
          giftcard.fromUser = '';
          return giftcard.save(function(err) {
@@ -104,6 +103,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
+
       it('should throw an error when trying to save without a toUser', function(done) {
          giftcard.toUser = '';
          return giftcard.save(function(err) {
@@ -111,6 +111,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
+      
       it('should throw an error when trying to save without a stripeId', function(done) {
          giftcard.stripeOrderId = '';
          return giftcard.save(function(err) {
@@ -122,9 +123,9 @@ describe('Giftcard Model Unit Tests:', function() {
       // are not the same value.
    });
 
-   describe('Post-Save Method', function(){
-
-   });
+   // describe('Post-Save Method', function(){
+   //
+   // });
    afterEach(function(done) {
       Giftcard.remove().exec();
       User.remove().exec();

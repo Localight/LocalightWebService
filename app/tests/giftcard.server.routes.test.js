@@ -1,376 +1,156 @@
 'use strict';
 
 var should = require('should'),
-  request = require('supertest'),
-  app = require('../../server'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  Giftcard = mongoose.model('Giftcard'),
-  agent = request.agent(app);// this is allows us to persist and save cookies
-  // agent is basically creating a simulation of a our app.
+   request = require('supertest'),
+   app = require('../../server'),
+   mongoose = require('mongoose'),
+   User = mongoose.model('User'),
+   Giftcard = mongoose.model('Giftcard'),
+   agent = request.agent(app); // this is allows us to persist and save cookies
+// agent is basically creating a simulation of a our app.
 
 /**
  * Globals
  */
-var credentials, credentials2, user, user2, giftcard;
+var credentials, credentials2, user1, user2, giftcard;
 
 /**
  * Giftcard routes tests
  * What does  a giftcard do?
  * Giftcards are purcahased and spent.
- * A giftcard can never be owned by the user who created it.
- * A giftcard must be sent to another user. If one exists, then attach, else create that user.
- * To keep things modular, the giftcard does not handle the creation of the user, it merely checks the databse
- * for the one it is looking for. Idealy, the user portion of this should be contained in the user controller.
+ * A giftcard can never be owned by the user1 who created it.
+ * A giftcard must be sent to another user1. If one exists, then attach, else create that user1.
+ * To keep things modular, the giftcard does not handle the creation of the user1, it merely checks the databse
+ * for the one it is looking for. Idealy, the user1 portion of this should be contained in the user1 controller.
  * I want to keep things modular.
  */
 describe('Giftcard CRUD tests', function() {
-// having "done" as a parameter ends the function
-  beforeEach(function(done) {
-    // create a version of the object that will be sent to the server from the client side.
-    // play around with all the different things that you could receive and plan
-    // for what you don't see.
-    //
-    // Create user credentials
-    credentials = {
-      username: '1234567890',
-      password: 'password'
-    };
-    credentials2 = {
-      username: '2132203433',
-      password: 'password2'
-    };
-    // Create a new user
-
-    // user creates the giftcard and sends it to his friend.
-    // mare sure to create fake stripe credentials for the tests that work.
-    user = new User({
-      firstName: 'James',
-      lastName: 'Hall',
-      displayName: 'James Hall',
-      email: 'test@test.com',
-      username: credentials.username,
-      password: credentials.password,
-      provider: 'local',
-      stripeCustomerToken: 'cus_6F4IWktgFqPHj3',
-      stripeCardToken: 'card_162aBuBNPqu3SRN2d2hCYAKD'
-    });
-    user.save();
-    // recieves the giftcard.
-    user2 = new User({
-      firstName: 'DW',
-      lastName: 'Ferrell',
-      displayName: 'DW Ferrell',
-      email: 'greatwolf3d@gmail.com',
-      username: credentials2.username,
-      password: credentials2.password,
-      provider: 'local'
-    });
-    // For now we are creating the user, in the future we will have the user created if they don't exist.
-    user2.save();
-    // Save a user to the test db and create new Giftcard
-    giftcard = {
-     amount: 200000,
-     fromUser:user.id,
-     toUser:user2.id,
-    };
-
-    done();
-  });
-  // Write this test so that it tests that user1, does not have any giftcards.
-  // if he does that's wrong.
-
-  // if the user signs out in the middle of a transaction we should probably handle that, currently nothing is setup.
-  // TODO: invalidate transaction, if user gets signed out or something, if something bad happens delet the info.
-  // The giftcard should be able to be created by anyone.
-  // If the users aren't found the program create them in a nother par
-  // However as long as two different user id's are put into the giftcard,
-  // then a giftcard can be created.
-  // They should not get an email when anyone tries to create a giftcard.
-  // The phone number of the sender must match in the front end though.
-
-  it('should be able to save Giftcard instance if not logged in', function(done) {
-    agent.post('/giftcards')
-      .send(giftcard)
-      .expect(200)
-      .end(function(giftcardSaveErr, giftcardSaveRes) {
-        (giftcardSaveRes.body.message).should.match('User is not logged in');
-        // Call the assertion callback
-        done(giftcardSaveErr);
+   // Setup Global Variables
+   beforeEach(function(done) {
+      // Create some user1 credintials
+      credentials = {
+         username: 'username', // we dont need them to be phone numbers in this instance
+         password: 'password'
+      };
+      credentials2 = {
+         username: 'username2', // we dont need them to be phone numbers in this instance
+         password: 'password2'
+      };
+      // Create a new User
+      /**
+       * This will simulate the user1 who is sending the giftcard to another user1.
+       * @type {User}
+       */
+      user1 = new User({
+         firstName: 'Billy',
+         lastName: 'Bob',
+         displayName: 'Billy Bob',
+         email: 'test@test.com', // need to find an actual email that I can simulate.
+         username: credentials.username,
+         password: credentials.password,
+         provider: 'local',
+         stripeCustomerToken: 'cus_6F4IWktgFqPHj3',
+         stripeCardToken: 'card_162aBuBNPqu3SRN2d2hCYAKD'
       });
-    // if a user can't post then a user can't update.
-  });
+      user1.save();
+      /**
+       * This user1 will simulate the user1 who uses the giftcard.
+       * @type {User}
+       */
+      user2 = new User({
+         firstName: 'Nathan',
+         lastName: 'Drake',
+         displayName: 'Nathan Drake',
+         email: 'test@test.com',
+         username: credentials2.username,
+         password: credentials2.password,
+         provider: 'local',
+      });
+      user2.save();
+      giftcard = new Giftcard({
+         amount: 2000,
+         toUser: user2,
+         fromUser: user1,
+         stripeOrderId: 'some number',
+      });
+      done();
+   });
+   // I need to test that a giftcard can't be saved under the same user1..
+   it('user1 should be able to save the giftcard AND view it under a different user1', function(done) {
+      // need to post it under one user1 and view under another.
+      // it should not apear in the same users list.
+      // The first user1 should, after creating the giftcard have // no giftcards.
+      // 1. Create the giftcard under one user1 and then,
+      // 2. view the giftcard under a different user1.
+      agent.post('/auth/signin')
+         .send(credentials)
+         .expect(200)
+         .end(function(signinErr, signinRes) {
+            // Handle signin error
+            if (signinErr) done(signinErr);
 
-  /*
-   * Update tests.
-   * if a user is signed in they should be able to update their gifcards, if they aren't logged in we should have the giftcards protected.
-   */
+            // // Get the userId
+            var userId = user1.id;
+            var userId2 = user2.id;
 
-  // never going to update a giftcard unless its for a refund or something
-  // it('should be able to update Giftcard instance if signed in', function(done) {
-  // 	agent.post('/auth/signin')
-  // 		.send(credentials)
-  // 		.expect(200)
-  // 		.end(function(signinErr, signinRes) {
-  // 			// Handle signin error
-  // 			if (signinErr) done(signinErr);
-  //
-  // 			// Get the userId
-  // 			var userId = user.id;
-  //
-  // 			// Save a new Giftcard
-  // 			agent.post('/giftcards')
-  // 				.send(giftcard)
-  // 				.expect(200)
-  // 				.end(function(giftcardSaveErr, giftcardSaveRes) {
-  // 					// Handle Giftcard save error
-  // 					if (giftcardSaveErr) done(giftcardSaveErr);
-  //
-  // 					// Update Giftcard name
-  // 					giftcard.amount = 200;
-  //
-  // 					// Update existing Giftcard
-  // 					agent.put('/giftcards/' + giftcardSaveRes.body._id)
-  // 						.send(giftcard)
-  // 						.expect(200)
-  // 						.end(function(giftcardUpdateErr, giftcardUpdateRes) {
-  // 							// Handle Giftcard update error
-  // 							if (giftcardUpdateErr) done(giftcardUpdateErr);
-  //
-  // 							// Set assertions
-  // 							(giftcardUpdateRes.body._id)
-  // 							.should.equal(giftcardSaveRes.body._id);
-  // 							(giftcardUpdateRes.body.amount).should.match(200);
-  //
-  // 							// Call the assertion callback
-  // 							done();
-  // 						});
-  // 				});
-  // 		});
-  // });
-  // it('should not be able to get a list of Giftcards if not signed in', function(done) {
-  //   // TODO: come back ands structure this.
-  //   // Create new Giftcard model instance
-  //   giftcard.user = user.id;
-  //   var giftcardObj = new Giftcard(giftcard);
-  //   // Save the Giftcard
-  //   giftcardObj.save(function() {
-  //     request(app).get('/giftcards/')
-  //     .expect(401)
-  //     .end(function(giftcardResponseErr, giftcardResponse) {
-  //       (giftcardResponse.body.message).should.match('User is not logged in');
-  //         done(giftcardResponseErr);
-  //       });
-  //   });
-  // });
-  // it('should be able to get a list of Giftcards if signed in', function(done){
-  // 	// Create a new Giftcard Model Instance
-  // 	agent.post('/auth/signin')
-  // 	.send(credentials2)
-  // 	.expect(200)
-  // 	.end(function(signinErr, signinREs){
-  // 		// Handle signin error
-  // 		if (signinErr) done(signinErr);
-  //
-  // 		// Get the userId2
-  // 		var userId = user2.id;
-  //
-  // 		// save a new giftcard
-  // 		agent.post('/giftcards')
-  // 		.send(giftcard)
-  // 		.expect(200)
-  // 		.end(function(giftcardSaveErr, giftcardSaveRes){
-  // 			// Handle giftcard article save error
-  // 			if(giftcardSaveErr) done(giftcardSaveErr);
-  //
-  // 			// update
-  // 		})
-  //
-  // 	})
-  // 	var giftcardObj = new Giftcard(giftcard);
-  //
-  // 	//Save the giftcard
-  // 	giftcardObj.save(function(){
-  // 		// Request gifftcards
-  // 		request(app).get('/giftcards')
-  // 		.end(function(req, res){
-  // 			// Set assertion
-  // 			res.body.should.be.an.Array.with.lengthOf(1);
-  // 			// Call the assertion callback
-  // 			done():
-  // 		});
-  // 	});
-  // });
+            // Save a new giftcard
+            agent.post('/giftcards')
+               .send(giftcard)
+               .expect(200)
+               .end(function(giftcardSaveErr, giftcardSaveRes) {
 
-  // it('should not be able to get a single Giftcard if not signed in', function(done) {
-  //   //TODO: If not signed in no giftcard for you!
-  //   // come back and structure.
-  //   // Create new Giftcard model instance
-  //   var giftcardObj = new Giftcard(giftcard);
-  //   // Save the Giftcard
-  //   giftcardObj.save(function() {
-  //     request(app).get('/giftcards/' + giftcardObj._id)
-  //     .expect(401)
-  //     .end(function(giftcardResponseErr, giftcardResponse) {
-  //
-  //       (giftcardResponse.body.message).should.match('User is not logged in');
-  //
-  //       done(giftcardResponseErr);
-  //     });
-  //   });
-  // });
+                  // Handle giftcard save error
+                  if (giftcardSaveErr) done(giftcardSaveErr);
 
-  // Technically should not be able to delete giftcards.
+                  // Get a list of giftcards
+                  agent.get('/giftcards')
+                     .end(function(giftcardsGetErr, giftcardsGetRes) {
+                        // Handle giftcard save error
+                        if (giftcardsGetErr) done(giftcardsGetErr);
 
-  // it('should be able to delete Giftcard instance if signed in', function(done) {
-  //   // when a giftcard is deleted it's actually spent.,
-  //   // we need to elboarte the test to include that at some point
-  //   agent.post('/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function(signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) done(signinErr);
-  //
-  //       // Get the userId
-  //       var userId = user.id;
-  //
-  //       // Save a new Giftcard
-  //       agent.post('/giftcards')
-  //         .send(giftcard)
-  //         .expect(200)
-  //         .end(function(giftcardSaveErr, giftcardSaveRes) {
-  //           // Handle Giftcard save error
-  //           if (giftcardSaveErr) done(giftcardSaveErr);
-  //
-  //           // Delete existing Giftcard
-  //           agent.delete('/giftcards/' + giftcardSaveRes.body._id)
-  //             .send(giftcard)
-  //             .expect(200)
-  //             .end(function(giftcardDeleteErr, giftcardDeleteRes) {
-  //               // Handle Giftcard error error
-  //               if (giftcardDeleteErr) done(giftcardDeleteErr);
-  //
-  //               // Set assertions
-  //               (giftcardDeleteRes.body._id).should.equal(giftcardSaveRes.body._id);
-  //
-  //               // Call the assertion callback
-  //               done();
-  //             });
-  //         });
-  //     });
-  // });
+                        // Get giftcards list
+                        var giftcards = giftcardsGetRes.body;
 
-  /*
-   * Test to send a giftcard to another user. What you need is a valid(existing) username, and a giftcard to send.
-   *  essentially you should just be updating who the user property is in the existing giftcard class.
-   */
+                        // Set assertions
+                        // the user who sent the giftcard should have nothing in the list.
+                        (giftcards[0].fromUser).should.equal(userId);
+                        (giftcards[0].toUser).should.equal(userId2);
+                        (giftcards[0].amount).should.match(2000);
+                        // (giftcards[0].user1._id).should.equal(null);
+                        // Call the assertion callback
+                        done();
+                     });
+               });
+         });
+   });
+   it('should not be able to save Giftcard instance if not logged in', function(done) {
+		agent.post('/giftcards')
+			.send(giftcard)
+			.expect(401)
+			.end(function(giftcardSaveErr, giftcardSaveRes) {
+				// Call the assertion callback
+				done(giftcardSaveErr);
+			});
+	});
+   it('should not be able to get a list of Giftcards if not signed in', function(done) {
+      // TODO: come back ands structure this.
+      // Create new Giftcard model instance
+      giftcard.user = user1.id;
+      var giftcardObj = new Giftcard(giftcard);
+      // Save the Giftcard
+      giftcardObj.save(function() {
+         request(app).get('/giftcards/')
+            .expect(401)
+            .end(function(giftcardResponseErr, giftcardResponse) {
+               (giftcardResponse.body.message).should.match('User is not logged in');
+               done(giftcardResponseErr);
+            });
+      });
+   });
 
-  // it('should be able to change ownership of a Giftcard instance from userA to another userB if logged in, and charge first user', function(done) {
-  //   // so how this should work, I am an exisint user, I create the giftcard, and then I send it to another user.
-  //   // I could change it to just send it to another user and not have a save feature. We will get to that later.
-  //   // I need to enter the name of an existing user, to send to.
-  //   agent.post('/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function(signinErr, signinRes) {
-  //
-  //       if (signinErr) done(signinErr);
-  //       //Get the userId
-  //       var userId2 = user2.id;
-  //       // so the user is posting this informaiton to the database, the user
-  //       // wants to save this information.
-  //       // I just thought of an easy way to do this. I model the update obejct, and just update the
-  //       // giftcard object, to reflect the new user.
-  //       // 1.) search for userBs user object id.
-  //       // 2.) take object id, and update the user object in property in the giftcard.
-  //       // make this a direct update function. you change a specific peice of info but always update.
-  //       // Save a new Giftcard
-  //       agent.post('/giftcards')
-  //         .send(giftcard)
-  //         .expect(200)
-  //         .end(function(giftcardSaveErr, giftcardSaveRes) {
-  //           // Handle Giftcard save err
-  //           if (giftcardSaveErr) done(giftcardSaveErr);
-  //
-  //           // Update User property of giftcard.
-  //           //	giftcard.user = user2._id;
-  //           // console.log('the current value of the user who owns the giftcard: '+ giftcard.user);
-  //           // console.log('UserBs id' + user2._id);
-  //           // now user doesn't have the giftcard in his collection anymore.
-  //           // or at least that is the outcome we should get.
-  //           // now the giftcard should appear under ownership of another user.
-  //           // we should test to see that user does not have any giftcards.
-  //           // then we should test that user2 does have a giftcard.
-  //           // Get a list of Giftcards
-  //           agent.put('/giftcards/' + giftcardSaveRes.body._id)
-  //             .send(giftcard)
-  //             .expect(200)
-  //             .end(function(giftcardUpdateErr, giftcardUpdateRes) {
-  //               // Handle Giftcard update error
-  //               if (giftcardUpdateErr) done(giftcardUpdateErr);
-  //
-  //               // Set assertions
-  //               // console.log(giftcard);
-  //               // console.log(user);
-  //               // console.log(user2);	(giftcardUpdateRes.body.mobileNumberOfRecipient).should.equal(5456541234);
-  //               (giftcardUpdateRes.body.occasion).should.equal('A gift for you!');
-  //
-  //               (giftcardUpdateRes.body.toUserUserName).should.equal('username2');
-  //
-  //               (giftcardUpdateRes.body.districtNumber).should
-  //                 .equal('aDistrictNumber');
-  //               (giftcardUpdateRes.body.amount).should.match(1000);
-  //               (giftcardUpdateRes.body._id).should.match(userId2);
-  //
-  //               // Call the assertion callback
-  //               done();
-  //             });
-  //
-  //         }); // save giftcard
-  //     }); // end signin
-  // }); // end should method
-  // it('should be able to charge, send, and create a giftcard', function(done) {
-  //   agent.post('/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function(signinErr, signinRes) {
-  //       // handle signin error
-  //       if (signinErr) done(signinErr);
-  //       //Get the userId
-  // 			var userId = user.id;
-  //       var userId2 = user2.id;
-  //       // test teh create method now
-  //       agent.post('/giftcards')
-  //         .send(giftcard)
-  //         .expect(200)
-  //         .end(function(giftcardSaveErr, giftcardSaveRes) {
-  //           // Handle Giftcard save err
-  //           if (giftcardSaveErr) done(giftcardSaveErr);
-  //           agent.get('/giftcards/' + giftcardSaveRes.body._id)
-  //             .end(function(giftcardGetErr, giftcardGetRes) {
-  //               // Handle Giftcard update error
-  //               if (giftcardGetRes) done(giftcardGetRes);
-  //               // Set assertions
-  //               // console.log(giftcard);
-  //               // console.log(user);
-  //               // console.log(user2);	(giftcardUpdateRes.body.mobileNumberOfRecipient).should.equal(5456541234);
-  //               (giftcardGetRes.body.occasion).should.equal('A gift for you!');
-  //               (giftcardGetRes.body.mobileNumberOfRecipient).should.equal('5456541234');
-  //               // (giftcardGetRes.body.districtNumber).should
-  //               //   .equal('aDistrictNumber');
-  //               (giftcardGetRes.body.amount).should.match(1234);
-  //               (giftcardGetRes.body._id).should.match(userId2);
-  //               // Call the assertion callback
-  //               done();
-  //             });
-  //         });
-  //     }); // save giftcard
-  // }); // end signin
-
-  afterEach(function(done) {
-    User.remove().exec();
-    Giftcard.remove().exec();
-    done();
-  });
+   afterEach(function(done) {
+      User.remove().exec();
+      Giftcard.remove().exec();
+      done();
+   });
 });
