@@ -107,12 +107,12 @@ describe('Giftcard CRUD tests', function() {
                      .end(function(giftcardsGetErr, giftcardsGetRes) {
                         // Handle giftcard save error
                         if (giftcardsGetErr) done(giftcardsGetErr);
-
+                        console.log('value of the giftcardGetRes'+giftcardsGetRes.body);
                         // Get giftcards list
                         var giftcards = giftcardsGetRes.body;
-
                         // Set assertions
                         // the user who sent the giftcard should have nothing in the list.
+                        // also the other user should have somehting in the list.
                         (giftcards[0].fromUser).should.equal(userId);
                         (giftcards[0].toUser).should.equal(userId2);
                         (giftcards[0].amount).should.match(2000);
@@ -123,6 +123,7 @@ describe('Giftcard CRUD tests', function() {
                });
          });
    });
+
    it('should not be able to save Giftcard instance if not logged in', function(done) {
 		agent.post('/giftcards')
 			.send(giftcard)
@@ -132,6 +133,7 @@ describe('Giftcard CRUD tests', function() {
 				done(giftcardSaveErr);
 			});
 	});
+
    it('should not be able to get a list of Giftcards if not signed in', function(done) {
       // TODO: come back ands structure this.
       // Create new Giftcard model instance
