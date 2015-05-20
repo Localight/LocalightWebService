@@ -43,35 +43,7 @@ exports.create = function(req, res) {
 };
 // assign the toUser before when you get it from the other method.
 // check to make sure user has a stripe credit card token and customer token.
-// if they don't have both then throw an error like a little bitch.
 
-// stripe.customers.createCard(req.user.stripeCustomerToken, {
-//   card: req.user.stripeCardToken
-// }).then(function handler(response) {
-//   return stripe.charges.create({
-//     amount: giftcard.amount,
-//     source: response.id,
-//     customer: req.user.stripeCustomerToken,
-//     currency: 'usd',
-//     description: req.user.fullName +' bought a giftcard for ' + giftcard.giftRecipientFirstName
-//   });
-// }).then(function anotherHandler(response) {
-//   giftcard.stripeOrderId = response.id;
-//   giftcard.fromUser = req.user._id;
-//   return giftcard.save(function(err) {
-//     if (err) {
-//       return res.status(400).send({
-//         message: errorHandler.getErrorMessage(err)
-//       });
-//     } else {
-//       return res.json(giftcard);
-//     }
-//   });
-// }).catch(function errHandler(errorResponse) {
-//   return res.status(400).send({
-//     message: errorHandler.getErrorMessage(errorResponse)
-//   });
-// });
 /**
  * Show the current Giftcard
  */
