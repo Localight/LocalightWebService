@@ -41,6 +41,7 @@ describe('Giftcard CRUD tests', function() {
        * This will simulate the user1 who is sending the giftcard to another user1.
        * @type {User}
        */
+
       user1 = new User({
          firstName: 'Billy',
          lastName: 'Bob',

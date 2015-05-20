@@ -20,42 +20,58 @@ var mongoose = require('mongoose'),
  * @param  {[type]} res [description]
  * @return {[type]}     [description]
  */
- exports.create = function(req, res) {
+exports.create = function(req, res) {
    // if a user isn't found create one, otherwise find the user and save the giftcard.
    var giftcard = new Giftcard(req.body);
+   // by the time the giftcard reaches this point it
+   // should have all the information it needs in the
+   // the giftcard body.
+   // the toUser id, occasionMessage, Amount,
+   // stripeOrderid, etc.
+   // This Controller merily creates the giftcard.
+   giftcard.fromUser = req.user;
 
-   // assign the toUser before when you get it from the other method.
-   // check to make sure user has a stripe credit card token and customer token.
-   // if they don't have both then throw an error like a little bitch.
-
-   stripe.customers.createCard(req.user.stripeCustomerToken, {
-     card: req.user.stripeCardToken
-   }).then(function handler(response) {
-     return stripe.charges.create({
-       amount: giftcard.amount,
-       source: response.id,
-       customer: req.user.stripeCustomerToken,
-       currency: 'usd',
-       description: req.user.fullName +' bought a giftcard for ' + giftcard.giftRecipientFirstName
-     });
-   }).then(function anotherHandler(response) {
-     giftcard.stripeOrderId = response.id;
-     giftcard.fromUser = req.user._id;
-     return giftcard.save(function(err) {
-       if (err) {
+   giftcard.save(function(err) {
+      if (err) {
          return res.status(400).send({
-           message: errorHandler.getErrorMessage(err)
+            message: errorHandler.getErrorMessage(err)
          });
-       } else {
-         return res.json(giftcard);
-       }
-     });
-   }).catch(function errHandler(errorResponse) {
-     return res.status(400).send({
-       message: errorHandler.getErrorMessage(errorResponse)
-     });
+      } else {
+         res.json(giftcard);
+      }
    });
- };
+};
+// assign the toUser before when you get it from the other method.
+// check to make sure user has a stripe credit card token and customer token.
+// if they don't have both then throw an error like a little bitch.
+
+// stripe.customers.createCard(req.user.stripeCustomerToken, {
+//   card: req.user.stripeCardToken
+// }).then(function handler(response) {
+//   return stripe.charges.create({
+//     amount: giftcard.amount,
+//     source: response.id,
+//     customer: req.user.stripeCustomerToken,
+//     currency: 'usd',
+//     description: req.user.fullName +' bought a giftcard for ' + giftcard.giftRecipientFirstName
+//   });
+// }).then(function anotherHandler(response) {
+//   giftcard.stripeOrderId = response.id;
+//   giftcard.fromUser = req.user._id;
+//   return giftcard.save(function(err) {
+//     if (err) {
+//       return res.status(400).send({
+//         message: errorHandler.getErrorMessage(err)
+//       });
+//     } else {
+//       return res.json(giftcard);
+//     }
+//   });
+// }).catch(function errHandler(errorResponse) {
+//   return res.status(400).send({
+//     message: errorHandler.getErrorMessage(errorResponse)
+//   });
+// });
 /**
  * Show the current Giftcard
  */
@@ -65,25 +81,51 @@ exports.read = function(req, res) {
 // Don't write new code, use the update and find methods to change ownder ship of the giftcard.
 // the update and find methods work find.
 /**
- * [spend, this method will decrement a giftcard. it will not allow a giftcard to go below a negative number and when it has reached zero, a flag will be changed on the model.]
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
- */
-exports.spend = function(req, res) {
-
-};
-/**
  * SpendAGiftcard will subtract an amount from the giftcard.
  *
  * @param {[type]} req [description]
  * @param {[type]} res [description]
  */
 exports.spendAGiftcard = function(req, res) {
-   // I need two things, a value and a merchantId
+   console.log('this is the value of the req.body'+ JSON.stringify(req.body));
+   var holderValue = req.body.value;
+   // find the giftcard in the req.
+   var giftcard = req.giftcard;
+   // extend the ability to update the giftcard.
+   giftcard = _.extend(giftcard, req.body);
+   // I need two things, a value and another UserID(merchant)
    // Spend a giftcard. similar to update only it checks the amount and does other things.
    // Make the call the subledger before saving the value.
+   // First validation is to make sure the giftcard does not go negative.
    //
+   if(holderValue === null || holderValue > giftcard.amount ){
+      return res.status(400).send({
+         message:'Please Enter a value to subtract less than or equal to the exact amount of the giftcard.'
+      });
+   } else{
+      // subtract the value from the giftcard. and update the giftcard.
+
+      // payout other user, and take out localism cut.
+
+      // make call to subledger to reflect purchase.
+
+      // second to last thing to happen
+      giftcard.amount = giftcard.amount - holderValue;// check with zlatko on this one.
+      // if the giftcard goes to zero, change the flag on the giftcard before it's updated.
+      // that way in the future it can't be used again.
+      //
+
+      // last step in the controller.
+      giftcard.save(function(err) {
+         if (err) {
+            return res.status(400).send({
+               message: errorHandler.getErrorMessage(err)
+            });
+         } else {
+            res.jsonp(giftcard);
+         }
+      });
+   }
 };
 /**
  * Update a Giftcard
