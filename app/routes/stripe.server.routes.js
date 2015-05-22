@@ -9,5 +9,6 @@ module.exports = function(app) {
 
    // Stripe charges api connections
    app.route('/stripe/charge').get(stripe.createACharge);
+	// create a route for retrieving a card. 
 	//need to find out if i need a parameter or not.
 };

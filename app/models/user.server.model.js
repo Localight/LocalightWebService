@@ -27,30 +27,42 @@ var validateLocalStrategyPassword = function(password) {
 var UserSchema = new Schema({
 	//TODO: work on user crdentials.
 	//TODO: convert username to only accept strings related to mobile numbers.
+	/**
+	 * firstName, the first name of the user, most of the time what we display in app. Must be String all alpha characters, 3 - 35 characters long. no spaces
+	 * @type {String}
+	 */
 	firstName: {
 		type: String,
 		trim: true,
 		default: '',
 		//validate: [validateLocalStrategyProperty, 'Please fill in your first name']
 	},
+	/**
+	 * lastName, the last name of the user, most of the time what we display in app. Must be String all alpha characters, 3 - 35 characters long. no spaces
+	 * @type {String}
+	 */
 	lastName: {
 		type: String,
 		trim: true,
 		default: '',
 		//validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
+	// display Name, should not store, but generate when needed.
 	// fullName:{
 	// 	type:String,
 	// 	default: '',
 	// 	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
 	// },
 	/**
-	 * the stripe Customer token is created for users that
+	 * stripeCustomerToken, this token is given to use from from stripe. It should
+	 * be paired with the user's information, all customers are managed:true.
+	 * this key should be created the same time a user signs up with our service.
 	 * are flaged as customers.
 	 * @type {Object}
 	 */
 	stripeCustomerToken:{
-		type:String
+		type:String,
+		required:'Stripe Token Required.'
 	},
 	stripeCardToken:{
 		// A user may only have one primary card.
@@ -62,18 +74,18 @@ var UserSchema = new Schema({
 		}],
 	},
 	/**
-	 * The stripe Merchant Token is only used when if the
-	 * user has signed up as a merchant.
+	 * The stripe Account Token is only used when if the
+	 * user has signed up as a merchant. This essentially is how a user get's paid.
 	 *
-	 * @type {Object}
+	 * @type {String}
 	 */
-	stripeMerchantToken:{
-
+	stripeAccountToken:{
+		type:String
 	},
 
 	/**
 	 * [hasCompletedSignup If a user signedup through the form this should be true, otherwise false when a new user is added through twilio.]
-	 * @type {Object}
+	 * @type {Boolean}
 	 */
 	hasCompletedSignup:{
 		type: Boolean,
@@ -95,13 +107,22 @@ var UserSchema = new Schema({
 	email: {
 		type: String,
 		trim: true,
-		//default: '',
+		default: '',
 		//validate: [validateLocalStrategyProperty, 'Please fill in your email'],
-		//match: [/.+\@.+\..+/, 'Please fill a valid email address']
+		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
+	/**
+	 * username, probably the most important fact about this is that the username
+	 * is actually the user's phone number. This is kinda a hack, but DW wanted it
+	 * to work like this for now. If a user get's a new number, then we enter a
+	 * new way for that to work. For now we make sure that the username is validate
+	 * like a phone number, no spaces or dashes, and no 1 attached.
+	 * @type {Object}
+	 */
 	username: {
 		type: String,
 		unique: 'testing error message',
+		match: [/d{10}/, 'Please fill a valid email address'],
 		required: 'Please fill in a mobile number',
 		trim: true
 	},
@@ -122,7 +143,7 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin']
+			enum: ['user','merchant','customer', 'admin']
 		}],
 		default: ['user']
 	},

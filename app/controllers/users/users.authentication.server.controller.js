@@ -30,16 +30,18 @@ exports.signup = function(req, res) {
   user.provider = 'local';
   user.fullName = user.firstName + ' ' + user.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
-  user.hasCompletedSignup = true;
 
   stripe.customers.create({
-    description: user.displayName,
+    description: 'This is a customer who can purchase giftcards for localism.',
     email: user.email,
      metadata: {
-       userId: user._id
+       userId: user._id,
+       firstName: user.firstName,
+       lastName: user.lastName,
+       phoneNumber:user.username
      }
   }).then(function handler(response) {
-    user.stripeCustomerToken = response.id;
+    user.stripeCustomerToken = response.id;// store the stripe token.
     return user.save(function(err) {
       if (err) {
         return res.status(400).send({
