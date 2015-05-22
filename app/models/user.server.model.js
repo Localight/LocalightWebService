@@ -44,13 +44,31 @@ var UserSchema = new Schema({
 	// 	default: '',
 	// 	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
 	// },
+	/**
+	 * the stripe Customer token is created for users that
+	 * are flaged as customers.
+	 * @type {Object}
+	 */
 	stripeCustomerToken:{
-		type:String,
-		default: ''
+		type:String
 	},
 	stripeCardToken:{
-		type:String,
-		default: '',
+		// A user may only have one primary card.
+		primary:{
+			type:String,
+		},
+		secondary:[{
+			type:String,
+		}],
+	},
+	/**
+	 * The stripe Merchant Token is only used when if the
+	 * user has signed up as a merchant.
+	 *
+	 * @type {Object}
+	 */
+	stripeMerchantToken:{
+
 	},
 
 	/**

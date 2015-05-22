@@ -51,7 +51,9 @@ describe('Giftcard CRUD tests', function() {
          password: credentials.password,
          provider: 'local',
          stripeCustomerToken: 'cus_6F4IWktgFqPHj3',
-         stripeCardToken: 'card_162aBuBNPqu3SRN2d2hCYAKD'
+         stripeCardToken:{
+            primary:'card_162aBuBNPqu3SRN2d2hCYAKD'
+         },
       });
       user1.save();
       /**

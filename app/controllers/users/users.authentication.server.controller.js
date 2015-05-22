@@ -10,8 +10,9 @@ var _ = require('lodash'),
   passport = require('passport'),
   Q = require('q'),
   User = mongoose.model('User'),
+  config = require('../../../config/config'),
   message = null,
-  stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt');
+  stripe = require('stripe')(config.clientID, config.clientSecret);
 
 /**
  * Signup
@@ -30,12 +31,13 @@ exports.signup = function(req, res) {
   user.fullName = user.firstName + ' ' + user.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
   user.hasCompletedSignup = true;
+
   stripe.customers.create({
     description: user.displayName,
     email: user.email,
-    // metadata: {
-    //   userId: user._id
-    // }
+     metadata: {
+       userId: user._id
+     }
   }).then(function handler(response) {
     user.stripeCustomerToken = response.id;
     return user.save(function(err) {
