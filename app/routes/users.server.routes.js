@@ -26,6 +26,22 @@ module.exports = function(app) {
 	app.route('/auth/signin').post(users.signin);
 	app.route('/auth/signout').get(users.signout);
 
+	// stripe charges routes
+	app.route('/stripe/charge').post(users.createACharge);
+	// Having stripe next to and embedded with the user class, allows us to use stripe where and when we
+	// need it.
+
+	// stripe accounts routes
+	// TODO: Enter in routes for the stripe accounts API
+	// stripe cards routes
+	// TODO: Enter in routes for stripe cards API
+	// stripe customers routes
+	// TODO: Enter in Routes for Stripe Customers API
+	// stripe transfer routes
+	// TODO: Enter in Routes for Stripe Transfer API
+	// stripe refund routes
+	// TODO: Enter in Routes for Stripe Refunds API
+
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);
 };
