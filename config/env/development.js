@@ -27,4 +27,7 @@ module.exports = {
       clientID: process.env.STRIPE_KEY || 'pk_test_WHOQeKIKG2CfUsaGl5cAU2Dl',
       clientSecret: process.env.STRIPE_KEY || 'sk_test_GvAql6HE34rlYwDR3FLSjaHt',
    },
+   subledger:{
+      
+   }
 };
