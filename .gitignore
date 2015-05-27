@@ -8,4 +8,4 @@ app/tests/coverage/
 .bower-*/
 .idea/
 config/env/production.js
-test.js
+config/env/test.js
