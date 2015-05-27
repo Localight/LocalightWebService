@@ -54,5 +54,6 @@ module.exports = {
       uncleared_category_id:process.env.SUBLEDGER_UNCLEARED_CATEGORY_ID,
       balance_sheet_id: process.env.SUBLEDGER_BALANCE_SHEET_ID,
       processing_id: process.env.SUBLEDGER_PROCESSING_ID
+      
    }
 };
