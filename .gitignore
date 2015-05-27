@@ -7,5 +7,5 @@ public/lib
 app/tests/coverage/
 .bower-*/
 .idea/
-./config/env/production.js
+config/env/production.js
 test.js
