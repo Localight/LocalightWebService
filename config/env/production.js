@@ -45,14 +45,4 @@ module.exports = {
          }
       }
    },
-   subledger: {
-		key: '88OpPqUhvGMhXnkGY6w47K',
-      secret: 'zXKdLPenIZ4B2r1cOjl46a',
-      org_id: 'O0K0eS2wjuLOSRXpPVGvuV',
-      book_id: 'T9UhswcXjeH4Q2nlLu9sYP',
-      depositor_category_id: '1z4e9kQSwcJ7tUNnnsMjnH',
-      uncleared_category_id: 'eml3U9NiHaauqimfRwCQLz',
-      balance_sheet_id: 'w0du5EvqLHUCDusk6imDEl',
-      processing_id: 'niybAvJdacBXxQktA3F12m'
-   }
-};
+   
