@@ -1,0 +1,57 @@
+<section data-ng-controller="GiftcardsController">
+  <div class="page-header">
+    <h1>New Giftcard</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="giftcardForm"class="form-horizontal" data-ng-submit="create()" novalidate>
+      <fieldset>
+          <!-- To Someone's phone -->
+          <label class="control-label" for="giftRecipientFirstName">Enter Your friends Name</label>
+          <div class="controls">
+            <input type="text" data-ng-model="giftRecipientFirstName" id="giftRecipientFirstName" class="form-control" placeholder="A friends name" required>
+          </div>
+          <!-- Amount -->
+          <label class="control-label" for="amount">Amount</label>
+          <div class="controls">
+            <input type="number" data-ng-model="amount" id="amount" class="form-control" placeholder="$0.00" required>
+          </div>
+          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
+          <div class="controls">
+            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="XXX-XXX-XXXX" required>
+          </div>
+          <!-- TODO: Show Amount Again -->
+          <!-- TODO: Show Your Frinds Name -->
+          <!-- Enter in Your Friends Mobile Number-->
+          <label class="control-label" for="mobileNumberOfRecipient">Mobile Number</label>
+          <div class="controls">
+            <input type="mobileNumberOfRecipient" data-ng-model="mobileNumberOfRecipient" id="mobileNumberOfRecipient" class="form-control" placeholder="(XXX)-XXX-XXXX" maxlength="10" autofocus required>
+          </div>
+        <!--  Send Reciept to -->
+          <label class="control-label" for="emailForReceipt">Enter an Email for the Reciept</label>
+            <div class="controls">
+  <!--             in final verison this probably won't exist, the user will just get an email, because we have that info
+  -->            <input type="emailForReceipt" data-ng-model="emailForReceipt" id="emailForReceipt" class="form-control" placeholder="your@email.com" required>
+            </div>
+
+            <!-- <label class="control-label" for="districtNumber">District Number</label>
+            <div class="controls">
+              <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
+            </div> -->
+
+          <!-- <label class="control-label" for="districtNumber">District Number</label>
+          <div class="controls">
+            <input type="text" data-ng-model="districtNumber" id="districtNumber" class="form-control" placeholder="A nother Number" required>
+          </div> -->
+
+     </fieldset>
+     <div class="form-group">
+       <!-- what makes more sense is to save this information, then submit it. as a package -->
+       <input type="submit" class="btn btn-default">
+    </div>
+   </div>
+
+  <div data-ng-show="error" class="text-danger">
+    <strong data-ng-bind="error"></strong>
+  </div>
+  </form>
+</section>

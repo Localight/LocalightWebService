@@ -1,0 +1,31 @@
+<section data-ng-controller="GiftcardsController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Send Giftcard</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="send()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="amount">Amount</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="giftcard.amount" id="amount" class="form-control" placeholder="amount" required>
+                    </div>
+                    <label class="control-label" for="toUserUserName">UserName</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="giftcard.toUserUserName" id="toUserUserName" class="form-control" placeholder="toUserUserName" required>
+                    </div>
+                    <label class="control-label" for="districtNumber">District Number</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="giftcard.districtNumber" id="districtNumber" class="form-control" placeholder="districtNumber" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Send" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>
