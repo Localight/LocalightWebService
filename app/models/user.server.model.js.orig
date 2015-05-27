@@ -126,6 +126,10 @@ var UserSchema = new Schema({
     required: 'Please fill in a mobile number',
     trim: true
   },
+<<<<<<< HEAD
+// if a user wants to 
+=======
+>>>>>>> c3e778aaaf61a27b0df1907d4f8bdd27adacb684
   password: {
     type: String,
     default: '',

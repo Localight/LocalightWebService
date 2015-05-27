@@ -1,7 +1,7 @@
 'use strict';
 // I want to change gift card to CliqueCard, will do that later though.
-// What if the giftcards, held an array of the transactions? The giftcard it's self had more that i kept track of?
-//
+// I can do that in a night.
+
 /**
  * Module dependencies.
  */
@@ -14,8 +14,7 @@ var mongoose = require('mongoose'),
  * Giftcard Schema,
  * Included are the validations for the mongoose model.
  */
-// add flags...
-//
+
 var GiftcardSchema = new Schema({
    /**
     * Amount, the value of which the card holds, to be spent at a merchant's busienss.
@@ -37,7 +36,8 @@ var GiftcardSchema = new Schema({
    stripeOrderId: {
       type: String,
       required: 'Please provide the stripeOrderId'
-   }, // I should only get one stripeOrderId once
+   }, // I should only get a order once
+
    /**
     *  Message, the message that the user wishes for another user to see.
     *  a message doesn't need to have a string attached to it.
@@ -78,8 +78,6 @@ var GiftcardSchema = new Schema({
       required: 'Please, enter the user id to send this giftcard too.'
    }
 });
-
-
 //TODO: I can make chainable pre-save methods, all I have to do is use next. This way I can check that
 // the users are not the same.
 // TODO: in the post method email the to different users.

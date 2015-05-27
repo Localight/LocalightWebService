@@ -20,6 +20,10 @@ exports.createACharge = function(req, res) {
       customer: req.user.stripeCustomerToken,
       description: req.user.displayName + 'bought a giftcard worth' + req.body.amount
    }).then(function handler(response) {
+<<<<<<< HEAD
+      // after a charge is made, update subledger here.
+=======
+>>>>>>> c3e778aaaf61a27b0df1907d4f8bdd27adacb684
       console.log(response);
       return response;
    }).catch(function errorHandler(errResponse) {
