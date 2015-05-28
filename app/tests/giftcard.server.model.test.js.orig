@@ -45,6 +45,14 @@ describe('Giftcard Model Unit Tests:', function() {
          username: 'testUser2',
          password: 'password'
       });
+<<<<<<< HEAD
+      // TODO: giftcard mobile number should not match the mobile number of the user.
+      giftcard = new Giftcard({
+         stripeOrderId: 'ch_34sdfsdf',
+         amount: 1000,
+         toUser: user.id,
+         fromUser: user2.id,
+=======
 
       user.save(function(){
          giftcard = new Giftcard({
@@ -54,6 +62,7 @@ describe('Giftcard Model Unit Tests:', function() {
             fromUser: user2.id,
          });
          done();
+>>>>>>> e0d15943be4871fa7011a3646d11b24817840198
       });
    });
 
@@ -126,6 +135,16 @@ describe('Giftcard Model Unit Tests:', function() {
          });
       });
 
+<<<<<<< HEAD
+      it('should throw an error when trying to save a non-alphabetical or non-numeric id following ch_ pattern. Chosen pattern to test: ch_fe4r7g47g@$% ', function(done) {
+         giftcard.stripeOrderId = 'ch_fe4r7g47g@$%';
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+=======
+>>>>>>> e0d15943be4871fa7011a3646d11b24817840198
       //TODO: create a method or way to make sure the toUser and fromUser,
       // are not the same value.
    });
