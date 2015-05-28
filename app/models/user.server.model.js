@@ -53,6 +53,8 @@ var UserSchema = new Schema({
   // 	default: '',
   // 	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
   // },
+
+  ///////////////STRIPE API STUFF  ////////////////////////
   /**
    * stripeCustomerToken, this token is given to use from from stripe. It should
    * be paired with the user's information, all customers are managed:true.
@@ -62,14 +64,19 @@ var UserSchema = new Schema({
    */
   stripeCustomerToken:{
     type:String,
+    //TODO: add regular expression for customer Token, using match.
     required:'Stripe Token Required.'
   },
+
   stripeCardToken:{
     // A user may only have one primary card.
     primary:{
+      // TODO: add regularexpression for card tokens, using "match"
       type:String,
     },
+
     secondary:[{
+      // TODO: add regularexpression for card tokens, using "match"
       type:String,
     }],
   },
@@ -80,8 +87,11 @@ var UserSchema = new Schema({
    * @type {String}
    */
   stripeAccountToken:{
+     // add regularexpression for card token, using "match"
     type:String
   },
+  ///////////////////////////////////////////////////
+
 
   /**
    * [hasCompletedSignup If a user signedup through the form this should be true, otherwise false when a new user is added through twilio.]
