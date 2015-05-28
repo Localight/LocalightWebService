@@ -125,7 +125,13 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
-
+      it('should throw an error when trying to save a stripeID incorrectly, no puncation characters, only numbers and characters, pattern testing: ch_34sdfsdf', function(done) {
+         giftcard.stripeOrderId = 'ch_$asdfas';
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
       //TODO: create a method or way to make sure the toUser and fromUser,
       // are not the same value.
    });
