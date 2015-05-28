@@ -212,6 +212,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
         if (!user) {
           var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
+          // we're not going to use this method
           User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
             user = new User({
               firstName: providerUserProfile.firstName,

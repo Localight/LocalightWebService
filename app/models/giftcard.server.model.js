@@ -36,6 +36,7 @@ var GiftcardSchema = new Schema({
    // for initial purchase.
    stripeOrderId: {
       type: String,
+      match: [/ch_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
       //TODO: write regular expresion to match "ch_"[0-2](spaces) for the stripe id.
       required: 'Please provide the stripeOrderId'
    }, // I should only get one stripeOrderId once
