@@ -106,8 +106,7 @@ var UserSchema = new Schema({
   },
   email: {
     type: String,
-    trim: true,
-    default: '',
+    trim: true,    default: '',
     //validate: [validateLocalStrategyProperty, 'Please fill in your email'],
     match: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
@@ -126,7 +125,7 @@ var UserSchema = new Schema({
     required: 'Please fill in a mobile number',
     trim: true
   },
-// if a user wants to 
+// if a user wants to
   password: {
     type: String,
     default: '',

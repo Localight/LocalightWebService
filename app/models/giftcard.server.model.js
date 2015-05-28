@@ -36,6 +36,7 @@ var GiftcardSchema = new Schema({
    // for initial purchase.
    stripeOrderId: {
       type: String,
+      //TODO: write regular expresion to match "ch_"[0-2](spaces) for the stripe id.
       required: 'Please provide the stripeOrderId'
    }, // I should only get one stripeOrderId once
    /**
@@ -56,12 +57,14 @@ var GiftcardSchema = new Schema({
       type: Date,
       default: Date.now
    },
+   // subledger transaction id's
    /**
     * This is the user who will be purchasing the gitcard for another user.
     * When this user purchases the giftcard they will be charged and sent a reciepit on
     * successfull save of the object.
     * @type {Object}
     */
+   //purchaserofgiftcard
    fromUser: {
       type: Schema.ObjectId,
       ref: 'User',
@@ -72,6 +75,7 @@ var GiftcardSchema = new Schema({
     * they receive the giftard.
     * @type {Object}
     */
+   //spenderofgiftcardy
    toUser: {
       type: Schema.ObjectId,
       ref: 'User',
