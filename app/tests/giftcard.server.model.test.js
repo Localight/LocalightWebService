@@ -46,7 +46,7 @@ describe('Giftcard Model Unit Tests:', function() {
       });
       // TODO: giftcard mobile number should not match the mobile number of the user.
       giftcard = new Giftcard({
-         stripeOrderId: '34sdfsdf',
+         stripeOrderId: 'ch_34sdfsdf',
          amount: 1000,
          toUser: user.id,
          fromUser: user2.id,
@@ -111,9 +111,17 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
-      
+
       it('should throw an error when trying to save without a stripeId', function(done) {
          giftcard.stripeOrderId = '';
+         return giftcard.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
+
+      it('should throw an error when trying to save a non-alphabetical or non-numeric id following ch_ pattern. Chosen pattern to test: ch_fe4r7g47g@$% ', function(done) {
+         giftcard.stripeOrderId = 'ch_fe4r7g47g@$%';
          return giftcard.save(function(err) {
             should.exist(err);
             done();

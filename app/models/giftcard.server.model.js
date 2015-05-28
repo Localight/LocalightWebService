@@ -1,7 +1,7 @@
 'use strict';
 // I want to change gift card to CliqueCard, will do that later though.
-// I can do that in a night.
-
+// What if the giftcards, held an array of the transactions? The giftcard it's self had more that i kept track of?
+//
 /**
  * Module dependencies.
  */
@@ -14,7 +14,8 @@ var mongoose = require('mongoose'),
  * Giftcard Schema,
  * Included are the validations for the mongoose model.
  */
-
+// add flags...
+//
 var GiftcardSchema = new Schema({
    /**
     * Amount, the value of which the card holds, to be spent at a merchant's busienss.
@@ -35,9 +36,10 @@ var GiftcardSchema = new Schema({
    // for initial purchase.
    stripeOrderId: {
       type: String,
+      match: [/ch_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
+      //TODO: write regular expresion to match "ch_"[0-2](spaces) for the stripe id.
       required: 'Please provide the stripeOrderId'
-   }, // I should only get a order once
-
+   }, // I should only get one stripeOrderId once
    /**
     *  Message, the message that the user wishes for another user to see.
     *  a message doesn't need to have a string attached to it.
@@ -56,12 +58,14 @@ var GiftcardSchema = new Schema({
       type: Date,
       default: Date.now
    },
+   // subledger transaction id's
    /**
     * This is the user who will be purchasing the gitcard for another user.
     * When this user purchases the giftcard they will be charged and sent a reciepit on
     * successfull save of the object.
     * @type {Object}
     */
+   //purchaserofgiftcard
    fromUser: {
       type: Schema.ObjectId,
       ref: 'User',
@@ -72,12 +76,15 @@ var GiftcardSchema = new Schema({
     * they receive the giftard.
     * @type {Object}
     */
+   //spenderofgiftcardy
    toUser: {
       type: Schema.ObjectId,
       ref: 'User',
       required: 'Please, enter the user id to send this giftcard too.'
    }
 });
+
+
 //TODO: I can make chainable pre-save methods, all I have to do is use next. This way I can check that
 // the users are not the same.
 // TODO: in the post method email the to different users.

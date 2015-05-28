@@ -60,7 +60,10 @@ exports.read = function(req, res) {
  */
 exports.spendAGiftcard = function(req, res) {
    console.log('this is the value of the req.body'+ JSON.stringify(req.body));
-   var holderValue = req.body.value;
+   // the client side neds to know to send back a body with valueToSpend
+   // 
+   var holderValue = req.body.valueToSpend;
+
    // find the giftcard in the req.
    var giftcard = req.giftcard;
    // extend the ability to update the giftcard.
@@ -69,24 +72,27 @@ exports.spendAGiftcard = function(req, res) {
    // Spend a giftcard. similar to update only it checks the amount and does other things.
    // Make the call the subledger before saving the value.
    // First validation is to make sure the giftcard does not go negative.
-   //
    if(holderValue === null || holderValue > giftcard.amount ){
       return res.status(400).send({
          message:'Please Enter a value to subtract less than or equal to the exact amount of the giftcard.'
       });
    } else{
-      // subtract the value from the giftcard. and update the giftcard.
+      // These are operations that this controller needs to fulfill.
+      // I need the merchant(User)Id to find his/her stripeBankAccountId
+      // and to find the merchant(User) email adddress. Stripe actually does this too.
+      // SO, I can Payout this merchantId to his/her primary bank Account.
+      // I will flag this value to be payout for this user, via stripe at some point in time.
+      // Stripe takes a cut from every transaction.
+      // I will Update Subledger.
+      // I will store a SubledgerId, within the giftcard for every transaction
+      // TThe merchant needs to know in sum how much they earned.
+      // IF the giftcard goes to zero, I will update the value and flag the boolean that it's empty,
+      // otherwise do nothing.
 
-      // payout other user, and take out localism cut.
-
-      // make call to subledger to reflect purchase.
-
-      // second to last thing to happen
       giftcard.amount = giftcard.amount - holderValue;// check with zlatko on this one.
       // if the giftcard goes to zero, change the flag on the giftcard before it's updated.
       // that way in the future it can't be used again.
       //
-
       // last step in the controller.
       giftcard.save(function(err) {
          if (err) {
