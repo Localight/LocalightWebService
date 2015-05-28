@@ -35,6 +35,7 @@ describe('Giftcard Model Unit Tests:', function() {
          username: '2132203433',
          password: 'password'
       });
+
       user2 = new User({
          // create what you need to make a bare minumn user.
          firstName: 'Tina',
@@ -44,15 +45,20 @@ describe('Giftcard Model Unit Tests:', function() {
          username: 'testUser2',
          password: 'password'
       });
-      // TODO: giftcard mobile number should not match the mobile number of the user.
-      giftcard = new Giftcard({
-         stripeOrderId: '34sdfsdf',
-         amount: 1000,
-         toUser: user.id,
-         fromUser: user2.id,
+
+      user.save(function(){
+         giftcard = new Giftcard({
+            stripeOrderId: 'ch_34sdfsdf',
+            amount: 1000,
+            toUser: user.id,
+            fromUser: user2.id,
+         });
+         done();
       });
-      done();
    });
+
+
+
    // describe('Pre-Save Method', function(){
    // });
    describe('Method Save', function() {
@@ -111,7 +117,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
-      
+
       it('should throw an error when trying to save without a stripeId', function(done) {
          giftcard.stripeOrderId = '';
          return giftcard.save(function(err) {
@@ -119,6 +125,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
+
       //TODO: create a method or way to make sure the toUser and fromUser,
       // are not the same value.
    });
