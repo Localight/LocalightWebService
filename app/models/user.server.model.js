@@ -65,6 +65,7 @@ var UserSchema = new Schema({
   stripeCustomerToken:{
     type:String,
     //TODO: add regular expression for customer Token, using match.
+    match: [/cus_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
     required:'Stripe Token Required.'
   },
 
@@ -72,11 +73,13 @@ var UserSchema = new Schema({
     // A user may only have one primary card.
     primary:{
       // TODO: add regularexpression for card tokens, using "match"
+      match: [/card_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
       type:String,
     },
 
     secondary:[{
       // TODO: add regularexpression for card tokens, using "match"
+      match: [/card_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
       type:String,
     }],
   },
@@ -88,6 +91,7 @@ var UserSchema = new Schema({
    */
   stripeAccountToken:{
      // add regularexpression for card token, using "match"
+    match: [/acct_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
     type:String
   },
   ///////////////////////////////////////////////////
