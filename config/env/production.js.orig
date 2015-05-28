@@ -45,4 +45,19 @@ module.exports = {
          }
       }
    },
+<<<<<<< HEAD
    
+=======
+   subledger: {
+		key: process.env.SUBLEDGER_KEY,
+      secret: process.env.SUBLEDGER_SECRET,
+      org_id: process.env.process.env.SUBLEDGER_ORG,
+      book_id: process.env.process.env.SUBLEDGER_BOOKID,
+      depositor_category_id: process.env.SUBLEDGER_DEPOSITOR_CATEGORY_ID,
+      uncleared_category_id:process.env.SUBLEDGER_UNCLEARED_CATEGORY_ID,
+      balance_sheet_id: process.env.SUBLEDGER_BALANCE_SHEET_ID,
+      processing_id: process.env.SUBLEDGER_PROCESSING_ID
+      
+   }
+};
+>>>>>>> 74f48633fcd51dc6d0d3f77f2e9994cde6ea7fe6
