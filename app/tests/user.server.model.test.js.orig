@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<!-- 'use strict';
+=======
 'use strict';
+>>>>>>> 762e5f3c043dae58692c7a12e244532f914f5d5d
 
 /**
  * Module dependencies.
@@ -21,8 +25,14 @@ describe('User Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
+<<<<<<< HEAD
+			displayName: 'Full Name',
+			email: 'test@test.com',
+			username: 'username',
+=======
 			email: 'test@test.com',
 			username: 'username',//put phone numeer here
+>>>>>>> 762e5f3c043dae58692c7a12e244532f914f5d5d
 			password: 'password',
 			provider: 'local'
 		});
@@ -40,7 +50,10 @@ describe('User Model Unit Tests:', function() {
 	});
 
 	describe('Method Save', function() {
+<<<<<<< HEAD
+=======
 
+>>>>>>> 762e5f3c043dae58692c7a12e244532f914f5d5d
 		it('should begin with no users', function(done) {
 			User.find({}, function(err, users) {
 				users.should.have.length(0);
@@ -67,6 +80,8 @@ describe('User Model Unit Tests:', function() {
 				done();
 			});
 		});
+<<<<<<< HEAD
+=======
 
     it('should throw an error if phone number it\'s less than ten digits', function(done) {
       user.username = '344564545';
@@ -85,6 +100,7 @@ describe('User Model Unit Tests:', function() {
     });
 
 
+>>>>>>> 762e5f3c043dae58692c7a12e244532f914f5d5d
 	});
 
 	after(function(done) {
@@ -92,3 +108,7 @@ describe('User Model Unit Tests:', function() {
 		done();
 	});
 });
+<<<<<<< HEAD
+ -->
+=======
+>>>>>>> 762e5f3c043dae58692c7a12e244532f914f5d5d
