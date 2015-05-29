@@ -52,12 +52,12 @@ var GiftcardSchema = new Schema({
       default: Date.now
    },
    // subledger transaction id's
-   subledgerLogsIds:[{
-      logId:{
-         type:String,
-         
-      }
-   }],
+   // subledgerLogsIds:[{
+   //    logId:{
+   //       type:String,
+   //
+   //    }
+   // }],
    /**
     * This is the user who will be purchasing the gitcard for another user.
     * When this user purchases the giftcard they will be charged and sent a reciepit on

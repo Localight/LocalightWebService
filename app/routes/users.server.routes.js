@@ -27,7 +27,7 @@ module.exports = function(app) {
 	app.route('/auth/signout').get(users.signout);
 
 	// stripe charges routes
-	// app.route('/stripe/charge').post(users.createACharge);
+	 app.route('/stripe/charge').post(users.createACharge);
 	// Having stripe next to and embedded with the user class, allows us to use stripe where and when we
 	// need it.
 

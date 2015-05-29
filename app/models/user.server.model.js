@@ -67,14 +67,12 @@ var UserSchema = new Schema({
     //TODO: add regular expression for customer Token, using match.
     required:'Stripe Token Required.'
   },
-
   stripeCardToken:{
     // A user may only have one primary card.
     primary:{
       // TODO: add regularexpression for card tokens, using "match"
       type:String,
     },
-
     secondary:[{
       // TODO: add regularexpression for card tokens, using "match"
       type:String,

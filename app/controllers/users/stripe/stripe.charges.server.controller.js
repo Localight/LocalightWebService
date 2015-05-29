@@ -1,4 +1,4 @@
-'use strict';
+<!-- 'use strict';
    var config = require('../../../../config/config'),
       stripe = require('stripe')(config.clientID, config.clientSecret),
       errorHandler = require('../../errors.server.controller'),
@@ -67,3 +67,4 @@
    /*
     * List all Charges
     */
+ -->
