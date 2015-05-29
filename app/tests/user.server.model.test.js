@@ -21,18 +21,19 @@ describe('User Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
+			//displayName: 'Full Name',
 			email: 'test@test.com',
-			username: 'username',
+			username: '1234567890',
 			password: 'password',
-			provider: 'local'
+			provider: 'local',
+			stripeCustomerToken:'cus_6KW9JPW77VzgP4'gt\
 		});
 		user2 = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
+			//displayName: 'Full Name',
 			email: 'test@test.com',
-			username: 'username',
+			username: '1234445555',
 			password: 'password',
 			provider: 'local'
 		});
