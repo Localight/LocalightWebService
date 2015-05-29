@@ -70,7 +70,39 @@ describe('User Model Unit Tests:', function() {
 			});
 		});
 
-    it('should throw an error if phone number it\'s less than ten digits', function(done) {
+    it('should be able to show an error when try to save without last name', function(done) {
+      user.lastName = '';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should be able to show an error when try to save without an email', function(done) {
+      user.email = '';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should be able to show an error when try to save without a phone number/username', function(done) {
+      user.username = '';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should be able to show an error when try to save without a  password', function(done) {
+      user.username = '';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should throw an error if phone number/username is less than ten digits', function(done) {
       user.username = '344564545';
       return user.save(function(err) {
         should.exist(err);
@@ -86,6 +118,29 @@ describe('User Model Unit Tests:', function() {
       });
     });
 
+    it('should throw an error if stripe customer id token does not match regex pattern', function(done) {
+      user.stripeCustomerToken = 'sd_a4sd5fg64g5r4b5';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should throw an error if stripe card token does not match regex pattern', function(done) {
+      user.stripeCardToken = 'ssd_a4sd5fg64g5r4b5';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should throw an error if stripe account token does not match regex pattern', function(done) {
+      user.stripeAccountToken = 'ssd_a4sd5fg64g5r4b5';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
 
 	});
 
