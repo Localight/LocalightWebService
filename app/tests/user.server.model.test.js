@@ -1,4 +1,4 @@
-<!-- 'use strict';
+'use strict';
 
 /**
  * Module dependencies.
@@ -21,18 +21,19 @@ describe('User Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
+			//displayName: 'Full Name',
 			email: 'test@test.com',
-			username: 'username',
+			username: '1234567890',
 			password: 'password',
-			provider: 'local'
+			provider: 'local',
+			stripeCustomerToken:'cus_6KW9JPW77VzgP4'
 		});
 		user2 = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
+			//displayName: 'Full Name',
 			email: 'test@test.com',
-			username: 'username',
+			username: '1234445555',
 			password: 'password',
 			provider: 'local'
 		});
@@ -41,6 +42,7 @@ describe('User Model Unit Tests:', function() {
 	});
 
 	describe('Method Save', function() {
+
 		it('should begin with no users', function(done) {
 			User.find({}, function(err, users) {
 				users.should.have.length(0);
@@ -67,6 +69,24 @@ describe('User Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+    it('should throw an error if phone number it\'s less than ten digits', function(done) {
+      user.username = '344564545';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should throw an error if phone number contains letters or characters', function(done) {
+      user.username = 'a4564545';
+      return user.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+
 	});
 
 	after(function(done) {
@@ -74,4 +94,3 @@ describe('User Model Unit Tests:', function() {
 		done();
 	});
 });
- -->
