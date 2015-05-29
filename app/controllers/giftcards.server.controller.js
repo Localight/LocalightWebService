@@ -26,10 +26,10 @@ exports.create = function(req, res) {
    // by the time the giftcard reaches this point it
    // should have all the information it needs in the
    // the giftcard body.
-   // the toUser id, occasionMessage, Amount,
+   // the spenderofgiftcard id, occasionMessage, Amount,
    // stripeOrderid, etc.
    // This Controller merily creates the giftcard.
-   giftcard.fromUser = req.user;
+   giftcard.purchaserofgiftcard = req.user;
 
    giftcard.save(function(err) {
       if (err) {
@@ -41,7 +41,7 @@ exports.create = function(req, res) {
       }
    });
 };
-// assign the toUser before when you get it from the other method.
+// assign the spenderofgiftcard before when you get it from the other method.
 // check to make sure user has a stripe credit card token and customer token.
 
 /**
@@ -164,7 +164,7 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
    // hopefully this will only list the giftcards assoicated with this user.
    Giftcard.find({
-      toUser: req.user.id
+      spenderofgiftcard: req.user.id
    }).populate('user', 'displayName').exec(function(err, giftcards) {
       if (err) {
          return res.status(400).send({

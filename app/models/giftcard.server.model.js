@@ -14,8 +14,6 @@ var mongoose = require('mongoose'),
  * Giftcard Schema,
  * Included are the validations for the mongoose model.
  */
-// add flags...
-//
 var GiftcardSchema = new Schema({
    /**
     * Amount, the value of which the card holds, to be spent at a merchant's busienss.
@@ -38,7 +36,7 @@ var GiftcardSchema = new Schema({
       type: String,
       match: [/ch_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
       //TODO: write regular expresion to match "ch_"[0-2](spaces) for the stripe id.
-      required: 'Please provide the stripeOrderId'
+      required: 'Please provide the stripeOrderId in the correct format.'
    }, // I should only get one stripeOrderId once
    /**
     *  Message, the message that the user wishes for another user to see.
@@ -48,25 +46,25 @@ var GiftcardSchema = new Schema({
       type: String,
       default: 'A gift for you!'
    },
-   //  dateLastUpdate:{
-   //     type: Date,
-   //     default: Date.now
-   // },
-   // Date card created or purchased, might want to change the number.
    //TODO: probably going to need to store the a refernce to the image the user is sending back.
    created: {
       type: Date,
       default: Date.now
    },
    // subledger transaction id's
+   subledgerLogsIds:[{
+      logId:{
+         type:String,
+         
+      }
+   }],
    /**
     * This is the user who will be purchasing the gitcard for another user.
     * When this user purchases the giftcard they will be charged and sent a reciepit on
     * successfull save of the object.
     * @type {Object}
     */
-   //purchaserofgiftcard
-   fromUser: {
+   purchaserofgiftcard: {
       type: Schema.ObjectId,
       ref: 'User',
       required: 'Please, enter the user id who is sending the giftcard.'
@@ -76,8 +74,7 @@ var GiftcardSchema = new Schema({
     * they receive the giftard.
     * @type {Object}
     */
-   //spenderofgiftcardy
-   toUser: {
+   spenderofgiftcard: {
       type: Schema.ObjectId,
       ref: 'User',
       required: 'Please, enter the user id to send this giftcard too.'
@@ -90,7 +87,7 @@ var GiftcardSchema = new Schema({
 // TODO: in the post method email the to different users.
 // TODO: also figure out how to do the cron job, for different times to send
 /**
- * Hook a pre save method to verify that the toUser and fromUser are not the
+ * Hook a pre save method to verify that the spenderofgiftcard and purchaserofgiftcard are not the
  * same user. could elborate later, and do a deep search to make sure these two
  * people are completely different and un related if we wanted too
  */
@@ -104,7 +101,7 @@ var GiftcardSchema = new Schema({
 // });
 
 // GiftcardSchema.post('save', function(next){
-//    // If everything worked out send an email to the fromUser with a reciepet, a
+//    // If everything worked out send an email to the purchaserofgiftcard with a reciepet, a
 //    // and send a text message to the to user.
 //    // when the giftcard is saved, based on the save the users will be able to
 //    // the giftcard appear in there account.
@@ -119,13 +116,13 @@ var GiftcardSchema = new Schema({
 //     to: this.emailForReceipt,
 //     from: 'gift-confirm@clique.cc',
 //     subject: 'Your Clique Card has been sent!',
-//     text: '\n\n'+ this.fromUser.dipslayName +', your gift of $'+ this.amount + 'is on it&#39;s way to'+'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
+//     text: '\n\n'+ this.purchaserofgiftcard.dipslayName +', your gift of $'+ this.amount + 'is on it&#39;s way to'+'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
 //   };
 //   smtpTransport.sendMail(mailOptions, function(error) {
 //     if (!error) {
 //       console.log(mailOptions);
 //       // this.send({
-//       //   message: 'An email has been sent to ' + this.fromUser.email + ' with further instructions.'
+//       //   message: 'An email has been sent to ' + this.purchaserofgiftcard.email + ' with further instructions.'
 //       // });
 //       //TODO: need to find out if there is a way to send a response from the model
 //     } else {
@@ -138,8 +135,8 @@ var GiftcardSchema = new Schema({
  * Hook a post save method to send out emails and texts
  */
 //  GiftcardSchema.post('save', function(next) {
-//     twilioService.sendConfirmationText(this.toUser);
-//    //  mailgunService.sendReceiptEmail(this.fromUser);
+//     twilioService.sendConfirmationText(this.spenderofgiftcard);
+//    //  mailgunService.sendReceiptEmail(this.purchaserofgiftcard);
 // 	next();
 // });
 

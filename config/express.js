@@ -21,12 +21,15 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path');
+	path = require('path'),
+	swagger = require('swagger-node-express');
+
 
 module.exports = function(db) {
+
 	// Initialize express app
 	var app = express();
-
+	swagger.setAppHandler(app);
 	// Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));

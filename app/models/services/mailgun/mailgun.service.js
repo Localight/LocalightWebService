@@ -24,7 +24,7 @@
 //          if (!error) {
 //             console.log(mailOptions);
 //             // this.send({
-//             //   message: 'An email has been sent to ' + this.fromUser.email + ' with further instructions.'
+//             //   message: 'An email has been sent to ' + this.purchaserofgiftcard.email + ' with further instructions.'
 //             // });
 //             //TODO: need to find out if there is a way to send a response from the model
 //          } else {

@@ -50,8 +50,8 @@ describe('Giftcard Model Unit Tests:', function() {
          giftcard = new Giftcard({
             stripeOrderId: 'ch_34sdfsdf',
             amount: 1000,
-            toUser: user.id,
-            fromUser: user2.id,
+            spenderofgiftcard: user.id,
+            purchaserofgiftcard: user2.id,
          });
          done();
       });
@@ -102,16 +102,16 @@ describe('Giftcard Model Unit Tests:', function() {
          });
       });
 
-      it('should throw an error when trying to save a without a fromUser', function(done) {
-         giftcard.fromUser = '';
+      it('should throw an error when trying to save a without a purchaserofgiftcard', function(done) {
+         giftcard.purchaserofgiftcard = '';
          return giftcard.save(function(err) {
             should.exist(err);
             done();
          });
       });
 
-      it('should throw an error when trying to save without a toUser', function(done) {
-         giftcard.toUser = '';
+      it('should throw an error when trying to save without a spenderofgiftcard', function(done) {
+         giftcard.spenderofgiftcard = '';
          return giftcard.save(function(err) {
             should.exist(err);
             done();
@@ -132,7 +132,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
-      //TODO: create a method or way to make sure the toUser and fromUser,
+      //TODO: create a method or way to make sure the spenderofgiftcard and purchaserofgiftcard,
       // are not the same value.
    });
 

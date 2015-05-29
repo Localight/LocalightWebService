@@ -6,7 +6,7 @@
 var _ = require('lodash'),
   errorHandler = require('../errors.server.controller'),
   mongoose = require('mongoose'),
-  twilio = require('twilio'),
+  // twilio = require('twilio'),
   passport = require('passport'),
   Q = require('q'),
   User = mongoose.model('User'),
