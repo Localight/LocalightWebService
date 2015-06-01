@@ -15,13 +15,13 @@ module.exports = function(app) {
 	 */
 	app.route('/api/users/me').get(users.me);
 	/**
-	 * @api{put} /user Request User Object
+	 * @api{put} /user Update User Object
 	 * @apiName PutUser
 	 * @apiGroup User
 	 */
 	app.route('/api/users').put(users.update);
 	/**
-	 * @api{delete} /user Request User Object
+	 * @api{delete} /user Delete User Object OAuthProvider
 	 * @apiName DeleteUser
 	 * @apiGroup User
 	 */
