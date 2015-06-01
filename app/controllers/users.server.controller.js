@@ -9,9 +9,9 @@ var _ = require('lodash');
  * Extend user's controller
  */
 module.exports = _.extend(
-	require('./api/users/api/users.authentication.server.controller'),
-	require('./api/users/api/users.authorization.server.controller'),
-	require('./api/users/api/users.password.server.controller'),
-	require('./api/users/api/users.profile.server.controller'),
-	require('./api/users/stripe/stripe.charges.server.controller')
+	require('./users/users.authentication.server.controller'),
+	require('./users/users.authorization.server.controller'),
+	require('./users/users.password.server.controller'),
+	require('./users/users.profile.server.controller'),
+	require('./users/stripe/stripe.charges.server.controller')
 );

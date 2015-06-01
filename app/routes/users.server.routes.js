@@ -6,26 +6,79 @@
 // BUILD THE MAILBOXES
 module.exports = function(app) {
 	// User Routes
-	var users = require('../../app/controllers/api/users.server.controller');
+	var users = require('../../app/controllers/users.server.controller');
 
-	// Setting up the users profile api
-	app.route('/api/api/users/me').get(users.me);
+	/**
+	 * @api{get} /user Request User Object
+	 * @apiName GetUser
+	 * @apiGroup User
+	 */
+	app.route('/api/users/me').get(users.me);
+	/**
+	 * @api{put} /user Request User Object
+	 * @apiName PutUser
+	 * @apiGroup User
+	 */
 	app.route('/api/users').put(users.update);
+	/**
+	 * @api{delete} /user Request User Object
+	 * @apiName DeleteUser
+	 * @apiGroup User
+	 */
 	app.route('/api/users/accounts').delete(users.removeOAuthProvider);
 
 	// Setting up the users password api
+	/**
+	 * @api{post /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
 	app.route('/api/users/password').post(users.changePassword);
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
 	app.route('/api/auth/forgot').post(users.forgot);
+	/**
+	 * @api{get} /user Request User Object
+	 * @apiName GetUser
+	 * @apiGroup User
+	 */
 	app.route('/api/auth/reset/:token').get(users.validateResetToken);
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
 	app.route('/api/auth/reset/:token').post(users.reset);
 
 	// Setting up the users authentication api
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
 	app.route('/api/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
 	// TODO: make sure only logged in users can do this.
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
 	app.route('/api/auth/signup').post(users.signup);// hum...
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
 	app.route('/api/auth/signin').post(users.signin);
+	/**
+	 * @api{get} /user Request User Object
+	 * @apiName GetUser
+	 * @apiGroup User
+	 */
 	app.route('/api/auth/signout').get(users.signout);
-	// stripe charges routes
 	 app.route('/stripe/charge').post(users.createACharge);
 	// Having stripe next to and embedded with the user class, allows us to use stripe where and when we
 	// need it.

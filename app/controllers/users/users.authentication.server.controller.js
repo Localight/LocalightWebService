@@ -14,10 +14,6 @@ var _ = require('lodash'),
   message = null,
   stripe = require('stripe')(config.clientID, config.clientSecret);
 
-/**
- * Signup
- */
-
 exports.signup = function(req, res) {
 
   delete req.body.roles;

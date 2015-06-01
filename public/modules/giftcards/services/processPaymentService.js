@@ -87,7 +87,7 @@ angular.module('giftcards')
       findOrCreateUser: function(mobileNumber, firstName) {
           var dfd = $q.defer();
           dfd.resolve(
-            $http.post('/api/auth/findOrCreateUser', {
+            $http.post('/api/authfindOrCreateUser', {
               firstName: firstName,
               username: mobileNumber
             }));

@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-	var users = require('../../app/controllers/api/users.server.controller');
-	var giftcards = require('../../app/controllers/api/giftcards.server.controller');
+	var users = require('../../app/controllers/users.server.controller');
+	var giftcards = require('../../app/controllers/giftcards.server.controller');
 
 	app.route('/api/spendAGiftcard')
 	.post(giftcards.spendAGiftcard);

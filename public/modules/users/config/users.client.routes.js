@@ -19,11 +19,11 @@ angular.module('users').config(['$stateProvider',
 		}).
 		state('signup', {
 			url: '/signup',
-			templateUrl: 'modules/api/users/views/api/authentication/signup.client.view.html'
+			templateUrl: 'modules/api/users/views/api/api/authentication/signup.client.view.html'
 		}).
 		state('signin', {
 			url: '/signin',
-			templateUrl: 'modules/api/users/views/api/authentication/signin.client.view.html'
+			templateUrl: 'modules/api/users/views/api/api/authentication/signin.client.view.html'
 		}).
 		state('forgot', {
 			url: '/password/forgot',

@@ -13,12 +13,7 @@ var mongoose = require('mongoose'),
    Q = require('q'),
    _ = require('lodash');
 //require the Twilio module and create a REST client
-/**
- * This method will intercept the twilio webhook. The message will contain a phoneumber from, not sure whether it's a number or string.
- * The body can vary, for now I'm only accept a body that contains the phrase "Gift->lowercase(gift)". On the condition that this message is contained, return back the url with the link to the create giftcard order screen. encrypt it later. Send back the mobile Number user id as well.
- * @param {[type]} response [description]
- * @param {[type]} request  [description]
- */
+
 exports.interceptTwilioMesage = function(response, request) {
    console.log('The controller got hit, this is the resposne: ' + response);
 
