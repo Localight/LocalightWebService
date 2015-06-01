@@ -53,6 +53,7 @@ exports.signup = function(req, res) {
         user.salt = undefined;
         req.login(user, function(err) {
           if (err) {
+             console.log(err);
             res.status(400).send(err);
           } else {
             res.json(user);
@@ -61,6 +62,7 @@ exports.signup = function(req, res) {
       }
     });
   }).catch(function errHandler(err) {
+     console.log(err);
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });

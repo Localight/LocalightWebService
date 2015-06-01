@@ -51,7 +51,7 @@ angular.module('giftcards')
         //   }
         //   else {
         //     // Invoke server call to process payment
-        //     $http.post('/users/' + user_id + '/subscriptions', {
+        //     $http.post('/api/users/' + user_id + '/subscriptions', {
         //       user_id: user_id,
         //       token: response.id,
         //       product_id: product_id
@@ -76,7 +76,7 @@ angular.module('giftcards')
       sendGiftCard: function(giftcard) {
         var dfd = $q.defer();
         dfd.resolve(
-          $http.post('/giftcards', giftcard)
+          $http.post('/api/giftcards', giftcard)
         );
         return dfd.promise;
       },
@@ -87,7 +87,7 @@ angular.module('giftcards')
       findOrCreateUser: function(mobileNumber, firstName) {
           var dfd = $q.defer();
           dfd.resolve(
-            $http.post('/auth/findOrCreateUser', {
+            $http.post('/api/auth/findOrCreateUser', {
               firstName: firstName,
               username: mobileNumber
             }));

@@ -1,4 +1,4 @@
-<!-- 'use strict';
+'use strict';
 
 var should = require('should'),
    request = require('supertest'),
@@ -24,7 +24,7 @@ var credentials, user;
 describe('User-Stripe CRUD tests', function() {
    // setup a user who already has a valid stripe id and credentials
 
-   beforeEach(function(done) {
+   before(function(done) {
       credentials = {
          username: '1234567890',
          password: 'password'
@@ -43,15 +43,15 @@ describe('User-Stripe CRUD tests', function() {
             primary: 'card_167r8DBNPqu3SRN2pr9dO9Pk' // pre-created in stripe db.
          }
       }); // end user
-      user.save(function() {
-         done();
-      });
+      user.save();
    }); // end before each block
    it('should be able to successfully charge a user if logged in', function(done) {
-      agent.post('/auth/signin')
+      agent.post('/api/auth/signin')
          .send(credentials)
          .expect(200)
          .end(function(signinErr, signinRes) {
+            console.log(signinErr);
+            console.log(signinRes);
             // Handle signin error
             if(signinErr) done(signinErr);
             // get the user id, we won't be using it though
@@ -74,4 +74,3 @@ describe('User-Stripe CRUD tests', function() {
    }); // end after each block
 
 }); // end describe block for user stripe tests
- -->

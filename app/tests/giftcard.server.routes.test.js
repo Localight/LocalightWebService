@@ -85,7 +85,7 @@
 //       // The first user1 should, after creating the giftcard have // no giftcards.
 //       // 1. Create the giftcard under one user1 and then,
 //       // 2. view the giftcard under a different user1.
-//       agent.post('/auth/signin')
+//       agent.post('/api/auth/signin')
 //          .send(credentials)
 //          .expect(200)
 //          .end(function(signinErr, signinRes) {
@@ -97,7 +97,7 @@
 //             var userId2 = user2.id;
 //
 //             // Save a new giftcard
-//             agent.post('/giftcards')
+//             agent.post('/api/giftcards')
 //                .send(giftcard)
 //                .expect(200)
 //                .end(function(giftcardSaveErr, giftcardSaveRes) {
@@ -106,7 +106,7 @@
 //                   if (giftcardSaveErr) done(giftcardSaveErr);
 //
 //                   // Get a list of giftcards
-//                   agent.get('/giftcards')
+//                   agent.get('/api/giftcards')
 //                      .end(function(giftcardsGetErr, giftcardsGetRes) {
 //                         // Handle giftcard save error
 //                         if (giftcardsGetErr) done(giftcardsGetErr);
@@ -128,7 +128,7 @@
 //    });
 //
 //    it('should not be able to save Giftcard instance if not logged in', function(done) {
-//       agent.post('/giftcards')
+//       agent.post('/api/giftcards')
 //          .send(giftcard)
 //          .expect(401)
 //          .end(function(giftcardSaveErr, giftcardSaveRes) {
@@ -144,7 +144,7 @@
 //       var giftcardObj = new Giftcard(giftcard);
 //       // Save the Giftcard
 //       giftcardObj.save(function() {
-//          request(app).get('/giftcards/')
+//          request(app).get('/api/giftcards/')
 //             .expect(401)
 //             .end(function(giftcardResponseErr, giftcardResponse) {
 //                (giftcardResponse.body.message).should.match('User is not logged in');

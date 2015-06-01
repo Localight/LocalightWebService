@@ -81,7 +81,6 @@ var GiftcardSchema = new Schema({
    }
 });
 
-
 //TODO: I can make chainable pre-save methods, all I have to do is use next. This way I can check that
 // the users are not the same.
 // TODO: in the post method email the to different users.
@@ -100,13 +99,15 @@ var GiftcardSchema = new Schema({
 //
 // });
 
-// GiftcardSchema.post('save', function(next){
-//    // If everything worked out send an email to the purchaserofgiftcard with a reciepet, a
-//    // and send a text message to the to user.
-//    // when the giftcard is saved, based on the save the users will be able to
-//    // the giftcard appear in there account.
-//
-// });
+GiftcardSchema.post('save', function(next){
+   // If everything worked out send an email to the purchaserofgiftcard with a reciepet, a
+   // and send a text message to the to user.
+   // when the giftcard is saved, based on the save the users will be able to
+   // the giftcard appear in there account.
+   // call mailgun service
+   // call twilio sevice
+   
+});
 
 
 // GiftcardSchema.pre('save', function(next) {

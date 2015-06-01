@@ -85,7 +85,7 @@ angular.module('giftcards')
       $scope.occasions = OccasionService;
 
       // set default occasion icon to display
-      $scope.occasions.selectedIcon = 'modules/giftcards/img/occasion-custom-icon-blk.png';
+      $scope.occasions.selectedIcon = 'modules/api/giftcards/img/occasion-custom-icon-blk.png';
 
       $scope.occasions.charsLeft = 100;
       var occCharLimit = 100; // no need to include the character limit inside $scope
@@ -106,7 +106,7 @@ angular.module('giftcards')
        * Date
        **********/
       // set default img
-      $scope.dateTypeImg = 'modules/giftcards/img/send-today-blk.png';
+      $scope.dateTypeImg = 'modules/api/giftcards/img/send-today-blk.png';
 
       $scope.getDayClass = function(date, mode) {
         if (mode === 'day') {
@@ -126,9 +126,9 @@ angular.module('giftcards')
       $scope.setDateType = function(type) {
         $scope.sendSelectionFlag = true;
         if (type === 'today')
-          $scope.dateTypeImg = 'modules/giftcards/img/send-today-blk.png';
+          $scope.dateTypeImg = 'modules/api/giftcards/img/send-today-blk.png';
         else if (type === 'on-date')
-          $scope.dateTypeImg = 'modules/giftcards/img/send-on-date-blk.png';
+          $scope.dateTypeImg = 'modules/api/giftcards/img/send-on-date-blk.png';
 
       };
       $scope.updateCreditCardImg = function() {
@@ -137,9 +137,9 @@ angular.module('giftcards')
         var acceptedTypes = ['amex', 'discover', 'mastercard', 'visa'];
 
         if (acceptedTypes.indexOf(type) !== -1)
-          $scope.cardTypeImg = 'modules/giftcards/img/cc-' + type;
+          $scope.cardTypeImg = 'modules/api/giftcards/img/cc-' + type;
         else
-          $scope.cardTypeImg = 'modules/giftcards/img/cc-basic';
+          $scope.cardTypeImg = 'modules/api/giftcards/img/cc-basic';
 
         var filledIn = $('#creditcardnumbercontainer').hasClass('filledIn');
         if (filledIn)
@@ -163,7 +163,7 @@ angular.module('giftcards')
                 giftcard.spenderofgiftcard = response.data._id;
                 return giftcard.$save();
               }).then(function yetAnotherHanlder(response) {
-                return $location.path('/giftcards');
+                return $location.path('/api/giftcards');
               }).catch(function errHandler(errorResponse) {
                 $scope.error = errorResponse.error.message;
               });

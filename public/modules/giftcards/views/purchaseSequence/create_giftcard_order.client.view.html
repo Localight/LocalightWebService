@@ -4,7 +4,7 @@
     <div class="wrapper">
 
       <!-- logo -->
-      <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
+      <img class="clique_logo" src="modules/api/giftcards/img/logo-local-gift-card-blk.png">
 
       <!-- To -->
       <div id="clique_to" ng-class="{currentInput : showBackgroundFlag}">
@@ -42,7 +42,7 @@
         <div id="front" class="card"></div>
         <div id="back" class="card">
           <div class="profont blackstrip">XXXXX</div>
-          <img src="modules/giftcards/img/circle-outline.png" alt="Clique Code Outline">
+          <img src="modules/api/giftcards/img/circle-outline.png" alt="Clique Code Outline">
         </div>
       </div>
 
@@ -54,7 +54,7 @@
 
       <div id="clique_code_message" class="hide">
         <label class="inputlabel">
-          <img src=".modules/giftcards/img/at-icon-blk.png">
+          <img src=".modules/api/giftcards/img/at-icon-blk.png">
         </label>
         <div class="helveticaText rightColumn">
           Good at
@@ -95,10 +95,10 @@
         <label class="inputlabel">Send</label>
         <div id="dateImages" class="rightColumn">
           <div id="sendToday" ng-click="setDateType('today')">
-            <img id="sendTodayImg" src="modules/giftcards/img/send-today-wht.png" alt="Send Today"> Today
+            <img id="sendTodayImg" src="modules/api/giftcards/img/send-today-wht.png" alt="Send Today"> Today
           </div>
           <div id="sendOnDate" ng-click="setDateType('on-date')">
-            <img id="sendOnDateImg" src="modules/giftcards/img/send-on-date-wht.png" alt="Choose a Date"> On date
+            <img id="sendOnDateImg" src="modules/api/giftcards/img/send-on-date-wht.png" alt="Choose a Date"> On date
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@
       <!--Amount-->
       <div class="summaryordertotal">
         <label class="inputlabel">
-          <img alt="Bowtie" src="../modules/giftcards/img/bowtie.png" />
+          <img alt="Bowtie" src="../modules/api/giftcards/img/bowtie.png" />
         </label>
         <div class="rightColumn helveticaText">
           Send this gift of
@@ -167,7 +167,7 @@
       <!--Phone Number-->
       <div id="clique_phonenumber" ng-class="{nextInput: !dirty.PhoneNumber}">
         <label class="inputlabel" for="clique_input_phonenumber">
-          <img alt="Enter Phone Number" src="../modules/giftcards/img/phone.png" />
+          <img alt="Enter Phone Number" src="../modules/api/giftcards/img/phone.png" />
         </label>
         <input type="text" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="14" pattern="\d*" data-ng-model="gc.mobileNumberOfRecipient" autofocus required>
       </div>
@@ -187,7 +187,7 @@
       <!--Email-->
       <div id="clique_email" ng-class="{nextInput: !dirty.Email}">
         <label class="inputlabel">
-          <img alt="Enter Email Address" src="../modules/giftcards/img/emailsign_blk.png" />
+          <img alt="Enter Email Address" src="../modules/api/giftcards/img/emailsign_blk.png" />
         </label>
         <input type="email" id="clique_input_email" class="rightColumn helveticaInput email" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.emailForReceipt">
       </div>

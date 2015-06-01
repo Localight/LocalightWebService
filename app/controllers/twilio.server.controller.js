@@ -46,7 +46,7 @@ exports.interceptTwilioMesage = function(response, request) {
       });
    }
    // var twiml = new twilio.TwimlResponse();
-   // twiml.message('💌📲 Send a gift to anyone in Greater Long Beach ▸ ' + 'localhost:3000/giftcards/create');
+   // twiml.message('💌📲 Send a gift to anyone in Greater Long Beach ▸ ' + 'localhost:3000/api/giftcards/create');
    // response.type('text/xml');
    // response.send(twiml.toString());
    //

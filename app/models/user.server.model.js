@@ -48,11 +48,11 @@ var UserSchema = new Schema({
     validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   // display Name, should not store, but generate when needed.
-  // fullName:{
-  // 	type:String,
-  // 	default: '',
-  // 	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
-  // },
+  displayName:{
+  	type:String,
+  	default: '',
+  	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
+  },
 
   ///////////////STRIPE API STUFF  ////////////////////////
   /**
@@ -100,10 +100,6 @@ var UserSchema = new Schema({
   hasCompletedSignup:{
     type: Boolean,
     default:false,
-  },
-  displayName: {
-    type: String,
-    trim: true
   },
   email: {
     type: String,

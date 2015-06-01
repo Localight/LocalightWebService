@@ -1,17 +1,17 @@
 'use strict';
 
 module.exports = function(app) {
-	var users = require('../../app/controllers/users.server.controller');
-	var giftcards = require('../../app/controllers/giftcards.server.controller');
+	var users = require('../../app/controllers/api/users.server.controller');
+	var giftcards = require('../../app/controllers/api/giftcards.server.controller');
 
-	app.route('/spendAGiftcard')
+	app.route('/api/spendAGiftcard')
 	.post(giftcards.spendAGiftcard);
 	// Giftcards Routes
-	app.route('/giftcards')
+	app.route('/api/giftcards')
 		.get(users.requiresLogin, giftcards.list)//
 		.post(giftcards.create);
 
-	app.route('/giftcards/:giftcardId')
+	app.route('/api/giftcards/:giftcardId')
 		.get(users.requiresLogin, giftcards.hasAuthorization, giftcards.read)
 		.put(users.requiresLogin, giftcards.hasAuthorization, giftcards.update)
 		//TODO: when you are working on the update method, make sure the program doesn't
