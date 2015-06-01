@@ -21,7 +21,7 @@ describe('User Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			//displayName: 'Full Name',
+			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: '1234567890',
 			password: 'password',
@@ -31,13 +31,13 @@ describe('User Model Unit Tests:', function() {
 		user2 = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			//displayName: 'Full Name',
+			displayName: 'Full Name',
 			email: 'test@test.com',
-			username: '1234445555',
+			username: '1234567890',
 			password: 'password',
-			provider: 'local'
+			provider: 'local',
+			stripeCustomerToken:'cus_6KW9JPW77VzgP4'
 		});
-
 		done();
 	});
 
@@ -51,7 +51,8 @@ describe('User Model Unit Tests:', function() {
 		});
 
 		it('should be able to save without problems', function(done) {
-			user.save(done);
+			user.save();
+			done();
 		});
 
 		it('should fail to save an existing user again', function(done) {

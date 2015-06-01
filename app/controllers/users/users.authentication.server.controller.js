@@ -14,10 +14,6 @@ var _ = require('lodash'),
   message = null,
   stripe = require('stripe')(config.clientID, config.clientSecret);
 
-/**
- * Signup
- */
-
 exports.signup = function(req, res) {
 
   delete req.body.roles;
@@ -53,6 +49,7 @@ exports.signup = function(req, res) {
         user.salt = undefined;
         req.login(user, function(err) {
           if (err) {
+             console.log(err);
             res.status(400).send(err);
           } else {
             res.json(user);
@@ -61,6 +58,7 @@ exports.signup = function(req, res) {
       }
     });
   }).catch(function errHandler(err) {
+     console.log(err);
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });

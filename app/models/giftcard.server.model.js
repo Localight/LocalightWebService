@@ -15,11 +15,6 @@ var mongoose = require('mongoose'),
  * Included are the validations for the mongoose model.
  */
 var GiftcardSchema = new Schema({
-   /**
-    * Amount, the value of which the card holds, to be spent at a merchant's busienss.
-    * A postive integery in teh smallest currency unit(e.g 100 cents to charge $1.00)
-    * @type {Object}
-    */
    amount: {
       type: Number,
       min: 0,
@@ -27,10 +22,7 @@ var GiftcardSchema = new Schema({
       // need to make the number validate a number not less than zero.
       required: 'Please enter an amount to purchase between 0 and 500000'
    }, // need to make sure it's always a number and never zero or a negative number.
-   /**
-    * [stripeOrderId Provided when the giftcard is first purchased, and used when or if we need to refund the giftcard.]
-    * @type {String}
-    */
+
    // for initial purchase.
    stripeOrderId: {
       type: String,
@@ -58,29 +50,18 @@ var GiftcardSchema = new Schema({
    //
    //    }
    // }],
-   /**
-    * This is the user who will be purchasing the gitcard for another user.
-    * When this user purchases the giftcard they will be charged and sent a reciepit on
-    * successfull save of the object.
-    * @type {Object}
-    */
+
    purchaserofgiftcard: {
       type: Schema.ObjectId,
       ref: 'User',
       required: 'Please, enter the user id who is sending the giftcard.'
    },
-   /**
-    * This user will be the one receiving the giftcard and will be sent a text message when
-    * they receive the giftard.
-    * @type {Object}
-    */
    spenderofgiftcard: {
       type: Schema.ObjectId,
       ref: 'User',
       required: 'Please, enter the user id to send this giftcard too.'
    }
 });
-
 
 //TODO: I can make chainable pre-save methods, all I have to do is use next. This way I can check that
 // the users are not the same.
@@ -100,13 +81,15 @@ var GiftcardSchema = new Schema({
 //
 // });
 
-// GiftcardSchema.post('save', function(next){
-//    // If everything worked out send an email to the purchaserofgiftcard with a reciepet, a
-//    // and send a text message to the to user.
-//    // when the giftcard is saved, based on the save the users will be able to
-//    // the giftcard appear in there account.
-//
-// });
+GiftcardSchema.post('save', function(next){
+   // If everything worked out send an email to the purchaserofgiftcard with a reciepet, a
+   // and send a text message to the to user.
+   // when the giftcard is saved, based on the save the users will be able to
+   // the giftcard appear in there account.
+   // call mailgun service
+   // call twilio sevice
+
+});
 
 
 // GiftcardSchema.pre('save', function(next) {

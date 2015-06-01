@@ -35,7 +35,7 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-    //validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
   },
   /**
    * lastName, the last name of the user, most of the time what we display in app. Must be String all alpha characters, 3 - 35 characters long. no spaces
@@ -45,14 +45,14 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-    //validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   // display Name, should not store, but generate when needed.
-  // fullName:{
-  // 	type:String,
-  // 	default: '',
-  // 	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
-  // },
+  displayName:{
+  	type:String,
+  	default: '',
+  	validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
+  },
 
   ///////////////STRIPE API STUFF  ////////////////////////
   /**
@@ -65,19 +65,19 @@ var UserSchema = new Schema({
   stripeCustomerToken:{
     type:String,
     //TODO: add regular expression for customer Token, using match.
-    match: [/cus_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
-    required:'Stripe Token Required.'
+     match: [/cus_[\w\d._%+-]+/, 'This value entered for the Stripe Customer Token does not match the correct format ({VALUE})'],
+     required:'Stripe Customer Token Required.'
   },
   stripeCardToken:{
     // A user may only have one primary card.
     primary:{
       // TODO: add regularexpression for card tokens, using "match"
-      match: [/card_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
+      match: [/card_[\w\d._%+-]+/, 'This value entered for the Stripe Card Token does not match the currect format ({VALUE})'],
       type:String,
     },
     secondary:[{
       // TODO: add regularexpression for card tokens, using "match"
-      match: [/card_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
+      match: [/card_[\w\d._%+-]+/, 'This value entered for the Stripe Card Token does not match correct format ({VALUE})'],
       type:String,
     }],
   },
@@ -89,12 +89,10 @@ var UserSchema = new Schema({
    */
   stripeAccountToken:{
      // add regularexpression for card token, using "match"
-    match: [/acct_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
+     match: [/acct_[\w\d._%+-]+/, 'This value entered for the Stripe Account Token does not match ({VALUE})'],
     type:String
   },
   ///////////////////////////////////////////////////
-
-
   /**
    * [hasCompletedSignup If a user signedup through the form this should be true, otherwise false when a new user is added through twilio.]
    * @type {Boolean}
@@ -103,23 +101,10 @@ var UserSchema = new Schema({
     type: Boolean,
     default:false,
   },
-  /*
-   * Mobile Number, 9-digit number we need to have for the giftcard
-   */
-  // mobileNumber:{
-  // 	type: Number,
-  // 	required: 'please enter in a ',
-  // 	// TODO: add Regularexpression.
-  // 	// required: 'Please enter a 9-digit mobile number'
-  // },
-  displayName: {
-    type: String,
-    trim: true
-  },
   email: {
     type: String,
     trim: true,    default: '',
-    //validate: [validateLocalStrategyProperty, 'Please fill in your email'],
+    validate: [validateLocalStrategyProperty, 'Please fill in your email'],
     match: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
   /**

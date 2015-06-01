@@ -80,7 +80,7 @@
 // 			$stateParams.giftcardId = '525a8422f6d0f87f0e407a33';
 //
 // 			// Set GET response
-// 			$httpBackend.expectGET(/giftcards\/([0-9a-fA-F]{24})$/).respond(sampleGiftcard);
+// 			$httpBackend.expectGET(/api/giftcards\/([0-9a-fA-F]{24})$/).respond(sampleGiftcard);
 //
 // 			// Run controller functionality
 // 			scope.findOne();
@@ -116,7 +116,7 @@
 // 			expect(scope.name).toEqual('');
 //
 // 			// Test URL redirection after the Giftcard was created
-// 			expect($location.path()).toBe('/giftcards/' + sampleGiftcardResponse._id);
+// 			expect($location.path()).toBe('/api/giftcards/' + sampleGiftcardResponse._id);
 // 		}));
 //
 // 		it('$scope.update() should update a valid Giftcard', inject(function(Giftcards) {
@@ -130,14 +130,14 @@
 // 			scope.giftcard = sampleGiftcardPutData;
 //
 // 			// Set PUT response
-// 			$httpBackend.expectPUT(/giftcards\/([0-9a-fA-F]{24})$/).respond();
+// 			$httpBackend.expectPUT(/api/giftcards\/([0-9a-fA-F]{24})$/).respond();
 //
 // 			// Run controller functionality
 // 			scope.update();
 // 			$httpBackend.flush();
 //
 // 			// Test URL location to new object
-// 			expect($location.path()).toBe('/giftcards/' + sampleGiftcardPutData._id);
+// 			expect($location.path()).toBe('/api/giftcards/' + sampleGiftcardPutData._id);
 // 		}));
 //
 // 		it('$scope.remove() should send a DELETE request with a valid giftcardId and remove the Giftcard from the scope', inject(function(Giftcards) {
@@ -150,7 +150,7 @@
 // 			scope.giftcards = [sampleGiftcard];
 //
 // 			// Set expected DELETE response
-// 			$httpBackend.expectDELETE(/giftcards\/([0-9a-fA-F]{24})$/).respond(204);
+// 			$httpBackend.expectDELETE(/api/giftcards\/([0-9a-fA-F]{24})$/).respond(204);
 //
 // 			// Run controller functionality
 // 			scope.remove(sampleGiftcard);

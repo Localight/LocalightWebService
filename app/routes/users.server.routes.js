@@ -8,29 +8,80 @@ module.exports = function(app) {
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
 
-	// Setting up the users profile api
-	app.route('/users/me').get(users.me);
-	app.route('/users').put(users.update);
-	app.route('/users/accounts').delete(users.removeOAuthProvider);
+	/**
+	 * @api{get} /user Request User Object
+	 * @apiName GetUser
+	 * @apiGroup User
+	 */
+	app.route('/api/users/me').get(users.me);
+	/**
+	 * @api{put} /user Update User Object
+	 * @apiName PutUser
+	 * @apiGroup User
+	 */
+	app.route('/api/users').put(users.update);
+	/**
+	 * @api{delete} /user Delete User Object OAuthProvider
+	 * @apiName DeleteUser
+	 * @apiGroup User
+	 */
+	app.route('/api/users/accounts').delete(users.removeOAuthProvider);
 
 	// Setting up the users password api
-	app.route('/users/password').post(users.changePassword);
-	app.route('/auth/forgot').post(users.forgot);
-	app.route('/auth/reset/:token').get(users.validateResetToken);
-	app.route('/auth/reset/:token').post(users.reset);
+	/**
+	 * @api{post /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
+	app.route('/api/users/password').post(users.changePassword);
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
+	app.route('/api/auth/forgot').post(users.forgot);
+	/**
+	 * @api{get} /user Request User Object
+	 * @apiName GetUser
+	 * @apiGroup User
+	 */
+	app.route('/api/auth/reset/:token').get(users.validateResetToken);
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
+	app.route('/api/auth/reset/:token').post(users.reset);
 
 	// Setting up the users authentication api
-	app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
+	app.route('/api/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
 	// TODO: make sure only logged in users can do this.
-	app.route('/auth/signup').post(users.signup);// hum...
-	app.route('/auth/signin').post(users.signin);
-	app.route('/auth/signout').get(users.signout);
-
-	// stripe charges routes
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
+	app.route('/api/auth/signup').post(users.signup);// hum...
+	/**
+	 * @api{post} /user Request User Object
+	 * @apiName PostUser
+	 * @apiGroup User
+	 */
+	app.route('/api/auth/signin').post(users.signin);
+	/**
+	 * @api{get} /user Request User Object
+	 * @apiName GetUser
+	 * @apiGroup User
+	 */
+	app.route('/api/auth/signout').get(users.signout);
 	 app.route('/stripe/charge').post(users.createACharge);
 	// Having stripe next to and embedded with the user class, allows us to use stripe where and when we
 	// need it.
-
 	// stripe accounts routes
 	// TODO: Enter in routes for the stripe accounts API
 	// stripe cards routes
@@ -41,7 +92,6 @@ module.exports = function(app) {
 	// TODO: Enter in Routes for Stripe Transfer API
 	// stripe refund routes
 	// TODO: Enter in Routes for Stripe Refunds API
-
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);
 };

@@ -13,13 +13,6 @@ var mongoose = require('mongoose'),
    message = null,
    Q = require('q');
 
-/**
- * This should create a giftcard, and also send out signals to the other services. The goal is to buy the end of this method have a giftcard created.
- * This will involved stripe, and subledger.
- * @param  {[type]} req [description]
- * @param  {[type]} res [description]
- * @return {[type]}     [description]
- */
 exports.create = function(req, res) {
    // if a user isn't found create one, otherwise find the user and save the giftcard.
    var giftcard = new Giftcard(req.body);
@@ -52,16 +45,10 @@ exports.read = function(req, res) {
 };
 // Don't write new code, use the update and find methods to change ownder ship of the giftcard.
 // the update and find methods work find.
-/**
- * SpendAGiftcard will subtract an amount from the giftcard.
- *
- * @param {[type]} req [description]
- * @param {[type]} res [description]
- */
 exports.spendAGiftcard = function(req, res) {
    console.log('this is the value of the req.body'+ JSON.stringify(req.body));
    // the client side neds to know to send back a body with valueToSpend
-   // 
+   //
    var holderValue = req.body.valueToSpend;
 
    // find the giftcard in the req.
