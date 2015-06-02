@@ -7,11 +7,22 @@
 module.exports = function(app) {
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
-
 	/**
 	 * @api{get} /user Request User Object
 	 * @apiName GetUser
 	 * @apiGroup User
+	 *
+	 * @apiParam {UserId} Give me a Unique Valid User ID.
+	 * @apiSuccessUser Success-Response:
+	 *  HTTP/1.0 200 OK
+	 *  @apiError UserNotFound The id of the User was not found.
+	 *
+	 * @apiErrorUser Error-Response:
+	 * 	HTTP/1.0 404 Not found
+	 * 	{
+	 * 		"error": "UserNotFound"
+	 * 	}
+	 * 	
 	 */
 	app.route('/api/users/me').get(users.me);
 	/**

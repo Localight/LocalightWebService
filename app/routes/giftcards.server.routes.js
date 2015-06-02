@@ -8,7 +8,7 @@ module.exports = function(app) {
 	.post(giftcards.spendAGiftcard);
 	// Giftcards Routes
 	app.route('/api/giftcards')
-		.get(users.requiresLogin, giftcards.list)//
+		.get(giftcards.list)//
 		.post(giftcards.create);
 
 	app.route('/api/giftcards/:giftcardId')
