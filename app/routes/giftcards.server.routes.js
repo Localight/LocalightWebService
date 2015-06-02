@@ -3,12 +3,11 @@
 module.exports = function(app) {
 	var users = require('../../app/controllers/users.server.controller');
 	var giftcards = require('../../app/controllers/giftcards.server.controller');
-
 	app.route('/api/spendAGiftcard')
 	.post(giftcards.spendAGiftcard);
 	// Giftcards Routes
 	app.route('/api/giftcards')
-		.get(giftcards.list)//
+		.get(users.requiresLogin, giftcards.list)//
 		.post(giftcards.create);
 
 	app.route('/api/giftcards/:giftcardId')

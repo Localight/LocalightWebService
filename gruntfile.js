@@ -140,11 +140,11 @@ module.exports = function(grunt) {
             configFile: 'karma.conf.js'
          }
       },
-      apidoc: { 
-         myapp:{
-            src:'app/',
-            dest:'apidoc/'
-         } 
+      // apidoc: { 
+      //    myapp:{
+      //       src:'app/',
+      //       dest:'apidoc/'
+      //    } 
          // title: 'Clique API',
          // 'url': 'https://something.clique.com/'',
 // ‘         header: {   
@@ -155,7 +155,7 @@ module.exports = function(grunt) {
 //             title: 'Notes',
 //             filename: 'doc/apidoc-footer.md'  
 //          }
-      }
+      // }
    });
 
    // Load NPM tasks
