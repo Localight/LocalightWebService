@@ -6,28 +6,28 @@ angular.module('giftcards').config(['$stateProvider',
 		// Giftcards state routing
 		$stateProvider.
 		state('listGiftcards', {
-			url: '/api/giftcards',
-			templateUrl: 'modules/api/giftcards/views/list-giftcards.client.view.html'
+			url: '/giftcards',
+			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
 		}).
 		state('createGiftcard', {
-			url: '/api/giftcards/create',
-			templateUrl: 'modules/api/giftcards/views/purchaseSequence/create_giftcard_order.client.view.html'
+			url: '/giftcards/create',
+			templateUrl: 'modules/giftcards/views/create-giftcard.client.view.html'
 		}).
 		state('viewGiftcard', {
-			url: '/api/giftcards/:giftcardId',
-			templateUrl: 'modules/api/giftcards/views/view-giftcard.client.view.html'
+			url: '/giftcards/:giftcardId',
+			templateUrl: 'modules/giftcards/views/view-giftcard.client.view.html'
 		}).
 		state('editGiftcard', {
-			url: '/api/giftcards/:giftcardId/edit',
-			templateUrl: 'modules/api/giftcards/views/edit-giftcard.client.view.html'
-		}).
-		state('reviewGiftcard', {
-			url: '/review',
-			templateUrl: 'modules/api/giftcards/views/purchaseSequence/review_giftcard_order.client.view.html'
-		})
-		.state('sendGiftcard', {
-			url: '/sent',
-			templateUrl: 'modules/api/giftcards/views/purchaseSequence/giftcard_sent.client.view.html'
+			url: '/giftcards/:giftcardId/edit',
+			templateUrl: 'modules/giftcards/views/edit-giftcard.client.view.html'
 		});
+		// state('reviewGiftcard', {
+		// 	url: '/review',
+		// 	templateUrl: 'modules/giftcards/views/purchaseSequence/review_giftcard_order.client.view.html'
+		// })
+		// .state('sendGiftcard', {
+		// 	url: '/sent',
+		// 	templateUrl: 'modules/giftcards/views/purchaseSequence/giftcard_sent.client.view.html'
+		// });
 	}
 ]);

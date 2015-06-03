@@ -3,7 +3,7 @@
         <h1>Giftcards</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="giftcard in giftcards" data-ng-href="#!/api/giftcards/{{giftcard._id}}" class="list-group-item">
+        <a data-ng-repeat="giftcard in giftcards" data-ng-href="#!/giftcards/{{giftcard._id}}" class="list-group-item">
           <h3>aName</h3><h3>{{giftcard.amount}}</h3>
 
           <small class="list-group-item-text">
@@ -16,6 +16,6 @@
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!giftcards.$resolved || giftcards.length">
-    	No Giftcards yet, why don't you <a href="/#!/api/giftcards/create">create one</a>?
+    	No Giftcards yet, why don't you <a href="/#!/giftcards/create">create one</a>?
     </div>
 </section>

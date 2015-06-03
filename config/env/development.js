@@ -11,7 +11,7 @@ module.exports = {
    },
    mailgun: {
       apiKey: 'key-212g0rzf7j9z-n9b7zdl797o3bxrsu38',
-      domain: 'https://api.mailgun.net/v3/rs56424.mailgun.org',
+      domain: 'https:/.mailgun.net/v3/rs56424.mailgun.org',
    },
    mailer: {
       from: process.env.MAILER_FROM || 'postmaster@rs56424.mailgun.org',

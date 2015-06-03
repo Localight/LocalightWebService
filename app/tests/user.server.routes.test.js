@@ -46,7 +46,7 @@ describe('User-Stripe CRUD tests', function() {
       user.save();
    }); // end before each block
    it('should be able to successfully charge a user if logged in', function(done) {
-      agent.post('/api/authsignin')
+      agent.post('/authsignin')
          .send(credentials)
          .expect(200)
          .end(function(signinErr, signinRes) {

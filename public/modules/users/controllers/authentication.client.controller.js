@@ -8,24 +8,24 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		if ($scope.authentication.user) $location.path('/');
 
 		$scope.signup = function() {
-			$http.post('/api/authsignup', $scope.credentials).success(function(response) {
+			$http.post('/authsignup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/api/giftcards/create');
+				$location.path('/giftcards/create');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
 		};
 
 		$scope.signin = function() {
-			$http.post('/api/authsignin', $scope.credentials).success(function(response) {
+			$http.post('/authsignin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/api/giftcards/create');
+				$location.path('/giftcards/create');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
