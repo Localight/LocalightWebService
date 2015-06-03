@@ -12,7 +12,7 @@ var _ = require('lodash'),
   User = mongoose.model('User'),
   config = require('../../../config/config'),
   message = null,
-  stripe = require('stripe')(config.clientID, config.clientSecret);
+  stripe = require('stripe')(config.stripe.secretKey);
 
 exports.signup = function(req, res) {
 
@@ -31,7 +31,6 @@ exports.signup = function(req, res) {
     description: 'This is a customer who can purchase giftcards for localism.',
     email: user.email,
      metadata: {
-       userId: user._id,
        firstName: user.firstName,
        lastName: user.lastName,
        phoneNumber:user.username
