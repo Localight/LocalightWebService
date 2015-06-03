@@ -150,6 +150,8 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
    // hopefully this will only list the giftcards assoicated with this user.
+   // TODO: create a parameter to show only giftcards who's values are greater than zero. If the "amount" of the giftcard is zero do not display
+   // or give the user access to it.
    Giftcard.find({
       spenderofgiftcard: req.user.id
    }).populate('user', 'displayName').exec(function(err, giftcards) {

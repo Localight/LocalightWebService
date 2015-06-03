@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
  * Included are the validations for the mongoose model.
  */
 var GiftcardSchema = new Schema({
+   
    amount: {
       type: Number,
       min: 0,
