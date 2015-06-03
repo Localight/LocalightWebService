@@ -1,6 +1,16 @@
 'use strict';
 
+/**
+ * Globals
+ */
+var mongoose = require('mongoose'),
+   User = mongoose.model('User');
 
+exports.locateEmailByUser = function(userId){
+   User.findOne({
+      'email':userId
+   })
+};
 // given a userId return a email
 
 // given a userId return a username

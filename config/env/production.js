@@ -28,8 +28,8 @@ module.exports = {
       authTOKEN: process.env.TWILIO_AUTH_TOKEN,
    },
    stripe: {
-      clientID: process.env.STRIPE_KEY,
-      clientSecret: process.env.STRIPE_SECRET,
+      secretKey: process.env.STRIPE_SECRET_KEY,
+      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
    },
    mailgun: {
       apiKey: process.env.MAILGUN_KEY,
