@@ -93,6 +93,7 @@ var UserSchema = new Schema({
       type: String
    },
    ///////////////////////////////////////////////////
+   
    /**
     * [hasCompletedSignup If a user signedup through the form this should be true, otherwise false when a new user is added through twilio.]
     * @type {Boolean}
