@@ -85,7 +85,7 @@
 //       // The first user1 should, after creating the giftcard have // no giftcards.
 //       // 1. Create the giftcard under one user1 and then,
 //       // 2. view the giftcard under a different user1.
-//       agent.post('/authsignin')
+//       agent.post('/auth/signin')
 //          .send(credentials)
 //          .expect(200)
 //          .end(function(signinErr, signinRes) {

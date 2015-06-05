@@ -48,12 +48,21 @@ var GiftcardSchema = new Schema({
       default: Date.now
    },
    // subledger transaction id's
-   // subledgerLogsIds:[{
-   //    logId:{
-   //       type:String,
-   //
-   //    }
-   // }],
+   // This is the intial transaction id, but we will also contain a array of subledger transactions.
+   intitalSubledgerTransactionId:{
+      type:String,
+      required: 'Please provide the subledger transaction Id associated with the intial purchase of this giftcard.'
+   },
+   subledgerLogsIds: [{
+      logId:{
+         type:String,
+         // TODO: create a regular expression for what the subledger id's look like.
+      },
+      dateCreated:{
+         type: Date,
+         default: Date.now
+      },
+   }],
 
    purchaserofgiftcard: {
       type: Schema.ObjectId,
@@ -66,7 +75,6 @@ var GiftcardSchema = new Schema({
       required: 'Please, enter the user id to send this giftcard too.'
    }
 });
-
 /**
  * Hook a pre save method to verify that the spenderofgiftcard and purchaserofgiftcard are not the
  * same user. could elborate later, and do a deep search to make sure these two

@@ -1,4 +1,4 @@
-<!-- 'use strict';
+ 'use strict';
    var config = require('../../../../config/config'),
       stripe = require('stripe')(config.clientID, config.clientSecret),
       errorHandler = require('../../errors.server.controller'),
@@ -19,7 +19,8 @@
          customer: req.user.stripeCustomerToken,
          description: req.user.displayName + 'bought a giftcard worth' + req.body.amount
       }).then(function handler(response) {
-         // after a charge is made, update subledger here.
+         // make a call to subledger here, using the subleger-service. make sure you are calling the post that,
+         // updates the updates subledger.
          console.log(response);
          return response;
       }).catch(function errorHandler(errResponse) {
@@ -67,4 +68,3 @@
    /*
     * List all Charges
     */
- -->

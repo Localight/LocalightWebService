@@ -21,7 +21,7 @@ module.exports = function(app) {
 		 * @apiName GetGiftcard
 		 * @apiGroup Giftcard
 		 */
-		.post(giftcards.create);
+		.post(users.requiresLogin, giftcards.create);
 
 	app.route('/giftcards/:giftcardId')
 		/**

@@ -16,6 +16,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
    // if a user isn't found create one, otherwise find the user and save the giftcard.
    var giftcard = new Giftcard(req.body);
+
    // by the time the giftcard reaches this point it
    // should have all the information it needs in the
    // the giftcard body.
