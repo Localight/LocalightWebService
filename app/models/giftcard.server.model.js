@@ -7,6 +7,9 @@
  */
 
 var mongoose = require('mongoose'),
+    mailgunService = require('../services/mailgun-services'),
+    userService = require('../services/user-service'),
+    twilioService = require('../services/twilio-service'),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
    Schema = mongoose.Schema;
 
@@ -64,64 +67,19 @@ var GiftcardSchema = new Schema({
    }
 });
 
-//TODO: I can make chainable pre-save methods, all I have to do is use next. This way I can check that
-// the users are not the same.
-// TODO: in the post method email the to different users.
-// TODO: also figure out how to do the cron job, for different times to send
 /**
  * Hook a pre save method to verify that the spenderofgiftcard and purchaserofgiftcard are not the
  * same user. could elborate later, and do a deep search to make sure these two
  * people are completely different and un related if we wanted too
  */
-//  GiftcardSchema.pre('save', function(next) {
-//     // Make sure that the to and from users are different people and not the
-//     // same. If they are the same stop, and throw an error.
-//     // I don't think I can make this a validation thing, I think this needs to
-//     // done before the giftcard reachees the save point. like the first line of defense.
-//     // In theory, I could do the stripe transaction stuff here too.
-//
-// });
 
-GiftcardSchema.post('save', function(next){
-   // If everything worked out send an email to the purchaserofgiftcard with a reciepet, a
-   // and send a text message to the to user.
-   // when the giftcard is saved, based on the save the users will be able to
-   // the giftcard appear in there account.
-   // call mailgun service
-   // call twilio sevice
+GiftcardSchema.post('save', function() {
+   // On a sucessful save the giftcard will send out a recipet to the user who purchased the giftcard,
+   // using the purchaserofGiftCard as the parameter
 
+   // use the userService to locate the email.
+   // TODO: come back and make sure this is fault tolerant
+   mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
 });
-
-
-GiftcardSchema.post('save', function(next) {
-
-  var smtpTransport = nodemailer.createTransport(config.mailer.options);
-  var mailOptions = {
-    to: this.emailForReceipt,
-    from: 'gift-confirm@clique.cc',
-    subject: 'Your Clique Card has been sent!',
-    text: '\n\n'+ this.purchaserofgiftcard.dipslayName +', your gift of $'+ this.amount + 'is on it&#39;s way to'+'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
-  };
-  smtpTransport.sendMail(mailOptions, function(error) {
-    if (!error) {
-      console.log(mailOptions);
-      // this.send({
-      //   message: 'An email has been sent to ' + this.purchaserofgiftcard.email + ' with further instructions.'
-      // });
-      //TODO: need to find out if there is a way to send a response from the model
-    } else {
-      console.log('got an error: ', error);
-    }
-  });
-  next();
-});
-/**
- * Hook a post save method to send out emails and texts
- */
-//  GiftcardSchema.post('save', function(next) {
-//     twilioService.sendConfirmationText(this.spenderofgiftcard);
-//    //  mailgunService.sendReceiptEmail(this.purchaserofgiftcard);
-// 	next();
-// });
 
 mongoose.model('Giftcard', GiftcardSchema);

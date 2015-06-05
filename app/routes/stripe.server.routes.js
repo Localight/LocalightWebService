@@ -12,6 +12,6 @@ module.exports = function(app){
 	 * @apiGroup Stripe
 	 */
 
-   app.route('/stripe/chargeACard').post()
+   app.route('/stripe/chargeACard').post(stripe.createACharge);
    app.param('userId', users.userByID);
 };

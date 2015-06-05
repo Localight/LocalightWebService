@@ -27,4 +27,5 @@ exports.sendEmailReceipt = function(anEmail) {
          console.log('message sent: ' + info.response);
       }
    });
+
 };

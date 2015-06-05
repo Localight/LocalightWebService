@@ -43,7 +43,7 @@ var journalCreateAndPost = function (description, account_id_debit, account_id_c
      {
        "account": account_id,
        "value": {
-         "type": "debit",
+         "type": "debit", 
          "amount": amount
        }
      },
