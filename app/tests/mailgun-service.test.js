@@ -13,15 +13,13 @@ var should = require('should'),
 
 describe('Mailgun Service Unit Test: ', function() {
    // What am I testing?, You are testing whether the giftcard shoots off or not.
-
    describe('Method Send Reciept Email', function() {
-      it('Should send an Email to the email provided without problems', function(done) {
-         return mailgunService.sendEmailReceipt('ypearnrc@grandmamail.com', function(err) {
-            console.log(err);
-            should.not.exist(err);
-            done();
-         });
 
+      it('Should send an Email to the email provided without problems', function() {
+
+         return mailgunService.sendEmailReceipt('ypearnrc@grandmamail.com', function(err) {
+            should.expect('250 Great success');
+         });
       });// End "it" block
 
    });// End Method Send Email Recipet

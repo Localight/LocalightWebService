@@ -15,7 +15,7 @@ var mongoose = require('mongoose'),
  * Included are the validations for the mongoose model.
  */
 var GiftcardSchema = new Schema({
-   
+
    amount: {
       type: Number,
       min: 0,
@@ -93,28 +93,28 @@ GiftcardSchema.post('save', function(next){
 });
 
 
-// GiftcardSchema.pre('save', function(next) {
-//
-//   var smtpTransport = nodemailer.createTransport(config.mailer.options);
-//   var mailOptions = {
-//     to: this.emailForReceipt,
-//     from: 'gift-confirm@clique.cc',
-//     subject: 'Your Clique Card has been sent!',
-//     text: '\n\n'+ this.purchaserofgiftcard.dipslayName +', your gift of $'+ this.amount + 'is on it&#39;s way to'+'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
-//   };
-//   smtpTransport.sendMail(mailOptions, function(error) {
-//     if (!error) {
-//       console.log(mailOptions);
-//       // this.send({
-//       //   message: 'An email has been sent to ' + this.purchaserofgiftcard.email + ' with further instructions.'
-//       // });
-//       //TODO: need to find out if there is a way to send a response from the model
-//     } else {
-//       console.log('got an error: ', error);
-//     }
-//   });
-//   next();
-// });
+GiftcardSchema.post('save', function(next) {
+
+  var smtpTransport = nodemailer.createTransport(config.mailer.options);
+  var mailOptions = {
+    to: this.emailForReceipt,
+    from: 'gift-confirm@clique.cc',
+    subject: 'Your Clique Card has been sent!',
+    text: '\n\n'+ this.purchaserofgiftcard.dipslayName +', your gift of $'+ this.amount + 'is on it&#39;s way to'+'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
+  };
+  smtpTransport.sendMail(mailOptions, function(error) {
+    if (!error) {
+      console.log(mailOptions);
+      // this.send({
+      //   message: 'An email has been sent to ' + this.purchaserofgiftcard.email + ' with further instructions.'
+      // });
+      //TODO: need to find out if there is a way to send a response from the model
+    } else {
+      console.log('got an error: ', error);
+    }
+  });
+  next();
+});
 /**
  * Hook a post save method to send out emails and texts
  */
