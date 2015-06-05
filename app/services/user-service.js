@@ -4,7 +4,8 @@
  * Globals
  */
 var mongoose = require('mongoose'),
-   User = mongoose.model('User');
+      User = mongoose.model('User');
+
 
 // given a userId return a email
 exports.locateEmailByUser = function(userId){

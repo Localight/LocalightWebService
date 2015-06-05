@@ -21,6 +21,9 @@
       }).then(function handler(response) {
          // make a call to subledger here, using the subleger-service. make sure you are calling the post that,
          // updates the updates subledger.
+         // If something goes wrong with stripe, then don't update subleger, read the response from stripe and
+         // check for faliure or success, on a success create a post to subledger. if not success don't do anything,
+         // and return the response to the user.  
          console.log(response);
          return response;
       }).catch(function errorHandler(errResponse) {

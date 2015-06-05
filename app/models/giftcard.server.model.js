@@ -7,9 +7,9 @@
  */
 
 var mongoose = require('mongoose'),
-    mailgunService = require('../services/mailgun-services'),
-    userService = require('../services/user-service'),
-    twilioService = require('../services/twilio-service'),
+   //  mailgunService = require('../services/mailgun-service'),
+   //  userService = require('../services/user-service'),
+   //  twilioService = require('../services/twilio-service'),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
    Schema = mongoose.Schema;
 
@@ -53,6 +53,7 @@ var GiftcardSchema = new Schema({
       type:String,
       required: 'Please provide the subledger transaction Id associated with the intial purchase of this giftcard.'
    },
+
    subledgerLogsIds: [{
       logId:{
          type:String,

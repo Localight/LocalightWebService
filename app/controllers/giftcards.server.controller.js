@@ -47,6 +47,8 @@ exports.read = function(req, res) {
 // Don't write new code, use the update and find methods to change ownder ship of the giftcard.
 // the update and find methods work find.
 exports.spendAGiftcard = function(req, res) {
+   // spending a giftcard, will need to check the amount.
+   
    console.log('this is the value of the req.body'+ JSON.stringify(req.body));
    // the client side neds to know to send back a body with valueToSpend
    //
