@@ -1,3 +1,7 @@
+'use strict';
+var subleger = require('subledger').Subleger;
+
+
 // no node-module, so requiring minified js file
 var Subledger = require('subledger').Subledger;
 
@@ -10,7 +14,6 @@ var subledger = null,
 
 // initialize subledger connection
 function init (oAuthKey, oAuthSecret, orgId, bookId, depositorId, unclearedId, balanceSheetId) {
-
   // new instance of connector
   subledger = new Subledger();
 
@@ -43,7 +46,7 @@ var journalCreateAndPost = function (description, account_id_debit, account_id_c
      {
        "account": account_id,
        "value": {
-         "type": "debit", 
+         "type": "debit",
          "amount": amount
        }
      },

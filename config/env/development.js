@@ -27,14 +27,15 @@ module.exports = {
       secretKey: process.env.STRIPE_SECRET_KEY || 'sk_test_GvAql6HE34rlYwDR3FLSjaHt',
       publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_WHOQeKIKG2CfUsaGl5cAU2Dl',
    },
-   // subledger: {
-	// 	key: process.env.SUBLEDGER_KEY,
-   //    secret: process.env.SUBLEDGER_SECRET,
-   //    org_id: process.env.process.env.SUBLEDGER_ORG,
-   //    book_id: process.env.process.env.SUBLEDGER_BOOKID,
-   //    depositor_category_id: process.env.SUBLEDGER_DEPOSITOR_CATEGORY_ID,
-   //    uncleared_category_id:process.env.SUBLEDGER_UNCLEARED_CATEGORY_ID,
-   //    balance_sheet_id: process.env.SUBLEDGER_BALANCE_SHEET_ID,
-   //    processing_id: process.env.SUBLEDGER_PROCESSING_ID
-   // }
+   subledger: {
+		key: process.env.SUBLEDGER_ID || '88OpPqUhvGMhXnkGY6w47K',
+      secret: process.env.SUBLEDGER_SECRET || 'zXKdLPenIZ4B2r1cOjl46a',
+      org_id: process.env.process.env.SUBLEDGER_ORG_ID || 'O0K0eS2wjuLOSRXpPVGvuV',
+      book_id: process.env.process.env.SUBLEDGER_BOOK_ID ||'T9UhswcXjeH4Q2nlLu9sYP',
+      depositor_category_id: process.env.SUBLEDGER_DEPOSITOR_CATEGORY_ID,
+      uncleared_category_id:process.env.SUBLEDGER_UNCLEARED_CATEGORY_ID,
+      balance_sheet_id: process.env.SUBLEDGER_BALANCE_SHEET_ID,
+      processing_id: process.env.SUBLEDGER_PROCESSING_ID
+   }
+   // oAuthKey, oAuthSecret, orgId, bookId, depositorId, unclearedId, balanceSheetId
 };

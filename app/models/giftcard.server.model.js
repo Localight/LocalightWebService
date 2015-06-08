@@ -12,7 +12,6 @@ var mongoose = require('mongoose'),
    //  twilioService = require('../services/twilio-service'),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
    Schema = mongoose.Schema;
-
 /**
  * Giftcard Schema,
  * Included are the validations for the mongoose model.
@@ -53,7 +52,6 @@ var GiftcardSchema = new Schema({
       type:String,
       required: 'Please provide the subledger transaction Id associated with the intial purchase of this giftcard.'
    },
-
    subledgerLogsIds: [{
       logId:{
          type:String,
