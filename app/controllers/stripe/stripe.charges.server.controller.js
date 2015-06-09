@@ -1,7 +1,7 @@
  'use strict';
-   var config = require('../../../../config/config'),
+   var config = require('../../../config/config'),
       stripe = require('stripe')(config.clientID, config.clientSecret),
-      errorHandler = require('../../errors.server.controller'),
+      errorHandler = require('../errors.server.controller'),
       _ = require('lodash'),
       Q = require('q'),
       message = null;
@@ -23,7 +23,7 @@
          // updates the updates subledger.
          // If something goes wrong with stripe, then don't update subleger, read the response from stripe and
          // check for faliure or success, on a success create a post to subledger. if not success don't do anything,
-         // and return the response to the user.  
+         // and return the response to the user.
          console.log(response);
          return response;
       }).catch(function errorHandler(errResponse) {

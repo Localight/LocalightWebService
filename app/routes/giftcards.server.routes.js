@@ -36,7 +36,7 @@ module.exports = function(app) {
 		 * @apiGroup Giftcard
 		 */
 		.get(users.requiresLogin, giftcards.hasAuthorization, giftcards.read)
-		.put(giftcards.spendAGiftcard)
+		.put(users.requiresLogin, giftcards.hasAuthorization, giftcards.spendAGiftcard)
 		// .put(users.requiresLogin, giftcards.hasAuthorization, giftcards.update)
 		//TODO: when you are working on the update method, make sure the program doesn't
 		// send emails each time the value is updated.

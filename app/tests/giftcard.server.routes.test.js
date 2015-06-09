@@ -33,7 +33,7 @@ describe('Giftcard CRUD tests', function() {
          password: 'password'
       };
       credentials2 = {
-         username: 'username2', // we dont need them to be phone numbers in this instance
+         username: '3453453453', // we dont need them to be phone numbers in this instance
          password: 'password2'
       };
       // Create a new User
@@ -125,10 +125,10 @@ describe('Giftcard CRUD tests', function() {
          .expect(401)
          .end(function(giftcardSaveErr, giftcardSaveRes) {
             if (giftcardSaveErr) {
-               console.log('error from saving giftcard:'+giftcardSaveErr.body);
+               console.log('error from saving giftcard:' + giftcardSaveErr.body);
             }
             if (giftcardSaveRes) {
-               console.log('response from saving a giftcard: '+JSON.stringify(giftcardSaveRes.body));
+               console.log('response from saving a giftcard: ' + JSON.stringify(giftcardSaveRes.body));
             }
             // Call the assertion callback
             done(giftcardSaveErr);
@@ -181,7 +181,6 @@ describe('Giftcard CRUD tests', function() {
    });
 
    it('should allow a user to spend a giftcard if they are logged in', function(done) {
-
       agent.post('/auth/signin')
          .send(credentials)
          .expect(200)
@@ -209,7 +208,6 @@ describe('Giftcard CRUD tests', function() {
                   // Get a list of giftcards
                });
          });
-
       agent.post('/auth/signin')
          .send(credentials2)
          .expect(200)
@@ -219,15 +217,16 @@ describe('Giftcard CRUD tests', function() {
                done(signinErr);
             }
             var payload = {
-               giftcard:giftcard,
+               giftcard: giftcard,
                valueToSpend: 500
             };
+            
             agent.put('/giftcards/' + giftcard.id)
                .send(payload)
                .expect(200)
                .end(function(giftcardSpendErr, giftcardSpendRes) {
                   if (giftcardSpendErr) {
-                     console.log('Error form trying to spend a giftcard: '+giftcardSpendErr);
+                     console.log('Error form trying to spend a giftcard: ' + giftcardSpendErr);
                      done(giftcardSpendErr);
                   }
                   (giftcardSpendRes.body.amount).should.equal(1500);

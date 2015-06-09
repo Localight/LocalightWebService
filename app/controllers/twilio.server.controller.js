@@ -14,8 +14,8 @@ var mongoose = require('mongoose'),
    _ = require('lodash');
 //require the Twilio module and create a REST client
 
-exports.interceptTwilioMesage = function(response, request) {
-   console.log('The controller got hit, this is the resposne: ' + response);
+exports.interceptTwilioMesage = function(request, response) {
+   console.log('The controller got hit, this is the resposne: ' + JSON.stringify(request.body));
 
    console.log('got here');
    // this is what the response from twilio is sending.
