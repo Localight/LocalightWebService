@@ -23,8 +23,7 @@ exports.create = function(req, res) {
    // the spenderofgiftcard id, occasionMessage, Amount,
    // stripeOrderid, etc.
    // This Controller merily creates the giftcard.
-   giftcard.purchaserofgiftcard = req.user;
-
+   giftcard.purchaserOfGiftCard = req.user.id;
    giftcard.save(function(err) {
       if (err) {
          return res.status(400).send({
@@ -48,8 +47,8 @@ exports.read = function(req, res) {
 // the update and find methods work find.
 exports.spendAGiftcard = function(req, res) {
    // spending a giftcard, will need to check the amount.
-   
-   console.log('this is the value of the req.body'+ JSON.stringify(req.body));
+   console.log('You are in spend a giftcard:'+JSON.stringify(req.body));
+   // console.log('this is the value of the req.body'+ JSON.stringify(req.body));
    // the client side neds to know to send back a body with valueToSpend
    //
    var holderValue = req.body.valueToSpend;
@@ -156,7 +155,7 @@ exports.list = function(req, res) {
    // TODO: create a parameter to show only giftcards who's values are greater than zero. If the "amount" of the giftcard is zero do not display
    // or give the user access to it.
    Giftcard.find({
-      spenderofgiftcard: req.user.id
+      spenderOfGiftCard: req.user.id
    }).populate('user', 'displayName').exec(function(err, giftcards) {
       if (err) {
          return res.status(400).send({
@@ -183,7 +182,7 @@ exports.giftcardByID = function(req, res, next, id) {
  * Giftcard authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-   if (req.giftcard.user.id !== req.user.id) {
+   if (req.giftcard.spenderOfGiftCard !== req.user.id) {
       return res.status(403).send({
          message: 'User is not authorized'
       });

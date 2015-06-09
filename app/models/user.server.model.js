@@ -48,11 +48,11 @@ var UserSchema = new Schema({
       validate: [validateLocalStrategyProperty, 'Please fill in your last name']
    },
    // display Name, should not store, but generate when needed.
-   displayName: {
-      type: String,
-      default: '',
-      validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
-   },
+   // displayName: {
+   //    type: String,
+   //    default: '',
+   //    validate: [validateLocalStrategyProperty, 'Please fill in your full Name']
+   // },
 
    ///////////////STRIPE API STUFF  ////////////////////////
    /**
@@ -93,7 +93,7 @@ var UserSchema = new Schema({
       type: String
    },
    ///////////////////////////////////////////////////
-   
+
    /**
     * [hasCompletedSignup If a user signedup through the form this should be true, otherwise false when a new user is added through twilio.]
     * @type {Boolean}
@@ -120,7 +120,7 @@ var UserSchema = new Schema({
    username: {
       type: String,
       unique: 'testing error message',
-      match: [/d{10}/, 'Please fill a valid phone number'], // should match the format of a string phonenumber
+      // match: [/d{10}/, 'Please fill a valid phone number'], // should match the format of a string phonenumber
       required: 'Please fill in a mobile number',
       trim: true
    },
@@ -162,9 +162,9 @@ var UserSchema = new Schema({
    }
 });
 
-UserSchema.virtual('name.full').get(function() {
-   return this.firstName + ' ' + this.lastName;
-});
+// UserSchema.virtual('name.full').get(function() {
+//    return this.firstName + ' ' + this.lastName;
+// });
 
 /**
  * Hook a pre save method to hash the password

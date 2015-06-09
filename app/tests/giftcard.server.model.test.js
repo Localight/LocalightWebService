@@ -35,7 +35,6 @@ describe('Giftcard Model Unit Tests:', function() {
          username: '2132203433',
          password: 'password'
       });
-
       user2 = new User({
          // create what you need to make a bare minumn user.
          firstName: 'Tina',
@@ -45,17 +44,20 @@ describe('Giftcard Model Unit Tests:', function() {
          username: 'testUser2',
          password: 'password'
       });
-
       user.save(function(){
+
          giftcard = new Giftcard({
             stripeOrderId: 'ch_34sdfsdf',
             amount: 1000,
-            spenderofgiftcard: user.id,
-            purchaserofgiftcard: user2.id,
-         });
+            purchaserOfGiftCard:user.id,
+            spenderOfGiftCard: user2.id,
+         });// end gift card
+
          done();
-      });
-   });
+
+      });// end user save
+
+   });// end beforeEach
 
 
 
@@ -67,6 +69,9 @@ describe('Giftcard Model Unit Tests:', function() {
       // this is the base case that everyhthing works.
       it('should be able to save without problems', function(done) {
          return giftcard.save(function(err) {
+            if(err){
+               console.log(err);
+            }
             should.not.exist(err);
             done();
          });
@@ -102,16 +107,16 @@ describe('Giftcard Model Unit Tests:', function() {
          });
       });
 
-      it('should throw an error when trying to save a without a purchaserofgiftcard', function(done) {
-         giftcard.purchaserofgiftcard = '';
+      it('should throw an error when trying to save a without a purchaserOfGiftCard', function(done) {
+         giftcard.purchaserOfGiftCard = '';
          return giftcard.save(function(err) {
             should.exist(err);
             done();
          });
       });
 
-      it('should throw an error when trying to save without a spenderofgiftcard', function(done) {
-         giftcard.spenderofgiftcard = '';
+      it('should throw an error when trying to save without a spenderOfGiftCard', function(done) {
+         giftcard.spenderOfGiftCard = '';
          return giftcard.save(function(err) {
             should.exist(err);
             done();
@@ -132,7 +137,7 @@ describe('Giftcard Model Unit Tests:', function() {
             done();
          });
       });
-      //TODO: create a method or way to make sure the spenderofgiftcard and purchaserofgiftcard,
+      //TODO: create a method or way to make sure the spenderOfGiftCard and purchaserOfGiftCard,
       // are not the same value.
    });
 

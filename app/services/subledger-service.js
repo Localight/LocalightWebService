@@ -1,6 +1,4 @@
 'use strict';
-var subleger = require('subledger').Subleger;
-
 
 // no node-module, so requiring minified js file
 var Subledger = require('subledger').Subledger;
