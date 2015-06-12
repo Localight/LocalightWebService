@@ -160,7 +160,7 @@ angular.module('giftcards')
             giftcard.stripeCardToken = response.id;
             return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientFirstName)
               .then(function anotherHandler(response) {
-                giftcard.toUser = response.data._id;
+                giftcard.spenderofgiftcard = response.data._id;
                 return giftcard.$save();
               }).then(function yetAnotherHanlder(response) {
                 return $location.path('/giftcards');
@@ -199,7 +199,7 @@ angular.module('giftcards')
           amount: 1000,
           mobileNumberOfRecipient: 1234567890,
           merchant: 'aMerchantId here',
-          toUserUserName: 'username',
+          spenderofgiftcardUserName: 'username',
           message: 'A gift for you!',
           districtNumber: 'number',
         });

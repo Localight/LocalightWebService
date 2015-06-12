@@ -6,17 +6,14 @@
 var _ = require('lodash'),
   errorHandler = require('../errors.server.controller'),
   mongoose = require('mongoose'),
-  twilio = require('twilio'),
+  // twilio = require('twilio'),
   passport = require('passport'),
   Q = require('q'),
   User = mongoose.model('User'),
+  config = require('../../../config/config'),
   message = null,
-  stripe = require('stripe')('sk_test_GvAql6HE34rlYwDR3FLSjaHt');
+  stripe = require('stripe')(config.stripe.secretKey);
 
-
-/**
- * Signup
- */
 exports.signup = function(req, res) {
 
   delete req.body.roles;
@@ -29,15 +26,17 @@ exports.signup = function(req, res) {
   user.provider = 'local';
   user.fullName = user.firstName + ' ' + user.lastName;
   user.displayName = user.firstName + ' ' + user.lastName;
-  user.hasCompletedSignup = true;
+
   stripe.customers.create({
-    description: user.displayName,
+    description: 'This is a customer who can purchase giftcards for localism.',
     email: user.email,
-    // metadata: {
-    //   userId: user._id
-    // }
+     metadata: {
+       firstName: user.firstName,
+       lastName: user.lastName,
+       phoneNumber:user.username
+     }
   }).then(function handler(response) {
-    user.stripeCustomerToken = response.id;
+    user.stripeCustomerToken = response.id;// store the stripe token.
     return user.save(function(err) {
       if (err) {
         return res.status(400).send({
@@ -49,6 +48,7 @@ exports.signup = function(req, res) {
         user.salt = undefined;
         req.login(user, function(err) {
           if (err) {
+             console.log(err);
             res.status(400).send(err);
           } else {
             res.json(user);
@@ -57,6 +57,7 @@ exports.signup = function(req, res) {
       }
     });
   }).catch(function errHandler(err) {
+     console.log(err);
     return res.status(400).send({
       message: errorHandler.getErrorMessage(err)
     });
@@ -208,6 +209,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
         if (!user) {
           var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
+          // we're not going to use this method
           User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
             user = new User({
               firstName: providerUserProfile.firstName,

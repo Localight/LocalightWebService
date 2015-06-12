@@ -1,4 +1,4 @@
-'use strict';
+'H@llF3rrrse strict';
 // these are like global static variables, that you know won't change throught the program.
 module.exports = {
 	db: 'mongodb://localhost/clique-dev',
@@ -7,7 +7,7 @@ module.exports = {
 	},
 	twilio:{
 		accountSID: process.env.ACCOUNT_SID || 'AC9bfd970cef5934b23e69f1ef72812a23',
-		authTOKEN: process.env.AUTH_TOKEN || 'H@llF3rr',
+		authTOKEN: process.env.AUTH_TOKEN || '6bfeeed497cfb9b8d10c329ce721759',
 	},
 	mailgun: {
 					apiKey: 'key-212g0rzf7j9z-n9b7zdl797o3bxrsu38',
@@ -27,5 +27,4 @@ module.exports = {
 		clientID: process.env.STRIPE_KEY || 'pk_test_WHOQeKIKG2CfUsaGl5cAU2Dl',
 		clientSecret: process.env.STRIPE_KEY || 'sk_test_GvAql6HE34rlYwDR3FLSjaHt',
 	},
-
 };

@@ -25,7 +25,7 @@ module.exports = {
 	},
 	twilio:{
 		acountSID: process.env.ACCOUNT_SID || 'AC9bfd970cef5934b23e69f1ef72812a23',
-		authTOKEN: process.env.AUTH_TOKEN || 'H@llF3rr',
+		authTOKEN: process.env.AUTH_TOKEN || 'a6bfeeed497cfb9b8d10c329ce721759',
 	},
 	stripe: {
 		clientID: process.env.STRIPE_KEY || 'pk_live_UCGfn9kbM4KSToxEaZPG8RLq',
