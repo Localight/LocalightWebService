@@ -1,134 +1,90 @@
 'use strict';
 // I want to change gift card to CliqueCard, will do that later though.
-// I can do that in a night.
+// What if the giftcards, held an array of the transactions? The giftcard it's self had more that i kept track of?
+//
 /**
  * Module dependencies.
  */
 
 var mongoose = require('mongoose'),
-  nodemailer = require('nodemailer'),
-  config = require('./../../config/config'),
-  validator = require('mongoose-validator'),
-  mailgunClient = require('mailgun-js')(config.mailgun.apiKey, config.mailgun.domian),
-  Schema = mongoose.Schema;
-
+   //  mailgunService = require('../services/mailgun-service'),
+   //  userService = require('../services/user-service'),
+   //  twilioService = require('../services/twilio-service'),
+   //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
+   Schema = mongoose.Schema;
 /**
- * Giftcard Schema
+ * Giftcard Schema,
+ * Included are the validations for the mongoose model.
  */
 var GiftcardSchema = new Schema({
-  /*
-   * The Name of the person to send this giftcard too.
-   */
-  //TODO: create a validator that can be used for names.
-  //TODO: create a validator rule that can be used for amount
-  //TODO: create a validator rule that can be used for number
-  //TODO: create a validator rule that can be used for  email
-  //
-  giftRecipientFirstName: {
-    type: String,
-    // should have spaces to indcate first name and last name.
-    // TODO: add regualer expressions.
-    validate:[validator.isLength(3, 35), validator.isAlpha('Must contain letters only, Please.'), validator.isLowercase('Must be lowercase names when saving to database, Please.')],
-    required: 'Please enter the recipients name.'
-  },
+   amount: {
+      type: Number,
+      min: 0,
+      max: 50000,//equates to $500.00, 100 = $1.00, 50 = $.50
+      // need to make the number validate a number not less than zero.
+      required: 'Please enter an amount to purchase between 0 and 500000'
+   }, // need to make sure it's always a number and never zero or a negative number.
+   // for initial purchase.
+   stripeOrderId: {
+      type: String,
+      match: [/ch_[\w\d._%+-]+/, 'This value entered for the stripeId does not match ({VALUE})'],
+      //TODO: write regular expresion to match "ch_"[0-2](spaces) for the stripe id.
+      required: 'Please provide the stripeOrderId in the correct format.'
+   }, // I should only get one stripeOrderId once
+   /**
+    *  Message, the message that the user wishes for another user to see.
+    *  a message doesn't need to have a string attached to it.
+    */
+   occasion: {
+      type: String,
+      default: 'A gift for you!'
+   },
+   //TODO: probably going to need to store the a refernce to the image the user is sending back.
+   created: {
+      type: Date,
+      default: Date.now
+   },
+   // subledger transaction id's
+   // This is the intial transaction id, but we will also contain a array of subledger transactions.
+   // intitalSubledgerTransactionId:{
+   //    type:String,
+   //    required: 'Please provide the subledger transaction Id associated with the intial purchase of this giftcard.'
+   // },
+   // subledgerLogsIds: [{
+   //    logId:{
+   //       type:String,
+   //       // TODO: create a regular expression for what the subledger id's look like.
+   //    },
+   //    dateCreated:{
+   //       type: Date,
+   //       default: Date.now
+   //    },
+   // }],
+   purchaserOfGiftCard: {
+      type: Schema.ObjectId,
+      ref: 'User',
+      required: 'Please, enter the user id who is sending the giftcard.'
+   },
+   spenderOfGiftCard: {
+      type: Schema.ObjectId,
+      ref: 'User',
+      required: 'Please, enter the user id to send this giftcard too.'
+   }
 
-  /**
-   * Amount, the value of which the card holds, to be spent at a merchant's busienss.
-   * @type {Object}
-   */
-  amount: {
-    type: Number,
-    validate:[validator.isNumeric('Please only enter numbers'), validator.isLength(3, 35), validator.isEmail('Please have the @ in your object')],
-    required: 'Please enter an amount to purchase.'
-
-  },
-  /**
-   * [receiptEmail description]
-   * @type {Object}
-   */
-   emailForReceipt:{
-    type:String,
-    required:'please enter a email',
-  },
-
-  giftSenderFirstName:{
-    type:String,
-    validate:[validator.isLength(3, 35), validator.isAlpha('Must contain letters only, Please.'), validator.isLowercase('Must be lowercase names when saving to database, Please.')],
-    required: 'Please enter the senders name.'
-  },
-
-  /**
-   * [mobileNumberOfRecipient description]
-   * @type {Object}
-   */
-  mobileNumberOfRecipient: {
-    type: Number,
-    required: 'Please enter the recipients phone number',
-    //TODO: enter in regular expression, and make sure no spaces.
-  },
-
-  stripeCardToken: {
-    type: String
-  },
-  /**
-   * [stripeOrderId Provided everytime a gifcard is object, will for user to be refunded.]
-   * @type {String}
-   */
-  stripeOrderId: {
-    type: String,
-    required: 'You must save the order Id.'
-  },
-  /**
-   *  Message, the message that the user wishes for another user to see.
-   *  a message doesn't need to have a string attached to it.
-   */
-  occasion: {
-    type: String,
-    default: 'A gift for you!'
-  },
-  // Date card created or purchased, might want to change the number.
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  merchant: {
-    type: Schema.ObjectId,
-    ref: 'Merchant'
-  },
-  fromUser: {
-    type: Schema.ObjectId,
-    ref: 'User',
-    required: 'Enter who this is from.'
-  },
-  toUser: {
-    type: Schema.ObjectId,
-    ref: 'User',
-    required: 'Please Enter a User to send this too.'
-  },
 });
 /**
- * Hook a pre save method to email the reciepiet
+ * Hook a pre save method to verify that the spenderofgiftcard and purchaserofgiftcard are not the
+ * same user. could elborate later, and do a deep search to make sure these two
+ * people are completely different and un related if we wanted too
  */
-GiftcardSchema.pre('save', function(next) {
-  var smtpTransport = nodemailer.createTransport(config.mailer.options);
-  var mailOptions = {
-    to: this.emailForReceipt,
-    from: 'gift-confirm@clique.cc',
-    subject: 'Your Clique Card has been sent!',
-    text: '\n\n'+ this.fromUser.dipslayName +', your gift of $'+ this.amount + 'is on it&#39;s way to'+'! With the CLIQUE Local Gift Card you can apply your gift toward purchases at numerous locally-owned merchants in the Long Beach area'
-  };
-  smtpTransport.sendMail(mailOptions, function(error) {
-    if (!error) {
-      console.log(mailOptions);
-      // this.send({
-      //   message: 'An email has been sent to ' + this.fromUser.email + ' with further instructions.'
-      // });
-      //TODO: need to find out if there is a way to send a response from the model
-    } else {
-      console.log('got an error: ', error);
-    }
-  });
-  next();
-});
+
+// GiftcardSchema.post('save', function() {
+//    // On a sucessful save the giftcard will send out a recipet to the user who purchased the giftcard,
+//    // using the purchaserofGiftCard as the parameter
+//
+//    // use the userService to locate the email.
+//    // TODO: come back and make sure this is fault tolerant
+//    mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
+// });
 
 mongoose.model('Giftcard', GiftcardSchema);
