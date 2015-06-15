@@ -8,6 +8,11 @@ var mongoose = require('mongoose'),
    User = mongoose.model('User'),
    errorHandler = require('./errors.server.controller'),
    config = require('../../config/config'),
+<<<<<<< HEAD
+=======
+   accountSid = config.twilio.accountSid,
+   authToken = config.twilio.authToken,
+>>>>>>> 829513bd1c54233fb3e70a316a4c012c99bc254d
    client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
    // TODO: come back and delete these later.
    Q = require('q'),
@@ -29,6 +34,18 @@ exports.interceptTwilioMesage = function(request, response) {
       // start easy and just send back a url.
       client.messages.create({
          body: '💌📲 Send a gift to anyone in Greater Long Beach ▸ ',
+<<<<<<< HEAD
+         to: '+1' + request.body.From,
+         from: '+15624454688',
+      }, function(err, message){
+         if(err){
+            console.log(err);
+         }
+         if(message){
+            console.log(message.sid);
+         }
+      });
+=======
          to: request.body.From,
          from: '+15624454688',
       },function(err, message){
@@ -39,6 +56,7 @@ exports.interceptTwilioMesage = function(request, response) {
 	 console.log(message.sid);
          }	
 	});
+>>>>>>> 829513bd1c54233fb3e70a316a4c012c99bc254d
    }
    // var twiml = new twilio.TwimlResponse();
    // twiml.message('💌📲 Send a gift to anyone in Greater Long Beach ▸ ' + 'localhost:3000/giftcards/create');

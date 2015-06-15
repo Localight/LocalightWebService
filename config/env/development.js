@@ -1,5 +1,4 @@
 'use strict';
-// these are like global static variables, that you know won't change throught the program.
 module.exports = {
    db: 'mongodb://localhost/clique-dev',
    app: {
