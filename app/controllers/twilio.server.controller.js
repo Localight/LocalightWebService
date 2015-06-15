@@ -8,13 +8,16 @@ var mongoose = require('mongoose'),
    User = mongoose.model('User'),
    errorHandler = require('./errors.server.controller'),
    config = require('../../config/config'),
-   client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
+   accountSid = config.twilio.accountSid,
+   authToken = config.twilio.authToken,
+   client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
    // TODO: come back and delete these later.
    Q = require('q'),
    _ = require('lodash');
 //require the Twilio module and create a REST client
 
 exports.interceptTwilioMesage = function(request, response) {
+
    console.log('The controller got hit, this is the resposne: ' + JSON.stringify(request.body));
 
    console.log('got here');
@@ -24,21 +27,22 @@ exports.interceptTwilioMesage = function(request, response) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
-   if (response.body.Body.lowercase() !== 'gift') { // lowercase anything in the body of the response
-      console.log('attempt made to server, Body was:' + response.body.Body);
+   if (request.body.Body.toLowerCase() !== 'gift') { // lowercase anything in the body of the response
+      console.log('attempt made to server, Body was:' + request.body.Body);
    } else {
       // start easy and just send back a url.
       client.messages.create({
          body: '💌📲 Send a gift to anyone in Greater Long Beach ▸ ',
-         to: '+1' + response.body.From,
+         to: request.body.From,
          from: '+15624454688',
-      }).then(function handler(response) {
-         console.log(response.message.sid);
-      }).catch(function errorHandler(err) {
-         return response.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-         });
-      });
+      },function(err, message){
+	 if(err){
+	   console.log(err);
+	 }
+	 if(message){
+	 console.log(message.sid);
+         }	
+	});
    }
    // var twiml = new twilio.TwimlResponse();
    // twiml.message('💌📲 Send a gift to anyone in Greater Long Beach ▸ ' + 'localhost:3000/giftcards/create');
