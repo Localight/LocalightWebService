@@ -31,14 +31,14 @@ exports.interceptTwilioMesage = function(request, response) {
          body: '💌📲 Send a gift to anyone in Greater Long Beach ▸ ',
          to: request.body.From,
          from: '+15624454688',
-      },function(err, message){
-	 if(err){
-	   console.log(err);
-	 }
-	 if(message){
-	 console.log(message.sid);
-         }	
-	});
+      }, function(err, message) {
+         if (err) {
+            console.log(err);
+         }
+         if (message) {
+            console.log(message.sid);
+         }
+      });
    }
    // var twiml = new twilio.TwimlResponse();
    // twiml.message('💌📲 Send a gift to anyone in Greater Long Beach ▸ ' + 'localhost:3000/giftcards/create');
