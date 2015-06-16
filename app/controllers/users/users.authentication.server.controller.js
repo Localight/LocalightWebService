@@ -65,7 +65,6 @@ exports.signup = function(req, res) {
    });
 };
 exports.giftWebHook = function(req, res) {
-console.log('this is the response from twilio'+req.body);
  // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
    // more than that we know the user wants to log into their account or want's access to there account. 
    // So what do we do?
@@ -81,42 +80,49 @@ console.log('this is the response from twilio'+req.body);
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
+   if(req.body.Body.toLowerCase() === 'gift'){
+     console.log(req.body);
    User.findOne({
       'username': req.body.Body.slice(2,12)
    }, function(err, user) {
       // In case of any error return
       if (err) {
+	console.log('the error from twilio'+err);
          return (err);
       }
       // already exists
       if (user) {
-         return client.messages.create({
-                     body:JSON.stringify(user),
-                     to: req.body.From,
-                     from: '+15624454688',
-                  }, function(err, message) {
-                     if (err) {
-                        console.log(err);
-                     }
-                     if (message) {
-                        console.log(message.sid);
-                     }
-                  });
+	console.log('the user '+user);
+
+         client.messages.create({
+	     body:JSON.stringify(user),
+             to: req.body.From,
+             from: '+15624454688',
+          }, function(err, message) {
+             if (err) {
+	 	console.log(err);
+             }
+	    if (message) {
+	      console.log(message.sid);
+             }
+	});
       } else {
          // if user is not found create here.
          // if there is no user with that phoneNumber
          // create the user, with the data entered on the giftcard
-         var anotherUser = new User(req.body);
+         var anotherUser = new User();
+	 anotherUser.username = req.body.Body.slice(2,12);
+	 
          // set the user's local credentials
-         anotherUser.firstName = req.body.firstName;
+        //  anotherUser.firstName = req.body.firstName;
          // anotherUser.password = createHash(password);//TODO: come back to this.
          anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
-         anotherUser.mobileNumber = req.body.mobileNumber;
+       //  anotherUser.mobileNumber = req.body.mobileNumber;
          anotherUser.provider = 'local';
          //  anotherUser.email = req.body.email;
 
          var payload = {
-            description: req.fullName
+            description:'test stuff'
          };
          // passport
          //
@@ -138,49 +144,33 @@ console.log('this is the response from twilio'+req.body);
          // save the user
       }
    });
+  }else{
+  console.log('attempt made to server, Body was:' + req.body.Body);
+ }
 };
 
 /**
  * Signin after passport authentication
 **/
 exports.signin = function(req, res, next) {
+passport.authenticate('local', function(err, user, info) {
+      if (err || !user) {
+         console.log(info);
+         res.status(400).send(info);
+      } else {
+         // Remove sensitive data bekfs
+         user.password = 'password';
+         user.salt = undefined;
 
-console.log(req);
-
-console.log('The controller got hit, this is the response'+JSON.stringify(req.body));
-
-   if (req.body.Body.toLowerCase() === 'gift') {
-      passport.authenticate('local', function(err, user, info) {
-         if (err || !user) {
-	res.status(400).send(info);
-	} else {
-            // Remove sensitive data 
-            user.password = 'password';
-            user.salt = undefined;
-
-            req.login(user, function(err) {
-               if (err) {
-                  res.status(400).send(err);
-               } else {
-                 client.messages.create({
-                     body: JSON.stringify(user),
-                     to: req.body.From,
-                     from: '+15624454688',
-                  }, function(err, message) {
-                     if (err) {
-                        console.log(err);
-                     }
-                     if (message) {
-                        console.log(message.sid);
-                     }
-                  });
-               }
-            });
-         }
-      })(req, res, next);
-   } else {
-      console.log('attempt made to server, Body was:' + req.body.Body);
-   }
+         req.login(user, function(err) {
+            if (err) {
+               res.status(400).send(err);
+            } else {
+               res.json(user);
+            }
+         });
+      }
+   })(req, res, next);
 };
 
 /**
