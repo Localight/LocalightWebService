@@ -154,6 +154,30 @@ exports.giftWebHook = function(req, res) {
  * Signin after passport authentication
 **/
 exports.signin = function(req, res, next) {
+<<<<<<< HEAD
+   if (req.body.Body.toLowerCase() === 'gift') {
+      passport.authenticate('local', function(err, user, info) {
+         if (err || !user) {
+            console.log(info);
+            res.status(400).send(info);
+         } else {
+            // Remove sensitive data bekfs
+            user.password = 'password';
+            user.salt = undefined;
+
+            req.login(user, function(err) {
+               if (err) {
+                  res.status(400).send(err);
+               } else {
+                  res.json(user);
+               }
+            });
+         }
+      })(req, res, next);
+   } else {
+      console.log('attempt made to server, Body was:' + req.body.Body);
+   }
+=======
 passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
          console.log(info);
@@ -172,6 +196,7 @@ passport.authenticate('local', function(err, user, info) {
          });
       }
    })(req, res, next);
+>>>>>>> 0680525596c48c61efd24e36fe67568b3ff23737
 };
 
 /**

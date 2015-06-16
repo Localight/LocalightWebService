@@ -35,7 +35,7 @@ var UserSchema = new Schema({
       type: String,
       trim: true,
       default: '',
-      validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+ //     validate: [validateLocalStrategyProperty, 'Please fill in your first name']
    },
    /**
     * lastName, the last name of the user, most of the time what we display in app. Must be String all alpha characters, 3 - 35 characters long. no spaces
@@ -45,7 +45,7 @@ var UserSchema = new Schema({
       type: String,
       trim: true,
       default: '',
-      validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+   //   validate: [validateLocalStrategyProperty, 'Please fill in your last name']
    },
    // display Name, should not store, but generate when needed.
    // displayName: {
@@ -66,7 +66,7 @@ var UserSchema = new Schema({
       type: String,
       //TODO: add regular expression for customer Token, using match.
       match: [/cus_[\w\d._%+-]+/, 'This value entered for the Stripe Customer Token does not match the correct format ({VALUE})'],
-      required: 'Stripe Customer Token Required.'
+//      required: 'Stripe Customer Token Required.'
    },
    stripeCardToken: {
       // A user may only have one primary card.
@@ -106,7 +106,7 @@ var UserSchema = new Schema({
       type: String,
       trim: true,
       default: '',
-      validate: [validateLocalStrategyProperty, 'Please fill in your email'],
+ //     validate: [validateLocalStrategyProperty, 'Please fill in your email'],
       match: [/.+\@.+\..+/, 'Please fill a valid email address']
    },
    /**
