@@ -52,7 +52,7 @@ exports.signup = function(req, res) {
                   console.log(err);
                   res.status(400).send(err);
                } else {
-                  res.json(user);
+                  re.json(user);
                }
             });
          }
@@ -65,24 +65,24 @@ exports.signup = function(req, res) {
    });
 };
 exports.giftWebHook = function(req, res) {
-   this.findOrCreateUser(req.body.From.slice(2, 12));
+console.log('this is the response from twilio'+req.body);
+ // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
+   // more than that we know the user wants to log into their account or want's access to there account. 
+   // So what do we do?
+   // I want to log them in.
+   // 
    // get the user id of the mobile number from the user.
    // send teh user back a astatic create giftcard site.
    // if the user is new the info is blank, if returning, info filled in.
    // no need to log the user in for buying a giftcard. make sure can't add own user name to giftcard too.
    // at some point make sure the url and or cookie seld denotates, so user's data is protected.
    // remember to just return a static page.
-};
-/**
- * Find or create user based on mobile number
- */
-exports.findOrCreateUser = function(req, res) {
    // this is a controller, but you do everything in a controller.
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
    User.findOne({
-      'username': req.body.username
+      'username': req.body.Body.slice(2,12)
    }, function(err, user) {
       // In case of any error return
       if (err) {
@@ -90,7 +90,18 @@ exports.findOrCreateUser = function(req, res) {
       }
       // already exists
       if (user) {
-         return res.json(user);
+         return client.messages.create({
+                     body:JSON.stringify(user),
+                     to: req.body.From,
+                     from: '+15624454688',
+                  }, function(err, message) {
+                     if (err) {
+                        console.log(err);
+                     }
+                     if (message) {
+                        console.log(message.sid);
+                     }
+                  });
       } else {
          // if user is not found create here.
          // if there is no user with that phoneNumber
@@ -131,23 +142,28 @@ exports.findOrCreateUser = function(req, res) {
 
 /**
  * Signin after passport authentication
- */
+**/
 exports.signin = function(req, res, next) {
+
+console.log(req);
+
+console.log('The controller got hit, this is the response'+JSON.stringify(req.body));
+
    if (req.body.Body.toLowerCase() === 'gift') {
       passport.authenticate('local', function(err, user, info) {
          if (err || !user) {
-            res.status(400).send(info);
-         } else {
-            // Remove sensitive data bekfs
-            user.password = 'k';
+	res.status(400).send(info);
+	} else {
+            // Remove sensitive data 
+            user.password = 'password';
             user.salt = undefined;
 
             req.login(user, function(err) {
                if (err) {
                   res.status(400).send(err);
                } else {
-                  client.messages.create({
-                     body: user,
+                 client.messages.create({
+                     body: JSON.stringify(user),
                      to: req.body.From,
                      from: '+15624454688',
                   }, function(err, message) {
@@ -158,7 +174,6 @@ exports.signin = function(req, res, next) {
                         console.log(message.sid);
                      }
                   });
-                  res.json(user);
                }
             });
          }
