@@ -16,8 +16,8 @@ var _ = require('lodash'),
    stripe = require('stripe')(config.stripe.secretKey);
 
 exports.signup = function(req, res) {
-   // Stil need a way to sign up the user.
-   //
+// Stil need a way to sign up the user.
+//
    delete req.body.roles;
 
    // Init Variables
@@ -53,7 +53,7 @@ exports.signup = function(req, res) {
                   console.log(err);
                   res.status(400).send(err);
                } else {
-                  res.json(user);
+                  re.json(user);
                }
             });
          }
@@ -66,11 +66,11 @@ exports.signup = function(req, res) {
    });
 };
 exports.giftWebHook = function(req, res) {
-   // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
-   // more than that we know the user wants to log into their account or want's access to there account.
+ // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
+   // more than that we know the user wants to log into their account or want's access to there account. 
    // So what do we do?
    // I want to log them in.
-   //
+   // 
    // get the user id of the mobile number from the user.
    // send teh user back a astatic create giftcard site.
    // if the user is new the info is blank, if returning, info filled in.
@@ -81,80 +81,104 @@ exports.giftWebHook = function(req, res) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
-   if (req.body.Body.toLowerCase() === 'gift') {
-      console.log(req.body);
-      User.findOne({
-         'username': req.body.Body.slice(2, 12)
-      }, function(err, user) {
-         // In case of any error return
-         if (err) {
-            console.log('the error from twilio' + err);
-            return (err);
-         }
-         // already exists
-         if (user) {
-            console.log('the user ' + user);
+   if(req.body.Body.toLowerCase() === 'gift'){
+     console.log(req.body);
+   User.findOne({
+      'username': req.body.Body.slice(2,12)
+   }, function(err, user) {
+      // In case of any error return
+      if (err) {
+	console.log('the error from twilio'+err);
+         return (err);
+      }
+      // already exists
+      if (user) {
+	console.log('the user '+user);
 
-            client.messages.create({
-               body: JSON.stringify(user),
-               to: req.body.From,
-               from: '+15624454688',
-            }, function(err, message) {
-               if (err) {
-                  console.log(err);
-               }
-               if (message) {
-                  console.log(message.sid);
-               }
-            });
-         } else {
-            // if user is not found create here.
-            // if there is no user with that phoneNumber
-            // create the user, with the data entered on the giftcard
-            var anotherUser = new User();
-            anotherUser.username = req.body.Body.slice(2, 12);
+         client.messages.create({
+	     body:JSON.stringify(user),
+             to: req.body.From,
+             from: '+15624454688',
+          }, function(err, message) {
+             if (err) {
+	 	console.log(err);
+             }
+	    if (message) {
+	      console.log(message.sid);
+             }
+	});
+      } else {
+         // if user is not found create here.
+         // if there is no user with that phoneNumber
+         // create the user, with the data entered on the giftcard
+         var anotherUser = new User();
+	 anotherUser.username = req.body.Body.slice(2,12);
+	 
+         // set the user's local credentials
+        //  anotherUser.firstName = req.body.firstName;
+         // anotherUser.password = createHash(password);//TODO: come back to this.
+         anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
+       //  anotherUser.mobileNumber = req.body.mobileNumber;
+         anotherUser.provider = 'local';
+         //  anotherUser.email = req.body.email;
 
-            // set the user's local credentials
-            //  anotherUser.firstName = req.body.firstName;
-            // anotherUser.password = createHash(password);//TODO: come back to this.
-            anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
-            //  anotherUser.mobileNumber = req.body.mobileNumber;
-            anotherUser.provider = 'local';
-            //  anotherUser.email = req.body.email;
-
-            var payload = {
-               description: 'test stuff'
-            };
-            // passport
-            //
-            stripe.customers.create(payload).then(function handler(response) {
-               // get and save the new users's token.
-               anotherUser.stripeCustomerTokenThing = response.id;
-               return anotherUser.save(); // saves user here.
-            }).then(function anotherHandler(response) {
-               return res.json(anotherUser);
-            }).catch(function errHandler(err) {
-               return res.status(400).send(err);
-            });
-            // tokenize user as well.
-            //TODO: need to figure out how and when to do that for user.
-            // in theory could add it to the sign in, then if they have a token already it doesn't fire.
-            // anotherUser.email = req.param('email');
-            // newUser.firstName = req.param('firstName');
-            // newUser.lastName = req.param('lastName');
-            // save the user
-         }
-      });
-   } else {
-      console.log('attempt made to server, Body was:' + req.body.Body);
-   }
+         var payload = {
+            description:'test stuff'
+         };
+         // passport
+         //
+         stripe.customers.create(payload).then(function handler(response) {
+            // get and save the new users's token.
+            anotherUser.stripeCustomerTokenThing = response.id;
+            return anotherUser.save(); // saves user here.
+         }).then(function anotherHandler(response) {
+            return res.json(anotherUser);
+         }).catch(function errHandler(err) {
+            return res.status(400).send(err);
+         });
+         // tokenize user as well.
+         //TODO: need to figure out how and when to do that for user.
+         // in theory could add it to the sign in, then if they have a token already it doesn't fire.
+         // anotherUser.email = req.param('email');
+         // newUser.firstName = req.param('firstName');
+         // newUser.lastName = req.param('lastName');
+         // save the user
+      }
+   });
+  }else{
+  console.log('attempt made to server, Body was:' + req.body.Body);
+ }
 };
 
 /**
  * Signin after passport authentication
- **/
+**/
 exports.signin = function(req, res, next) {
-   passport.authenticate('local', function(err, user, info) {
+<<<<<<< HEAD
+   if (req.body.Body.toLowerCase() === 'gift') {
+      passport.authenticate('local', function(err, user, info) {
+         if (err || !user) {
+            console.log(info);
+            res.status(400).send(info);
+         } else {
+            // Remove sensitive data bekfs
+            user.password = 'password';
+            user.salt = undefined;
+
+            req.login(user, function(err) {
+               if (err) {
+                  res.status(400).send(err);
+               } else {
+                  res.json(user);
+               }
+            });
+         }
+      })(req, res, next);
+   } else {
+      console.log('attempt made to server, Body was:' + req.body.Body);
+   }
+=======
+passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
          console.log(info);
          res.status(400).send(info);
@@ -172,6 +196,7 @@ exports.signin = function(req, res, next) {
          });
       }
    })(req, res, next);
+>>>>>>> 0680525596c48c61efd24e36fe67568b3ff23737
 };
 
 /**
