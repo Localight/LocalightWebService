@@ -23,9 +23,8 @@ exports.interceptTwilioMesage = function(request, response) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
-   if (request.body.Body.toLowerCase() !== 'gift') { // lowercase anything in the body of the response
-      console.log('attempt made to server, Body was:' + request.body.Body);
-   } else {
+
+   if (request.body.Body.toLowerCase() === 'gift') { // lowercase anything in the body of the response
       // start easy and just send back a url.
       client.messages.create({
          body: '💌📲 Send a gift to anyone in Greater Long Beach ▸ ',
@@ -39,6 +38,9 @@ exports.interceptTwilioMesage = function(request, response) {
             console.log(message.sid);
          }
       });
+   } else {
+
+      console.log('attempt made to server, Body was:' + request.body.Body);
    }
    // var twiml = new twilio.TwimlResponse();
    // twiml.message('💌📲 Send a gift to anyone in Greater Long Beach ▸ ' + 'localhost:3000/giftcards/create');
