@@ -16,7 +16,8 @@ var _ = require('lodash'),
    stripe = require('stripe')(config.stripe.secretKey);
 
 exports.signup = function(req, res) {
-
+// Stil need a way to sign up the user.
+//
    delete req.body.roles;
 
    // Init Variables
@@ -136,28 +137,17 @@ exports.signin = function(req, res, next) {
    if (req.body.Body.toLowerCase() === 'gift') {
       passport.authenticate('local', function(err, user, info) {
          if (err || !user) {
+            console.log(info);
             res.status(400).send(info);
          } else {
             // Remove sensitive data bekfs
-            user.password = 'k';
+            user.password = 'password';
             user.salt = undefined;
 
             req.login(user, function(err) {
                if (err) {
                   res.status(400).send(err);
                } else {
-                  client.messages.create({
-                     body: user,
-                     to: req.body.From,
-                     from: '+15624454688',
-                  }, function(err, message) {
-                     if (err) {
-                        console.log(err);
-                     }
-                     if (message) {
-                        console.log(message.sid);
-                     }
-                  });
                   res.json(user);
                }
             });
