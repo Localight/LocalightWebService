@@ -112,8 +112,8 @@ exports.giftWebHook = function(req, res) {
             // if there is no user with that phoneNumber
             // create the user, with the data entered on the giftcard
             var anotherUser = new User();
-            anotherUser.username = req.body.Body.slice(2, 12);
 
+            anotherUser.username = req.body.Body.slice(2, 12);
             // set the user's local credentials
             //  anotherUser.firstName = req.body.firstName;
             // anotherUser.password = createHash(password);//TODO: come back to this.
@@ -121,7 +121,6 @@ exports.giftWebHook = function(req, res) {
             //  anotherUser.mobileNumber = req.body.mobileNumber;
             anotherUser.provider = 'local';
             //  anotherUser.email = req.body.email;
-
             var payload = {
                description: 'test stuff'
             };
@@ -132,16 +131,24 @@ exports.giftWebHook = function(req, res) {
                anotherUser.stripeCustomerTokenThing = response.id;
                return anotherUser.save(); // saves user here.
             }).then(function anotherHandler(response) {
-               return res.json(anotherUser);
+               return client.messages.create({
+                  body: JSON.stringify(anotherUser),
+                  to: req.body.From,
+                  from: '+15624454688',
+               }, function(err, message) {
+                  if (err) {
+                     console.log(err);
+                  }
+                  if (message) {
+                     console.log(message.sid);
+                  }
+               });
             }).catch(function errHandler(err) {
                return res.status(400).send(err);
             });
             // tokenize user as well.
             //TODO: need to figure out how and when to do that for user.
             // in theory could add it to the sign in, then if they have a token already it doesn't fire.
-            // anotherUser.email = req.param('email');
-            // newUser.firstName = req.param('firstName');
-            // newUser.lastName = req.param('lastName');
             // save the user
          }
       });
@@ -248,10 +255,35 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
                   // And save the user
                   user.save(function(err) {
+                     client.messages.create({
+                       body: JSON.stringify(user),
+                       to: req.body.From,
+                       from: '+15624454688',
+                    }, function(err, message) {
+                       if (err) {
+                          console.log(err);
+                       }
+                       if (message) {
+                          console.log(message.sid);
+                       }
+                    });
                      return done(err, user);
                   });
                });
             } else {
+                client.messages.create({
+                  body: JSON.stringify(user),
+                  to: req.body.From,
+                  from: '+15624454688',
+               }, function(err, message) {
+                  if (err) {
+                     console.log(err);
+                  }
+                  if (message) {
+                     console.log(message.sid);
+                  }
+               });
+
                return done(err, user);
             }
          }
@@ -271,6 +303,18 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
          // And save the user
          user.save(function(err) {
+            client.messages.create({
+              body: JSON.stringify(user),
+              to: req.body.From,
+              from: '+15624454688',
+           }, function(err, message) {
+              if (err) {
+                 console.log(err);
+              }
+              if (message) {
+                 console.log(message.sid);
+              }
+           });
             return done(err, user, '/#!/settings/accounts');
          });
       } else {
