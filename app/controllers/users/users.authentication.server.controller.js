@@ -83,7 +83,7 @@ exports.giftWebHook = function(req, res) {
    // user.service, pass in phone number. return the object as promise or callback.
    if (req.body.Body.toLowerCase() === 'gift') {
       console.log(req.body);
-      User.findOne({
+         User.findOne({
          'username': req.body.Body.slice(2, 12)
       }, function(err, user) {
          // In case of any error return
@@ -92,7 +92,7 @@ exports.giftWebHook = function(req, res) {
             return (err);
          }
          // already exists
-         if (user) {
+      if (user) {
             console.log('the user ' + user);
 
             client.messages.create({
@@ -112,7 +112,6 @@ exports.giftWebHook = function(req, res) {
             // if there is no user with that phoneNumber
             // create the user, with the data entered on the giftcard
             var anotherUser = new User();
-
             anotherUser.username = req.body.Body.slice(2, 12);
             // set the user's local credentials
             //  anotherUser.firstName = req.body.firstName;
@@ -153,6 +152,7 @@ exports.giftWebHook = function(req, res) {
          }
       });
    } else {
+      // need to make sure I handle the errors so that the server doesn't crash
       console.log('attempt made to server, Body was:' + req.body.Body);
    }
 };
@@ -161,6 +161,7 @@ exports.giftWebHook = function(req, res) {
  * Signin after passport authentication
  **/
 exports.signin = function(req, res, next) {
+
    passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
          console.log(info);
@@ -255,18 +256,18 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
                   // And save the user
                   user.save(function(err) {
-                     client.messages.create({
-                       body: JSON.stringify(user),
-                       to: req.body.From,
-                       from: '+15624454688',
-                    }, function(err, message) {
-                       if (err) {
-                          console.log(err);
-                       }
-                       if (message) {
-                          console.log(message.sid);
-                       }
-                    });
+                  //    client.messages.create({
+                  //      body: JSON.stringify(user),
+                  //      to: req.body.From,
+                  //      from: '+15624454688',
+                  //   }, function(err, message) {
+                  //      if (err) {
+                  //         console.log(err);
+                  //      }
+                  //      if (message) {
+                  //         console.log(message.sid);
+                  //      }
+                  //   });
                      return done(err, user);
                   });
                });
@@ -303,18 +304,18 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
          // And save the user
          user.save(function(err) {
-            client.messages.create({
-              body: JSON.stringify(user),
-              to: req.body.From,
-              from: '+15624454688',
-           }, function(err, message) {
-              if (err) {
-                 console.log(err);
-              }
-              if (message) {
-                 console.log(message.sid);
-              }
-           });
+         //    client.messages.create({
+         //      body: JSON.stringify(user),
+         //      to: req.body.From,
+         //      from: '+15624454688',
+         //   }, function(err, message) {
+         //      if (err) {
+         //         console.log(err);
+         //      }
+         //      if (message) {
+         //         console.log(message.sid);
+         //      }
+         //   });
             return done(err, user, '/#!/settings/accounts');
          });
       } else {
