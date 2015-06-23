@@ -2,6 +2,7 @@
   <section ng-show="showPageFlag" data-ng-submit="setShowPage()">
     <!-- call whatever method you want on submit -->
     <div class="wrapper">
+        <form name="giftcardForm"class="form-horizontal" data-ng-submit="create()" novalidate>
 
       <!-- logo -->
       <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
@@ -9,7 +10,7 @@
       <!-- To -->
       <div id="clique_to" ng-class="{currentInput : showBackgroundFlag}">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" id="clique_input_to" ng-click="setBorderFlagOne()" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" autofocus required>
+        <input type="text" id="clique_input_to" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" autofocus required>
       </div>
 
       <!--Amount-->
@@ -30,7 +31,7 @@
     <!--From-->
     <div id="clique_from" ng-class="{currentInput : showBackgroundFlagTwo}">
       <label for="From" class="inputlabel">From </label>
-      <input type="text" data-ng-model="gc.giftSenderFirstName" class="heart rightColumn" placeholder="Your Name" ng-click="setBorderFlagTwo()" maxlength="16" autofocus required>
+      <input type="text" data-ng-model="gc.giftSenderFirstName" class="heart rightColumn" placeholder="Your Name" maxlength="16" autofocus required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
     <br>
@@ -46,9 +47,9 @@
         </div>
       </div>
 
-      <div id="clique_code" class="marginBottom" ng-class="{currentInput: showBackgroundFlagThree}" ng-click="flipCard()">
+      <div id="clique_code" class="marginBottom" ng-class="{currentInput: showBackgroundFlagThree}">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="text" ng-click="setBorderFlagThree(); flipCard()" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()" autofocus
+        <input type="text" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()" autofocus
         required>
       </div>
 
@@ -90,7 +91,7 @@
 
     <!--Date picker -->
     <input type="date" id="clique_date_selection" ng-model="dt" min-date="minDate" show-weeks="true" class="well well-lg" custom-class="getDayClass(date, mode)"></input>
-    
+
     <!-- Date
     <div id="clique_date_wrapper">
       <div id="clique_date_selection" ng-show="sendSelectionFlag" class="roundWhiteBorder">
@@ -113,6 +114,7 @@
         <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
       </div>
     </div> -->
+
 
     <!--Pay by card-->
     <div id="clique_payment_card" class="roundWhiteBorder">
@@ -203,6 +205,7 @@
       <a ng-href="/#!/sent">
         <button class="proceed_button">Submit</button>
       </a>
+  </form>
     </div>
   </section>
 </section>
