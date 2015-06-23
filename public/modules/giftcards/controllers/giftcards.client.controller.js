@@ -100,7 +100,7 @@ angular.module('giftcards')
           $scope.gc.Icon = occasion.name;
           $scope.occasions.selectedIcon = occasion.images.selected;
         }
-        $scope.limitOccText(); // limit occasion text to 100 characters
+        //$scope.limitOccText(); // limit occasion text to 100 characters
       };
       /**********
        * Date
