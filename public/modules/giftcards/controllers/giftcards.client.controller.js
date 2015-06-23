@@ -37,16 +37,16 @@ angular.module('giftcards')
       };
 
       $scope.setBorderFlagTwo = function() {
-        $scope.showBackgroundFlagTwo = true;
         $scope.showBackgroundFlag = false;
+        $scope.showBackgroundFlagTwo = true;
         $scope.showBackgroundFlagThree = false;
         $scope.showBackgroundFlagFour = false;
       };
       $scope.setBorderFlagThree = function() {
-        $scope.showBackgroundFlagTwo = false;
         $scope.showBackgroundFlag = false;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = true;
+        $scope.showBackgroundFlagTwo = false;
+        $scope.showBackgroundFlagThree = true;
+        $scope.showBackgroundFlagFour = false;
       };
       $scope.setBorderFlagFour = function() {
         $scope.showBackgroundFlagTwo = false;
