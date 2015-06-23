@@ -70,7 +70,6 @@ var GiftcardSchema = new Schema({
       ref: 'User',
       required: 'Please, enter the user id to send this giftcard too.'
    }
-
 });
 /**
  * Hook a pre save method to verify that the spenderofgiftcard and purchaserofgiftcard are not the
