@@ -13,7 +13,7 @@ var _ = require('lodash'),
    config = require('../../../config/config'),
    message = null,
    client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
-   stripe = require('stripe')(config.stripe.clientID);
+   stripe = require('stripe')(config.stripe.clientSecret);
 
 exports.signup = function(req, res) {
    // Stil need a way to sign up the user.
