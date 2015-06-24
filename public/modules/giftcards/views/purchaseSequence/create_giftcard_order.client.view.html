@@ -123,7 +123,10 @@
         <!-- Credit Card Logo Img -->
         <img id="creditcardimg" ng-src="{{cardTypeImg}}">
         <!-- Credit Card Number Input -->
-        <input type="text" id="clique_input_creditcardnumber" class="profont checkinput credit_card_number" placeholder="XXXX XXXX XXXX XXXX" size="19" pattern="\d*" ng-model="cc.number" >
+        <input type="text" id="clique_input_creditcardnumber1" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number1" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}" >
+        <input type="text" id="clique_input_creditcardnumber2" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number2" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}" >
+        <input type="text" id="clique_input_creditcardnumber3" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number3" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}" >
+        <input type="text" id="clique_input_creditcardnumber4" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number4" >
         <!-- Checkmark box to the left -->
         <div class="checkmark"></div>
       </div>
