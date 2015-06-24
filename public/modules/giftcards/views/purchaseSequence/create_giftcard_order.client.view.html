@@ -10,7 +10,7 @@
       <!-- To -->
       <div id="clique_to" ng-class="{currentInput : showBackgroundFlag}">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" id="clique_input_to" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name">
+        <input type="text" id="clique_input_to" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
       </div>
 
       <!--Amount-->
@@ -49,7 +49,7 @@
 
       <div id="clique_code" class="marginBottom" ng-class="{currentInput: showBackgroundFlagThree}">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="text" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()">
+        <input type="text" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()" required>
       </div>
 
       <div id="clique_code_message" class="hide">
@@ -90,7 +90,7 @@
     <br>
 
     <!--Date picker -->
-    <input type="date" id="clique_date_selection" ng-model="dt" min-date="minDate" show-weeks="true" class="well well-lg" custom-class="getDayClass(date, mode)"></input>
+    <input type="date" id="clique_date_selection" ng-model="dt" min-date="minDate" show-weeks="true" class="well well-lg" custom-class="getDayClass(date, mode)" required></input>
 
     <!-- Date
     <div id="clique_date_wrapper">
@@ -123,30 +123,33 @@
         <!-- Credit Card Logo Img -->
         <img id="creditcardimg" ng-src="{{cardTypeImg}}">
         <!-- Credit Card Number Input -->
-        <input type="text" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number1" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}" >
-        <input type="text" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number2" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}" >
-        <input type="text" id="clique_input_creditcardnumber3" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number3" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}" >
-        <input type="text" id="clique_input_creditcardnumber4" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number4" >
+        <input type="text" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number1" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}" required>
+        <input type="text" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number2" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}" required>
+        <input type="text" id="clique_input_creditcardnumber3" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number3" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}" required>
+        <input type="text" id="clique_input_creditcardnumber4" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number4" required>
         <!-- Checkmark box to the left -->
         <div class="checkmark"></div>
       </div>
       <!-- lower box that within same box but differnet background -->
       <div id="creditcardinfo" class="paymentcontainer filledIn">
         <!-- Date input for credit card -->
-        <input type="text" id="clique_input_expiry_m" class="profont expiry credit_card_expiry" placeholder="MM" maxlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()" >
-        <input type="text" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" placeholder="YYYY" maxlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()" >
+        <input type="text" id="clique_input_expiry_m" class="profont expiry credit_card_expiry" placeholder="MM" maxlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()" required>
+        <input type="text" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" placeholder="YYYY" maxlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()" required>
         <!-- CVV for Credit Card -->
         <!-- TODO: Come back and split up the month and year -->
-        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()" >
+        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()" required>
         <!-- Zip for credit card -->
-        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" ng-model="formData.ZIPcode" ng-focus="expiryFocus()" autofocs>
+        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" ng-model="formData.ZIPcode" ng-focus="expiryFocus()" required>
         <!-- Second checkbox -->
         <div class="checkmark"></div>
       </div>
     </div>
 
+    <div data-ng-show="!giftcardForm.$valid" class="text-danger form-incomplete">
+      <strong>Please complete all information</strong>
+    </div>
     <div class="form-group">
-      <button class="proceed_button" ng-click="setShowPage()">Continue</button>
+      <button class="proceed_button" ng-disabled="!giftcardForm.$valid" ng-click="setShowPage()">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
