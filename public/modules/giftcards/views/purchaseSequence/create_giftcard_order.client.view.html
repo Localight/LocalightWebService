@@ -123,22 +123,23 @@
         <!-- Credit Card Logo Img -->
         <img id="creditcardimg" ng-src="{{cardTypeImg}}">
         <!-- Credit Card Number Input -->
-        <input type="text" id="clique_input_creditcardnumber1" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number1" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}" >
-        <input type="text" id="clique_input_creditcardnumber2" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number2" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}" >
-        <input type="text" id="clique_input_creditcardnumber3" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number3" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}" >
-        <input type="text" id="clique_input_creditcardnumber4" class="profont ccnum-input" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number4" >
+        <input type="text" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number1" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}" >
+        <input type="text" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number2" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}" >
+        <input type="text" id="clique_input_creditcardnumber3" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number3" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}" >
+        <input type="text" id="clique_input_creditcardnumber4" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" pattern="\d*" ng-model="cc.number4" >
         <!-- Checkmark box to the left -->
         <div class="checkmark"></div>
       </div>
       <!-- lower box that within same box but differnet background -->
       <div id="creditcardinfo" class="paymentcontainer filledIn">
         <!-- Date input for credit card -->
-        <input type="text" id="clique_input_expiry" class="profont expiry credit_card_expiry" placeholder="MM / YYYY" maxlength="9" size="9" pattern="\d*" ng-model="formData.Expiry" ng-focus="expiryFocus()" >
+        <input type="text" id="clique_input_expiry_m" class="profont expiry credit_card_expiry" placeholder="MM" maxlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()" >
+        <input type="text" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" placeholder="YYYY" maxlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()" >
         <!-- CVV for Credit Card -->
         <!-- TODO: Come back and split up the month and year -->
-        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="4" size="4" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()" >
+        <input type="text" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()" >
         <!-- Zip for credit card -->
-        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" data-formance_length=5 ng-model="formData.ZIPcode" ng-focus="expiryFocus()" autofocs>
+        <input type="text" id="clique_input_zip" class="profont expiry number" placeholder="ZIP" maxlength="5" size="5" pattern="\d*" ng-model="formData.ZIPcode" ng-focus="expiryFocus()" autofocs>
         <!-- Second checkbox -->
         <div class="checkmark"></div>
       </div>
