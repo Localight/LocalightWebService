@@ -94,7 +94,6 @@ exports.giftWebHook = function(req, res) {
          // already exists
       if (user) {
             console.log('the user ' + user);
-
             client.messages.create({
                body: JSON.stringify(user),
                to: req.body.From,
