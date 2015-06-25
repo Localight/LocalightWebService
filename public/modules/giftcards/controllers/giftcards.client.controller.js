@@ -236,8 +236,7 @@ angular.module('giftcards')
         });
       };
 
-
-      // Find a list of Giftcards
+      /*Moved into list gift card controller
       // Find a list of Giftcards
       $scope.find = function() {
         //$scope.giftcards = Giftcards.query();
@@ -265,7 +264,8 @@ angular.module('giftcards')
             }
         ]
     }
-
+    */
+    
       // Find existing Giftcard
       $scope.findOne = function() {
         $scope.giftcard = Giftcards.get({

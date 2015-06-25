@@ -125,6 +125,13 @@ input, textarea {
     font-size: 4em;
 }
 
+.inline{
+    display: inline;
+}
+
+.rightAlign{
+}
+
 /* End Aaron's Styles */
 
 /* Background Image */

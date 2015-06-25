@@ -6,6 +6,7 @@ angular.module('giftcards').config(['$stateProvider',
 		// Giftcards state routing
 		$stateProvider.
 		state('listGiftcards', {
+			controller: 'ListGiftCardsController',
 			url: '/giftcards',
 			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
 		}).
