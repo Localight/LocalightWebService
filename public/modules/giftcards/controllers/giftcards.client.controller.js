@@ -28,11 +28,6 @@ angular.module('giftcards')
       };
 
       //Flags for various things.
-      // Border Flags
-      $scope.showBackgroundFlag = false;
-      $scope.showBackgroundFlagTwo = false;
-      $scope.showBackgroundFlagThree = false;
-      $scope.showBackgroundFlagFour = false;
 
       $scope.priceSelectionFlag = true;
       $scope.showPageFlag = true;
@@ -41,31 +36,6 @@ angular.module('giftcards')
 
       $scope.flipCard = function() {
         $scope.flipCardFlag = false;
-      };
-      $scope.setBorderFlagOne = function() {
-        $scope.showBackgroundFlag = true;
-        $scope.showBackgroundFlagTwo = false;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = false;
-      };
-
-      $scope.setBorderFlagTwo = function() {
-        $scope.showBackgroundFlag = false;
-        $scope.showBackgroundFlagTwo = true;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = false;
-      };
-      $scope.setBorderFlagThree = function() {
-        $scope.showBackgroundFlag = false;
-        $scope.showBackgroundFlagTwo = false;
-        $scope.showBackgroundFlagThree = true;
-        $scope.showBackgroundFlagFour = false;
-      };
-      $scope.setBorderFlagFour = function() {
-        $scope.showBackgroundFlagTwo = false;
-        $scope.showBackgroundFlag = false;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = true;
       };
 
       $scope.setAmount = function(anAmount) {
