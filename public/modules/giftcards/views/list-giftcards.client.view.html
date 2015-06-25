@@ -1,10 +1,15 @@
 <section data-ng-controller="GiftcardsController" data-ng-init="find()">
     <div class="page-header">
-        <h1>Giftcards</h1>
+        <div class = "sub-header">
+            <a href="/#!/giftcards/create"><h4>Give</h4></a>
+        </div>
+        <h1 class = "listNameHeader heart">{{giftcards[0].to}}</h1>
+        <h1>Gifts received</h1>
     </div>
+    <h4 ng-hide="giftcards.length < 1">Unused</h4>
     <div class="list-group">
         <a data-ng-repeat="giftcard in giftcards" data-ng-href="#!/giftcards/{{giftcard._id}}" class="list-group-item">
-          <h3>aName</h3><h3>{{giftcard.amount}}</h3>
+          <h3>{{giftcard.from}}</h3><h3>{{giftcard.amt}}</h3>
 
           <small class="list-group-item-text">
 

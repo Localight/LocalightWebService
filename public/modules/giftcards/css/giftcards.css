@@ -117,6 +117,16 @@ input, textarea {
 }
 /* End Font Styles */
 
+/* Aaron's Styles */
+
+.listNameHeader {
+    color: #df5241;
+    padding-left: 60%;
+    font-size: 4em;
+}
+
+/* End Aaron's Styles */
+
 /* Background Image */
 .localStreet {
   position: fixed;
