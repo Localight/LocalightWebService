@@ -156,8 +156,10 @@
       <strong data-ng-bind="error"></strong>
     </div>
     </div>
+   </form>
   </section>
   <section ng-hide="showPageFlag">
+   <form name="giftcardForm2" id="giftcardForm2" class="form-horizontal" novalidate>
     <div id="clique_ordersummary" class="wrapper">
       <!--Back-->
       <!-- <a ui-sref="main">Back</a> -->
@@ -181,7 +183,7 @@
         <label class="inputlabel" for="clique_input_phonenumber">
           <img alt="Enter Phone Number" src="../modules/giftcards/img/phone.png" />
         </label>
-        <input type="text" ng-keyup="mask('clique_input_phonenumber')" name="clique_input_phonenumber" id="clique_input_phonenumber" form="giftcardForm" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" pattern="\d*" data-ng-model="gc.mobileNumberOfRecipient" >
+        <input type="text" ng-keyup="mask('clique_input_phonenumber')" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" pattern="\d*" data-ng-model="gc.mobileNumberOfRecipient" required>
       </div>
       <!--From-->
       <div>
@@ -194,30 +196,24 @@
       <div>
         <label class="inputlabel">&nbsp;</label>
         <div class="rightColumn helveticaText">Send receipt to</div>
-      </div>
+    </div>
 
       <!--Email-->
       <div id="clique_email" ng-class="{nextInput: !dirty.Email}">
         <label class="inputlabel">
           <img alt="Enter Email Address" src="../modules/giftcards/img/emailsign_blk.png" />
         </label>
-        <input type="email" name="clique_input_email" id="clique_input_email" ng-form="giftcardForm" class="rightColumn helveticaInput email" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.emailForReceipt">
+        <input type="text" name="clique_input_email" id="clique_input_email" class="rightColumn helveticaInput email" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.emailForReceipt" required>
       </div>
-      f{{gitftcardForm.clique_input_email.$valid}}f
 
       <!--Schedule Gift-->
-      <div data-ng-hide="(giftcardForm.$valid)" class="text-danger form-incomplete">
+      <div data-ng-hide="(giftcardForm2.$valid)" class="text-danger form-incomplete">
         <strong>Please complete all information</strong>
       </div>
-      <div>
-        <a ui-sref="final" ng-show="dirty.Email">
-            <button class="proceed_button" ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage()">Submit</button>
-        </a>
-      </div>
       <a ng-href="/#!/sent">
-        <button class="proceed_button" ng-disabled="!(giftcardForm.clique_input_email.$valid && giftcardForm.clique_input_phonenumber.$valid)">Submit</button>
+        <button class="proceed_button" ng-disabled="!giftcardForm2.$valid">Submit</button>
       </a>
-  </form>
     </div>
+   </form>
   </section>
 </section>
