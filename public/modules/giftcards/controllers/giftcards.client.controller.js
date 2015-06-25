@@ -238,9 +238,33 @@ angular.module('giftcards')
 
 
       // Find a list of Giftcards
+      // Find a list of Giftcards
       $scope.find = function() {
-        $scope.giftcards = Giftcards.query();
-      };
+        //$scope.giftcards = Giftcards.query();
+
+        //FOr testing, hardcoding scope giftcards
+        $scope.giftcards =
+        [
+            {
+              to: "john",
+              amt: "100000000000",
+              mobileNumberOfRecipient: "5625555555",
+              merchant: "xxxxx",
+              from: 'username',
+              message: "hi",
+              districtNumber: 'number'
+            },
+            {
+                to: "john",
+                amt: "100000000000",
+                mobileNumberOfRecipient: "5625555555",
+                merchant: "xxxxx",
+                from: 'username',
+                message: "hi",
+                districtNumber: 'number'
+            }
+        ]
+    }
 
       // Find existing Giftcard
       $scope.findOne = function() {
