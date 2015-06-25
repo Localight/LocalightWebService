@@ -213,8 +213,8 @@ angular.module('giftcards')
           mobileNumberOfRecipient: $scope.gc.phoneNumber,
           merchant: $scope.gc.code,
           spenderofgiftcardUserName: 'username',
-          message: $scope.gc.occasion,
-          districtNumber: 'number',
+          message: $scope.gc.occasion
+          //districtNumber: 'number'
         });
 
         giftcard.$save(function() {
