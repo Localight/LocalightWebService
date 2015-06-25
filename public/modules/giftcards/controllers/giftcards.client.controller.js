@@ -273,6 +273,7 @@ angular.module('giftcards')
         });
       };
 
+      //Mask for translating and validating phone numbers
       $scope.mask = function(f){
           f = $window.document.getElementById(f);
           $scope.clique_input_phonenumber_validity = true;
