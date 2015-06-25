@@ -130,6 +130,10 @@ var UserSchema = new Schema({
       default: '',
       //	validate: [validateLocalStrategyPassword, 'Password should be longer']
    },
+   randomUrl:{
+      type:String,
+      default:null
+   },
    salt: {
       type: String
    },

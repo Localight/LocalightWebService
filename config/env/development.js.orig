@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+'use strict';
+=======
 'H@llF3rrrse strict';
+>>>>>>> feature/twilio
 // these are like global static variables, that you know won't change throught the program.
 module.exports = {
 	db: 'mongodb://localhost/clique-dev',
