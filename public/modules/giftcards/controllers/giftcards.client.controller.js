@@ -14,6 +14,10 @@ angular.module('giftcards')
         $scope.showPageFlag = false;
       };
 
+      $scope.logGC = function() {
+          console.log($scope.gc);
+      }
+
       //Flags for various things.
       // Border Flags
       $scope.showBackgroundFlag = false;
@@ -195,12 +199,12 @@ angular.module('giftcards')
         //1. before we can send the giftcard to the user we need the user's id.
         //2. save the giftcard to the that user's id.
         var giftcard = new Giftcards({
-          giftRecipientFirstName: 'my friends name',
-          amount: 1000,
-          mobileNumberOfRecipient: 1234567890,
-          merchant: 'aMerchantId here',
+          giftRecipientFirstName: $scope.gc.to,
+          amount: $scope.gc.amount,
+          mobileNumberOfRecipient: $scope.gc.phoneNumber,
+          merchant: $scope.gc.code,
           spenderofgiftcardUserName: 'username',
-          message: 'A gift for you!',
+          message: $scope.gc.occasion,
           districtNumber: 'number',
         });
 
