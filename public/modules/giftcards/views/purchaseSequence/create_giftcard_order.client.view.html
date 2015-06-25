@@ -10,7 +10,7 @@
       <!-- To -->
       <div id="clique_to" ng-class="{currentInput : showBackgroundFlag}">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.giftRecipientFirstName" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
+        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
       </div>
 
       <!--Amount-->
@@ -31,7 +31,7 @@
     <!--From-->
     <div id="clique_from" ng-class="{currentInput : showBackgroundFlagTwo}">
       <label for="From" class="inputlabel">From </label>
-      <input type="text" name="clique_input_from" id="clique_input_from" data-ng-model="gc.giftSenderFirstName" class="heart rightColumn" placeholder="Your Name" maxlength="16" required>
+      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
     <br>
@@ -49,7 +49,9 @@
 
       <div id="clique_code" class="marginBottom" ng-class="{currentInput: showBackgroundFlagThree}">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="text" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" placeholder="XXXXX" maxlength="5" ng-minlength="5" pattern="\d*" data-formance_length=5 ng-model="formData.Code" ng-change="getStoreName()" required>
+        <input type="text" name="clique_input_code" id="clique_input_code" class="profont rightColumn number"
+        placeholder="XXXXX" maxlength="5" ng-minlength="5" pattern="\d*" data-formance_length=5
+        ng-model="gc.code" ng-change="getStoreName()" required>
       </div>
 
       <div id="clique_code_message" class="hide">
@@ -90,31 +92,8 @@
     <br>
 
     <!--Date picker -->
-    <input type="date" name="clique_date_selection" id="clique_date_selection" ng-model="dt" min-date="minDate" show-weeks="true" class="well well-lg" custom-class="getDayClass(date, mode)" required></input>
-
-    <!-- Date
-    <div id="clique_date_wrapper">
-      <div id="clique_date_selection" ng-show="sendSelectionFlag" class="roundWhiteBorder">
-        <label class="inputlabel">Send</label>
-        <div id="dateImages" class="rightColumn">
-          <div id="sendToday" ng-click="setDateType('today')">
-            <img id="sendTodayImg" src="modules/giftcards/img/send-today-wht.png" alt="Send Today"> Today
-          </div>
-          <div id="sendOnDate" ng-click="setDateType('on-date')">
-            <img id="sendOnDateImg" src="modules/giftcards/img/send-on-date-wht.png" alt="Choose a Date"> On date
-          </div>
-        </div>
-      </div>
-      TODO: come back and add date picker. and transition back.
-
-      <div id="clique_date" ng-hide="sendSelectionFlag">
-        <label for="clique_input_date" class="inputlabel">
-          <img ng-src="{{dateTypeImg}}" alt="Chosen Date">
-        </label>
-        <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
-      </div>
-    </div> -->
-
+    <input type="date" name="clique_date_selection" id="clique_date_selection" ng-model="gc.date" min-date="minDate"
+    show-weeks="true" class="well well-lg" required></input>
 
     <!--Pay by card-->
     <div id="clique_payment_card" class="roundWhiteBorder">
@@ -150,7 +129,7 @@
     </div>
     <div class="form-group">
       <button class="proceed_button"
-      ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage()">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage(); logGC();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
@@ -158,6 +137,11 @@
     </div>
    </form>
   </section>
+
+
+  <!-- PAGE 2 BREAK -->
+
+
   <section ng-hide="showPageFlag">
    <form name="giftcardForm2" id="giftcardForm2" class="form-horizontal" novalidate>
     <div id="clique_ordersummary" class="wrapper">
@@ -170,26 +154,26 @@
         </label>
         <div class="rightColumn helveticaText">
           Send this gift of
-          <span class="bold">${{gc.amount}}</span>
+          <span class="bold">${{gc.amt}}</span>
         </div>
       </div>
       <!--To-->
       <label class="inputlabel">To</label>
       <div class="heart rightColumn">
-        {{gc.giftRecipientFirstName}}
+        {{gc.to}}
       </div>
       <!--Phone Number-->
       <div id="clique_phonenumber" ng-class="{nextInput: !dirty.PhoneNumber}">
         <label class="inputlabel" for="clique_input_phonenumber">
           <img alt="Enter Phone Number" src="../modules/giftcards/img/phone.png" />
         </label>
-        <input type="text" ng-keyup="mask('clique_input_phonenumber')" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" pattern="\d*" data-ng-model="gc.mobileNumberOfRecipient" required>
+        <input type="text" ng-keyup="mask('clique_input_phonenumber')" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" pattern="\d*" data-ng-model="gc.phoneNumber" required>
       </div>
       <!--From-->
       <div>
         <label class="inputlabel">From</label>
         <div class="heart rightColumn">
-          {{gc.giftSenderFirstName}}
+          {{gc.from}}
         </div>
       </div>
       <!--Send Receipt To-->
@@ -203,7 +187,7 @@
         <label class="inputlabel">
           <img alt="Enter Email Address" src="../modules/giftcards/img/emailsign_blk.png" />
         </label>
-        <input type="text" name="clique_input_email" id="clique_input_email" class="rightColumn helveticaInput email" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.emailForReceipt" required>
+        <input type="text" name="clique_input_email" id="clique_input_email" class="rightColumn helveticaInput email" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.email" required>
       </div>
 
       <!--Schedule Gift-->
