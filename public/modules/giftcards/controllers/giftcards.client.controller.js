@@ -1,9 +1,9 @@
 'use strict';
 // Giftcards controller
 angular.module('giftcards')
-  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
+  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
     'OccasionService',
-    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
+    function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
       $scope.authentication = Authentication;
 
       $scope.gc = new Giftcards();
@@ -235,5 +235,36 @@ angular.module('giftcards')
           giftcardId: $stateParams.giftcardId
         });
       };
+
+      $scope.mask = function(f){
+          f = $window.document.getElementById(f);
+          $scope.clique_input_phonenumber_validity = true;
+          var tel='(';
+          var val =f.value.split('');
+          for(var i=0; i<val.length; i++){
+              if( val[i]==='(' ){
+                  val[i]='';
+              }
+              if( val[i]===')' ){
+                  val[i]='';
+              }
+              if( val[i]==='-' ){
+                  val[i]='';
+              }
+              if( val[i]==='' ){
+                  val[i]='';
+              }
+              if(isNaN(val[i])){
+                  $scope.clique_input_phonenumber_validity = false;
+              }
+          }
+          //
+          for(i=0; i<val.length; i++){
+              if(i===3){ val[i]=val[i]+')'; }
+              if(i===7){ val[i]=val[i]+'-'; }
+              tel=tel+val[i];
+          }
+          f.value=tel;
+      }
     }
   ]);
