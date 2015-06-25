@@ -18,6 +18,15 @@ angular.module('giftcards')
           console.log($scope.gc);
       }
 
+      $scope.activeField = null;
+      $scope.setActiveField = function(fieldId) {
+        if($scope.activeField != null){
+            $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
+        }
+        $scope.activeField = fieldId;
+        $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
+      };
+
       //Flags for various things.
       // Border Flags
       $scope.showBackgroundFlag = false;

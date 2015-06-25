@@ -8,7 +8,7 @@
       <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
 
       <!-- To -->
-      <div id="clique_to" ng-class="{currentInput : showBackgroundFlag}">
+      <div id="clique_to" class = "currentInput" ng-class="{currentInput : showBackgroundFlag}" ng-click="setActiveField('clique_to');">
         <label class="inputlabel" for="giftRecipientName">To</label>
         <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
       </div>
@@ -29,12 +29,14 @@
     </div>
 
     <!--From-->
-    <div id="clique_from" ng-class="{currentInput : showBackgroundFlagTwo}">
+    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}" ng-click="setActiveField('clique_from');">
       <label for="From" class="inputlabel">From </label>
       <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
     <br>
+
+
     <!--Code-->
     <!-- little demo thing -->
     <div id="clique_code_wrapper">
@@ -47,7 +49,7 @@
         </div>
       </div>
 
-      <div id="clique_code" class="marginBottom" ng-class="{currentInput: showBackgroundFlagThree}">
+      <div id="clique_code" class="marginBottom currentInput" ng-click="setActiveField('clique_code');">
         <label for="Code" class="inputlabel">Code</label>
         <input type="text" name="clique_input_code" id="clique_input_code" class="profont rightColumn number"
         placeholder="XXXXX" maxlength="5" ng-minlength="5" pattern="\d*" data-formance_length=5

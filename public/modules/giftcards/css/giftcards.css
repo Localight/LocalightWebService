@@ -54,7 +54,8 @@ input, textarea {
 }
 
 .currentInput {
-  background-color: white !important;
+  -webkit-transition:all linear 0.25s;
+  transition:all linear 0.25s;
   border-radius: 7px !important;
   opacity: 1 !important;
 }
