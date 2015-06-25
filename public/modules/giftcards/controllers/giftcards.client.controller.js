@@ -11,7 +11,7 @@ angular.module('giftcards')
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
       // flag to show other section.
       $scope.setShowPage = function() {
-        $scope.showPageFlag = false;
+        $scope.showPageFlag = !$scope.showPageFlag;
       };
 
       $scope.logGC = function() {

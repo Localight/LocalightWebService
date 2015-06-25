@@ -1,5 +1,5 @@
 <section data-ng-controller="GiftcardsController">
-  <section ng-show="showPageFlag" data-ng-submit="setShowPage()">
+  <section ng-show="showPageFlag">
     <!-- call whatever method you want on submit -->
     <form name="giftcardForm" id="giftcardForm" class="form-horizontal" novalidate>
     <div class="wrapper">
@@ -131,7 +131,7 @@
     </div>
     <div class="form-group">
       <button class="proceed_button"
-          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage(); logGC();">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
