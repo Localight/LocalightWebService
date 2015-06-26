@@ -5,6 +5,10 @@ angular.module('giftcards').config(['$stateProvider',
 	function($stateProvider) {
 		// Giftcards state routing
 		$stateProvider.
+		state('select-merchant', {
+			url: '/merchants',
+			templateUrl: 'modules/giftcards/views/select-merchant.client.view.html'
+		}).
 		state('listGiftcards', {
 			url: '/giftcards',
 			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
