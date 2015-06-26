@@ -3,12 +3,13 @@
         <h1 class = "whiteHeader">Select Merchant</h1>
     </div>
     <div class="list-group flatRowList">
+        <h4>{{merchants[0].area}}</h4>
         <a class="list-group-item flatRowListItem" data-ng-repeat="merchant in merchants" data-ng-href="#!/merchants/{{giftcard._id}}">
-          <h3>{{merchant.name}}</h3>
+          <h3 class = "whiteHeader">{{merchant.name}}</h3>
 
-          <small class="list-group-item-text">
+          <h5 class="list-group-item-text">
 				<span data-ng-bind="merchant.address"></span>
-			</small>
+			</h5>
             <span class="glyphicon glyphicon glyphicon-menu-right" aria-hidden="true">
         </a>
     </div>

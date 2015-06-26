@@ -360,20 +360,8 @@ label.inputlabel {
     font-weight: 200;
 }
 
-.flatRowSection{
-
-}
-
 .whiteHeader{
     color: white;
-}
-
-.page-header{
-
-}
-
-.flatRowSection{
-
 }
 
 .flatRowListItem {
@@ -382,7 +370,6 @@ label.inputlabel {
     margin-bottom: 2px;
     padding: 5px;
     padding-left: 15px;
-    color: white !important;
     border-radius: 0px !important;
 }
 
@@ -392,7 +379,10 @@ label.inputlabel {
 }
 
 .flatRowListItem .glyphicon {
-    float: right;
+    position: absolute;
+    right: 0;
+    padding-top: 6%;
+    padding-right: 2%
 }
 /* End Clique Code Styles */
 
