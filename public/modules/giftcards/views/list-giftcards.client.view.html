@@ -2,8 +2,8 @@
     <div class="page-header">
         <table class = "sub-header">
             <tr>
-                <td><a href="/#!/giftcards/create">Give</a></td>
-                <td class = "textRightAlign">{{totalValue()}}</td>
+                <td class="tableCell"><a href="/#!/giftcards/create">Give</a></td>
+                <td class = "textRightAlign tableCell">{{totalValue()}}</td>
             <tr>
         </table>
         <h1 class = "listNameHeader heart">{{giftcards[0].to}}</h1>
@@ -11,13 +11,13 @@
         <h4 ng-hide="giftcards.length < 1">Unused</h4>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="giftcard in giftcards" data-ng-href="#!/giftcards/{{giftcard._id}}" class="list-group-item">
+        <a class="list-group-item semiTransparentBG" data-ng-repeat="giftcard in giftcards" data-ng-href="#!/giftcards/{{giftcard._id}}">
         <!-- Line breaks to space the list so it's easier to click -->
             <br>
             <table class = "list-item">
                 <tr>
-                    <td class = "heart">{{giftcard.from}}</td>
-                    <td class = "textRightAlign">${{giftcard.amt}}</td>
+                    <td class = "heart tableCell">{{giftcard.from}}</td>
+                    <td class = "textRightAlign tableCell">${{giftcard.amt}}</td>
                     <tr>
             </table>
 			<h4 class="list-group-item-heading" data-ng-bind="giftcard.name"></h4>

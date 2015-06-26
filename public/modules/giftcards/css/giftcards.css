@@ -121,34 +121,6 @@ input, textarea {
 }
 /* End Font Styles */
 
-/* Aaron's Styles */
-
-.listNameHeader {
-    color: #df5241;
-    padding-left: 70%;
-    font-size: 4em;
-}
-
-.inline{
-    display: inline;
-}
-
-.sub-header{
-    width: 100%;
-    font-size: 2em;
-}
-
-.list-item {
-    width: 100%;
-    font-size: 2em;
-}
-
-.textRightAlign{
-    text-align: right;
-}
-
-/* End Aaron's Styles */
-
 /* Background Image */
 .localStreet {
   position: fixed;
@@ -616,3 +588,39 @@ label.inputlabel {
   background-position: center;
 
 }
+
+/* Aaron's Styles */
+
+.listNameHeader {
+    color: #df5241;
+    font-size: 4em;
+    text-align: right;
+}
+
+.inline{
+    display: inline;
+}
+
+.sub-header{
+    width: 100%;
+    font-size: 2em;
+}
+
+.list-item {
+    width: 100%;
+    font-size: 2em;
+}
+
+.textRightAlign{
+    text-align: right;
+}
+
+.semiTransparentBG{
+    background-color:rgba(0, 0, 0, 0.15);
+}
+
+.list-group:hover{
+    background-color:rgba(0, 0, 0, 0.25);
+}
+
+/* End Aaron's Styles */
