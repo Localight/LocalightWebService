@@ -121,7 +121,7 @@ input, textarea {
 
 .listNameHeader {
     color: #df5241;
-    padding-left: 60%;
+    padding-left: 70%;
     font-size: 4em;
 }
 
@@ -129,7 +129,9 @@ input, textarea {
     display: inline;
 }
 
-.rightAlign{
+.sub-header{
+    width: 190%;
+    font-size: 2em;
 }
 
 /* End Aaron's Styles */

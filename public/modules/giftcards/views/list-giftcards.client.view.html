@@ -1,9 +1,11 @@
 <section data-ng-controller='ListGiftCardsController' data-ng-init="find()">
     <div class="page-header">
-        <div class = "sub-header">
-            <a href="/#!/giftcards/create"><h4 class = "inline">Give</h4></a>
-            <h4 class = "inline rightAlign">{{totalValue()}}</h4>
-        </div>
+        <table class = "sub-header">
+            <tr>
+                <a href="/#!/giftcards/create"><td>Give</td></a>
+                <td>{{totalValue()}}</td>
+            <tr>
+        </table>
         <h1 class = "listNameHeader heart">{{giftcards[0].to}}</h1>
         <h1>Gifts received</h1>
     </div>
