@@ -1,9 +1,9 @@
 <section class="flatRowSection" data-ng-controller="SelectMerchantController" data-ng-init="init()">
     <div class="page-header">
-        <h1>Select Merchant</h1>
+        <h1 class = "whiteHeader">Select Merchant</h1>
     </div>
     <div class="list-group flatRowList">
-        <a data-ng-repeat="merchant in merchants" data-ng-href="#!/merchants/{{giftcard._id}}" class="list-group-item flatRowListItem">
+        <a class="list-group-item flatRowListItem" data-ng-repeat="merchant in merchants" data-ng-href="#!/merchants/{{giftcard._id}}">
           <h3>{{merchant.name}}</h3>
 
           <small class="list-group-item-text">

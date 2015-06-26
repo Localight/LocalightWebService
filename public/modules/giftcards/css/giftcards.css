@@ -356,11 +356,24 @@ label.inputlabel {
   font-size: small;
 }
 
-.flatRowSection, .flatRowSection .page-header, .flatRowSection .page-header h1 {
-    padding: 0px !important;
-    border-bottom: none !important;
-    color: white !important;
+.flatRowSection{
     font-weight: 200;
+}
+
+.flatRowSection{
+
+}
+
+.whiteHeader{
+    color: white;
+}
+
+.page-header{
+
+}
+
+.flatRowSection{
+
 }
 
 .flatRowListItem {
