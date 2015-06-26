@@ -14,20 +14,20 @@ angular.module('giftcards').controller('ListGiftCardsController', ['$scope',
 			$scope.giftcards =
 			[
 				{
-					to: "john",
+					to: "John",
 					amt: "100",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
-					from: 'username',
+					from: 'Tony',
 					message: "hi",
 					districtNumber: 'number'
 				},
 				{
-					to: "john",
+					to: "John",
 					amt: "100",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
-					from: 'username',
+					from: 'Frank',
 					message: "hi",
 					districtNumber: 'number'
 				}

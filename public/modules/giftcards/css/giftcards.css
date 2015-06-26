@@ -115,6 +115,10 @@ input, textarea {
 .bold {
   font-weight: bold;
 }
+
+.whiteText{
+    color: #e8e9ea;
+}
 /* End Font Styles */
 
 /* Aaron's Styles */
@@ -130,8 +134,17 @@ input, textarea {
 }
 
 .sub-header{
-    width: 190%;
+    width: 100%;
     font-size: 2em;
+}
+
+.list-item {
+    width: 100%;
+    font-size: 2em;
+}
+
+.textRightAlign{
+    text-align: right;
 }
 
 /* End Aaron's Styles */
