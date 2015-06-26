@@ -1,4 +1,4 @@
-<!-- 'use strict';
+'use strict';
 
 var should = require('should'),
    request = require('supertest'),
@@ -220,7 +220,7 @@ describe('Giftcard CRUD tests', function() {
                giftcard: giftcard,
                valueToSpend: 500
             };
-            
+
             agent.put('/giftcards/' + giftcard.id)
                .send(payload)
                .expect(200)

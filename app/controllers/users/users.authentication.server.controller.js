@@ -65,6 +65,12 @@ exports.signup = function(req, res) {
       });
    });
 };
+exports.findOrCreateUser = function(req, res){
+   // the only thing I should be getting is a string, if you have given me anything other than a userName,
+   // your doing something wrong.
+   // lets check for that first.
+   
+};
 exports.giftWebHook = function(req, res) {
    // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
    // more than that we know the user wants to log into their account or want's access to there account.
