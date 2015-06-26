@@ -1,3 +1,14 @@
-<section data-ng-controller="SelectMerchantController">
-	This is the Select merchant view
+<section data-ng-controller="SelectMerchantController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Select Merchant</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="merchant in merchants" data-ng-href="#!/merchants/{{giftcard._id}}" class="list-group-item">
+          <h3>{{merchant.name}}</h3>
+
+          <small class="list-group-item-text">
+				<span data-ng-bind="merchant.address"></span>
+			</small>
+        </a>
+    </div>
 </section>
