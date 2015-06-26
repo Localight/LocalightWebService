@@ -1,7 +1,11 @@
 'use strict';
 
-angular.module('giftcards').controller('SelectMerchantController', ['$scope',
-	function($scope) {
+angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$window',
+	function($scope, $window) {
+
+		$scope.init = function(){
+			document.getElementsByClassName(".container").style.padding = "0px";
+		}
 		$scope.merchants = [{
 			name: "Goldies On 4th",
 			address: "2106 E 4th St, Long Beach, CA"
