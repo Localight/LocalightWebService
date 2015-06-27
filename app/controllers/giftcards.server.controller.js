@@ -14,9 +14,17 @@ var mongoose = require('mongoose'),
    Q = require('q');
 
 exports.create = function(req, res) {
-   // if a user isn't found create one, otherwise find the user and save the giftcard.
-   var giftcard = new Giftcard(req.body);
+   // I'm assuming that what I'm putting into the databse is giftcard,
+   // what if it's not?
 
+   // if a user isn't found create one, otherwise find the user and save the giftcard.
+   console.log('this is the value of request body, and the first thing the conroller sees:'+JSON.stringify(req.body));
+   // things that need to be in the body for the giftcard to be created.
+   // Amount: a Number Value.
+   // Occasion: that can be determined by the client.
+
+   var giftcard = new Giftcard(req.body);// at
+   console.log('this is the value of the body being translated to the giftcard'+giftcard);
    // by the time the giftcard reaches this point it
    // should have all the information it needs in the
    // the giftcard body.
