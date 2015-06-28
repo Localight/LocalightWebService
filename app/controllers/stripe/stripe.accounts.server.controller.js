@@ -9,7 +9,7 @@ message = null;
  * Create a Account
  */
 exports.createCustomerAccount = function(req, res){
-   // each stripe controller needs a
+   each rtripe controller needs a
    stripe.customers.create({
       email:req.user.email,
       metadata:{
@@ -17,7 +17,7 @@ exports.createCustomerAccount = function(req, res){
       },
       description:'this was created for the LocalightWebService',
    }).then(function handler(response){
-      return
+      return response.id;
    }).catch(function errorHandler(errResponse){
       console.log(errResponse);
       return res.status(400).send({
@@ -28,47 +28,47 @@ exports.createCustomerAccount = function(req, res){
 /**
  * Retrieve a Account details
  */
-exports.retrieveAccountDetails = function(req, res){
-   ({
-
-   }).then(function handler(resopnse){
-
-   }).catch(function errorHandler(errResponse){
-      console.log(errResponse);
-      return res.status(400).send({
-         message: errorHandler.getErrorMessage(errResponse)
-      });
-   });
-};
-/*
- *  Update an Account
- */
-
-exports.updateAccount = function(req, res){
-   ({
-
-   }).then(function handler(resopnse){
-
-   }).catch(function errorHandler(errResponse){
-      console.log(errResponse);
-      return res.status(400).send({
-         message: errorHandler.getErrorMessage(errResponse)
-      });
-   });
-};
-
-/*
- * List all connected Accounts
- */
-exports.listAllConnectedAccounts = function(req, res){
-   ({
-
-   }).then(function handler(resopnse){
-
-   }).catch(function errorHandler(errResponse){
-      console.log(errResponse);
-      return res.status(400).send({
-         message: errorHandler.getErrorMessage(errResponse)
-      });
-   });
-};
+// exports.retrieveAccountDetails = function(req, res){
+//    ({
+//
+//    }).then(function handler(resopnse){
+//
+//    }).catch(function errorHandler(errResponse){
+//       console.log(errResponse);
+//       return res.status(400).send({
+//          message: errorHandler.getErrorMessage(errResponse)
+//       });
+//    });
+// };
+// /*
+//  *  Update an Account
+//  */
+//
+// exports.updateAccount = function(req, res){
+//    ({
+//
+//    }).then(function handler(resopnse){
+//
+//    }).catch(function errorHandler(errResponse){
+//       console.log(errResponse);
+//       return res.status(400).send({
+//          message: errorHandler.getErrorMessage(errResponse)
+//       });
+//    });
+// };
+//
+// /*
+//  * List all connected Accounts
+//  */
+// exports.listAllConnectedAccounts = function(req, res){
+//    ({
+//
+//    }).then(function handler(resopnse){
+//
+//    }).catch(function errorHandler(errResponse){
+//       console.log(errResponse);
+//       return res.status(400).send({
+//          message: errorHandler.getErrorMessage(errResponse)
+//       });
+//    });
+// };

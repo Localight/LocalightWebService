@@ -11,7 +11,7 @@ message = null;
   * Create a Customer
   * Creates a new customer object.
   */
-  exports.createACustomerToken = function(req, res){
+  exports.createACustomerObject = function(req, res){
 
     stripe.customers.create({
       userId : req.user.id,
@@ -44,7 +44,7 @@ message = null;
       return response;
       }).catch(function errHandler(err){
         return res.send(500, err);
-    });
+ });
   };
  /*
   * Delete a Customer
