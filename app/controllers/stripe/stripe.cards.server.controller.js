@@ -10,7 +10,7 @@ var config = require('../../../config/config'),
  * Create a Card
  * Creates a new customer object.
  */
-exports.createACustomerToken = function(req, res) {
+exports.createACard = function(req, res) {
    stripe.customers.create().then(function(response) {
       return response.id;
    }).catch(function errHandler(err) {
@@ -22,9 +22,11 @@ exports.createACustomerToken = function(req, res) {
  * Retrieve a Card
  * Returns a customer object if a valid identifier was provided. When requesting the ID of a customer that has been deleted, a  * * subset of the customer's information will be returned, including a "deleted" property, which will be true.
  */
-exports.retreiveACustomerObject = function(req, res)
+exports.retreiveACard = function(req, res)
 {
-   stripe.customers.retrieve(req).then(function(response) {
+   //TODO: come back and make sure the cardtoken is the right
+   // name for the property in the user model.
+   stripe.customers.retrieveCard(req.user.customerToken, req.user.cardToken).then(function(response) {
       return response;
    }).catch(function errHandler(err) {
       return res.send(500, err);
@@ -33,7 +35,7 @@ exports.retreiveACustomerObject = function(req, res)
 /*
  * Update Card
  */
-exports.updateACustomerObject = function(req, res)
+exports.updateACard = function(req, res)
 {
    if (req.body.email !== ' ' || '' || null)
    {
@@ -60,9 +62,9 @@ exports.updateACustomerObject = function(req, res)
 /*
  * Delete a Card
  */
-exports.deleteACustomerObject = function(req, res)
+exports.deleteACard = function(req, res)
 {
-   stripe.customers.del(req).then(function(response) {
+   stripe.customers.deleteCard(req).then(function(response) {
       return response;
    }).catch(function errHandler(err) {
       return res.send(500, err);
@@ -72,7 +74,7 @@ exports.deleteACustomerObject = function(req, res)
 /*
  * List all Customers
  */
-exports.listCustomerObjects = function(req, res) {
+exports.listCardObjects = function(req, res) {
    stripe.customers.list(req.limit).then(function(response) {
       return response;
    }).catch(function errHandler(err) {

@@ -11,24 +11,30 @@ message = null;
   * Create a Customer
   * Creates a new customer object.
   */
-  exports.createACustomerObject = function(req, res){
+  exports.createACustomer = function(req, res){
 
-    stripe.customers.create({
-      userId : req.user.id,
-      mobileNumber : req.user.username,
-      email: req.user.email,
-      }).then(function(response){
-        return response.id;
-      }).catch(function errHandler(err){
-        return res.send(500, err);
+     stripe.customers.create({
+       email:req.user.email,
+       metadata:{
+          phoneNumber:req.user.username,
+       },
+       description:'this was created for the LocalightWebService',
+    }).then(function handler(response){
+       return response.id;
+    }).catch(function errorHandler(errResponse){
+       console.log(errResponse);
+       return res.status(400).send({
+          message: errorHandler.getErrorMessage(errResponse)
+       });
     });
+    
   };
 
  /**
   * Retrieve a Customer
   * Returns a customer object if a valid identifier was provided. When requesting the ID of a customer that has been deleted, a  * * subset of the customer's information will be returned, including a "deleted" property, which will be true.
   */
-  exports.retreiveACustomerObject = function(req, res){
+  exports.retreiveACustomer = function(req, res){
 
     stripe.customers.retrieve(req).then(function(response){
       return response;
@@ -39,7 +45,7 @@ message = null;
  /*
   * Update Customer
   */
-  exports.updateACustomerObject = function(req, res){
+  exports.updateACustomer = function(req, res){
     stripe.customers.update(req).then(function(response){
       return response;
       }).catch(function errHandler(err){
@@ -49,7 +55,7 @@ message = null;
  /*
   * Delete a Customer
   */
-  exports.deleteACustomerObject = function(req, res){
+  exports.deleteACustomer = function(req, res){
     stripe.customers.del(req).then(function(response){
       return response;
       }).catch(function errHandler(err){
@@ -60,7 +66,7 @@ message = null;
  /*
   * List all Customers
   */
-  exports.listCustomerObjects = function(req, res){
+  exports.listCustomers = function(req, res){
     stripe.customers.list(req.limit).then(function(response){
       return response;
       }).catch(function errHandler(err){

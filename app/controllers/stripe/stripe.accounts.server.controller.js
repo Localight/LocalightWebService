@@ -8,9 +8,11 @@ message = null;
 /**
  * Create a Account
  */
-exports.createCustomerAccount = function(req, res){
-   each rtripe controller needs a
-   stripe.customers.create({
+exports.createAStripeManagedAccount = function(req, res){
+   //each rtripe controller needs a
+   stripe.accounts.create({
+      managed:true,
+      country:'US',
       email:req.user.email,
       metadata:{
          phoneNumber:req.user.username,
@@ -38,7 +40,7 @@ exports.createCustomerAccount = function(req, res){
 //       return res.status(400).send({
 //          message: errorHandler.getErrorMessage(errResponse)
 //       });
-//    });
+//    });s
 // };
 // /*
 //  *  Update an Account
