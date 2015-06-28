@@ -11,7 +11,11 @@ var config = require('../../../config/config'),
  * Creates a new customer object.
  */
 exports.createACard = function(req, res) {
-   stripe.customers.create().then(function(response) {
+   stripe.customers.createSource(req.user.customerToken,
+      {
+         source:req.body.cardToken,
+      }
+   ).then(function(response) {
       return response.id;
    }).catch(function errHandler(err) {
       return res.send(500, err);
