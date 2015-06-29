@@ -65,11 +65,61 @@ exports.signup = function(req, res) {
       });
    });
 };
-exports.findOrCreateUser = function(req, res){
-   // the only thing I should be getting is a string, if you have given me anything other than a userName,
-   // your doing something wrong.
-   // lets check for that first.
-   
+// This method is for the server to find or create the user they are looking for.
+//
+exports.findOrCreateUser = function(req, res)
+{
+   // this is a controller, but you do everything in a controller.
+  // getting user from database.
+  // doing to much in controller.
+  // user.service, pass in phone number. return the object as promise or callback.
+  User.findOne({
+    'mobileNumber': req.body.username
+  }, function(err, user) {
+    // In case of any error return
+    if (err) {
+      console.log('Error in SignUp: ' + err);
+      return (err);
+    }
+    // already exists
+    if (user) {
+      console.log('here is the user as he already exists: ' + user);
+      return res.json(user);
+    } else {
+      // if user is not found create here.
+      console.log('contents of response' + JSON.stringify(req.body));
+      // if there is no user with that phoneNumber
+      // create the user, with the data entered on the giftcard
+      var anotherUser = new User(req.body);
+      console.log('contents of the otherUser as it is created: ' + anotherUser);
+      // set the user's local credentials
+      anotherUser.firstName = req.body.firstName;
+      // anotherUser.password = createHash(password);//TODO: come back to this.
+      anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
+      anotherUser.mobileNumber = req.body.mobileNumber;
+      anotherUser.provider = 'local';
+    //  anotherUser.email = req.body.email;
+      stripe.customers.create().then(function handler(response) {
+        // get and save the new users's token.
+        console.log('reponse from stripe' + JSON.stringify(response));
+        anotherUser.stripeCustomerTokenThing = response.id;
+        console.log('contents of anotherUser' + anotherUser);
+        return anotherUser.save(); // saves user here.
+      }).then(function anotherHandler(response){
+        return res.json(anotherUser);
+      }).catch(function errHandler(err) {
+        console.log('this is the error from signing up at the end ' + err);
+        return res.status(400).send(err);
+      });
+      // tokenize user as well.
+      //TODO: need to figure out how and when to do that for user.
+      // in theory could add it to the sign in, then if they have a token already it doesn't fire.
+      // anotherUser.email = req.param('email');
+      // newUser.firstName = req.param('firstName');
+      // newUser.lastName = req.param('lastName');
+      // save the user
+    }
+  });
 };
 exports.giftWebHook = function(req, res) {
    // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
