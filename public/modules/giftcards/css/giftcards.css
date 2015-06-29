@@ -367,7 +367,7 @@ label.inputlabel {
 }
 
 .flatRowListItem {
-    background-color: rgba(0,0,0,0.25) ;
+    background-color: rgba(0,0,0,0.15) ;
     border: none;
     margin-bottom: 2px;
     padding: 5px;
@@ -669,6 +669,10 @@ label.inputlabel {
 
 .paddingRight {
     padding-right: 10px;
+}
+
+.paddingLeft {
+    padding-left: 10px;
 }
 
 .occasionPadding{
