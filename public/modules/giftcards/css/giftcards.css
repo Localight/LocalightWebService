@@ -591,7 +591,7 @@ label.inputlabel {
 }
 
 .semiTransparentBGRounded{
-    background-color:rgba(0, 0, 0, 0.15);
+    background-color:rgba(37,81,79, 0.75);
     border-radius: 5px;
 }
 
@@ -602,7 +602,7 @@ label.inputlabel {
 }
 
 .list-group:hover{
-    background-color:rgba(0, 0, 0, 0.25);
+    background-color:rgba(37,81,79, 0.5);
 }
 
 .occasionMessage{
@@ -626,19 +626,25 @@ label.inputlabel {
 }
 
 .center{
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
-    display: block;
 }
 
 .buttonFont {
-    font-size: .6em;
+    font-size: 1.2em;
     font-weight: bold;
+}
+
+.paddingRight {
+    padding-right: 10px;
 }
 
 .occasionPadding{
     padding: 10px;
+}
+
+.navText {
+    font-size: .75em;
 }
 
 /* Overriding Bootstrap css for a more native app look */

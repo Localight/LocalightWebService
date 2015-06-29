@@ -5,8 +5,10 @@
       <!-- header section with give option, clique logo and available balance -->
       <table class = "sub-header">
          <tr>
-             <td class="tableCell"><a href="/#!/giftcards/create">Give</a></td>
-             <td class = "textRightAlign tableCell">{{totalValue()}}</td>
+             <td class=""><a class="blackText navText" href="/#!/giftcards/create">
+                 <img class = "" ng-src="/modules/giftcards/img/bowtie.png" alt="Give Icon" height="15px" width="30px">
+                 Give</a></td>
+             <td class = "textRightAlign blackText navText">{{totalValue()}}</td>
          <tr>
      </table>
 
@@ -36,17 +38,19 @@
       </div>
 
       <!-- use it now/later section -->
-      <table class = "sub-header">
+      <br>
+      <table class = "center">
          <tr>
-             <td class="tableCell"><a class = "redText buttonFont buttonBGRounded" href="/#!/giftcards">Save For Later</a></td>
-             <td class="tableRIghtAlign"><a class = "linkText buttonFont buttonBGRounded" href="/#!/giftcards/create">  Use It Now  </a></td>
+             <td class="tableCell paddingRight"><a class = "redText buttonFont buttonBGRounded" href="/#!/giftcards">Save For Later</a></td>
+             <td class="tableRIghtAlign"><a class = "linkText buttonFont buttonBGRounded" href="/#!/giftcards/spend">  Use It Now  </a></td>
          <tr>
      </table>
+     <br>
 
     </div>
     <!-- for beta -->
     <div class="col-xs-12 text-center nearbyMerchant">
-      <h4>Or use it at one of many local merchants</h4>
+      <h4 class = "blackText">Or use it at one of many local merchants</h4>
     </div>
     <div class=""></div>
     <div class="col-xs-4 merchantArrow" ng-click="showMerchantList()"></div>
