@@ -1,4 +1,14 @@
-<section class="flatRowSection" data-ng-controller="SelectMerchantController" data-ng-init="init()">
+<section class="flatRowSection" data-ng-controller="SelectMerchantController" data-ng-init="find()">
+
+
+      <!-- header section with give option, clique logo and available balance -->
+      <table class = "sub-header">
+         <tr>
+             <td class=""></td>
+             <td class = "textRightAlign blackText navText">{{totalValue()}}</td>
+         <tr>
+     </table>
+
     <h1 class = "whiteHeader paddingLeft">Select Merchant</h1>
 
     <div class="list-group flatRowList">
