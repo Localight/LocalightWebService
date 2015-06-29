@@ -37,6 +37,7 @@ describe('User-Auth Tests', function() {
             primary: 'card_167r8DBNPqu3SRN2pr9dO9Pk'
          }
       }); // end user.
+      user.save();
    }); // end before each
    // I could do two types of test.
    // one to test if the user already exists, and match against the id I get back.
@@ -56,13 +57,18 @@ describe('User-Auth Tests', function() {
                .send(mobileNumber)
                .expect(200)
                .end(function(findOrCreateUserErr, findOrCreateUserRes) {
-                  (stripeSaveRes.body.status).should.match('succeeded');
+                  should.not.exist(findOrCreateUserErr);
                   // Handle Stripe Save Error
                   done(findOrCreateUserErr);
                });
          }); //end signin function
    });
-});
+   afterEach(function(done){
+      User.remove.exec();
+      done();
+   });
+});//End User-Auth Test
+
 
 
 /**

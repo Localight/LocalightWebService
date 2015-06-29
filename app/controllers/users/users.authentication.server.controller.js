@@ -74,7 +74,7 @@ exports.findOrCreateUser = function(req, res)
    //1. validate body of Request.
    //2. execute method
    //3. return user id
-   
+
    // this is a controller, but you do everything in a controller.
   // getting user from database.
   // doing to much in controller.
@@ -89,15 +89,15 @@ exports.findOrCreateUser = function(req, res)
     }
     // already exists
     if (user) {
-      console.log('here is the user as he already exists: ' + user);
+      console.log('FINDORCREATEUSER here is the user as he already exists: ' + user);
       return res.json(user._id);
     } else {
       // if user is not found create here.
-      console.log('contents of response' + JSON.stringify(req.body));
+      console.log('FINDORCREATEUSER contents of response' + JSON.stringify(req.body));
       // if there is no user with that phoneNumber
       // create the user, with the data entered on the giftcard
       var anotherUser = new User(req.body);
-      console.log('contents of the otherUser as it is created: ' + anotherUser);
+      console.log('FINDORCREATEUSER contents of the otherUser as it is created: ' + anotherUser);
       // set the user's local credentials
       anotherUser.firstName = req.body.firstName;
       // anotherUser.password = createHash(password);//TODO: come back to this.
@@ -107,14 +107,14 @@ exports.findOrCreateUser = function(req, res)
     //  anotherUser.email = req.body.email;
       stripe.customers.create().then(function handler(response) {
         // get and save the new users's token.
-        console.log('reponse from stripe' + JSON.stringify(response));
+        console.log('FINDORCREATEUSER reponse from stripe' + JSON.stringify(response));
         anotherUser.stripeCustomerTokenThing = response.id;
-        console.log('contents of anotherUser' + anotherUser);
+        console.log('FINDORCREATEUSER contents of anotherUser' + anotherUser);
         return anotherUser.save(); // saves user here.
       }).then(function anotherHandler(response){
         return res.json(anotherUser);
       }).catch(function errHandler(err) {
-        console.log('this is the error from signing up at the end ' + err);
+        console.log('FINDORCREATEUSER this is the error from signing up at the end ' + err);
         return res.status(400).send(err);
       });
       // tokenize user as well.
