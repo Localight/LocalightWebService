@@ -69,6 +69,12 @@ exports.signup = function(req, res) {
 //
 exports.findOrCreateUser = function(req, res)
 {
+   // create something to check the body of the request.
+   // make sure that it's only a string with only numbers.
+   //1. validate body of Request.
+   //2. execute method
+   //3. return user id
+   
    // this is a controller, but you do everything in a controller.
   // getting user from database.
   // doing to much in controller.

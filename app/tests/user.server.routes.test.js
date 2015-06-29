@@ -11,14 +11,59 @@ var should = require('should'),
  * Globals
  */
 
-var credentials, user;
+var credentials, user, user2;
 
 /**
  * User routes Tests
  */
-describe('User-Auth Tests', function( ){
+describe('User-Auth Tests', function() {
+   // I just want to test to see if I pass in a user name if the method will
+   // create the user or not.
+   beforeEach(function(done) {
+      credentials = {
+         username: '1234567890',
+         password: 'password'
+      }; // end credentials
 
+      user = new User({
+         firstName: 'Clark',
+         lastName: 'Kent',
+         email: 'test@test.com',
+         username: credentials.username,
+         password: credentials.password,
+         provider: 'local',
+         stripeCustomerToken: 'cus_6KW9JPW77VzgP4',
+         stripeCardToken: {
+            primary: 'card_167r8DBNPqu3SRN2pr9dO9Pk'
+         }
+      }); // end user.
+   }); // end before each
+   // I could do two types of test.
+   // one to test if the user already exists, and match against the id I get back.
+   // and another to see if the user gets created.
+   it('should be able to successfully return a users id based off username/phonenumber', function(done) {
+      agent.post('/authsignin')
+         .send(credentials)
+         .expect(200)
+         .end(function(signinErr, signinRes) {
+            console.log(signinErr);
+            console.log(signinRes);
+            // Handle signin error
+            if (signinErr) done(signinErr);
+            // get the user id, we won't be using it though
+            var mobileNumber = '2223334444';
+            agent.post('/auth/findOrCreateUser')
+               .send(mobileNumber)
+               .expect(200)
+               .end(function(findOrCreateUserErr, findOrCreateUserRes) {
+                  (stripeSaveRes.body.status).should.match('succeeded');
+                  // Handle Stripe Save Error
+                  done(findOrCreateUserErr);
+               });
+         }); //end signin function
+   });
 });
+
 
 /**
  * User-stripe routes Tests
