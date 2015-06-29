@@ -1,52 +1,52 @@
-  <div class="container-fluid wrapper">
+  <div data-ng-controller="RecipientController" class="container-fluid wrapper" data-ng-init="find()">
 
     <div ng-class="{giftToUseItSections: merchantList }" style="-webkit-transition: all 1.5s ease-in-out;">
 
       <!-- header section with give option, clique logo and available balance -->
-      <span class="header col-xs-12">
-        <div class="col-xs-3 headerSide" ng-click="giveGift()">
-          <div class="col-xs-5" id="bowTie"></div>
-          <div class="col-xs-7" id="giveText">Give</div>
-        </div>
-        <div class="col-xs-6 cliqueLogo"></div>
+      <table class = "sub-header">
+         <tr>
+             <td class="tableCell"><a href="/#!/giftcards/create">Give</a></td>
+             <td class = "textRightAlign tableCell">{{totalValue()}}</td>
+         <tr>
+     </table>
 
-        <div class="col-xs-3 headerSide text-center" id="chooseAmount" ng-click="selectAmountView()">+${{amount}}</div>
-      </span>
 
 
       <!-- gift section -->
-      <div class="col-xs-12 giftSection">
+      <div class="semiTransparentBGRounded occasionPadding">
+
+         <!-- Occasion Icon -->
+
 
         <!-- personal message -->
-        <div class="col-xs-12 personalMessage">
-          <div class="col-xs-3" id="occasionIcon"></div>
-          <div class="col-xs-9 pull-right" id="buyerMessage" ng-bind="message"></div>
-          <div class="col-xs-9 pull-right text-right" id="buyerName" ng-bind="from"></div>
-        </div>
+        <h4 class = "occasionMessage whiteText">{{giftcards[0].occasionMessage}}</h4>
+
+        <!-- From -->
+        <h3 class = "textRightAlign heart whiteText">~ {{giftcards[0].from}}</h3>
 
         <!-- gift card image -->
-        <div class="col-xs-12 giftCardSection">
-          <div class="col-xs-12" id="giftCardImage">
-            <div class="col-xs-4" id="giftCardAmount"></div>
-  <!--           <div class="col-xs-12 text-center" id="giftCardMessage">
-              Coffee, Macarons & Sandwiches? Yum.
-            </div> -->
-          </div>
-        </div>
+        <img class = "center semiTransparentBGRounded" ng-src="{{merchantImages[0]}}" alt="Merchant Image" height="50%" width="100%">
 
       </div>
 
       <!-- amount to use at which merchant section -->
-      <div class="col-xs-12 text-center merchantInfo">
-        <p class="col-xs-12" id="useAmount">Use this $2 gift at</p>
-        <p class="col-xs-12" id="merchantName">DoLy's Delectables</p>
+      <div class="text-center merchantInfo blackText">
+        <h4 class="center" id="useAmount">Use this ${{giftcards[0].amt}} gift at</p>
+        <h2 class="center">Doly's Delectables</p>
       </div>
 
       <!-- use it now/later section -->
-      <div class="col-xs-12 useItSection">
+      <div class="useItSection blackText">
         <div class="col-xs-5 text-center useNowLater" ng-click="change()" id="useNow">Use it now</div>
         <div class="col-xs-5 text-center pull-right useNowLater" id="useLater">Use it later</div>
       </div>
+
+      <table class = "sub-header">
+         <tr>
+             <td class="tableCell"><a href="/#!/giftcards">Save For Later</a></td>
+             <td class="tableRIghtAlign"><a href="/#!/giftcards/create">Use It Now</a></td>
+         <tr>
+     </table>
 
     </div>
     <!-- for beta -->
@@ -62,11 +62,6 @@
         {{location.location}}
         <div class="shop" ng-repeat="shop in location.shops">{{shop.name}}</div>
       </div>
-    </div>
-
-    <!-- image of town -->
-    <div id="localstreet" style="top: 350px;">
-        <img src="../public/recipient_redemption_images/local-street-low2.png">
     </div>
 
   </div>

@@ -559,3 +559,67 @@ label.inputlabel {
   background-position: center;
 
 }
+
+
+
+
+
+/* Aaron's Styles */
+
+.listNameHeader {
+    color: #df5241;
+    font-size: 4em;
+    text-align: right;
+}
+
+.inline{
+    display: inline;
+}
+
+.sub-header{
+    width: 100%;
+    font-size: 2em;
+}
+
+.list-item {
+    width: 100%;
+    font-size: 2em;
+}
+
+.textRightAlign{
+    text-align: right;
+}
+
+.semiTransparentBGRounded{
+    background-color:rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+}
+
+.list-group:hover{
+    background-color:rgba(0, 0, 0, 0.25);
+}
+
+.occasionMessage{
+    text-align: left;
+}
+
+.whiteText{
+    color: #E9EEF6;
+}
+
+.blackText{
+    color: #0E0C0F;
+}
+
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.occasionPadding{
+    padding: 10px;
+}
+
+/* End Aaron's Styles */
