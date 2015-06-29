@@ -142,7 +142,7 @@ input, textarea {
 
 /* Wrapper */
 .wrapper {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -639,6 +639,22 @@ label.inputlabel {
 
 .occasionPadding{
     padding: 10px;
+}
+
+/* Overriding Bootstrap css for a more native app look */
+.content {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
 }
 
 /* End Aaron's Styles */
