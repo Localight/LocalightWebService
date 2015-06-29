@@ -146,9 +146,11 @@ input, textarea {
   margin: 0 auto;
 }
 
+/* Removing inherited padding
 .wrapper > div {
   margin-bottom: 2.5% !important;
 }
+*/
 
 /*--- section styles ---*/
 .checkmark {
@@ -645,6 +647,10 @@ label.inputlabel {
 
 .navText {
     font-size: .75em;
+}
+
+.imagePaddingRight {
+    padding-right: 5px;
 }
 
 /* Overriding Bootstrap css for a more native app look */
