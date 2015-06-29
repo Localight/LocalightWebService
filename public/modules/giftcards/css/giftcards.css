@@ -592,6 +592,12 @@ label.inputlabel {
 
 .semiTransparentBGRounded{
     background-color:rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+}
+
+.buttonBGRounded{
+    background-color: #E9EEF6;
+    padding: 5px;
     border-radius: 7px;
 }
 
@@ -611,6 +617,14 @@ label.inputlabel {
     color: #0E0C0F;
 }
 
+.redText {
+    color: #df5241;
+}
+
+.linkText {
+    color: #5ac4c0;
+}
+
 .center{
     text-align: center;
     margin-left: auto;
@@ -618,8 +632,13 @@ label.inputlabel {
     display: block;
 }
 
+.buttonFont {
+    font-size: .6em;
+    font-weight: bold;
+}
+
 .occasionPadding{
-    padding: 10px;
+    padding: 15px;
 }
 
 /* End Aaron's Styles */
