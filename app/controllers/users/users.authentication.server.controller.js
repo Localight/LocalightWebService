@@ -74,17 +74,17 @@ exports.findOrCreateUser = function(req, res)
   // doing to much in controller.
   // user.service, pass in phone number. return the object as promise or callback.
   User.findOne({
-    'mobileNumber': req.body.username
+    'mobileNumber': req.body.mobileNumber
   }, function(err, user) {
     // In case of any error return
     if (err) {
-      console.log('Error in SignUp: ' + err);
+      console.log('Error in findOrCreatUser: ' + err);
       return (err);
     }
     // already exists
     if (user) {
       console.log('here is the user as he already exists: ' + user);
-      return res.json(user);
+      return res.json(user._id);
     } else {
       // if user is not found create here.
       console.log('contents of response' + JSON.stringify(req.body));

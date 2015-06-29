@@ -1,26 +1,29 @@
-// <!-- 'use strict';
-//
-// var should = require('should'),
-//    request = require('supertest'),
-//    app = require('../../server'),
-//    mongoose = require('mongoose'),
-//    User = mongoose.model('User'),
-//    agent = request.agent(app);
-//
-// /**
-//  * Globals
-//  */
-//
-// var credentials, user;
-//
-// /**
-//  * User routes Tests
-//  */
-//
-// /**
-//  * User-stripe routes Tests
-//  */
-//
+<!-- 'use strict';
+
+var should = require('should'),
+   request = require('supertest'),
+   app = require('../../server'),
+   mongoose = require('mongoose'),
+   User = mongoose.model('User'),
+   agent = request.agent(app);
+
+/**
+ * Globals
+ */
+
+var credentials, user;
+
+/**
+ * User routes Tests
+ */
+describe('User-Auth Tests', function( ){
+
+});
+
+/**
+ * User-stripe routes Tests
+ */
+
 // describe('User-Stripe CRUD tests', function() {
 //    // setup a user who already has a valid stripe id and credentials
 //
