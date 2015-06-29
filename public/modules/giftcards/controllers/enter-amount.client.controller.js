@@ -6,6 +6,9 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
+		//Our variable for which button is selected
+		$scope.pressed = -1;
+
 		// Find a list of Giftcards
 		$scope.find = function() {
 			//$scope.giftcards = Giftcards.query();
@@ -47,5 +50,12 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 			//Return the total value as a formatted string
 			return "$" + total;
 		}
+
+		//Function to switch the value of pressed
+		$scope.pressButton = function (i)
+		{
+			$scope.pressed = i;
+		}
+
 	}
 ]);

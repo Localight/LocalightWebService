@@ -563,8 +563,20 @@ label.inputlabel {
 }
 
 
+/* DialPad Buttons */
+.button1 {
+    background-image: url("/modules/giftcards/img/auth-outline-1.png");
+    height: 75px;
+    width: 75px;
+}
 
+.button1Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-1.png");
+    height: 75px;
+    width: 75px;
+}
 
+/* End Dialad Buttons */
 
 /* Aaron's Styles */
 
@@ -651,6 +663,10 @@ label.inputlabel {
 
 .imagePaddingRight {
     padding-right: 5px;
+}
+
+.darkerCity {
+    background-image: url("/modules/giftcards/img/auth-bg.png");
 }
 
 /* Overriding Bootstrap css for a more native app look */

@@ -1,8 +1,13 @@
-<div ng-controller="EnterAmountController">
+<div class = "darkerCity" ng-controller="EnterAmountController">
 
 
     <!-- Our table for spending -->
-    <table>
+    <table class = "center">
+        <tr>
+            <td class = "paddingRight"><img ng-class = "{button1: pressed == -1,button1Press: pressed == 1}" ng-mousedown="pressButton(1)" ng-mouseup="pressButton(-1)" alt="One"></td>
+            <td class = "paddingRight"><img ng-src="/modules/giftcards/img/auth-outline-2.png" alt="Two" height="75px" width="75px"></td>
+            <td><img ng-src="/modules/giftcards/img/auth-outline-3.png" alt="Three" height="75px" width="75px"></td>
+        </tr>
     </table>
 
 </div>
