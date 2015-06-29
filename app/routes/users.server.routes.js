@@ -71,7 +71,7 @@ module.exports = function(app) {
 	 * @apiName PostUser
 	 * @apiGroup User
 	 */
-	//app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
+	app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
 	// TODO: make sure only logged in users can do this.
 	/**
 	 * @api{post} /user Request User Object
