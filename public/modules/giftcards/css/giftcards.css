@@ -376,6 +376,32 @@ label.inputlabel {
   font-style: italic;
   font-size: small;
 }
+
+.flatRowSection, .flatRowSection .page-header, .flatRowSection .page-header h1 {
+    padding: 0px !important;
+    border-bottom: none !important;
+    color: white !important;
+    font-weight: 200;
+}
+
+.flatRowListItem {
+    background-color: rgba(0,0,0,0.2) ;
+    border: none;
+    margin-bottom: 2px;
+    padding: 5px;
+    padding-left: 15px;
+    color: white !important;
+    border-radius: 0px !important;
+}
+
+.flatRowListItem h3 {
+    margin: 0px;
+    font-weight: 100 !important;
+}
+
+.flatRowListItem .glyphicon {
+    float: right;
+}
 /* End Clique Code Styles */
 
 /* occasion styles */
