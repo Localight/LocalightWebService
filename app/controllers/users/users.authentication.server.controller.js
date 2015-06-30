@@ -75,7 +75,7 @@ exports.findOrCreateUser = function(req, res)
    //2. execute method
    //3. return user id
 
-   // this is a controller, but you do everything in a controller.
+  // this is a controller, but you do everything in a controller.
   // getting user from database.
   // doing to much in controller.
   // user.service, pass in phone number. return the object as promise or callback.
