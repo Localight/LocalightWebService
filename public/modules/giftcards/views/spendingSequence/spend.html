@@ -1,4 +1,4 @@
-<div class = "darkerCity" ng-controller="EnterAmountController">
+<div class = "darkerCity" ng-controller="EnterAmountController" ng-init = "find()">
 
 
 
@@ -6,7 +6,10 @@
     <table class = "sub-header">
        <tr>
            <td class="whiteText paddingLeft paddingTop largerText">${{amount}}</td>
-           <td class = "textRightAlign blackText navText"></td>
+           <td class = "paddingLeft">
+           <h4 class ="linkText"> Your total balance is {{totalValue()}}.</h4>
+           <h5 class ="linkText"> Enter the amount you would like to spend.</h5>
+           </td>
        <tr>
    </table>
 
