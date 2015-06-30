@@ -65,6 +65,47 @@ exports.signup = function(req, res) {
       });
    });
 };
+exports.webHookLogin = function(req, res)
+{
+   // passport.authenticate('local', function(err, user, info) {
+   //    if(err||!user){
+   //       console.log(info);
+   //       res.status(400).send(info);
+   //    }else{
+   //       user.password = undefined;
+   //       user.salt = undefined;
+   //       req.login(user, function(err){
+   //          if(err){
+   //             res.status(400).send(err);
+   //          }else{
+   //             res.json(user);
+   //          }
+   //       });
+   //    }
+   // });
+   console.log(req.param);
+   User.findOne({
+      username:req.param.username
+   }, function(err, user){
+      if(!user)
+      {
+         return res.status(400).send({
+            message: 'No account wtih that username has been found'
+         });
+      }else{
+         if(user.password === req.param.password)
+         {
+            console.log('success');
+            res.redirect('/gift/create/');
+         }
+         else {
+            console.log('wrong password');
+         }
+      }
+   });
+
+};
+
 exports.giftWebHook = function(req, res) {
    // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
    // more than that we know the user wants to log into their account or want's access to there account.
@@ -95,7 +136,7 @@ exports.giftWebHook = function(req, res) {
       if (user) {
             console.log('the user ' + user);
             client.messages.create({
-               body: JSON.stringify(user),
+               body: 'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
                to: req.body.From,
                from: '+15624454688',
             }, function(err, message) {
@@ -160,14 +201,13 @@ exports.giftWebHook = function(req, res) {
  * Signin after passport authentication
  **/
 exports.signin = function(req, res, next) {
-
    passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
          console.log(info);
          res.status(400).send(info);
       } else {
          // Remove sensitive data bekfs
-         user.password = 'password';
+         user.password = undefined;
          user.salt = undefined;
 
          req.login(user, function(err) {
