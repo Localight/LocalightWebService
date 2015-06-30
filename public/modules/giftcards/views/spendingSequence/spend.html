@@ -6,9 +6,15 @@
     <table class = "sub-header">
        <tr>
            <td class="whiteText paddingLeft paddingTop largerText">${{amount}}</td>
-           <td class = "paddingLeft">
-           <h4 class ="linkText"> Your total balance is {{totalValue()}}.</h4>
-           <h5 class ="linkText"> Enter the amount you would like to spend.</h5>
+
+           <td class = "paddingLeft" ng-hide = "clicked == true">
+           <h5 class ="linkText"> Your total balance is {{totalValue()}}.</h5>
+           <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
+           </td>
+
+           <td class = "center textRightAlign paddingRight" ng-show = "clicked == true" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)">
+                <p class = "inline paddingLeft backText linkText">Pay</p>
+               <img class = "inline" src = "/modules/giftcards/img/auth-rt-arrow.png">
            </td>
        <tr>
    </table>
@@ -40,7 +46,7 @@
                 <p class = "inline paddingLeft backText redText">Back</p>
             </td>
             <td ng-class = "{button0: pressed != 0,button0Press: pressed == 0}" my-touchstart="pressButton(0)" my-touchend="pressButton(-1)"></td>
-            <td class = "buttonDel center" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)"></td>
+            <td class = "buttonDel center" ng-show = "clicked == true" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)"></td>
         </tr>
     </table>
 
