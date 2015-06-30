@@ -81,11 +81,11 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 				//Increase stack size
 				$scope.stackSize++;
 
+				//Our final answer
+				var answer = 0;
+
 				//create a temp stack we can peek
 				var tempStack = $scope.digitStack.slice();
-
-				//Reset scope amount
-				$scope.amount = 0;
 
 				//Loop to put in our places
 				for(i = $scope.stackSize; i > 0; --i)
@@ -97,16 +97,12 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 					//by a certain power, -3 for cents
 					var add = pop * Math.pow(10, ($scope.stackSize - i - 2));
 
-					console.log(add);
-
 					//Now add the amount to amount
-					$scope.amount = $scope.amount + add;
-
-					//Now format amount
+					answer = answer + add;
 				}
 
-
-
+				//Now format amount
+				$scope.amount = parseFloat(answer).toFixed(2);
 			}
 		}
 
