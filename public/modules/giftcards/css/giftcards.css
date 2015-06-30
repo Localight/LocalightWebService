@@ -574,128 +574,128 @@ label.inputlabel {
     background-image: url("/modules/giftcards/img/auth-outline-1.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button1Press {
     background-image: url("/modules/giftcards/img/auth-reverse-1.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button2 {
     background-image: url("/modules/giftcards/img/auth-outline-2.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button2Press {
     background-image: url("/modules/giftcards/img/auth-reverse-2.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button3 {
     background-image: url("/modules/giftcards/img/auth-outline-3.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button3Press {
     background-image: url("/modules/giftcards/img/auth-reverse-3.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button4 {
     background-image: url("/modules/giftcards/img/auth-outline-4.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button4Press {
     background-image: url("/modules/giftcards/img/auth-reverse-4.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button5 {
     background-image: url("/modules/giftcards/img/auth-outline-5.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button5Press {
     background-image: url("/modules/giftcards/img/auth-reverse-5.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button6 {
     background-image: url("/modules/giftcards/img/auth-outline-6.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button6Press {
     background-image: url("/modules/giftcards/img/auth-reverse-6.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button7 {
     background-image: url("/modules/giftcards/img/auth-outline-7.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button7Press {
     background-image: url("/modules/giftcards/img/auth-reverse-7.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button8 {
     background-image: url("/modules/giftcards/img/auth-outline-8.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button8Press {
     background-image: url("/modules/giftcards/img/auth-reverse-8.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 
@@ -703,32 +703,32 @@ label.inputlabel {
     background-image: url("/modules/giftcards/img/auth-outline-9.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button9Press {
     background-image: url("/modules/giftcards/img/auth-reverse-9.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button0{
     background-image: url("/modules/giftcards/img/auth-outline-0.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .button0Press {
     background-image: url("/modules/giftcards/img/auth-reverse-0.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 75px;
-    width: 75px;
+    height: 100px;
+    width: 100px;
 }
 
 .buttonDel {
@@ -811,6 +811,10 @@ label.inputlabel {
     color: #5ac4c0;
 }
 
+.largerText {
+    font-size: 1.5em;
+}
+
 .center{
     margin-left: auto;
     margin-right: auto;
@@ -847,6 +851,8 @@ label.inputlabel {
 
 .darkerCity {
     background-image: url("/modules/giftcards/img/auth-bg.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 /* Overriding Bootstrap css for a more native app look */

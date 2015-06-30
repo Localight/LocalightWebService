@@ -6,6 +6,9 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
+		//Amoutn entered
+		$scope.amount = 0.00;
+
 		//Our variable for which button is selected
 		$scope.pressed = -1;
 
