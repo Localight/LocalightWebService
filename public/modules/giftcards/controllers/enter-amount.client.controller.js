@@ -82,15 +82,11 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 			{
 				//Add to our amount from right to left, so just concatanate to the string
 				//push i onto the queue
-				//Push onto the stack
-				$scope.digitStack.push(i);
-
 				//Increase stack size,
 				//only if it is less than our max digits, 5
-				if($scope.stackSize < 5)
-				{
-					$scope.stackSize++;
-				}
+				//Push onto the stack
+				$scope.digitStack.push(i);
+				$scope.stackSize++;
 
 				//Our final answer
 				var answer = 0;
@@ -119,8 +115,15 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 					//Show the warning
 					$scope.totalWarning = true;
 					$scope.warning = false;
-					//Make the amount 500
+					//Make the amount total value
 					$scope.amount = parseFloat2($scope.totalValue()).toFixed(2);
+
+					//Check if our stack is too large
+					while($scope.stackSize > 5)
+					{
+						$scope.digitStack.pop;
+						$scope.stackSize--;
+					}
 				}
 				else if(answer > 500)
 				{
@@ -129,6 +132,13 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 					$scope.totalWarning = false;
 					//Make the amount 500
 					$scope.amount = parseFloat(500.00).toFixed(2);
+					
+					//Check if our stack is too large
+					while($scope.stackSize > 5)
+					{
+						$scope.digitStack.pop;
+						$scope.stackSize--;
+					}
 				}
 				else
 				{
