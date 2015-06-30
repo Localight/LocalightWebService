@@ -35,7 +35,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 			[
 				{
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Tony',
@@ -45,7 +45,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 				},
 				{
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Frank',
@@ -65,7 +65,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 			}
 
 			//Return the total value as a formatted string
-			return "$" + total;
+			return total;
 		}
 
 		//Function to switch the value of pressed
@@ -78,6 +78,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 
 			//Ignore values that are negative one, since thye simply disable our selectors
 			//Also checking for the number of digits
+			//Using / 100 to keep everything in ints
 			if(i != -1)
 			{
 				//Add to our amount from right to left, so just concatanate to the string
@@ -101,38 +102,54 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 					var pop = tempStack.pop();
 
 					//add it to the amount by multipling it by ten
-					//by a certain power, -3 for cents
-					var add = pop * Math.pow(10, ($scope.stackSize - i - 2));
+					//by a certain power
+					var add = pop * Math.pow(10, ($scope.stackSize - i));
 
 					//Now add the amount to amount
 					answer = answer + add;
 				}
 
 				//Now format amount
+
+				//Get our total value
+				var total = parseInt($scope.totalValue());
 				//Also, check if the amount is greater than our maxes
-				if(answer > parseFloat2($scope.totalValue()).toFixed(2))
+				if(answer > total)
 				{
 					//Show the warning
 					$scope.totalWarning = true;
 					$scope.warning = false;
 					//Make the amount total value
-					$scope.amount = parseFloat2($scope.totalValue()).toFixed(2);
+					$scope.amount = total / 100;
 
-					//Check if our stack is too large
-					while($scope.stackSize > 5)
+					//Make the stack the total
+					$scope.digitStack = [];
+
+					var totalString = (total).toString();
+
+					for(i = 0; i < totalString.length; ++i)
 					{
-						$scope.digitStack.pop;
-						$scope.stackSize--;
+						$scope.digitStack.push(totalString[i]);
 					}
+					
 				}
-				else if(answer > 500)
+				else if(answer / 100 > 500)
 				{
 					//Show the warning
 					$scope.warning = true;
 					$scope.totalWarning = false;
 					//Make the amount 500
-					$scope.amount = parseFloat(500.00).toFixed(2);
-					
+					$scope.amount = parseInt(50000) / 100;
+
+					//Make the stack 500
+					$scope.digitStack = [];
+
+					$scope.digitStack.push(5);
+					$scope.digitStack.push(0);
+					$scope.digitStack.push(0);
+					$scope.digitStack.push(0);
+					$scope.digitStack.push(0);
+
 					//Check if our stack is too large
 					while($scope.stackSize > 5)
 					{
@@ -143,7 +160,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 				else
 				{
 					//Nothing wrong, show!
-					$scope.amount = parseFloat(answer).toFixed(2);
+					$scope.amount = (parseInt(answer) / 100);
 				}
 			}
 		}
