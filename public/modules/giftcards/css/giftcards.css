@@ -161,13 +161,15 @@ input, textarea {
 
 /* Wrapper */
 .wrapper {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
+/* Removing inherited padding
 .wrapper > div {
   margin-bottom: 2.5% !important;
 }
+*/
 
 /*--- section styles ---*/
 .checkmark {
@@ -450,8 +452,7 @@ label.inputlabel {
   font-size: 1.2em;
 }
 
-#clique_date_wrapper
-{
+#clique_date_wrapper {
     position: relative;
     height: 100%;
     padding: 0.2em 0.5em 1.3em 2%;
@@ -589,6 +590,7 @@ label.inputlabel {
 
 }
 
+
 /* Aaron's Styles */
 
 .listNameHeader {
@@ -619,8 +621,81 @@ label.inputlabel {
     background-color:rgba(0, 0, 0, 0.15);
 }
 
+.semiTransparentBGRounded {
+    background-color:rgba(37,81,79, 0.75);
+    border-radius: 5px;
+}
+
+.buttonBGRounded{
+    background-color: #E9EEF6;
+    padding: 10px;
+    border-radius: 7px;
+}
+
 .list-group:hover{
-    background-color:rgba(0, 0, 0, 0.25);
+    background-color:rgba(37,81,79, 0.5);
+}
+
+.occasionMessage{
+    text-align: left;
+}
+
+.whiteText{
+    color: #E9EEF6;
+}
+
+.blackText{
+    color: #0E0C0F;
+}
+
+.redText {
+    color: #df5241;
+}
+
+.linkText {
+    color: #5ac4c0;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonFont {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.paddingRight {
+    padding-right: 10px;
+}
+
+.occasionPadding{
+    padding: 10px;
+}
+
+.navText {
+    font-size: .75em;
+}
+
+.imagePaddingRight {
+    padding-right: 5px;
+}
+
+/* Overriding Bootstrap css for a more native app look */
+.content {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
 }
 
 /* End Aaron's Styles */

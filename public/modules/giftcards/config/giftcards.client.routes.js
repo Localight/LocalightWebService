@@ -16,7 +16,7 @@ angular.module('giftcards').config(['$stateProvider',
 		}).
 		state('viewGiftcard', {
 			url: '/giftcards/:giftcardId',
-			templateUrl: 'modules/giftcards/views/view-giftcard.client.view.html'
+			templateUrl: 'modules/giftcards/views/spendingSequence/recipient.html'
 		}).
 		state('editGiftcard', {
 			url: '/giftcards/:giftcardId/edit',

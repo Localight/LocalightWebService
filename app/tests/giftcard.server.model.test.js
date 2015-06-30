@@ -16,7 +16,7 @@ var user, user2, giftcard;
 /**
  * Unit tests
  * These tests enusre that the giftcard is saved properly, and if it has any methods that it excutes those corretly.
- *
+
  */
 describe('Giftcard Model Unit Tests:', function() {
    // WHAT AM I TESTING?
