@@ -4,7 +4,7 @@
     <!-- Our table for spending -->
     <table class = "center">
         <tr>
-            <td ng-class = "{button1: pressed == -1,button1Press: pressed == 1}" ng-mousedown="pressButton(1)" ng-mouseup="pressButton(-1)"></td>
+            <td ng-class = "{button1: pressed == -1,button1Press: pressed == 1}" my-touchstart="pressButton(1)" my-touchend="pressButton(-1)"></td>
             <td class = "paddingRight"><img ng-src="/modules/giftcards/img/auth-outline-2.png" alt="Two" height="75px" width="75px"></td>
             <td><img ng-src="/modules/giftcards/img/auth-outline-3.png" alt="Three" height="75px" width="75px"></td>
         </tr>
