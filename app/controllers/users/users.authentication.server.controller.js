@@ -126,7 +126,7 @@ exports.giftWebHook = function(req, res) {
    if (req.body.Body.toLowerCase() === 'gift') {
       console.log(req.body);
          User.findOne({
-         'username': req.body.Body.slice(2, 12)
+         'username': req.body.From.slice(2, 12)
       }, function(err, user) {
          // In case of any error return
          if (err) {
@@ -155,7 +155,7 @@ exports.giftWebHook = function(req, res) {
             // if there is no user with that phoneNumber
             // create the user, with the data entered on the giftcard
             var anotherUser = new User();
-            anotherUser.username = req.body.Body.slice(2, 12);
+            anotherUser.username = req.body.From.slice(2, 12);
             // set the user's local credentials
             //  anotherUser.firstName = req.body.firstName;
             // anotherUser.password = createHash(password);//TODO: come back to this.
