@@ -122,6 +122,7 @@ exports.giftWebHook = function(req, res) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
+   console.log('in the webhook login controller.');
    if (req.body.Body.toLowerCase() === 'gift') {
       console.log(req.body);
          User.findOne({
@@ -149,6 +150,7 @@ exports.giftWebHook = function(req, res) {
                }
             });
          } else {
+	console.log('got here in twilio controller');
             // if user is not found create here.
             // if there is no user with that phoneNumber
             // create the user, with the data entered on the giftcard

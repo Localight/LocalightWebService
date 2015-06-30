@@ -28,8 +28,8 @@ module.exports = {
 		authToken: process.env.authToken || 'a6bfeeed497cfb9b8d10c329ce721759',
 	},
 	stripe: {
-      		secretKey: process.env.STRIPE_SECRET_KEY || 'sk_live_3ScHGwzXRwA5OatDCexMCrnx',
-      		publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_live_UCGfn9kbM4KSToxEaZPG8RLq',
+      		secretKey: process.env.STRIPE_SECRET_KEY || 'sk_live_tCAl0MFad0cwSmcYtEhBppiW',
+      		publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_live_q0ROOXVPDxwiOBxWrdLj5Gib',
 	},
 	mailgun: {
 		apiKey: process.env.MAILGUN_KEY || 'key-212g0rzf7j9z-n9b7zdl797o3bxrsu38' ,

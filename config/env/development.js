@@ -24,7 +24,7 @@ module.exports = {
 		}
 	},
 	stripe: {
-      secretKey: process.env.STRIPE_SECRET_KEY || 'sk_test_GvAql6HE34rlYwDR3FLSjaHt',
-      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_WHOQeKIKG2CfUsaGl5cAU2Dl',
+              secretKey: process.env.STRIPE_SECRET_KEY || 'sk_test_GF61iHn9X33Ip9vNGCnRRZTP',
+              publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_XHrjrZeUDNIITwzqrw9OEpQG',
    },
 };
