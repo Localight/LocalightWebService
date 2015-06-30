@@ -851,8 +851,8 @@ label.inputlabel {
 
 .darkerCity {
     background-image: url("/modules/giftcards/img/auth-bg.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
 }
 
 /* Overriding Bootstrap css for a more native app look */

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('EnterAmountController', ['$scope',
-	function($scope) {
+angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location',
+	function($scope, $location) {
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
@@ -219,6 +219,12 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 
 			//Nothing wrong, show!
 			$scope.amount = parseInt(answer) / 100;
+		}
+
+		//Function to go back to selecting merchants
+		$scope.goTo = function(place)
+		{
+			$location.path(place);
 		}
 
 	}

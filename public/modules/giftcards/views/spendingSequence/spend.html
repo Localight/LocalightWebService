@@ -12,7 +12,7 @@
            <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
            </td>
 
-           <td class = "center textRightAlign paddingRight" ng-show = "clicked == true" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)">
+           <td class = "center textRightAlign paddingRight" ng-click = "goTo('/#!/')" ng-show = "clicked == true" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)">
                 <p class = "inline paddingLeft backText linkText">Pay</p>
                <img class = "inline" src = "/modules/giftcards/img/auth-rt-arrow.png">
            </td>
@@ -45,7 +45,7 @@
         </tr>
 
         <tr>
-            <td class = "center" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)">
+            <td class = "center" ng-click = "goTo('/#!/merchants')">
                 <img class = "" src = "/modules/giftcards/img/auth-lft-arrow.png">
                 <p class = "inline paddingLeft backText redText">Back</p>
             </td>
