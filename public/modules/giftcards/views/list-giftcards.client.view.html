@@ -1,14 +1,19 @@
 <section data-ng-controller='ListGiftCardsController' data-ng-init="find()">
-    <div class="page-header">
+    <div class="">
+
+        <!-- header section with give option, clique logo and available balance -->
         <table class = "sub-header">
             <tr>
-                <td class="tableCell"><a href="/#!/giftcards/create">Give</a></td>
-                <td class = "textRightAlign tableCell">{{totalValue()}}</td>
-            <tr>
+                <td class="paddingLeft"><a class="blackText navText" href="/#!/giftcards/create">
+                    <img class = "imagePaddingRight" ng-src="/modules/giftcards/img/bowtie.png" alt="Give Icon" height="15px" width="30px">
+                    Give</a></td>
+                    <td class = "textRightAlign blackText navText paddingRight">{{totalValue()}}</td>
+                    <tr>
         </table>
+
         <h1 class = "listNameHeader heart">{{giftcards[0].to}}</h1>
-        <h1 class = "whiteText">Gifts received</h1>
-        <h4 ng-hide="giftcards.length < 1">Unused</h4>
+        <h1 class = "whiteText paddingLeft">Gifts received</h1>
+        <h4 class = "paddingLeft" ng-hide="giftcards.length < 1">Unused</h4>
     </div>
     <div class="list-group">
         <a class="list-group-item semiTransparentBG" data-ng-repeat="giftcard in giftcards" data-ng-href="#!/giftcards/{{giftcard._id}}">

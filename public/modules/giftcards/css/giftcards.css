@@ -623,6 +623,7 @@ label.inputlabel {
     color: #df5241;
     font-size: 4em;
     text-align: right;
+    padding-right: 25px;
 }
 
 .inline{
@@ -639,11 +640,11 @@ label.inputlabel {
     font-size: 2em;
 }
 
-.textRightAlign{
+.textRightAlign {
     text-align: right;
 }
 
-.semiTransparentBG{
+.semiTransparentBG {
     background-color:rgba(0, 0, 0, 0.15);
 }
 
@@ -694,6 +695,10 @@ label.inputlabel {
 
 .paddingRight {
     padding-right: 10px;
+}
+
+.paddingLeft {
+    padding-left: 10px;
 }
 
 .occasionPadding{
