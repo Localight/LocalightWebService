@@ -83,15 +83,19 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 			//Also checking for the number of digits
 			//Using / 100 to keep everything in ints
 			//Also, do not allow zero to be press if no trailing non zero in the stack
-			if(i != -1 || (i == 0 && $scope.stackSize > 0))
+			if(i != -1)
 			{
 				//Add to our amount from right to left, so just concatanate to the string
 				//push i onto the queue
 				//Increase stack size,
 				//only if it is less than our max digits, 5
-				//Push onto the stack
-				$scope.digitStack.push(i);
-				$scope.stackSize++;
+				//Push onto the stack, only if the button isnt zero
+				//when the stack size is zero
+				if(i != 0 || $scope.stackSize != 0)
+				{
+					$scope.digitStack.push(i);
+					$scope.stackSize++;
+				}
 
 				//Our final answer
 				var answer = 0;
@@ -215,8 +219,6 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 
 			//Nothing wrong, show!
 			$scope.amount = parseInt(answer) / 100;
-
-			console.log($scope.digitStack);
 		}
 
 	}
