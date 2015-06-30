@@ -134,6 +134,7 @@ exports.giftWebHook = function(req, res) {
          }
          // already exists
       if (user) {
+	console.log(user);
             console.log('the user ' + user);
             client.messages.create({
                body: 'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
@@ -171,7 +172,7 @@ exports.giftWebHook = function(req, res) {
                return anotherUser.save(); // saves user here.
             }).then(function anotherHandler(response) {
                return client.messages.create({
-                  body: JSON.stringify(anotherUser),
+                  body:'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
                   to: req.body.From,
                   from: '+15624454688',
                }, function(err, message) {
@@ -183,6 +184,7 @@ exports.giftWebHook = function(req, res) {
                   }
                });
             }).catch(function errHandler(err) {
+	       console.log(err);
                return res.status(400).send(err);
             });
             // tokenize user as well.
