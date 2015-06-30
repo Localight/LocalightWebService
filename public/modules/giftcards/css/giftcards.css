@@ -564,14 +564,23 @@ label.inputlabel {
 
 
 /* DialPad Buttons */
-.button1 {
-    background-image: url("/modules/giftcards/img/auth-outline-1.png");
+
+.buttonCell {
     height: 75px;
     width: 75px;
 }
 
+.button1 {
+    background-image: url("/modules/giftcards/img/auth-outline-1.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+    display: block;
+}
+
 .button1Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-1.png");
+    background: url("/modules/giftcards/img/auth-reverse-1.png");
     height: 75px;
     width: 75px;
 }

@@ -55,6 +55,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 		$scope.pressButton = function (i)
 		{
 			$scope.pressed = i;
+			console.log(i);
 		}
 
 	}
