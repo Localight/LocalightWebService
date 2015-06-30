@@ -10,7 +10,10 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 		$scope.clicked = false;
 
 		//Amoutn entered
-		$scope.amount = 0.00;
+		$scope.amount = parseInt(0).toFixed(2);
+
+		//Amount that is an unmodified int
+		$scope.trueAmount = 0;
 
 		//Our stack of digits entered
 		$scope.digitStack = [];
@@ -79,7 +82,8 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 			//Ignore values that are negative one, since thye simply disable our selectors
 			//Also checking for the number of digits
 			//Using / 100 to keep everything in ints
-			if(i != -1)
+			//Also, do not allow zero to be press if no trailing non zero in the stack
+			if(i != -1 || (i == 0 && $scope.stackSize > 0))
 			{
 				//Add to our amount from right to left, so just concatanate to the string
 				//push i onto the queue
@@ -96,84 +100,123 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope',
 				var tempStack = $scope.digitStack.slice();
 
 				//Loop to put in our places
-				for(i = $scope.stackSize; i > 0; --i)
+				for(var j = $scope.stackSize; j > 0; --j)
 				{
 					//Get the value
 					var pop = tempStack.pop();
 
 					//add it to the amount by multipling it by ten
 					//by a certain power
-					var add = pop * Math.pow(10, ($scope.stackSize - i));
+					var add = pop * Math.pow(10, ($scope.stackSize - j));
 
 					//Now add the amount to amount
 					answer = answer + add;
 				}
-
-				//Now format amount
 
 				//Get our total value
 				var total = parseInt($scope.totalValue());
 				//Also, check if the amount is greater than our maxes
 				if(answer > total)
 				{
-					//Show the warning
-					$scope.totalWarning = true;
-					$scope.warning = false;
-					//Make the amount total value
-					$scope.amount = total / 100;
-
-					//Make the stack the total
-					$scope.digitStack = [];
-
-					var totalString = (total).toString();
-
-					for(i = 0; i < totalString.length; ++i)
+					//Only show one warning at a time
+					if($scope.warning)
 					{
-						$scope.digitStack.push(totalString[i]);
+						$scope.warning = false;
 					}
-					
+					$scope.totalWarning = true;
+
+					//Make the amount total value
+					$scope.trueAmount = 0;
+					$scope.amount = (parseInt(0) / 100).toFixed(2);
+
+					//Make the stack the empty
+					$scope.digitStack = [];
+					$scope.stackSize = 0;
+
+					//Just going to make it empty, to avoid user confusion
+					// var totalString = (total).toString();
+					//
+					// for(i = 0; i < totalString.length; ++i)
+					// {
+					// 	$scope.digitStack.push(totalString[i]);
+					// }
+
 				}
 				else if(answer / 100 > 500)
 				{
-					//Show the warning
-					$scope.warning = true;
-					$scope.totalWarning = false;
-					//Make the amount 500
-					$scope.amount = parseInt(50000) / 100;
-
-					//Make the stack 500
-					$scope.digitStack = [];
-
-					$scope.digitStack.push(5);
-					$scope.digitStack.push(0);
-					$scope.digitStack.push(0);
-					$scope.digitStack.push(0);
-					$scope.digitStack.push(0);
-
-					//Check if our stack is too large
-					while($scope.stackSize > 5)
+					//Only show one warning at a time
+					if($scope.totalWarning)
 					{
-						$scope.digitStack.pop;
-						$scope.stackSize--;
+						$scope.totalWarning = false;
 					}
+					$scope.warning = true;
+
+					//Make the amount 0
+					$scope.trueAmount = 0;
+					$scope.amount = (parseInt(0) / 100).toFixed(2);
+
+					//Make the stack empty
+					$scope.digitStack = [];
+					$scope.stackSize = 0;
+
+
+					//Just going to make it empty, to avoid user confusion
+					// // $scope.digitStack.push(5);
+					// // $scope.digitStack.push(0);
+					// // $scope.digitStack.push(0);
+					// // $scope.digitStack.push(0);
+					// // $scope.digitStack.push(0);
+					//
+					// //Check if our stack is too large
+					// while($scope.stackSize > 5)
+					// {
+					// 	$scope.digitStack.pop;
+					// 	$scope.stackSize--;
+					// }
 				}
 				else
 				{
 					//Nothing wrong, show!
-					$scope.amount = (parseInt(answer) / 100);
+					$scope.trueAmount = answer;
+					$scope.amount = (parseInt(answer) / 100).toFixed(2);
 				}
 			}
 		}
 
-
-		//A better function to parse float from total value
-		function parseFloat2(str)
+		//function call when the back button is pressed
+		$scope.backSpace = function()
 		{
-		    str = (str + '').replace(/[^\d,.-]/g, '')
-		    var sign = str.charAt(0) === '-' ? '-' : '+'
-		    var minor = str.match(/[.,](\d+)$/)
-		    str = str.replace(/[.,]\d*$/, '').replace(/\D/g, '')
-		    return Number(sign + str + (minor ? '.' + minor[1] : ''))
+			//Pop from our stack, and decrease our stack size
+			if($scope.stackSize > 0)
+			{
+				$scope.digitStack.pop();
+				$scope.stackSize--;
+			}
+
+			//Our final answer
+			var answer = 0;
+
+			//create a temp stack we can peek
+			var tempStack = $scope.digitStack.slice();
+
+			//Loop to put in our places
+			for(var i = $scope.stackSize; i > 0; --i)
+			{
+				//Get the value
+				var pop = tempStack.pop();
+
+				//add it to the amount by multipling it by ten
+				//by a certain power
+				var add = pop * Math.pow(10, ($scope.stackSize - i));
+
+				//Now add the amount to amount
+				answer = answer + add;
+			}
+
+			//Nothing wrong, show!
+			$scope.amount = parseInt(answer) / 100;
+
+			console.log($scope.digitStack);
 		}
 
 	}

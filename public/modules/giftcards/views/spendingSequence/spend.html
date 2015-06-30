@@ -50,7 +50,7 @@
                 <p class = "inline paddingLeft backText redText">Back</p>
             </td>
             <td ng-class = "{button0: pressed != 0,button0Press: pressed == 0}" my-touchstart="pressButton(0)" my-touchend="pressButton(-1)"></td>
-            <td class = "buttonDel center" ng-show = "clicked == true" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)"></td>
+            <td class = "buttonDel center" ng-show = "clicked == true" ng-click = "backSpace()"></td>
         </tr>
     </table>
 
