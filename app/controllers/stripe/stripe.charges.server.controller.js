@@ -21,7 +21,7 @@
          customer: req.user.stripeCustomerToken,// if no stripe token is avaible, stripe will return an error.
          description: req.user.displayName + 'bought a giftcard worth' + req.body.amount
       }).then(function handler(response) {
-         // make a call to subledger here, using the s ubleger-service. make sure you are calling the post that,
+         // make a call to subledger here, using the subleger-service. make sure you are calling the post that,
          // updates the updates subledger.
          // If something goes wrong with stripe, then don't update subleger, read the response from stripe and
          // check for faliure or success, on a success create a post to subledger. if not success don't do anything,
