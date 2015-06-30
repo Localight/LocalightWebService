@@ -565,9 +565,9 @@ label.inputlabel {
 
 /* DialPad Buttons */
 
-.buttonCell {
-    height: 75px;
-    width: 75px;
+.dialPad {
+    border-collapse: separate;
+    border-spacing: 10px;
 }
 
 .button1 {
@@ -576,14 +576,169 @@ label.inputlabel {
     background-size: contain;
     height: 75px;
     width: 75px;
-    display: block;
 }
 
 .button1Press {
-    background: url("/modules/giftcards/img/auth-reverse-1.png");
+    background-image: url("/modules/giftcards/img/auth-reverse-1.png");
+    background-repeat: no-repeat;
+    background-size: contain;
     height: 75px;
     width: 75px;
 }
+
+.button2 {
+    background-image: url("/modules/giftcards/img/auth-outline-2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button2Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button3 {
+    background-image: url("/modules/giftcards/img/auth-outline-3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button3Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button4 {
+    background-image: url("/modules/giftcards/img/auth-outline-4.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button4Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-4.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button5 {
+    background-image: url("/modules/giftcards/img/auth-outline-5.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button5Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-5.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button6 {
+    background-image: url("/modules/giftcards/img/auth-outline-6.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button6Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-6.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button7 {
+    background-image: url("/modules/giftcards/img/auth-outline-7.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button7Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-7.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button8 {
+    background-image: url("/modules/giftcards/img/auth-outline-8.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button8Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-8.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+
+.button9 {
+    background-image: url("/modules/giftcards/img/auth-outline-9.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button9Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-9.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button0{
+    background-image: url("/modules/giftcards/img/auth-outline-0.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.button0Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-0.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 75px;
+    width: 75px;
+}
+
+.buttonDel {
+    background-image: url("/modules/giftcards/img/auth-delete-btn-aqua.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+}
+
 
 /* End Dialad Buttons */
 
@@ -595,7 +750,15 @@ label.inputlabel {
     text-align: right;
 }
 
+.backText {
+    font-size: 1.3em;
+}
+
 .inline{
+    display: inline;
+}
+
+.arrowImg {
     display: inline;
 }
 
@@ -660,6 +823,14 @@ label.inputlabel {
 
 .paddingRight {
     padding-right: 10px;
+}
+
+.paddingLeft {
+    padding-left: 10px;
+}
+
+.paddingTop {
+    padding-top: 10px;
 }
 
 .occasionPadding{

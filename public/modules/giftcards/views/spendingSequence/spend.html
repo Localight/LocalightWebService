@@ -1,12 +1,34 @@
 <div class = "darkerCity" ng-controller="EnterAmountController">
 
 
-    <!-- Our table for spending -->
-    <table class = "center">
+    <!-- Our table for spending, the dialpad -->
+    <table class = "center dialPad">
+
         <tr>
-            <td ng-class = "{button1: pressed == -1,button1Press: pressed == 1}" my-touchstart="pressButton(1)" my-touchend="pressButton(-1)"></td>
-            <td class = "paddingRight"><img ng-src="/modules/giftcards/img/auth-outline-2.png" alt="Two" height="75px" width="75px"></td>
-            <td><img ng-src="/modules/giftcards/img/auth-outline-3.png" alt="Three" height="75px" width="75px"></td>
+            <td ng-class = "{button1: pressed != 1,button1Press: pressed == 1}" my-touchstart="pressButton(1)" my-touchend="pressButton(-1)"></td>
+            <td ng-class = "{button2: pressed != 2,button2Press: pressed == 2}" my-touchstart="pressButton(2)" my-touchend="pressButton(-1)"></td>
+            <td ng-class = "{button3: pressed != 3,button3Press: pressed == 3}" my-touchstart="pressButton(3)" my-touchend="pressButton(-1)"></td>
+        </tr>
+
+        <tr>
+            <td ng-class = "{button4: pressed != 4,button4Press: pressed == 4}" my-touchstart="pressButton(4)" my-touchend="pressButton(-1)"></td>
+            <td ng-class = "{button5: pressed != 5,button5Press: pressed == 5}" my-touchstart="pressButton(5)" my-touchend="pressButton(-1)"></td>
+            <td ng-class = "{button6: pressed != 6,button6Press: pressed == 6}" my-touchstart="pressButton(6)" my-touchend="pressButton(-1)"></td>
+        </tr>
+
+        <tr>
+            <td ng-class = "{button7: pressed != 7,button7Press: pressed == 7}" my-touchstart="pressButton(7)" my-touchend="pressButton(-1)"></td>
+            <td ng-class = "{button8: pressed != 8,button8Press: pressed == 8}" my-touchstart="pressButton(8)" my-touchend="pressButton(-1)"></td>
+            <td ng-class = "{button9: pressed != 9,button9Press: pressed == 9}" my-touchstart="pressButton(9)" my-touchend="pressButton(-1)"></td>
+        </tr>
+
+        <tr>
+            <td class = "center" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)">
+                <img class = "" src = "/modules/giftcards/img/auth-lft-arrow.png">
+                <p class = "inline paddingLeft backText redText">Back</p>
+            </td>
+            <td ng-class = "{button0: pressed != 0,button0Press: pressed == 0}" my-touchstart="pressButton(0)" my-touchend="pressButton(-1)"></td>
+            <td class = "buttonDel center" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)"></td>
         </tr>
     </table>
 
