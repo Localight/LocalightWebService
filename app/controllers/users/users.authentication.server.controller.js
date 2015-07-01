@@ -212,10 +212,9 @@ exports.giftWebHook = function(req, res) {
 exports.signin = function(req, res, next) {
    passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
-         console.log(info);
          res.status(400).send(info);
       } else {
-         // Remove sensitive data bekfs
+         // Remove sensitive data before login
          user.password = undefined;
          user.salt = undefined;
 
@@ -258,119 +257,80 @@ exports.oauthCallback = function(strategy) {
    };
 };
 
+
 /**
  * Helper function to save or update a OAuth user profile
  */
-exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
-   if (!req.user) {
-      // Define a search query fields
-      var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
-      var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
+ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
+ 	if (!req.user) {
+ 		// Define a search query fields
+ 		var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
+ 		var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
 
-      // Define main provider search query
-      var mainProviderSearchQuery = {};
-      mainProviderSearchQuery.provider = providerUserProfile.provider;
-      mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
+ 		// Define main provider search query
+ 		var mainProviderSearchQuery = {};
+ 		mainProviderSearchQuery.provider = providerUserProfile.provider;
+ 		mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
 
-      // Define additional provider search query
-      var additionalProviderSearchQuery = {};
-      additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
+ 		// Define additional provider search query
+ 		var additionalProviderSearchQuery = {};
+ 		additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
 
-      // Define a search query to find existing user with current provider profile
-      var searchQuery = {
-         $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
-      };
+ 		// Define a search query to find existing user with current provider profile
+ 		var searchQuery = {
+ 			$or: [mainProviderSearchQuery, additionalProviderSearchQuery]
+ 		};
 
-      User.findOne(searchQuery, function(err, user) {
-         if (err) {
-            return done(err);
-         } else {
-            if (!user) {
-               var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+ 		User.findOne(searchQuery, function(err, user) {
+ 			if (err) {
+ 				return done(err);
+ 			} else {
+ 				if (!user) {
+ 					var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
-               // we're not going to use this method
-               User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
-                  user = new User({
-                     firstName: providerUserProfile.firstName,
-                     lastName: providerUserProfile.lastName,
-                     username: availableUsername,
-                     displayName: providerUserProfile.displayName,
-                     email: providerUserProfile.email,
-                     mobileNumber: providerUserProfile.
-                     mobileNumber,
-                     provider: providerUserProfile.provider,
-                     providerData: providerUserProfile.providerData
-                  });
+ 					User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
+ 						user = new User({
+ 							firstName: providerUserProfile.firstName,
+ 							lastName: providerUserProfile.lastName,
+ 							username: availableUsername,
+ 							displayName: providerUserProfile.displayName,
+ 							email: providerUserProfile.email,
+ 							provider: providerUserProfile.provider,
+ 							providerData: providerUserProfile.providerData
+ 						});
 
-                  // And save the user
-                  user.save(function(err) {
-                  //    client.messages.create({
-                  //      body: JSON.stringify(user),
-                  //      to: req.body.From,
-                  //      from: '+15624454688',
-                  //   }, function(err, message) {
-                  //      if (err) {
-                  //         console.log(err);
-                  //      }
-                  //      if (message) {
-                  //         console.log(message.sid);
-                  //      }
-                  //   });
-                     return done(err, user);
-                  });
-               });
-            } else {
-                client.messages.create({
-                  body: JSON.stringify(user),
-                  to: req.body.From,
-                  from: '+15624454688',
-               }, function(err, message) {
-                  if (err) {
-                     console.log(err);
-                  }
-                  if (message) {
-                     console.log(message.sid);
-                  }
-               });
+ 						// And save the user
+ 						user.save(function(err) {
+ 							return done(err, user);
+ 						});
+ 					});
+ 				} else {
+ 					return done(err, user);
+ 				}
+ 			}
+ 		});
+ 	} else {
+ 		// User is already logged in, join the provider data to the existing user
+ 		var user = req.user;
 
-               return done(err, user);
-            }
-         }
-      });
-   } else {
-      // User is already logged in, join the provider data to the existing user
-      var user = req.user;
+ 		// Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
+ 		if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
+ 			// Add the provider data to the additional provider data field
+ 			if (!user.additionalProvidersData) user.additionalProvidersData = {};
+ 			user.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
 
-      // Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
-      if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
-         // Add the provider data to the additional provider data field
-         if (!user.additionalProvidersData) user.additionalProvidersData = {};
-         user.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
+ 			// Then tell mongoose that we've updated the additionalProvidersData field
+ 			user.markModified('additionalProvidersData');
 
-         // Then tell mongoose that we've updated the additionalProvidersData field
-         user.markModified('additionalProvidersData');
-
-         // And save the user
-         user.save(function(err) {
-         //    client.messages.create({
-         //      body: JSON.stringify(user),
-         //      to: req.body.From,
-         //      from: '+15624454688',
-         //   }, function(err, message) {
-         //      if (err) {
-         //         console.log(err);
-         //      }
-         //      if (message) {
-         //         console.log(message.sid);
-         //      }
-         //   });
-            return done(err, user, '/#!/settings/accounts');
-         });
-      } else {
-         return done(new Error('User is already connected using this provider'), user);
-      }
-   }
-};
+ 			// And save the user
+ 			user.save(function(err) {
+ 				return done(err, user, '/#!/settings/accounts');
+ 			});
+ 		} else {
+ 			return done(new Error('User is already connected using this provider'), user);
+ 		}
+ 	}
+ };
 
 /**
  * Remove OAuth provider
