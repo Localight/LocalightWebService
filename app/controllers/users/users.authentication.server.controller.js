@@ -67,42 +67,47 @@ exports.signup = function(req, res) {
 };
 exports.webHookLogin = function(req, res)
 {
-   // passport.authenticate('local', function(err, user, info) {
-   //    if(err||!user){
-   //       console.log(info);
-   //       res.status(400).send(info);
-   //    }else{
-   //       user.password = undefined;
-   //       user.salt = undefined;
-   //       req.login(user, function(err){
-   //          if(err){
-   //             res.status(400).send(err);
-   //          }else{
-   //             res.json(user);
-   //          }
-   //       });
-   //    }
-   // });
-   console.log(req.param);
-   User.findOne({
-      username:req.param.username
-   }, function(err, user){
-      if(!user)
-      {
-         return res.status(400).send({
-            message: 'No account wtih that username has been found'
-         });
+   console.log('in webhooklogin');
+   passport.authenticate('local', function(err, user, info) {
+      if(err||!user){
+         console.log(info);
+         res.status(400).send(info);
       }else{
-         if(user.password === req.param.password)
-         {
-            console.log('success');
-            res.redirect('/gift/create/');
-         }
-         else {
-            console.log('wrong password');
-         }
+         user.password = undefined;
+         user.salt = undefined;
+         req.login(user, function(err){
+            if(err){
+               res.status(400).send(err);
+            }else{
+               // res.redirect('/gift/create/');
+               console.log('successful login');
+               res.json(user);
+               console.log('im proving james wrong');
+            }
+         });
       }
    });
+
+   // console.log(req.param);
+   // User.findOne({
+   //    username:req.param.username
+   // }, function(err, user){
+   //    if(!user)
+   //    {
+   //       return res.status(400).send({
+   //          message: 'No account wtih that username has been found'
+   //       });
+   //    }else{
+   //       if(user.password === req.param.password)
+   //       {
+   //          console.log('success');
+   //          res.redirect('/gift/create/');
+   //       }
+   //       else {
+   //          console.log('wrong password');
+   //       }
+   //    }
+   // });
 
 };
 
