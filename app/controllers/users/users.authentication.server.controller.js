@@ -65,68 +65,52 @@ exports.signup = function(req, res) {
       });
    });
 };
-// This method is for the server to find or create the user they are looking for.
-//
-exports.findOrCreateUser = function(req, res)
+exports.webHookLogin = function(req, res)
 {
-   // create something to check the body of the request.
-   // make sure that it's only a string with only numbers.
-   //1. validate body of Request.
-   //2. execute method
-   //3. return user id
+   console.log('in webhooklogin');
+   passport.authenticate('local', function(err, user, info) {
+      if(err||!user){
+         console.log(info);
+         res.status(400).send(info);
+      }else{
+         user.password = undefined;
+         user.salt = undefined;
+         req.login(user, function(err){
+            if(err){
+               res.status(400).send(err);
+            }else{
+               // res.redirect('/gift/create/');
+               console.log('successful login');
+               res.json(user);
+               console.log('im proving james wrong');
+            }
+         });
+      }
+   });
 
-  // this is a controller, but you do everything in a controller.
-  // getting user from database.
-  // doing to much in controller.
-  // user.service, pass in phone number. return the object as promise or callback.
-  User.findOne({
-    'mobileNumber': req.body.mobileNumber
-  }, function(err, user) {
-    // In case of any error return
-    if (err) {
-      console.log('Error in findOrCreatUser: ' + err);
-      return (err);
-    }
-    // already exists
-    if (user) {
-      console.log('FINDORCREATEUSER here is the user as he already exists: ' + user);
-      return res.json(user._id);
-    } else {
-      // if user is not found create here.
-      console.log('FINDORCREATEUSER contents of response' + JSON.stringify(req.body));
-      // if there is no user with that phoneNumber
-      // create the user, with the data entered on the giftcard
-      var anotherUser = new User(req.body);
-      console.log('FINDORCREATEUSER contents of the otherUser as it is created: ' + anotherUser);
-      // set the user's local credentials
-      anotherUser.firstName = req.body.firstName;
-      // anotherUser.password = createHash(password);//TODO: come back to this.
-      anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
-      anotherUser.mobileNumber = req.body.mobileNumber;
-      anotherUser.provider = 'local';
-    //  anotherUser.email = req.body.email;
-      stripe.customers.create().then(function handler(response) {
-        // get and save the new users's token.
-        console.log('FINDORCREATEUSER reponse from stripe' + JSON.stringify(response));
-        anotherUser.stripeCustomerTokenThing = response.id;
-        console.log('FINDORCREATEUSER contents of anotherUser' + anotherUser);
-        return anotherUser.save(); // saves user here.
-      }).then(function anotherHandler(response){
-        return res.json(anotherUser);
-      }).catch(function errHandler(err) {
-        console.log('FINDORCREATEUSER this is the error from signing up at the end ' + err);
-        return res.status(400).send(err);
-      });
-      // tokenize user as well.
-      //TODO: need to figure out how and when to do that for user.
-      // in theory could add it to the sign in, then if they have a token already it doesn't fire.
-      // anotherUser.email = req.param('email');
-      // newUser.firstName = req.param('firstName');
-      // newUser.lastName = req.param('lastName');
-      // save the user
-    }
-  });
+   // console.log(req.param);
+   // User.findOne({
+   //    username:req.param.username
+   // }, function(err, user){
+   //    if(!user)
+   //    {
+   //       return res.status(400).send({
+   //          message: 'No account wtih that username has been found'
+   //       });
+   //    }else{
+   //       if(user.password === req.param.password)
+   //       {
+   //          console.log('success');
+   //          res.redirect('/gift/create/');
+   //       }
+   //       else {
+   //          console.log('wrong password');
+   //       }
+   //    }
+   // });
+
 };
+
 exports.giftWebHook = function(req, res) {
    // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
    // more than that we know the user wants to log into their account or want's access to there account.
@@ -143,10 +127,11 @@ exports.giftWebHook = function(req, res) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
+   console.log('in the webhook login controller.');
    if (req.body.Body.toLowerCase() === 'gift') {
       console.log(req.body);
          User.findOne({
-         'username': req.body.Body.slice(2, 12)
+         'username': req.body.From.slice(2, 12)
       }, function(err, user) {
          // In case of any error return
          if (err) {
@@ -155,9 +140,10 @@ exports.giftWebHook = function(req, res) {
          }
          // already exists
       if (user) {
+	console.log(user);
             console.log('the user ' + user);
             client.messages.create({
-               body: JSON.stringify(user),
+               body: 'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
                to: req.body.From,
                from: '+15624454688',
             }, function(err, message) {
@@ -169,11 +155,12 @@ exports.giftWebHook = function(req, res) {
                }
             });
          } else {
+	console.log('got here in twilio controller');
             // if user is not found create here.
             // if there is no user with that phoneNumber
             // create the user, with the data entered on the giftcard
             var anotherUser = new User();
-            anotherUser.username = req.body.Body.slice(2, 12);
+            anotherUser.username = req.body.From.slice(2, 12);
             // set the user's local credentials
             //  anotherUser.firstName = req.body.firstName;
             // anotherUser.password = createHash(password);//TODO: come back to this.
@@ -192,7 +179,7 @@ exports.giftWebHook = function(req, res) {
                return anotherUser.save(); // saves user here.
             }).then(function anotherHandler(response) {
                return client.messages.create({
-                  body: JSON.stringify(anotherUser),
+                  body:'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
                   to: req.body.From,
                   from: '+15624454688',
                }, function(err, message) {
@@ -204,6 +191,7 @@ exports.giftWebHook = function(req, res) {
                   }
                });
             }).catch(function errHandler(err) {
+	       console.log(err);
                return res.status(400).send(err);
             });
             // tokenize user as well.
@@ -222,14 +210,13 @@ exports.giftWebHook = function(req, res) {
  * Signin after passport authentication
  **/
 exports.signin = function(req, res, next) {
-
    passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
          console.log(info);
          res.status(400).send(info);
       } else {
          // Remove sensitive data bekfs
-         user.password = 'password';
+         user.password = undefined;
          user.salt = undefined;
 
          req.login(user, function(err) {
