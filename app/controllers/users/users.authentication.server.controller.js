@@ -147,6 +147,11 @@ function getRandomToken() {
       return token;
    });
 }
+//NOTE: The giftWebHook method might change over time. If we get different
+// words texted to ther server we will have to handle them accordinlgy
+// This also might be a switch statement.
+//NOTE: Verison future, create a systemt to handle incorrect texts,
+// and continual incorrect texts
 exports.giftWebHook = function(req, res) {
    /** Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
    // more than that we know the user wants to log into their account or want's access to there account.
@@ -179,11 +184,10 @@ exports.giftWebHook = function(req, res) {
          var holderToken = getRandomToken();
          // already exists
          if (user) {
+            console.log('the value of the user'+user);
             user.textToken = holderToken;
             user.textTokenExpires = Date.now() + 3600000;
             //TODO: come back and add error catching for user.save
-            user.save();
-
             client.messages.create({
                body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
                to: req.body.From,
@@ -244,6 +248,7 @@ exports.giftWebHook = function(req, res) {
 
       });
    } else {
+      //NOTE: Need to work on how to handle errors more efficently in node.
       // need to make sure I handle the errors so that the server doesn't crash
       console.log('attempt made to server, Body was:' + req.body.Body);
    }
