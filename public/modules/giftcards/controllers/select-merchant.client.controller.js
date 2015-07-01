@@ -3,10 +3,13 @@
 angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$window',
 	function($scope, $window) {
 
+		//Switch overlay off
+		document.getElementById('darkerOverlay').style.display = "none";
+
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
-		
+
 		$scope.merchants = [{
 			area: "4th Street Retro Row",
 			name: "Goldies On 4th",
