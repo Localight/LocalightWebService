@@ -49,5 +49,4 @@ exports.interceptTwilioMesage = function(request, response) {
    //       console.log('attempt made to server, Body was:' + request.body.Body);
    //    }
    // }
-
 };

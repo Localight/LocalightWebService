@@ -65,6 +65,7 @@ exports.signup = function(req, res) {
       });
    });
 };
+<<<<<<< HEAD
 exports.webHookLogin = function(req, res)
 {
    console.log('in webhooklogin');
@@ -108,6 +109,12 @@ exports.webHookLogin = function(req, res)
    //       }
    //    }
    // });
+=======
+exports.findOrCreateUser = function(req, res) {
+   // the only thing I should be getting is a string, if you have given me anything other than a userName,
+   // your doing something wrong.
+   // lets check for that first.
+>>>>>>> feature/userModel
 
 };
 
@@ -130,8 +137,13 @@ exports.giftWebHook = function(req, res) {
    console.log('in the webhook login controller.');
    if (req.body.Body.toLowerCase() === 'gift') {
       console.log(req.body);
+<<<<<<< HEAD
          User.findOne({
          'username': req.body.From.slice(2, 12)
+=======
+      User.findOne({
+         'username': req.body.Body.slice(2, 12)
+>>>>>>> feature/userModel
       }, function(err, user) {
          // In case of any error return
          if (err) {
@@ -139,8 +151,12 @@ exports.giftWebHook = function(req, res) {
             return (err);
          }
          // already exists
+<<<<<<< HEAD
       if (user) {
 	console.log(user);
+=======
+         if (user) {
+>>>>>>> feature/userModel
             console.log('the user ' + user);
             client.messages.create({
                body: 'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
@@ -214,7 +230,11 @@ exports.signin = function(req, res, next) {
       if (err || !user) {
          res.status(400).send(info);
       } else {
+<<<<<<< HEAD
+         // Remove sensitive data bekfs
+=======
          // Remove sensitive data before login
+>>>>>>> feature/userModel
          user.password = undefined;
          user.salt = undefined;
 

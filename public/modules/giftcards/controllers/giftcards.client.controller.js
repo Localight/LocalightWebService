@@ -206,12 +206,36 @@ angular.module('giftcards')
         });
       };
 
-
+      /*Moved into list gift card controller
       // Find a list of Giftcards
       $scope.find = function() {
-        $scope.giftcards = Giftcards.query();
-      };
+        //$scope.giftcards = Giftcards.query();
 
+        //FOr testing, hardcoding scope giftcards
+        $scope.giftcards =
+        [
+            {
+              to: "john",
+              amt: "100000000000",
+              mobileNumberOfRecipient: "5625555555",
+              merchant: "xxxxx",
+              from: 'username',
+              message: "hi",
+              districtNumber: 'number'
+            },
+            {
+                to: "john",
+                amt: "100000000000",
+                mobileNumberOfRecipient: "5625555555",
+                merchant: "xxxxx",
+                from: 'username',
+                message: "hi",
+                districtNumber: 'number'
+            }
+        ]
+    }
+    */
+    
       // Find existing Giftcard
       $scope.findOne = function() {
         $scope.giftcard = Giftcards.get({
@@ -219,6 +243,7 @@ angular.module('giftcards')
         });
       };
 
+      //Mask for translating and validating phone numbers
       $scope.mask = function(f){
           f = $window.document.getElementById(f);
           $scope.clique_input_phonenumber_validity = true;
