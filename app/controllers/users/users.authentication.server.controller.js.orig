@@ -13,7 +13,7 @@ var _ = require('lodash'),
    config = require('../../../config/config'),
    message = null,
    client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
-   stripe = require('stripe')(config.stripe.secretKey);
+   stripe = require('stripe')(config.stripe.clientSecret);
 
 exports.signup = function(req, res) {
    // Stil need a way to sign up the user.
@@ -65,6 +65,7 @@ exports.signup = function(req, res) {
       });
    });
 };
+<<<<<<< HEAD
 // This method is for the server to find or create the user they are looking for.
 //
 exports.findOrCreateUser = function(req, res)
@@ -126,6 +127,13 @@ exports.findOrCreateUser = function(req, res)
       // save the user
     }
   });
+=======
+exports.findOrCreateUser = function(req, res){
+   // the only thing I should be getting is a string, if you have given me anything other than a userName,
+   // your doing something wrong.
+   // lets check for that first.
+   
+>>>>>>> feature/giftcardController
 };
 exports.giftWebHook = function(req, res) {
    // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
