@@ -3,6 +3,9 @@
 angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location',
 	function($scope, $location) {
 
+		//Switch overlay on
+		document.getElementById('darkerOverlay').style.display = "block";
+
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
