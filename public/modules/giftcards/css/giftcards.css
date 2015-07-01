@@ -880,6 +880,8 @@ label.inputlabel {
 .center{
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    display: block;
 }
 
 .buttonFont {
@@ -898,7 +900,6 @@ label.inputlabel {
 .paddingTop {
     padding-top: 10px;
 }
-
 
 .occasionPadding{
     padding: 10px;
