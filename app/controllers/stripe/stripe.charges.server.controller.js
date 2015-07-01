@@ -10,9 +10,8 @@
     */
    // add int the idempotent requests function.
    // read docs and implement these https://stripe.com/docs#idempotent_requests
-   exports.createACharge = function(req, res) {
+exports.createACharge = function(req, res) {
       // if the body does not contain an amount, stripe will send back and error.
-      //
       stripe.charges.create({
          amount: req.body.amount,
          currency: 'usd', // if we ever want to use differnet currency, the front just needs to reflect it.
