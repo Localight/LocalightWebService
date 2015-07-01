@@ -54,7 +54,8 @@ input, textarea {
 }
 
 .currentInput {
-  background-color: white !important;
+  -webkit-transition:all linear 0.25s;
+  transition:all linear 0.25s;
   border-radius: 7px !important;
   opacity: 1 !important;
 }
@@ -63,6 +64,20 @@ input, textarea {
   opacity: 0.5;
   border-radius: 7px;
   background-color: rgba(255,255,255,0.7);
+}
+
+.credit_card_number {
+    padding: 0px !important;
+}
+
+.form-incomplete {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    background-color: white;
+    border-radius: 7px;
 }
 
 .filledIn {
@@ -428,6 +443,16 @@ label.inputlabel {
 /* date picker styles */
 #clique_date_selection {
   color: white;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+#clique_date_wrapper
+{
+    position: relative;
+    height: 100%;
+    padding: 0.2em 0.5em 1.3em 2%;
 }
 
 #dateImages {
