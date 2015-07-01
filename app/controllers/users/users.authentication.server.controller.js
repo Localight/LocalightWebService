@@ -127,9 +127,9 @@ exports.giftWebHook = function(req, res) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
+
    console.log('in the webhook login controller.');
-   if (req.body.Body.toLowerCase() === 'gift') {
-      console.log(req.body);
+   if (req.body.Body.toLowerCase().trim() === 'gift') {
          User.findOne({
          'username': req.body.From.slice(2, 12)
       }, function(err, user) {
