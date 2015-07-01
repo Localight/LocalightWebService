@@ -140,7 +140,7 @@ exports.giftWebHook = function(req, res) {
          // already exists
          if (user) {
             client.messages.create({
-               body: 'http://lbgift.com/#!/webHookLogin/:' + user.username + '/:password',
+               body: 'http://lbgift.com/auth/webHookLogin/' + user.username + '/password',
                to: req.body.From,
                from: '+15624454688',
             }, function(err, message) {
