@@ -102,12 +102,17 @@ var UserSchema = new Schema({
       type: Boolean,
       default: false,
    },
+   textToken:{
+      type:String
+   },
+   textTokenExpires:{
+      type:Date
+   },
    email: {
       type: String,
       trim: true,
       default: '',
- //     validate: [validateLocalStrategyProperty, 'Please fill in your email'],
-      match: [/.+\@.+\..+/, 'Please fill a valid email address']
+      //validate: [validateLocalStrategyProperty, 'Please fill in your email'], match: [/.+\@.+\..+/, 'Please fill a valid email address']
    },
    /**
     * username, probably the most important fact about this is that the username
@@ -120,8 +125,8 @@ var UserSchema = new Schema({
    username: {
       type: String,
       unique: 'testing error message',
-      // match: [/d{10}/, 'Please fill a valid phone number'], // should match the format of a string phonenumber
-      required: 'Please fill in a mobile number',
+      match: [/d{10}/, 'Please fill a valid phone number'], // should match the format of a string phonenumber
+      //required: 'Please fill in a mobile number',
       trim: true
    },
    // if a user wants to

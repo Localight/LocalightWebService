@@ -8,6 +8,7 @@ message = null;
 /**
  * Create a Account
  */
+<<<<<<< HEAD
 exports.createAStripeManagedAccount = function(req, res){
    //each rtripe controller needs a
    stripe.accounts.create({
@@ -25,11 +26,22 @@ exports.createAStripeManagedAccount = function(req, res){
       return res.status(400).send({
          message: errorHandler.getErrorMessage(errResponse)
       });
+=======
+exports.createCustomerAccount = function(req, res){
+   // each stripe controller needs a 
+   stripe.customers.create({
+
+   }).then(function handler(resopnse){
+
+   }).catch(function errorHandler(errResponse){
+
+>>>>>>> feature/giftcardController
    });
 };
 /**
  * Retrieve a Account details
  */
+<<<<<<< HEAD
 // exports.retrieveAccountDetails = function(req, res){
 //    ({
 //
@@ -74,3 +86,40 @@ exports.createAStripeManagedAccount = function(req, res){
 //       });
 //    });
 // };
+=======
+exports.retrieveAccountDetails = function(req, res){
+   ({
+
+   }).then(function handler(resopnse){
+
+   }).catch(function errorHandler(errResponse){
+
+   });
+};
+/*
+ *  Update an Account
+ */
+
+exports.updateAccount = function(req, res){
+   ({
+
+   }).then(function handler(resopnse){
+
+   }).catch(function errorHandler(errResponse){
+
+   });
+};
+
+/*
+ * List all connected Accounts
+ */
+exports.listAllConnectedAccounts = function(req, res){
+   ({
+
+   }).then(function handler(resopnse){
+
+   }).catch(function errorHandler(errResponse){
+
+   });
+};
+>>>>>>> feature/giftcardController

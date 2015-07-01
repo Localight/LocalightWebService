@@ -28,7 +28,6 @@ body {
   height: 100%;
 }
 
-
 /* General Styles */
 .hide {
   display: none;
@@ -54,7 +53,8 @@ input, textarea {
 }
 
 .currentInput {
-  background-color: white !important;
+  -webkit-transition:all linear 0.25s;
+  transition:all linear 0.25s;
   border-radius: 7px !important;
   opacity: 1 !important;
 }
@@ -63,6 +63,20 @@ input, textarea {
   opacity: 0.5;
   border-radius: 7px;
   background-color: rgba(255,255,255,0.7);
+}
+
+.credit_card_number {
+    padding: 0px !important;
+}
+
+.form-incomplete {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    background-color: white;
+    border-radius: 7px;
 }
 
 .filledIn {
@@ -100,6 +114,10 @@ input, textarea {
 .bold {
   font-weight: bold;
 }
+
+.whiteText{
+    color: #e8e9ea;
+}
 /* End Font Styles */
 
 /* Background Image */
@@ -108,7 +126,7 @@ input, textarea {
   top: 40%;
   width: 100%;
   height: 60%; /* 60% + 40% (from "top") = 100% of the screen's height*/
-  z-index: -1;
+  z-index: -2;
   background-size: cover;
   background-position: center top;
   background-color: #58e6df;
@@ -131,6 +149,20 @@ input, textarea {
   background-image: url('../img/local-street-bg-blur.png');
 }
 
+#darkerOverlay {
+    display:none;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-size: cover;
+    background-position: center top;
+    background-color: #58e6df; background-image: url('/modules/giftcards/img/auth-bg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
 /* Clique Logo */
 .clique_logo {
   margin: 10px auto 5%;
@@ -142,13 +174,15 @@ input, textarea {
 
 /* Wrapper */
 .wrapper {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
+/* Removing inherited padding
 .wrapper > div {
   margin-bottom: 2.5% !important;
 }
+*/
 
 /*--- section styles ---*/
 .checkmark {
@@ -355,6 +389,36 @@ label.inputlabel {
   font-style: italic;
   font-size: small;
 }
+
+.flatRowSection{
+    font-weight: 200;
+}
+
+.whiteHeader{
+    color: white;
+}
+
+.flatRowListItem {
+    background-color: rgba(0,0,0,0.15) ;
+    border: none;
+    margin-bottom: 2px;
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 0px !important;
+}
+
+.flatRowListItem h3 {
+    margin: 0px;
+    font-weight: 100 !important;
+}
+
+.flatRowListItem .glyphicon {
+    position: absolute;
+    right: 0;
+    padding-top: 5px;
+    padding-right: 5px;
+    font-size: 50px;
+}
 /* End Clique Code Styles */
 
 /* occasion styles */
@@ -426,6 +490,15 @@ label.inputlabel {
 /* date picker styles */
 #clique_date_selection {
   color: white;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+#clique_date_wrapper {
+    position: relative;
+    height: 100%;
+    padding: 0.2em 0.5em 1.3em 2%;
 }
 
 #dateImages {
@@ -559,3 +632,330 @@ label.inputlabel {
   background-position: center;
 
 }
+
+/* DialPad Buttons */
+
+.dialPad {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.button1 {
+    background-image: url("/modules/giftcards/img/auth-outline-1.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button1Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-1.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button2 {
+    background-image: url("/modules/giftcards/img/auth-outline-2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button2Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button3 {
+    background-image: url("/modules/giftcards/img/auth-outline-3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button3Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button4 {
+    background-image: url("/modules/giftcards/img/auth-outline-4.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button4Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-4.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button5 {
+    background-image: url("/modules/giftcards/img/auth-outline-5.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button5Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-5.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button6 {
+    background-image: url("/modules/giftcards/img/auth-outline-6.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button6Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-6.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button7 {
+    background-image: url("/modules/giftcards/img/auth-outline-7.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button7Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-7.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button8 {
+    background-image: url("/modules/giftcards/img/auth-outline-8.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button8Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-8.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+
+.button9 {
+    background-image: url("/modules/giftcards/img/auth-outline-9.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button9Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-9.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button0{
+    background-image: url("/modules/giftcards/img/auth-outline-0.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button0Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-0.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.buttonDel {
+    background-image: url("/modules/giftcards/img/auth-delete-btn-aqua.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+}
+
+/* End Dialad Buttons */
+
+/* Aaron's Styles */
+
+.listNameHeader {
+    color: #df5241;
+    font-size: 4em;
+    text-align: right;
+    padding-right: 25px;
+}
+
+.backText {
+    font-size: 1.3em;
+}
+
+.inline{
+    display: inline;
+}
+
+.arrowImg {
+    display: inline;
+}
+
+.sub-header{
+    width: 100%;
+    font-size: 2em;
+}
+
+.list-item {
+    width: 100%;
+    font-size: 2em;
+}
+
+.textRightAlign {
+    text-align: right;
+}
+
+.semiTransparentBG {
+    background-color:rgba(0, 0, 0, 0.15);
+}
+
+.semiTransparentBGRounded {
+    background-color:rgba(37,81,79, 0.75);
+    border-radius: 5px;
+}
+
+.buttonBGRounded{
+    background-color: #E9EEF6;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.list-group:hover{
+    background-color:rgba(37,81,79, 0.5);
+}
+
+.occasionMessage{
+    text-align: left;
+}
+
+.whiteText{
+    color: #E9EEF6;
+}
+
+.blackText{
+    color: #0E0C0F;
+}
+
+.redText {
+    color: #df5241;
+}
+
+.linkText {
+    color: #5ac4c0;
+}
+
+.largerText {
+    font-size: 1.5em;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: block;
+}
+
+.buttonFont {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.paddingRight {
+    padding-right: 10px;
+}
+
+.paddingLeft {
+    padding-left: 10px;
+}
+
+.paddingTop {
+    padding-top: 10px;
+}
+
+.occasionPadding{
+    padding: 10px;
+}
+
+.navText {
+    font-size: .75em;
+}
+
+.tiltText {
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.imagePaddingRight {
+    padding-right: 5px;
+}
+
+.darkerCity {
+    background-image: url("/modules/giftcards/img/auth-bg.png");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}
+
+.upside {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+/* Overriding Bootstrap css for a more native app look */
+.content {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+/* End Aaron's Styles */

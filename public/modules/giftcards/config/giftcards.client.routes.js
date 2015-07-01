@@ -5,17 +5,30 @@ angular.module('giftcards').config(['$stateProvider',
 	function($stateProvider) {
 		// Giftcards state routing
 		$stateProvider.
+		state('tilt-screen', {
+			url: '/spend/tilt',
+			templateUrl: 'modules/giftcards/views/tilt-screen.client.view.html'
+		}).
+		state('selectMerchant', {
+			url: '/merchants',
+			templateUrl: 'modules/giftcards/views/select-merchant.client.view.html'
+		}).
 		state('listGiftcards', {
+			controller: 'ListGiftCardsController',
 			url: '/giftcards',
 			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
 		}).
 		state('createGiftcard', {
 			url: '/giftcards/create',
-			templateUrl: 'modules/giftcards/views/create-giftcard.client.view.html'
+			templateUrl: 'modules/giftcards/views/purchaseSequence/create_giftcard_order.client.view.html'
 		}).
 		state('viewGiftcard', {
 			url: '/giftcards/:giftcardId',
-			templateUrl: 'modules/giftcards/views/view-giftcard.client.view.html'
+			templateUrl: 'modules/giftcards/views/spendingSequence/recipient.html'
+		}).
+		state('spendGiftcard', {
+			url: '/spend',
+			templateUrl: 'modules/giftcards/views/spendingSequence/spend.html'
 		}).
 		state('editGiftcard', {
 			url: '/giftcards/:giftcardId/edit',
