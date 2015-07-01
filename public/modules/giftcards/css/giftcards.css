@@ -115,6 +115,10 @@ input, textarea {
 .bold {
   font-weight: bold;
 }
+
+.whiteText{
+    color: #e8e9ea;
+}
 /* End Font Styles */
 
 /* Background Image */
@@ -478,8 +482,7 @@ label.inputlabel {
   font-size: 1.2em;
 }
 
-#clique_date_wrapper
-{
+#clique_date_wrapper {
     position: relative;
     height: 100%;
     padding: 0.2em 0.5em 1.3em 2%;
@@ -617,9 +620,184 @@ label.inputlabel {
 
 }
 
+/* DialPad Buttons */
+
+.dialPad {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.button1 {
+    background-image: url("/modules/giftcards/img/auth-outline-1.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button1Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-1.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button2 {
+    background-image: url("/modules/giftcards/img/auth-outline-2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button2Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button3 {
+    background-image: url("/modules/giftcards/img/auth-outline-3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button3Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button4 {
+    background-image: url("/modules/giftcards/img/auth-outline-4.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button4Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-4.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button5 {
+    background-image: url("/modules/giftcards/img/auth-outline-5.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button5Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-5.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button6 {
+    background-image: url("/modules/giftcards/img/auth-outline-6.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button6Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-6.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button7 {
+    background-image: url("/modules/giftcards/img/auth-outline-7.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button7Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-7.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button8 {
+    background-image: url("/modules/giftcards/img/auth-outline-8.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button8Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-8.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
 
 
+.button9 {
+    background-image: url("/modules/giftcards/img/auth-outline-9.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
 
+.button9Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-9.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button0{
+    background-image: url("/modules/giftcards/img/auth-outline-0.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.button0Press {
+    background-image: url("/modules/giftcards/img/auth-reverse-0.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.buttonDel {
+    background-image: url("/modules/giftcards/img/auth-delete-btn-aqua.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+}
+
+
+/* End Dialad Buttons */
 
 /* Aaron's Styles */
 
@@ -627,9 +805,18 @@ label.inputlabel {
     color: #df5241;
     font-size: 4em;
     text-align: right;
+    padding-right: 25px;
+}
+
+.backText {
+    font-size: 1.3em;
 }
 
 .inline{
+    display: inline;
+}
+
+.arrowImg {
     display: inline;
 }
 
@@ -643,11 +830,15 @@ label.inputlabel {
     font-size: 2em;
 }
 
-.textRightAlign{
+.textRightAlign {
     text-align: right;
 }
 
-.semiTransparentBGRounded{
+.semiTransparentBG {
+    background-color:rgba(0, 0, 0, 0.15);
+}
+
+.semiTransparentBGRounded {
     background-color:rgba(37,81,79, 0.75);
     border-radius: 5px;
 }
@@ -682,6 +873,10 @@ label.inputlabel {
     color: #5ac4c0;
 }
 
+.largerText {
+    font-size: 1.5em;
+}
+
 .center{
     margin-left: auto;
     margin-right: auto;
@@ -700,6 +895,13 @@ label.inputlabel {
     padding-left: 10px;
 }
 
+<<<<<<< HEAD
+=======
+.paddingTop {
+    padding-top: 10px;
+}
+
+>>>>>>> feature/enterAmount
 .occasionPadding{
     padding: 10px;
 }
@@ -710,6 +912,12 @@ label.inputlabel {
 
 .imagePaddingRight {
     padding-right: 5px;
+}
+
+.darkerCity {
+    background-image: url("/modules/giftcards/img/auth-bg.png");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
 }
 
 /* Overriding Bootstrap css for a more native app look */

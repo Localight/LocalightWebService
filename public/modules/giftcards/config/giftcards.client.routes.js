@@ -10,6 +10,7 @@ angular.module('giftcards').config(['$stateProvider',
 			templateUrl: 'modules/giftcards/views/select-merchant.client.view.html'
 		}).
 		state('listGiftcards', {
+			controller: 'ListGiftCardsController',
 			url: '/giftcards',
 			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
 		}).
@@ -20,6 +21,10 @@ angular.module('giftcards').config(['$stateProvider',
 		state('viewGiftcard', {
 			url: '/giftcards/:giftcardId',
 			templateUrl: 'modules/giftcards/views/spendingSequence/recipient.html'
+		}).
+		state('spendGiftcard', {
+			url: '/spend',
+			templateUrl: 'modules/giftcards/views/spendingSequence/spend.html'
 		}).
 		state('editGiftcard', {
 			url: '/giftcards/:giftcardId/edit',
