@@ -1,35 +1,35 @@
-<section class = "upside" data-ng-controller="TriconController">
+<section class="upside" data-ng-controller="TriconController">
 	<!-- The amount entered -->
-	<h2 class = "whiteText center">${{getAmount()}}</h2>
+	<h2 class="whiteText center">${{getAmount()}}</h2>
 
 	<!-- down arrow -->
-	<img class = "center upside" src = "/modules/giftcards/img/up-arrow-wht.png">
+	<img class="center upside" src="/modules/giftcards/img/up-arrow-wht.png">
 
 	<!--Merchants name -->
-	<h2 class = "whiteText center">{{getMerchant()}}</h2>
+	<h2 class="whiteText center">{{getMerchant()}}</h2>
 
 
 	<!-- Our Tricon Pad -->
 	<!-- Our table for tricon, the dialpad -->
-	<table class = "dialPad" align="center">
+	<table class="dialPad" align="center">
 
 		<tr>
 			<!-- Using inline styles for our randomization so we can edit this later-->
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;"  my-touchstart="pressButton(1)" my-touchend="pressButton(-1)"></td>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;"  my-touchstart="pressButton(2)" my-touchend="pressButton(-1)"></td>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(3)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;"  my-touchstart="pressButton(1)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;"  my-touchstart="pressButton(2)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(3)" my-touchend="pressButton(-1)"></td>
 		</tr>
 
 		<tr>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(4)" my-touchend="pressButton(-1)"></td>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchend="pressButton(-1)"></td>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(6)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(4)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(6)" my-touchend="pressButton(-1)"></td>
 		</tr>
 
 		<tr>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(7)" my-touchend="pressButton(-1)"></td>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(8)" my-touchend="pressButton(-1)"></td>
-			<td class = "triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(9)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(7)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(8)" my-touchend="pressButton(-1)"></td>
+			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(9)" my-touchend="pressButton(-1)"></td>
 		</tr>
 	</table>
 
