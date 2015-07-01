@@ -6,7 +6,7 @@ angular.module('giftcards').config(['$stateProvider',
 		// Giftcards state routing
 		$stateProvider.
 		state('tilt-screen', {
-			url: '/spendtilt',
+			url: '/spend/tilt',
 			templateUrl: 'modules/giftcards/views/tilt-screen.client.view.html'
 		}).
 		state('selectMerchant', {
