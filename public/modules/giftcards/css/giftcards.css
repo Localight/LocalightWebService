@@ -908,6 +908,11 @@ label.inputlabel {
     font-size: .75em;
 }
 
+.tiltText {
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
 .imagePaddingRight {
     padding-right: 5px;
 }
@@ -916,6 +921,12 @@ label.inputlabel {
     background-image: url("/modules/giftcards/img/auth-bg.png");
     background-repeat:no-repeat;
     background-size: 100% 100%;
+}
+
+.upside {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
 }
 
 /* Overriding Bootstrap css for a more native app look */
