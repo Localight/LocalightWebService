@@ -115,6 +115,10 @@ input, textarea {
 .bold {
   font-weight: bold;
 }
+
+.whiteText{
+    color: #e8e9ea;
+}
 /* End Font Styles */
 
 /* Background Image */
@@ -478,8 +482,7 @@ label.inputlabel {
   font-size: 1.2em;
 }
 
-#clique_date_wrapper
-{
+#clique_date_wrapper {
     position: relative;
     height: 100%;
     padding: 0.2em 0.5em 1.3em 2%;
@@ -618,15 +621,13 @@ label.inputlabel {
 }
 
 
-
-
-
 /* Aaron's Styles */
 
 .listNameHeader {
     color: #df5241;
     font-size: 4em;
     text-align: right;
+    padding-right: 25px;
 }
 
 .inline{
@@ -643,11 +644,15 @@ label.inputlabel {
     font-size: 2em;
 }
 
-.textRightAlign{
+.textRightAlign {
     text-align: right;
 }
 
-.semiTransparentBGRounded{
+.semiTransparentBG {
+    background-color:rgba(0, 0, 0, 0.15);
+}
+
+.semiTransparentBGRounded {
     background-color:rgba(37,81,79, 0.75);
     border-radius: 5px;
 }

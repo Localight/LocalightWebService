@@ -10,6 +10,7 @@ angular.module('giftcards').config(['$stateProvider',
 			templateUrl: 'modules/giftcards/views/select-merchant.client.view.html'
 		}).
 		state('listGiftcards', {
+			controller: 'ListGiftCardsController',
 			url: '/giftcards',
 			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
 		}).
