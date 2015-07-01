@@ -3,6 +3,10 @@
 angular.module('giftcards').controller('TiltScreenController', ['$scope',
 	function($scope)
 	{
+
+		//Switch overlay on
+		document.getElementById('darkerOverlay').style.display = "block";
+
 		//Get the amount we are going to send the server
 		$scope.getAmount = function()
 		{
