@@ -5,8 +5,12 @@ angular.module('giftcards').config(['$stateProvider',
 	function($stateProvider) {
 		// Giftcards state routing
 		$stateProvider.
+		state('tricon', {
+			url: '/spend/tricon',
+			templateUrl: 'modules/giftcards/views/tricon.client.view.html'
+		}).
 		state('tilt-screen', {
-			url: '/spendtilt',
+			url: '/spend/tilt',
 			templateUrl: 'modules/giftcards/views/tilt-screen.client.view.html'
 		}).
 		state('selectMerchant', {
