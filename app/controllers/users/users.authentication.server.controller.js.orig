@@ -13,7 +13,8 @@ var _ = require('lodash'),
    config = require('../../../config/config'),
    message = null,
    client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
-   stripe = require('stripe')(config.stripe.secretKey);
+   stripe = require('stripe')(config.stripe.secretKey),
+   crypto = require('crypto');
 
 exports.signup = function(req, res) {
    // Stil need a way to sign up the user.
@@ -66,20 +67,75 @@ exports.signup = function(req, res) {
    });
 };
 <<<<<<< HEAD
-exports.webHookLogin = function(req, res)
-{
+exports.webHookLogin = function(req, res) {
+
    console.log('in webhooklogin');
-   passport.authenticate('local', function(err, user, info) {
-      if(err||!user){
-         console.log(info);
+   User.findOne({
+      textToken: req.params.token,
+      textTokenExpires: {
+         $gt: Date.now()
+      }
+   }, function(err, user){
+      if(!err && user){
+         user.textToken = undefined;
+         user.textTokenExpires = undefined;
+         user.save(function(err) {
+            if (err) {
+               return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+               });
+            } else {
+               req.login(user, function(err) {
+                  if (err) {
+                     res.status(400).send(err);
+                  } else {
+                     // Return authenticated user
+                     res.json(user);
+                     //TODO: come back and add the redierct. 
+                  }
+               });
+            }
+         });
+      }
+   });
+   /**
+=======
+exports.webHookLogin = function(req, res, next)
+{
+ console.log('in webhooklogin');
+//res.redirect('/#!/signin');
+req.body.username = req.params.username;
+req.body.password = req.params.password;
+passport.authenticate('local', function(err, user, info) {
+      if (err || !user) {
          res.status(400).send(info);
-      }else{
+      } else {
+         // Remove sensitive data before login
          user.password = undefined;
          user.salt = undefined;
-         req.login(user, function(err){
-            if(err){
+
+         req.login(user, function(err) {
+            if (err) {
                res.status(400).send(err);
-            }else{
+            } else {
+               res.redirect('/#!/giftcards/create');
+            }
+         });
+      }
+   })(req, res, next);
+/*
+>>>>>>> 7717f4beac876c15f6f87e0334420b90670adf6d
+   passport.authenticate('local', function(err, user, info) {
+      if (err || !user) {
+         console.log(info);
+         res.status(400).send(info);
+      } else {
+         user.password = undefined;
+         user.salt = undefined;
+         req.login(user, function(err) {
+            if (err) {
+               res.status(400).send(err);
+            } else {
                // res.redirect('/gift/create/');
                console.log('successful login');
                res.json(user);
@@ -88,7 +144,10 @@ exports.webHookLogin = function(req, res)
          });
       }
    });
-
+<<<<<<< HEAD
+   **/
+=======
+*/
    // console.log(req.param);
    // User.findOne({
    //    username:req.param.username
@@ -109,17 +168,18 @@ exports.webHookLogin = function(req, res)
    //       }
    //    }
    // });
-=======
-exports.findOrCreateUser = function(req, res) {
-   // the only thing I should be getting is a string, if you have given me anything other than a userName,
-   // your doing something wrong.
-   // lets check for that first.
->>>>>>> feature/userModel
 
+>>>>>>> 7717f4beac876c15f6f87e0334420b90670adf6d
 };
 
+ function getRandomToken(){
+   crypto.randomBytes(6, function(err, buffer) {
+      var token = buffer.toString('hex');
+      return token;
+   });
+}
 exports.giftWebHook = function(req, res) {
-   // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
+   /** Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
    // more than that we know the user wants to log into their account or want's access to there account.
    // So what do we do?
    // I want to log them in.
@@ -134,32 +194,37 @@ exports.giftWebHook = function(req, res) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
-   console.log('in the webhook login controller.');
-   if (req.body.Body.toLowerCase() === 'gift') {
-      console.log(req.body);
 <<<<<<< HEAD
-         User.findOne({
-         'username': req.body.From.slice(2, 12)
-=======
+ **/
+
+   if (req.body.Body.toLowerCase().trim() === 'gift') {
       User.findOne({
-         'username': req.body.Body.slice(2, 12)
->>>>>>> feature/userModel
+=======
+   console.log('in the webhook login controller.');
+   if (req.body.Body.toLowerCase().trim() === 'gift') {
+      console.log(req.body);
+         User.findOne({
+>>>>>>> 7717f4beac876c15f6f87e0334420b90670adf6d
+         'username': req.body.From.slice(2, 12)
       }, function(err, user) {
          // In case of any error return
          if (err) {
-            console.log('the error from twilio' + err);
+            console.log('the error from database' + err);
             return (err);
          }
+         // modified the user here.
+         // create token and add to user.
+         var holderToken = getRandomToken();
          // already exists
 <<<<<<< HEAD
+         if (!user) {
+            console.log('got here in twilio controller');
+=======
       if (user) {
 	console.log(user);
-=======
-         if (user) {
->>>>>>> feature/userModel
             console.log('the user ' + user);
             client.messages.create({
-               body: 'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
+               body: 'http://lbgift.com/auth/webHookLogin/'+user.username+'/password',
                to: req.body.From,
                from: '+15624454688',
             }, function(err, message) {
@@ -172,6 +237,7 @@ exports.giftWebHook = function(req, res) {
             });
          } else {
 	console.log('got here in twilio controller');
+>>>>>>> 7717f4beac876c15f6f87e0334420b90670adf6d
             // if user is not found create here.
             // if there is no user with that phoneNumber
             // create the user, with the data entered on the giftcard
@@ -181,21 +247,25 @@ exports.giftWebHook = function(req, res) {
             //  anotherUser.firstName = req.body.firstName;
             // anotherUser.password = createHash(password);//TODO: come back to this.
             anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
+            anotherUser.textToken = holderToken;
+            anotherUser.textTokenExpires = Date.now() + 3600000;
             //  anotherUser.mobileNumber = req.body.mobileNumber;
             anotherUser.provider = 'local';
             //  anotherUser.email = req.body.email;
-            var payload = {
-               description: 'test stuff'
-            };
+
             // passport
             //
-            stripe.customers.create(payload).then(function handler(response) {
+            stripe.customers.create().then(function handler(response) {
                // get and save the new users's token.
                anotherUser.stripeCustomerTokenThing = response.id;
                return anotherUser.save(); // saves user here.
             }).then(function anotherHandler(response) {
                return client.messages.create({
-                  body:'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
+<<<<<<< HEAD
+                  body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
+=======
+                  body:'http://lbgift.com/auth/webHookLogin/'+user.username+'/password',
+>>>>>>> 7717f4beac876c15f6f87e0334420b90670adf6d
                   to: req.body.From,
                   from: '+15624454688',
                }, function(err, message) {
@@ -207,14 +277,34 @@ exports.giftWebHook = function(req, res) {
                   }
                });
             }).catch(function errHandler(err) {
-	       console.log(err);
+               console.log(err);
                return res.status(400).send(err);
             });
             // tokenize user as well.
             //TODO: need to figure out how and when to do that for user.
             // in theory could add it to the sign in, then if they have a token already it doesn't fire.
             // save the user
+         } else {
+
+            user.textToken = holderToken;
+            user.textTokenExpires = Date.now()+3600000;
+            //TODO: come back and add error catching for user.save
+            user.save();
+
+            client.messages.create({
+               body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
+               to: req.body.From,
+               from: '+15624454688',
+            }, function(err, message) {
+               if (err) {
+                  console.log(err);
+               }
+               if (message) {
+                  console.log(message.sid);
+               }
+            });
          }
+
       });
    } else {
       // need to make sure I handle the errors so that the server doesn't crash
@@ -230,11 +320,7 @@ exports.signin = function(req, res, next) {
       if (err || !user) {
          res.status(400).send(info);
       } else {
-<<<<<<< HEAD
-         // Remove sensitive data bekfs
-=======
          // Remove sensitive data before login
->>>>>>> feature/userModel
          user.password = undefined;
          user.salt = undefined;
 
@@ -281,76 +367,76 @@ exports.oauthCallback = function(strategy) {
 /**
  * Helper function to save or update a OAuth user profile
  */
- exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
- 	if (!req.user) {
- 		// Define a search query fields
- 		var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
- 		var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
+exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
+   if (!req.user) {
+      // Define a search query fields
+      var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
+      var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
 
- 		// Define main provider search query
- 		var mainProviderSearchQuery = {};
- 		mainProviderSearchQuery.provider = providerUserProfile.provider;
- 		mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
+      // Define main provider search query
+      var mainProviderSearchQuery = {};
+      mainProviderSearchQuery.provider = providerUserProfile.provider;
+      mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
 
- 		// Define additional provider search query
- 		var additionalProviderSearchQuery = {};
- 		additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
+      // Define additional provider search query
+      var additionalProviderSearchQuery = {};
+      additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
 
- 		// Define a search query to find existing user with current provider profile
- 		var searchQuery = {
- 			$or: [mainProviderSearchQuery, additionalProviderSearchQuery]
- 		};
+      // Define a search query to find existing user with current provider profile
+      var searchQuery = {
+         $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
+      };
 
- 		User.findOne(searchQuery, function(err, user) {
- 			if (err) {
- 				return done(err);
- 			} else {
- 				if (!user) {
- 					var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+      User.findOne(searchQuery, function(err, user) {
+         if (err) {
+            return done(err);
+         } else {
+            if (!user) {
+               var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
- 					User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
- 						user = new User({
- 							firstName: providerUserProfile.firstName,
- 							lastName: providerUserProfile.lastName,
- 							username: availableUsername,
- 							displayName: providerUserProfile.displayName,
- 							email: providerUserProfile.email,
- 							provider: providerUserProfile.provider,
- 							providerData: providerUserProfile.providerData
- 						});
+               User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
+                  user = new User({
+                     firstName: providerUserProfile.firstName,
+                     lastName: providerUserProfile.lastName,
+                     username: availableUsername,
+                     displayName: providerUserProfile.displayName,
+                     email: providerUserProfile.email,
+                     provider: providerUserProfile.provider,
+                     providerData: providerUserProfile.providerData
+                  });
 
- 						// And save the user
- 						user.save(function(err) {
- 							return done(err, user);
- 						});
- 					});
- 				} else {
- 					return done(err, user);
- 				}
- 			}
- 		});
- 	} else {
- 		// User is already logged in, join the provider data to the existing user
- 		var user = req.user;
+                  // And save the user
+                  user.save(function(err) {
+                     return done(err, user);
+                  });
+               });
+            } else {
+               return done(err, user);
+            }
+         }
+      });
+   } else {
+      // User is already logged in, join the provider data to the existing user
+      var user = req.user;
 
- 		// Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
- 		if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
- 			// Add the provider data to the additional provider data field
- 			if (!user.additionalProvidersData) user.additionalProvidersData = {};
- 			user.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
+      // Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
+      if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
+         // Add the provider data to the additional provider data field
+         if (!user.additionalProvidersData) user.additionalProvidersData = {};
+         user.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
 
- 			// Then tell mongoose that we've updated the additionalProvidersData field
- 			user.markModified('additionalProvidersData');
+         // Then tell mongoose that we've updated the additionalProvidersData field
+         user.markModified('additionalProvidersData');
 
- 			// And save the user
- 			user.save(function(err) {
- 				return done(err, user, '/#!/settings/accounts');
- 			});
- 		} else {
- 			return done(new Error('User is already connected using this provider'), user);
- 		}
- 	}
- };
+         // And save the user
+         user.save(function(err) {
+            return done(err, user, '/#!/settings/accounts');
+         });
+      } else {
+         return done(new Error('User is already connected using this provider'), user);
+      }
+   }
+};
 
 /**
  * Remove OAuth provider

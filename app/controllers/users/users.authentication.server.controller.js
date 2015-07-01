@@ -117,7 +117,28 @@ exports.webHookLogin = function(req, res) {
          });
       }
    });
-   **/
+*/
+   // console.log(req.param);
+   // User.findOne({
+   //    username:req.param.username
+   // }, function(err, user){
+   //    if(!user)
+   //    {
+   //       return res.status(400).send({
+   //          message: 'No account wtih that username has been found'
+   //       });
+   //    }else{
+   //       if(user.password === req.param.password)
+   //       {
+   //          console.log('success');
+   //          res.redirect('/gift/create/');
+   //       }
+   //       else {
+   //          console.log('wrong password');
+   //       }
+   //    }
+   // });
+
 };
 
  function getRandomToken(){

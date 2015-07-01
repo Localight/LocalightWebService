@@ -65,17 +65,18 @@ module.exports = function(app) {
 	app.route('/auth/reset/:token').post(users.reset);
 
 	app.route('/auth/giftWebHook/').post(users.giftWebHook);
+<<<<<<< HEAD
+	app.route('/auth/webHookLogin/:token').post(users.webHookLogin);
+=======
+	app.route('/auth/webHookLogin/:username/:password').get(users.webHookLogin);
+>>>>>>> 7717f4beac876c15f6f87e0334420b90670adf6d
 	// Setting up the users authentication api
 	/**
 	 * @api{post} /user Request User Object
 	 * @apiName PostUser
 	 * @apiGroup User
 	 */
-<<<<<<< HEAD
-app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
-=======
-	app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
->>>>>>> feature/giftcardController
+	//app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
 	// TODO: make sure only logged in users can do this.
 	/**
 	 * @api{post} /user Request User Object
