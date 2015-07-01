@@ -74,8 +74,8 @@ exports.webHookLogin = function(req, res) {
       textTokenExpires: {
          $gt: Date.now()
       }
-   }, function(err, user){
-      if(!err && user){
+   }, function(err, user) {
+      if (!err && user) {
          user.textToken = undefined;
          user.textTokenExpires = undefined;
          user.save(function(err) {
@@ -90,7 +90,7 @@ exports.webHookLogin = function(req, res) {
                   } else {
                      // Return authenticated user
                      res.json(user);
-                     //TODO: come back and add the redierct. 
+                     //TODO: come back and add the redierct.
                   }
                });
             }
@@ -141,7 +141,7 @@ exports.webHookLogin = function(req, res) {
 
 };
 
- function getRandomToken(){
+function getRandomToken() {
    crypto.randomBytes(6, function(err, buffer) {
       var token = buffer.toString('hex');
       return token;
@@ -178,7 +178,25 @@ exports.giftWebHook = function(req, res) {
          // create token and add to user.
          var holderToken = getRandomToken();
          // already exists
-         if (!user) {
+         if (user) {
+            user.textToken = holderToken;
+            user.textTokenExpires = Date.now() + 3600000;
+            //TODO: come back and add error catching for user.save
+            user.save();
+
+            client.messages.create({
+               body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
+               to: req.body.From,
+               from: '+15624454688',
+            }, function(err, message) {
+               if (err) {
+                  console.log(err);
+               }
+               if (message) {
+                  console.log(message.sid);
+               }
+            });
+         } else {
             console.log('got here in twilio controller');
             // if user is not found create here.
             // if there is no user with that phoneNumber
@@ -222,25 +240,6 @@ exports.giftWebHook = function(req, res) {
             //TODO: need to figure out how and when to do that for user.
             // in theory could add it to the sign in, then if they have a token already it doesn't fire.
             // save the user
-         } else {
-
-            user.textToken = holderToken;
-            user.textTokenExpires = Date.now()+3600000;
-            //TODO: come back and add error catching for user.save
-            user.save();
-
-            client.messages.create({
-               body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
-               to: req.body.From,
-               from: '+15624454688',
-            }, function(err, message) {
-               if (err) {
-                  console.log(err);
-               }
-               if (message) {
-                  console.log(message.sid);
-               }
-            });
          }
 
       });
