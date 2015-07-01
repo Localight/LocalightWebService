@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location', 'Transactioninfo',
-	function($scope, $location, Transactioninfo) {
+angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location',
+	function($scope, $location) {
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
