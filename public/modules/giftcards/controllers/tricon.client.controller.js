@@ -3,6 +3,9 @@
 angular.module('giftcards').controller('TriconController', ['$scope',
 	function($scope) {
 
+		//Switch overlay on
+		document.getElementById('darkerOverlay').style.display = "block";
+
 		//Array of the eatery images and their paths
 		$scope.images =
 		[
@@ -45,6 +48,6 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 			return "Doly's Delectables";
 		}
 
-		
+
 	}
 ]);
