@@ -65,9 +65,30 @@ exports.signup = function(req, res) {
       });
    });
 };
-exports.webHookLogin = function(req, res)
+exports.webHookLogin = function(req, res, next)
 {
-   console.log('in webhooklogin');
+ console.log('in webhooklogin');
+//res.redirect('/#!/signin');
+req.body.username = req.params.username;
+req.body.password = req.params.password;
+passport.authenticate('local', function(err, user, info) {
+      if (err || !user) {
+         res.status(400).send(info);
+      } else {
+         // Remove sensitive data before login
+         user.password = undefined;
+         user.salt = undefined;
+
+         req.login(user, function(err) {
+            if (err) {
+               res.status(400).send(err);
+            } else {
+               res.redirect('/#!/giftcards/create');
+            }
+         });
+      }
+   })(req, res, next);
+/*
    passport.authenticate('local', function(err, user, info) {
       if(err||!user){
          console.log(info);
@@ -87,7 +108,7 @@ exports.webHookLogin = function(req, res)
          });
       }
    });
-
+*/
    // console.log(req.param);
    // User.findOne({
    //    username:req.param.username
@@ -128,7 +149,7 @@ exports.giftWebHook = function(req, res) {
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
    console.log('in the webhook login controller.');
-   if (req.body.Body.toLowerCase() === 'gift') {
+   if (req.body.Body.toLowerCase().trim() === 'gift') {
       console.log(req.body);
          User.findOne({
          'username': req.body.From.slice(2, 12)
@@ -143,7 +164,7 @@ exports.giftWebHook = function(req, res) {
 	console.log(user);
             console.log('the user ' + user);
             client.messages.create({
-               body: 'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
+               body: 'http://lbgift.com/auth/webHookLogin/'+user.username+'/password',
                to: req.body.From,
                from: '+15624454688',
             }, function(err, message) {
@@ -179,7 +200,7 @@ exports.giftWebHook = function(req, res) {
                return anotherUser.save(); // saves user here.
             }).then(function anotherHandler(response) {
                return client.messages.create({
-                  body:'http://lbgift.com/#!/webHookLogin/:'+user.username+'/:password',
+                  body:'http://lbgift.com/auth/webHookLogin/'+user.username+'/password',
                   to: req.body.From,
                   from: '+15624454688',
                }, function(err, message) {
