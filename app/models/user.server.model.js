@@ -102,6 +102,12 @@ var UserSchema = new Schema({
       type: Boolean,
       default: false,
    },
+   textToken:{
+      type:String
+   },
+   textTokenExpires:{
+      type:Date
+   },
    email: {
       type: String,
       trim: true,
