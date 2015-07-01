@@ -4,6 +4,11 @@ angular.module('giftcards')
   .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
     'OccasionService',
     function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
+
+      //Switch overlay off
+      document.getElementById('darkerOverlay').style.display = "none";
+
+
       $scope.authentication = Authentication;
 
       $scope.gc = new Giftcards();
@@ -235,7 +240,7 @@ angular.module('giftcards')
         ]
     }
     */
-    
+
       // Find existing Giftcard
       $scope.findOne = function() {
         $scope.giftcard = Giftcards.get({
