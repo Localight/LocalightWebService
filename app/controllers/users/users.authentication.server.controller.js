@@ -13,7 +13,8 @@ var _ = require('lodash'),
    config = require('../../../config/config'),
    message = null,
    client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
-   stripe = require('stripe')(config.stripe.secretKey);
+   stripe = require('stripe')(config.stripe.secretKey),
+   crypto = require('crypto');
 
 exports.signup = function(req, res) {
    // Stil need a way to sign up the user.
@@ -66,7 +67,37 @@ exports.signup = function(req, res) {
    });
 };
 exports.webHookLogin = function(req, res) {
+
    console.log('in webhooklogin');
+   User.findOne({
+      textToken: req.params.token,
+      textTokenExpires: {
+         $gt: Date.now()
+      }
+   }, function(err, user){
+      if(!err && user){
+         user.textToken = undefined;
+         user.textTokenExpires = undefined;
+         user.save(function(err) {
+            if (err) {
+               return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+               });
+            } else {
+               req.login(user, function(err) {
+                  if (err) {
+                     res.status(400).send(err);
+                  } else {
+                     // Return authenticated user
+                     res.json(user);
+                     //TODO: come back and add the redierct. 
+                  }
+               });
+            }
+         });
+      }
+   });
+   /**
    passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
          console.log(info);
@@ -86,32 +117,17 @@ exports.webHookLogin = function(req, res) {
          });
       }
    });
-
-   // console.log(req.param);
-   // User.findOne({
-   //    username:req.param.username
-   // }, function(err, user){
-   //    if(!user)
-   //    {
-   //       return res.status(400).send({
-   //          message: 'No account wtih that username has been found'
-   //       });
-   //    }else{
-   //       if(user.password === req.param.password)
-   //       {
-   //          console.log('success');
-   //          res.redirect('/gift/create/');
-   //       }
-   //       else {
-   //          console.log('wrong password');
-   //       }
-   //    }
-   // });
-
+   **/
 };
 
+ function getRandomToken(){
+   crypto.randomBytes(6, function(err, buffer) {
+      var token = buffer.toString('hex');
+      return token;
+   });
+}
 exports.giftWebHook = function(req, res) {
-   // Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
+   /** Alright so the user hit's this point and now we have their phone number, as well as some other useless info.
    // more than that we know the user wants to log into their account or want's access to there account.
    // So what do we do?
    // I want to log them in.
@@ -126,8 +142,8 @@ exports.giftWebHook = function(req, res) {
    // getting user from database.
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
+ **/
 
-   console.log('in the webhook login controller.');
    if (req.body.Body.toLowerCase().trim() === 'gift') {
       User.findOne({
          'username': req.body.From.slice(2, 12)
@@ -137,21 +153,11 @@ exports.giftWebHook = function(req, res) {
             console.log('the error from database' + err);
             return (err);
          }
+         // modified the user here.
+         // create token and add to user.
+         var holderToken = getRandomToken();
          // already exists
-         if (user) {
-            client.messages.create({
-               body: 'http://lbgift.com/auth/webHookLogin/' + user.username + '/password',
-               to: req.body.From,
-               from: '+15624454688',
-            }, function(err, message) {
-               if (err) {
-                  console.log(err);
-               }
-               if (message) {
-                  console.log(message.sid);
-               }
-            });
-         } else {
+         if (!user) {
             console.log('got here in twilio controller');
             // if user is not found create here.
             // if there is no user with that phoneNumber
@@ -162,21 +168,21 @@ exports.giftWebHook = function(req, res) {
             //  anotherUser.firstName = req.body.firstName;
             // anotherUser.password = createHash(password);//TODO: come back to this.
             anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
+            anotherUser.textToken = holderToken;
+            anotherUser.textTokenExpires = Date.now() + 3600000;
             //  anotherUser.mobileNumber = req.body.mobileNumber;
             anotherUser.provider = 'local';
             //  anotherUser.email = req.body.email;
-            var payload = {
-               description: 'test stuff'
-            };
+
             // passport
             //
-            stripe.customers.create(payload).then(function handler(response) {
+            stripe.customers.create().then(function handler(response) {
                // get and save the new users's token.
                anotherUser.stripeCustomerTokenThing = response.id;
                return anotherUser.save(); // saves user here.
             }).then(function anotherHandler(response) {
                return client.messages.create({
-                  body: 'http://lbgift.com/#!/webHookLogin/:' + user.username + '/:password',
+                  body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
                   to: req.body.From,
                   from: '+15624454688',
                }, function(err, message) {
@@ -195,7 +201,27 @@ exports.giftWebHook = function(req, res) {
             //TODO: need to figure out how and when to do that for user.
             // in theory could add it to the sign in, then if they have a token already it doesn't fire.
             // save the user
+         } else {
+
+            user.textToken = holderToken;
+            user.textTokenExpires = Date.now()+3600000;
+            //TODO: come back and add error catching for user.save
+            user.save();
+
+            client.messages.create({
+               body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
+               to: req.body.From,
+               from: '+15624454688',
+            }, function(err, message) {
+               if (err) {
+                  console.log(err);
+               }
+               if (message) {
+                  console.log(message.sid);
+               }
+            });
          }
+
       });
    } else {
       // need to make sure I handle the errors so that the server doesn't crash
