@@ -5,13 +5,17 @@ angular.module('giftcards').config(['$stateProvider',
 	function($stateProvider) {
 		// Giftcards state routing
 		$stateProvider.
+		state('selectMerchant', {
+			url: '/merchants',
+			templateUrl: 'modules/giftcards/views/select-merchant.client.view.html'
+		}).
 		state('listGiftcards', {
 			url: '/giftcards',
 			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
 		}).
 		state('createGiftcard', {
 			url: '/giftcards/create',
-			templateUrl: 'modules/giftcards/views/create-giftcard.client.view.html'
+			templateUrl: 'modules/giftcards/views/purchaseSequence/create_giftcard_order.client.view.html'
 		}).
 		state('viewGiftcard', {
 			url: '/giftcards/:giftcardId',

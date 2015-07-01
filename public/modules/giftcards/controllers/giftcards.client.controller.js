@@ -1,9 +1,9 @@
 'use strict';
 // Giftcards controller
 angular.module('giftcards')
-  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
+  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
     'OccasionService',
-    function($scope, $http, $stateParams, $location, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
+    function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
       $scope.authentication = Authentication;
 
       $scope.gc = new Giftcards();
@@ -11,15 +11,23 @@ angular.module('giftcards')
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
       // flag to show other section.
       $scope.setShowPage = function() {
-        $scope.showPageFlag = false;
+        $scope.showPageFlag = !$scope.showPageFlag;
+      };
+
+      $scope.logGC = function() {
+          console.log($scope.gc);
+      }
+
+      $scope.activeField = null;
+      $scope.setActiveField = function(fieldId) {
+        if($scope.activeField != null){
+            $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
+        }
+        $scope.activeField = fieldId;
+        $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
       };
 
       //Flags for various things.
-      // Border Flags
-      $scope.showBackgroundFlag = false;
-      $scope.showBackgroundFlagTwo = false;
-      $scope.showBackgroundFlagThree = false;
-      $scope.showBackgroundFlagFour = false;
 
       $scope.priceSelectionFlag = true;
       $scope.showPageFlag = true;
@@ -28,31 +36,6 @@ angular.module('giftcards')
 
       $scope.flipCard = function() {
         $scope.flipCardFlag = false;
-      };
-      $scope.setBorderFlagOne = function() {
-        $scope.showBackgroundFlag = true;
-        $scope.showBackgroundFlagTwo = false;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = false;
-      };
-
-      $scope.setBorderFlagTwo = function() {
-        $scope.showBackgroundFlagTwo = true;
-        $scope.showBackgroundFlag = false;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = false;
-      };
-      $scope.setBorderFlagThree = function() {
-        $scope.showBackgroundFlagTwo = false;
-        $scope.showBackgroundFlag = false;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = true;
-      };
-      $scope.setBorderFlagFour = function() {
-        $scope.showBackgroundFlagTwo = false;
-        $scope.showBackgroundFlag = false;
-        $scope.showBackgroundFlagThree = false;
-        $scope.showBackgroundFlagFour = true;
       };
 
       $scope.setAmount = function(anAmount) {
@@ -100,7 +83,7 @@ angular.module('giftcards')
           $scope.gc.Icon = occasion.name;
           $scope.occasions.selectedIcon = occasion.images.selected;
         }
-        $scope.limitOccText(); // limit occasion text to 100 characters
+        //$scope.limitOccText(); // limit occasion text to 100 characters
       };
       /**********
        * Date
@@ -195,13 +178,13 @@ angular.module('giftcards')
         //1. before we can send the giftcard to the user we need the user's id.
         //2. save the giftcard to the that user's id.
         var giftcard = new Giftcards({
-          giftRecipientFirstName: 'my friends name',
-          amount: 1000,
-          mobileNumberOfRecipient: 1234567890,
-          merchant: 'aMerchantId here',
-          spenderofgiftcardUserName: 'username',
-          message: 'A gift for you!',
-          districtNumber: 'number',
+          giftRecipientFirstName: $scope.gc.to,
+          amount: $scope.gc.amount,
+          mobileNumberOfRecipient: $scope.gc.phoneNumber,
+          merchant: $scope.gc.code,
+          spenderofgiftcardUserName: $scope.gc.phoneNumber,
+          message: $scope.gc.occasion
+          //districtNumber: 'number'
         });
 
         giftcard.$save(function() {
@@ -235,5 +218,36 @@ angular.module('giftcards')
           giftcardId: $stateParams.giftcardId
         });
       };
+
+      $scope.mask = function(f){
+          f = $window.document.getElementById(f);
+          $scope.clique_input_phonenumber_validity = true;
+          var tel='(';
+          var val =f.value.split('');
+          for(var i=0; i<val.length; i++){
+              if( val[i]==='(' ){
+                  val[i]='';
+              }
+              if( val[i]===')' ){
+                  val[i]='';
+              }
+              if( val[i]==='-' ){
+                  val[i]='';
+              }
+              if( val[i]==='' ){
+                  val[i]='';
+              }
+              if(isNaN(val[i])){
+                  $scope.clique_input_phonenumber_validity = false;
+              }
+          }
+          //
+          for(i=0; i<val.length; i++){
+              if(i===3){ val[i]=val[i]+')'; }
+              if(i===7){ val[i]=val[i]+'-'; }
+              tel=tel+val[i];
+          }
+          f.value=tel;
+      }
     }
   ]);
