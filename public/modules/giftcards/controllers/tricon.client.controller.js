@@ -25,10 +25,6 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 
 		  return array;
 		}
-		$scope.touchEvent;
-		$scope.newTouchEvent = function(touchEvent){
-			$scope.touchEvent = touchEvent;
-		}
 
 		//When tricon is being pressed, this function will be launched
 		$scope.pressed = function(id){
