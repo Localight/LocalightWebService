@@ -67,7 +67,7 @@ exports.signup = function(req, res) {
       });
    });
 };
-exports.twilioHookLogin = function(req, res) {
+exports.twilioWebHookLogin = function(req, res) {
 
    console.log('in webhooklogin');
    User.findOne({
