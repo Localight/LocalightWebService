@@ -167,20 +167,25 @@ exports.twilioWebHook = function(req, res) {
             user.textToken = holderToken;
             user.textTokenExpires = Date.now() + 3600000;
             //TODO: come back and add error catching for user.save
-            var promise = user.save();
-            var promise2 = client.sendMessage({
+            var promise = client.sendMessage({
                body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
                to: req.body.From,
                from: '+15624454688'
             });
-            promise.then(function handler(response) {
-               console.log('if you got here then the user saved:' + user);
-               return promise2;
-            }).then(function aHandler(response) {
-               console.log('Text message successfully sent. Do a little dance! message id:' + message.sid);
-            }).catch(function errorHandler(err) {
-               console.log('Shit hit the fan, twilio didnt fire or the user didnt save.');
+            user.save(function(err) {
+               if (err) {
+                  return res.status(400).send({
+                     message: errorHandler.getErrorMessage(err)
+                  });
+               } else {
+                  promise.then(function aHandler(response) {
+                     console.log('Text message successfully sent. Do a little dance! message id:' + message.sid);
+                  }).catch(function errorHandler(err) {
+                     console.log('Shit hit the fan, twilio didnt fire or the user didnt save.');
+                  });
+               }
             });
+
          } else {
             console.log('got here in twilio controller');
             // if user is not found create here.
