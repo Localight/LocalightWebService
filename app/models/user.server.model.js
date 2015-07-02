@@ -125,7 +125,7 @@ var UserSchema = new Schema({
    username: {
       type: String,
       unique: 'testing error message',
-      match: [/d{10}/, 'Please fill a valid phone number'], // should match the format of a string phonenumber
+   //   match: [/d{10}/, 'Please fill a valid phone number'], // should match the format of a string phonenumber
 //      required: 'Please fill in a mobile number',
       trim: true
    },
