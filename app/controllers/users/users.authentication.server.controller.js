@@ -98,27 +98,6 @@ exports.twilioHookLogin = function(req, res) {
          });
       }
    });
-   /**
-   passport.authenticate('local', function(err, user, info) {
-      if (err || !user) {
-         console.log(info);
-         res.status(400).send(info);
-      } else {
-         user.password = undefined;
-         user.salt = undefined;
-         req.login(user, function(err) {
-            if (err) {
-               res.status(400).send(err);
-            } else {
-               // res.redirect('/gift/create/');
-               console.log('successful login');
-               res.json(user);
-               console.log('im proving james wrong');
-            }
-         });
-      }
-   });
-**/
 };
 
 
@@ -179,7 +158,7 @@ exports.twilioWebHook = function(req, res) {
                function(token, user, done) {
                   console.log('sending off the message');
                   client.messages.create({
-                     body: 'http://lbgift.com/auth/webHookLogin/' + token,
+                     body: 'http://lbgift.com/auth/twilioWebHookLogin/' + token,
                      to: req.body.From,
                      from: '+15624454688'
                   }, function(err, message) {
@@ -218,6 +197,7 @@ exports.twilioWebHook = function(req, res) {
             // set the user's local credentials
             //  anotherUser.firstName = req.body.firstName;
             // anotherUser.password = createHash(password);//TODO: come back to this.
+            // TODO: implement sequence for creating new user with token.
             anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
             anotherUser.textToken = holderToken;
             anotherUser.textTokenExpires = Date.now() + 3600000;
