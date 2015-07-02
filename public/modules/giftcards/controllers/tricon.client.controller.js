@@ -64,6 +64,13 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 			"tricon-wine"
 		]
 
+		//Preloads the tricons so that clicking responds with no delay
+		var imageLoader = [];
+		for(var i = 0; i < $scope.images.length; i++){
+			imageLoader[i] = new Image();
+			imageLoader[i].src = "/modules/giftcards/img/tricon/" + $scope.images[i] + "-wht.png";
+		}
+
 		//Shuffles the images array of tricons to always
 		//display in different order
 		$scope.images = $scope.shuffle($scope.images);
