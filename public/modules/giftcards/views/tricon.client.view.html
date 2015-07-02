@@ -13,23 +13,9 @@
 	<!-- Our table for tricon, the dialpad -->
 	<table class="dialPad upside" align="center">
 
-		<tr>
+		<tr ng-repeat="n in tableLayout">
 			<!-- Using inline styles for our randomization so we can edit this later-->
-			<td class="triconButton" style="background: url({{images[0]}}); background-size: contain; background-repeat: no-repeat;"  my-touchstart="pressButton(1)" my-touchend="pressButton(-1)"></td>
-			<td class="triconButton" style="background: url({{images[1]}}); background-size: contain; background-repeat: no-repeat;"  my-touchstart="pressButton(2)" my-touchend="pressButton(-1)"></td>
-			<td class="triconButton" style="background: url({{images[2]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(3)" my-touchend="pressButton(-1)"></td>
-		</tr>
-
-		<tr>
-			<td class="triconButton" style="background: url({{images[3]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(4)" my-touchend="pressButton(-1)"></td>
-			<td class="triconButton" style="background: url({{images[4]}}); background-size: contain; background-repeat: no-repeat;" my-touchend="pressButton(-1)"></td>
-			<td class="triconButton" style="background: url({{images[5]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(6)" my-touchend="pressButton(-1)"></td>
-		</tr>
-
-		<tr>
-			<td class="triconButton" style="background: url({{images[6]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(7)" my-touchend="pressButton(-1)"></td>
-			<td class="triconButton" style="background: url({{images[7]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(8)" my-touchend="pressButton(-1)"></td>
-			<td class="triconButton" style="background: url({{images[8]}}); background-size: contain; background-repeat: no-repeat;" my-touchstart="pressButton(9)" my-touchend="pressButton(-1)"></td>
+			<td ng-repeat="i in n" style="background-image: url(/modules/giftcards/img/tricon/{{images[i]}}.png);" class="triconButton" ng-mousedown="pressed($event, i);" ng-mouseup="unpressed($event, i);"></td>
 		</tr>
 	</table>
 

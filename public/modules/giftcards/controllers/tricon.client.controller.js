@@ -6,32 +6,37 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
 
+		//When tricon is being pressed, this function will be launched
+		$scope.pressed = function($event, id){
+			//Add tricon code here
+			console.log("Tricon Pressed: " + $scope.images[id]);
+			//
+			$event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '-wht.png)';
+		}
+
+		//When tricon is unpressed, this function will be launched
+		$scope.unpressed = function($event, id){
+			$event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '.png)';
+		}
+
+		$scope.tableLayout = [
+				[0,1,2],
+				[3,4,5],
+				[6,7,8]
+			]
+
 		//Array of the eatery images and their paths
 		$scope.images =
 		[
-			"/modules/giftcards/img/tricon/unpressed/tricon-coffee-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-cupcake-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-dinner-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-pie-slice-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-sandwich-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-shrimp-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-soup-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-sundae-wht.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-wine-wht.png"
-		]
-
-		//Array of the eatery unpressed images and their paths
-		$scope.imagesPressed =
-		[
-			"/modules/giftcards/img/tricon/unpressed/tricon-coffee.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-cupcake.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-dinner.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-pie-slice.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-sandwich.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-shrimp.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-soup.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-sundae.png",
-			"/modules/giftcards/img/tricon/unpressed/tricon-wine.png"
+			"tricon-coffee",
+			"tricon-cupcake",
+			"tricon-dinner",
+			"tricon-pie-slice",
+			"tricon-sandwich",
+			"tricon-shrimp",
+			"tricon-soup",
+			"tricon-sundae",
+			"tricon-wine"
 		]
 
 		//Get the amount we are going to send the server
