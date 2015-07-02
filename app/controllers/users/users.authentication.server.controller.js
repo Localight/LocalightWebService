@@ -168,7 +168,7 @@ exports.twilioWebHook = function(req, res) {
             user.textTokenExpires = Date.now() + 3600000;
             //TODO: come back and add error catching for user.save
             var promise = user.save();
-            var promise2 = client.message.create({
+            var promise2 = client.sendMessage({
                body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
                to: req.body.From,
                from: '+15624454688'
