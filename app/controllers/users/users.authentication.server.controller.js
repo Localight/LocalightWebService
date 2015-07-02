@@ -170,23 +170,6 @@ exports.twilioWebHook = function(req, res) {
                   console.log(err);
                }
             });
-
-            //TODO: come back and add error catching for user.save
-
-            // user.save(function(err) {
-            //   if (err) {
-            //      console.log('error saving user:' + err);
-            //      return res.status(400).send({
-            //         message: errorHandler.getErrorMessage(err)
-            //      });
-            //   } else {
-            //      promise.then(function aHandler(response) {
-            //         console.log('Text message successfully sent. Do a little dance! message id:' + response);
-            //      }).catch(function errorHandler(err) {
-            //         console.log('Shit hit the fan, twilio didnt fire or the user didnt save.' + err);
-            //      });
-            //   }
-            // });
          } else {
             console.log('got here in twilio controller');
             // if user is not found create here.
@@ -199,41 +182,73 @@ exports.twilioWebHook = function(req, res) {
             // anotherUser.password = createHash(password);//TODO: come back to this.
             // TODO: implement sequence for creating new user with token.
             anotherUser.password = 'password'; //TODO: figure out how to handle new user signup later.
-            anotherUser.textToken = holderToken;
-            anotherUser.textTokenExpires = Date.now() + 3600000;
             //  anotherUser.mobileNumber = req.body.mobileNumber;
             anotherUser.provider = 'local';
             //  anotherUser.email = req.body.email;
-
-            // passport
-            //
-            stripe.customers.create().then(function handler(response) {
-               // get and save the new users's token.
-               anotherUser.stripeCustomerTokenThing = response.id;
-               return anotherUser.save(); // saves user here.
-            }).then(function anotherHandler(response) {
-               return client.messages.create({
-                  body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
-                  to: req.body.From,
-                  from: '+15624454688',
-               }, function(err, message) {
-                  if (err) {
+            console.log('Congrats you caught a user: ' + anotherUser);
+            // Congrats you caught a user!
+            async.waterfall([
+               function(done) {
+                  console.log('got in the crypto thing.');
+                  crypto.randomBytes(6, function(err, buffer) {
+                     var token = buffer.toString('hex');
+                     done(err, token);
+                  });
+               },
+               function(token, done) {
+                  console.log('got in the user save part.');
+                  anotherUser.textToken = token;
+                  anotherUser.textTokenExpires = Date.now() + 3600000;
+                  stripe.customers.create().then(function handler(response){
+                     anotherUser.stripeCustomerToken = response.id;
+                     anotherUser.save(function(err) {
+                        done(err, token, anotherUser);
+                     });
+                  }).catch(function errHandler(err) {
                      console.log(err);
-                  }
-                  if (message) {
-                     console.log(message.sid);
-                  }
-               });
-            }).catch(function errHandler(err) {
-               console.log(err);
-               return res.status(400).send(err);
+                     return res.status(400).send(err);
+                  });
+               },
+               function(token, anotherUser, done) {
+                  console.log('sending off the message');
+                  client.messages.create({
+                     body: 'http://lbgift.com/auth/twilioWebHookLogin/' + token,
+                     to: req.body.From,
+                     from: '+15624454688'
+                  }, function(err, message) {
+                     done(err, message, anotherUser);
+                  });
+               }
+            ], function(err) {
+               if (err) {
+                  console.log(err);
+               }
             });
+            // // passport
+            // //
+            // stripe.customers.create().then(function handler(response) {
+            //    // get and save the new users's token.
+            //    anotherUser.stripeCustomerTokenThing = response.id;
+            //    return anotherUser.save(); // saves user here.
+            // }).then(function anotherHandler(response) {
+            //    return client.messages.create({
+            //       body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
+            //       to: req.body.From,
+            //       from: '+15624454688',
+            //    }, function(err, message) {
+            //       if (err) {
+            //          console.log(err);
+            //       }
+            //       if (message) {
+            //          console.log(message.sid);
+            //       }
+            //    });
+            // })
             // tokenize user as well.
             //TODO: need to figure out how and when to do that for user.
             // in theory could add it to the sign in, then if they have a token already it doesn't fire.
             // save the user
          }
-
       });
    } else {
       //NOTE: Need to work on how to handle errors more efficently in node.
