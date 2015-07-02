@@ -6,6 +6,26 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
 
+		//Shuffles an array using the Fisher-Yates algorithm
+		$scope.shuffle = function(array) {
+		  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+		  // While there remain elements to shuffle...
+		  while (0 !== currentIndex) {
+
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		  }
+
+		  return array;
+		}
+
 		//When tricon is being pressed, this function will be launched
 		$scope.pressed = function($event, id){
 			//Add tricon code here
@@ -19,13 +39,14 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 			$event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '.png)';
 		}
 
+		//Holds the table layout for the dynamic ng-repeat table
 		$scope.tableLayout = [
 				[0,1,2],
 				[3,4,5],
 				[6,7,8]
-			]
+		]
 
-		//Array of the eatery images and their paths
+		//Array of the eatery tricons and their paths
 		$scope.images =
 		[
 			"tricon-coffee",
@@ -38,6 +59,10 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 			"tricon-sundae",
 			"tricon-wine"
 		]
+
+		//Shuffles the images array of tricons to always
+		//display in different order
+		$scope.images = $scope.shuffle($scope.images);
 
 		//Get the amount we are going to send the server
 		$scope.getAmount = function()
