@@ -66,7 +66,7 @@ exports.signup = function(req, res) {
       });
    });
 };
-exports.twilioHookLogin = function(req, res) {
+exports.webHookLogin = function(req, res) {
 
    console.log('in webhooklogin');
    User.findOne({
@@ -162,22 +162,23 @@ exports.twilioWebHook = function(req, res) {
          // create token and add to user.
          var holderToken = getRandomToken();
          // already exists
-         if (user) {
-            console.log('the value of the user'+user);
+         if (user) { // Congrats you caught a user!
+            console.log('Congrats you caught a user: ' + user);
             user.textToken = holderToken;
             user.textTokenExpires = Date.now() + 3600000;
             //TODO: come back and add error catching for user.save
-            client.messages.create({
-               body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
-               to: req.body.From,
-               from: '+15624454688',
-            }, function(err, message) {
-               if (err) {
-                  console.log(err);
-               }
-               if (message) {
-                  console.log(message.sid);
-               }
+            user.save(function handler(response) {
+               console.log('if you got this the user saved.'+response);
+            }).then(function aHandler(response) {
+               client.messages.create({
+                  body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
+                  to: req.body.From,
+                  from: '+15624454688'
+               });
+            }).then(function bHandler(response) {
+               console.log('Text message successfully sent. Do a little dance! message id:' + message.sid);
+            }).catch(function errorHandler(err) {
+               console.log('Shit hit the fan, twilio didnt fire or the user didnt save.');
             });
          } else {
             console.log('got here in twilio controller');
