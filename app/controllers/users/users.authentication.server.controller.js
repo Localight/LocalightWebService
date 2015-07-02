@@ -174,12 +174,13 @@ exports.twilioWebHook = function(req, res) {
             });
             user.save(function(err) {
                if (err) {
+                  console.log('error saving user:'+err);
                   return res.status(400).send({
                      message: errorHandler.getErrorMessage(err)
                   });
                } else {
                   promise.then(function aHandler(response) {
-                     console.log('Text message successfully sent. Do a little dance! message id:' + message.sid);
+                     console.log('Text message successfully sent. Do a little dance! message id:' + response.message.sid);
                   }).catch(function errorHandler(err) {
                      console.log('Shit hit the fan, twilio didnt fire or the user didnt save.'+err);
                   });
