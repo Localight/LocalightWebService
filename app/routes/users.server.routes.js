@@ -65,7 +65,7 @@ module.exports = function(app) {
 	app.route('/auth/reset/:token').post(users.reset);
 
 	app.route('/auth/twilioWebHook/').post(users.twilioWebHook);
-	app.route('/auth/twilioWebHookLogin/:token').post(users.twilioWebHookLogin);
+	app.route('/auth/twilioWebHookLogin/:token').get(users.twilioWebHookLogin);
 	// Setting up the users authentication api
 	/**
 	 * @api{post} /user Request User Object
