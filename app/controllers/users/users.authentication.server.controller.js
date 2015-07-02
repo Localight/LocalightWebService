@@ -175,7 +175,7 @@ exports.twilioWebHook = function(req, res) {
                   });
                } else {
                   console.log('if you got this the user saved.' + user);
-                  return client.message.create({
+                  client.message.create({
                      body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
                      to: req.body.From,
                      from: '+15624454688'
