@@ -162,12 +162,14 @@ exports.twilioWebHook = function(req, res) {
             // Congrats you caught a user!
             async.waterfall([
                function(done) {
+                  console.log('got in the crypto thing.');
                   crypto.randomBytes(6, function(err, buffer) {
                      var token = buffer.toString('hex');
                      done(err, token);
                   });
                },
                function(token, done) {
+                  console.log('got in the user save part.');
                   user.textToken = token;
                   user.textTokenExpires = Date.now() + 3600000;
                   user.save(function(err) {
@@ -175,6 +177,7 @@ exports.twilioWebHook = function(req, res) {
                   });
                },
                function(token, user, done) {
+                  console.log('sending off the message');
                   client.messages.create({
                      body: 'http://lbgift.com/auth/webHookLogin/' + token,
                      to: req.body.From,
