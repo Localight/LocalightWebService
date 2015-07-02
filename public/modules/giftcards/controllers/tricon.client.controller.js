@@ -25,18 +25,22 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 
 		  return array;
 		}
+		$scope.touchEvent;
+		$scope.newTouchEvent = function(touchEvent){
+			$scope.touchEvent = touchEvent;
+		}
 
 		//When tricon is being pressed, this function will be launched
-		$scope.pressed = function($event, id){
+		$scope.pressed = function(id){
 			//Add tricon code here
-			console.log("Tricon Pressed: " + $scope.images[id]);
+			//console.log("Tricon Pressed: " + $scope.images[id]);
 			//
-			$event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '-wht.png)';
+			event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '-wht.png)';
 		}
 
 		//When tricon is unpressed, this function will be launched
-		$scope.unpressed = function($event, id){
-			$event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '.png)';
+		$scope.unpressed = function(id){
+			event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '.png)';
 		}
 
 		//Holds the table layout for the dynamic ng-repeat table
