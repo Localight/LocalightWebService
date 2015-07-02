@@ -810,6 +810,7 @@ label.inputlabel {
 }
 
 .triconButton {
+    transition: 10ms;
     background-repeat: no-repeat;
     background-size: contain;
     height: 100px;
