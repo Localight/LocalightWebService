@@ -14,6 +14,7 @@ var _ = require('lodash'),
    message = null,
    client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
    stripe = require('stripe')(config.stripe.secretKey),
+   async = require('async'),
    crypto = require('crypto');
 
 exports.signup = function(req, res) {
@@ -155,48 +156,55 @@ exports.twilioWebHook = function(req, res) {
          }
          // modified the user here.
          // create token and add to user.
-         function getRandomToken() {
-
-         }
-         var holderToken = getRandomToken();
          // already exists
-         if (user) { // Congrats you caught a user!
-
-
+         if (user) {
             console.log('Congrats you caught a user: ' + user);
-            //NOTE: this should probably be async.
-            crypto.randomBytes(6, function(err, buffer) {
-               user.textToken = buffer.toString('hex');
-            });
-            console.log('value of the user token if it worked.'+user.textToken);
-            user.textTokenExpires = Date.now() + 3600000;
-
-
-            console.log('The value of the holder token'+holderToken);
-
-            //TODO: come back and add error catching for user.save
-            var promise = client.sendMessage({
-               body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
-               to: req.body.From,
-               from: '+15624454688'
-            });
-
-
-            user.save(function(err) {
+            // Congrats you caught a user!
+            async.waterfall([
+               function(done) {
+                  crypto.randomBytes(6, function(err, buffer) {
+                     var token = buffer.toString('hex');
+                     done(err, token);
+                  });
+               },
+               function(token, done) {
+                  user.textToken = token;
+                  user.textTokenExpires = Date.now() + 3600000;
+                  user.save(function(err) {
+                     done(err, token, user);
+                  });
+               },
+               function(token, user, done) {
+                  client.messages.create({
+                     body: 'http://lbgift.com/auth/webHookLogin/' + token,
+                     to: req.body.From,
+                     from: '+15624454688'
+                  }, function(err, message) {
+                     done(err, message, user);
+                  });
+               }
+            ], function(err) {
                if (err) {
-                  console.log('error saving user:'+err);
-                  return res.status(400).send({
-                     message: errorHandler.getErrorMessage(err)
-                  });
-               } else {
-                  promise.then(function aHandler(response) {
-                     console.log('Text message successfully sent. Do a little dance! message id:' + response);
-                  }).catch(function errorHandler(err) {
-                     console.log('Shit hit the fan, twilio didnt fire or the user didnt save.'+err);
-                  });
+                  console.log(err);
                }
             });
 
+            //TODO: come back and add error catching for user.save
+
+            // user.save(function(err) {
+            //   if (err) {
+            //      console.log('error saving user:' + err);
+            //      return res.status(400).send({
+            //         message: errorHandler.getErrorMessage(err)
+            //      });
+            //   } else {
+            //      promise.then(function aHandler(response) {
+            //         console.log('Text message successfully sent. Do a little dance! message id:' + response);
+            //      }).catch(function errorHandler(err) {
+            //         console.log('Shit hit the fan, twilio didnt fire or the user didnt save.' + err);
+            //      });
+            //   }
+            // });
          } else {
             console.log('got here in twilio controller');
             // if user is not found create here.
