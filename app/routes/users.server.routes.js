@@ -58,7 +58,7 @@ module.exports = function(app) {
 	 */
 	app.route('/auth/reset/:token').get(users.validateResetToken);
 	/**
-	 * @api{post} /user Request User Object
+	 * @api{post} /user Request User Obect
 	 * @apiName PostUser
 	 * @apiGroup User
 	 */

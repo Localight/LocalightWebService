@@ -158,7 +158,7 @@ exports.twilioWebHook = function(req, res) {
                function(token, user, done) {
                   console.log('sending off the message');
                   client.messages.create({
-                     body: 'http://lbgift.com/auth/twilioWbHookLogin/' + token,
+                     body: 'http://lbgift.com/auth/twilioWebHookLogin/' + token,
                      to: req.body.From,
                      from: '+15624454688'
                   }, function(err, message) {
