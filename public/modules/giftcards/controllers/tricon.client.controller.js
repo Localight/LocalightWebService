@@ -31,12 +31,12 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 			//Add tricon code here
 			//console.log("Tricon Pressed: " + $scope.images[id]);
 			//
-			event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '-wht.png)';
+			event.currentTarget.style.backgroundPositionY = '-100px';
 		}
 
 		//When tricon is unpressed, this function will be launched
 		$scope.unpressed = function(id){
-			event.currentTarget.style.backgroundImage = 'url(/modules/giftcards/img/tricon/' + $scope.images[id] + '.png)';
+			event.currentTarget.style.backgroundPositionY = '0px';
 		}
 
 		//Holds the table layout for the dynamic ng-repeat table
@@ -44,28 +44,21 @@ angular.module('giftcards').controller('TriconController', ['$scope',
 				[0,1,2],
 				[3,4,5],
 				[6,7,8]
-		]
+		];
 
 		//Array of the eatery tricons and their paths
 		$scope.images =
 		[
-			"tricon-coffee",
-			"tricon-cupcake",
-			"tricon-dinner",
-			"tricon-pie-slice",
-			"tricon-sandwich",
-			"tricon-shrimp",
-			"tricon-soup",
-			"tricon-sundae",
-			"tricon-wine"
-		]
-
-		//Preloads the tricons so that clicking responds with no delay
-		var imageLoader = [];
-		for(var i = 0; i < $scope.images.length; i++){
-			imageLoader[i] = new Image();
-			imageLoader[i].src = "/modules/giftcards/img/tricon/" + $scope.images[i] + "-wht.png";
-		}
+			{name: "tricon-coffee", pos: "600"},
+			{name: "tricon-cupcake", pos: "0"},
+			{name: "tricon-dinner", pos: "300"},
+			{name: "tricon-pie-slice", pos: "800"},
+			{name: "tricon-sandwich", pos: "100"},
+			{name: "tricon-shrimp", pos: "200"},
+			{name: "tricon-soup", pos: "400"},
+			{name: "tricon-sundae", pos: "700"},
+			{name: "tricon-wine", pos: "500"}
+		];
 
 		//Shuffles the images array of tricons to always
 		//display in different order
