@@ -89,6 +89,9 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 
 			$scope.pressed = i;
 
+			//Set clicked button styling
+			event.currentTarget.style.backgroundPositionY = '-100px';
+
 			//Ignore values that are negative one, since thye simply disable our selectors
 			//Also checking for the number of digits
 			//Using / 100 to keep everything in ints
@@ -194,6 +197,9 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 					$scope.trueAmount = answer;
 					$scope.amount = (parseInt(answer) / 100).toFixed(2);
 				}
+			} else {
+				//Set button styling back to original
+				event.currentTarget.style.backgroundPositionY = '0px';
 			}
 		}
 
