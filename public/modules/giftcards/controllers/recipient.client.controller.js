@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('RecipientController', ['$scope',
-	function($scope) {
+angular.module('giftcards').controller('RecipientController', ['$scope', '$stateParams',
+	function($scope, $stateParams) {
 
 		//Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
@@ -46,6 +46,13 @@ angular.module('giftcards').controller('RecipientController', ['$scope',
 					occasionMessage: "Congratulations on your baby!"
 				}
 			]
+			var giftcard;
+			for (giftcard in $scope.giftcards){
+				if($scope.giftcards[giftcard]._id == $stateParams.giftcardId){
+					$scope.giftcard = $scope.giftcards[giftcard];
+					break;
+				}
+			}
 		}
 
 		$scope.totalValue = function()
