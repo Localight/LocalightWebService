@@ -79,7 +79,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
       if (!err && user) {
          req.body.username = user.username;
          req.body.password = user.password;
-
+         console.log(req.body);
          passport.authenticate('local', function(err, user, info) {
             if (err || !user) {
                res.status(400).send(info);
