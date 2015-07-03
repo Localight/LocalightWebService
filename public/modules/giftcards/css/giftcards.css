@@ -433,6 +433,27 @@ label.inputlabel {
     border-radius: 5px;
     border: 1px solid white;
 }
+
+.giftcardContainer {
+    background-color:rgba(37,81,79, 0.75);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 15px;
+}
+
+.giftcardButtonSave, .giftcardButtonUse {
+    width: 100px;
+    margin-left: 50%;
+    background-color: white;
+}
+
+.giftcardButtonSave {
+
+}
+
+.giftcardButtonUse {
+
+}
 /* End Clique Code Styles */
 
 /* occasion styles */
@@ -855,12 +876,6 @@ label.inputlabel {
     text-align: right;
 }
 
-.buttonBGRounded{
-    background-color: #E9EEF6;
-    padding: 10px;
-    border-radius: 7px;
-}
-
 .occasionMessage{
     text-align: left;
 }
@@ -871,14 +886,6 @@ label.inputlabel {
 
 .blackText{
     color: #0E0C0F;
-}
-
-.redText {
-    color: #df5241;
-}
-
-.linkText {
-    color: #5ac4c0;
 }
 
 .largerText {
@@ -892,11 +899,6 @@ label.inputlabel {
     display: block;
 }
 
-.buttonFont {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
 .paddingRight {
     padding-right: 10px;
 }
@@ -907,10 +909,6 @@ label.inputlabel {
 
 .paddingTop {
     padding-top: 10px;
-}
-
-.occasionPadding{
-    padding: 10px;
 }
 
 .navText {
