@@ -32,6 +32,13 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 		$scope.warning = false;
 		$scope.totalWarning = false;
 
+		//Holds the table layout for the dynamic ng-repeat table
+		$scope.tableLayout = [
+				[1,2,3],
+				[4,5,6],
+				[7,8,9]
+		];
+
 		// Find a list of Giftcards
 		$scope.find = function() {
 			//$scope.giftcards = Giftcards.query();
