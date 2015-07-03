@@ -441,19 +441,31 @@ label.inputlabel {
     margin: 15px;
 }
 
-.giftcardButtonSave, .giftcardButtonUse {
-    width: 100px;
-    margin-left: 50%;
-    background-color: white;
+.giftcardButtonContainer {
+    text-align: center;
 }
 
-.giftcardButtonSave {
-
+.giftcardButtonSave, .giftcardButtonUse {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-size: 20px;
+  background: rgba(0,0,0,0.4);
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  color: lightcoral;
 }
 
 .giftcardButtonUse {
-
+    padding: 10px 30px 10px 30px;
+    color: lightseagreen;
 }
+
+.giftcardButtonSave:hover, .giftcardButtonUse:hover {
+  text-decoration: none;
+  color: lightgrey;
+}
+
 /* End Clique Code Styles */
 
 /* occasion styles */
