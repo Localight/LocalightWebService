@@ -90,7 +90,7 @@ exports.twilioWebHookLogin = function(req, res) {
                      res.status(400).send(err);
                   } else {
                      // Return authenticated user
-                     res.json(user);
+                     return res.redirect('/#!/giftcards/create');
                      //TODO: come back and add the redierct.
                   }
                });
