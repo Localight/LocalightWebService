@@ -89,7 +89,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
                user.salt = undefined;
                user.textToken = undefined;
                user.textTokenExpires = undefined;
-
+               console.log(user);
                req.login(user, function(err) {
                   if (err) {
                      res.status(400).send(err);
