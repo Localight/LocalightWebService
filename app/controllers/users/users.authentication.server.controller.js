@@ -67,7 +67,7 @@ exports.signup = function(req, res) {
       });
    });
 };
-exports.twilioWebHookLogin = function(req, res) {
+exports.twilioWebHookLogin = function(req, res, next) {
 
    console.log('in webhooklogin');
    User.findOne({
@@ -77,25 +77,28 @@ exports.twilioWebHookLogin = function(req, res) {
       }
    }, function(err, user) {
       if (!err && user) {
-         user.textToken = undefined;
-         user.textTokenExpires = undefined;
-         user.save(function(err) {
-            if (err) {
-               return res.status(400).send({
-                  message: errorHandler.getErrorMessage(err)
-               });
+         req.body.username = user.username;
+         req.body.password = user.password;
+
+         passport.authenticate('local', function(err, user, info) {
+            if (err || !user) {
+               res.status(400).send(info);
             } else {
+               // Remove sensitive data before login
+               user.password = undefined;
+               user.salt = undefined;
+               user.textToken = undefined;
+               user.textTokenExpires = undefined;
+
                req.login(user, function(err) {
                   if (err) {
                      res.status(400).send(err);
                   } else {
-                     // Return authenticated user
                      return res.redirect('/#!/giftcards/create');
-                     //TODO: come back and add the redierct.
                   }
                });
             }
-         });
+         })(req, res, next);
       }
    });
 };
@@ -224,30 +227,6 @@ exports.twilioWebHook = function(req, res) {
                   console.log(err);
                }
             });
-            // // passport
-            // //
-            // stripe.customers.create().then(function handler(response) {
-            //    // get and save the new users's token.
-            //    anotherUser.stripeCustomerTokenThing = response.id;
-            //    return anotherUser.save(); // saves user here.
-            // }).then(function anotherHandler(response) {
-            //    return client.messages.create({
-            //       body: 'http://lbgift.com/auth/webHookLogin/' + holderToken,
-            //       to: req.body.From,
-            //       from: '+15624454688',
-            //    }, function(err, message) {
-            //       if (err) {
-            //          console.log(err);
-            //       }
-            //       if (message) {
-            //          console.log(message.sid);
-            //       }
-            //    });
-            // })
-            // tokenize user as well.
-            //TODO: need to figure out how and when to do that for user.
-            // in theory could add it to the sign in, then if they have a token already it doesn't fire.
-            // save the user
          }
       });
    } else {
@@ -261,6 +240,7 @@ exports.twilioWebHook = function(req, res) {
  * Signin after passport authentication
  **/
 exports.signin = function(req, res, next) {
+
    passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
          res.status(400).send(info);
