@@ -396,6 +396,7 @@ label.inputlabel {
 
 .whiteHeader{
     color: white;
+    font-weight: 300 !important;
 }
 
 .flatRowListItem {
@@ -407,9 +408,13 @@ label.inputlabel {
     border-radius: 0px !important;
 }
 
+.flatRowListItem table {
+    width: 100%;
+}
+
 .flatRowListItem h3 {
     margin: 0px;
-    font-weight: 100 !important;
+    font-weight: 300 !important;
 }
 
 .flatRowListItem .glyphicon {
@@ -418,6 +423,15 @@ label.inputlabel {
     padding-top: 5px;
     padding-right: 5px;
     font-size: 50px;
+}
+
+.giftlistAmount {
+    float: right;
+    color: white;
+    padding: 5px;
+    font-size: 1.4em;
+    border-radius: 5px;
+    border: 1px solid white;
 }
 /* End Clique Code Styles */
 
@@ -837,32 +851,14 @@ label.inputlabel {
     font-size: 2em;
 }
 
-.list-item {
-    width: 100%;
-    font-size: 2em;
-}
-
 .textRightAlign {
     text-align: right;
-}
-
-.semiTransparentBG {
-    background-color:rgba(0, 0, 0, 0.15);
-}
-
-.semiTransparentBGRounded {
-    background-color:rgba(37,81,79, 0.75);
-    border-radius: 5px;
 }
 
 .buttonBGRounded{
     background-color: #E9EEF6;
     padding: 10px;
     border-radius: 7px;
-}
-
-.list-group:hover{
-    background-color:rgba(37,81,79, 0.5);
 }
 
 .occasionMessage{
