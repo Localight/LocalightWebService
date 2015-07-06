@@ -1,4 +1,4 @@
-<section data-ng-controller="ThankYouController">
+<section data-ng-controller="ThankYouController" ng-init = "find()">
 
 	<!-- our nav/status bar -->
 	<!-- header section with give option, clique logo and available balance -->
@@ -11,6 +11,21 @@
 				<tr>
 	</table>
 
-	
+	<!--Our occasion Icon -->
 
+	<!-- Our occasion Heading -->
+	<h1 class = "center heart">{{giftcards[0].occasionHeading}}</h1>
+
+	<!-- Our message -->
+	<h4 class = "center">${{purchaseValue()}} was successfully transferred.
+		Wanna send a thank you to {{giftcards[0].from}}?</h4>
+
+	<!-- div to enter thank you note -->
+	<form>
+		<div class = "currentTarget">
+			<!-- input box -->
+			<input type="text" value="{{giftcards[0].from}}, I used the
+			Local Giftcard at "> 
+		</div>
+	</form>
 </section>
