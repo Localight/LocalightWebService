@@ -7,9 +7,9 @@
  */
 
 var mongoose = require('mongoose'),
-   //  mailgunService = require('../services/mailgun-service'),
-   //  userService = require('../services/user-service'),
-   //  twilioService = require('../services/twilio-service'),
+   mailgunService = require('../services/mailgun-service'),
+   userService = require('../services/user-service'),
+   twilioService = require('../services/twilio-service'),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
    Schema = mongoose.Schema;
 /**
@@ -20,7 +20,7 @@ var GiftcardSchema = new Schema({
    amount: {
       type: Number,
       min: 0,
-      max: 50000,//equates to $500.00, 100 = $1.00, 50 = $.50
+      max: 50000, //equates to $500.00, 100 = $1.00, 50 = $.50
       // need to make the number validate a number not less than zero.
       required: 'Please enter an amount to purchase between 0 and 500000'
    }, // need to make sure it's always a number and never zero or a negative number.
@@ -76,32 +76,25 @@ var GiftcardSchema = new Schema({
  * same user. could elborate later, and do a deep search to make sure these two
  * people are completely different and un related if we wanted too
  */
-GiftcardSchema.post('save', function(){
+GiftcardSchema.post('save', function(done) {
 
+   var emailHolder = userService.getUserEmail(this.purchaserOfGiftCard);
+   this.fireOffRecipet(emailHolder);
+   var phoneNumberHolder = userService.getPhoneNumber(this.spenderOfGiftCard);
+
+   done();
 });
 //TODO: need to create method that accepts email, and fire off reciept email.
 //
-UserSchema.methods.fireOffrecipet = function(anEmail){
+GiftcardSchema.methods.fireOffRecipet = function(anEmail) {
    //TODO: implement fire off to email.
 };
 //TODO: need to create a method that accepts phoen number, and fires off phone number.
-UserSchema.methods.sendTextToFriend = function(friendNumber){
+GiftcardSchema.methods.sendTextToFriend = function(friendNumber) {
+
+
    //TODO: implement method that fire off text.
 };
-//
-// GiftcardSchema.post('save', function() {
-//    // On a sucessful save the giftcard will send out a recipet to the user who purchased the giftcard,
-//    // using the purchaserofGiftCard as the parameter
-//
-//    // use the userService to locate the email.
-//    // TODO: come back and make sure this is fault tolerant
-//
-   // mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
 
-
-
-   // mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
-//     mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
-// });
 
 mongoose.model('Giftcard', GiftcardSchema);
