@@ -662,6 +662,14 @@ label.inputlabel {
     width: 50px;
 }
 
+.triconButton {
+    transition: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
 /* End Dialad Buttons */
 
 /* Aaron's Styles */
