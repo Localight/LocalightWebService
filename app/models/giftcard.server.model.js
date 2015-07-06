@@ -10,6 +10,9 @@ var mongoose = require('mongoose'),
    mailgunService = require('../services/mailgun-service'),
    userService = require('../services/user-service'),
    twilioService = require('../services/twilio-service'),
+   nodemailer = require('nodemailer'),
+   config = require('../../config/config'),
+   smtpTransport = nodemailer.createTransport(config.mailer.options),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
    Schema = mongoose.Schema;
 /**
@@ -88,14 +91,28 @@ GiftcardSchema.post('save', function() {
 //TODO: need to create method that accepts email, and fire off reciept email.
 //
 GiftcardSchema.methods.fireOffRecipet = function(anEmail) {
-
    //TODO: implement fire off to email.
+   //NOTE: need to create a html template for the email.
+   var mailOptions = {
+      to:anEmail,
+      from: config.MAILE_FROM,
+      subject: 'Your Recent Gift-Card Purchase!',
+      text: '\n\n' + 'You Recently purchased a giftcard' + this.amount + 'something'+'not sure what the email should say in its entiriety'
+   };
+
+   return smtpTransport.sendMail(mailOptions, function(error, info){
+      if(error){
+         console.log(error);
+         //NOTE: note sure what to do about error handling in this area.
+      }else{
+         console.log('Email Reciept sent: '+info.response);
+      }
+   });
 };
 //TODO: need to create a method that accepts phoen number, and fires off phone number.
 GiftcardSchema.methods.sendTextToFriend = function(friendNumber) {
-
-
    //TODO: implement method that fire off text.
+
 };
 
 
