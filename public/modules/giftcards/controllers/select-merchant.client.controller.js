@@ -46,7 +46,7 @@ angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$
 			[
 				{
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Tony',
@@ -56,7 +56,7 @@ angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$
 				},
 				{
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Frank',
@@ -76,7 +76,7 @@ angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$
 			}
 
 			//Return the total value as a formatted string
-			return "$" + total;
+			return (parseInt(total) / 100).toFixed(2);
 		}
 	}
 ]);
