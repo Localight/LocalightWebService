@@ -844,4 +844,10 @@ label.inputlabel {
     padding: 0;
 }
 
+.form-horizontal .form-group
+{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
 /* End Aaron's Styles */
