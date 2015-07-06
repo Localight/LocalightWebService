@@ -640,6 +640,12 @@ label.inputlabel {
     border-spacing: 10px;
 }
 
+@media (max-width: 340px) {
+    .dialPad {
+        border-spacing: 0px !important;
+    }
+}
+
 .button1 {
     background-image: url("/modules/giftcards/img/auth-outline-1.png");
     background-repeat: no-repeat;
@@ -807,6 +813,14 @@ label.inputlabel {
     background-size: contain;
     height: 50px;
     width: 50px;
+}
+
+.triconButton {
+    transition: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
 }
 
 /* End Dialad Buttons */
