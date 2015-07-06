@@ -72,7 +72,7 @@ module.exports = function(app) {
 	 * @apiName PostUser
 	 * @apiGroup User
 	 */
-	//app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
+	 app.route('/auth/findOrCreateUser').get(users.findOrCreateUser);// might want to make sure only logged in users can do this later.
 	// TODO: make sure only logged in users can do this.
 	/**
 	 * @api{post} /user Request User Object
@@ -92,7 +92,6 @@ module.exports = function(app) {
 	 * @apiGroup User
 	 */
 	app.route('/auth/signout').get(users.signout);
-	//  app.route('/stripe/charge').post(users.createACharge);
 	// Having stripe next to and embedded with the user class, allows us to use stripe where and when we
 	// need it.
 	// stripe accounts routes
