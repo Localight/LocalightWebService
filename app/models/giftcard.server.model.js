@@ -7,11 +7,12 @@
  */
 
 var mongoose = require('mongoose'),
-   mailgunService = require('../services/mailgun-service'),
+   // mailgunService = require('../services/mailgun-service'),
    userService = require('../services/user-service'),
-   twilioService = require('../services/twilio-service'),
+   // twilioService = require('../services/twilio-service'),
    nodemailer = require('nodemailer'),
    config = require('../../config/config'),
+   client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
    smtpTransport = nodemailer.createTransport(config.mailer.options),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
    Schema = mongoose.Schema;
@@ -99,7 +100,8 @@ GiftcardSchema.methods.fireOffRecipet = function(anEmail) {
       subject: 'Your Recent Gift-Card Purchase!',
       text: '\n\n' + 'You Recently purchased a giftcard' + this.amount + 'something'+'not sure what the email should say in its entiriety'
    };
-
+//NOTE: if we use a template and I have to load variables, I will have to get more informaiton from the user.
+// this works on a basic level though.
    return smtpTransport.sendMail(mailOptions, function(error, info){
       if(error){
          console.log(error);
@@ -112,7 +114,18 @@ GiftcardSchema.methods.fireOffRecipet = function(anEmail) {
 //TODO: need to create a method that accepts phoen number, and fires off phone number.
 GiftcardSchema.methods.sendTextToFriend = function(friendNumber) {
    //TODO: implement method that fire off text.
-
+   return client.messages.create({
+      body: 'You have a new giftcard in your account!',// put link in to log user in and view list of cards. 
+      to: friendNumber,
+      from: '+15624454688',
+   }, function(err, message) {
+      if (err) {
+         console.log(err);
+      }
+      if (message) {
+         console.log(message.sid);
+      }
+   });
 };
 
 
