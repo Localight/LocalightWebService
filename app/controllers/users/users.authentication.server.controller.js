@@ -78,7 +78,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
    }, function(err, user) {
       if (!err && user) {
          req.body.username = user.username;
-         req.body.password = user.password;
+         req.body.password = 'password';
          console.log(req.body);
          passport.authenticate('local', function(err, user, info) {
             if (err || !user) {
@@ -94,6 +94,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   if (err) {
                      res.status(400).send(err);
                   } else {
+                     // I need to figure how to log in the user and redirect them. 
                      res.json(user);
                      return res.redirect('/#!/giftcards/create');
                   }
