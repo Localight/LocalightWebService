@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('TiltScreenController', ['$scope',
-	function($scope)
+angular.module('giftcards').controller('TiltScreenController', ['$scope', '$location',
+	function($scope, $location)
 	{
 
 		//Switch overlay on
@@ -19,6 +19,18 @@ angular.module('giftcards').controller('TiltScreenController', ['$scope',
 		{
 			//Replace this with a backend call eventually
 			return "Doly's Delectables";
+		}
+
+		//Function to go back to selecting merchants
+		$scope.goTo = function(place)
+		{
+			//Save our final amount if the path is to pay
+			if(place == "/#!/")
+			{
+
+			}
+
+			$location.path(place);
 		}
 	}
 ]);
