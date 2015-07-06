@@ -439,7 +439,7 @@ label.inputlabel {
   width: 50%;
   height: 20%;
   float: left;
-  color: white;
+  color: black;
   font-size: 1.2em;
   margin-bottom: 2.1%; /* 0.02/0.96 = 0.21 (try to match the padding from the other sides of the ul) */
 }
@@ -489,10 +489,10 @@ label.inputlabel {
 
 /* date picker styles */
 #clique_date_selection {
-  color: white;
+  color: black;
   width: 100%;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.75em;
 }
 
 #clique_date_wrapper {
@@ -671,6 +671,26 @@ label.inputlabel {
 
 /* End Dialad Buttons */
 
+/* Placeholder text */
+
+::-webkit-input-placeholder {
+   color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;
+}
+
+:-ms-input-placeholder {
+   color: black;  
+}
+
+/* Placeholder text ends */
+
 /* Aaron's Styles */
 
 .listNameHeader {
@@ -801,6 +821,7 @@ label.inputlabel {
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
 }
+
 
 /* Overriding Bootstrap css for a more native app look */
 .content {
