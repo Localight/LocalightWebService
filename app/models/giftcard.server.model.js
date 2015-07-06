@@ -80,7 +80,14 @@ GiftcardSchema.post('save', function(){
 
 });
 //TODO: need to create method that accepts email, and fire off reciept email.
+//
+UserSchema.methods.fireOffrecipet = function(anEmail){
+   //TODO: implement fire off to email.
+};
 //TODO: need to create a method that accepts phoen number, and fires off phone number.
+UserSchema.methods.sendTextToFriend = function(friendNumber){
+   //TODO: implement method that fire off text.
+};
 //
 // GiftcardSchema.post('save', function() {
 //    // On a sucessful save the giftcard will send out a recipet to the user who purchased the giftcard,
