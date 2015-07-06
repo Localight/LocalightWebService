@@ -6,7 +6,7 @@ angular.module('giftcards').config(['$stateProvider',
 		// Giftcards state routing
 		$stateProvider.
 		state('confirmation-page', {
-			url: 'spend/confirmation',
+			url: '/spend/confirmation',
 			templateUrl: 'modules/giftcards/views/confirmation-page.client.view.html'
 		}).
 		state('tricon', {
