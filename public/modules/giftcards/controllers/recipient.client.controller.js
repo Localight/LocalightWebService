@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('RecipientController', ['$scope',
-	function($scope) {
+angular.module('giftcards').controller('RecipientController', ['$scope', '$stateParams',
+	function($scope, $stateParams) {
 
 		//Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
@@ -24,6 +24,7 @@ angular.module('giftcards').controller('RecipientController', ['$scope',
 			$scope.giftcards =
 			[
 				{
+					_id: "1",
 					to: "John",
 					amt: "100",
 					mobileNumberOfRecipient: "5625555555",
@@ -34,15 +35,24 @@ angular.module('giftcards').controller('RecipientController', ['$scope',
 					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!"
 				},
 				{
+					_id: "2",
 					to: "John",
 					amt: "100",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Frank',
 					message: "hi",
-					districtNumber: 'number'
+					districtNumber: 'number',
+					occasionMessage: "Congratulations on your baby!"
 				}
 			]
+			var giftcard;
+			for (giftcard in $scope.giftcards){
+				if($scope.giftcards[giftcard]._id == $stateParams.giftcardId){
+					$scope.giftcard = $scope.giftcards[giftcard];
+					break;
+				}
+			}
 		}
 
 		$scope.totalValue = function()
