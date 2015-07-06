@@ -24,8 +24,8 @@ module.exports = {
 		js: 'public/dist/application.min.js'
 	},
 	twilio:{
-		accountSid: process.env.accountSid || 'AC9bfd970cef5934b23e69f1ef72812a23',
-		authToken: process.env.authToken || 'a6bfeeed497cfb9b8d10c329ce721759',
+		accountSID: process.env.ACCOUNT_SID || 'AC9bfd970cef5934b23e69f1ef72812a23',
+		authTOKEN: process.env.AUTH_TOKEN || 'a6bfeeed497cfb9b8d10c329ce721759',
 	},
 	stripe: {
       		secretKey: process.env.STRIPE_SECRET_KEY || 'sk_live_tCAl0MFad0cwSmcYtEhBppiW',

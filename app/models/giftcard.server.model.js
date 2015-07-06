@@ -7,10 +7,14 @@
  */
 
 var mongoose = require('mongoose'),
-   //  mailgunService = require('../services/mailgun-service'),
-   //  userService = require('../services/user-service'),
-   //  twilioService = require('../services/twilio-service'),
+   // mailgunService = require('../services/mailgun-service'),
+   // twilioService = require('../services/twilio-service'),
+   nodemailer = require('nodemailer'),
+   config = require('../../config/config'),
+   client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
+   smtpTransport = nodemailer.createTransport(config.mailer.options),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
+   User = require('./user.server.model'),
    Schema = mongoose.Schema;
 /**
  * Giftcard Schema,
@@ -76,14 +80,72 @@ var GiftcardSchema = new Schema({
  * same user. could elborate later, and do a deep search to make sure these two
  * people are completely different and un related if we wanted too
  */
+GiftcardSchema.post('save', function() {
+   User.findById({
+      _id: this.purchaserOfGiftCard
+   }).exec(function(err, user){
+      if(err){
+         return err;
+      }
+      if(!user){
+         return (new Error('Failed to locate User '+user));
+      }
+      this.fireOffRecipet(user.email);
+   });
 
-// GiftcardSchema.post('save', function() {
-//    // On a sucessful save the giftcard will send out a recipet to the user who purchased the giftcard,
-//    // using the purchaserofGiftCard as the parameter
+   User.findById({
+      _id: this.spenderOfGiftCard
+   }).exec(function(err, user){
+      if(err){
+         return err;
+      }
+      if(!user){
+         return (new Error('Failed to locate User '+user));
+      }
+      this.sendTextToFriend(user.username);
+   });
+});
+//TODO: need to create method that accepts email, and fire off reciept email.
 //
-//    // use the userService to locate the email.
-//    // TODO: come back and make sure this is fault tolerant
-//    mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
-// });
+GiftcardSchema.methods.fireOffRecipet = function(anEmail) {
+   //TODO: implement fire off to email.
+   //NOTE: need to create a html template for the email.
+   var mailOptions = {
+      to:anEmail,
+      from: config.MAILE_FROM,
+      subject: 'Your Recent Gift-Card Purchase!',
+      text: '\n\n' + 'You Recently purchased a giftcard' + this.amount + 'something'+'not sure what the email should say in its entiriety'
+   };
+//NOTE: if we use a template and I have to load variables, I will have to get more informaiton from the user.
+// this works on a basic level though.
+   return smtpTransport.sendMail(mailOptions, function(error, info){
+      if(error){
+         console.log(error);
+         //NOTE: note sure what to do about error handling in this area.
+      }else{
+         console.log('Email Reciept sent: '+info.response);
+      }
+   });
+};
+//TODO: need to create a method that accepts phoen number, and fires off phone number.
+GiftcardSchema.methods.sendTextToFriend = function(friendNumber) {
+   //TODO: implement method that fire off text.
+   //TODO: implement method that checks timer, and sends message delayed.
+   //NOTE: This method needs to check the date and make sure it knows when to
+   //fire off later. Need to research cron jobs though.
+
+   return client.messages.create({
+      body: 'You have a new giftcard in your account!',// put link in to log user in and view list of cards.
+      to: friendNumber,
+      from: '+15624454688',
+   }, function(err, message) {
+      if (err) {
+         console.log(err);
+      }
+      if (message) {
+         console.log(message.sid);
+      }
+   });
+};
 
 mongoose.model('Giftcard', GiftcardSchema);
