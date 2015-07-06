@@ -85,6 +85,7 @@ GiftcardSchema.post('save', function() {
    var emailHolder = userService.getUserEmail(this.purchaserOfGiftCard);
    this.fireOffRecipet(emailHolder);
    var phoneNumberHolder = userService.getUserPhoneNumber(this.spenderOfGiftCard);
+
    // done();
 
 });
@@ -113,12 +114,8 @@ GiftcardSchema.methods.fireOffRecipet = function(anEmail) {
 //TODO: need to create a method that accepts phoen number, and fires off phone number.
 GiftcardSchema.methods.sendTextToFriend = function(friendNumber) {
    //TODO: implement method that fire off text.
-   //TODO: implement method that checks timer, and sends message delayed.
-   //NOTE: This method needs to check the date and make sure it knows when to
-   //fire off later. Need to research cron jobs though.
-   
    return client.messages.create({
-      body: 'You have a new giftcard in your account!',// put link in to log user in and view list of cards.
+      body: 'You have a new giftcard in your account!',// put link in to log user in and view list of cards. 
       to: friendNumber,
       from: '+15624454688',
    }, function(err, message) {
