@@ -8,8 +8,8 @@ var mongoose = require('mongoose'),
 
 
 // given a userId return a email
-exports.locateEmailByUser = function(userId){
-   User.findOne({
+exports.getUserEmail = function(userId){
+   User.findById({
       _id: userId
    }).exec(function(err, user){
       if(err){
@@ -18,13 +18,13 @@ exports.locateEmailByUser = function(userId){
       if(!user){
          return (new Error('Failed to locate User '+userId));
       }
-      return user.email;
+      return JSON.stringify(user.email);
    });
 };
 
 // Given a user Id return a username
-exports.findPhoneNumberByUser = function(userId){
-   User.findOne({
+exports.getUserPhoneNumber = function(userId){
+   User.findById({
       _id: userId
    }).exec(function(err, user){
       if(err){
@@ -33,7 +33,7 @@ exports.findPhoneNumberByUser = function(userId){
       if(!user){
          return (new Error('Failed to locate User '+userId));
       }
-      return user.username;
+      return JSON.stringify(user.username);
    });
 };
 
