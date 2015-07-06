@@ -76,14 +76,25 @@ var GiftcardSchema = new Schema({
  * same user. could elborate later, and do a deep search to make sure these two
  * people are completely different and un related if we wanted too
  */
+GiftcardSchema.post('save', function(){
 
+});
+//TODO: need to create method that accepts email, and fire off reciept email.
+//TODO: need to create a method that accepts phoen number, and fires off phone number.
+//
 // GiftcardSchema.post('save', function() {
 //    // On a sucessful save the giftcard will send out a recipet to the user who purchased the giftcard,
 //    // using the purchaserofGiftCard as the parameter
 //
 //    // use the userService to locate the email.
 //    // TODO: come back and make sure this is fault tolerant
-//    mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
+//
+   // mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
+
+
+
+   // mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
+//     mailgunService.sendEmailReciept(userService.locateEmailByUser(this.purchaserofGiftCard));
 // });
 
 mongoose.model('Giftcard', GiftcardSchema);
