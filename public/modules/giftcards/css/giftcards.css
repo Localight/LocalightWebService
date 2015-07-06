@@ -672,6 +672,26 @@ label.inputlabel {
 
 /* End Dialad Buttons */
 
+/* Placeholder text */
+
+::-webkit-input-placeholder {
+   color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;
+}
+
+:-ms-input-placeholder {
+   color: black;  
+}
+
+/* Placeholder text ends */
+
 /* Aaron's Styles */
 
 .listNameHeader {
@@ -802,6 +822,7 @@ label.inputlabel {
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
 }
+
 
 /* Overriding Bootstrap css for a more native app look */
 .content {
