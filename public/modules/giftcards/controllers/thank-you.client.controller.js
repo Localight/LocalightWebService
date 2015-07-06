@@ -2,7 +2,13 @@
 
 angular.module('giftcards').controller('ThankYouController', ['$scope',
 	function($scope) {
-		// Controller Logic
-		// ...
+		
+		//Switch overlay off
+      	document.getElementById('darkerOverlay').style.display = "none";
+
+		//Initialize scope.giftcards
+		$scope.giftcards = null;
+
+
 	}
 ]);
