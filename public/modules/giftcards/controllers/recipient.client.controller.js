@@ -67,5 +67,12 @@ angular.module('giftcards').controller('RecipientController', ['$scope', '$state
 			//Return the total value as a formatted string
 			return (parseInt(total) / 100).toFixed(2);
 		}
+
+		//function to fomat a giftcard value for us
+		$scope.giftValue = function(amt)
+		{
+			//Return the total value as a formatted string
+			return (parseInt(amt) / 100).toFixed(2);
+		}
 	}
 ]);
