@@ -686,12 +686,17 @@ label.inputlabel {
 }
 
 :-ms-input-placeholder {
-   color: black;  
+   color: black;
 }
 
 /* Placeholder text ends */
 
 /* Aaron's Styles */
+
+.notFoundLinkList {
+    list-style-type: none;
+    padding: 0px;
+}
 
 .listNameHeader {
     color: #df5241;
