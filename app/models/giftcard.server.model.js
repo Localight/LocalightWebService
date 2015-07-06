@@ -76,17 +76,19 @@ var GiftcardSchema = new Schema({
  * same user. could elborate later, and do a deep search to make sure these two
  * people are completely different and un related if we wanted too
  */
-GiftcardSchema.post('save', function(done) {
+GiftcardSchema.post('save', function() {
 
    var emailHolder = userService.getUserEmail(this.purchaserOfGiftCard);
    this.fireOffRecipet(emailHolder);
-   var phoneNumberHolder = userService.getPhoneNumber(this.spenderOfGiftCard);
+   var phoneNumberHolder = userService.getUserPhoneNumber(this.spenderOfGiftCard);
 
-   done();
+   // done();
+
 });
 //TODO: need to create method that accepts email, and fire off reciept email.
 //
 GiftcardSchema.methods.fireOffRecipet = function(anEmail) {
+
    //TODO: implement fire off to email.
 };
 //TODO: need to create a method that accepts phoen number, and fires off phone number.
