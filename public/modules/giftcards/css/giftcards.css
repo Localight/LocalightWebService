@@ -422,7 +422,7 @@ label.inputlabel {
 /* End Clique Code Styles */
 
 /* occasion styles */
-#clique_occasion_selection {
+.createGiftCardWidth {
   margin: 2% auto; /* increase margin-top and margin-bottom slightly */
   max-width: 600px;
 }
