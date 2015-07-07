@@ -5,8 +5,16 @@ angular.module('giftcards').config(['$stateProvider',
 	function($stateProvider) {
 		// Giftcards state routing
 		$stateProvider.
+		state('confirmation-page', {
+			url: '/spend/confirmation',
+			templateUrl: 'modules/giftcards/views/confirmation-page.client.view.html'
+		}).
+		state('tricon', {
+			url: '/spend/tricon',
+			templateUrl: 'modules/giftcards/views/tricon.client.view.html'
+		}).
 		state('tilt-screen', {
-			url: '/spendtilt',
+			url: '/spend/tilt',
 			templateUrl: 'modules/giftcards/views/tilt-screen.client.view.html'
 		}).
 		state('selectMerchant', {
@@ -27,7 +35,7 @@ angular.module('giftcards').config(['$stateProvider',
 			templateUrl: 'modules/giftcards/views/spendingSequence/recipient.html'
 		}).
 		state('spendGiftcard', {
-			url: '/spend',
+			url: '/merchants/:merchantId/amount',
 			templateUrl: 'modules/giftcards/views/spendingSequence/spend.html'
 		}).
 		state('editGiftcard', {

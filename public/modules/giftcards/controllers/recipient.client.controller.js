@@ -1,7 +1,11 @@
 'use strict';
 
-angular.module('giftcards').controller('RecipientController', ['$scope',
-	function($scope) {
+angular.module('giftcards').controller('RecipientController', ['$scope', '$stateParams',
+	function($scope, $stateParams) {
+
+		//Switch overlay off
+      	document.getElementById('darkerOverlay').style.display = "none";
+
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
@@ -20,8 +24,9 @@ angular.module('giftcards').controller('RecipientController', ['$scope',
 			$scope.giftcards =
 			[
 				{
+					_id: "1",
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Tony',
@@ -30,15 +35,24 @@ angular.module('giftcards').controller('RecipientController', ['$scope',
 					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!"
 				},
 				{
+					_id: "2",
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Frank',
 					message: "hi",
-					districtNumber: 'number'
+					districtNumber: 'number',
+					occasionMessage: "Congratulations on your baby!"
 				}
 			]
+			var giftcard;
+			for (giftcard in $scope.giftcards){
+				if($scope.giftcards[giftcard]._id == $stateParams.giftcardId){
+					$scope.giftcard = $scope.giftcards[giftcard];
+					break;
+				}
+			}
 		}
 
 		$scope.totalValue = function()
@@ -51,7 +65,14 @@ angular.module('giftcards').controller('RecipientController', ['$scope',
 			}
 
 			//Return the total value as a formatted string
-			return "$" + total;
+			return (parseInt(total) / 100).toFixed(2);
+		}
+
+		//function to fomat a giftcard value for us
+		$scope.giftValue = function(amt)
+		{
+			//Return the total value as a formatted string
+			return (parseInt(amt) / 100).toFixed(2);
 		}
 	}
 ]);
