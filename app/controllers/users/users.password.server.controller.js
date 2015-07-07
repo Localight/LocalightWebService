@@ -13,7 +13,7 @@ var _ = require('lodash'),
 	async = require('async'),
 	crypto = require('crypto');
 
-/**
+/**k
  * Forgot for reset password (forgot POST)
  */
 exports.forgot = function(req, res, next) {

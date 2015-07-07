@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location',
-	function($scope, $location) {
+angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location', '$stateParams',
+	function($scope, $location, $stateParams) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
+
+		//Get our merchant ID
+		$scope.Id = $stateParams.merchantId;
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
@@ -78,7 +81,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 			}
 
 			//Return the total value as a formatted string
-			return total;
+			return (parseInt(total) / 100).toFixed(2);
 		}
 
 		//Function to switch the value of pressed
@@ -131,7 +134,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 				}
 
 				//Get our total value
-				var total = parseInt($scope.totalValue());
+				var total = parseInt($scope.totalValue() * 100);
 				//Also, check if the amount is greater than our maxes
 				if(answer > total)
 				{

@@ -422,7 +422,7 @@ label.inputlabel {
 /* End Clique Code Styles */
 
 /* occasion styles */
-#clique_occasion_selection {
+.createGiftCardWidth {
   margin: 2% auto; /* increase margin-top and margin-bottom slightly */
   max-width: 600px;
 }
@@ -439,7 +439,7 @@ label.inputlabel {
   width: 50%;
   height: 20%;
   float: left;
-  color: white;
+  color: black;
   font-size: 1.2em;
   margin-bottom: 2.1%; /* 0.02/0.96 = 0.21 (try to match the padding from the other sides of the ul) */
 }
@@ -489,10 +489,10 @@ label.inputlabel {
 
 /* date picker styles */
 #clique_date_selection {
-  color: white;
+  color: black;
   width: 100%;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.75em;
 }
 
 #clique_date_wrapper {
@@ -578,7 +578,6 @@ label.inputlabel {
 /* Proceed Button Styles */
 .proceed_button {
   background-color: black;
-  background-image: url('../img/clique.png');
   background-size: auto 60%;
   background-position: 1em 60%;
   background-repeat: no-repeat;
@@ -672,7 +671,32 @@ label.inputlabel {
 
 /* End Dialad Buttons */
 
+/* Placeholder text */
+
+::-webkit-input-placeholder {
+   color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;
+}
+
+:-ms-input-placeholder {
+   color: black;
+}
+
+/* Placeholder text ends */
+
 /* Aaron's Styles */
+
+.notFoundLinkList {
+    list-style-type: none;
+    padding: 0px;
+}
 
 .listNameHeader {
     color: #df5241;
@@ -803,6 +827,7 @@ label.inputlabel {
     transform: rotate(180deg);
 }
 
+
 /* Overriding Bootstrap css for a more native app look */
 .content {
     margin: 0;
@@ -817,6 +842,12 @@ label.inputlabel {
 .container-fluid {
     margin: 0;
     padding: 0;
+}
+
+.form-horizontal .form-group
+{
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 /* End Aaron's Styles */

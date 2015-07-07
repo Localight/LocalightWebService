@@ -8,7 +8,7 @@
              <td class=""><a class="blackText navText" href="/#!/giftcards/create">
                  <img class = "imagePaddingRight" ng-src="/modules/giftcards/img/bowtie.png" alt="Give Icon" height="15px" width="30px">
                  Give</a></td>
-             <td class = "textRightAlign blackText navText">{{totalValue()}}</td>
+             <td class = "textRightAlign blackText navText">${{totalValue()}}</td>
          <tr>
      </table>
 
@@ -33,7 +33,7 @@
 
       <!-- amount to use at which merchant section -->
       <div class="text-center merchantInfo blackText">
-        <h4 class="center" id="useAmount">Use this ${{giftcard.amt}} gift at</p>
+        <h4 class="center" id="useAmount">Use this ${{giftValue(giftcard.amt)}} gift at</p>
         <h2 class="center">Doly's Delectables</p>
       </div>
 
@@ -42,7 +42,7 @@
       <table class = "center">
          <tr>
              <td class="tableCell paddingRight"><a class = "redText buttonFont buttonBGRounded" href="/#!/giftcards">Save For Later</a></td>
-             <td class="tableRIghtAlign"><a class = "linkText buttonFont buttonBGRounded" href="/#!/spend">  Use It Now  </a></td>
+             <td class="tableRIghtAlign"><a class = "linkText buttonFont buttonBGRounded" href="/#!/merchants">  Use It Now  </a></td>
          <tr>
      </table>
      <br>
