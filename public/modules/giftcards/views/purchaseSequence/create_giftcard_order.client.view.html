@@ -70,7 +70,7 @@
     </div>
     <br>
     <!--Occasion-->
-    <div id="clique_occasion_wrapper">
+    <div id="clique_occasion_wrapper" class = "createGiftCardWidth">
       <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
         <ul>
           <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)">
@@ -94,11 +94,11 @@
     <br>
 
     <!--Date picker -->
-    <input type="date" name="clique_date_selection" id="clique_date_selection" ng-model="gc.date" min-date="minDate"
+    <input type="date" id="clique_date_selection" class = "createGiftCardWidth center roundWhiteBorder" name="clique_date_selection" ng-model="gc.date" min-date="minDate"
     show-weeks="true" class="well well-lg" required></input>
 
     <!--Pay by card-->
-    <div id="clique_payment_card" class="roundWhiteBorder">
+    <div id="clique_payment_card" class="roundWhiteBorder createGiftCardWidth">
       <!-- Inner Container -->
       <div id="creditcardnumbercontainer" class="paymentcontainer">
         <!-- Credit Card Logo Img -->
@@ -126,10 +126,10 @@
       </div>
     </div>
 
-    <div data-ng-hide="(giftcardForm.$valid && gc.amount && gc.occasion)" class="text-danger form-incomplete">
+    <div data-ng-hide="(giftcardForm.$valid && gc.amount && gc.occasion)" class="text-danger form-incomplete createGiftCardWidth">
       <strong>Please complete all information</strong>
     </div>
-    <div class="form-group">
+    <div class="createGiftCardWidth">
       <button class="proceed_button"
           ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage();">Continue</button>
     </div>
@@ -165,7 +165,7 @@
         {{gc.to}}
       </div>
       <!--Phone Number-->
-      <div id="clique_phonenumber" ng-class="{nextInput: !dirty.PhoneNumber}">
+      <div id="clique_phonenumber" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.PhoneNumber}">
         <label class="inputlabel" for="clique_input_phonenumber">
           <img alt="Enter Phone Number" src="../modules/giftcards/img/phone.png" />
         </label>
@@ -185,7 +185,7 @@
     </div>
 
       <!--Email-->
-      <div id="clique_email" ng-class="{nextInput: !dirty.Email}">
+      <div id="clique_email" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.Email}">
         <label class="inputlabel">
           <img alt="Enter Email Address" src="../modules/giftcards/img/emailsign_blk.png" />
         </label>
@@ -193,11 +193,11 @@
       </div>
 
       <!--Schedule Gift-->
-      <div data-ng-hide="(giftcardForm2.$valid && clique_input_phonenumber_validity)" class="text-danger form-incomplete">
+      <div data-ng-hide="(giftcardForm2.$valid && clique_input_phonenumber_validity)" class="text-danger form-incomplete createGiftCardWidth">
         <strong>Please complete all information</strong>
       </div>
       <a ng-href="/#!/giftcards">
-        <button class="proceed_button" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity)">Submit</button>
+        <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity)">Submit</button>
       </a>
     </div>
    </form>

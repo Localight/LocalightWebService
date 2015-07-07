@@ -422,7 +422,7 @@ label.inputlabel {
 /* End Clique Code Styles */
 
 /* occasion styles */
-#clique_occasion_selection {
+.createGiftCardWidth {
   margin: 2% auto; /* increase margin-top and margin-bottom slightly */
   max-width: 600px;
 }
@@ -842,6 +842,12 @@ label.inputlabel {
 .container-fluid {
     margin: 0;
     padding: 0;
+}
+
+.form-horizontal .form-group
+{
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 /* End Aaron's Styles */
