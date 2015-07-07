@@ -1,10 +1,15 @@
-<section class="flatRowSection" data-ng-controller="SelectMerchantController" data-ng-init="find()">
+<section class="flatRowSection" data-ng-controller="SelectMerchantController" data-ng-init="getGiftcards()">
 
 
       <!-- header section with give option, clique logo and available balance -->
       <table class = "sub-header">
          <tr>
-             <td class=""></td>
+             <td class="">
+                 <a href = "#!/giftcards">
+                     <img class = "inline" src = "/modules/giftcards/img/auth-lft-arrow.png">
+                     <p style="vertical-align: sub;" class = "inline paddingLeft backText redText">Back</p>
+                 </a>
+             </td>
              <td class = "textRightAlign blackText navText">${{totalValue()}}</td>
          <tr>
      </table>
