@@ -13,26 +13,32 @@ angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$
 		$scope.merchants = [{
 			area: "4th Street Retro Row",
 			name: "Goldies On 4th",
+			id: 0,
 			address: "2106 E 4th St, Long Beach, CA"
 		},{
 			area: "4th Street Retro Row",
 			name: "Aji Peruvian Cuisine",
+			id: 1,
 			address: "2308 E 4th St, Long Beach, CA"
 		},{
 			area: "4th Street Retro Row",
 			name: "P3 Artisan Pizza",
+			id: 2,
 			address: "2306 E 4th St, Long Beach, CA"
 		},{
 			area: "4th Street Retro Row",
 			name: "The Social List",
+			id: 3,
 			address: "2105 E 4th St, Long Beach, CA"
 		},{
 			area: "4th Street Retro Row",
 			name: "Lola's",
+			id: 4,
 			address: "2030 E 4th St, Long Beach, CA"
 		},{
 			area: "4th Street Retro Row",
 			name: "Portfolio's Coffee",
+			id: 5,
 			address: "2300 E 4th St, Long Beach, CA"
 		}]
 

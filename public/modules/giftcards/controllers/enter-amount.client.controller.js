@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location',
-	function($scope, $location) {
+angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location', '$stateParams',
+	function($scope, $location, $stateParams) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
+
+		//Get our merchant ID
+		$scope.Id = $stateParams.merchantId;
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
