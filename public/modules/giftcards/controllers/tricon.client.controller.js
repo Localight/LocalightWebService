@@ -6,6 +6,9 @@ angular.module('giftcards').controller('TriconController', ['$scope', '$statePar
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
 
+		//Our pressed tricon ***
+		$scope.pressedTricon = "";
+
 		//Get our merchant ID
 		$scope.Id = $stateParams.merchantId;
 
@@ -68,6 +71,15 @@ angular.module('giftcards').controller('TriconController', ['$scope', '$statePar
 			//console.log("Tricon Pressed: " + $scope.images[id]);
 			//
 			event.currentTarget.style.backgroundPositionY = '-100px';
+
+			//And, add a star to pressed tricon
+			$scope.pressedTricon = $scope.pressedTricon + "*";
+
+			//Check if it has more than 2 characters, if it does, go to the confirmation page
+			if($scope.pressedTricon.length > 2)
+			{
+				$location.path("/merchants/$scope.Id/confirmation")
+			}
 		}
 
 		//When tricon is unpressed, this function will be launched
