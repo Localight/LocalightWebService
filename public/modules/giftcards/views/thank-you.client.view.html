@@ -22,13 +22,18 @@
 
 	<!-- div to enter thank you note -->
 	<form>
-		<div class = "whiteRoundedBorder buttonBGRounded center" ng-init = "setTextArea()">
-			<!-- input box, value must be done in the controller -->
-			<textarea id = "thankYouNote" ng-keydown="countCharacters()" type="text" class = "largerText" ng-trim="false" maxlength = "160" rows = "4" autofocus>
-			</textarea>
-			<!-- Person's name in the lower right hand corner -->
-			<p ng-init = "countCharacters()" class = "placeHolderTextStyle textRightAlign">{{charCount}}</p>
-			<p class = "textRightAlign heart">~ {{giftcards[0].from}}</p>
+		<div class = "whiteRoundedBorder buttonBGRounded" ng-init = "setTextArea()">
+			<!-- Our text area and sign off, may be used in order to position the character counter -->
+				<!-- input box, value must be done in the controller -->
+				<textarea id = "thankYouNote" ng-keydown="countCharacters()" type="text" class = "largerText" ng-trim="false" maxlength = "160" rows = "4" autofocus>
+				</textarea>
+				<!-- Person's name in the lower right hand corner -->
+				<div class = "textRightAlign">
+				<p style = "display:inline-block" class = "textRightAlign heart">~ {{giftcards[0].from}}</p>
+				<p ng-init = "countCharacters()" style = "display:inline-block; padding-left: 10px;" class = "placeHolderTextStyle textRightAlign">{{charCount}}</p>
+				</div>
 		</div>
+
+		<!-- our two buttons -->
 	</form>
 </section>
