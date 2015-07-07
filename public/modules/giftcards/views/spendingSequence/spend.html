@@ -1,4 +1,4 @@
-<div ng-controller="EnterAmountController" ng-init = "find()">
+<div ng-controller="EnterAmountController" ng-init = "getGiftcards()">
 
 
 
@@ -8,50 +8,42 @@
            <td class="whiteText paddingLeft paddingTop largerText">${{amount}}</td>
 
            <td class = "paddingLeft" ng-hide = "clicked == true">
-           <h5 class ="linkText"> Your total balance is ${{totalValue() / 100}}.</h5>
+           <h5 class ="linkText"> Your total balance is ${{totalValue()}}.</h5>
            <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
            </td>
 
-           <td class = "center textRightAlign paddingRight" ng-click = "goTo('/#!/')" ng-show = "clicked == true" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)">
-                <p class = "inline paddingLeft backText linkText">Pay</p>
-               <img class = "inline" src = "/modules/giftcards/img/auth-rt-arrow.png">
+           <td class="textRightAlign paddingRight" style="padding-top: 15px;" my-touchstart="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
+                <p class="inline paddingLeft backText linkText" style="vertical-align: top;">Pay</p>
+               <img class="inline" style="vertical-align: text-bottom;" src="/modules/giftcards/img/auth-rt-arrow.png">
            </td>
        <tr>
    </table>
 
    <!-- Warning no values greater than $500 -->
-   <h5 class = "redText paddingRight" ng-show = "warning == true">Sorry, No values greater than $500</h5>
-   <h5 class = "redText paddingRight" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue() / 100}}</h5>
+   <h5 class = "redText paddingRight center" style="margin-left: 10px; margin-right: 10px;" ng-show = "warning == true">Sorry, No values greater than $500</h5>
+   <h5 class = "redText paddingRight center" style="margin-left: 10px; margin-right: 10px;" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue()}}</h5>
 
     <!-- Our table for spending, the dialpad -->
-    <table class = "center dialPad">
+    <table class="dialPad" align="center">
 
+        <tr ng-repeat="n in tableLayout">
+			<!-- Using inline styles for our randomization so we can edit this later-->
+			<td ng-repeat="i in n">
+			<div my-touchstart="pressButton(i);" my-touchend="pressButton(-1);" style="background-image: url(/modules/giftcards/img/auth-aqua-sheet.png); background-position-x: -{{i*100}}px; background-size: 1000px;" class="dialButton"></div></td>
+		</tr>
         <tr>
-            <td ng-class = "{button1: pressed != 1,button1Press: pressed == 1}" my-touchstart="pressButton(1)" my-touchend="pressButton(-1)"></td>
-            <td ng-class = "{button2: pressed != 2,button2Press: pressed == 2}" my-touchstart="pressButton(2)" my-touchend="pressButton(-1)"></td>
-            <td ng-class = "{button3: pressed != 3,button3Press: pressed == 3}" my-touchstart="pressButton(3)" my-touchend="pressButton(-1)"></td>
-        </tr>
-
-        <tr>
-            <td ng-class = "{button4: pressed != 4,button4Press: pressed == 4}" my-touchstart="pressButton(4)" my-touchend="pressButton(-1)"></td>
-            <td ng-class = "{button5: pressed != 5,button5Press: pressed == 5}" my-touchstart="pressButton(5)" my-touchend="pressButton(-1)"></td>
-            <td ng-class = "{button6: pressed != 6,button6Press: pressed == 6}" my-touchstart="pressButton(6)" my-touchend="pressButton(-1)"></td>
-        </tr>
-
-        <tr>
-            <td ng-class = "{button7: pressed != 7,button7Press: pressed == 7}" my-touchstart="pressButton(7)" my-touchend="pressButton(-1)"></td>
-            <td ng-class = "{button8: pressed != 8,button8Press: pressed == 8}" my-touchstart="pressButton(8)" my-touchend="pressButton(-1)"></td>
-            <td ng-class = "{button9: pressed != 9,button9Press: pressed == 9}" my-touchstart="pressButton(9)" my-touchend="pressButton(-1)"></td>
-        </tr>
-
-        <tr>
-            <td class = "center" ng-click = "goTo('/#!/merchants')">
-                <img class = "" src = "/modules/giftcards/img/auth-lft-arrow.png">
-                <p class = "inline paddingLeft backText redText">Back</p>
+			<!-- Using inline styles for our randomization so we can edit this later-->
+            <td class = "center" ng-click="goTo('/merchants')">
+                <div style="padding-top: 27px;">
+                    <img class = "inline" src = "/modules/giftcards/img/auth-lft-arrow.png">
+                    <p style="vertical-align: sub;" class = "inline paddingLeft backText redText">Back</p>
+                </div>
             </td>
-            <td ng-class = "{button0: pressed != 0,button0Press: pressed == 0}" my-touchstart="pressButton(0)" my-touchend="pressButton(-1)"></td>
-            <td class = "buttonDel center" ng-show = "clicked == true" ng-click = "backSpace()"></td>
-        </tr>
+            <td>
+			<div my-touchstart="pressButton(0);" my-touchend="pressButton(-1);" style="background-image: url(/modules/giftcards/img/auth-aqua-sheet.png); background-position-x: -0px; background-size: 1000px;" class="dialButton"></div></td>
+            <td>
+            <div class = "buttonDel center" ng-show = "clicked == true" ng-click = "backSpace()"></td>
+		</tr>
     </table>
 
 </div>

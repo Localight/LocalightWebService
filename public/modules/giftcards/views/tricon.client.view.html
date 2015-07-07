@@ -1,0 +1,27 @@
+<section class="upside" data-ng-controller="TriconController">
+	<!-- The amount entered -->
+	<h2 class="whiteText center">${{getAmount()}}</h2>
+
+	<!-- down arrow -->
+	<img class="center upside" src="/modules/giftcards/img/up-arrow-wht.png">
+
+	<!--Merchants name -->
+	<h2 class="whiteText center">{{merchants[Id].name}}</h2>
+
+
+	<!-- Our Tricon Pad -->
+	<!-- Our table for tricon, the dialpad -->
+	<h1 class = "center whiteText" style="padding: 10px;">
+		{{pressedTricon}}
+	</h1>
+	<table class="dialPad upside" align="center">
+
+		<tr ng-repeat="n in tableLayout">
+			<!-- Using inline styles for our randomization so we can edit this later-->
+			<td ng-repeat="i in n">
+			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-image: url(/modules/giftcards/img/eatery-tricons-aqua-filled.png); background-position-x: -{{images[i].pos}}px; background-size: 897px;" class="triconButton"></div></td>
+		</tr>
+	</table>
+
+
+</section>

@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('giftcards').controller('TiltScreenController', ['$scope', '$location', '$stateParams',
-	function($scope, $location, $stateParams)
-	{
+angular.module('giftcards').controller('ConfirmationPageController', ['$scope', '$timeout', '$location', '$stateParams',
+	function($scope, $timeout, $location, $stateParams) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
+
+		//Timeout to the next page
+		$timeout(timeoutRedirect, 2000);
 
 		//Get our merchant ID
 		$scope.Id = $stateParams.merchantId;
@@ -50,16 +52,17 @@ angular.module('giftcards').controller('TiltScreenController', ['$scope', '$loca
 			return (parseInt(1000) / 100).toFixed(2);
 		}
 
-		//Function to go back to selecting merchants
-		$scope.goTo = function(place)
+		//Get the merchant we are going to send the server
+		$scope.getMerchant = function()
 		{
-			//Save our final amount if the path is to pay
-			if(place == "/#!/")
-			{
+			//Replace this with a backend call eventually
+			return "Doly's Delectables";
+		}
 
-			}
-
-			$location.path(place);
+		//Redirect to the thank you page
+		function timeoutRedirect()
+		{
+    		$location.path("/merchants/" + $scope.Id + "/thankyou");
 		}
 	}
 ]);

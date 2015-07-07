@@ -1,30 +1,30 @@
-  <div data-ng-controller="RecipientController" class="container-fluid wrapper" data-ng-init="find()">
+  <div data-ng-controller="RecipientController" class="container-fluid wrapper" data-ng-init="getGiftcards()">
 
     <div ng-class="{giftToUseItSections: merchantList }" style="-webkit-transition: all 1.5s ease-in-out;">
 
       <!-- header section with give option, clique logo and available balance -->
       <table class = "sub-header">
          <tr>
-             <td class=""><a class="blackText navText" href="/#!/giftcards/create">
+             <td class="paddingLeft"><a class="blackText navText" href="/#!/giftcards/create">
                  <img class = "imagePaddingRight" ng-src="/modules/giftcards/img/bowtie.png" alt="Give Icon" height="15px" width="30px">
                  Give</a></td>
-             <td class = "textRightAlign blackText navText">{{totalValue()}}</td>
+             <td class="textRightAlign paddingRight blackText navText">${{totalValue()}}</td>
          <tr>
      </table>
 
 
 
       <!-- gift section -->
-      <div class="semiTransparentBGRounded occasionPadding">
+      <div class="giftcardContainer">
 
          <!-- Occasion Icon -->
 
 
         <!-- personal message -->
-        <h4 class = "occasionMessage whiteText">{{giftcards[0].occasionMessage}}</h4>
+        <h4 class = "occasionMessage whiteText">{{giftcard.occasionMessage}}</h4>
 
         <!-- From -->
-        <h3 class = "textRightAlign heart whiteText">~ {{giftcards[0].from}}</h3>
+        <h3 class = "textRightAlign heart whiteText">~ {{giftcard.from}}</h3>
 
         <!-- gift card image -->
         <img class = "center semiTransparentBGRounded" ng-src="{{merchantImages[0]}}" alt="Merchant Image" height="50%" width="100%">
@@ -33,19 +33,15 @@
 
       <!-- amount to use at which merchant section -->
       <div class="text-center merchantInfo blackText">
-        <h4 class="center" id="useAmount">Use this ${{giftcards[0].amt}} gift at</p>
+        <h4 class="center" id="useAmount">Use this ${{giftValue(giftcard.amt)}} gift at</p>
         <h2 class="center">Doly's Delectables</p>
       </div>
-
-      <!-- use it now/later section -->
-      <br>
-      <table class = "center">
-         <tr>
-             <td class="tableCell paddingRight"><a class = "redText buttonFont buttonBGRounded" href="/#!/giftcards">Save For Later</a></td>
-             <td class="tableRIghtAlign"><a class = "linkText buttonFont buttonBGRounded" href="/#!/giftcards/spend">  Use It Now  </a></td>
-         <tr>
-     </table>
-     <br>
+      
+        <!-- use it now/later section -->
+        <div class="giftcardButtonContainer">
+            <a class="giftcardButtonSave" href="/#!/giftcards">Save For Later</a>
+            <a class="giftcardButtonUse" href="/#!/merchants">Use It Now</a>
+        </div>
 
     </div>
     <!-- for beta -->

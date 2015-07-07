@@ -1,15 +1,35 @@
 'use strict';
 
-angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$window',
-	function($scope, $window) {
+angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateParams',
+	function($scope, $stateParams) {
 
 		//Switch overlay off
-		document.getElementById('darkerOverlay').style.display = "none";
+      	document.getElementById('darkerOverlay').style.display = "none";
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
+		//Our character count for the text area
+		$scope.charCount;
 
+		//Prepare our text area
+		$scope.setTextArea = function ()
+		{
+			//Set the default value of our text area
+			document.getElementById("thankYouNote").value = $scope.giftcards[0].from + ", I used the Local Giftcard at "
+			+ $scope.merchants[$scope.Id].name + " to get...";
+		}
+
+		//Count our text area characters
+		$scope.countCharacters = function()
+		{
+			$scope.charCount = 160 - document.getElementById("thankYouNote").value.length;
+		}
+
+		//Get our merchant ID
+		$scope.Id = $stateParams.merchantId;
+
+		//Our merchants
 		$scope.merchants = [{
 			area: "4th Street Retro Row",
 			name: "Goldies On 4th",
@@ -42,7 +62,6 @@ angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$
 			address: "2300 E 4th St, Long Beach, CA"
 		}]
 
-
 		// Find a list of Giftcards
 		$scope.getGiftcards = function() {
 			//$scope.giftcards = Giftcards.query();
@@ -51,25 +70,37 @@ angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$
 			$scope.giftcards =
 			[
 				{
+					_id: "1",
 					to: "John",
-					amt: "10000",
+					amt: "100",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Tony',
 					message: "hi",
 					districtNumber: 'number',
+					occasionHeading: 'Congratulations!',
 					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!"
 				},
 				{
+					_id: "2",
 					to: "John",
-					amt: "10000",
+					amt: "100",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Frank',
 					message: "hi",
-					districtNumber: 'number'
+					districtNumber: 'number',
+					occasionHeading: 'Happy Birthday!',
+					occasionMessage: "Congratulations on your baby!"
 				}
 			]
+			var giftcard;
+			for (giftcard in $scope.giftcards){
+				if($scope.giftcards[giftcard]._id == $stateParams.giftcardId){
+					$scope.giftcard = $scope.giftcards[giftcard];
+					break;
+				}
+			}
 		}
 
 		$scope.totalValue = function()
@@ -82,7 +113,15 @@ angular.module('giftcards').controller('SelectMerchantController', ['$scope', '$
 			}
 
 			//Return the total value as a formatted string
-			return (parseInt(total) / 100).toFixed(2);
+			return "$" + total;
 		}
+
+		//Function to get the amount made in the purchase
+		$scope.purchaseValue = function()
+		{
+			return (parseInt(1000) / 100).toFixed(2)
+		}
+
+
 	}
 ]);
