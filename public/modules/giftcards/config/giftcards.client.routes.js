@@ -6,15 +6,15 @@ angular.module('giftcards').config(['$stateProvider',
 		// Giftcards state routing
 		$stateProvider.
 		state('confirmation-page', {
-			url: '/spend/confirmation',
+			url: '/merchants/:merchantId/confirmation',
 			templateUrl: 'modules/giftcards/views/confirmation-page.client.view.html'
 		}).
 		state('tricon', {
-			url: '/spend/tricon',
+			url: '/merchants/:merchantId/tricon',
 			templateUrl: 'modules/giftcards/views/tricon.client.view.html'
 		}).
 		state('tilt-screen', {
-			url: '/spend/tilt',
+			url: '/merchants/:merchantId/tilt',
 			templateUrl: 'modules/giftcards/views/tilt-screen.client.view.html'
 		}).
 		state('selectMerchant', {
