@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('TriconController', ['$scope', '$stateParams',
-	function($scope, $stateParams) {
+angular.module('giftcards').controller('TriconController', ['$scope', '$stateParams', '$location',
+	function($scope, $stateParams, $location) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
@@ -78,7 +78,7 @@ angular.module('giftcards').controller('TriconController', ['$scope', '$statePar
 			//Check if it has more than 2 characters, if it does, go to the confirmation page
 			if($scope.pressedTricon.length > 2)
 			{
-				$location.path("/merchants/$scope.Id/confirmation")
+				$location.path("/merchants/" + $scope.Id + "/confirmation")
 			}
 		}
 
