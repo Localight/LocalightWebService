@@ -792,6 +792,14 @@ label.inputlabel {
     color: #0E0C0F;
 }
 
+.redText {
+    color: #df5241;
+}
+
+.linkText {
+    color: #56b4af;
+}
+
 .placeHolderTextStyle {
     color: lightgrey;
 }
