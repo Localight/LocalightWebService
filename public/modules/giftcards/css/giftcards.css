@@ -458,6 +458,9 @@ label.inputlabel {
   padding: 10px 20px 10px 20px;
   text-decoration: none;
   color: lightcoral;
+  margin-bottom: 10px;
+  display: inline-block;
+  white-space: pre;
 }
 
 .giftcardButtonUse {
