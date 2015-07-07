@@ -43,7 +43,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 		];
 
 		// Find a list of Giftcards
-		$scope.find = function() {
+		$scope.getGiftcards = function() {
 			//$scope.giftcards = Giftcards.query();
 
 			//FOr testing, hardcoding scope giftcards
