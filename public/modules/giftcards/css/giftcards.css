@@ -412,6 +412,10 @@ label.inputlabel {
     width: 100%;
 }
 
+.flatRowListItem .glyphPadding {
+    padding-right: 50px;
+}
+
 .flatRowListItem h3 {
     margin: 0px;
     font-weight: 300 !important;
