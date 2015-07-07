@@ -9,6 +9,10 @@ angular.module('giftcards').config(['$stateProvider',
 			url: '/merchants/:merchantId/confirmation',
 			templateUrl: 'modules/giftcards/views/confirmation-page.client.view.html'
 		}).
+		state('thank-you', {
+			url: '/merchants/:merchantId/thankyou',
+			templateUrl: 'modules/giftcards/views/thank-you.client.view.html'
+		}).
 		state('tricon', {
 			url: '/merchants/:merchantId/tricon',
 			templateUrl: 'modules/giftcards/views/tricon.client.view.html'

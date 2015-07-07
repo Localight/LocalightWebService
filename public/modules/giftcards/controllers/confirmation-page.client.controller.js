@@ -62,7 +62,7 @@ angular.module('giftcards').controller('ConfirmationPageController', ['$scope', 
 		//Redirect to the thank you page
 		function timeoutRedirect()
 		{
-    		$location.path("/thankyou");
+    		$location.path("/merchants/" + $scope.Id + "/thankyou");
 		}
 	}
 ]);
