@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('ConfirmationPageController', ['$scope', '$timeout', '$location',
-	function($scope, $timeout, $location) {
+angular.module('giftcards').controller('ConfirmationPageController', ['$scope', '$timeout', '$location', '$stateParams',
+	function($scope, $timeout, $location, $stateParams) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
