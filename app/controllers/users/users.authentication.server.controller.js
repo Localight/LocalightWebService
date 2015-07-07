@@ -12,7 +12,7 @@ var _ = require('lodash'),
    User = mongoose.model('User'),
    config = require('../../../config/config'),
    message = null,
-   client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
+   client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
    stripe = require('stripe')(config.stripe.secretKey),
    async = require('async'),
    crypto = require('crypto');
@@ -94,7 +94,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   if (err) {
                      res.status(400).send(err);
                   } else {
-                     // I need to figure how to log in the user and redirect them. 
+                     // I need to figure how to log in the user and redirect them.
                      res.json(user);
                      return res.redirect('/#!/giftcards/create');
                   }
