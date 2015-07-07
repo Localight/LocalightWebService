@@ -32,6 +32,13 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 		$scope.warning = false;
 		$scope.totalWarning = false;
 
+		//Holds the table layout for the dynamic ng-repeat table
+		$scope.tableLayout = [
+				[1,2,3],
+				[4,5,6],
+				[7,8,9]
+		];
+
 		// Find a list of Giftcards
 		$scope.find = function() {
 			//$scope.giftcards = Giftcards.query();
@@ -71,7 +78,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 			}
 
 			//Return the total value as a formatted string
-			return total;
+			return (parseInt(total) / 100).toFixed(2);
 		}
 
 		//Function to switch the value of pressed
@@ -81,6 +88,9 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 			$scope.clicked = true;
 
 			$scope.pressed = i;
+
+			//Set clicked button styling
+			event.currentTarget.style.backgroundPositionY = '-100px';
 
 			//Ignore values that are negative one, since thye simply disable our selectors
 			//Also checking for the number of digits
@@ -187,6 +197,9 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 					$scope.trueAmount = answer;
 					$scope.amount = (parseInt(answer) / 100).toFixed(2);
 				}
+			} else {
+				//Set button styling back to original
+				event.currentTarget.style.backgroundPositionY = '0px';
 			}
 		}
 

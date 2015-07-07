@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('giftcards').controller('TiltScreenController', ['$scope', '$location',
-	function($scope, $location)
-	{
+angular.module('giftcards').controller('ConfirmationPageController', ['$scope', '$timeout', '$location',
+	function($scope, $timeout, $location) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
+
+		//Timeout to the next page
+		$timeout(timeoutRedirect, 2000);
 
 		//Get the amount we are going to send the server
 		$scope.getAmount = function()
@@ -21,16 +23,10 @@ angular.module('giftcards').controller('TiltScreenController', ['$scope', '$loca
 			return "Doly's Delectables";
 		}
 
-		//Function to go back to selecting merchants
-		$scope.goTo = function(place)
+		//Redirect to the thank you page
+		function timeoutRedirect()
 		{
-			//Save our final amount if the path is to pay
-			if(place == "/#!/")
-			{
-
-			}
-
-			$location.path(place);
+    		$location.path("/thankyou");
 		}
 	}
 ]);

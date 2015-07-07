@@ -469,7 +469,7 @@ label.inputlabel {
 /* End Clique Code Styles */
 
 /* occasion styles */
-#clique_occasion_selection {
+.createGiftCardWidth {
   margin: 2% auto; /* increase margin-top and margin-bottom slightly */
   max-width: 600px;
 }
@@ -486,7 +486,7 @@ label.inputlabel {
   width: 50%;
   height: 20%;
   float: left;
-  color: white;
+  color: black;
   font-size: 1.2em;
   margin-bottom: 2.1%; /* 0.02/0.96 = 0.21 (try to match the padding from the other sides of the ul) */
 }
@@ -536,10 +536,10 @@ label.inputlabel {
 
 /* date picker styles */
 #clique_date_selection {
-  color: white;
+  color: black;
   width: 100%;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.75em;
 }
 
 #clique_date_wrapper {
@@ -625,7 +625,6 @@ label.inputlabel {
 /* Proceed Button Styles */
 .proceed_button {
   background-color: black;
-  background-image: url('../img/clique.png');
   background-size: auto 60%;
   background-position: 1em 60%;
   background-repeat: no-repeat;
@@ -687,161 +686,14 @@ label.inputlabel {
     border-spacing: 10px;
 }
 
-.button1 {
-    background-image: url("/modules/giftcards/img/auth-outline-1.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
+@media (max-width: 340px) {
+    .dialPad {
+        border-spacing: 0px !important;
+    }
 }
 
-.button1Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-1.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button2 {
-    background-image: url("/modules/giftcards/img/auth-outline-2.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button2Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-2.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button3 {
-    background-image: url("/modules/giftcards/img/auth-outline-3.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button3Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-3.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button4 {
-    background-image: url("/modules/giftcards/img/auth-outline-4.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button4Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-4.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button5 {
-    background-image: url("/modules/giftcards/img/auth-outline-5.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button5Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-5.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button6 {
-    background-image: url("/modules/giftcards/img/auth-outline-6.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button6Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-6.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button7 {
-    background-image: url("/modules/giftcards/img/auth-outline-7.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button7Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-7.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button8 {
-    background-image: url("/modules/giftcards/img/auth-outline-8.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button8Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-8.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-
-.button9 {
-    background-image: url("/modules/giftcards/img/auth-outline-9.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button9Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-9.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button0{
-    background-image: url("/modules/giftcards/img/auth-outline-0.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.button0Press {
-    background-image: url("/modules/giftcards/img/auth-reverse-0.png");
+.dialButton {
+    transition: none;
     background-repeat: no-repeat;
     background-size: contain;
     height: 100px;
@@ -852,13 +704,46 @@ label.inputlabel {
     background-image: url("/modules/giftcards/img/auth-delete-btn-aqua.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 50px;
+    height: 38px;
     width: 50px;
+}
+
+.triconButton {
+    transition: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
 }
 
 /* End Dialad Buttons */
 
+/* Placeholder text */
+
+::-webkit-input-placeholder {
+   color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;
+}
+
+:-ms-input-placeholder {
+   color: black;
+}
+
+/* Placeholder text ends */
+
 /* Aaron's Styles */
+
+.notFoundLinkList {
+    list-style-type: none;
+    padding: 0px;
+}
 
 .listNameHeader {
     color: #df5241;
@@ -948,6 +833,7 @@ label.inputlabel {
     transform: rotate(180deg);
 }
 
+
 /* Overriding Bootstrap css for a more native app look */
 .content {
     margin: 0;
@@ -962,6 +848,12 @@ label.inputlabel {
 .container-fluid {
     margin: 0;
     padding: 0;
+}
+
+.form-horizontal .form-group
+{
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 /* End Aaron's Styles */
