@@ -12,7 +12,7 @@
            <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
            </td>
 
-           <td class="textRightAlign paddingRight" style="padding-top: 15px;" ng-click="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true" my-touchstart="pressButton(10)" my-touchend="pressButton(-1)">
+           <td class="textRightAlign paddingRight" style="padding-top: 15px;" my-touchstart="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
                 <p class="inline paddingLeft backText linkText" style="vertical-align: top;">Pay</p>
                <img class="inline" style="vertical-align: text-bottom;" src="/modules/giftcards/img/auth-rt-arrow.png">
            </td>
