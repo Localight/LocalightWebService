@@ -443,6 +443,7 @@ label.inputlabel {
     border-radius: 5px;
     padding: 10px;
     margin: 15px;
+    color: white;
 }
 
 .giftcardButtonContainer {
@@ -472,7 +473,6 @@ label.inputlabel {
   text-decoration: none;
   color: lightgrey;
 }
-
 /* End Clique Code Styles */
 
 /* occasion styles */
@@ -793,7 +793,7 @@ label.inputlabel {
 }
 
 .placeHolderTextStyle {
-    color:rgba(0,0,0, 0.5);
+    color: lightgrey;
 }
 
 .largerText {
