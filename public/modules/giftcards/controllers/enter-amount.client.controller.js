@@ -78,7 +78,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 			}
 
 			//Return the total value as a formatted string
-			return total;
+			return (parseInt(total) / 100).toFixed(2);
 		}
 
 		//Function to switch the value of pressed

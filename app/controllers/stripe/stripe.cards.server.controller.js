@@ -47,7 +47,7 @@ exports.updateACard = function(req, res)
    }
    if (req.body.description !== '' || ' ' || null)
    {
-      var holderDescription = req.body.description,
+      var holderDescription = req.body.description
    }
    //TODO: could come back later and add other fields.
    stripe.customers.update(req.user.customerToken,

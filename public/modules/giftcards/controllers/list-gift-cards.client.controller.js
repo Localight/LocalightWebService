@@ -19,7 +19,7 @@ angular.module('giftcards').controller('ListGiftCardsController', ['$scope',
 				{
 					_id: "1",
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Tony',
@@ -30,7 +30,7 @@ angular.module('giftcards').controller('ListGiftCardsController', ['$scope',
 				{
 					_id: "2",
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Frank',
@@ -51,7 +51,14 @@ angular.module('giftcards').controller('ListGiftCardsController', ['$scope',
 			}
 
 			//Return the total value as a formatted string
-			return "$" + total;
+			return (parseInt(total) / 100).toFixed(2);
+		}
+
+		//function to fomat a giftcard value for us
+		$scope.giftValue = function(amt)
+		{
+			//Return the total value as a formatted string
+			return (parseInt(amt) / 100).toFixed(2);
 		}
 	}
 ]);

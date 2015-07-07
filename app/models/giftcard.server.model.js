@@ -8,13 +8,13 @@
 
 var mongoose = require('mongoose'),
    // mailgunService = require('../services/mailgun-service'),
-   userService = require('../services/user-service'),
    // twilioService = require('../services/twilio-service'),
    nodemailer = require('nodemailer'),
    config = require('../../config/config'),
-   client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
+   client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
    smtpTransport = nodemailer.createTransport(config.mailer.options),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
+   User = require('./user.server.model'),
    Schema = mongoose.Schema;
 /**
  * Giftcard Schema,
@@ -24,7 +24,7 @@ var GiftcardSchema = new Schema({
    amount: {
       type: Number,
       min: 0,
-      max: 50000, //equates to $500.00, 100 = $1.00, 50 = $.50
+      max: 50000,//equates to $500.00, 100 = $1.00, 50 = $.50
       // need to make the number validate a number not less than zero.
       required: 'Please enter an amount to purchase between 0 and 500000'
    }, // need to make sure it's always a number and never zero or a negative number.
@@ -81,12 +81,29 @@ var GiftcardSchema = new Schema({
  * people are completely different and un related if we wanted too
  */
 GiftcardSchema.post('save', function() {
+   User.findById({
+      _id: this.purchaserOfGiftCard
+   }).exec(function(err, user){
+      if(err){
+         return err;
+      }
+      if(!user){
+         return (new Error('Failed to locate User '+user));
+      }
+      this.fireOffRecipet(user.email);
+   });
 
-   var emailHolder = userService.getUserEmail(this.purchaserOfGiftCard);
-   this.fireOffRecipet(emailHolder);
-   var phoneNumberHolder = userService.getUserPhoneNumber(this.spenderOfGiftCard);
-   // done();
-
+   User.findById({
+      _id: this.spenderOfGiftCard
+   }).exec(function(err, user){
+      if(err){
+         return err;
+      }
+      if(!user){
+         return (new Error('Failed to locate User '+user));
+      }
+      this.sendTextToFriend(user.username);
+   });
 });
 //TODO: need to create method that accepts email, and fire off reciept email.
 //
@@ -116,7 +133,7 @@ GiftcardSchema.methods.sendTextToFriend = function(friendNumber) {
    //TODO: implement method that checks timer, and sends message delayed.
    //NOTE: This method needs to check the date and make sure it knows when to
    //fire off later. Need to research cron jobs though.
-   
+
    return client.messages.create({
       body: 'You have a new giftcard in your account!',// put link in to log user in and view list of cards.
       to: friendNumber,
@@ -130,6 +147,5 @@ GiftcardSchema.methods.sendTextToFriend = function(friendNumber) {
       }
    });
 };
-
 
 mongoose.model('Giftcard', GiftcardSchema);
