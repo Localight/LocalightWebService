@@ -76,6 +76,8 @@ exports.twilioWebHookLogin = function(req, res, next) {
          $gt: Date.now()
       }
    }, function(err, user) {
+      console.log('Error trying to find user in database:'+err);
+      console.log('Here is the user object in full:'+user);
       if (!err && user) {
          req.body.username = user.username;
          req.body.password = 'password';
@@ -92,10 +94,11 @@ exports.twilioWebHookLogin = function(req, res, next) {
                console.log(user);
                req.login(user, function(err) {
                   if (err) {
+                     console.log(err);
                      res.status(400).send(err);
                   } else {
                      // I need to figure how to log in the user and redirect them.
-                     res.json(user);
+                  //   res.json(user);
                      return res.redirect('/#!/giftcards/create');
                   }
                });
