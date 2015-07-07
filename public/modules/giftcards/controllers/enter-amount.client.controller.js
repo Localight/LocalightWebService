@@ -131,7 +131,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 				}
 
 				//Get our total value
-				var total = parseInt($scope.totalValue());
+				var total = parseInt($scope.totalValue() * 100);
 				//Also, check if the amount is greater than our maxes
 				if(answer > total)
 				{
