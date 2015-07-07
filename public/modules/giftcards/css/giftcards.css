@@ -770,6 +770,10 @@ label.inputlabel {
     color: #5ac4c0;
 }
 
+.placeHolderTextStyle {
+    color:rgba(0,0,0, 0.5);
+}
+
 .largerText {
     font-size: 1.5em;
 }
@@ -825,6 +829,14 @@ label.inputlabel {
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
+}
+
+textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	width: 100%;
 }
 
 

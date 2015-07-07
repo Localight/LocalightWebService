@@ -9,6 +9,23 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
+		//Our character count for the text area
+		$scope.charCount;
+
+		//Prepare our text area
+		$scope.setTextArea = function ()
+		{
+			//Set the default value of our text area
+			document.getElementById("thankYouNote").value = $scope.giftcards[0].from + ", I used the Local Giftcard at "
+			+ $scope.merchants[$scope.Id].name + " to get...";
+		}
+
+		//Count our text area characters
+		$scope.countCharacters = function()
+		{
+			$scope.charCount = 160 - document.getElementById("thankYouNote").value.length;
+		}
+
 		//Get our merchant ID
 		$scope.Id = $stateParams.merchantId;
 
