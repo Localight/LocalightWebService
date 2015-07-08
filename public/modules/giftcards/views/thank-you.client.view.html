@@ -10,11 +10,12 @@
 				<td class = "textRightAlign blackText navText paddingRight">${{totalValue()}}</td>
 				<tr>
 	</table>
-
-	<!--Our occasion Icon -->
+	
+	<!-- Occasion Icon -->
+	<img class = "center" style = "margin-top: 10px" ng-src = "{{icons[giftcards[0].occasionNumber]}}" width= "75px" height = "75px">
 
 	<!-- Our occasion Heading -->
-	<h1 class = "center heart">{{giftcards[0].occasionHeading}}</h1>
+	<h1 class = "center heart" style = "margin-top: 5px">{{giftcards[0].occasionHeading}}</h1>
 
 	<!-- Our message -->
 	<h4 class = "center">${{purchaseValue()}} was successfully transferred.

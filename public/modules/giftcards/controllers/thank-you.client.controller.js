@@ -78,8 +78,9 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 					from: 'Tony',
 					message: "hi",
 					districtNumber: 'number',
-					occasionHeading: 'Congratulations!',
-					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!"
+					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!",
+					occasionHeading: "Happy Birthday!",
+					occasionNumber: "2"
 				},
 				{
 					_id: "2",
@@ -90,8 +91,9 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 					from: 'Frank',
 					message: "hi",
 					districtNumber: 'number',
-					occasionHeading: 'Happy Birthday!',
-					occasionMessage: "Congratulations on your baby!"
+					occasionMessage: "Congratulations on your baby!",
+					occasionHeader: "Get Well Soon!",
+					occasionNumber: "5"
 				}
 			]
 			var giftcard;
@@ -121,6 +123,31 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 		{
 			return (parseInt(1000) / 100).toFixed(2)
 		}
+
+		//Array of occasion Icons, simply a link to their icon
+		$scope.icons =
+		[
+			//Anniversary
+			"/modules/giftcards/img/occasion-anniversary-icon-wht.png",
+			//Baby
+			"/modules/giftcards/img/occasion-baby-icon-wht.png",
+			//Birthday
+			"/modules/giftcards/img/occasion-birthday-icon-wht.png",
+			//Congrats
+			"/modules/giftcards/img/occasion-congrats-icon-wht.png",
+			//Present (Custom Icon)
+			"/modules/giftcards/img/occasion-custom-icon-wht.png",
+			//Get Well Soon
+			"/modules/giftcards/img/occasion-getwell-icon-wht.png",
+			//Love
+			"/modules/giftcards/img/occasion-love-icon-wht.png",
+			//Sympathy
+			"/modules/giftcards/img/occasion-sympathy-icon-wht.png",
+			//Thank You
+			"/modules/giftcards/img/occasion-thankyou-icon-wht.png",
+			//Wedding
+			"/modules/giftcards/img/occasion-wedding-icon-wht.png"
+		]
 
 
 	}
