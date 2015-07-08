@@ -1,10 +1,13 @@
 'use strict';
 
-angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location',
-	function($scope, $location) {
+angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location', '$stateParams',
+	function($scope, $location, $stateParams) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
+
+		//Get our merchant ID
+		$scope.Id = $stateParams.merchantId;
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
@@ -40,7 +43,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 		];
 
 		// Find a list of Giftcards
-		$scope.find = function() {
+		$scope.getGiftcards = function() {
 			//$scope.giftcards = Giftcards.query();
 
 			//FOr testing, hardcoding scope giftcards
@@ -131,7 +134,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 				}
 
 				//Get our total value
-				var total = parseInt($scope.totalValue());
+				var total = parseInt($scope.totalValue() * 100);
 				//Also, check if the amount is greater than our maxes
 				if(answer > total)
 				{

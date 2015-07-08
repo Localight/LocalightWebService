@@ -396,6 +396,7 @@ label.inputlabel {
 
 .whiteHeader{
     color: white;
+    font-weight: 300 !important;
 }
 
 .flatRowListItem {
@@ -407,9 +408,17 @@ label.inputlabel {
     border-radius: 0px !important;
 }
 
+.flatRowListItem table {
+    width: 100%;
+}
+
+.flatRowListItem .glyphPadding {
+    padding-right: 50px;
+}
+
 .flatRowListItem h3 {
     margin: 0px;
-    font-weight: 100 !important;
+    font-weight: 300 !important;
 }
 
 .flatRowListItem .glyphicon {
@@ -419,10 +428,55 @@ label.inputlabel {
     padding-right: 5px;
     font-size: 50px;
 }
+
+.giftlistAmount {
+    float: right;
+    color: white;
+    padding: 5px;
+    font-size: 1.4em;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+.giftcardContainer {
+    background-color:rgba(37,81,79, 0.75);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 15px;
+}
+
+.giftcardButtonContainer {
+    text-align: center;
+}
+
+.giftcardButtonSave, .giftcardButtonUse {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-size: 20px;
+  background: rgba(0,0,0,0.4);
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  color: lightcoral;
+  margin-bottom: 10px;
+  display: inline-block;
+  white-space: pre;
+}
+
+.giftcardButtonUse {
+    padding: 10px 30px 10px 30px;
+    color: lightseagreen;
+}
+
+.giftcardButtonSave:hover, .giftcardButtonUse:hover {
+  text-decoration: none;
+  color: lightgrey;
+}
+
 /* End Clique Code Styles */
 
 /* occasion styles */
-#clique_occasion_selection {
+.createGiftCardWidth {
   margin: 2% auto; /* increase margin-top and margin-bottom slightly */
   max-width: 600px;
 }
@@ -722,32 +776,8 @@ label.inputlabel {
     font-size: 2em;
 }
 
-.list-item {
-    width: 100%;
-    font-size: 2em;
-}
-
 .textRightAlign {
     text-align: right;
-}
-
-.semiTransparentBG {
-    background-color:rgba(0, 0, 0, 0.15);
-}
-
-.semiTransparentBGRounded {
-    background-color:rgba(37,81,79, 0.75);
-    border-radius: 5px;
-}
-
-.buttonBGRounded{
-    background-color: #E9EEF6;
-    padding: 10px;
-    border-radius: 7px;
-}
-
-.list-group:hover{
-    background-color:rgba(37,81,79, 0.5);
 }
 
 .occasionMessage{
@@ -762,14 +792,6 @@ label.inputlabel {
     color: #0E0C0F;
 }
 
-.redText {
-    color: #df5241;
-}
-
-.linkText {
-    color: #5ac4c0;
-}
-
 .largerText {
     font-size: 1.5em;
 }
@@ -779,11 +801,6 @@ label.inputlabel {
     margin-right: auto;
     text-align: center;
     display: block;
-}
-
-.buttonFont {
-    font-size: 1.2em;
-    font-weight: bold;
 }
 
 .paddingRight {
@@ -796,10 +813,6 @@ label.inputlabel {
 
 .paddingTop {
     padding-top: 10px;
-}
-
-.occasionPadding{
-    padding: 10px;
 }
 
 .navText {
@@ -842,6 +855,12 @@ label.inputlabel {
 .container-fluid {
     margin: 0;
     padding: 0;
+}
+
+.form-horizontal .form-group
+{
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 /* End Aaron's Styles */

@@ -3,9 +3,9 @@ module.exports = function(app) {
    var users = require('../../app/controllers/users.server.controller'),
       stripe = require('../../app/controllers/stripe.server.controller');
 
-      app.route('stripe/createACharge')
+      app.route('/stripe/createACharge')
          .get(users.requiresLogin, stripe.createACharge);
-      app.route('stripe/createACustomer')
+      app.route('/stripe/createACustomer')
          .post(users.requiresLogin, stripe.createACustomer);
       // app.route('stripe/createAccount')
       //    .get(users.requiresLogin, stripe.createAccount);
