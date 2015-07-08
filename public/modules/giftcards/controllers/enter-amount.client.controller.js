@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location', '$stateParams',
-	function($scope, $location, $stateParams) {
+angular.module('giftcards').controller('EnterAmountController', ['$scope', '$location', '$stateParams', '$cookieStore',
+	function($scope, $location, $stateParams, $cookieStore) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
@@ -241,12 +241,10 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 		}
 
 		//Function to go back to selecting merchants
-		$scope.goTo = function(place)
-		{
+		$scope.goTo = function(place) {
 			//Save our final amount if the path is to pay
-			if(place == "/#!/")
-			{
-
+			if(place == "/merchants/{{Id}}/tilt") {
+				$cookieStore.put('igosdmbmtv', $scope.trueAmount);
 			}
 
 			$location.path(place);
