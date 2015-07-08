@@ -1,3 +1,28 @@
-<section data-ng-controller="LocalismController">
-	This is the Localism view
+<section data-ng-controller="LocalismController" data-ng-init="getGiftcards()">
+
+	<!-- The navbar -->
+	<!-- header section with give option, clique logo and available balance -->
+	<table class = "sub-header">
+		<tr>
+			<td class="paddingLeft"><a class="blackText navText" href="/#!/giftcards/create">
+				<img class="imagePaddingRight" ng-src="/modules/giftcards/img/bowtie.png" alt="Give Icon" height="15px" width="30px">
+				Give</a></td>
+				<td class = "textRightAlign blackText navText paddingRight">${{totalValue()}}</td>
+				<tr>
+	</table>
+
+	<!-- Send another gift header -->
+	<h2 class = "heart blackText center">Send another gift!</h2>
+
+	<!-- Product of localism -->
+	<div class = "center" style = "padding-top: 50px;">
+		<p class = "blackText inline" style = "font-size: 2em"> A project of</p>
+		<h1 class = "blackText inline heart" style = "font-size: 3em">Localism!</h1>
+	</div>
+
+	<!-- why does it matter to choose local -->
+	<h3 class = "blackText center" style = "margin-top: 0px"> Why does it matter to choose local? Watch the video.</h3>
+
+	<!-- video link -->
+	<a href = ""></a>
 </section>
