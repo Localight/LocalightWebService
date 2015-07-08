@@ -72,7 +72,7 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 				{
 					_id: "1",
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Tony',
@@ -84,7 +84,7 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 				{
 					_id: "2",
 					to: "John",
-					amt: "100",
+					amt: "10000",
 					mobileNumberOfRecipient: "5625555555",
 					merchant: "xxxxx",
 					from: 'Frank',
@@ -113,7 +113,7 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 			}
 
 			//Return the total value as a formatted string
-			return "$" + total;
+			return (parseInt(total) / 100).toFixed(2);
 		}
 
 		//Function to get the amount made in the purchase
