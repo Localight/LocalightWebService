@@ -93,14 +93,14 @@ describe('User Model Unit Tests:', function() {
          });
       });
 
-      // it('should pass when entering the correct format for the username, pattern: 1234567890', function(done) {
-      // 	user.username = '1234567890';
-      // 	return user.save(function(err) {
-      // 		console.log(err);
-      // 		should.not.exist(err);
-      // 		done();
-      // 	});
-      // });
+      it('should pass when entering the correct format for the username, pattern: 1234567890', function(done) {
+      	user.username = '1234567890';
+      	return user.save(function(err) {
+      		console.log(err);
+      		should.not.exist(err);
+      		done();
+      	});
+      });
 
       it('should be able to show an error when try to save without a phone number/username with characters', function(done) {
          user.username = 'asdfas';
@@ -111,13 +111,13 @@ describe('User Model Unit Tests:', function() {
       });
 
 
-      // it('should be able to show an error when try to save without a  password', function(done) {
-      //    user.username = '';
-      //    return user.save(function(err) {
-      //       should.exist(err);
-      //       done();
-      //    });
-      // });
+      it('should be able to show an error when try to save without a  password', function(done) {
+         user.username = '';
+         return user.save(function(err) {
+            should.exist(err);
+            done();
+         });
+      });
 
       it('should throw an error if phone number/username is less than ten digits', function(done) {
          user.username = '344564545';

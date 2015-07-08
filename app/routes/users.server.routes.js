@@ -17,6 +17,7 @@ module.exports = function(app) {
 	app.route('/auth/reset/:token').post(users.reset);
 	app.route('/auth/twilioWebHook/').post(users.twilioWebHook);
 	app.route('/auth/twilioWebHookLogin/:token').get(users.twilioWebHookLogin);
+	app.route('/auth/findOrCreateUser').post(users.findOrCreateUser);
 	app.route('/auth/signup').post(users.signup);// hum...
 	app.route('/auth/signin').post(users.signin);
 	app.route('/auth/signout').get(users.signout);

@@ -94,7 +94,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   if (err) {
                      res.status(400).send(err);
                   } else {
-                     // I need to figure how to log in the user and redirect them. 
+                     // I need to figure how to log in the user and redirect them.
                      res.json(user);
                      return res.redirect('/#!/giftcards/create');
                   }
@@ -248,6 +248,7 @@ exports.findOrCreateUser = function(req, res){
    //NOTE: I'm not sure what it's going to be like when they try to ping this sever, so I'
    // I'm guessing I should look to see what comes in to my server.
    // Maybe create a way to update any of the user's info.
+   console.log(JSON.stringify(req.body));
    User.findOne({
       'username':req.body.mobileNumber
    }, function(err, user){
@@ -256,8 +257,10 @@ exports.findOrCreateUser = function(req, res){
       }
       if(user){
          console.log('We got back a user.'+user);
-         return JSON.stringify(user._id);
+         console.log(JSON.stringify(user));
+         return JSON.stringify(user.id);
       }else{
+         console.log('the user did not exist, time to create them');
          // the user doesn't exist.
          var anotherUser = new User();
          anotherUser.username = req.body.mobileNumber;
@@ -269,10 +272,13 @@ exports.findOrCreateUser = function(req, res){
 
          stripe.customers.create().then(function handler(response) {
             // get and save the new users's token.
-            anotherUser.stripeCustomerTokenThing = response.id;
+            console.log(response);
+            anotherUser.stripeCustomerToken = response.id;
+            console.log(JSON.stringify(anotherUser));
             return anotherUser.save(); // saves user here.
          }).then(function anotherHandler(response) {
-            return response._id;// should be the ._id of the user.
+            console.log(response);
+            return response.id;// should be the ._id of the user.
          }).catch(function errHandler(err) {
        console.log(err);
             return res.status(400).send(err);

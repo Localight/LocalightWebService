@@ -7,6 +7,8 @@ module.exports = function(app) {
          .get(users.requiresLogin, stripe.createACharge);
       app.route('/stripe/createACustomer')
          .post(users.requiresLogin, stripe.createACustomer);
+      app.route('/stripe/createACard')
+         .post(users.requiresLogin, stripe.createACard);
       // app.route('stripe/createAccount')
       //    .get(users.requiresLogin, stripe.createAccount);
 

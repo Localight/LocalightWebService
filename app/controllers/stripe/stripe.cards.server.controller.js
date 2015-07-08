@@ -13,7 +13,7 @@ var config = require('../../../config/config'),
 exports.createACard = function(req, res) {
    stripe.customers.createSource(req.user.customerToken,
       {
-         source:req.body.carToken,
+         source:req.body.cardToken,
       }
    ).then(function(response) {
       return response.id;
