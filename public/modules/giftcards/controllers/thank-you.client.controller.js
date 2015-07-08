@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateParams', '$cookieStore',
-	function($scope, $stateParams, $cookieStore) {
+angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateParams', '$cookieStore', '$location',
+	function($scope, $stateParams, $cookieStore, $location) {
 
 		//Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
@@ -11,6 +11,19 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 
 		//Our character count for the text area
 		$scope.charCount;
+
+		//Total purcahse value
+		$scope.purchaseValue;
+
+		//Retrive the cookie with our amount
+		var amount = $cookieStore.get("igosdmbmtv");
+		if(!amount)
+		{
+			amount = 0;
+		}
+		$cookieStore.remove("igosdmbmtv");
+		$scope.purchaseValue = (parseInt(amount) / 100).toFixed(2);
+
 
 		//Prepare our text area
 		$scope.setTextArea = function ()
@@ -116,19 +129,12 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 			return "$" + total;
 		}
 
-		//Function to get the amount made in the purchase
-		$scope.purchaseValue = function()
-		{
-			//Retrive the cookie with our amount
-			var amount = $cookieStore.get("igosdmbmtv");
-			if(!amount)
-			{
-				$scope.goTo("/merchants/" + $scope.Id + "/amount");
-			}
-			$cookieStore.remove("igosdmbmtv");
-			return (parseInt(amount) / 100).toFixed(2);
-		}
+		//Function to go back to selecting merchants
+		$scope.goTo = function(place) {
+			//Send the user to another page!
 
+			$location.path(place);
+		}
 
 	}
 ]);
