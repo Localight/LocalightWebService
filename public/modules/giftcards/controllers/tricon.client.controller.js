@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('TriconController', ['$scope', '$stateParams', '$location',
-	function($scope, $stateParams, $location) {
+angular.module('giftcards').controller('TriconController', ['$scope', '$stateParams', '$location', '$cookieStore',
+	function($scope, $stateParams, $location, $cookieStore) {
 
 		//Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
@@ -115,8 +115,13 @@ angular.module('giftcards').controller('TriconController', ['$scope', '$statePar
 		//Get the amount we are going to send the server
 		$scope.getAmount = function()
 		{
-			//Replace this with a backend call eventually
-			return (parseInt(1000) / 100).toFixed(2);
+			//Retrive the cookie with our amount
+			var amount = $cookieStore.get("igosdmbmtv");
+			if(!amount)
+			{
+				$scope.goTo("/merchants/" + $scope.Id + "/amount");
+			}
+			return (parseInt(amount) / 100).toFixed(2);
 		}
 
 		//Get the merchant we are going to send the server

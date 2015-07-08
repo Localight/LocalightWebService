@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateParams',
-	function($scope, $stateParams) {
+angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateParams', '$cookieStore', '$location',
+	function($scope, $stateParams, $cookieStore, $location) {
 
 		//Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
@@ -11,6 +11,19 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 
 		//Our character count for the text area
 		$scope.charCount;
+
+		//Total purcahse value
+		$scope.purchaseValue;
+
+		//Retrive the cookie with our amount
+		var amount = $cookieStore.get("igosdmbmtv");
+		if(!amount)
+		{
+			amount = 0;
+		}
+		$cookieStore.remove("igosdmbmtv");
+		$scope.purchaseValue = (parseInt(amount) / 100).toFixed(2);
+
 
 		//Prepare our text area
 		$scope.setTextArea = function ()
@@ -118,10 +131,11 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 			return (parseInt(total) / 100).toFixed(2);
 		}
 
-		//Function to get the amount made in the purchase
-		$scope.purchaseValue = function()
-		{
-			return (parseInt(1000) / 100).toFixed(2)
+		//Function to go back to selecting merchants
+		$scope.goTo = function(place) {
+			//Send the user to another page!
+
+			$location.path(place);
 		}
 
 		//Array of occasion Icons, simply a link to their icon
@@ -148,7 +162,6 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 			//Wedding
 			"/modules/giftcards/img/occasion-wedding-icon-wht.png"
 		]
-
 
 	}
 ]);

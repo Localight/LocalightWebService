@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('TiltScreenController', ['$scope', '$location', '$stateParams',
-	function($scope, $location, $stateParams)
+angular.module('giftcards').controller('TiltScreenController', ['$scope', '$location', '$stateParams', '$cookieStore',
+	function($scope, $location, $stateParams, $cookieStore)
 	{
 
 		//Switch overlay on
@@ -46,8 +46,13 @@ angular.module('giftcards').controller('TiltScreenController', ['$scope', '$loca
 		//Get the amount we are going to send the server
 		$scope.getAmount = function()
 		{
-			//Replace this with a backend call eventually
-			return (parseInt(1000) / 100).toFixed(2);
+			//Retrive the cookie with our amount
+			var amount = $cookieStore.get("igosdmbmtv");
+			if(!amount)
+			{
+				$scope.goTo("/merchants/" + $scope.Id + "/amount");
+			}
+			return (parseInt(amount) / 100).toFixed(2);
 		}
 
 		//Function to go back to selecting merchants
