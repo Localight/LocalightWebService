@@ -258,30 +258,40 @@ exports.findOrCreateUser = function(req, res){
       if(user){
          console.log('We got back a user.'+user);
          console.log(JSON.stringify(user));
-         return JSON.stringify(user.id);
+         return JSON.stringify(user._id);
       }else{
          console.log('the user did not exist, time to create them');
          // the user doesn't exist.
          var anotherUser = new User();
+         console.log('our newly created user'+anotherUser);
+         console.log('the body of our request'+JSON.stringify(req.body.mobileNumber));
          anotherUser.username = req.body.mobileNumber;
          // set the user's local credentials
-        anotherUser.firstName = req.body.firstName;
+       // anotherUser.firstName = req.body.firstName;
         anotherUser.password = 'password'; //TODO: figure out how to handle new
         anotherUser.provider = 'local';
          //  anotherUser.email = req.body.email;
 
          stripe.customers.create().then(function handler(response) {
             // get and save the new users's token.
-            console.log(response);
+            console.log('our respose from stripe'+JSON.stringify(response));
             anotherUser.stripeCustomerToken = response.id;
-            console.log(JSON.stringify(anotherUser));
-            return anotherUser.save(); // saves user here.
-         }).then(function anotherHandler(response) {
-            console.log(response);
-            return response.id;// should be the ._id of the user.
+            console.log(JSON.stringify('finished user before save'+anotherUser));
+            return anotherUser.save(function(err){
+               if(err){
+                  return res.status(400).send({
+                     message:errorHandler.getErrorMessage(err)
+                  });
+               }else{
+                  console.log(anotherUser);
+                  return res.json(anotherUser._id);
+               }
+            });
          }).catch(function errHandler(err) {
        console.log(err);
-            return res.status(400).send(err);
+            return res.status(400).send({
+               message: errorHandler.getErrorMessage(err)
+            });
          });
       }
    });
