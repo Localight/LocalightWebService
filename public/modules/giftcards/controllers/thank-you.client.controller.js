@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateParams',
-	function($scope, $stateParams) {
+angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateParams', '$cookieStore',
+	function($scope, $stateParams, $cookieStore) {
 
 		//Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
@@ -119,7 +119,14 @@ angular.module('giftcards').controller('ThankYouController', ['$scope', '$stateP
 		//Function to get the amount made in the purchase
 		$scope.purchaseValue = function()
 		{
-			return (parseInt(1000) / 100).toFixed(2)
+			//Retrive the cookie with our amount
+			var amount = $cookieStore.get("igosdmbmtv");
+			if(!amount)
+			{
+				$scope.goTo("/merchants/" + $scope.Id + "/amount");
+			}
+			$cookieStore.remove("igosdmbmtv");
+			return (parseInt(amount) / 100).toFixed(2);
 		}
 
 
