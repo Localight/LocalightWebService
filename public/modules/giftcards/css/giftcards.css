@@ -123,9 +123,9 @@ input, textarea {
 /* Background Image */
 .localStreet {
   position: fixed;
-  top: 40%;
+  bottom: 0px;
   width: 100%;
-  height: 60%; /* 60% + 40% (from "top") = 100% of the screen's height*/
+  height: 400px; /* 60% + 40% (from "top") = 100% of the screen's height*/
   z-index: -2;
   background-size: cover;
   background-position: center top;
@@ -133,6 +133,18 @@ input, textarea {
   transition: opacity 1s ease-out 0s; /* CSS property, duration, timing-function, delay */
   -o-transition: opacity 1s ease-out 0s;
   -webkit-transition: opacity 1s ease-out 0s;
+}
+
+@media screen and ( min-height: 1000px ){
+    .localStreet {
+        height: 650px;
+    }
+}
+
+@media screen and ( max-height: 500px ){
+    .localStreet {
+        height: 300px;
+    }
 }
 
 #localStreetNoBlur {
