@@ -94,7 +94,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   if (err) {
                      res.status(400).send(err);
                   } else {
-                     // I need to figure how to log in the user and redirect them. 
+                     // I need to figure how to log in the user and redirect them.
                      res.json(user);
                      return res.redirect('/#!/giftcards/create');
                   }
@@ -238,6 +238,64 @@ exports.twilioWebHook = function(req, res) {
    }
 };
 
+/**
+ * FindOrCreateUser, if user isn't avaible create that user.
+ */
+exports.findOrCreateUser = function(req, res){
+   //the body of the request should be a phone number.
+   // If the phone numebr doesn't exist in the database create that user.
+   // If the user does exist return the user id.
+   //NOTE: I'm not sure what it's going to be like when they try to ping this sever, so I'
+   // I'm guessing I should look to see what comes in to my server.
+   // Maybe create a way to update any of the user's info.
+   console.log(JSON.stringify(req.body));
+   User.findOne({
+      'username':req.body.mobileNumber
+   }, function(err, user){
+      if(err){
+         console.log('there was an error trying to connect to the databasae: '+err);
+      }
+      if(user){
+         console.log('We got back a user.'+user);
+         console.log(JSON.stringify(user));
+         return JSON.stringify(user._id);
+      }else{
+         console.log('the user did not exist, time to create them');
+         // the user doesn't exist.
+         var anotherUser = new User();
+         console.log('our newly created user'+anotherUser);
+         console.log('the body of our request'+JSON.stringify(req.body.mobileNumber));
+         anotherUser.username = req.body.mobileNumber;
+         // set the user's local credentials
+       // anotherUser.firstName = req.body.firstName;
+        anotherUser.password = 'password'; //TODO: figure out how to handle new
+        anotherUser.provider = 'local';
+         //  anotherUser.email = req.body.email;
+
+         stripe.customers.create().then(function handler(response) {
+            // get and save the new users's token.
+            console.log('our respose from stripe'+JSON.stringify(response));
+            anotherUser.stripeCustomerToken = response.id;
+            console.log(JSON.stringify('finished user before save'+anotherUser));
+            return anotherUser.save(function(err){
+               if(err){
+                  return res.status(400).send({
+                     message:errorHandler.getErrorMessage(err)
+                  });
+               }else{
+                  console.log(anotherUser);
+                  return res.json(anotherUser._id);
+               }
+            });
+         }).catch(function errHandler(err) {
+       console.log(err);
+            return res.status(400).send({
+               message: errorHandler.getErrorMessage(err)
+            });
+         });
+      }
+   });
+};
 /**
  * Signin after passport authentication
  **/

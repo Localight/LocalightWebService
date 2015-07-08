@@ -193,7 +193,6 @@ exports.reset = function(req, res, next) {
 exports.changePassword = function(req, res) {
 	// Init Variables
 	var passwordDetails = req.body;
-
 	if (req.user) {
 		if (passwordDetails.newPassword) {
 			User.findById(req.user.id, function(err, user) {
