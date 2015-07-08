@@ -101,6 +101,13 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 			//Also, do not allow zero to be press if no trailing non zero in the stack
 			if(i != -1)
 			{
+				//Remove the warnings if there are somehow
+				if($scope.warning == true || $scope.totalWarning == true)
+				{
+					$scope.warning = false;
+					$scope.totalWarning = false;
+				}
+
 				//Add to our amount from right to left, so just concatanate to the string
 				//push i onto the queue
 				//Increase stack size,
