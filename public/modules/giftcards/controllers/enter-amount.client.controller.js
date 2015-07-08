@@ -243,7 +243,7 @@ angular.module('giftcards').controller('EnterAmountController', ['$scope', '$loc
 		//Function to go back to selecting merchants
 		$scope.goTo = function(place) {
 			//Save our final amount if the path is to pay
-			if(place == "/merchants/{{Id}}/tilt") {
+			if(place == "/merchants/" + $scope.Id + "/tilt") {
 				$cookieStore.put('igosdmbmtv', $scope.trueAmount);
 			}
 
