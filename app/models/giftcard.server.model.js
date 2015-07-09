@@ -52,11 +52,16 @@ var GiftcardSchema = new Schema({
       type:Date,
       default:Date.now
    },
-   emaiToSendReceipt: {
+   emailToSendReceipt: {
       type:String,
       match: [/.+\@.+\..+/, 'Please fill a valid email address'],
       required:'Please fill in a Email to send the reciept to.'
    },
+   phoneNumberToTextTo:{
+      type:String,
+      //TODO:add the regular expression for phone number
+      required:'Please add the number of your friend.'
+   }
    // subledger transaction id's
    // This is the intial transaction id, but we will also contain a array of subledger transactions.
    // intitalSubledgerTransactionId:{
@@ -90,29 +95,9 @@ var GiftcardSchema = new Schema({
  * people are completely different and un related if we wanted too
  */
 GiftcardSchema.post('save', function() {
-   User.findById({
-      _id: this.purchaserOfGiftCard
-   }).exec(function(err, user){
-      if(err){
-         return err;
-      }
-      if(!user){
-         return (new Error('Failed to locate User '+user));
-      }
-      this.fireOffRecipet(user.email);
-   });
-
-   User.findById({
-      _id: this.spenderOfGiftCard
-   }).exec(function(err, user){
-      if(err){
-         return err;
-      }
-      if(!user){
-         return (new Error('Failed to locate User '+user));
-      }
-      this.sendTextToFriend(user.username);
-   });
+   this.fireOffRecipet(this.emailToSendReceipt);
+   this.emailToSendReceipt = undefined;
+   this.sendTextToFriend(this.)
 });
 //TODO: need to create method that accepts email, and fire off reciept email.
 //
