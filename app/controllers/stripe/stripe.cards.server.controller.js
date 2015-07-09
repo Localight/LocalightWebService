@@ -13,7 +13,7 @@ var config = require('../../../config/config'),
 exports.createACard = function(req, res) {
    stripe.customers.createSource(req.user.customerToken,
       {
-         source:req.body.carToken,
+         source:req.body.cardToken,
       }
    ).then(function(response) {
       return response.id;
@@ -47,7 +47,7 @@ exports.updateACard = function(req, res)
    }
    if (req.body.description !== '' || ' ' || null)
    {
-      var holderDescription = req.body.description,
+      var holderDescription = req.body.description
    }
    //TODO: could come back later and add other fields.
    stripe.customers.update(req.user.customerToken,
