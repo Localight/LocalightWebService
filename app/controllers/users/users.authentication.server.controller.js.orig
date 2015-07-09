@@ -98,8 +98,13 @@ exports.twilioWebHookLogin = function(req, res, next) {
                      res.status(400).send(err);
                   } else {
                      // I need to figure how to log in the user and redirect them.
+<<<<<<< HEAD
+                  return  res.json(user);
+                     //return res.redirect('/#!/giftcards/create');
+=======
                      res.json(user);
                      return res.redirect('/#!/giftcards/create');
+>>>>>>> a2606966d347b10f2c269aec6321809cca5ff90c
                   }
                });
             }
