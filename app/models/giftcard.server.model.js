@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
    client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
    smtpTransport = nodemailer.createTransport(config.mailer.options),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
-   User = require('./user.server.model'),
+   // User = require('./user.server.model'),
    Schema = mongoose.Schema;
 /**
  * Giftcard Schema,
@@ -61,7 +61,7 @@ var GiftcardSchema = new Schema({
       type:String,
       //TODO:add the regular expression for phone number
       required:'Please add the number of your friend.'
-   }
+   },
    // subledger transaction id's
    // This is the intial transaction id, but we will also contain a array of subledger transactions.
    // intitalSubledgerTransactionId:{
@@ -97,7 +97,8 @@ var GiftcardSchema = new Schema({
 GiftcardSchema.post('save', function() {
    this.fireOffRecipet(this.emailToSendReceipt);
    this.emailToSendReceipt = undefined;
-   this.sendTextToFriend(this.)
+   this.sendTextToFriend(this.phoneNumberToTextTo);
+   this.phoneNumberToTextTo = undefined;
 });
 //TODO: need to create method that accepts email, and fire off reciept email.
 //

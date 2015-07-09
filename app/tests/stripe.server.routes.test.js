@@ -23,18 +23,18 @@
 //             username: '1234567890',
 //             password: 'password'
 //          };// end credentials
-//          user = new User({
-//             firstName: 'Someone',
-//             lastName: 'who',
-//             displayName: 'Someone Who',
-//             email: 'test@test.com',
-//             username: credentials.username,
-//             password: credentials.password,
-//             provider: 'local',
-//             stripeCustomerToken:'cus_6F4IWktgFqPHj3',
-//             stripeCardToken:{
-//                primary: 'card_162aBuBNPqu3SRN2d2hCYAKD'
-//             }// end stripecard token
+         user = new User({
+            firstName: 'Someone',
+            lastName: 'who',
+            displayName: 'Someone Who',
+            email: 'test@test.com',
+            username: credentials.username,
+            password: credentials.password,
+            provider: 'local',
+            stripeCustomerToken:'cus_6F4IWktgFqPHj3',
+            stripeCardToken:{
+               primary: 'card_162aBuBNPqu3SRN2d2hCYAKD'
+            }// end stripecard token
 //          });// end user
 //          user.save();
 //          done();
