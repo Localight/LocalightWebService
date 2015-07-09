@@ -1,0 +1,205 @@
+<section data-ng-controller="GiftcardsController">
+  <section ng-show="showPageFlag">
+    <!-- call whatever method you want on submit -->
+    <form name="giftcardForm" id="giftcardForm" class="form-horizontal" novalidate>
+    <div class="wrapper">
+
+      <!-- logo -->
+      <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
+
+      <!-- To, remove ng click to fix functionality -->
+      <div id="clique_to" class = "currentInput" ng-class="{currentInput : showBackgroundFlag}">
+        <label class="inputlabel" for="giftRecipientName">To</label>
+        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
+      </div>
+
+      <!--Amount-->
+      <div id="clique_amt_selection" ng-show="priceSelectionFlag">
+        <span class="leftarrow"></span>
+        <div id="clique_amt_scrollwindow">
+          <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price);">
+            <small>$</small>{{price}}</span>
+        </div>
+        <span class="rightarrow"></span>
+      </div>
+      <div id="clique_amt" ng-hide="priceSelectionFlag" ng-click="setBack()">
+        <label class="inputlabel">$</label>
+        <div class="helveticaInput rightColumn">{{gc.amount}}</div>
+      </div>
+    </div>
+
+    <!--From, remove ng click to fix functionality -->
+    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}">
+      <label for="From" class="inputlabel">From </label>
+      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" required>
+    </div>
+    <!-- ng-show="dirty.Occasion || valid.Code" -->
+    <br>
+
+
+    <!--Code, remove ng click to fix functionality -->
+    <!-- little demo thing -->
+    <div id="clique_code_wrapper">
+      <div id="flip_container">
+        <div class="dummy"></div>
+        <div id="front" class="card"></div>
+        <div id="back" class="card">
+          <div class="profont blackstrip">XXXXX</div>
+          <img src="modules/giftcards/img/circle-outline.png" alt="Clique Code Outline">
+        </div>
+      </div>
+
+      <div id="clique_code" class="marginBottom currentInput">
+        <label for="Code" class="inputlabel">Code</label>
+        <input type="text" name="clique_input_code" id="clique_input_code" class="profont rightColumn number"
+        placeholder="XXXXX" maxlength="5" ng-minlength="5" pattern="\d*" data-formance_length=5
+        ng-model="gc.code" ng-change="getStoreName()" required>
+      </div>
+
+      <div id="clique_code_message" class="hide">
+        <label class="inputlabel">
+          <!-- Invalid image url-->
+          <!--<img src=".modules/giftcards/img/at-icon-blk.png"-->
+        </label>
+        <div class="helveticaText rightColumn">
+          Good at
+          <span class="bold">{{storeName}}</span>
+          <span class="italicMessage">and participating merchants</span>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!--Occasion-->
+    <div id="clique_occasion_wrapper" class = "createGiftCardWidth">
+      <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
+        <ul>
+          <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)">
+            <img ng-src="{{occasion.images.normal}}">{{occasion.alt}}
+          </li>
+        </ul>
+      </div>
+
+      <div id="clique_occasion" ng-class="{currentInput : showBackgroundFlagFour}" ng-hide="occasionSelectionFlag">
+        <label for="clique_input_occasion" class="inputlabel" ng-click="setOccasionBack()">
+          <img ng-src="{{occasions.selectedIcon}}">
+        </label>
+
+        <div id="clique_input_occasion_wrapper" class="rightColumn">
+          <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" ></textarea>
+          <span id="occCharCount">{{100 - gc.occasion.length}} characters left</span>
+        </div>
+        <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
+      </div>
+    </div>
+    <br>
+
+    <!--Date picker -->
+    <input type="date" id="clique_date_selection" class = "createGiftCardWidth center roundWhiteBorder" name="clique_date_selection" ng-model="gc.date" min-date="minDate"
+    show-weeks="true" class="well well-lg" required></input>
+
+    <!--Pay by card-->
+    <div id="clique_payment_card" class="roundWhiteBorder createGiftCardWidth">
+      <!-- Inner Container -->
+      <div id="creditcardnumbercontainer" class="paymentcontainer">
+        <!-- Credit Card Logo Img -->
+        <img id="creditcardimg" ng-src="{{cardTypeImg}}">
+        <!-- Credit Card Number Input -->
+        <input type="text" name="clique_input_creditcardnumber1" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number1" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}">
+        <input type="text" name="clique_input_creditcardnumber2" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number2" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}">
+        <input type="text" name="clique_input_creditcardnumber3" id="clique_input_creditcardnumber3" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number3" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}">
+        <input type="text" name="clique_input_creditcardnumber4" id="clique_input_creditcardnumber4" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number4">
+        <!-- Checkmark box to the left -->
+        <div class="checkmark"></div>
+      </div>
+      <!-- lower box that within same box but differnet background -->
+      <div id="creditcardinfo" class="paymentcontainer filledIn">
+        <!-- Date input for credit card -->
+        <input type="text" name="clique_input_expiry_m" id="clique_input_expiry_m" class="profont expiry credit_card_expiry" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()">
+        <input type="text" name="clique_input_expiry_y" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()">
+        <!-- CVV for Credit Card -->
+        <!-- TODO: Come back and split up the month and year -->
+        <input type="text" name="clique_input_cvv" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="3" ng-minlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()">
+        <!-- Zip for credit card -->
+        <input type="text" name="clique_input_zip" id="clique_input_zip" numbers-only="numbers-only" class="profont expiry number" placeholder="ZIP" maxlength="5" ng-minlength="5" size="5" pattern="\d*" ng-model="formData.ZIPcode" ng-focus="expiryFocus()">
+        <!-- Second checkbox -->
+        <div class="checkmark"></div>
+      </div>
+    </div>
+
+    <div data-ng-hide="(giftcardForm.$valid && gc.amount && gc.occasion)" class="text-danger form-incomplete createGiftCardWidth">
+      <strong>Please complete all information</strong>
+    </div>
+    <div class="createGiftCardWidth">
+      <button class="proceed_button"
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage();">Continue</button>
+    </div>
+    <div data-ng-show="error" class="text-danger">
+      <strong data-ng-bind="error"></strong>
+    </div>
+    </div>
+   </form>
+  </section>
+
+
+  <!-- PAGE 2 BREAK -->
+
+
+  <section ng-hide="showPageFlag">
+   <form name="giftcardForm2" id="giftcardForm2" class="form-horizontal" novalidate>
+    <div id="clique_ordersummary" class="wrapper">
+      <!--Back-->
+      <!-- <a ui-sref="main">Back</a> -->
+      <!--Amount-->
+      <div class="summaryordertotal">
+        <label class="inputlabel">
+          <img alt="Bowtie" src="../modules/giftcards/img/bowtie.png" />
+        </label>
+        <div class="rightColumn helveticaText">
+          Send this gift of
+          <span class="bold">${{gc.amt}}</span>
+        </div>
+      </div>
+      <!--To-->
+      <label class="inputlabel">To</label>
+      <div class="heart rightColumn">
+        {{gc.to}}
+      </div>
+      <!--Phone Number-->
+      <div id="clique_phonenumber" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.PhoneNumber}">
+        <label class="inputlabel" for="clique_input_phonenumber">
+          <img alt="Enter Phone Number" src="../modules/giftcards/img/phone.png" />
+        </label>
+        <input type="text" ng-keyup="mask('clique_input_phonenumber')" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" pattern="\d*" data-ng-model="gc.phoneNumber">
+      </div>
+      <!--From-->
+      <div>
+        <label class="inputlabel">From</label>
+        <div class="heart rightColumn">
+          {{gc.from}}
+        </div>
+      </div>
+      <!--Send Receipt To-->
+      <div>
+        <label class="inputlabel">&nbsp;</label>
+        <div class="rightColumn helveticaText">Send receipt to</div>
+    </div>
+
+      <!--Email-->
+      <div id="clique_email" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.Email}">
+        <label class="inputlabel">
+          <img alt="Enter Email Address" src="../modules/giftcards/img/emailsign_blk.png" />
+        </label>
+        <input type="text" name="clique_input_email" id="clique_input_email" class="rightColumn helveticaInput email" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.email" required>
+      </div>
+
+      <!--Schedule Gift-->
+      <div data-ng-hide="(giftcardForm2.$valid && clique_input_phonenumber_validity)" class="text-danger form-incomplete createGiftCardWidth">
+        <strong>Please complete all information</strong>
+      </div>
+      <a ng-href="/#!/giftcards">
+        <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity)">Submit</button>
+      </a>
+    </div>
+   </form>
+  </section>
+</section>
