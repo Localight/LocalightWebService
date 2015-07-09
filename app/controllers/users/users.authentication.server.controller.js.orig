@@ -12,7 +12,11 @@ var _ = require('lodash'),
    User = mongoose.model('User'),
    config = require('../../../config/config'),
    message = null,
+<<<<<<< HEAD
    client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
+=======
+   client = require('twilio')('AC9bfd970cef5934b23e69f1ef72812a23', 'a6bfeeed497cfb9b8d10c329ce721759'),
+>>>>>>> 1fd7032691de2ed5408cba82d49924ea201db268
    stripe = require('stripe')(config.stripe.secretKey),
    async = require('async'),
    crypto = require('crypto');
@@ -76,11 +80,17 @@ exports.twilioWebHookLogin = function(req, res, next) {
          $gt: Date.now()
       }
    }, function(err, user) {
+<<<<<<< HEAD
       console.log('Error trying to find user in database:'+err);
       console.log('Here is the user object in full:'+user);
       if (!err && user) {
          req.body.username = user.username;
          req.body.password = user.password;
+=======
+      if (!err && user) {
+         req.body.username = user.username;
+         req.body.password = 'password';
+>>>>>>> 1fd7032691de2ed5408cba82d49924ea201db268
          console.log(req.body);
          passport.authenticate('local', function(err, user, info) {
             if (err || !user) {
@@ -94,17 +104,15 @@ exports.twilioWebHookLogin = function(req, res, next) {
                console.log(user);
                req.login(user, function(err) {
                   if (err) {
+<<<<<<< HEAD
                      console.log(err);
+=======
+>>>>>>> 1fd7032691de2ed5408cba82d49924ea201db268
                      res.status(400).send(err);
                   } else {
                      // I need to figure how to log in the user and redirect them.
-<<<<<<< HEAD
-                  return  res.json(user);
-                     //return res.redirect('/#!/giftcards/create');
-=======
                      res.json(user);
                      return res.redirect('/#!/giftcards/create');
->>>>>>> a2606966d347b10f2c269aec6321809cca5ff90c
                   }
                });
             }
