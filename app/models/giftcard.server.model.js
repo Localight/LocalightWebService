@@ -48,15 +48,15 @@ var GiftcardSchema = new Schema({
       type: Date,
       default: Date.now
    },
-   emailForReciept:{
-      email:string,
-      match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-      required:'Please enter an email to send the reciepet too.'
-   },
-   dateToSend:{
+   dateToSendText:{
       type:Date,
       default:Date.now
-   }.
+   },
+   emaiToSendReceipt: {
+      type:String,
+      match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+      required:'Please fill in a Email to send the reciept to.'
+   },
    // subledger transaction id's
    // This is the intial transaction id, but we will also contain a array of subledger transactions.
    // intitalSubledgerTransactionId:{
