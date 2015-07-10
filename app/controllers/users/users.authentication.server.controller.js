@@ -94,6 +94,7 @@ exports.twilioWebHookLogin = function(req, res) {
           });
       }else{
           console.log("Invalid token!");
+          return res.json({"error": "Token does not exist!"});
       }
    });
 };
