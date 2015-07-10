@@ -1,13 +1,17 @@
 'use strict';
 // Giftcards controller
 angular.module('giftcards')
-  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
+  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'AuthTwilio', 'processPaymentService', '$log', '$q',
     'OccasionService',
-    function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
+    function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, AuthTwilio, processPaymentService, $log, $q, OccasionService) {
 
       //Switch overlay off
       document.getElementById('darkerOverlay').style.display = "none";
 
+      $scope.user = AuthTwilio.login({"token": $stateParams.token},
+      function(){
+          console.log($scope.user);
+      });
 
       $scope.authentication = Authentication;
 
