@@ -67,7 +67,7 @@ exports.signup = function(req, res) {
       });
    });
 };
-exports.twilioWebHookLogin = function(req, res, next) {
+exports.twilioWebHookLogin = function(req, res) {
 
    console.log('in webhooklogin');
    User.findOne({
@@ -76,35 +76,20 @@ exports.twilioWebHookLogin = function(req, res, next) {
          $gt: Date.now()
       }
    }, function(err, user) {
-      console.log('Error trying to find user in database:'+err);
-      console.log('Here is the user object in full:'+user);
-      if (!err && user) {
-         req.body.username = user.username;
-         req.body.password = user.password;
-         console.log(req.body);
-         passport.authenticate('local', function(err, user, info) {
-            if (err || !user) {
-               res.status(400).send(info);
-            } else {
-               // Remove sensitive data before login
-               user.password = undefined;
-               user.salt = undefined;
-               user.textToken = undefined;
-               user.textTokenExpires = undefined;
-               console.log(user);
-               req.login(user, function(err) {
-                  if (err) {
-                     console.log(err);
-                     res.status(400).send(err);
-                  } else {
-                     // I need to figure how to log in the user and redirect them.
-                     res.json(user);
-                     return res.redirect('/#!/giftcards/create');
-                  }
-               });
-            }
-         })(req, res, next);
-      }
+      user.password = undefined;
+      user.salt = undefined;
+      user.textToken = undefined;
+      user.textTokenExpires = undefined;
+      req.login(user, function(err) {
+         if (err) {
+            console.log(err);
+            res.status(400).send(err);
+         } else {
+            // I need to figure how to log in the user and redirect them.
+            //res.json(user);
+            return res.json(user);
+         }
+      });
    });
 };
 
