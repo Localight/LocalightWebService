@@ -76,20 +76,26 @@ exports.twilioWebHookLogin = function(req, res) {
          $gt: Date.now()
       }
    }, function(err, user) {
-      user.password = undefined;
-      user.salt = undefined;
-      user.textToken = undefined;
-      user.textTokenExpires = undefined;
-      req.login(user, function(err) {
-         if (err) {
-            console.log(err);
-            res.status(400).send(err);
-         } else {
-            // I need to figure how to log in the user and redirect them.
-            //res.json(user);
-            return res.json(user);
-         }
-      });
+      //If the user was found
+      if(user){
+          user.password = undefined;
+          user.salt = undefined;
+          user.textToken = undefined;
+          user.textTokenExpires = undefined;
+          req.login(user, function(err) {
+             if (err) {
+                console.log(err);
+                res.status(400).send(err);
+             } else {
+                // I need to figure how to log in the user and redirect them.
+                //res.json(user);
+                return res.json(user);
+             }
+          });
+      }else{
+          console.log("Invalid token!");
+          return res.json({"error": "Token does not exist!"});
+      }
    });
 };
 
