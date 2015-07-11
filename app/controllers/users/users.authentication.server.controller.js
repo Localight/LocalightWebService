@@ -78,6 +78,10 @@ exports.twilioWebHookLogin = function(req, res) {
    }, function(err, user) {
       //If the user was found
       if(user){
+         // this is the part where it logins in the user.
+         // at this point you want to call a passport.authenticate method.
+         // you need to clear informaiton from the user so the client doesn't get back sensitive data.
+         console.log(user);
           user.password = undefined;
           user.salt = undefined;
           user.textToken = undefined;
@@ -93,8 +97,8 @@ exports.twilioWebHookLogin = function(req, res) {
              }
           });
       }else{
-          console.log("Invalid token!");
-          return res.json({"error": "Token does not exist!"});
+          console.log('Invalid token!');
+          return res.json({'error': 'Token does not exist!'});
       }
    });
 };
