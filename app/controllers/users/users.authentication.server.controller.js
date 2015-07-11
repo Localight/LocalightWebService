@@ -69,53 +69,71 @@ exports.signup = function(req, res) {
 };
 exports.twilioWebHookLogin = function(req, res) {
    console.log(req);
-
    console.log('in webhooklogin');
    // could do some validation here, to test what i get before I add it to the user query.
-   User.findOne({
+   var promise = User.findOne({
       textToken: req.params.token,
-      textTokenExpires: {
-         $gt: Date.now()
-      }
-   }, function(err, user) {
-      // at this point i've either got an error, or a user back.
-      // What's interesting is I only get those two things back, nothing else.
-      //If the user was found
-      if (err) {
-         console.log('if you get back an error:'+err);
-      }else{
-         console.log('if you dont get an error?'+err);
-      }
-      if (user) {
-         // this is the part where it logins in the user.
-         // at this point you want to call a passport.authenticate method.
-         // you need to clear informaiton from the user so the client doesn't get back sensitive data.
-         console.log(user);
-         user.password = undefined;
-         user.salt = undefined;
-         user.textToken = undefined;
-         user.textTokenExpires = undefined;
-         console.log(user);
-
-         req.login(user, function(err) {
-            if (err) {
-               console.log(err);
-               res.status(400).send(err);
-            } else {
-               console.log(user);
-               // I need to figure how to log in the user and redirect them.
-               //res.json(user);
-               return res.json(user);
-            }
-         });
-      } else {
-         // wouldn't get an error here. not sure what you would get.
-         console.log('Invalid token!');
-         return res.json({
-            'error': 'Token does not exist!'
-         });
+      textTokenExpires:{
+         $gt:Date.now()
       }
    });
+   promise.then(function handler(response){
+      console.log('got to the response of the user.find');
+      console.log(response);
+      console.log('got the user back:' + response);
+      response.password = undefined;
+      response.salt = undefined;
+      response.textToken = undefined;
+      response.textTokenExpires = undefined;
+      console.log(response);
+      return req.login(response);
+   }).then(function anotherHandler(response){
+      return res.json(response);
+   }).catch(function errorHandler(err){
+      return res.status(400).send({
+         message: errorHandler.getErrorMessage(err)
+      });
+   });
+   
+   // User.findOne( {
+   //    textToken: req.params.token,
+   //    textTokenExpires: {
+   //       $gt: Date.now()
+   //    }
+   // }, function(err, user) {
+   //    // at this point i've either got an error, or a user back.
+   //    // What's interesting is I only get those two things back, nothing else.
+   //    //If the user was found
+   //    if (user) {
+   //       // this is the part where it logins in the user.
+   //       // at this point you want to call a passport.authenticate method.
+   //       // you need to clear informaiton from the user so the client doesn't get back sensitive data.
+   //       console.log('got the user back:' + user);
+   //       user.password = undefined;
+   //       user.salt = undefined;
+   //       user.textToken = undefined;
+   //       user.textTokenExpires = undefined;
+   //       console.log(user);
+   //
+   //       req.login(user, function(err) {
+   //          if (err) {
+   //             console.log(err);
+   //             res.status(400).send(err);
+   //          } else {
+   //             console.log(user);
+   //             // I need to figure how to log in the user and redirect them.
+   //             //res.json(user);
+   //             return res.json(user);
+   //          }
+   //
+   //       });
+   //
+   //    } else {
+   //       // wouldn't get an error here. not sure what you would get.
+   //       console.log('not sure what it means if i get here.');
+   //    }
+   // });
+
 };
 
 
