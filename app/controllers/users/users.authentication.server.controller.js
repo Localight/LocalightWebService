@@ -70,12 +70,15 @@ exports.signup = function(req, res) {
 exports.twilioWebHookLogin = function(req, res) {
 
    console.log('in webhooklogin');
+   // could do some validation here, to test what i get before I add it to the user query.
    User.findOne({
       textToken: req.params.token,
       textTokenExpires: {
          $gt: Date.now()
       }
    }, function(err, user) {
+      // at this point i've either got an error, or a user back.
+      // What's interesting is I only get those two things back, nothing else.
       //If the user was found
       if(user){
          // this is the part where it logins in the user.
@@ -86,6 +89,7 @@ exports.twilioWebHookLogin = function(req, res) {
           user.salt = undefined;
           user.textToken = undefined;
           user.textTokenExpires = undefined;
+          console.log(user);
           req.login(user, function(err) {
              if (err) {
                 console.log(err);
