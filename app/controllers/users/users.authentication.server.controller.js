@@ -68,6 +68,7 @@ exports.signup = function(req, res) {
    });
 };
 exports.twilioWebHookLogin = function(req, res) {
+   console.log(req);
 
    console.log('in webhooklogin');
    // could do some validation here, to test what i get before I add it to the user query.
@@ -80,29 +81,39 @@ exports.twilioWebHookLogin = function(req, res) {
       // at this point i've either got an error, or a user back.
       // What's interesting is I only get those two things back, nothing else.
       //If the user was found
-      if(user){
+      if (err) {
+         console.log('if you get back an error:'+err);
+      }else{
+         console.log('if you dont get an error?'+err);
+      }
+      if (user) {
          // this is the part where it logins in the user.
          // at this point you want to call a passport.authenticate method.
          // you need to clear informaiton from the user so the client doesn't get back sensitive data.
          console.log(user);
-          user.password = undefined;
-          user.salt = undefined;
-          user.textToken = undefined;
-          user.textTokenExpires = undefined;
-          console.log(user);
-          req.login(user, function(err) {
-             if (err) {
-                console.log(err);
-                res.status(400).send(err);
-             } else {
-                // I need to figure how to log in the user and redirect them.
-                //res.json(user);
-                return res.json(user);
-             }
-          });
-      }else{
-          console.log('Invalid token!');
-          return res.json({'error': 'Token does not exist!'});
+         user.password = undefined;
+         user.salt = undefined;
+         user.textToken = undefined;
+         user.textTokenExpires = undefined;
+         console.log(user);
+
+         req.login(user, function(err) {
+            if (err) {
+               console.log(err);
+               res.status(400).send(err);
+            } else {
+               console.log(user);
+               // I need to figure how to log in the user and redirect them.
+               //res.json(user);
+               return res.json(user);
+            }
+         });
+      } else {
+         // wouldn't get an error here. not sure what you would get.
+         console.log('Invalid token!');
+         return res.json({
+            'error': 'Token does not exist!'
+         });
       }
    });
 };
@@ -206,7 +217,7 @@ exports.twilioWebHook = function(req, res) {
                   console.log('got in the user save part.');
                   anotherUser.textToken = token;
                   anotherUser.textTokenExpires = Date.now() + 3600000;
-                  stripe.customers.create().then(function handler(response){
+                  stripe.customers.create().then(function handler(response) {
                      anotherUser.stripeCustomerToken = response.id;
                      anotherUser.save(function(err) {
                         done(err, token, anotherUser);
@@ -243,7 +254,7 @@ exports.twilioWebHook = function(req, res) {
 /**
  * FindOrCreateUser, if user isn't avaible create that user.
  */
-exports.findOrCreateUser = function(req, res){
+exports.findOrCreateUser = function(req, res) {
    //the body of the request should be a phone number.
    // If the phone numebr doesn't exist in the database create that user.
    // If the user does exist return the user id.
@@ -252,45 +263,45 @@ exports.findOrCreateUser = function(req, res){
    // Maybe create a way to update any of the user's info.
    console.log(JSON.stringify(req.body));
    User.findOne({
-      'username':req.body.mobileNumber
-   }, function(err, user){
-      if(err){
-         console.log('there was an error trying to connect to the databasae: '+err);
+      'username': req.body.mobileNumber
+   }, function(err, user) {
+      if (err) {
+         console.log('there was an error trying to connect to the databasae: ' + err);
       }
-      if(user){
-         console.log('We got back a user.'+user);
+      if (user) {
+         console.log('We got back a user.' + user);
          console.log(JSON.stringify(user));
          return JSON.stringify(user._id);
-      }else{
+      } else {
          console.log('the user did not exist, time to create them');
          // the user doesn't exist.
          var anotherUser = new User();
-         console.log('our newly created user'+anotherUser);
-         console.log('the body of our request'+JSON.stringify(req.body.mobileNumber));
+         console.log('our newly created user' + anotherUser);
+         console.log('the body of our request' + JSON.stringify(req.body.mobileNumber));
          anotherUser.username = req.body.mobileNumber;
          // set the user's local credentials
-       // anotherUser.firstName = req.body.firstName;
-        anotherUser.password = 'password'; //TODO: figure out how to handle new
-        anotherUser.provider = 'local';
+         // anotherUser.firstName = req.body.firstName;
+         anotherUser.password = 'password'; //TODO: figure out how to handle new
+         anotherUser.provider = 'local';
          //  anotherUser.email = req.body.email;
 
          stripe.customers.create().then(function handler(response) {
             // get and save the new users's token.
-            console.log('our respose from stripe'+JSON.stringify(response));
+            console.log('our respose from stripe' + JSON.stringify(response));
             anotherUser.stripeCustomerToken = response.id;
-            console.log(JSON.stringify('finished user before save'+anotherUser));
-            return anotherUser.save(function(err){
-               if(err){
+            console.log(JSON.stringify('finished user before save' + anotherUser));
+            return anotherUser.save(function(err) {
+               if (err) {
                   return res.status(400).send({
-                     message:errorHandler.getErrorMessage(err)
+                     message: errorHandler.getErrorMessage(err)
                   });
-               }else{
+               } else {
                   console.log(anotherUser);
                   return res.json(anotherUser._id);
                }
             });
          }).catch(function errHandler(err) {
-       console.log(err);
+            console.log(err);
             return res.status(400).send({
                message: errorHandler.getErrorMessage(err)
             });
