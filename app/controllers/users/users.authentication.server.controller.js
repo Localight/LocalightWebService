@@ -77,7 +77,7 @@ exports.twilioWebHookLogin = function(req, res) {
          $gt:Date.now()
       }
    });
-   promise.then(function handler(response){
+   promise.fcall(function handler(response){
       console.log('got to the response of the user.find');
       console.log(response);
       console.log('got the user back:' + response);
@@ -94,7 +94,7 @@ exports.twilioWebHookLogin = function(req, res) {
          message: errorHandler.getErrorMessage(err)
       });
    });
-   
+
    // User.findOne( {
    //    textToken: req.params.token,
    //    textTokenExpires: {
