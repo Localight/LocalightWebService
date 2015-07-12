@@ -67,54 +67,86 @@ exports.signup = function(req, res) {
       });
    });
 };
-exports.twilioWebHookLogin = function(req, res) {
-   //console.log(req);
-   console.log('in webhooklogin');
+exports.twilioWebHookLogin = function(req, res, next) {
+   req.body.username = req.params.username;
+   req.body.password = 'password';
 
-   // could do some validation here, to test what i get before I add it to the user query.
-   User.findOne({
-      textToken: req.params.token,
-      textTokenExpires: {
-         $gt: Date.now()
-      }
-   }, function(err, user) {
-      console.log('something went right, at least we found a user');
-      if (err) {
+   passport.authenticate('local', function(err, user, info){
+
+      if (err || !user) {
          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
+            message:info
          });
-      }
-      if (!user) {
-         // someting didn't go right, redirect the user to a 404 page.
-         return res.redirect('#!/login');
-      }
-      if (user) {
-         console.log(req.body);
-         console.log('this is the user you got back' + user);
-         user.stripeCustomerToken= undefined;
+      } else {
+         // Remove sensitive data before login
          user.password = undefined;
          user.salt = undefined;
-         user.textToken = undefined;
-         user.textTokenExpires = undefined;
-         console.log('this is the result of the user before you login' + user);
-         // passport.authenticate();
-         req.body.username = user.username;
-         req.body.password = 'password';
-         console.log(req.body);
-         passport.authenticate('local', function(err) {
-            req.login(user, function(err) {
-               if (err) {
-                  console.log(err);
-                  return res.status(400).send({
-                     message: errorHandler.getErrorMessage(err)
-                  });
-               } else {
-                  return res.json(user);
-               }
-            });
+
+         req.login(user, function(err) {
+            if (err) {
+               return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+               });
+            } else {
+               res.json(user);
+            }
          });
       }
-   });
+   })(req, res, next);
+   //console.log(req);
+   // console.log('in webhooklogin');
+   // // could do some validation here, to test what i get before I add it to the user query.
+   // User.findOne({
+   //    textToken: req.params.token,
+   //    textTokenExpires: {
+   //       $gt: Date.now()
+   //    }
+   // }, function(err, user) {
+   //    console.log('something went right, at least we found a user');
+   //    if (err) {
+   //       return res.status(400).send({
+   //          message: errorHandler.getErrorMessage(err)
+   //       });
+   //    }
+   //    if (!user) {
+   //       // someting didn't go right, redirect the user to a 404 page.
+   //       return res.redirect('#!/login');
+   //    }
+   //    if (user) {
+   //       console.log(req.body);
+   //       console.log('this is the user you got back' + user);
+   //       user.stripeCustomerToken= undefined;
+   //       user.password = undefined;
+   //       user.salt = undefined;
+   //       user.textToken = undefined;
+   //       user.textTokenExpires = undefined;
+   //       console.log('this is the result of the user before you login' + user);
+   //       // passport.authenticate();
+   //       req.body.username = user.username;
+   //       req.body.password = 'password';
+   //       console.log(req.body);
+   //
+   //       passport.authenticate('local', function(err, user, info) {
+   //
+   //       })(req, res, next);
+   //
+   //
+   //
+   //
+   //       function(err) {
+   //          req.login(user, function(err) {
+   //             if (err) {
+   //                console.log(err);
+   //                return res.status(400).send({
+   //                   message: errorHandler.getErrorMessage(err)
+   //                });
+   //             } else {
+   //                return res.json(user);
+   //             }
+   //          });
+   //       });
+   //    }
+   // });
    // User.findOne( {
    //    textToken: req.params.token,
    //    textTokenExpires: {
