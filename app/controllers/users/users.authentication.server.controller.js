@@ -89,10 +89,10 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   message: err
                });
             } else {
-               return res.redirect('/giftcards/create', {
+               return res.redirect({
                   user: req.user || null,
                   request: req
-               });
+               }, '#!/giftcards/create');
                // // res.json(user0);
                // res.renderX('index', {// there has to be a way to force it to redirect to antoher page.
             	// 	user: req.user || null,
