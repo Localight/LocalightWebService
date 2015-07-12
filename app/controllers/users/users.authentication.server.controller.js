@@ -89,7 +89,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   message: err
                });
             } else {
-               res.render('index', {
+               res.render('lbgift.com/giftcard/create', {
             		user: req.user || null,
             		request: req
             	});
