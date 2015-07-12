@@ -77,9 +77,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
       console.log('if we got a user back'+user);
       console.log('if we get back info'+JSON.stringify(info));
       if (err || !user) {
-         return res.status(400).send({
-            message:info
-         });
+         return res.status(400).send(info);
       } else {
          // Remove sensitive data before login
          user.password = undefined;
@@ -88,7 +86,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
          req.login(user, function(err) {
             if (err) {
                return res.status(400).send({
-                  message: errorHandler.getErrorMessage(err)
+                  message: err
                });
             } else {
                return res.json(user);
