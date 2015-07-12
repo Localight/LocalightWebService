@@ -68,7 +68,7 @@ exports.signup = function(req, res) {
    });
 };
 exports.twilioWebHookLogin = function(req, res) {
-   console.log(req);
+   //console.log(req);
    console.log('in webhooklogin');
 
    // could do some validation here, to test what i get before I add it to the user query.
@@ -99,8 +99,8 @@ exports.twilioWebHookLogin = function(req, res) {
          req.body.username = user.username;
          req.body.password = 'password';
          passport.authenticate('local', {
-            successRedirect: '#!/giftcards/create',
-            failureRedirect: '/'
+            successRedirect: '/#!/giftcards/create',
+            failureRedirect: '/#!'
          }, function(err) {
             req.login(user, function(err) {
                if (err) {
