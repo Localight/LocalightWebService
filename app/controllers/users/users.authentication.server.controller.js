@@ -89,8 +89,9 @@ exports.twilioWebHookLogin = function(req, res) {
          return res.redirect('#!/login');
       }
       if (user) {
-
+         console.log(req.body);
          console.log('this is the user you got back' + user);
+         user.stripeCustomerToken= undefined;
          user.password = undefined;
          user.salt = undefined;
          user.textToken = undefined;
@@ -99,6 +100,7 @@ exports.twilioWebHookLogin = function(req, res) {
          // passport.authenticate();
          req.body.username = user.username;
          req.body.password = 'password';
+         console.log(req.body);
          passport.authenticate('local', function(err) {
             req.login(user, function(err) {
                if (err) {
