@@ -76,25 +76,6 @@ exports.twilioWebHookLogin = function(req, res) {
       textTokenExpires: {
          $gt: Date.now()
       }
-<<<<<<< HEAD
-   }).then(function handler(response){
-      console.log('got to the response of the user.find');
-      console.log(response);
-      console.log('got the user back:' + response);
-      response.password = undefined;
-      response.salt = undefined;
-      response.textToken = undefined;
-      response.textTokenExpires = undefined;
-      console.log(response);
-      return req.login(response);
-   }).then(function anotherHandler(response){
-      return res.json(response);
-   }).catch(function errorHandler(err){
-      return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-      });
-   });
-=======
    }, function(err, user) {
       if (err) {
          return res.status(400).send({
@@ -102,8 +83,6 @@ exports.twilioWebHookLogin = function(req, res) {
          });
       }
       if (user) {
->>>>>>> f58cb9ab69cbd302f936b8e2eeb2d1cdbd038431
-
          console.log('this is the user you got back' + user);
          user.password = undefined;
          user.salt = undefined;
@@ -120,7 +99,6 @@ exports.twilioWebHookLogin = function(req, res) {
                res.json(user);
             }
          });
-
       }
    });
    // User.findOne( {
