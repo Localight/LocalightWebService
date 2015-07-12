@@ -78,6 +78,7 @@ exports.twilioWebHookLogin = function(req, res) {
          $gt: Date.now()
       }
    }, function(err, user) {
+      console.log('something went right, at least we found a user');
       if (err) {
          return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
@@ -179,15 +180,17 @@ exports.twilioWebHook = function(req, res) {
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
  **/
-console.log(req);
+ console.log('if you get here that means a post was made to this port. heres what knocked:'+req.body);
    if (req.body.Body.toLowerCase().trim() === 'gift') {
       User.findOne({
-         'username': req.body.From.slice(2, 12)
+         'username': req.body.From.slice(2, 12)//'mobileNumber': req.body.From.slice(2, 12)
       }, function(err, user) {
          // In case of any error return
          if (err) {
             console.log('the error from database' + err);
-            return (err);
+            return res.status(400).send({
+               message: errorHandler.getErrorMessage(err)
+            });
          }
          // modified the user here.
          // create token and add to user.
@@ -223,7 +226,9 @@ console.log(req);
                }
             ], function(err) {
                if (err) {
-                  console.log(err);
+                  return res.status(400).send({
+                     message: errorHandler.getErrorMessage(err)
+                  });
                }
             });
          } else {
@@ -261,8 +266,9 @@ console.log(req);
                         done(err, token, anotherUser);
                      });
                   }).catch(function errHandler(err) {
-                     console.log(err);
-                     return res.status(400).send(err);
+                     return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                     });
                   });
                },
                function(token, anotherUser, done) {
@@ -277,7 +283,9 @@ console.log(req);
                }
             ], function(err) {
                if (err) {
-                  console.log(err);
+                  return res.status(400).send({
+                     message: errorHandler.getErrorMessage(err)
+                  });
                }
             });
          }
