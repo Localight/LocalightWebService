@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
    client = require('twilio')(config.twilio.accountSID, config.twilio.authTOKEN),
    smtpTransport = nodemailer.createTransport(config.mailer.options),
    //  twilioService = require('../services/twilio/outgoingTwilioText.service'),
-   User = require('mongoose').model('User'),
+   User = require('./user.server.model'),
    Schema = mongoose.Schema;
 /**
  * Giftcard Schema,
