@@ -72,10 +72,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
    req.body.username = req.params.username;
    req.body.password = 'password';
    console.log(req.body);
-   passport.authenticate('local',{
-      successRedirect:'/#!/giftcards/create',
-      failureRedirect:'/login'
-   }, function(err, user, info){
+   passport.authenticate('local', function(err, user, info){
       console.log('if we got an error:'+err);
       console.log('if we got a user back'+user);
       console.log('if we get back info'+JSON.stringify(info));
@@ -92,10 +89,12 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   message: err
                });
             } else {
-               res.render('index', {// there has to be a way to force it to redirect to antoher page.
-            		user: req.user || null,
-            		request: req
-            	});
+               return res.json(user).redirect('#!/giftcards/create');
+               // // res.json(user0);
+               // res.renderX('index', {// there has to be a way to force it to redirect to antoher page.
+            	// 	user: req.user || null,
+            	// 	request: req
+            	// });
             }
          });
       }
