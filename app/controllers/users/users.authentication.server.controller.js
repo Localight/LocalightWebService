@@ -71,30 +71,40 @@ exports.twilioWebHookLogin = function(req, res) {
    console.log(req);
    console.log('in webhooklogin');
    // could do some validation here, to test what i get before I add it to the user query.
-   var promise = User.findOne({
+   User.findOne({
       textToken: req.params.token,
-      textTokenExpires:{
-         $gt:Date.now()
+      textTokenExpires: {
+         $gt: Date.now()
+      }
+   }, function(err, user) {
+
+      if (err) {
+         return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+         });
+      }
+
+      if (user) {
+         
+         console.log('this is the user you got back' + user);
+
+         user.password = undefined;
+         user.salt = undefined;
+         user.textToken = undefined;
+         user.textTokenExpires = undefined;
+         req.login(user, function(err) {
+            if (err) {
+               console.log(err);
+               return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+               });
+            } else {
+               res.json(user);
+            }
+
+         });
       }
    });
-   promise.fcall(function handler(response){
-      console.log('got to the response of the user.find');
-      console.log(response);
-      console.log('got the user back:' + response);
-      response.password = undefined;
-      response.salt = undefined;
-      response.textToken = undefined;
-      response.textTokenExpires = undefined;
-      console.log(response);
-      return req.login(response);
-   }).then(function anotherHandler(response){
-      return res.json(response);
-   }).catch(function errorHandler(err){
-      return res.status(400).send({
-         message: errorHandler.getErrorMessage(err)
-      });
-   });
-
    // User.findOne( {
    //    textToken: req.params.token,
    //    textTokenExpires: {
