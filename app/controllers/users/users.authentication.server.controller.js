@@ -77,21 +77,19 @@ exports.twilioWebHookLogin = function(req, res) {
          $gt: Date.now()
       }
    }, function(err, user) {
-
       if (err) {
          return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
          });
       }
-
       if (user) {
-         
-         console.log('this is the user you got back' + user);
 
+         console.log('this is the user you got back' + user);
          user.password = undefined;
          user.salt = undefined;
          user.textToken = undefined;
          user.textTokenExpires = undefined;
+         console.log('this is the result of the user before you login'+user);
          req.login(user, function(err) {
             if (err) {
                console.log(err);
@@ -101,8 +99,8 @@ exports.twilioWebHookLogin = function(req, res) {
             } else {
                res.json(user);
             }
-
          });
+
       }
    });
    // User.findOne( {
