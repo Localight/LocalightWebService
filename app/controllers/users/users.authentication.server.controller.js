@@ -71,13 +71,12 @@ exports.twilioWebHookLogin = function(req, res) {
    console.log(req);
    console.log('in webhooklogin');
    // could do some validation here, to test what i get before I add it to the user query.
-   var promise = User.findOne({
+   User.findOne({
       textToken: req.params.token,
       textTokenExpires:{
          $gt:Date.now()
       }
-   });
-   promise.fcall(function handler(response){
+   }).then(function handler(response){
       console.log('got to the response of the user.find');
       console.log(response);
       console.log('got the user back:' + response);
