@@ -99,10 +99,7 @@ exports.twilioWebHookLogin = function(req, res) {
          // passport.authenticate();
          req.body.username = user.username;
          req.body.password = 'password';
-         passport.authenticate('local', {
-            successRedirect: '/#!/giftcards/create',
-            failureRedirect: '/#!'
-         }, function(err) {
+         passport.authenticate('local', function(err) {
             req.login(user, function(err) {
                if (err) {
                   console.log(err);
