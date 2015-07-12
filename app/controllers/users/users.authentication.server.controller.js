@@ -110,7 +110,7 @@ exports.twilioWebHookLogin = function(req, res) {
                      message: errorHandler.getErrorMessage(err)
                   });
                } else {
-                  res.json(user);
+                  return res.json(user);
                }
             });
          });
