@@ -68,11 +68,14 @@ exports.signup = function(req, res) {
    });
 };
 exports.twilioWebHookLogin = function(req, res, next) {
+   console.log(req.body);
    req.body.username = req.params.username;
-   req.body.password = req.params.password;
-
+   req.body.password = 'password';
+   console.log(req.body);
    passport.authenticate('local', function(err, user, info){
-
+      console.log('if we got an error:'+err);
+      console.log('if we got a user back'+user);
+      console.log('if we get back info'+info);
       if (err || !user) {
          return res.status(400).send({
             message:info
