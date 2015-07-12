@@ -89,7 +89,10 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   message: err
                });
             } else {
-               return res.json(user);
+               res.render('index', {
+            		user: req.user || null,
+            		request: req
+            	});
             }
          });
       }
