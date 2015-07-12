@@ -70,6 +70,7 @@ exports.signup = function(req, res) {
 exports.twilioWebHookLogin = function(req, res) {
    console.log(req);
    console.log('in webhooklogin');
+
    // could do some validation here, to test what i get before I add it to the user query.
    User.findOne({
       textToken: req.params.token,
@@ -83,7 +84,8 @@ exports.twilioWebHookLogin = function(req, res) {
          });
       }
       if (!user) {
-         return res.redirect('/login');
+         // someting didn't go right, redirect the user to a 404 page.
+         return res.redirect('#!/login');
       }
       if (user) {
 
@@ -94,7 +96,8 @@ exports.twilioWebHookLogin = function(req, res) {
          user.textTokenExpires = undefined;
          console.log('this is the result of the user before you login' + user);
          // passport.authenticate();
-
+         req.body.username = user.username;
+         req.body.password = 'password';
          passport.authenticate('local', {
             successRedirect: '#!/giftcards/create',
             failureRedirect: '/'
@@ -176,7 +179,7 @@ exports.twilioWebHook = function(req, res) {
    // doing to much in controller.
    // user.service, pass in phone number. return the object as promise or callback.
  **/
-
+console.log(req);
    if (req.body.Body.toLowerCase().trim() === 'gift') {
       User.findOne({
          'username': req.body.From.slice(2, 12)
@@ -224,7 +227,7 @@ exports.twilioWebHook = function(req, res) {
                }
             });
          } else {
-            console.log('got here in twilio controller');
+            console.log('if you got here that means the user wasnt found and its time to create one.');
             // if user is not found create here.
             // if there is no user with that phoneNumber
             // create the user, with the data entered on the giftcard
