@@ -72,10 +72,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
    req.body.username = req.params.username;
    req.body.password = 'password';
    console.log(req.body);
-   passport.authenticate('local',{
-      successRedirect: '#!/giftcards/create',
-      failureRedirect: '/'
-   }, function(err, user, info){
+   passport.authenticate('local', function(err, user, info){
       console.log('if we got an error:'+err);
       console.log('if we got a user back'+user);
       console.log('if we get back info'+JSON.stringify(info));
@@ -311,7 +308,7 @@ exports.twilioWebHook = function(req, res) {
                function(token, anotherUser, done) {
                   console.log('sending off the message');
                   client.messages.create({
-                     body: 'http://lbgift.com/auth/twilioWebHookLogin/' + token,
+                     body: 'http://lbgift.com/auth/twilioWebHookLogin/' + anotherUser.username,
                      to: req.body.From,
                      from: '+15624454688'
                   }, function(err, message) {
