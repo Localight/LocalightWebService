@@ -15,6 +15,9 @@ angular.module('giftcards')
       $scope.cardIndex = 0;
       $scope.cardValidated = false;
       $scope.numberValidated = false;
+      $scope.dateValidated = false;
+      $scope.cvcValidated = false;
+      $scope.zipValidated = false;
 
       $scope.authentication = Authentication;
 
@@ -310,7 +313,7 @@ angular.module('giftcards')
           var input4 = document.getElementById("clique_input_creditcardnumber4");
 
           //concatante the values, using dashes so they wont add together, and stripe supports
-          var cardNumber = input1.value + "-" + input2.value + "-" + input3.value+ "-" + input4.value
+          var cardNumber = input1.value + "-" + input2.value + "-" + input3.value+ "-" + input4.value;
 
           $scope.numberValidated = Stripe.card.validateCardNumber(cardNumber);
 
@@ -347,20 +350,49 @@ angular.module('giftcards')
       $scope.validateDate = function ()
       {
           //Concatante the giftcard number together
-          var input1 = document.getElementById("clique_input_creditcardnumber1");
-          var input2 = document.getElementById("clique_input_creditcardnumber2");
-          var input3 = document.getElementById("clique_input_creditcardnumber3");
-          var input4 = document.getElementById("clique_input_creditcardnumber4");
+          var input1 = document.getElementById("clique_input_expiry_m");
+          var input2 = document.getElementById("clique_input_expiry_y");
 
-          //concatante the values, using dashes so they wont add together, and stripe supports
-          var cardNumber = input1.value + "-" + input2.value + "-" + input3.value+ "-" + input4.value
+          $scope.dateValidated = Stripe.card.validateExpiry(input1.value, input2.value);
 
-          $scope.cardValidated = Stripe.card.validateCardNumber(cardNumber);
+          //Now see if the card is validated
+          $scope.validateCard();
+      }
+
+      $scope.validateCVC = function ()
+      {
+          //get the input
+          var input1 = document.getElementById("clique_input_cvv");
+
+          $scope.cvcValidated = SStripe.card.validateCVC(input1.value);
+
+          //Now see if the card is validated
+          $scope.validateCard();
+      }
+
+      $scope.validateZip = function ()
+      {
+          //get the input
+          var input1 = document.getElementById("clique_input_cvv");
+
+          //Simply check if there are 5 digits
+          if(input1.value.length > 4)
+          {
+              $scope.zipValidated = true;
+          }
+          else
+          {
+              $scope.zipValidated = false;
+          }
+
+          //Now see if the card is validated
+          $scope.validateCard();
       }
 
       $scope.validateCard = function()
       {
-          if($scope.numberValidated && $scope.dateValidated && $scope.cvcValidated)
+          if($scope.numberValidated && $scope.dateValidated
+              && $scope.cvcValidated && $scope.zipValidated)
           {
               $scope.cardValidated = true;
           }
