@@ -12,7 +12,7 @@ angular.module('giftcards')
       Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
       //Keeping track of stripe verified fields
-      $scope.cardType = "";
+      $scope.cardIndex = 0;
       $scope.cardValidated = true;
       $scope.numberValidated = true;
 
@@ -289,6 +289,16 @@ angular.module('giftcards')
 
 
 
+      //Stripe icons for cards
+      //Default, Visa, Mastercard, Amex, Discover
+      $scope.cardIcons =
+      [
+          "/modules/giftcards/img/cc-basic-blk.png",
+          "/modules/giftcards/img/cc-visa-blk.png",
+          "/modules/giftcards/img/cc-mastercard-blk.png",
+          "/modules/giftcards/img/cc-amex-blk.png",
+          "/modules/giftcards/img/cc-discover-blk.png"
+      ]
 
       //Stripe verification fileds
       $scope.validateCardNumber = function ()
@@ -304,16 +314,32 @@ angular.module('giftcards')
 
           $scope.numberValidated = Stripe.card.validateCardNumber(cardNumber);
 
-          //Commented because we are now doing this in the final step
-            //   //If the number is validated, change wha type of card we have
-            //   if($scope.numberValidated)
-            //   {
-            //       $scope.cardType = Stripe.card.cardType(cardNumber);
-            //   }
-            //   else {
-            //       $scope.cardType = "";
-            //   }
-            
+          //Also we should set what card type we have
+          var cardType = Stripe.card.cardType(cardNumber);
+
+          //Now set our array index for card type
+          if(cardType.indexOf("Visa") > -1)
+          {
+              $scope.cardIndex = 1;
+          }
+          else if(cardType.indexOf("MasterCard") > -1)
+          {
+              $scope.cardIndex = 2;
+          }
+          else if(cardType.indexOf("American Express") > -1)
+          {
+              $scope.cardIndex = 3;
+          }
+          else if(cardType.indexOf("Discover") > -1)
+          {
+              $scope.cardIndex = 4;
+          }
+          //It is unkown go back to default
+          else
+          {
+              $scope.cardIndex = 0;
+          }
+
           //Now see if the card is validated
           $scope.validateCard();
       }
@@ -337,9 +363,6 @@ angular.module('giftcards')
           if($scope.numberValidated && $scope.dateValidated && $scope.cvcValidated)
           {
               $scope.cardValidated = true;
-
-              //Also display the card type above
-              $scope.cardType = Stripe.card.cardType(cardNumber);
           }
           else
           {

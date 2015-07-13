@@ -97,14 +97,13 @@
     <input type="date" id="clique_date_selection" class = "createGiftCardWidth center roundWhiteBorder" name="clique_date_selection" ng-model="gc.date" min-date="minDate"
     show-weeks="true" class="well well-lg" required></input>
 
-    <!-- Our card type -->
-    <h3 class = "center heart">{{cardType}}</h3>
+
     <!--Pay by card-->
     <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">
       <!-- Inner Container -->
       <div id="creditcardnumbercontainer" class = "paymentcontainer">
         <!-- Credit Card Logo Img -->
-        <img id="creditcardimg" ng-src="{{cardTypeImg}}">
+        <img id="creditcardimg" ng-src="{{cardIcons[cardIndex]}}">
         <!-- Credit Card Number Input -->
         <input type="text" name="clique_input_creditcardnumber1" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number1" ng-keydown = "validateCardNumber()" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}">
         <input type="text" name="clique_input_creditcardnumber2" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number2" ng-keydown = "validateCardNumber()" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}">
