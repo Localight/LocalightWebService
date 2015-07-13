@@ -11,6 +11,9 @@ angular.module('giftcards')
       //Setting our stripe key
       Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
+      //Keeping track of stripe verified fields
+      $scope.cardValidated = false;
+
       $scope.authentication = Authentication;
 
       $scope.gc = new Giftcards();
@@ -290,7 +293,14 @@ angular.module('giftcards')
       {
           //Concatante the giftcard number together
           var input1 = document.getElementById(clique_input_creditcardnumber1);
-          Stripe.card.validateCardNumber(input.value);
+          var input2 = document.getElementById(clique_input_creditcardnumber2);
+          var input3 = document.getElementById(clique_input_creditcardnumber3);
+          var input4 = document.getElementById(clique_input_creditcardnumber4);
+
+          //concatante the values, using dashes so they wont add together, and stripe supports
+          var cardNumber = input1.value + "-" + input2.value + "-" + input3.value+ "-" + input4.value
+
+          $scope.cardValidated = Stripe.card.validateCardNumber(cardNumber);
       }
 
 
