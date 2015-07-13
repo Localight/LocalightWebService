@@ -103,14 +103,14 @@
       <!-- Inner Container -->
       <div id="creditcardnumbercontainer" class = "paymentcontainer">
         <!-- Credit Card Logo Img -->
-        <img class = "creditCardIcon" style = ";" ng-src="{{cardIcons[cardIndex]}}">
+        <img class = "creditCardIcon" style = "float: left; margin-top: 10px; margin-left: 5px;" ng-src="{{cardIcons[cardIndex]}}">
         <!-- Credit Card Number Input -->
         <input type="text" name="clique_input_creditcardnumber1" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number1" ng-keydown = "validateCardNumber()" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}">
         <input type="text" name="clique_input_creditcardnumber2" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number2" ng-keydown = "validateCardNumber()" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}">
         <input type="text" name="clique_input_creditcardnumber3" id="clique_input_creditcardnumber3" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number3" ng-keydown = "validateCardNumber()" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}">
         <input type="text" name="clique_input_creditcardnumber4" id="clique_input_creditcardnumber4" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number4" ng-keydown = "validateCardNumber()">
         <!-- Checkmark box to the left -->
-        <img class = "creditCardIcon" src = "/modules/giftcards/img/checkmark-blk.png" ng-show = "cardValidated">
+        <img class = "creditCardIcon" style = "float: right; margin-top: 4px; margin-right: 5px;" src = "/modules/giftcards/img/checkmark-blk.png" ng-show = "cardValidated">
       </div>
       <!-- lower box that within same box but differnet background -->
       <div id="creditcardinfo" class="paymentcontainer filledIn">
