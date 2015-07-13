@@ -90,7 +90,7 @@ exports.twilioWebHookLogin = function(req, res, next) {
                });
             } else {
                req.session.user = user;
-               return res.redirect('#!/giftcards/create');
+               return res.redirect('http://lbgift.com/#!/giftcards/create');
                // res.redirect({
                //    user: req.user || null,
                //    request: req
