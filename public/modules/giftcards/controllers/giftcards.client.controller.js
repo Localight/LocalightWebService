@@ -12,7 +12,9 @@ angular.module('giftcards')
       Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
       //Keeping track of stripe verified fields
+      $scope.cardType = "";
       $scope.cardValidated = true;
+      $scope.numberValidated = true;
 
       $scope.authentication = Authentication;
 
@@ -300,7 +302,50 @@ angular.module('giftcards')
           //concatante the values, using dashes so they wont add together, and stripe supports
           var cardNumber = input1.value + "-" + input2.value + "-" + input3.value+ "-" + input4.value
 
+          $scope.numberValidated = Stripe.card.validateCardNumber(cardNumber);
+
+          //Commented because we are now doing this in the final step
+            //   //If the number is validated, change wha type of card we have
+            //   if($scope.numberValidated)
+            //   {
+            //       $scope.cardType = Stripe.card.cardType(cardNumber);
+            //   }
+            //   else {
+            //       $scope.cardType = "";
+            //   }
+            
+          //Now see if the card is validated
+          $scope.validateCard();
+      }
+
+      $scope.validateDate = function ()
+      {
+          //Concatante the giftcard number together
+          var input1 = document.getElementById("clique_input_creditcardnumber1");
+          var input2 = document.getElementById("clique_input_creditcardnumber2");
+          var input3 = document.getElementById("clique_input_creditcardnumber3");
+          var input4 = document.getElementById("clique_input_creditcardnumber4");
+
+          //concatante the values, using dashes so they wont add together, and stripe supports
+          var cardNumber = input1.value + "-" + input2.value + "-" + input3.value+ "-" + input4.value
+
           $scope.cardValidated = Stripe.card.validateCardNumber(cardNumber);
+      }
+
+      $scope.validateCard = function()
+      {
+          if($scope.numberValidated && $scope.dateValidated && $scope.cvcValidated)
+          {
+              $scope.cardValidated = true;
+
+              //Also display the card type above
+              $scope.cardType = Stripe.card.cardType(cardNumber);
+          }
+          else
+          {
+              $scope.cardValidated = false;
+              $scope.cardType = "";
+          }
       }
 
 

@@ -97,9 +97,10 @@
     <input type="date" id="clique_date_selection" class = "createGiftCardWidth center roundWhiteBorder" name="clique_date_selection" ng-model="gc.date" min-date="minDate"
     show-weeks="true" class="well well-lg" required></input>
 
-    {{cardValidated}}
+    <!-- Our card type -->
+    <h3 class = "center heart">{{cardType}}</h3>
     <!--Pay by card-->
-    <div id="clique_payment_card" class="roundWhiteBorder createGiftCardWidth">
+    <div id="clique_payment_card" ng-class = "{'roundWhiteBorder': true, 'createGiftCardWidth': true, 'dangerField': !cardValidated}">
       <!-- Inner Container -->
       <div id="creditcardnumbercontainer" ng-class = "{'paymentcontainer': true, 'dangerField': !cardValidated}">
         <!-- Credit Card Logo Img -->
@@ -115,7 +116,7 @@
       <!-- lower box that within same box but differnet background -->
       <div id="creditcardinfo" class="paymentcontainer filledIn">
         <!-- Date input for credit card -->
-        <input type="text" name="clique_input_expiry_m" id="clique_input_expiry_m" class="profont expiry credit_card_expiry" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()">
+        <input type="text" name="clique_input_expiry_m" id="clique_input_expiry_m" ng-class = "{'profont expiry credit_card_expiry': true, 'dangerField': !cardValidated}" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()">
         <input type="text" name="clique_input_expiry_y" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()">
         <!-- CVV for Credit Card -->
         <!-- TODO: Come back and split up the month and year -->

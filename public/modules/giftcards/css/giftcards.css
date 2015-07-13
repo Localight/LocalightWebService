@@ -865,7 +865,8 @@ label.inputlabel {
 }
 
 .dangerField {
-    border: 1px solid #df5241 !important;
+    border: 2px solid #df5241 ;
+    border-radius: 7px;
 }
 
 textarea {
