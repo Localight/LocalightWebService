@@ -863,6 +863,11 @@ label.inputlabel {
   top: 0.35em;
 }
 
+.creditCardIcon.ng-hide {
+    display: block !important;
+    visibility: hidden;
+}
+
 textarea {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

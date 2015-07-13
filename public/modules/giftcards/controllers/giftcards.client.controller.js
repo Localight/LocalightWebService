@@ -364,7 +364,7 @@ angular.module('giftcards')
           //get the input
           var input1 = document.getElementById("clique_input_cvv");
 
-          $scope.cvcValidated = SStripe.card.validateCVC(input1.value);
+          $scope.cvcValidated = Stripe.card.validateCVC(input1.value);
 
           //Now see if the card is validated
           $scope.validateCard();
@@ -373,7 +373,7 @@ angular.module('giftcards')
       $scope.validateZip = function ()
       {
           //get the input
-          var input1 = document.getElementById("clique_input_cvv");
+          var input1 = document.getElementById("clique_input_zip");
 
           //Simply check if there are 5 digits
           if(input1.value.length > 4)
@@ -402,9 +402,6 @@ angular.module('giftcards')
               $scope.cardType = "";
           }
       }
-
-
-
 
 
     }
