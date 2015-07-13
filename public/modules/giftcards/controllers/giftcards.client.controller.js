@@ -12,7 +12,7 @@ angular.module('giftcards')
       Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
       //Keeping track of stripe verified fields
-      $scope.cardValidated = false;
+      $scope.cardValidated = true;
 
       $scope.authentication = Authentication;
 

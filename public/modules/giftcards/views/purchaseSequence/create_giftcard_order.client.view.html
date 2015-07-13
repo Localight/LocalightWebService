@@ -100,7 +100,7 @@
     <!--Pay by card-->
     <div id="clique_payment_card" class="roundWhiteBorder createGiftCardWidth">
       <!-- Inner Container -->
-      <div id="creditcardnumbercontainer" class="paymentcontainer">
+      <div id="creditcardnumbercontainer" ng-class = "{'paymentcontainer': true, 'dangerField': !cardValidated}">
         <!-- Credit Card Logo Img -->
         <img id="creditcardimg" ng-src="{{cardTypeImg}}">
         <!-- Credit Card Number Input -->
