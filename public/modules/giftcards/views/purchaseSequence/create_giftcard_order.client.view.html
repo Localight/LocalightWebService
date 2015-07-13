@@ -98,40 +98,40 @@
     show-weeks="true" class="well well-lg" required></input>
 
     <!--Pay by card-->
-    <div id="clique_payment_card" class="roundWhiteBorder createGiftCardWidth">
+    <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">
       <!-- Inner Container -->
-      <div id="creditcardnumbercontainer" class="paymentcontainer">
+      <div id="creditcardnumbercontainer" class = "paymentcontainer">
         <!-- Credit Card Logo Img -->
-        <img id="creditcardimg" ng-src="{{cardTypeImg}}">
+        <img class = "creditCardIcon" style = "float: left; margin-top: 10px; margin-left: 5px;" ng-src="{{cardIcons[cardIndex]}}">
         <!-- Credit Card Number Input -->
-        <input type="text" name="clique_input_creditcardnumber1" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number1" onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}">
-        <input type="text" name="clique_input_creditcardnumber2" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number2" onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}">
-        <input type="text" name="clique_input_creditcardnumber3" id="clique_input_creditcardnumber3" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number3" onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}">
-        <input type="text" name="clique_input_creditcardnumber4" id="clique_input_creditcardnumber4" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number4">
+        <input type="text" name="clique_input_creditcardnumber1" id="clique_input_creditcardnumber1" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number1" ng-keyup = "validateCardNumber()" onKeyDown="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}">
+        <input type="text" name="clique_input_creditcardnumber2" id="clique_input_creditcardnumber2" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number2" ng-keyup = "validateCardNumber()" onKeyDown="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}else if(document.getElementById('clique_input_creditcardnumber2').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber1').focus();}">
+        <input type="text" name="clique_input_creditcardnumber3" id="clique_input_creditcardnumber3" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number3" ng-keyup = "validateCardNumber()" onKeyDown="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}else if(document.getElementById('clique_input_creditcardnumber3').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber2').focus();}">
+        <input type="text" name="clique_input_creditcardnumber4" id="clique_input_creditcardnumber4" class="profont credit_card_number" placeholder="XXXX" size="4" maxlength="4" ng-minlength="4" pattern="\d*" ng-model="cc.number4" ng-keyup = "validateCardNumber()" onKeyDown="if(document.getElementById('clique_input_creditcardnumber4').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber3').focus();}">
         <!-- Checkmark box to the left -->
-        <div class="checkmark"></div>
+        <img class = "creditCardIcon" style = "float: right; margin-top: 4px; margin-right: 5px;" src = "/modules/giftcards/img/checkmark-blk.png" ng-show = "numberValidated">
       </div>
       <!-- lower box that within same box but differnet background -->
       <div id="creditcardinfo" class="paymentcontainer filledIn">
         <!-- Date input for credit card -->
-        <input type="text" name="clique_input_expiry_m" id="clique_input_expiry_m" class="profont expiry credit_card_expiry" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()">
-        <input type="text" name="clique_input_expiry_y" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()">
+        <input type="text" name="clique_input_expiry_m" id="clique_input_expiry_m" class = 'profont expiry credit_card_expiry' ng-keyup = "validateDate()" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()">
+        <input type="text" name="clique_input_expiry_y" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" ng-keyup = "validateDate()" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()">
         <!-- CVV for Credit Card -->
         <!-- TODO: Come back and split up the month and year -->
-        <input type="text" name="clique_input_cvv" id="clique_input_cvv" class="profont expiry credit_card_cvc" placeholder="CVC" maxlength="3" ng-minlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()">
+        <input type="text" name="clique_input_cvv" id="clique_input_cvv" class="profont expiry credit_card_cvc" ng-keyup = "validateCVC()" placeholder="CVC" maxlength="3" ng-minlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()">
         <!-- Zip for credit card -->
-        <input type="text" name="clique_input_zip" id="clique_input_zip" numbers-only="numbers-only" class="profont expiry number" placeholder="ZIP" maxlength="5" ng-minlength="5" size="5" pattern="\d*" ng-model="formData.ZIPcode" ng-focus="expiryFocus()">
-        <!-- Second checkbox -->
-        <div class="checkmark"></div>
+        <input type="text" name="clique_input_zip" id="clique_input_zip" numbers-only="numbers-only" ng-keyup = "validateZip()" class="profont expiry number" placeholder="ZIP" maxlength="5" ng-minlength="5" size="5" pattern="\d*" ng-model="formData.ZIPcode" ng-focus="expiryFocus()">
+        <!-- Checkmark box to the left -->
+        <img class = "creditCardIcon" style = "float: right; margin-top: 4px; margin-right: 5px;" src = "/modules/giftcards/img/checkmark-wht.png" ng-show = "dateValidated && cvcValidated && zipValidated">
       </div>
     </div>
 
-    <div data-ng-hide="(giftcardForm.$valid && gc.amount && gc.occasion)" class="text-danger form-incomplete createGiftCardWidth">
+    <div data-ng-hide="(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" class="text-danger form-incomplete createGiftCardWidth">
       <strong>Please complete all information</strong>
     </div>
     <div class="createGiftCardWidth">
       <button class="proceed_button"
-          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion)" ng-click="setShowPage();">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" ng-click="setShowPage();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>

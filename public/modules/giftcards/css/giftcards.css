@@ -617,13 +617,6 @@ label.inputlabel {
   max-width: 70%;
 }
 
-#creditcardimg {
-  width: 10%;
-  max-width: 25px;
-  position: relative;
-  top: 0.35em;
-}
-
 #clique_input_expiry {
   width: 40%; /* 9/18 = 0.5 */
 }
@@ -862,6 +855,17 @@ label.inputlabel {
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
+}
+
+.creditCardIcon {
+  width: 12%;
+  max-width: 40px;
+  top: 0.35em;
+}
+
+.creditCardIcon.ng-hide {
+    display: block !important;
+    visibility: hidden;
 }
 
 textarea {

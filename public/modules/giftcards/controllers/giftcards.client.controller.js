@@ -8,6 +8,16 @@ angular.module('giftcards')
       //Switch overlay off
       document.getElementById('darkerOverlay').style.display = "none";
 
+      //Setting our stripe key
+      Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
+
+      //Keeping track of stripe verified fields
+      $scope.cardIndex = 0;
+      $scope.cardValidated = false;
+      $scope.numberValidated = false;
+      $scope.dateValidated = false;
+      $scope.cvcValidated = false;
+      $scope.zipValidated = false;
 
       $scope.authentication = Authentication;
 
@@ -279,5 +289,120 @@ angular.module('giftcards')
           }
           f.value=tel;
       }
+
+
+
+      //Stripe icons for cards
+      //Default, Visa, Mastercard, Amex, Discover
+      $scope.cardIcons =
+      [
+          "/modules/giftcards/img/cc-basic-blk.png",
+          "/modules/giftcards/img/cc-visa-blk.png",
+          "/modules/giftcards/img/cc-mastercard-blk.png",
+          "/modules/giftcards/img/cc-amex-blk.png",
+          "/modules/giftcards/img/cc-discover-blk.png"
+      ]
+
+      //Stripe verification fileds
+      $scope.validateCardNumber = function ()
+      {
+          //Concatante the giftcard number together
+          var input1 = document.getElementById("clique_input_creditcardnumber1");
+          var input2 = document.getElementById("clique_input_creditcardnumber2");
+          var input3 = document.getElementById("clique_input_creditcardnumber3");
+          var input4 = document.getElementById("clique_input_creditcardnumber4");
+
+          //concatante the values, using dashes so they wont add together, and stripe supports
+          var cardNumber = input1.value + "-" + input2.value + "-" + input3.value+ "-" + input4.value;
+
+          $scope.numberValidated = Stripe.card.validateCardNumber(cardNumber);
+
+          //Also we should set what card type we have
+          var cardType = Stripe.card.cardType(cardNumber);
+
+          //Now set our array index for card type
+          if(cardType.indexOf("Visa") > -1)
+          {
+              $scope.cardIndex = 1;
+          }
+          else if(cardType.indexOf("MasterCard") > -1)
+          {
+              $scope.cardIndex = 2;
+          }
+          else if(cardType.indexOf("American Express") > -1)
+          {
+              $scope.cardIndex = 3;
+          }
+          else if(cardType.indexOf("Discover") > -1)
+          {
+              $scope.cardIndex = 4;
+          }
+          //It is unkown go back to default
+          else
+          {
+              $scope.cardIndex = 0;
+          }
+
+          //Now see if the card is validated
+          $scope.validateCard();
+      }
+
+      $scope.validateDate = function ()
+      {
+          //Concatante the giftcard number together
+          var input1 = document.getElementById("clique_input_expiry_m");
+          var input2 = document.getElementById("clique_input_expiry_y");
+
+          $scope.dateValidated = Stripe.card.validateExpiry(input1.value, input2.value);
+
+          //Now see if the card is validated
+          $scope.validateCard();
+      }
+
+      $scope.validateCVC = function ()
+      {
+          //get the input
+          var input1 = document.getElementById("clique_input_cvv");
+
+          $scope.cvcValidated = Stripe.card.validateCVC(input1.value);
+
+          //Now see if the card is validated
+          $scope.validateCard();
+      }
+
+      $scope.validateZip = function ()
+      {
+          //get the input
+          var input1 = document.getElementById("clique_input_zip");
+
+          //Simply check if there are 5 digits
+          if(input1.value.length > 4)
+          {
+              $scope.zipValidated = true;
+          }
+          else
+          {
+              $scope.zipValidated = false;
+          }
+
+          //Now see if the card is validated
+          $scope.validateCard();
+      }
+
+      $scope.validateCard = function()
+      {
+          if($scope.numberValidated && $scope.dateValidated
+              && $scope.cvcValidated && $scope.zipValidated)
+          {
+              $scope.cardValidated = true;
+          }
+          else
+          {
+              $scope.cardValidated = false;
+              $scope.cardType = "";
+          }
+      }
+
+
     }
   ]);
