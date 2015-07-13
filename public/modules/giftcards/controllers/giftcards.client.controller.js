@@ -13,8 +13,8 @@ angular.module('giftcards')
 
       //Keeping track of stripe verified fields
       $scope.cardIndex = 0;
-      $scope.cardValidated = true;
-      $scope.numberValidated = true;
+      $scope.cardValidated = false;
+      $scope.numberValidated = false;
 
       $scope.authentication = Authentication;
 
