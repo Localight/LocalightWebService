@@ -8,6 +8,8 @@ angular.module('giftcards')
       //Switch overlay off
       document.getElementById('darkerOverlay').style.display = "none";
 
+      //Setting our stripe key
+      Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
       $scope.authentication = Authentication;
 
@@ -279,5 +281,21 @@ angular.module('giftcards')
           }
           f.value=tel;
       }
+
+
+
+
+      //Stripe verification fileds
+      $scope.validateCardNumber = function (input)
+      {
+          //Concatante the giftcard number together
+          var input1 = document.getElementById(clique_input_creditcardnumber1);
+          Stripe.card.validateCardNumber(input.value);
+      }
+
+
+
+
+
     }
   ]);
