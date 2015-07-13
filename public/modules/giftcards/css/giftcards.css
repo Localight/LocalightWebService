@@ -864,11 +864,6 @@ label.inputlabel {
     transform: rotate(180deg);
 }
 
-.dangerField {
-    border: 2px solid #df5241 ;
-    border-radius: 7px;
-}
-
 textarea {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
