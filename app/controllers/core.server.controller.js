@@ -10,8 +10,9 @@
 // });
 // this gets called everytime someone requests the website i think.
 exports.index = function(req, res) {
-	res.render('index', {
+	res.render( 'index',
+	{
 		user: req.user || null,
 		request: req
-	});
+	}  );
 };

@@ -89,10 +89,12 @@ exports.twilioWebHookLogin = function(req, res, next) {
                   message: err
                });
             } else {
-               return res.redirect({
-                  user: req.user || null,
-                  request: req
-               }, '#!/giftcards/create');
+               req.session.user = user;
+               return res.redirect('#!/giftcards/create');
+               // res.redirect({
+               //    user: req.user || null,
+               //    request: req
+               // }, '#!/giftcards/create');
                // // res.json(user0);
                // res.renderX('index', {// there has to be a way to force it to redirect to antoher page.
             	// 	user: req.user || null,
@@ -222,9 +224,12 @@ exports.twilioWebHook = function(req, res) {
  **/
  console.log('if you get here that means a post was made to this port. heres what knocked:'+req.body);
    if (req.body.Body.toLowerCase().trim() === 'gift') {
+
       User.findOne({
          'username': req.body.From.slice(2, 12)//'mobileNumber': req.body.From.slice(2, 12)
       }, function(err, user) {
+
+
          // In case of any error return
          if (err) {
             console.log('the error from database' + err);
@@ -300,9 +305,10 @@ exports.twilioWebHook = function(req, res) {
                   console.log('got in the user save part.');
                   anotherUser.textToken = token;
                   anotherUser.textTokenExpires = Date.now() + 3600000;
+
                   stripe.customers.create().then(function handler(response) {
                      anotherUser.stripeCustomerToken = response.id;
-                     anotherUser.save(function(err) {
+                     return anotherUser.save(function(err) {
                         done(err, token, anotherUser);
                      });
                   }).catch(function errHandler(err) {
