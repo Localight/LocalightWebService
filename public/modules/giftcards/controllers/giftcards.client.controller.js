@@ -13,6 +13,9 @@ angular.module('giftcards')
           console.log($scope.user);
       });
 
+      //Get our session token cookie
+      $scope.sessionToken = $stateParams.token;
+
       $scope.authentication = Authentication;
 
       $scope.gc = new Giftcards();
