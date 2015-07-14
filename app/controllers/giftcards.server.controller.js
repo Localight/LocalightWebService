@@ -63,6 +63,11 @@ exports.spendAGiftcard = function(req, res) {
 
    // find the giftcard in the req.
    var giftcard = req.giftcard;
+   // TODO: change this around to locate the giftcard it needs based on the id you get back.
+   // TODO: subtract the about from the giftcard that is needed.
+   // TODO: then save giftcard again.
+   // TODO: leave space for the subledger call somewhere.
+   // TODO: leave room for anything else that's suppose to happen.
    // extend the ability to update the giftcard.
    giftcard = _.extend(giftcard, req.body);
    // I need two things, a value and another UserID(merchant)

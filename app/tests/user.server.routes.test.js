@@ -1,4 +1,4 @@
-<!-- 'use strict';
+'use strict';
 
 var should = require('should'),
    request = require('supertest'),
@@ -133,4 +133,3 @@ describe('User-Auth Tests', function() {
    // }); // end after each block
 
 // }); // end describe block for user stripe tests
- -->

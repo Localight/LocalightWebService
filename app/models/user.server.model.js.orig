@@ -18,7 +18,10 @@ var validateLocalStrategyProperty = function(property) {
  * A Validation function for local strategy password
  */
 var validateLocalStrategyPassword = function(password) {
+<<<<<<< HEAD
    console.log('the value of password as its passed to the function:'+password);
+=======
+>>>>>>> 1fd7032691de2ed5408cba82d49924ea201db268
    return (this.provider !== 'local' || (password && password.length > 6));
 };
 
@@ -136,7 +139,11 @@ var UserSchema = new Schema({
    password: {
       type: String,
       default: '',
+<<<<<<< HEAD
       validate: [validateLocalStrategyPassword, 'Password should be longer']
+=======
+      	validate: [validateLocalStrategyPassword, 'Password should be longer']
+>>>>>>> 1fd7032691de2ed5408cba82d49924ea201db268
    },
    salt: {
       type: String

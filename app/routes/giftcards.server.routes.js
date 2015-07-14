@@ -12,7 +12,7 @@ module.exports = function(app) {
 	app.route('/giftcards')
 		.get(users.requiresLogin, giftcards.list)//
 		.post(users.requiresLogin, giftcards.create);
-	app.route('/giftcards/:giftcardId')
+	app.route('/giftcards/:giftcardId/:amount')
 		.get(users.requiresLogin, giftcards.hasAuthorization, giftcards.read)
 		.put(users.requiresLogin, giftcards.hasAuthorization, giftcards.spendAGiftcard)
 		.delete(users.requiresLogin, giftcards.hasAuthorization, giftcards.delete);

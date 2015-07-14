@@ -1,4 +1,4 @@
-<!-- 'use strict';
+ 'use strict';
 /**
  * Module dependencies
  */
@@ -55,4 +55,3 @@ describe('User-Service Unit Test: ', function() {
       done();
    });
 }); //End Main Describe Block
- -->
