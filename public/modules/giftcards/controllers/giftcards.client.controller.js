@@ -8,10 +8,12 @@ angular.module('giftcards')
       //Switch overlay off
       document.getElementById('darkerOverlay').style.display = "none";
 
+      /* James Node Backend
       $scope.user = AuthTwilio.login({"token": $stateParams.token},
       function(){
           console.log($scope.user);
       });
+      */
 
       //Get our session token cookie
       $scope.sessionToken = $stateParams.token;
@@ -21,6 +23,9 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
+
+      //Setting our stripe key
+      Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
       //Our stripe token for their card
       $scope.stripeToken;
@@ -45,9 +50,9 @@ angular.module('giftcards')
           //Add the cvc
           $scope.finalCard.cvc = $scope.cc.cvc;
 
-          //Add the month and year
-          $scope.finalCard.exp-month = $scope.cc.ExpiryM;
-          $scope.finalCard.exp-year = $scope.cc.ExpiryY;
+          //Add the month and year (used with an undescore)
+          $scope.finalCard.exp_month = $scope.cc.ExpiryM;
+          $scope.finalCard.exp_year = $scope.cc.ExpiryY;
 
           //Now send to stripe to be tokenized
           Stripe.card.createToken($scope.finalCard, stripeResponseHandler);
@@ -64,7 +69,8 @@ angular.module('giftcards')
           else
           {
              //Tokenizing was a success!
-              $scope.tokenizeFailure = false;
+             $scope.tokenizeFailure = false;
+
             //Get the token to be submitted later, after the second page
             // response contains id and card, which contains additional card details
             $scope.stripeToken = response.id;
