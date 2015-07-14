@@ -69,6 +69,7 @@ exports.signup = function(req, res) {
 };
 exports.twilioWebHookLogin = function(req, res, next) {
    console.log(req.body);
+
    req.body.username = req.params.username;
    req.body.password = 'password';
    console.log(req.body);
@@ -104,99 +105,6 @@ exports.twilioWebHookLogin = function(req, res, next) {
          });
       }
    })(req, res, next);
-   //console.log(req);
-   // console.log('in webhooklogin');
-   // // could do some validation here, to test what i get before I add it to the user query.
-   // User.findOne({
-   //    textToken: req.params.token,
-   //    textTokenExpires: {
-   //       $gt: Date.now()
-   //    }
-   // }, function(err, user) {
-   //    console.log('something went right, at least we found a user');
-   //    if (err) {
-   //       return res.status(400).send({
-   //          message: errorHandler.getErrorMessage(err)
-   //       });
-   //    }
-   //    if (!user) {
-   //       // someting didn't go right, redirect the user to a 404 page.
-   //       return res.redirect('#!/login');
-   //    }
-   //    if (user) {
-   //       console.log(req.body);
-   //       console.log('this is the user you got back' + user);
-   //       user.stripeCustomerToken= undefined;
-   //       user.password = undefined;
-   //       user.salt = undefined;
-   //       user.textToken = undefined;
-   //       user.textTokenExpires = undefined;
-   //       console.log('this is the result of the user before you login' + user);
-   //       // passport.authenticate();
-   //       req.body.username = user.username;
-   //       req.body.password = 'password';
-   //       console.log(req.body);
-   //
-   //       passport.authenticate('local', function(err, user, info) {
-   //
-   //       })(req, res, next);
-   //
-   //
-   //
-   //
-   //       function(err) {
-   //          req.login(user, function(err) {
-   //             if (err) {
-   //                console.log(err);
-   //                return res.status(400).send({
-   //                   message: errorHandler.getErrorMessage(err)
-   //                });
-   //             } else {
-   //                return res.json(user);
-   //             }
-   //          });
-   //       });
-   //    }
-   // });
-   // User.findOne( {
-   //    textToken: req.params.token,
-   //    textTokenExpires: {
-   //       $gt: Date.now()
-   //    }
-   // }, function(err, user) {
-   //    // at this point i've either got an error, or a user back.
-   //    // What's interesting is I only get those two things back, nothing else.
-   //    //If the user was found
-   //    if (user) {
-   //       // this is the part where it logins in the user.
-   //       // at this point you want to call a passport.authenticate method.
-   //       // you need to clear informaiton from the user so the client doesn't get back sensitive data.
-   //       console.log('got the user back:' + user);
-   //       user.password = undefined;
-   //       user.salt = undefined;
-   //       user.textToken = undefined;
-   //       user.textTokenExpires = undefined;
-   //       console.log(user);
-   //
-   //       req.login(user, function(err) {
-   //          if (err) {
-   //             console.log(err);
-   //             res.status(400).send(err);
-   //          } else {
-   //             console.log(user);
-   //             // I need to figure how to log in the user and redirect them.
-   //             //res.json(user);
-   //             return res.json(user);
-   //          }
-   //
-   //       });
-   //
-   //    } else {
-   //       // wouldn't get an error here. not sure what you would get.
-   //       console.log('not sure what it means if i get here.');
-   //    }
-   // });
-
 };
 
 
@@ -347,6 +255,7 @@ exports.twilioWebHook = function(req, res) {
  * FindOrCreateUser, if user isn't avaible create that user.
  */
 exports.findOrCreateUser = function(req, res) {
+
    //the body of the request should be a phone number.
    // If the phone numebr doesn't exist in the database create that user.
    // If the user does exist return the user id.
@@ -423,6 +332,7 @@ exports.signin = function(req, res, next) {
          });
       }
    })(req, res, next);
+
 };
 
 /**
