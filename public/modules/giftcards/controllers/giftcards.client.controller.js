@@ -54,6 +54,9 @@ angular.module('giftcards')
           $scope.finalCard.exp_month = $scope.cc.ExpiryM;
           $scope.finalCard.exp_year = $scope.cc.ExpiryY;
 
+
+          //Somewhere messes up after here to switch pages
+
           //Now send to stripe to be tokenized
           Stripe.card.createToken($scope.finalCard, stripeResponseHandler);
       };
@@ -64,7 +67,6 @@ angular.module('giftcards')
           {
               //Inform the user
               $scope.tokenizeFailure = true;
-
           }
           else
           {
@@ -100,7 +102,6 @@ angular.module('giftcards')
 
       $scope.priceSelectionFlag = true;
       $scope.showPageFlag = true;
-
       $scope.flipCardFlag = false;
 
       $scope.flipCard = function() {
