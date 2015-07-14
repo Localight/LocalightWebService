@@ -8,7 +8,7 @@
       <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
 
       <!-- To, remove ng click to fix functionality -->
-      <div id="clique_to" class = "currentInput" ng-class="{currentInput : showBackgroundFlag}">
+      <div id="clique_to" class = "currentInput" ng-class="{currentInput : showBackgroundFlag}" my-touchstart="setActiveField('clique_to');">
         <label class="inputlabel" for="giftRecipientName">To</label>
         <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
       </div>
