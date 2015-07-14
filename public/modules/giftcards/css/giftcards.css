@@ -605,7 +605,7 @@ label.inputlabel {
 }
 
 .paymentcontainer.filledIn input {
-  color: white;
+  color: black;
 }
 
 .paymentcontainer input {
