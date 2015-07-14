@@ -21,9 +21,60 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
-      // flag to show other section.
-      $scope.setShowPage = function() {
-        $scope.showPageFlag = !$scope.showPageFlag;
+
+      //Our stripe token for their card
+      $scope.stripeToken;
+      $scope.tokenizing = false;
+      $scope.tokenizeFailure = false;
+
+
+      // finish the form, see if anything else is needed
+      $scope.tokenizeInfo = function()
+      {
+          //disable the submit button
+          $scope.tokenizing = true;
+
+          //Collect the credit card form info
+          $scope.finalCard = {};
+
+          //First concatanate the number, use dashes to keep things from adding
+          var cardNumber = $scope.cc.number1 + "-" +  $scope.cc.number2 + "-" + $scope.cc.number3 + "-" + $scope.cc.number4;
+          //Add card number to our finalCard
+          $scope.finalCard.number = cardNumber;
+
+          //Add the cvc
+          $scope.finalCard.cvc = $scope.cc.cvc;
+
+          //Add the month and year
+          $scope.finalCard.exp-month = $scope.cc.ExpiryM;
+          $scope.finalCard.exp-year = $scope.cc.ExpiryY;
+
+          //Now send to stripe to be tokenized
+          Stripe.card.createToken($scope.finalCard, stripeResponseHandler);
+      };
+
+      function stripeResponseHandler(status, response)
+      {
+          if (response.error)
+          {
+              //Inform the user
+              $scope.tokenizeFailure = true;
+
+          }
+          else
+          {
+             //Tokenizing was a success!
+              $scope.tokenizeFailure = false;
+            //Get the token to be submitted later, after the second page
+            // response contains id and card, which contains additional card details
+            $scope.stripeToken = response.id;
+
+            //Show the next page
+            $scope.showPageFlag = !$scope.showPageFlag;
+          }
+
+          //We are no longer tokenizing
+          $scope.tokenizing = false;
       };
 
       $scope.logGC = function() {
