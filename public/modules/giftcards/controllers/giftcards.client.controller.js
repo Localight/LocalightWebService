@@ -54,19 +54,17 @@ angular.module('giftcards')
           $scope.finalCard.exp_month = $scope.cc.ExpiryM;
           $scope.finalCard.exp_year = $scope.cc.ExpiryY;
 
-
-          //Somewhere messes up after here to switch pages
-
           //Now send to stripe to be tokenized
-          Stripe.card.createToken($scope.finalCard, stripeResponseHandler);
+          Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
       };
 
-      function stripeResponseHandler(status, response)
+      $scope.stripeResponseHandler = function (status, response)
       {
           if (response.error)
           {
               //Inform the user
               $scope.tokenizeFailure = true;
+
           }
           else
           {
@@ -81,8 +79,15 @@ angular.module('giftcards')
             $scope.showPageFlag = !$scope.showPageFlag;
           }
 
+          //Force the change to refresh, we need to do this because I
+          //guess response scope is a different scope and has to be
+          //forced or interacted with
+          $scope.$apply();
+
+
           //We are no longer tokenizing
           $scope.tokenizing = false;
+
       };
 
       $scope.logGC = function() {
