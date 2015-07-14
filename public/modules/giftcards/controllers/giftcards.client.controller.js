@@ -35,11 +35,34 @@ angular.module('giftcards')
 
       $scope.activeField = null;
       $scope.setActiveField = function(fieldId) {
+
         if($scope.activeField != null){
             $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
         }
-        $scope.activeField = fieldId;
-        $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
+        
+        //Check if it is the occasion wrapper, if it is, we need to turn white into transparent
+        if(fieldId.indexOf("clique_occasion_wrapper") > -1 && $scope.activeField != null)
+        {
+            //it is occasion wrapper handle here
+            //Check if the active field is already occasion wrapper
+            if($scope.activeField.indexOf(fieldId) > -1)
+            {
+                //make the occasion transparent again
+                $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
+                $scope.activeField = null;
+            }
+            else
+            {
+                //make the occasion white
+                $scope.activeField = fieldId;
+                $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
+            }
+        }
+        else
+        {
+            $scope.activeField = fieldId;
+            $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
+        }
       };
 
       //Flags for various things.
