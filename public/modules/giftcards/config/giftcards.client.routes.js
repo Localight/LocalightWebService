@@ -35,7 +35,7 @@ angular.module('giftcards').config(['$stateProvider',
 			templateUrl: 'modules/giftcards/views/list-giftcards.client.view.html'
 		}).
 		state('createGiftcard', {
-			url: '/giftcards/create',
+			url: '/giftcards/create/:token',
 			templateUrl: 'modules/giftcards/views/purchaseSequence/create_giftcard_order.client.view.html'
 		}).
 		state('viewGiftcard', {

@@ -1,9 +1,9 @@
 'use strict';
 // Giftcards controller
 angular.module('giftcards')
-  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'processPaymentService', '$log', '$q',
+  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'AuthTwilio', 'processPaymentService', '$log', '$q',
     'OccasionService',
-    function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, processPaymentService, $log, $q, OccasionService) {
+    function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, AuthTwilio, processPaymentService, $log, $q, OccasionService) {
 
       //Switch overlay off
       document.getElementById('darkerOverlay').style.display = "none";
@@ -19,14 +19,86 @@ angular.module('giftcards')
       $scope.cvcValidated = false;
       $scope.zipValidated = false;
 
+      /* James Node Backend
+      $scope.user = AuthTwilio.login({"token": $stateParams.token},
+      function(){
+          console.log($scope.user);
+      });
+      */
+
+      //Get our session token cookie
+      $scope.sessionToken = $stateParams.token;
+
       $scope.authentication = Authentication;
 
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
-      // flag to show other section.
-      $scope.setShowPage = function() {
-        $scope.showPageFlag = !$scope.showPageFlag;
+
+      //Setting our stripe key
+      Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
+
+      //Our stripe token for their card
+      $scope.stripeToken;
+      $scope.tokenizing = false;
+      $scope.tokenizeFailure = false;
+
+
+      // finish the form, see if anything else is needed
+      $scope.tokenizeInfo = function()
+      {
+          //disable the submit button
+          $scope.tokenizing = true;
+
+          //Collect the credit card form info
+          $scope.finalCard = {};
+
+          //First concatanate the number, use dashes to keep things from adding
+          var cardNumber = $scope.cc.number1 + "-" +  $scope.cc.number2 + "-" + $scope.cc.number3 + "-" + $scope.cc.number4;
+          //Add card number to our finalCard
+          $scope.finalCard.number = cardNumber;
+
+          //Add the cvc
+          $scope.finalCard.cvc = $scope.cc.cvc;
+
+          //Add the month and year (used with an undescore)
+          $scope.finalCard.exp_month = $scope.cc.ExpiryM;
+          $scope.finalCard.exp_year = $scope.cc.ExpiryY;
+
+          //Now send to stripe to be tokenized
+          Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
+      };
+
+      $scope.stripeResponseHandler = function (status, response)
+      {
+          if (response.error)
+          {
+              //Inform the user
+              $scope.tokenizeFailure = true;
+
+          }
+          else
+          {
+             //Tokenizing was a success!
+             $scope.tokenizeFailure = false;
+
+            //Get the token to be submitted later, after the second page
+            // response contains id and card, which contains additional card details
+            $scope.stripeToken = response.id;
+
+            //Show the next page
+            $scope.showPageFlag = !$scope.showPageFlag;
+          }
+
+          //Force the change to refresh, we need to do this because I
+          //guess response scope is a different scope and has to be
+          //forced or interacted with
+          $scope.$apply();
+
+
+          //We are no longer tokenizing
+          $scope.tokenizing = false;
+
       };
 
       $scope.logGC = function() {
@@ -46,7 +118,6 @@ angular.module('giftcards')
 
       $scope.priceSelectionFlag = true;
       $scope.showPageFlag = true;
-
       $scope.flipCardFlag = false;
 
       $scope.flipCard = function() {

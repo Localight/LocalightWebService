@@ -114,14 +114,13 @@
       <!-- lower box that within same box but differnet background -->
       <div id="creditcardinfo" class="paymentcontainer filledIn">
         <!-- Date input for credit card -->
-        <input type="text" name="clique_input_expiry_m" id="clique_input_expiry_m" class = 'profont expiry credit_card_expiry' ng-keyup = "validateDate()" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="formData.ExpiryM" ng-focus="expiryFocus()">
-        <input type="text" name="clique_input_expiry_y" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" ng-keyup = "validateDate()" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="formData.ExpiryY" ng-focus="expiryFocus()">
+        <input type="text" name="clique_input_expiry_m" id="clique_input_expiry_m" class="profont expiry credit_card_expiry" ng-keyup = "validateDate()" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="cc.ExpiryM" ng-focus="expiryFocus()">
+        <input type="text" name="clique_input_expiry_y" id="clique_input_expiry_y" class="profont expiry credit_card_expiry" ng-keyup = "validateDate()" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="cc.ExpiryY" ng-focus="expiryFocus()">
         <!-- CVV for Credit Card -->
         <!-- TODO: Come back and split up the month and year -->
         <input type="text" name="clique_input_cvv" id="clique_input_cvv" class="profont expiry credit_card_cvc" ng-keyup = "validateCVC()" placeholder="CVC" maxlength="3" ng-minlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus()">
         <!-- Zip for credit card -->
-        <input type="text" name="clique_input_zip" id="clique_input_zip" numbers-only="numbers-only" ng-keyup = "validateZip()" class="profont expiry number" placeholder="ZIP" maxlength="5" ng-minlength="5" size="5" pattern="\d*" ng-model="formData.ZIPcode" ng-focus="expiryFocus()">
-        <!-- Checkmark box to the left -->
+        <input type="text" name="clique_input_zip" id="clique_input_zip" numbers-only="numbers-only" ng-keyup = "validateZip()" class="profont expiry number" placeholder="ZIP" maxlength="5" ng-minlength="5" size="5" pattern="\d*" ng-model="cc.ZIPcode" ng-focus="expiryFocus()">
         <img class = "creditCardIcon" style = "float: right; margin-top: 4px; margin-right: 5px;" src = "/modules/giftcards/img/checkmark-wht.png" ng-show = "dateValidated && cvcValidated && zipValidated">
       </div>
     </div>
@@ -129,9 +128,12 @@
     <div data-ng-hide="(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" class="text-danger form-incomplete createGiftCardWidth">
       <strong>Please complete all information</strong>
     </div>
+    <div data-ng-show="tokenizeFailure" class="text-danger form-incomplete createGiftCardWidth">
+      <strong>Oops, something went wrong! Please check your card information</strong>
+    </div>
     <div class="createGiftCardWidth">
       <button class="proceed_button"
-          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" ng-click="setShowPage();">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated && !tokenizing)" ng-click="tokenizeInfo();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
