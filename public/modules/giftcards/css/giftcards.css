@@ -63,6 +63,16 @@ input, textarea {
     display: none !important;
 }
 
+.waterfall {
+  -webkit-transition:all linear 0.25s;
+  transition:all linear 0.25s;
+  opacity: 1 !important;
+}
+
+.waterfall.ng-hide {
+    opacity: 0 !important;
+}
+
 .nextInput {
   opacity: 0.5;
   border-radius: 7px;

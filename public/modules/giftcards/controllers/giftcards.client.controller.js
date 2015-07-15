@@ -31,11 +31,7 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
-
-
-      //WaterFall Ux stuff
-      $scope.waterFall = 0;
-
+      
       //We need to set the primary and secondary input
       $scope.activeField = null;
       $scope.setActiveField = function(fieldId) {
