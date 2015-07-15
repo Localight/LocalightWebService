@@ -281,9 +281,9 @@ label.inputlabel {
 }
 
 .price {
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 5px;
-  color: white;
+  color: black;
   font-size: 1.6em;
   display: inline-block;
   padding: 3px 0 0; /* top, left/right, bottom */
@@ -311,11 +311,11 @@ label.inputlabel {
 }
 
 .rightarrow {
-  border-left: 0.8em solid white;
+  border-left: 0.8em solid black;
 }
 
 .leftarrow {
-  border-right: 0.8em solid white;
+  border-right: 0.8em solid black;
 }
 /* End Amount Selection */
 
