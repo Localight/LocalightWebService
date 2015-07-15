@@ -31,7 +31,7 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
-      
+
       //We need to set the primary and secondary input
       $scope.activeField = null;
       $scope.setActiveField = function(fieldId) {
@@ -83,6 +83,7 @@ angular.module('giftcards')
       {
           if (next >= $scope.secondaryIndex)
           {
+              $scope.secondaryIndex = next;
               $scope.secondaryField = $scope.inputFields[next];
           }
           $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.35)";
