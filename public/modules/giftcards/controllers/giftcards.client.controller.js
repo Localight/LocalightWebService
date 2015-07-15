@@ -13,7 +13,6 @@ angular.module('giftcards')
 
       //WaterFall Ux stuff
       $scope.waterFall = 0;
-      $scope.secondaryView = 0;
 
       //Keeping track of stripe verified fields
       $scope.cardIndex = 0;
@@ -109,8 +108,10 @@ angular.module('giftcards')
           console.log($scope.gc);
       }
 
+      //We need to set the primary and secondary input
       $scope.activeField = null;
-      $scope.setActiveField = function(fieldId) {
+      $scope.secondaryField = null;
+      $scope.setActiveField = function(fieldId, secondayId) {
 
         if($scope.activeField != null){
             $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
@@ -131,13 +132,17 @@ angular.module('giftcards')
             {
                 //make the occasion white
                 $scope.activeField = fieldId;
+                $scope.secondaryField = secondayId;
                 $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
+                $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.5)";
             }
         }
         else
         {
             $scope.activeField = fieldId;
+            $scope.secondaryField = secondayId;
             $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
+            $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.5)";
         }
       };
 
