@@ -8,13 +8,13 @@
       <img class="clique_logo" src="modules/giftcards/img/logo-local-gift-card-blk.png">
 
       <!-- To, remove ng click to fix functionality -->
-      <div id="clique_to" class = "currentInput" style = "margin-bottom: 10px;" my-touchstart="setActiveField('clique_to', 'clique_amt_selection');">
+      <div id="clique_to" class = "currentInput" style = "margin-bottom: 10px;" my-touchstart="setActiveField('clique_to');">
         <label class="inputlabel" for="giftRecipientName">To</label>
         <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
       </div>
 
       <!--Amount-->
-      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px" ng-show="priceSelectionFlag">
+      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px" ng-show="priceSelectionFlag" my-touchstart="setActiveField('clique_amt_selection');">
         <span class="leftarrow"></span>
         <div id="clique_amt_scrollwindow">
           <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price);">

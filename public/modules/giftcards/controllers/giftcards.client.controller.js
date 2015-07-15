@@ -38,8 +38,7 @@ angular.module('giftcards')
 
       //We need to set the primary and secondary input
       $scope.activeField = null;
-      $scope.secondaryField = null;
-      $scope.setActiveField = function(fieldId, secondayId) {
+      $scope.setActiveField = function(fieldId) {
 
         if($scope.activeField != null){
             $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
@@ -60,21 +59,34 @@ angular.module('giftcards')
             {
                 //make the occasion white
                 $scope.activeField = fieldId;
-                $scope.secondaryField = secondayId;
                 $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
-                $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.5)";
             }
         }
         else
         {
             $scope.activeField = fieldId;
-            $scope.secondaryField = secondayId;
             $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
-            $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.5)";
         }
       };
       //start the first field highlightd
-      $scope.setActiveField('clique_to', 'clique_amt_selection');
+      $scope.setActiveField('clique_to');
+
+      //Our secondary field
+      $scope.secondaryField = null;
+      $scope.secondaryIndex = 0;
+      $scope.inputFields = [
+          "clique_amt_selection",
+          "clique_from",
+          "clique_code",
+          "clique_occasion_wrapper",
+          "clique_date_selection",
+          "creditcardinfo"
+      ]
+      $scope.setSecondaryField(next)
+      {
+
+      }
+      //$window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.5)";
 
       //Flags for various things.
 

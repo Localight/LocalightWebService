@@ -59,6 +59,10 @@ input, textarea {
   opacity: 1 !important;
 }
 
+.currentInput.ng-hide {
+    display: none !important;
+}
+
 .nextInput {
   opacity: 0.5;
   border-radius: 7px;
