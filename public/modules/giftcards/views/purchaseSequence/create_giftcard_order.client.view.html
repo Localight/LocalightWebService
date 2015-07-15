@@ -16,13 +16,10 @@
       <!--Amount-->
       <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px;" ng-show="priceSelectionFlag" my-touchstart="setActiveField('clique_amt_selection');setSecondaryField(1);">
         <span class="leftarrow"></span>
-        <div id="clique_amt_scrollwindow" style = "overflow: hidden;">
-          <!-- To fix scroll bar from showing -->
-          <div style = "overflow-x: auto;">
-              <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price);">
-                <small>$</small>{{price}}
-              </span>
-          </div>
+        <div id="clique_amt_scrollwindow">
+          <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price);">
+            <small>$</small>{{price}}
+          </span>
         </div>
         <span class="rightarrow"></span>
       </div>
