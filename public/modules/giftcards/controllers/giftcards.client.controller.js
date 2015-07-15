@@ -115,9 +115,10 @@ angular.module('giftcards')
         //Check if it is the occasion wrapper, if it is, we need to turn white into transparent
         if(fieldId.indexOf("clique_occasion_wrapper") > -1)
         {
+            console.log("hi")
             //it is occasion wrapper handle here
             //Check if the active field is already occasion wrapper
-            if(!$scope.occasionSelectionFlag)
+            if($scope.occasionSelectionFlag)
             {
                 //make the occasion transparent again
                 $scope.activeField = fieldId;
