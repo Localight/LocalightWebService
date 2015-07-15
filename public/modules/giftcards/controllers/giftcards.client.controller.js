@@ -11,6 +11,10 @@ angular.module('giftcards')
       //Setting our stripe key
       Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
+      //WaterFall Ux stuff
+      $scope.waterFall = 0;
+      $scope.secondaryView = 0;
+
       //Keeping track of stripe verified fields
       $scope.cardIndex = 0;
       $scope.cardValidated = false;
