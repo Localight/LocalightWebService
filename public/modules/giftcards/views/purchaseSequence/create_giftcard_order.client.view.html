@@ -14,7 +14,7 @@
       </div>
 
       <!--Amount-->
-      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px" ng-show="priceSelectionFlag" my-touchstart="setActiveField('clique_amt_selection');">
+      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px" ng-show="priceSelectionFlag" my-touchstart="setActiveField('clique_amt_selection');setSecondaryField(1);">
         <span class="leftarrow"></span>
         <div id="clique_amt_scrollwindow">
           <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setAmount(price);">
@@ -29,7 +29,7 @@
     </div>
 
     <!--From, remove ng click to fix functionality -->
-    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}" my-touchstart="setActiveField('clique_from');">
+    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}" my-touchstart="setActiveField('clique_from');setSecondaryField(2);">
       <label for="From" class="inputlabel">From </label>
       <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" required>
     </div>
@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <div id="clique_code" class="marginBottom currentInput" my-touchstart="setActiveField('clique_code');">
+      <div id="clique_code" class="marginBottom currentInput" my-touchstart="setActiveField('clique_code');setSecondaryField(3);">
         <label for="Code" class="inputlabel">Code</label>
         <input type="text" name="clique_input_code" id="clique_input_code" class="profont rightColumn number"
         placeholder="XXXXX" maxlength="5" ng-minlength="5" pattern="\d*" data-formance_length=5
@@ -73,7 +73,7 @@
     <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInput">
       <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
         <ul>
-          <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)" my-touchstart="setActiveField('clique_occasion_wrapper');">
+          <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)" my-touchstart="setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
             <img ng-src="{{occasion.images.normal}}">{{occasion.alt}}
           </li>
         </ul>
@@ -95,7 +95,7 @@
 
     <!--Date picker -->
     <input type="date" id="clique_date_selection" class = "createGiftCardWidth center roundWhiteBorder currentInput" name="clique_date_selection" ng-model="gc.date" min-date="minDate"
-    show-weeks="true" class="well well-lg" my-touchstart="setActiveField('clique_date_selection');" required></input>
+    show-weeks="true" class="well well-lg" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);" required></input>
 
     <!--Pay by card-->
     <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">

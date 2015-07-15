@@ -82,11 +82,17 @@ angular.module('giftcards')
           "clique_date_selection",
           "creditcardinfo"
       ]
-      $scope.setSecondaryField(next)
-      {
 
+      $scope.setSecondaryField = function(next)
+      {
+          if (next >= $scope.secondaryIndex)
+          {
+              $scope.secondaryField = $scope.inputFields[next];
+          }
+          $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.35)";
       }
-      //$window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+      //set our secondary field to 0
+      $scope.setSecondaryField(0);
 
       //Flags for various things.
 
