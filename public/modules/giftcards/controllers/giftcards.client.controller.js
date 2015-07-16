@@ -8,9 +8,6 @@ angular.module('giftcards')
       //Switch overlay off
       document.getElementById('darkerOverlay').style.display = "none";
 
-      //Setting our stripe key
-      Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
-
       //Keeping track of stripe verified fields
       $scope.cardIndex = 0;
       $scope.cardValidated = false;
@@ -35,76 +32,7 @@ angular.module('giftcards')
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
 
-      //Setting our stripe key
-      Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
-
-      //Our stripe token for their card
-      $scope.stripeToken;
-      $scope.tokenizing = false;
-      $scope.tokenizeFailure = false;
-
-
-      // finish the form, see if anything else is needed
-      $scope.tokenizeInfo = function()
-      {
-          //disable the submit button
-          $scope.tokenizing = true;
-
-          //Collect the credit card form info
-          $scope.finalCard = {};
-
-          //First concatanate the number, use dashes to keep things from adding
-          var cardNumber = $scope.cc.number1 + "-" +  $scope.cc.number2 + "-" + $scope.cc.number3 + "-" + $scope.cc.number4;
-          //Add card number to our finalCard
-          $scope.finalCard.number = cardNumber;
-
-          //Add the cvc
-          $scope.finalCard.cvc = $scope.cc.cvc;
-
-          //Add the month and year (used with an undescore)
-          $scope.finalCard.exp_month = $scope.cc.ExpiryM;
-          $scope.finalCard.exp_year = $scope.cc.ExpiryY;
-
-          //Now send to stripe to be tokenized
-          Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
-      };
-
-      $scope.stripeResponseHandler = function (status, response)
-      {
-          if (response.error)
-          {
-              //Inform the user
-              $scope.tokenizeFailure = true;
-
-          }
-          else
-          {
-             //Tokenizing was a success!
-             $scope.tokenizeFailure = false;
-
-            //Get the token to be submitted later, after the second page
-            // response contains id and card, which contains additional card details
-            $scope.stripeToken = response.id;
-
-            //Show the next page
-            $scope.showPageFlag = !$scope.showPageFlag;
-          }
-
-          //Force the change to refresh, we need to do this because I
-          //guess response scope is a different scope and has to be
-          //forced or interacted with
-          $scope.$apply();
-
-
-          //We are no longer tokenizing
-          $scope.tokenizing = false;
-
-      };
-
-      $scope.logGC = function() {
-          console.log($scope.gc);
-      }
-
+      //We need to set the primary and secondary input
       $scope.activeField = null;
       $scope.setActiveField = function(fieldId) {
 
@@ -136,6 +64,32 @@ angular.module('giftcards')
             $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
         }
       };
+      //start the first field highlightd
+      $scope.setActiveField('clique_to');
+
+      //Our secondary field
+      $scope.secondaryField = null;
+      $scope.secondaryIndex = 0;
+      $scope.inputFields = [
+          "clique_amt_selection",
+          "clique_from",
+          "clique_code",
+          "clique_occasion_wrapper",
+          "clique_date_selection",
+          "creditcardinfo"
+      ]
+
+      $scope.setSecondaryField = function(next)
+      {
+          if (next >= $scope.secondaryIndex)
+          {
+              $scope.secondaryIndex = next;
+              $scope.secondaryField = $scope.inputFields[next];
+          }
+          $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.35)";
+      }
+      //set our secondary field to 0
+      $scope.setSecondaryField(0);
 
       //Flags for various things.
 
@@ -194,6 +148,8 @@ angular.module('giftcards')
         }
         //$scope.limitOccText(); // limit occasion text to 100 characters
       };
+
+
       /**********
        * Date
        **********/
@@ -315,36 +271,6 @@ angular.module('giftcards')
         });
       };
 
-      /*Moved into list gift card controller
-      // Find a list of Giftcards
-      $scope.find = function() {
-        //$scope.giftcards = Giftcards.query();
-
-        //FOr testing, hardcoding scope giftcards
-        $scope.giftcards =
-        [
-            {
-              to: "john",
-              amt: "100000000000",
-              mobileNumberOfRecipient: "5625555555",
-              merchant: "xxxxx",
-              from: 'username',
-              message: "hi",
-              districtNumber: 'number'
-            },
-            {
-                to: "john",
-                amt: "100000000000",
-                mobileNumberOfRecipient: "5625555555",
-                merchant: "xxxxx",
-                from: 'username',
-                message: "hi",
-                districtNumber: 'number'
-            }
-        ]
-    }
-    */
-
       // Find existing Giftcard
       $scope.findOne = function() {
         $scope.giftcard = Giftcards.get({
@@ -384,7 +310,7 @@ angular.module('giftcards')
           f.value=tel;
       }
 
-
+      //Credit card Verification
 
       //Stripe icons for cards
       //Default, Visa, Mastercard, Amex, Discover
@@ -497,6 +423,74 @@ angular.module('giftcards')
           }
       }
 
+      //STRIPE
 
-    }
+      //Setting our stripe key
+      Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
+
+      //Our stripe token for their card
+      $scope.stripeToken;
+      $scope.tokenizing = false;
+      $scope.tokenizeFailure = false;
+
+
+      // finish the form, see if anything else is needed
+      $scope.tokenizeInfo = function()
+      {
+          //disable the submit button
+          $scope.tokenizing = true;
+
+          //Collect the credit card form info
+          $scope.finalCard = {};
+
+          //First concatanate the number, use dashes to keep things from adding
+          var cardNumber = $scope.cc.number1 + "-" +  $scope.cc.number2 + "-" + $scope.cc.number3 + "-" + $scope.cc.number4;
+          //Add card number to our finalCard
+          $scope.finalCard.number = cardNumber;
+
+          //Add the cvc
+          $scope.finalCard.cvc = $scope.cc.cvc;
+
+          //Add the month and year (used with an undescore)
+          $scope.finalCard.exp_month = $scope.cc.ExpiryM;
+          $scope.finalCard.exp_year = $scope.cc.ExpiryY;
+
+          //Now send to stripe to be tokenized
+          Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
+      };
+
+      $scope.stripeResponseHandler = function (status, response)
+      {
+          if (response.error)
+          {
+              //Inform the user
+              $scope.tokenizeFailure = true;
+
+          }
+          else
+          {
+             //Tokenizing was a success!
+             $scope.tokenizeFailure = false;
+
+            //Get the token to be submitted later, after the second page
+            // response contains id and card, which contains additional card details
+            $scope.stripeToken = response.id;
+
+            //Show the next page
+            $scope.showPageFlag = !$scope.showPageFlag;
+          }
+
+          //Force the change to refresh, we need to do this because I
+          //guess response scope is a different scope and has to be
+          //forced or interacted with
+          $scope.$apply();
+
+
+          //We are no longer tokenizing
+          $scope.tokenizing = false;
+
+      };
+
+
+  }
   ]);

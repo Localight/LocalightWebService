@@ -59,6 +59,20 @@ input, textarea {
   opacity: 1 !important;
 }
 
+.currentInput.ng-hide {
+    display: none !important;
+}
+
+.waterfall {
+  -webkit-transition:all linear 0.25s;
+  transition:all linear 0.25s;
+  opacity: 1 !important;
+}
+
+.waterfall.ng-hide {
+    opacity: 0 !important;
+}
+
 .nextInput {
   opacity: 0.5;
   border-radius: 7px;
@@ -245,7 +259,7 @@ label.inputlabel {
 #clique_amt_selection {
   height: 45px !important;
   position: relative;
-  overflow: hidden; /* don't show scroll bar */
+   overflow: hidden; /* don't show scroll bar */
   text-align: center; /* horizontally center this scrollwindow on the page */
 }
 
@@ -253,8 +267,8 @@ label.inputlabel {
   width: 80%;
   max-width: 600px;
   display: inline-block;
-  overflow-x: scroll;
-  height: 10em; /* push scroll bar downwards out of field of view */
+   overflow-x: scroll;
+  height: 100000em; /* push scroll bar downwards out of field of view */
   white-space: nowrap; /* don't wrap the price spans */
 }
 
@@ -267,9 +281,9 @@ label.inputlabel {
 }
 
 .price {
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 5px;
-  color: white;
+  color: black;
   font-size: 1.6em;
   display: inline-block;
   padding: 3px 0 0; /* top, left/right, bottom */
@@ -297,11 +311,11 @@ label.inputlabel {
 }
 
 .rightarrow {
-  border-left: 0.8em solid white;
+  border-left: 0.8em solid black;
 }
 
 .leftarrow {
-  border-right: 0.8em solid white;
+  border-right: 0.8em solid black;
 }
 /* End Amount Selection */
 
