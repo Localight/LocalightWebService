@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/clique-test',
+	db: 'mongodb://tester:tester@ds059712.mongolab.com:59712/localismtest',
 	port: 3001,
 	app: {
 		title: 'Clique - Test Environment'

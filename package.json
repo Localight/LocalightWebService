@@ -7,11 +7,6 @@
     "node": "0.10.x",
     "npm": "1.4.x"
   },
-  "apidoc": {
-    "title": "Clique API",
-    "version": "1.0.0",
-    "description": "This is the Localism Local Giftcard"
-  },
   "scripts": {
     "start": "grunt",
     "test": "grunt test",
