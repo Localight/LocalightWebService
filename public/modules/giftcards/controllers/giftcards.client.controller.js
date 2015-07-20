@@ -16,6 +16,15 @@ angular.module('giftcards')
       $scope.cvcValidated = false;
       $scope.zipValidated = false;
 
+      //Todays date
+      $scope.today = function ()
+      {
+          //Create a date object
+          var d = new Date();
+
+          //return a date formatted string
+      }
+
       /* James Node Backend
       $scope.user = AuthTwilio.login({"token": $stateParams.token},
       function(){
