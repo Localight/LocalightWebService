@@ -127,6 +127,9 @@ angular.module('giftcards')
        * Code
        **********/
 
+       //Set hiding the card to false until we finish the code
+       $scope.hideCard = false;
+
        //Validate our code length
        $scope.codeValidate = function(id, event)
        {
@@ -143,6 +146,7 @@ angular.module('giftcards')
                //Check if we met our condition and our length is good
                if (!(cond && len <= max))
                {
+                   $scope.hideCard = true;
                    event.preventDefault();
                    return false;
                }
