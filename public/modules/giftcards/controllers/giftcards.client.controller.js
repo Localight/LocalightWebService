@@ -1,9 +1,10 @@
 'use strict';
 // Giftcards controller
 angular.module('giftcards')
-  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', 'Authentication', 'Giftcards', 'AuthTwilio', 'processPaymentService', '$log', '$q',
-    'OccasionService',
-    function($scope, $http, $stateParams, $location, $window, Authentication, Giftcards, AuthTwilio, processPaymentService, $log, $q, OccasionService) {
+  .controller('GiftcardsController', ['$scope', '$http', '$stateParams', '$location', '$window', '$timeout',
+  'Authentication', 'Giftcards', 'AuthTwilio', 'processPaymentService', '$log', '$q', 'OccasionService',
+    function($scope, $http, $stateParams, $location, $window, $timeout,
+        Authentication, Giftcards, AuthTwilio, processPaymentService, $log, $q, OccasionService) {
 
       //Switch overlay off
       document.getElementById('darkerOverlay').style.display = "none";
@@ -31,6 +32,12 @@ angular.module('giftcards')
       $scope.gc = new Giftcards();
 
       $scope.prices = [2, 5, 10, 25, 50, 75, 100];
+
+      //Function to scroll to the bottom of our page
+      $scope.scrollToBottom = function()
+      {
+          window.scrollTo(0,document.body.scrollHeight);
+      }
 
       //We need to set the primary and secondary input
       $scope.activeField = null;
@@ -87,9 +94,22 @@ angular.module('giftcards')
               $scope.secondaryField = $scope.inputFields[next];
           }
           $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.35)";
+          $scope.scrollToBottom();
       }
       //set our secondary field to 0
       $scope.setSecondaryField(0);
+
+      //Scroll to the botton when a field appears, this specifaically fixes the credit card not scrolling bug
+      $scope.$watch('giftcardForm.clique_date_selection.$valid', function(newValue, oldValue) {
+       if (newValue)
+       {
+           //Focus on the credit card number
+           $window.document.getElementById('clique_date_selection').blur();
+           //wait a tiny bit and then scroll
+           $timeout($scope.scrollToBottom, 100);
+       }
+    });
+
 
       //Flags for various things.
 

@@ -104,7 +104,7 @@
     </div>
 
     <!--Pay by card-->
-    <div class = "waterfall" ng-show="giftcardForm.clique_date_selection.$dirty && secondaryIndex > 3">
+    <div class = "waterfall" ng-show="giftcardForm.clique_date_selection.$dirty && giftcardForm.clique_date_selection.$valid && secondaryIndex > 4">
         <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">
           <!-- Inner Container -->
           <div id="creditcardnumbercontainer" class = "paymentcontainer">
