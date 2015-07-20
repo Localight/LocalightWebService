@@ -115,10 +115,17 @@ angular.module('giftcards')
 
       $scope.priceSelectionFlag = true;
       $scope.showPageFlag = true;
-      $scope.flipCardFlag = false;
 
       $scope.flipCard = function() {
-        $scope.flipCardFlag = false;
+        //$scope.flipCardFlag = true;
+
+        //Add the classes to the front and back
+        var frontCard = $window.document.getElementById("front");
+        var backCard = $window.document.getElementById("back");
+
+        frontCard.className = frontCard.className + " flipped";
+        backCard.className = backCard.className + " flipped";
+
       };
 
       $scope.setAmount = function(anAmount) {
