@@ -52,7 +52,7 @@ angular.module('giftcards')
         {
             //it is occasion wrapper handle here
             //Check if the active field is already occasion wrapper
-            if(!$scope.occasionSelectionFlag)
+            if($scope.occasionSelectionFlag)
             {
                 //make the occasion transparent again
                 $scope.activeField = fieldId;
