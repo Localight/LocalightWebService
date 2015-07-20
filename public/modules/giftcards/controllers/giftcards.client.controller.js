@@ -129,6 +129,8 @@ angular.module('giftcards')
 
        //Set hiding the card to false until we finish the code
        $scope.hideCard = false;
+       //Boolean if the code is at it's maximum value
+       $scope.codeMax = false;
 
        //Validate our code length
        $scope.codeValidate = function(id, event)
@@ -147,8 +149,13 @@ angular.module('giftcards')
                if(len >= 5)
                {
                    $scope.hideCard = true;
+                   $scope.codeMax = true;
                }
-               
+               else
+               {
+                   $scope.codeMax = false;
+               }
+
                if (!(cond && len <= max))
                {
                    event.preventDefault();
