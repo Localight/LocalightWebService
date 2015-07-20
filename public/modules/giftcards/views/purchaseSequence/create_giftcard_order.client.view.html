@@ -76,14 +76,14 @@
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInput">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
-              <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)" my-touchstart="setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
+              <li ng-repeat="occasion in occasions" my-touchstart="setOccasion(occasion)" my-touchend="setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
                 <img ng-src="{{occasion.images.normal}}">{{occasion.alt}}
               </li>
             </ul>
           </div>
 
           <div id="clique_occasion" ng-class="{currentInput : showBackgroundFlagFour}" ng-hide="occasionSelectionFlag">
-            <label for="clique_input_occasion" class="inputlabel" ng-click="setOccasionBack()" my-touchstart="setActiveField('clique_occasion');">
+            <label for="clique_input_occasion" class="inputlabel" my-touchstart="setOccasionBack()" my-touchend="setActiveField('clique_occasion');">
               <img ng-src="{{occasions.selectedIcon}}">
             </label>
 
