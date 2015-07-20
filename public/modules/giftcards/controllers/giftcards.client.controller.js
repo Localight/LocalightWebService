@@ -144,9 +144,13 @@ angular.module('giftcards')
                var cond = (46 < event.keyCode && event.keyCode < 58);
 
                //Check if we met our condition and our length is good
-               if (!(cond && len <= max))
+               if(len >= 5)
                {
                    $scope.hideCard = true;
+               }
+               
+               if (!(cond && len <= max))
+               {
                    event.preventDefault();
                    return false;
                }
