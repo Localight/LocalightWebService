@@ -103,7 +103,8 @@ angular.module('giftcards')
         var frontCard = $window.document.getElementById("front");
         var backCard = $window.document.getElementById("back");
 
-        //http://stackoverflow.com/questions/507138/how-do-i-add-a-class-to-a-given-element
+        frontCard.className = frontCard.className + " flipped";
+        backCard.className = backCard.className + " flipped";
 
       };
 
