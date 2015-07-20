@@ -57,14 +57,13 @@
         ng-model="gc.code" ng-change="getStoreName()" required>
       </div>
 
-      <div id="clique_code_message" class="hide">
+      <div id="clique_code_message" ng-show = "hideCard">
         <label class="inputlabel">
-          <!-- Invalid image url-->
-          <!--<img src=".modules/giftcards/img/at-icon-blk.png"-->
+          <img src="/modules/giftcards/img/at-icon-blk.png" >
         </label>
-        <div class="helveticaText rightColumn">
+        <div class="helveticaText rightColumn" style = "padding-top: 7px; font-size: 5vmin;">
           Good at
-          <span class="bold">{{storeName}}</span>
+          <span class="bold">{{getMerchantName()}}</span>
           <span class="italicMessage">and participating merchants</span>
         </div>
       </div>

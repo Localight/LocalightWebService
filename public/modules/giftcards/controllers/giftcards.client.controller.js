@@ -152,6 +152,17 @@ angular.module('giftcards')
                }
        }
 
+       //temporary function for getting a merchant name for a code
+       $scope.getMerchantName = function()
+       {
+           //get our code value here
+           var element = $window.document.getElementById('clique_input_code');
+           var code = element.value.toString();
+
+           //do stuff to return the correct name
+           return "Doly's Delectables"
+       }
+
 
       /**********
        * Occasion
