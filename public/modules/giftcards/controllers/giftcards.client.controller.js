@@ -123,6 +123,31 @@ angular.module('giftcards')
         return $scope.gc.amount === checkAmount; // boolean
       };
 
+      /**********
+       * Code
+       **********/
+
+       //Validate our code length
+       $scope.codeValidate = function(id, event)
+       {
+                //Grab our element
+               var element = $window.document.getElementById(id);
+               //get our element length
+               var len = element.value.toString().length + 1;
+               //get the max length we assigned to it
+               var max = element.maxLength;
+
+               //Our condition to check if it is a number
+               var cond = (46 < event.keyCode && event.keyCode < 58);
+
+               //Check if we met our condition and our length is good
+               if (!(cond && len <= max))
+               {
+                   event.preventDefault();
+                   return false;
+               }
+       }
+
 
       /**********
        * Occasion
