@@ -9,9 +9,11 @@
  */
 angular.module('angularLocalightApp')
   .controller('EnterAmountCtrl', function () {
+
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+    
   });

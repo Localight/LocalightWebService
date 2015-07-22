@@ -44,7 +44,7 @@ angular
         controller: 'MerchantsCtrl',
         controllerAs: 'merchants'
       })
-      .when('/enter-amount', {
+      .when('/merchants/:merchantId/amount', {
         templateUrl: 'views/enter-amount.html',
         controller: 'EnterAmountCtrl',
         controllerAs: 'enterAmount'
