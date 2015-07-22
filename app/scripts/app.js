@@ -54,7 +54,7 @@ angular
         controller: 'TiltScreenCtrl',
         controllerAs: 'tiltScreen'
       })
-      .when('/tricon', {
+      .when('/merchants/:merchantId/tricon', {
         templateUrl: 'views/tricon.html',
         controller: 'TriconCtrl',
         controllerAs: 'tricon'
