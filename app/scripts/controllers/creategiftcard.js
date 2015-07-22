@@ -232,6 +232,8 @@ angular.module('angularLocalightApp')
    **********/
   // import occasions object from OccasionService
   $scope.occasions = OccasionService;
+  //The occasion Id for our giftcard
+  $scope.occasionId = 0;
 
   // set default occasion icon to display
   $scope.occasions.selectedIcon = '../images/occasion-custom-icon-blk.png';
@@ -248,6 +250,8 @@ angular.module('angularLocalightApp')
       $scope.gc.occasion = occasion.text;
       $scope.gc.Icon = occasion.name;
       $scope.occasions.selectedIcon = occasion.images.selected;
+      //Also set our occasion ID for our giftcard
+      $scope.occasionId = occasion.images.iconId;
     }
     //$scope.limitOccText(); // limit occasion text to 100 characters
   };
@@ -641,7 +645,11 @@ angular.module('angularLocalightApp')
                   else {
                       //Create a giftcard
                       var newGiftcardJson = {
-                          
+                        "sessionToken" : $scope.sessionToken,
+                        "toId" : $scope.giftcardForm.clique_input_to,
+                        "amount" : $scope.gc.amt,
+                        "iconId" : $scope.occasionId,
+                        "message" : $scope.gc.occassion,
                       }
 
 

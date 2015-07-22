@@ -9,5 +9,13 @@
  */
 angular.module('angularLocalightApp')
   .service('giftcards', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+
+      return $resource( '/giftcards',
+          { }, {
+              create: {
+                  method: 'POST',
+                  params: {},
+                  isArray: false
+              }
+          } );
   });
