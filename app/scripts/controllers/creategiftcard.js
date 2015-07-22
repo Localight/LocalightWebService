@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookieStore, OccasionService, Users) {
+  $log, $q, $cookieStore, OccasionService, Users, Join) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -620,19 +620,36 @@ angular.module('angularLocalightApp')
       var updateUser = Users.update(userJson, function () {
           if(updateUser.errorid)
           {
-              console.log("SOMETHING POOP'D");
+              console.log("Error updating buyer");
               return;
           }
           else {
 
               //Create the recieving user
+              var newUserJson = {
+                 "name" :  $scope.giftcardForm.clique_input_to,
+                 "phone" : $scope.giftcardForm2.clique_input_phonenumber
+              }
 
-              //Then try to charge the card, and create the giftcard
+              var newUser = Join.submit(newUserJson, function()
+              {
+                  if(newUser.errorid)
+                  {
+                      console.log("Error creating the recipient");
+                      return;
+                  }
+                  else {
+                      //Create a giftcard
+                      var newGiftcardJson = {
+                          
+                      }
 
 
-              //Go to the giftcards page
-              console.log("Success!");
-              $location.path("/giftcards");
+                      //Go to the giftcards page
+                      console.log("Success!");
+                      $location.path("/giftcards");
+                  }
+              });
           }
       });
   }
