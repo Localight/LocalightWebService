@@ -49,7 +49,7 @@ angular
         controller: 'EnterAmountCtrl',
         controllerAs: 'enterAmount'
       })
-      .when('/tilt-screen', {
+      .when('/merchants/:merchantId/tilt', {
         templateUrl: 'views/tilt-screen.html',
         controller: 'TiltScreenCtrl',
         controllerAs: 'tiltScreen'

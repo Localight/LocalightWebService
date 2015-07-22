@@ -1,1 +1,31 @@
-<p>This is the tilt-screen view.</p>
+<section>
+	<!-- div that will be displayed upside down -->
+	<div class = "upside">
+		<!-- The amount entered -->
+		<h2 class = "linkText center">${{getAmount()}}</h2>
+
+		<!-- down arrow -->
+		<img class = "center upside" src = "../images/up-arrow-aqua.png">
+
+		<!--Merchants name -->
+		<h2 class = "linkText center">{{merchants[Id].name}}</h2>
+
+		<!-- Lock Icon -->
+		<img class = "center" ng-click = "goTo('/merchants/{{Id}}/tricon')" src = "../images/lock.png">
+		<br>
+	</div>
+
+	<!-- Some Spacing -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<!-- title your screen Icon -->
+	<img class = "center" width = "75px" height = "100px"src = "../images/tilt-anim-5times@2x.gif">
+
+	<!-- Tilt your screen text -->
+	<h4 class = "whiteText center tiltText">Tilt your screen to {{getMerchant()}} staff</h4>
+</section>
