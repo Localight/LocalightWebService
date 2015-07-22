@@ -607,21 +607,39 @@ angular.module('angularLocalightApp')
 
   $scope.submitGiftcard = function()
   {
+      //Temporary variable to test update user backend, please remove for production
+      $scope.fakeCustomer = "skhkjsdkjf";
       //Get the current user
-      $scope.buyer = Users.get($scope.sessionToken);
+      var buyer = Users.get($scope.sessionToken, function(){
+          if(buyer.errorid){
+              console.log("SOMETHING ERROR'D");
+              return;
+          }
+          else
+          {
+              //Create the recieving user
 
-      //Create the recieving user
-
-      //Then try to charge the card, and create the giftcard
-
-      //If it is successful, Update the spending user
-      Users.update($scope.sessionToken, $scope.giftcardForm.clique_input_from,
-      /*Stripe Customer ID from when we charge the card */ $scope.giftcardForm2.clique_input_email,
-      $scope.buyer.phone, $scope.buyer.password);
+              //Then try to charge the card, and create the giftcard
 
 
-      //Go to the list giftcards page
-      $location.path("/giftcards")
+
+              //If it is successful, Update the spending user
+              var updateUser = Users.update($scope.sessionToken, $scope.giftcardForm.clique_input_from,
+              $scope.fakeCustomer, $scope.giftcardForm2.clique_input_email,
+              $scope.buyer.phone, $scope.buyer.password, function () {
+                  if(updateUser.errorid)
+                  {
+                      console.log("SOMETHING POOP'D");
+                      return;
+                  }
+                  else {
+                      //Go to the giftcards page
+                      console.log("Success!");
+                      $location.path("/giftcards");
+                  }
+              });
+          }
+      });
   }
 
 });
