@@ -59,7 +59,7 @@ angular
         controller: 'TriconCtrl',
         controllerAs: 'tricon'
       })
-      .when('/confirmation-timeout', {
+      .when('/merchants/:merchantId/confirmation', {
         templateUrl: 'views/confirmation-timeout.html',
         controller: 'ConfirmationTimeoutCtrl',
         controllerAs: 'confirmationTimeout'
