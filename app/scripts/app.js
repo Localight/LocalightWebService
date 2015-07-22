@@ -64,7 +64,7 @@ angular
         controller: 'ConfirmationTimeoutCtrl',
         controllerAs: 'confirmationTimeout'
       })
-      .when('/thankyou', {
+      .when('/merchants/:merchantId/thankyou', {
         templateUrl: 'views/thankyou.html',
         controller: 'ThankyouCtrl',
         controllerAs: 'thankyou'
