@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('CreategiftcardCtrl', function ($scope, $http, $stateParams, $location, $window, $timeout,
+  .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
   $log, $q, OccasionService) {
 
     this.awesomeThings = [
@@ -38,14 +38,14 @@ angular.module('angularLocalightApp')
   $scope.zipValidated = false;
 
   /* James Node Backend
-  $scope.user = AuthTwilio.login({"token": $stateParams.token},
+  $scope.user = AuthTwilio.login({"token": $routeParams.token},
   function(){
       console.log($scope.user);
   });
   */
 
   //Get our session token cookie
-  $scope.sessionToken = $stateParams.token;
+  $scope.sessionToken = $routeParams.token;
 
   //Not using Authentication service
   //$scope.authentication = Authentication;
@@ -376,7 +376,7 @@ angular.module('angularLocalightApp')
   // Find existing Giftcard
   $scope.findOne = function() {
     $scope.giftcard = Giftcards.get({
-      giftcardId: $stateParams.giftcardId
+      giftcardId: $routeParams.giftcardId
     });
   };
 
