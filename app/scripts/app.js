@@ -59,6 +59,11 @@ angular
         controller: 'TriconCtrl',
         controllerAs: 'tricon'
       })
+      .when('/confirmation-timeout', {
+        templateUrl: 'views/confirmation-timeout.html',
+        controller: 'ConfirmationTimeoutCtrl',
+        controllerAs: 'confirmationTimeout'
+      })
       .otherwise({
         redirectTo: '/'
       });
