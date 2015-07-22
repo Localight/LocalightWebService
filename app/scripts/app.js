@@ -35,7 +35,7 @@ angular
         controller: 'ListgiftcardsCtrl',
         controllerAs: 'listGiftcards'
       })
-      .when('/viewGiftcard', {
+      .when('/giftcards/:giftcardId', {
         templateUrl: 'views/viewgiftcard.html',
         controller: 'ViewgiftcardCtrl',
         controllerAs: 'viewGiftcard'
