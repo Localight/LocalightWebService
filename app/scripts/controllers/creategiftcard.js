@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, OccasionService) {
+  $log, $q, $cookieStore, OccasionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -25,6 +25,7 @@ angular.module('angularLocalightApp')
         Added Back In:
         OccasionService
     */
+
 
     //Switch overlay off
   document.getElementById('darkerOverlay').style.display = "none";
@@ -44,8 +45,9 @@ angular.module('angularLocalightApp')
   });
   */
 
-  //Get our session token cookie
+  //Get our session token cookie, and store it in the cookie store
   $scope.sessionToken = $routeParams.token;
+  $cookieStore.put("sessionToken", $scope.sessionToken);
 
   //Not using Authentication service
   //$scope.authentication = Authentication;
