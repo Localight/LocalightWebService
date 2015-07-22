@@ -64,6 +64,11 @@ angular
         controller: 'ConfirmationTimeoutCtrl',
         controllerAs: 'confirmationTimeout'
       })
+      .when('/thankyou', {
+        templateUrl: 'views/thankyou.html',
+        controller: 'ThankyouCtrl',
+        controllerAs: 'thankyou'
+      })
       .otherwise({
         redirectTo: '/'
       });
