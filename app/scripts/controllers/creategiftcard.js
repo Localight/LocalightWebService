@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookieStore, OccasionService) {
+  $log, $q, $cookieStore, OccasionService, Users) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -607,7 +607,19 @@ angular.module('angularLocalightApp')
 
   $scope.submitGiftcard = function()
   {
-      
+      //Get the current user
+      $scope.buyer = Users.get($scope.sessionToken);
+
+      //Create the recieving user
+
+      //Then try to charge the card, and create the giftcard
+
+      //If it is successful, Update the spending user
+      Users.update($scope.sessionToken, $scope.giftcardForm.clique_input_from,
+      /*Stripe Customer ID from when we charge the card */ $scope.giftcardForm2.clique_input_email,
+      $scope.buyer.phone, $scope.buyer.password);
+
+
       //Go to the list giftcards page
       $location.path("/giftcards")
   }

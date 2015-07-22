@@ -12,11 +12,17 @@
 
  return $resource( '/users',
      { }, {
+         get: {
+             method: 'GET',
+             params: {},
+             isArray: false
+         },
          update: {
              method: 'PUT',
              params: {},
              isArray: false
          }
+
 
      } );
  }]);
