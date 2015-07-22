@@ -69,6 +69,11 @@ angular
         controller: 'ThankyouCtrl',
         controllerAs: 'thankyou'
       })
+      .when('/localism', {
+        templateUrl: 'views/localism.html',
+        controller: 'LocalismCtrl',
+        controllerAs: 'localism'
+      })
       .otherwise({
         redirectTo: '/'
       });
