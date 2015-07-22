@@ -54,6 +54,11 @@ angular
         controller: 'TiltScreenCtrl',
         controllerAs: 'tiltScreen'
       })
+      .when('/tricon', {
+        templateUrl: 'views/tricon.html',
+        controller: 'TriconCtrl',
+        controllerAs: 'tricon'
+      })
       .otherwise({
         redirectTo: '/'
       });
