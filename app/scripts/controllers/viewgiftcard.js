@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $stateParams) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -64,7 +64,7 @@ angular.module('angularLocalightApp')
 			]
 			var giftcard;
 			for (giftcard in $scope.giftcards){
-				if($scope.giftcards[giftcard]._id == $stateParams.giftcardId){
+				if($scope.giftcards[giftcard]._id == $routeParams.giftcardId){
 					$scope.giftcard = $scope.giftcards[giftcard];
 					break;
 				}
