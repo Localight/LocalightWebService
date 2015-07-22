@@ -35,6 +35,11 @@ angular
         controller: 'ListgiftcardsCtrl',
         controllerAs: 'listGiftcards'
       })
+      .when('/viewGiftcard', {
+        templateUrl: 'views/viewgiftcard.html',
+        controller: 'ViewgiftcardCtrl',
+        controllerAs: 'viewGiftcard'
+      })
       .otherwise({
         redirectTo: '/'
       });
