@@ -1,1 +1,49 @@
-<p>This is the enter-amount view.</p>
+<div ng-init = "getGiftcards()">
+
+
+
+    <!-- Our Value that we will be spending -->
+    <table class = "sub-header">
+       <tr>
+           <td class="whiteText paddingLeft paddingTop largerText">${{amount}}</td>
+
+           <td class = "paddingLeft" ng-hide = "clicked == true">
+           <h5 class ="linkText"> Your total balance is ${{totalValue()}}.</h5>
+           <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
+           </td>
+
+           <td class="textRightAlign paddingRight" style="padding-top: 15px;" my-touchstart="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
+                <p class="inline paddingLeft backText linkText" style="vertical-align: top;">Pay</p>
+               <img class="inline" style="vertical-align: text-bottom;" src="../images/auth-rt-arrow.png">
+           </td>
+       <tr>
+   </table>
+
+   <!-- Warning no values greater than $500 -->
+   <h5 class = "redText paddingRight center" style="margin-left: 10px; margin-right: 10px;" ng-show = "warning == true">Sorry, No values greater than $500</h5>
+   <h5 class = "redText paddingRight center" style="margin-left: 10px; margin-right: 10px;" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue()}}</h5>
+
+    <!-- Our table for spending, the dialpad -->
+    <table class="dialPad" align="center">
+
+        <tr ng-repeat="n in tableLayout">
+			<!-- Using inline styles for our randomization so we can edit this later-->
+			<td ng-repeat="i in n">
+			<div my-touchstart="pressButton(i);" my-touchend="pressButton(-1);" style="background-image: url(../images/auth-aqua-sheet.png); background-position-x: -{{i*100}}px; background-size: 1000px;" class="dialButton"></div></td>
+		</tr>
+        <tr>
+			<!-- Using inline styles for our randomization so we can edit this later-->
+            <td class = "center" ng-click="goTo('/merchants')">
+                <div style="padding-top: 27px;">
+                    <img class = "inline" src = "../images/auth-lft-arrow.png">
+                    <p style="vertical-align: sub;" class = "inline paddingLeft backText redText">Back</p>
+                </div>
+            </td>
+            <td>
+			<div my-touchstart="pressButton(0);" my-touchend="pressButton(-1);" style="background-image: url(../images/auth-aqua-sheet.png); background-position-x: -0px; background-size: 1000px;" class="dialButton"></div></td>
+            <td>
+            <div class = "buttonDel center" ng-show = "clicked == true" ng-click = "backSpace()"></td>
+		</tr>
+    </table>
+
+</div>
