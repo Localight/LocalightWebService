@@ -652,10 +652,23 @@ angular.module('angularLocalightApp')
                         "message" : $scope.gc.occassion,
                       }
 
+                      var newGiftcard = Giftcards.create(newGiftcardJson, function(){
+                          if(newGiftcard.errorid)
+                          {
+                              console.log("Error creating the giftcard");
+                              return;
+                          }
+                          else {
+                              //SUCCESSSSSSSS
 
-                      //Go to the giftcards page
-                      console.log("Success!");
-                      $location.path("/giftcards");
+                              //fade out to the fancy black page to confirm giftcard
+
+
+                              //For testing Go to the giftcards page
+                              console.log("Success!");
+                              $location.path("/giftcards");
+                          }
+                      });
                   }
               });
           }

@@ -8,7 +8,7 @@
  * Service in the angularLocalightApp.
  */
 angular.module('angularLocalightApp')
-  .service('giftcards', function () {
+  .service('Giftcards', function () {
 
       return $resource( '/giftcards',
           { }, {
