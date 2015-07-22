@@ -7,6 +7,20 @@
  * # Users
  * Service in the angularLocalightApp.
  */
+ angular.module('angularLocalightApp')
+ .factory('Users', ['$resource', function($resource) {
+
+ return $resource( '/users',
+     { }, {
+         update: {
+             method: 'PUT',
+             params: {},
+             isArray: false
+         }
+
+     } );
+ }]);
+
 angular.module('angularLocalightApp')
 .factory('Login', ['$resource', function($resource) {
 

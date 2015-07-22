@@ -602,4 +602,14 @@ angular.module('angularLocalightApp')
 
   };
 
+
+  //Finally SUBMIT EVERYTHING!
+
+  $scope.submitGiftcard = function()
+  {
+      
+      //Go to the list giftcards page
+      $location.path("/giftcards")
+  }
+
 });
