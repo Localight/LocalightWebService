@@ -44,6 +44,11 @@ angular
         controller: 'MerchantsCtrl',
         controllerAs: 'merchants'
       })
+      .when('/enter-amount', {
+        templateUrl: 'views/enter-amount.html',
+        controller: 'EnterAmountCtrl',
+        controllerAs: 'enterAmount'
+      })
       .otherwise({
         redirectTo: '/'
       });
