@@ -7,6 +7,8 @@
  * # Users
  * Service in the angularLocalightApp.
  */
+
+ //Use http://localhost:3000/ for testing with nodemon
  angular.module('angularLocalightApp')
  .factory('Users', ['$resource', function($resource) {
 
