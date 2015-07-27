@@ -46,8 +46,8 @@ angular.module('angularLocalightApp')
   */
 
   //Get our session token cookie, and store it in the cookie store
-  $scope.sessionToken = $routeParams.token;
-  $cookieStore.put("sessionToken", $scope.sessionToken);
+  var sessionToken = $routeParams.token;
+  $cookieStore.put("sessionToken", sessionToken);
 
   //Not using Authentication service
   //$scope.authentication = Authentication;
@@ -611,11 +611,9 @@ angular.module('angularLocalightApp')
 
   $scope.submitGiftcard = function()
   {
-      //Temporary variable to test update user backend, please remove for production
-      $scope.fakeCustomer = "skhkjsdkjf";
       //Creating the users Json
       var userJson = {
-          "sessionToken" : $scope.sessionToken,
+          "sessionToken" : sessionToken,
           "name" : $scope.giftcardForm.clique_input_from,
           "email" : $scope.giftcardForm2.clique_input_email
       };
@@ -645,7 +643,7 @@ angular.module('angularLocalightApp')
                   else {
                       //Create a giftcard
                       var newGiftcardJson = {
-                        "sessionToken" : $scope.sessionToken,
+                        "sessionToken" : sessionToken,
                         "toId" : $scope.giftcardForm.clique_input_to,
                         "amount" : $scope.gc.amt,
                         "iconId" : $scope.occasionId,
