@@ -622,7 +622,7 @@ angular.module('angularLocalightApp')
       var updateUser = Users.update(userJson, function () {
           if(updateUser.errorid)
           {
-              console.log("Error updating buyer");
+              console.log("Error #" + updateUser.errorid + ": " + updateUser.msg);
               return;
           }
           else {
@@ -637,7 +637,7 @@ angular.module('angularLocalightApp')
               {
                   if(newUser.errorid)
                   {
-                      console.log("Error creating the recipient");
+                      console.log("Error #" + newUser.errorid + ": " + newUser.msg);
                       return;
                   }
                   else {
@@ -653,7 +653,7 @@ angular.module('angularLocalightApp')
                       var newGiftcard = Giftcards.create(newGiftcardJson, function(){
                           if(newGiftcard.errorid)
                           {
-                              console.log("Error creating the giftcard");
+                              console.log("Error #" + newGiftcard.errorid + ": " + newGiftcard.msg);
                               return;
                           }
                           else {
