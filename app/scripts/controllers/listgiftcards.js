@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope, Giftcards) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,16 +16,18 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Switch overlay off
+        //Switch overlay off
 		document.getElementById('darkerOverlay').style.display = "none";
 
+        //get our session token from the cookies
+        var sessionToken = $cookies.get("sessionToken");
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
 		// Find a list of Giftcards
 		$scope.getGiftcards = function() {
 			//Get our giftcards from the user
-
+            //First set up some JSON for the session token
 
 			//FOr testing, hardcoding scope giftcards
 			$scope.giftcards =

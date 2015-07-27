@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookieStore, OccasionService, Users, Join) {
+  $log, $q, $cookies, OccasionService, Users, Join) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -47,7 +47,7 @@ angular.module('angularLocalightApp')
 
   //Get our session token cookie, and store it in the cookie store
   var sessionToken = $routeParams.token;
-  $cookieStore.put("sessionToken", sessionToken);
+  $cookies.put("sessionToken", sessionToken);
 
   //Not using Authentication service
   //$scope.authentication = Authentication;
