@@ -215,9 +215,7 @@
         <strong>Please complete all information</strong>
       </div>
 
-      <a ng-href="/#!/giftcards">
-        <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity)">Submit</button>
-      </a>
+        <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity)" ng-click = "submitGiftcard()">Submit</button>
     </div>
    </form>
   </section>

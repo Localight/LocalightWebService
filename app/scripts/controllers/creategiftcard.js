@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, OccasionService) {
+  $log, $q, $cookieStore, OccasionService, Users, Join) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -25,6 +25,7 @@ angular.module('angularLocalightApp')
         Added Back In:
         OccasionService
     */
+
 
     //Switch overlay off
   document.getElementById('darkerOverlay').style.display = "none";
@@ -44,8 +45,9 @@ angular.module('angularLocalightApp')
   });
   */
 
-  //Get our session token cookie
-  $scope.sessionToken = $routeParams.token;
+  //Get our session token cookie, and store it in the cookie store
+  var sessionToken = $routeParams.token;
+  $cookieStore.put("sessionToken", sessionToken);
 
   //Not using Authentication service
   //$scope.authentication = Authentication;
@@ -230,6 +232,8 @@ angular.module('angularLocalightApp')
    **********/
   // import occasions object from OccasionService
   $scope.occasions = OccasionService;
+  //The occasion Id for our giftcard
+  $scope.occasionId = 0;
 
   // set default occasion icon to display
   $scope.occasions.selectedIcon = '../images/occasion-custom-icon-blk.png';
@@ -246,6 +250,8 @@ angular.module('angularLocalightApp')
       $scope.gc.occasion = occasion.text;
       $scope.gc.Icon = occasion.name;
       $scope.occasions.selectedIcon = occasion.images.selected;
+      //Also set our occasion ID for our giftcard
+      $scope.occasionId = occasion.images.iconId;
     }
     //$scope.limitOccText(); // limit occasion text to 100 characters
   };
@@ -599,5 +605,72 @@ angular.module('angularLocalightApp')
       $scope.tokenizing = false;
 
   };
+
+
+  //Finally SUBMIT EVERYTHING!
+
+  $scope.submitGiftcard = function()
+  {
+      //Creating the users Json
+      var userJson = {
+          "sessionToken" : sessionToken,
+          "name" : $scope.giftcardForm.clique_input_from,
+          "email" : $scope.giftcardForm2.clique_input_email
+      };
+
+      //If it is successful, Update the spending user
+      var updateUser = Users.update(userJson, function () {
+          if(updateUser.errorid)
+          {
+              console.log("Error #" + updateUser.errorid + ": " + updateUser.msg);
+              return;
+          }
+          else {
+
+              //Create the recieving user
+              var newUserJson = {
+                 "name" :  $scope.giftcardForm.clique_input_to,
+                 "phone" : $scope.giftcardForm2.clique_input_phonenumber
+              }
+
+              var newUser = Join.submit(newUserJson, function()
+              {
+                  if(newUser.errorid)
+                  {
+                      console.log("Error #" + newUser.errorid + ": " + newUser.msg);
+                      return;
+                  }
+                  else {
+                      //Create a giftcard
+                      var newGiftcardJson = {
+                        "sessionToken" : sessionToken,
+                        "toId" : $scope.giftcardForm.clique_input_to,
+                        "amount" : $scope.gc.amt,
+                        "iconId" : $scope.occasionId,
+                        "message" : $scope.gc.occassion,
+                      }
+
+                      var newGiftcard = Giftcards.create(newGiftcardJson, function(){
+                          if(newGiftcard.errorid)
+                          {
+                              console.log("Error #" + newGiftcard.errorid + ": " + newGiftcard.msg);
+                              return;
+                          }
+                          else {
+                              //SUCCESSSSSSSS
+
+                              //fade out to the fancy black page to confirm giftcard
+
+
+                              //For testing Go to the giftcards page
+                              console.log("Success!");
+                              $location.path("/giftcards");
+                          }
+                      });
+                  }
+              });
+          }
+      });
+  }
 
 });
