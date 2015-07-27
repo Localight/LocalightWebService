@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope) {
+  .controller('ListgiftcardsCtrl', function ($scope, Giftcards) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -24,7 +24,8 @@ angular.module('angularLocalightApp')
 
 		// Find a list of Giftcards
 		$scope.getGiftcards = function() {
-			//$scope.giftcards = Giftcards.query();
+			//Get our giftcards from the user
+
 
 			//FOr testing, hardcoding scope giftcards
 			$scope.giftcards =
