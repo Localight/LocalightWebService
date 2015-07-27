@@ -44,7 +44,6 @@ angular.module('angularLocalightApp')
                 else {
                     //there was no error continue as normal
                     //Stop any loading bars or things here
-                    console.log($scope.giftcards[0]);
                 }
             });
 
