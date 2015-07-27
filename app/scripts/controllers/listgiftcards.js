@@ -44,6 +44,7 @@ angular.module('angularLocalightApp')
                 else {
                     //there was no error continue as normal
                     //Stop any loading bars or things here
+                    console.log($scope.giftcards[0]);
                 }
             });
 
@@ -83,7 +84,7 @@ angular.module('angularLocalightApp')
 			var total = 0;
 			for(var i = 0; i < $scope.giftcards.length; ++i)
 			{
-				total = total + parseInt($scope.giftcards[i].amt, 10);
+				total = total + parseInt($scope.giftcards[i].amount, 10);
 			}
 
 			//Return the total value as a formatted string
@@ -91,10 +92,10 @@ angular.module('angularLocalightApp')
 		}
 
 		//function to fomat a giftcard value for us
-		$scope.giftValue = function(amt)
+		$scope.giftValue = function(amount)
 		{
 			//Return the total value as a formatted string
-			return (parseInt(amt) / 100).toFixed(2);
+			return (parseInt(amount) / 100).toFixed(2);
 		}
 
 		//Array of occasion Icons, simply a link to their icon

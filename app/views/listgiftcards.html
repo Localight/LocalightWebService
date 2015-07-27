@@ -11,7 +11,7 @@
                     <tr>
         </table>
 
-        <h1 class="listNameHeader heart">{{giftcards[0].to}}</h1>
+        <h1 class="listNameHeader heart">{{giftcards[0].fromId}}</h1>
         <h1 class="whiteText paddingLeft whiteHeader">Gifts received</h1>
         <h4 class="paddingLeft" ng-hide="giftcards.length < 1">Unused</h4>
     </div>
@@ -29,9 +29,9 @@
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="heart tableCell"><img style = "margin-right: 10px" ng-src = "{{icons[giftcard.occasionNumber]}}" width= "35px" height = "35px">{{giftcard.from}}</td>
+                    <td class="heart tableCell"><img style = "margin-right: 10px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId}}</td>
                     <td class="textRightAlign tableCell">
-                        <div class="giftlistAmount">${{giftcard.amt}}</div></td>
+                        <div class="giftlistAmount">${{giftValue(giftcard.amount)}}</div></td>
                 </tr>
             </table>
         </a>
