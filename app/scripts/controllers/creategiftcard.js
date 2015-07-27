@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookies, OccasionService, Users, Join) {
+  $log, $q, $cookies, OccasionService, Users, Join, Giftcards) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -647,7 +647,7 @@ angular.module('angularLocalightApp')
                         "toId" : $scope.gc.to,
                         "amount" : $scope.gc.amt,
                         "iconId" : $scope.occasionId,
-                        "message" : $scope.gc.occassion,
+                        "message" : $scope.gc.occassion
                       }
 
                       var newGiftcard = Giftcards.create(newGiftcardJson, function(){
