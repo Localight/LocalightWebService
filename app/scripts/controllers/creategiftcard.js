@@ -614,8 +614,8 @@ angular.module('angularLocalightApp')
       //Creating the users Json
       var userJson = {
           "sessionToken" : sessionToken,
-          "name" : $scope.giftcardForm.clique_input_from,
-          "email" : $scope.giftcardForm2.clique_input_email
+          "name" : $scope.gc.from,
+          "email" : $scope.gc.email
       };
 
       //If it is successful, Update the spending user
@@ -629,8 +629,8 @@ angular.module('angularLocalightApp')
 
               //Create the recieving user
               var newUserJson = {
-                 "name" :  $scope.giftcardForm.clique_input_to,
-                 "phone" : $scope.giftcardForm2.clique_input_phonenumber
+                 "name" :  $scope.gc.to,
+                 "phone" : $scope.gc.phoneNumber
               }
 
               var newUser = Join.submit(newUserJson, function()
@@ -644,7 +644,7 @@ angular.module('angularLocalightApp')
                       //Create a giftcard
                       var newGiftcardJson = {
                         "sessionToken" : sessionToken,
-                        "toId" : $scope.giftcardForm.clique_input_to,
+                        "toId" : $scope.gc.to,
                         "amount" : $scope.gc.amt,
                         "iconId" : $scope.occasionId,
                         "message" : $scope.gc.occassion,
