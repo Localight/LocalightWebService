@@ -7,10 +7,11 @@
  * # giftcards
  * Service in the angularLocalightApp.
  */
+ //Use http://localhost:3000/ for testing with nodemon
 angular.module('angularLocalightApp')
   .service('Giftcards', function ($resource) {
 
-      return $resource( '/giftcards',
+      return $resource( 'http://localhost:3000/giftcards',
           { }, {
               create: {
                   method: 'POST',
@@ -20,7 +21,7 @@ angular.module('angularLocalightApp')
               get: {
                   method: 'GET',
                   params: {},
-                  isArray: false
+                  isArray: true
               }
           } );
   });
