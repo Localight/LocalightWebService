@@ -626,47 +626,30 @@ angular.module('angularLocalightApp')
               return;
           }
           else {
-
-              //Create the recieving user
-              var newUserJson = {
-                 "name" :  $scope.gc.to,
-                 "phone" : $scope.gc.phoneNumber
+              //Create a giftcard
+              var newGiftcardJson = {
+                "sessionToken" : sessionToken,
+                "toId" : $scope.gc.to,
+                "amount" : $scope.gc.amt,
+                "iconId" : $scope.occasionId,
+                "message" : $scope.gc.occassion
               }
 
-              var newUser = Join.submit(newUserJson, function()
-              {
-                  if(newUser.errorid)
+              var newGiftcard = Giftcards.create(newGiftcardJson, function(){
+                  if(newGiftcard.errorid)
                   {
-                      console.log("Error #" + newUser.errorid + ": " + newUser.msg);
+                      console.log("Error #" + newGiftcard.errorid + ": " + newGiftcard.msg);
                       return;
                   }
                   else {
-                      //Create a giftcard
-                      var newGiftcardJson = {
-                        "sessionToken" : sessionToken,
-                        "toId" : $scope.gc.to,
-                        "amount" : $scope.gc.amt,
-                        "iconId" : $scope.occasionId,
-                        "message" : $scope.gc.occassion
-                      }
+                      //SUCCESSSSSSSS
 
-                      var newGiftcard = Giftcards.create(newGiftcardJson, function(){
-                          if(newGiftcard.errorid)
-                          {
-                              console.log("Error #" + newGiftcard.errorid + ": " + newGiftcard.msg);
-                              return;
-                          }
-                          else {
-                              //SUCCESSSSSSSS
-
-                              //fade out to the fancy black page to confirm giftcard
+                      //fade out to the fancy black page to confirm giftcard
 
 
-                              //For testing Go to the giftcards page
-                              console.log("Success!");
-                              $location.path("/giftcards");
-                          }
-                      });
+                      //For testing Go to the giftcards page
+                      console.log("Success!");
+                      $location.path("/giftcards");
                   }
               });
           }
