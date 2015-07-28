@@ -629,7 +629,8 @@ angular.module('angularLocalightApp')
               //Create a giftcard
               var newGiftcardJson = {
                 "sessionToken" : sessionToken,
-                "toId" : $scope.gc.to,
+                "name" : $scope.gc.to,
+                "phone" : $scope.gc.phoneNumber,
                 "amount" : $scope.gc.amt,
                 "iconId" : $scope.occasionId,
                 "message" : $scope.gc.occassion
