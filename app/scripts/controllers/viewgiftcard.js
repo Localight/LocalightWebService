@@ -62,7 +62,7 @@ angular.module('angularLocalightApp')
 		$scope.totalValue = function()
 		{
 			//Return the total value as a formatted string
-			return (parseInt($scope.giftcard) / 100).toFixed(2);
+			return (parseInt($scope.giftcard.amount) / 100).toFixed(2);
 		}
 
 		//function to fomat a giftcard value for us
@@ -96,6 +96,38 @@ angular.module('angularLocalightApp')
 			//Wedding
 			"../images/occasion-wedding-icon-wht.png"
 		]
+
+        $scope.merchantsArray = [{
+    		area: "4th Street Retro Row",
+    		name: "Goldies On 4th",
+    		id: 0,
+    		address: "2106 E 4th St, Long Beach, CA"
+    	},{
+    		area: "4th Street Retro Row",
+    		name: "Aji Peruvian Cuisine",
+    		id: 1,
+    		address: "2308 E 4th St, Long Beach, CA"
+    	},{
+    		area: "4th Street Retro Row",
+    		name: "P3 Artisan Pizza",
+    		id: 2,
+    		address: "2306 E 4th St, Long Beach, CA"
+    	},{
+    		area: "4th Street Retro Row",
+    		name: "The Social List",
+    		id: 3,
+    		address: "2105 E 4th St, Long Beach, CA"
+    	},{
+    		area: "4th Street Retro Row",
+    		name: "Lola's",
+    		id: 4,
+    		address: "2030 E 4th St, Long Beach, CA"
+    	},{
+    		area: "4th Street Retro Row",
+    		name: "Portfolio's Coffee",
+    		id: 5,
+    		address: "2300 E 4th St, Long Beach, CA"
+    	}];
 
 
   });
