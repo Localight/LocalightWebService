@@ -626,14 +626,17 @@ angular.module('angularLocalightApp')
               return;
           }
           else {
+              //First, fix the formatting on the phone
+              //This will remove all special characters from the string
+              $scope.gc.phoneNumber = $scope.gc.phoneNumber.replace(/[^a-zA-Z0-9]/g, '');
               //Create a giftcard
               var newGiftcardJson = {
                 "sessionToken" : sessionToken,
                 "name" : $scope.gc.to,
                 "phone" : $scope.gc.phoneNumber,
-                "amount" : $scope.gc.amt,
+                "amount" : $scope.gc.amount,
                 "iconId" : $scope.occasionId,
-                "message" : $scope.gc.occassion,
+                "message" : $scope.gc.occasion,
                 "stripeCardToken" : $scope.stripeToken
               }
 
