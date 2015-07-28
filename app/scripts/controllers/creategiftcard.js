@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookieStore, OccasionService, Users, Join) {
+  $log, $q, $cookies, OccasionService, Users, Join, Giftcards) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -47,7 +47,7 @@ angular.module('angularLocalightApp')
 
   //Get our session token cookie, and store it in the cookie store
   var sessionToken = $routeParams.token;
-  $cookieStore.put("sessionToken", sessionToken);
+  $cookies.put("sessionToken", sessionToken);
 
   //Not using Authentication service
   //$scope.authentication = Authentication;
@@ -614,8 +614,8 @@ angular.module('angularLocalightApp')
       //Creating the users Json
       var userJson = {
           "sessionToken" : sessionToken,
-          "name" : $scope.giftcardForm.clique_input_from,
-          "email" : $scope.giftcardForm2.clique_input_email
+          "name" : $scope.gc.from,
+          "email" : $scope.gc.email
       };
 
       //If it is successful, Update the spending user
@@ -626,47 +626,30 @@ angular.module('angularLocalightApp')
               return;
           }
           else {
-
-              //Create the recieving user
-              var newUserJson = {
-                 "name" :  $scope.giftcardForm.clique_input_to,
-                 "phone" : $scope.giftcardForm2.clique_input_phonenumber
+              //Create a giftcard
+              var newGiftcardJson = {
+                "sessionToken" : sessionToken,
+                "toId" : $scope.gc.to,
+                "amount" : $scope.gc.amt,
+                "iconId" : $scope.occasionId,
+                "message" : $scope.gc.occassion
               }
 
-              var newUser = Join.submit(newUserJson, function()
-              {
-                  if(newUser.errorid)
+              var newGiftcard = Giftcards.create(newGiftcardJson, function(){
+                  if(newGiftcard.errorid)
                   {
-                      console.log("Error #" + newUser.errorid + ": " + newUser.msg);
+                      console.log("Error #" + newGiftcard.errorid + ": " + newGiftcard.msg);
                       return;
                   }
                   else {
-                      //Create a giftcard
-                      var newGiftcardJson = {
-                        "sessionToken" : sessionToken,
-                        "toId" : $scope.giftcardForm.clique_input_to,
-                        "amount" : $scope.gc.amt,
-                        "iconId" : $scope.occasionId,
-                        "message" : $scope.gc.occassion,
-                      }
+                      //SUCCESSSSSSSS
 
-                      var newGiftcard = Giftcards.create(newGiftcardJson, function(){
-                          if(newGiftcard.errorid)
-                          {
-                              console.log("Error #" + newGiftcard.errorid + ": " + newGiftcard.msg);
-                              return;
-                          }
-                          else {
-                              //SUCCESSSSSSSS
-
-                              //fade out to the fancy black page to confirm giftcard
+                      //fade out to the fancy black page to confirm giftcard
 
 
-                              //For testing Go to the giftcards page
-                              console.log("Success!");
-                              $location.path("/giftcards");
-                          }
-                      });
+                      //For testing Go to the giftcards page
+                      console.log("Success!");
+                      $location.path("/giftcards");
                   }
               });
           }

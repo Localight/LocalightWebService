@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,44 +16,65 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Switch overlay off
+        //Switch overlay off
 		document.getElementById('darkerOverlay').style.display = "none";
 
+        //get our session token from the cookies
+        var sessionToken = $cookies.get("sessionToken");
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
 		// Find a list of Giftcards
 		$scope.getGiftcards = function() {
-			//$scope.giftcards = Giftcards.query();
+			//Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "sessionToken" : sessionToken
+            }
 
-			//FOr testing, hardcoding scope giftcards
-			$scope.giftcards =
-			[
-				{
-					_id: "1",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Tony',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!",
-					occasionNumber: "2"
-				},
-				{
-					_id: "2",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Frank',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Congratulations on your baby!",
-					occasionNumber: "5"
-				}
-			]
+            //Query the backend using out session token
+            $scope.giftcards = Giftcards.get(getJson, function()
+            {
+                //Check for errors
+                if($scope.giftcards.errorid)
+                {
+                    console.log("Error #" + $scope.giftcards.errorid + ": " + $scope.giftcards.msg);
+                    return;
+                }
+                else {
+                    //there was no error continue as normal
+                    //Stop any loading bars or things here
+                }
+            });
+
+			// //FOr testing, hardcoding scope giftcards
+			// $scope.giftcards =
+			// [
+			// 	{
+			// 		_id: "1",
+			// 		to: "John",
+			// 		amt: "10000",
+			// 		mobileNumberOfRecipient: "5625555555",
+			// 		merchant: "xxxxx",
+			// 		from: 'Tony',
+			// 		message: "hi",
+			// 		districtNumber: 'number',
+			// 		occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!",
+			// 		occasionNumber: "2"
+			// 	},
+			// 	{
+			// 		_id: "2",
+			// 		to: "John",
+			// 		amt: "10000",
+			// 		mobileNumberOfRecipient: "5625555555",
+			// 		merchant: "xxxxx",
+			// 		from: 'Frank',
+			// 		message: "hi",
+			// 		districtNumber: 'number',
+			// 		occasionMessage: "Congratulations on your baby!",
+			// 		occasionNumber: "5"
+			// 	}
+			// ]
 		}
 
 		$scope.totalValue = function()
@@ -62,7 +83,7 @@ angular.module('angularLocalightApp')
 			var total = 0;
 			for(var i = 0; i < $scope.giftcards.length; ++i)
 			{
-				total = total + parseInt($scope.giftcards[i].amt, 10);
+				total = total + parseInt($scope.giftcards[i].amount, 10);
 			}
 
 			//Return the total value as a formatted string
@@ -70,10 +91,10 @@ angular.module('angularLocalightApp')
 		}
 
 		//function to fomat a giftcard value for us
-		$scope.giftValue = function(amt)
+		$scope.giftValue = function(amount)
 		{
 			//Return the total value as a formatted string
-			return (parseInt(amt) / 100).toFixed(2);
+			return (parseInt(amount) / 100).toFixed(2);
 		}
 
 		//Array of occasion Icons, simply a link to their icon
