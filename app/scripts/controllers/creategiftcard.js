@@ -633,7 +633,8 @@ angular.module('angularLocalightApp')
                 "phone" : $scope.gc.phoneNumber,
                 "amount" : $scope.gc.amt,
                 "iconId" : $scope.occasionId,
-                "message" : $scope.gc.occassion
+                "message" : $scope.gc.occassion,
+                "stripeCardToken" : $scope.stripeToken
               }
 
               var newGiftcard = Giftcards.create(newGiftcardJson, function(){
