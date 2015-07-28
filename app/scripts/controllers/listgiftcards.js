@@ -46,35 +46,6 @@ angular.module('angularLocalightApp')
                     //Stop any loading bars or things here
                 }
             });
-
-			// //FOr testing, hardcoding scope giftcards
-			// $scope.giftcards =
-			// [
-			// 	{
-			// 		_id: "1",
-			// 		to: "John",
-			// 		amt: "10000",
-			// 		mobileNumberOfRecipient: "5625555555",
-			// 		merchant: "xxxxx",
-			// 		from: 'Tony',
-			// 		message: "hi",
-			// 		districtNumber: 'number',
-			// 		occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!",
-			// 		occasionNumber: "2"
-			// 	},
-			// 	{
-			// 		_id: "2",
-			// 		to: "John",
-			// 		amt: "10000",
-			// 		mobileNumberOfRecipient: "5625555555",
-			// 		merchant: "xxxxx",
-			// 		from: 'Frank',
-			// 		message: "hi",
-			// 		districtNumber: 'number',
-			// 		occasionMessage: "Congratulations on your baby!",
-			// 		occasionNumber: "5"
-			// 	}
-			// ]
 		}
 
 		$scope.totalValue = function()

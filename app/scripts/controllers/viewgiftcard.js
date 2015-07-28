@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $routeParams) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -20,7 +20,13 @@ angular.module('angularLocalightApp')
       	document.getElementById('darkerOverlay').style.display = "none";
 
 		//Initialize scope.giftcards
-		$scope.giftcards = null;
+		$scope.giftcard;
+
+        //get our session token from the cookies
+        var sessionToken = $cookies.get("sessionToken");
+
+        //Get our giftcard id from the route params
+        var giftcardId = $routeParams.giftcardId;
 
 		//Src to our merchant imgaes
 		$scope.merchantImages =
@@ -31,57 +37,32 @@ angular.module('angularLocalightApp')
 
 		// Find a list of Giftcards
 		$scope.getGiftcards = function() {
-			//$scope.giftcards = Giftcards.query();
+            //Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "id" : giftcardId,
+                "sessionToken" : sessionToken
+            }
 
-			//FOr testing, hardcoding scope giftcards
-			//FOr testing, hardcoding scope giftcards
-			$scope.giftcards =
-			[
-				{
-					_id: "1",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Tony',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!",
-					occasionNumber: "2"
-				},
-				{
-					_id: "2",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Frank',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Congratulations on your baby!",
-					occasionNumber: "5"
-				}
-			]
-			var giftcard;
-			for (giftcard in $scope.giftcards){
-				if($scope.giftcards[giftcard]._id == $routeParams.giftcardId){
-					$scope.giftcard = $scope.giftcards[giftcard];
-					break;
-				}
-			}
+            $scope.giftcard = GiftcardById.get(getJson, function(){
+                //Check for errors
+                if($scope.giftcard.errorid)
+                {
+                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
+                    return;
+                }
+                else {
+                    //there was no error continue as normal
+                    //Stop any loading bars or things here
+                }
+            });
+
 		}
 
 		$scope.totalValue = function()
 		{
-			//Get the total value of all the giftcards
-			var total = 0;
-			for(var i = 0; i < $scope.giftcards.length; ++i)
-			{
-				total = total + parseInt($scope.giftcards[i].amt, 10);
-			}
-
 			//Return the total value as a formatted string
-			return (parseInt(total) / 100).toFixed(2);
+			return (parseInt($scope.giftcard) / 100).toFixed(2);
 		}
 
 		//function to fomat a giftcard value for us
