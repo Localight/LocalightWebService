@@ -38,6 +38,10 @@ angular.module('angularLocalightApp')
   $scope.cvcValidated = false;
   $scope.zipValidated = false;
 
+  //Keeping track of the backend
+  $scope.backendError = false;
+  $scope.backendRes = "";
+
   /* James Node Backend
   $scope.user = AuthTwilio.login({"token": $routeParams.token},
   function(){
@@ -622,7 +626,8 @@ angular.module('angularLocalightApp')
       var updateUser = Users.update(userJson, function () {
           if(updateUser.errorid)
           {
-              console.log("Error #" + updateUser.errorid + ": " + updateUser.msg);
+              $scope.backendError = true;
+              $scope.backendRes = "Error #" + updateUser.errorid + ": " + updateUser.msg;
               return;
           }
           else {
@@ -647,7 +652,8 @@ angular.module('angularLocalightApp')
               var newGiftcard = Giftcards.create(newGiftcardJson, function(){
                   if(newGiftcard.errorid)
                   {
-                      console.log("Error #" + newGiftcard.errorid + ": " + newGiftcard.msg);
+                      $scope.backendError = true;
+                      $scope.backendRes = "Error #" + newGiftcard.errorid + ": " + newGiftcard.msg;
                       return;
                   }
                   else {

@@ -215,6 +215,12 @@
         <strong>Please complete all information</strong>
       </div>
 
+      <!-- Error messages from the backend -->
+      <div data-ng-show="(backendError && backendRes.length > 1)" class="text-danger form-incomplete createGiftCardWidth">
+        <strong>{{backendRes}}</strong>
+      </div>
+
+
         <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity)" ng-click = "submitGiftcard()">Submit</button>
     </div>
    </form>
