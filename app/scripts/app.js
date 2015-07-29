@@ -74,7 +74,7 @@ angular
         controller: 'LocalismCtrl',
         controllerAs: 'localism'
       })
-      .when('/recipientRedirect', {
+      .when('/giftcards/receive/:token', {
         templateUrl: 'views/recipientredirect.html',
         controller: 'RecipientredirectCtrl',
         controllerAs: 'recipientRedirect'
