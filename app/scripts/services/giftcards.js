@@ -8,11 +8,10 @@
  * Service in the angularLocalightApp.
  */
 
- //Use http://localhost:3000/ for testing with nodemon
 angular.module('angularLocalightApp')
   .service('Giftcards', function ($resource) {
 
-      return $resource( 'http://localhost:3000/giftcards',
+      return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/giftcards',
           { }, {
               create: {
                   method: 'POST',
@@ -30,7 +29,7 @@ angular.module('angularLocalightApp')
   angular.module('angularLocalightApp')
   .factory('GiftcardById', ['$resource', function($resource) {
 
-  return $resource( 'http://localhost:3000/giftcards/:id',
+  return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/giftcards/:id',
       { }, {
           get: {
               method: 'GET',
