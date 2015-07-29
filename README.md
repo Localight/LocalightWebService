@@ -1,32 +1,12 @@
-# LocalLight
+# angular-localight
 
-This project is a local giftcard. Our object is to make a community where you can electronically send giftcards to your friends, and use those giftcards at local shops.
-This will encourage community, and help people become more involved in local shops.
+This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
+version 0.12.1.
 
-## Installation
+## Build & development
 
-TODO: Describe the installation process
+Run `grunt` for building and `grunt serve` for preview.
 
-## Usage
+## Testing
 
-TODO: Write usage instructions
-
-## Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
-
-## History
-
-TODO: Write history
-
-## Credits
-
-TODO: Write credits
-
-## License
-
-TODO: Write license
+Running `grunt test` will run the unit tests with karma.
