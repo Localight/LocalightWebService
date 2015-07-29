@@ -74,6 +74,11 @@ angular
         controller: 'LocalismCtrl',
         controllerAs: 'localism'
       })
+      .when('/giftcards/receive/:token', {
+        templateUrl: 'views/recipientredirect.html',
+        controller: 'RecipientredirectCtrl',
+        controllerAs: 'recipientRedirect'
+      })
       .otherwise({
         redirectTo: '/'
       });
