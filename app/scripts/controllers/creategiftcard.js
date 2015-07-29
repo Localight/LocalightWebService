@@ -644,7 +644,7 @@ angular.module('angularLocalightApp')
                 "sessionToken" : sessionToken,
                 "name" : $scope.gc.to,
                 "phone" : formattedPhone,
-                "amount" : initAmount,
+                "amount" : intAmount,
                 "iconId" : $scope.occasionId,
                 "message" : $scope.gc.occasion,
                 "stripeCardToken" : $scope.stripeToken
