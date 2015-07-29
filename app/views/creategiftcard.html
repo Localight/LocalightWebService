@@ -55,7 +55,7 @@
         placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5)" ng-model="gc.code" ng-change="getStoreName()" required>
       </div>
 
-      <div id="clique_code_message" ng-show = "hideCard && codeMax && giftcardForm.clique_input_code.$valid">
+      <div id="clique_code_message" ng-show = "hideCard && gc.code > 9999 && giftcardForm.clique_input_code.$valid">
         <label class="inputlabel">
           <img src="../images/at-icon-blk.png" >
         </label>
