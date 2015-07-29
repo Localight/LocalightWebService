@@ -733,18 +733,6 @@ label.inputlabel {
   max-width: 70%;
 }
 
-#clique_input_expiry {
-  width: 40%; /* 9/18 = 0.5 */
-}
-
-#clique_input_cvv {
-  width: 20%; /* 4/18 = 0.222 */
-}
-
-#clique_input_zip {
-  width: 25%; /* 5/18 = 0.277 */
-}
-
 .expiry {
   box-sizing: border-box;
 }
@@ -976,7 +964,6 @@ label.inputlabel {
 .creditCardIcon {
   width: 12%;
   max-width: 40px;
-  top: 0.35em;
 }
 
 .creditCardIcon.ng-hide {
@@ -985,7 +972,7 @@ label.inputlabel {
 }
 
 .creditCardNumInput {
-    width: 18%;
+    width: 16%;
     float: left;
     margin-left: 5px;
 }
