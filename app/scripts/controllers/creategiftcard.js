@@ -633,17 +633,18 @@ angular.module('angularLocalightApp')
           else {
               //First, fix the formatting on the phone
               //This will remove all special characters from the string
-              $scope.gc.phoneNumber = $scope.gc.phoneNumber.replace(/[^a-zA-Z0-9]/g, '');
+
+              var formattedPhone = $scope.gc.phoneNumber.replace(/[^a-zA-Z0-9]/g, '');
 
               //Also, we need to convert our amount into integers
               var intAmount = $scope.gc.amount * 100;
 
-              //Create a giftcard, send it the json
+              //Create a giftcard
               var newGiftcardJson = {
                 "sessionToken" : sessionToken,
                 "name" : $scope.gc.to,
-                "phone" : $scope.gc.phoneNumber,
-                "amount" : intAmount,
+                "phone" : formattedPhone,
+                "amount" : initAmount,
                 "iconId" : $scope.occasionId,
                 "message" : $scope.gc.occasion,
                 "stripeCardToken" : $scope.stripeToken
