@@ -627,7 +627,7 @@ angular.module('angularLocalightApp')
           if(updateUser.errorid)
           {
               $scope.backendError = true;
-              $scope.backendRes = "Error #" + updateUser.errorid + ": " + updateUser.msg;
+              $scope.backendRes = updateUser.msg;
               return;
           }
           else {
@@ -654,7 +654,7 @@ angular.module('angularLocalightApp')
                   if(newGiftcard.errorid)
                   {
                       $scope.backendError = true;
-                      $scope.backendRes = "Error #" + newGiftcard.errorid + ": " + newGiftcard.msg;
+                      $scope.backendRes = newGiftcard.msg;
                       return;
                   }
                   else {
