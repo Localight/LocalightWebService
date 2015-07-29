@@ -7,12 +7,10 @@
  * # Users
  * Service in the angularLocalightApp.
  */
-
- //Use http://localhost:3000/ for testing with nodemon
  angular.module('angularLocalightApp')
  .factory('Users', ['$resource', function($resource) {
 
- return $resource( 'http://localhost:3000/users',
+ return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users',
      { }, {
          get: {
              method: 'GET',
@@ -32,7 +30,7 @@
 angular.module('angularLocalightApp')
 .factory('Login', ['$resource', function($resource) {
 
-return $resource( 'http://localhost:3000/users/login',
+return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users/login',
     { }, {
         submit: {
             method: 'POST',
@@ -46,7 +44,7 @@ return $resource( 'http://localhost:3000/users/login',
 angular.module('angularLocalightApp')
 .factory('Join', ['$resource', function($resource) {
 
-return $resource( 'http://localhost:3000/users/join',
+return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users/join',
     { }, {
         submit: {
             method: 'POST',
