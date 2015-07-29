@@ -710,7 +710,7 @@ label.inputlabel {
 
 /* payment styles */
 #clique_payment_card {
-  overflow: hidden;
+  /*overflow: hidden;*/
   font-size: 0.6em;
 }
 
@@ -731,18 +731,6 @@ label.inputlabel {
 
 .checkinput {
   max-width: 70%;
-}
-
-#clique_input_expiry {
-  width: 40%; /* 9/18 = 0.5 */
-}
-
-#clique_input_cvv {
-  width: 20%; /* 4/18 = 0.222 */
-}
-
-#clique_input_zip {
-  width: 25%; /* 5/18 = 0.277 */
 }
 
 .expiry {
@@ -976,12 +964,17 @@ label.inputlabel {
 .creditCardIcon {
   width: 12%;
   max-width: 40px;
-  top: 0.35em;
 }
 
 .creditCardIcon.ng-hide {
     display: block !important;
     visibility: hidden;
+}
+
+.creditCardNumInput {
+    width: 16%;
+    float: left;
+    margin-left: 5px;
 }
 
 textarea {

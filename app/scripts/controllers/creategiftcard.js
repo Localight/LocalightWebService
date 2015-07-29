@@ -189,7 +189,7 @@ angular.module('angularLocalightApp')
    $scope.codeMax = false;
 
    //Validate our code length
-   $scope.codeValidate = function(id, event)
+   $scope.codeValidate = function(id, event, maxlength)
    {
             //Grab our element
            var element = $window.document.getElementById(id);
@@ -202,7 +202,7 @@ angular.module('angularLocalightApp')
            var cond = (46 < event.keyCode && event.keyCode < 58);
 
            //Check if we met our condition and our length is good
-           if(len >= 5)
+           if(len >= maxlength)
            {
                $scope.hideCard = true;
                $scope.codeMax = true;
