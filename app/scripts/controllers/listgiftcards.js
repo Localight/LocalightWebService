@@ -20,7 +20,7 @@ angular.module('angularLocalightApp')
 		document.getElementById('darkerOverlay').style.display = "none";
 
         //get our session token from the cookies
-        var sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken = $cookies.get("sessionToken");
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
@@ -29,7 +29,7 @@ angular.module('angularLocalightApp')
 			//Get our giftcards from the user
             //First set up some JSON for the session token
             var getJson = {
-                "sessionToken" : sessionToken
+                "sessionToken" : $scope.sessionToken
             }
 
             //Query the backend using out session token
