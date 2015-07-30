@@ -537,6 +537,30 @@ angular.module('angularLocalightApp')
       }
   }
 
+  $scope.validateEmail = function()
+  {
+      //get the email
+      var email = $scope.gc.email;
+
+      //check if the email has an @ sign
+      if(email.indexOf("@") > -1)
+      {
+          //If it does, get a sub string after that, and check for a period
+          if(email.substring(email.indexOf("@"))
+          .indexOf(".") > -1)
+          {
+              //if it exists return true
+              return true;
+          }
+          else {
+              return false;
+          }
+      }
+      else {
+          return false;
+      }
+  }
+
 
   /*
     STRIPE
