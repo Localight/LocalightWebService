@@ -93,4 +93,18 @@ angular.module('angularLocalightApp')
 			"/../images/occasion-wedding-icon-wht.png"
 		]
 
+
+        //Function to go to another url, if giftcards is not zero
+		$scope.goTo = function(place)
+		{
+			//Save our final amount if the path is to pay
+			if($scope.giftcards.length > 0)
+			{
+			    $location.path(place);
+            }
+            else {
+                console.log("hi");
+            }
+		}
+
   });

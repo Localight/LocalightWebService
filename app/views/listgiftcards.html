@@ -16,7 +16,7 @@
         <h4 class="paddingLeft" ng-hide="giftcards.length < 1">Unused</h4>
     </div>
     <div class="list-group flatRowList">
-        <a class="list-group-item flatRowListItem" style="" data-ng-href="#!/merchants">
+        <a class="list-group-item flatRowListItem" style="" my-touchstart="goTo('/merchants')">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
@@ -36,7 +36,7 @@
             </table>
         </a>
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!giftcards.$resolved || giftcards.length">
+    <div class="alert alert-warning text-center" data-ng-hide="giftcards.length > 0">
     	No Giftcards yet, why don't you <a href="/#!/giftcards/create">create one</a>?
     </div>
 </section>
