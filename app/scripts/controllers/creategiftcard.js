@@ -60,6 +60,11 @@ angular.module('angularLocalightApp')
 
   $scope.prices = [2, 5, 10, 25, 50, 75, 100];
 
+  //Focus on the to field as soon as it is done loading
+  angular.element(document).ready(function () {
+        document.getElementById("clique_input_to").focus();
+    });
+
   //Function to scroll to the bottom of our page
   $scope.scrollToBottom = function()
   {
