@@ -102,9 +102,6 @@ angular.module('angularLocalightApp')
 			{
 			    $location.path(place);
             }
-            else {
-                console.log("hi");
-            }
 		}
 
   });
