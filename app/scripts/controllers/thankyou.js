@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookieStore, $location) {
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -18,6 +18,10 @@ angular.module('angularLocalightApp')
 
     //Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
+
+
+          //get our session token from the cookies
+          $scope.sessionToken = $cookies.get("sessionToken");
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
@@ -29,12 +33,12 @@ angular.module('angularLocalightApp')
 		$scope.purchaseValue;
 
 		//Retrive the cookie with our amount
-		var amount = $cookieStore.get("igosdmbmtv");
+		var amount = $cookies.get("igosdmbmtv");
 		if(!amount)
 		{
 			amount = 0;
 		}
-		$cookieStore.remove("igosdmbmtv");
+		$cookies.remove("igosdmbmtv");
 		$scope.purchaseValue = (parseInt(amount) / 100).toFixed(2);
 
 
