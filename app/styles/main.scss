@@ -901,6 +901,10 @@ label.inputlabel {
     color: #0E0C0F;
 }
 
+.blackText::-webkit-input-placeholder {
+   opacity: .35;
+}
+
 .redText {
     color: #df5241;
 }
