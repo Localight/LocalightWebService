@@ -23,7 +23,7 @@ angular.module('angularLocalightApp')
 		$scope.giftcard;
 
         //get our session token from the cookies
-        var sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken = $cookies.get("sessionToken");
 
         //Get our giftcard id from the route params
         var giftcardId = $routeParams.giftcardId;
@@ -41,7 +41,7 @@ angular.module('angularLocalightApp')
             //First set up some JSON for the session token
             var getJson = {
                 "id" : giftcardId,
-                "sessionToken" : sessionToken
+                "sessionToken" : $scope.sessionToken
             }
 
             $scope.giftcard = GiftcardById.get(getJson, function(){

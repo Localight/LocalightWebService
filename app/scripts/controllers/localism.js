@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('LocalismCtrl', function ($scope) {
+  .controller('LocalismCtrl', function ($scope, $cookies) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -18,6 +18,9 @@ angular.module('angularLocalightApp')
 
     //Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
+
+          //get our session token from the cookies
+          $scope.sessionToken = $cookies.get("sessionToken");
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
