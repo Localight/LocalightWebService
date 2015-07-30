@@ -187,7 +187,7 @@
         <label class="inputlabel" for="clique_input_phonenumber">
           <img alt="Enter Phone Number" src="../images/phone.png" />
         </label>
-        <input type="text" ng-keyup="mask('clique_input_phonenumber')" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number blackText" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" data-ng-model="gc.phoneNumber">
+        <input type="tel" ng-keydown="mask('clique_input_phonenumber')" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" data-ng-model="gc.phoneNumber">
       </div>
       <!--From-->
       <div>
