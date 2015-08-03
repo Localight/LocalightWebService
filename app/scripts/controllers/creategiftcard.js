@@ -448,7 +448,7 @@ angular.module('angularLocalightApp')
       f.value=tel;
 
       //Now check if we can scroll to the next field
-      if(f.value.length > 9)
+      if(f.value.length > 11)
       {
           $scope.scrollToBottom();
       }
