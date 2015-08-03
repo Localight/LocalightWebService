@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MainCtrl', function ($window) {
+  .controller('MainCtrl', function ($window, $scope) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

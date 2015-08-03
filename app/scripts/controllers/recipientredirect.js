@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('RecipientredirectCtrl', function ($location, $routeParams, $cookies, $timeout, $window) {
+  .controller('RecipientredirectCtrl', function ($location, $routeParams, $cookies, $timeout, $window, $scope) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
