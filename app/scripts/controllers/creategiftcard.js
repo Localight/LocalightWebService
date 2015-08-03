@@ -68,7 +68,7 @@ angular.module('angularLocalightApp')
           //Use smooth scroll to scroll to the bottom
           var bottom = angular.element(document.getElementById('scrollDiv'));
           //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
-          $document.scrollToElement(bottom, 0, 1000, function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 });
+          $document.scrollToElement(bottom, 0, 1000, function (t) { return t*t*t });
       }, 5);
   }
 
