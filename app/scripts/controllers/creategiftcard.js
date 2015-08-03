@@ -393,35 +393,40 @@ angular.module('angularLocalightApp')
   */
 
   //Mask for translating and validating phone numbers
-  $scope.mask = function(f){
-      f = $window.document.getElementById(f);
-      $scope.clique_input_phonenumber_validity = true;
-      var tel='(';
-      var val =f.value.split('');
-      for(var i=0; i<val.length; i++){
-          if( val[i]==='(' ){
-              val[i]='';
+  $scope.mask = function(f, event){
+
+      //First check if the key pressed was backspace, if it was, dont do the function
+      if(event.keyCode != 8)
+      {
+          f = $window.document.getElementById(f);
+          $scope.clique_input_phonenumber_validity = true;
+          var tel='(';
+          var val =f.value.split('');
+          for(var i=0; i<val.length; i++){
+              if( val[i]==='(' ){
+                  val[i]='';
+              }
+              if( val[i]===')' ){
+                  val[i]='';
+              }
+              if( val[i]==='-' ){
+                  val[i]='';
+              }
+              if( val[i]==='' ){
+                  val[i]='';
+              }
+              if(isNaN(val[i])){
+                  $scope.clique_input_phonenumber_validity = false;
+              }
           }
-          if( val[i]===')' ){
-              val[i]='';
+          //
+          for(i=0; i<val.length; i++){
+              if(i===3){ val[i]=val[i]+')'; }
+              if(i===7){ val[i]=val[i]+'-'; }
+              tel=tel+val[i];
           }
-          if( val[i]==='-' ){
-              val[i]='';
-          }
-          if( val[i]==='' ){
-              val[i]='';
-          }
-          if(isNaN(val[i])){
-              $scope.clique_input_phonenumber_validity = false;
-          }
+          f.value=tel;
       }
-      //
-      for(i=0; i<val.length; i++){
-          if(i===3){ val[i]=val[i]+')'; }
-          if(i===7){ val[i]=val[i]+'-'; }
-          tel=tel+val[i];
-      }
-      f.value=tel;
   }
 
   //Credit card Verification
