@@ -11,14 +11,6 @@ angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
   $log, $q, $cookies, OccasionService, Users, Join, Giftcards) {
 
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if($window.orientation == -90 || $window.orientation == 90)
-        {
-            alert("Please disable device rotation, this app is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
-
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -34,9 +26,17 @@ angular.module('angularLocalightApp')
         OccasionService
     */
 
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if($window.orientation == -90 || $window.orientation == 90)
+        {
+            alert("Please disable device rotation, this app is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
+
 
     //Switch overlay off
-  document.getElementById('darkerOverlay').style.display = "none";
+    document.getElementById('darkerOverlay').style.display = "none";
 
   //Keeping track of stripe verified fields
   $scope.cardIndex = 0;

@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('LocalismCtrl', function ($scope, $cookies) {
+  .controller('LocalismCtrl', function ($scope, $cookies, $window) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,7 +16,15 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Switch overlay off
+        //Check for device orientation
+        $window.addEventListener("orientationchange", function() {
+            if($window.orientation == -90 || $window.orientation == 90)
+            {
+                alert("Please disable device rotation, this app is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+            }
+        }, false);
+
+        //Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
 
           //get our session token from the cookies

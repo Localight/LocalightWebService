@@ -16,6 +16,14 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if($window.orientation == -90 || $window.orientation == 90)
+        {
+            alert("Please disable device rotation, this app is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
+
     //Switch overlay off
 	document.getElementById('darkerOverlay').style.display = "none";
 
