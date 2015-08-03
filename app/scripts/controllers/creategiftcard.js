@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookies, OccasionService, Users, Join, Giftcards) {
+  $log, $q, $cookies, OccasionService, Users, Join, Giftcards, $document) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -63,7 +63,12 @@ angular.module('angularLocalightApp')
   //Function to scroll to the bottom of our page
   $scope.scrollToBottom = function()
   {
-      window.scrollTo(0,document.body.scrollHeight);
+      //Wait a second to scroll so element can load and show
+      $timeout(function() {
+          //Use smooth scroll to scroll to the bottom
+          var bottom = angular.element(document.getElementById('scrollDiv'));
+          $document.scrollToElement(bottom, 0, 1000);
+      }, 50);
   }
 
   //We need to set the primary and secondary input
@@ -133,7 +138,7 @@ angular.module('angularLocalightApp')
        //Focus on the credit card number
        $window.document.getElementById('clique_date_selection').blur();
        //wait a tiny bit and then scroll
-       $timeout($scope.scrollToBottom, 100);
+       $timeout($scope.scrollToBottom, 50);
    }
 });
 
@@ -206,6 +211,9 @@ angular.module('angularLocalightApp')
            {
                $scope.hideCard = true;
                $scope.codeMax = true;
+
+               //Scroll to the bottom for the occasion
+               $scope.scrollToBottom();
            }
            else
            {
