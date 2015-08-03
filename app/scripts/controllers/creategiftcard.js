@@ -60,16 +60,31 @@ angular.module('angularLocalightApp')
 
   $scope.prices = [2, 5, 10, 25, 50, 75, 100];
 
+  //Scrolling boolean
+  $scope.scrolling = false;
+
   //Function to scroll to the bottom of our page
   $scope.scrollToBottom = function()
   {
-      //Wait a second to scroll so element can load and show
-      $timeout(function() {
-          //Use smooth scroll to scroll to the bottom
-          var bottom = angular.element(document.getElementById('scrollDiv'));
-          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
-          $document.scrollToElement(bottom, 0, 1000, function (t) { return t*t*t });
-      }, 5);
+      //Prevent scrolling multiple times by setting variable
+      if(!$scope.scrolling)
+      {
+          //sET SCROLLING TO true
+          $scope.scrolling = true;
+
+          //Wait a second to scroll so element can load and show
+          $timeout(function() {
+              //Use smooth scroll to scroll to the bottom
+              var bottom = angular.element(document.getElementById('scrollDiv'));
+              //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+              $document.scrollToElement(bottom, 0, 1000, function (t) { return t*t*t });
+
+              //Now timeout till we set scrolling back to true'
+              $timeout(function() {
+                  $scope.scrolling = false;
+              }, 5);
+          }, 5);
+      }
   }
 
   //We need to set the primary and secondary input
@@ -141,7 +156,7 @@ angular.module('angularLocalightApp')
        //Scroll to the bottom
        $scope.scrollToBottom();
    }
-});
+   });
 
 
   //Flags for various things.
@@ -431,6 +446,12 @@ angular.module('angularLocalightApp')
           tel=tel+val[i];
       }
       f.value=tel;
+
+      //Now check if we can scroll to the next field
+      if(f.value.length > 9)
+      {
+          $scope.scrollToBottom();
+      }
   }
 
   //Credit card Verification
