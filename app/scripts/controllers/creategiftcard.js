@@ -67,8 +67,9 @@ angular.module('angularLocalightApp')
       $timeout(function() {
           //Use smooth scroll to scroll to the bottom
           var bottom = angular.element(document.getElementById('scrollDiv'));
-          $document.scrollToElement(bottom, 0, 1000);
-      }, 50);
+          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+          $document.scrollToElement(bottom, 0, 1000, function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 });
+      }, 5);
   }
 
   //We need to set the primary and secondary input
@@ -137,8 +138,8 @@ angular.module('angularLocalightApp')
    {
        //Focus on the credit card number
        $window.document.getElementById('clique_date_selection').blur();
-       //wait a tiny bit and then scroll
-       $timeout($scope.scrollToBottom, 50);
+       //Scroll to the bottom
+       $scope.scrollToBottom();
    }
 });
 
