@@ -79,6 +79,11 @@ angular
         controller: 'RecipientredirectCtrl',
         controllerAs: 'recipientRedirect'
       })
+      .when('/sentConfirmation', {
+        templateUrl: 'views/sentconfirmation.html',
+        controller: 'SentconfirmationCtrl',
+        controllerAs: 'sentConfirmation'
+      })
       .otherwise({
         redirectTo: '/'
       });
