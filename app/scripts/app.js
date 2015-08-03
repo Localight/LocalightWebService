@@ -79,7 +79,7 @@ angular
         controller: 'RecipientredirectCtrl',
         controllerAs: 'recipientRedirect'
       })
-      .when('/giftcards/create/sent', {
+      .when('/sent', {
         templateUrl: 'views/sentconfirmation.html',
         controller: 'SentconfirmationCtrl',
         controllerAs: 'sentConfirmation'
