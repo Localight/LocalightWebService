@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards) {
+  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards, $window) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,7 +16,19 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Switch overlay on
+    //Boolean for alert
+    $scope.rotateAlert = false;
+
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+        {
+            $scope.rotateAlert = true;
+            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
+
+        //Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
 
         //get our session token from the cookies
