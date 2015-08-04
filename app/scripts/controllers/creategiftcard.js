@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookies, OccasionService, Users, Join, Giftcards) {
+  $log, $q, $cookies, OccasionService, Users, Join, Giftcards, $document) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -65,10 +65,31 @@ angular.module('angularLocalightApp')
         document.getElementById("clique_input_to").focus();
     });
 
+  //Scrolling boolean
+  $scope.scrolling = false;
+
   //Function to scroll to the bottom of our page
   $scope.scrollToBottom = function()
   {
-      window.scrollTo(0,document.body.scrollHeight);
+      //Prevent scrolling multiple times by setting variable
+      if(!$scope.scrolling)
+      {
+          //sET SCROLLING TO true
+          $scope.scrolling = true;
+
+          //Wait a second to scroll so element can load and show
+          $timeout(function() {
+              //Use smooth scroll to scroll to the bottom
+              var bottom = angular.element(document.getElementById('scrollDiv'));
+              //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+              $document.scrollToElement(bottom, 0, 1000, function (t) { return t*t*t });
+
+              //Now timeout till we set scrolling back to true'
+              $timeout(function() {
+                  $scope.scrolling = false;
+              }, 5);
+          }, 5);
+      }
   }
 
   //We need to set the primary and secondary input
@@ -137,10 +158,10 @@ angular.module('angularLocalightApp')
    {
        //Focus on the credit card number
        $window.document.getElementById('clique_date_selection').blur();
-       //wait a tiny bit and then scroll
-       $timeout($scope.scrollToBottom, 100);
+       //Scroll to the bottom
+       $scope.scrollToBottom();
    }
-});
+   });
 
 
   //Flags for various things.
@@ -211,6 +232,9 @@ angular.module('angularLocalightApp')
            {
                $scope.hideCard = true;
                $scope.codeMax = true;
+
+               //Scroll to the bottom for the occasion
+               $scope.scrollToBottom();
            }
            else
            {
@@ -431,6 +455,12 @@ angular.module('angularLocalightApp')
               tel=tel+val[i];
           }
           f.value=tel;
+      }
+
+      //Now check if we can scroll to the next field
+      if(f.value.length > 11)
+      {
+          $scope.scrollToBottom();
       }
   }
 
