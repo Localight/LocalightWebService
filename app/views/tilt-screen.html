@@ -7,11 +7,13 @@
 		<!-- down arrow -->
 		<img class = "center upside" src = "../images/up-arrow-aqua.png">
 
+		<br>
 		<!--Merchants name -->
 		<h2 class = "linkText center">{{merchantLocation.name}}</h2>
 
 		<!-- Lock Icon -->
-		<img class = "center" ng-click = "goTo('/merchants/{{Id}}/tricon')" src = "../images/lock.png">
+		<div style = "padding-left: 5%" class = "center swipeLock" my-touchend= "goTo('/merchants/{{Id}}/tricon')" ng-swipe-left = "goTo('/merchants/{{Id}}/tricon')" ng-swipe-right = "goTo('/merchants/{{Id}}/tricon')">
+		</div>
 		<br>
 	</div>
 

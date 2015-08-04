@@ -33,16 +33,21 @@
 		</tr>
         <tr>
 			<!-- Using inline styles for our randomization so we can edit this later-->
-            <td class = "center" ng-click="goTo('/merchants')">
-                <div style="padding-top: 27px;">
+            <td ng-click="goTo('/merchants')">
+                <div style="padding-top: 5%;" class = "center">
                     <img class = "inline" src = "../images/auth-lft-arrow.png">
                     <p style="vertical-align: sub;" class = "inline paddingLeft backText redText">Back</p>
                 </div>
             </td>
             <td>
-			<div my-touchstart="pressButton(0);" my-touchend="pressButton(-1);" style="background-image: url(../images/auth-aqua-sheet.png); background-position-x: -0px; background-size: 1000px;" class="dialButton"></div></td>
-            <td>
-            <div class = "buttonDel center" ng-show = "clicked == true" ng-click = "backSpace()"></td>
+			<div my-touchstart="pressButton(0);" my-touchend="pressButton(-1);" style="background-image: url(../images/auth-aqua-sheet.png); background-position-x: -0px; background-size: 1000px;" class="dialButton"></div>
+            </td>
+            <td class = "center">
+                <div style="padding-top: 20%;">
+                    <div class = "buttonDel center" ng-show = "clicked == true" ng-click = "backSpace()">
+                    </div>
+                </div>
+            </td>
 		</tr>
     </table>
 
