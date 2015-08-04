@@ -119,15 +119,15 @@ angular.module('angularLocalightApp')
 		//Array of the eatery tricons and their paths
 		$scope.images =
 		[
-			{name: "tricon-coffee", pos: "600"},
-			{name: "tricon-cupcake", pos: "0"},
-			{name: "tricon-dinner", pos: "300"},
-			{name: "tricon-pie-slice", pos: "800"},
-			{name: "tricon-sandwich", pos: "100"},
-			{name: "tricon-shrimp", pos: "200"},
-			{name: "tricon-soup", pos: "400"},
-			{name: "tricon-sundae", pos: "700"},
-			{name: "tricon-wine", pos: "500"}
+			{name: "tricon-coffee", pos: "600", code: "e107"},
+			{name: "tricon-cupcake", pos: "0", code: "e101"},
+			{name: "tricon-dinner", pos: "300", code: "e104"},
+			{name: "tricon-pie", pos: "800", code: "e109"},
+			{name: "tricon-sandwich", pos: "100", code: "e102"},
+			{name: "tricon-sushi", pos: "200", code: "e103"},
+			{name: "tricon-pho-soup", pos: "400", code: "e105"},
+			{name: "tricon-sundae", pos: "700", code: "e108"},
+			{name: "tricon-wine", pos: "500", code: "e106"}
 		];
 
 		//Shuffles the images array of tricons to always
