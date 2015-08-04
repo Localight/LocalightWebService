@@ -694,12 +694,12 @@ angular.module('angularLocalightApp')
                   else {
                       //SUCCESSSSSSSS
 
-                      //fade out to the fancy black page to confirm giftcard
+                      //Store the phone number and email in the cookies
+                      $cookies.put("phone", $scope.gc.phoneNumber);
+                      $cookies.put("email", $scope.gc.email);
 
-
-                      //For testing Go to the giftcards page
-                      console.log("Success!");
-                      $location.path("/giftcards");
+                      //For testing Go to the sent page
+                      $location.path("/sent");
                   }
               });
           }
