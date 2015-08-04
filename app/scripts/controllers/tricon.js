@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TriconCtrl', function ($scope, $routeParams, $location, $cookieStore, $window) {
+  .controller('TriconCtrl', function ($scope, $routeParams, $location, $cookieStore, $window, $cookies, LocationById, Spend) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -19,6 +19,12 @@ angular.module('angularLocalightApp')
     //Boolean for alert
     $scope.rotateAlert = false;
 
+    //Get our merchant ID
+    $scope.Id = $routeParams.merchantId;
+
+    //get our session token from the cookies
+    $scope.sessionToken = $cookies.get("sessionToken");
+
     //Check for device orientation
     $window.addEventListener("orientationchange", function() {
         if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
@@ -28,7 +34,7 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-    //Switch overlay on
+        //Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
 
 		//Our pressed tricon ***
@@ -37,38 +43,29 @@ angular.module('angularLocalightApp')
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
 
-		//Our merchants
-		$scope.merchants = [{
-			area: "4th Street Retro Row",
-			name: "Goldies On 4th",
-			id: 0,
-			address: "2106 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Aji Peruvian Cuisine",
-			id: 1,
-			address: "2308 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "P3 Artisan Pizza",
-			id: 2,
-			address: "2306 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "The Social List",
-			id: 3,
-			address: "2105 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Lola's",
-			id: 4,
-			address: "2030 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Portfolio's Coffee",
-			id: 5,
-			address: "2300 E 4th St, Long Beach, CA"
-		}]
+        //Get our location
+        $scope.getLocation = function() {
+            //Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "id" : $scope.Id,
+                "sessionToken" : $scope.sessionToken
+            }
+
+            $scope.merchantLocation = LocationById.get(getJson, function(){
+                //Check for errors
+                if($scope.merchantLocation.errorid)
+                {
+                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
+                    return;
+                }
+                else {
+                    //there was no error continue as normal
+                    //Stop any loading bars or things here
+                }
+            });
+
+        }
 
 		//Shuffles an array using the Fisher-Yates algorithm
 		$scope.shuffle = function(array) {
