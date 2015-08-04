@@ -982,9 +982,18 @@ label.inputlabel {
 }
 
 .swipeLock {
-    width: 50px;
-    height: 50px;
+    width: 71px;
+    height: 71px;
+    max-width:100%;
+    max-height:100%;
     background: url('../images/lock-anim-sprite-wht.png') right center;
+    background-size: cover;
+    animation: play 2.5s steps(15) infinite;
+}
+
+@keyframes play {
+    from { background-position:    0px; }
+    to { background-position: 2130px; }
 }
 
 textarea {
