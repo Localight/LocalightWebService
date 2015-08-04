@@ -24,3 +24,17 @@
                }
            } );
    });
+
+   angular.module('angularLocalightApp')
+   .factory('LocationById', ['$resource', function($resource) {
+
+   return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/locations/:id',
+       { }, {
+           get: {
+               method: 'GET',
+               params: {},
+               isArray: false
+           }
+
+       } );
+   }]);
