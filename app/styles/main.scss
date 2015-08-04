@@ -966,7 +966,7 @@ label.inputlabel {
 
 .creditCardIcon {
   width: 12%;
-  max-width: 40px;
+  max-width: 30px;
 }
 
 .creditCardIcon.ng-hide {
@@ -975,9 +975,10 @@ label.inputlabel {
 }
 
 .creditCardNumInput {
-    width: 16%;
+    width: 18%;
     float: left;
     margin-left: 5px;
+    font-size: 10vmin;
     font-family: 'profontwindowsregular';
 }
 
