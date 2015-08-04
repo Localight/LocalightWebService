@@ -36,7 +36,7 @@ angular.module('angularLocalightApp')
 
             $scope.merchantLocation = LocationById.get(getJson, function(){
                 //Check for errors
-                if($scope.giftcard.errorid)
+                if($scope.merchantLocation.errorid)
                 {
                     console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
                     return;
