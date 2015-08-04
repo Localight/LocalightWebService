@@ -35,7 +35,7 @@ angular.module('angularLocalightApp')
 			""
 		]
 
-		// Find a list of Giftcards
+		// Find the giftcard
 		$scope.getGiftcards = function() {
             //Get our giftcards from the user
             //First set up some JSON for the session token
