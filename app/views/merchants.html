@@ -19,20 +19,20 @@
     <div class="list-group flatRowList">
         <!-- Not doing areas yet <h4 class= "paddingLeft">{{merchantsArray[0].area}}</h4> -->
         <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index]._id}}/amount">
-          <h3 class = "whiteHeader">{{merchant.name}}</h3>
+          <h2 class = "whiteHeader">{{merchant.name}}</h2>
 
-            <div class = "blackText">
-                <h5 class="list-group-item-text">
+            <div class = "whiteText">
+                <h4 class="list-group-item-text">
     				<span data-ng-bind="merchant.address1"></span>
-    			</h5>
-                <h5 class="list-group-item-text">
+    			</h4>
+                <h4 class="list-group-item-text">
                     <span data-ng-bind="merchant.address2"></span>
-                </h5>
-                <h5 class="list-group-item-text">
+                </h4>
+                <h4 class="list-group-item-text">
                     <span>{{merchant.city}}, {{merchant.state}} {{merchant.zipcode}}</span>
-                </h5>
+                </h4>
             </div>
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true">
+            <span style = "color: black" class="glyphicon glyphicon-menu-right" aria-hidden="true">
         </a>
     </div>
 </section>
