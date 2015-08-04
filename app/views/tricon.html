@@ -1,4 +1,4 @@
-<section class="upside">
+<section class="upside" ng-init="getLocation()">
 	<!-- The amount entered -->
 	<h2 class="whiteText center">${{getAmount()}}</h2>
 
@@ -7,7 +7,7 @@
 
 	<br>
 	<!--Merchants name -->
-	<h2 class="whiteText center">{{merchants[Id].name}}</h2>
+	<h2 class="whiteText center">{{merchantLocation.name}}</h2>
 
 
 	<!-- Our Tricon Pad -->
