@@ -10,12 +10,6 @@
 angular.module('angularLocalightApp')
   .controller('TriconCtrl', function ($scope, $routeParams, $location, $cookieStore, $window, $cookies, LocationById, Spend) {
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
     //Boolean for alert
     $scope.rotateAlert = false;
 
@@ -39,6 +33,9 @@ angular.module('angularLocalightApp')
 
 		//Our pressed tricon ***
 		$scope.pressedTricon = "";
+
+        //our array of tricons
+        var triconArray = [];
 
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
@@ -96,6 +93,9 @@ angular.module('angularLocalightApp')
 
 			//And, add a star to pressed tricon
 			$scope.pressedTricon = $scope.pressedTricon + "*";
+
+            //Push the tricon onto the array
+            triconArray.push($scope.images[id].code);
 
 			//Check if it has more than 2 characters, if it does, go to the confirmation page
 			if($scope.pressedTricon.length > 2)
