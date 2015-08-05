@@ -16,15 +16,23 @@ angular.module('angularLocalightApp')
     ];
 
     //no errors
-    $scope.submitError = false;
+    $scope.submitError;
 
     //Sign up our owner!
-    //Get our location
     $scope.signUp = function() {
-        //Get our giftcards from the user
+
+        //First check if their passwords match
+        if($scope.password.indexOf($scope.confirmPassword) < 0)
+        {
+            console.log("hi");
+            $scope.submitError = true;
+            $scope.theError = "Passwords do not match!";
+            return;
+        }
+
         //First set up some JSON for the session token
         var postJson = {
-            "name" : $scope.username,
+           "name" : $scope.username,
            "stripeCustomerId" : $scope.stripeCustomerId,
            "email" : $scope.email,
            "password" : $scope.password
@@ -38,12 +46,11 @@ angular.module('angularLocalightApp')
                 $scope.theError = $scope.owner.msg;
                 return;
             }
-            else {
+            else
+            {
                 //there was no error continue as normal
                 //Save their session token
-                $cookies.put("sessionToken", $scope.owner.sessionToken);
-                //log the session token
-                console.log($scope.owner.sessionToken);
+                $cookies.put("sessionToken", $scope.owner.token);
 
                 //Finally redirect to the main page
                 $location.path("/panel/main");
