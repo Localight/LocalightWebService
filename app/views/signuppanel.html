@@ -2,7 +2,9 @@
 
     <h1>Signup</h1>
 
-    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="name" ng-model="name" placeholder="Name" required>
+    <h3 ng-show = "submitError">{{theError}}</h3>
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="name" ng-model="username" placeholder="Name" required>
 
     <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="stripeCustomerId" ng-model="stripeCustomerId" placeholder="Stripe Customer Id" required>
 
