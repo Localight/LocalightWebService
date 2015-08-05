@@ -47,7 +47,7 @@
    .factory('Spend', ['$resource', function($resource) {
 
    return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/locations/:id/spend',
-       { }, {
+       { id: '@id' }, {
            spendGiftcard: {
                method: 'POST',
                params: {},
