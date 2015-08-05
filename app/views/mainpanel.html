@@ -2,15 +2,13 @@
 
     <h1>{{owner.name}}</h1>
 
-    <br>
-    <button type = "submit" style = "margin-top: 10px;font-size: 1.5em;">Submit</button>
-    <br>
-
     <h3>Stripe Customer Id: {{owner.stripeCustomerId}}</h3>
     <h3>Email: {{owner.email}}</h3>
 
     <br>
     <h1>Locations</h1>
+    <br>
+    <button style = "margin-top: 10px;font-size: 1.5em;" ng-click = "redirectCreate()">Create a Location</button>
     <br>
     <div class = "center" ng-repeat = "location in locations">
         <h4>{{location.name}}</h4>
