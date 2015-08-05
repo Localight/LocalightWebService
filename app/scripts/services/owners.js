@@ -7,7 +7,30 @@
  * # Owners
  * Service in the angularLocalightApp.
  */
-angular.module('angularLocalightApp')
-  .service('Owners', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  });
+ angular.module('angularLocalightApp')
+ .factory('JoinOwner', ['$resource', function($resource) {
+
+ return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/owners/join',
+     { }, {
+         submit: {
+             method: 'POST',
+             params: {},
+             isArray: false
+         }
+
+     } );
+ }]);
+
+ angular.module('angularLocalightApp')
+ .factory('LoginOwner', ['$resource', function($resource) {
+
+ return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/owners/login',
+     { }, {
+         submit: {
+             method: 'POST',
+             params: {},
+             isArray: false
+         }
+
+     } );
+ }]);
