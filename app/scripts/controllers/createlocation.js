@@ -8,12 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('CreatelocationCtrl', function ($scope, $cookies, $location, Owners, Locations) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('CreatelocationCtrl', function ($scope, $cookies, $location, $route, Owners, Locations) {
 
     //get our session token
     var sessionToken = $cookies.get("sessionToken");
@@ -44,7 +39,7 @@ angular.module('angularLocalightApp')
     }
 
     //Create the location
-    $scope.createLocation = function() {
+    $scope.submitLocation = function() {
 
         //First set up some JSON for the session token
         var postJson = {
@@ -57,13 +52,13 @@ angular.module('angularLocalightApp')
            "state" : $scope.state,
            "zipcode" : $scope.zipcode,
            "ownerId" : $scope.owner._id
-        }
+       };
 
-        $scope.postLocation = Locations.create(postJson, function(){
+        $scope.newLocation = Locations.create(postJson, function(){
             //Check for errors
-            if($scope.postLocation.errorid)
+            if($scope.newLocation.errorid)
             {
-                console.log($scope.postLocation.msg);
+                console.log($scope.newLocation.msg);
                 return;
             }
             else
@@ -76,5 +71,17 @@ angular.module('angularLocalightApp')
                 $location.path("/panel/main");
             }
         });
+
+        //Since there is no response, we need to redirect down here
+        if(!$scope.newLocation.errorid)
+        {
+            //there was no error continue as normal
+            //Save their session token
+            console.log("Location Created!");
+
+            //redirect back to the main page
+            $location.path("/panel/main").replace();
+        }
     }
+
   });
