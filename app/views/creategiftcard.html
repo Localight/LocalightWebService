@@ -95,11 +95,11 @@
     <br>
 
     <!--Date picker -->
-    <div class = "waterfall" ng-show="secondaryIndex > 3">
-        <input placeholder="Double Tap to set a send date"
-        type="text" onfocus="(this.type='date')" id="clique_date_selection" class = "createGiftCardWidth center roundWhiteBorder currentInput" name="clique_date_selection" ng-model="gc.date" min-date="minDate"
-        show-weeks="true" class="well well-lg" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);" required
-        style="height: 40px;font-size: 6.5vmin"></input>
+    <div class = "waterfall">
+        <input placeholder="Tap to set a date" style="font-size: 2em"
+        class = "createGiftCardWidth center roundWhiteBorder currentInput well well-lg"
+        type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="2000-01-01" max="2020-01-01"
+        show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate()" required></input>
     </div>
 
     <!--Pay by card-->
