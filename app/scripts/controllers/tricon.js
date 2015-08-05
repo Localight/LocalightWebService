@@ -13,6 +13,9 @@ angular.module('angularLocalightApp')
     //Boolean for alert
     $scope.rotateAlert = false;
 
+    //Error message
+    $scope.errorMsg
+
     //Get our merchant ID
     $scope.Id = $routeParams.merchantId;
 
@@ -108,13 +111,20 @@ angular.module('angularLocalightApp')
                     "triconKey" : triconArray
                 }
 
-                console.log(spendJson);
-
                 $scope.spendResponse = Spend.spendGiftcard(spendJson, function () {
                     //Check for errors
                     if($scope.spendResponse.errorid)
                     {
-                        console.log($scope.spendResponse.msg);
+                        //Show our error
+                        $scope.errorMsg = $scope.spendResponse.msg;
+
+                        //Clear the array and the pressed tricons
+                        //Our pressed tricon ***
+                        $scope.pressedTricon = "";
+
+                        //our array of tricons
+                        var triconArray = [];
+
                         return;
                     }
                     else {
