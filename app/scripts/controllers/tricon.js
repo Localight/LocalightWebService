@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TriconCtrl', function ($scope, $routeParams, $location, $cookieStore, $window, $cookies, LocationById, Spend) {
+  .controller('TriconCtrl', function ($scope, $routeParams, $location, $window, $cookies, LocationById, Spend) {
 
     //Boolean for alert
     $scope.rotateAlert = false;
@@ -100,7 +100,31 @@ angular.module('angularLocalightApp')
 			//Check if it has more than 2 characters, if it does, go to the confirmation page
 			if($scope.pressedTricon.length > 2)
 			{
-				$location.path("/merchants/" + $scope.Id + "/confirmation")
+                //Send the data to the backend and make sure it's good!
+                var spendJson = {
+                    "id" : $scope.Id,
+                    "sessionToken" : $scope.sessionToken,
+                    "amount" : $cookies.get("igosdmbmtv"),
+                    "triconKey" : triconArray
+                }
+
+                console.log(spendJson);
+
+                $scope.spendResponse = Spend.spendGiftcard(spendJson, function () {
+                    //Check for errors
+                    if($scope.spendResponse.errorid)
+                    {
+                        console.log($scope.spendResponse.msg);
+                        return;
+                    }
+                    else {
+                        //there was no error continue as normal
+                        //Stop any loading bars or things here
+                        //Go to the confirmation page
+
+                        $location.path("/merchants/" + $scope.Id + "/confirmation");
+                    }
+                });
 			}
 		}
 
@@ -138,7 +162,7 @@ angular.module('angularLocalightApp')
 		$scope.getAmount = function()
 		{
 			//Retrive the cookie with our amount
-			var amount = $cookieStore.get("igosdmbmtv");
+			var amount = $cookies.get("igosdmbmtv");
 			if(!amount)
 			{
 				$scope.goTo("/merchants/" + $scope.Id + "/amount");
