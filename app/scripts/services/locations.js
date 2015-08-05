@@ -7,6 +7,8 @@
  * # locations
  * Service in the angularLocalightApp.
  */
+
+ //Get all the giftcards, or creat one
  angular.module('angularLocalightApp')
    .service('Locations', function ($resource) {
 
@@ -25,6 +27,7 @@
            } );
    });
 
+   //Location By Id
    angular.module('angularLocalightApp')
    .factory('LocationById', ['$resource', function($resource) {
 
@@ -32,6 +35,21 @@
        { }, {
            get: {
                method: 'GET',
+               params: {},
+               isArray: false
+           }
+
+       } );
+   }]);
+
+   //Spending a Giftcard
+   angular.module('angularLocalightApp')
+   .factory('Spend', ['$resource', function($resource) {
+
+   return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/locations/:id/spend',
+       { id: '@id' }, {
+           spendGiftcard: {
+               method: 'POST',
                params: {},
                isArray: false
            }

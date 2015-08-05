@@ -1,4 +1,4 @@
-<section class="upside">
+<section class="upside" ng-init="getLocation()">
 	<!-- The amount entered -->
 	<h2 class="whiteText center">${{getAmount()}}</h2>
 
@@ -7,8 +7,12 @@
 
 	<br>
 	<!--Merchants name -->
-	<h2 class="whiteText center">{{merchants[Id].name}}</h2>
+	<h2 class="whiteText center">{{merchantLocation.name}}</h2>
 
+	<!-- Error Display -->
+	<h1 class = "center whiteText" ng-show="errorMsg" style="padding: 10px;">
+		{{errorMsg}}
+	</h1>
 
 	<!-- Our Tricon Pad -->
 	<!-- Our table for tricon, the dialpad -->

@@ -8,16 +8,19 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TriconCtrl', function ($scope, $routeParams, $location, $cookieStore, $window) {
-
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('TriconCtrl', function ($scope, $routeParams, $location, $window, $cookies, LocationById, Spend) {
 
     //Boolean for alert
     $scope.rotateAlert = false;
+
+    //Error message
+    $scope.errorMsg
+
+    //Get our merchant ID
+    $scope.Id = $routeParams.merchantId;
+
+    //get our session token from the cookies
+    $scope.sessionToken = $cookies.get("sessionToken");
 
     //Check for device orientation
     $window.addEventListener("orientationchange", function() {
@@ -28,47 +31,41 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-    //Switch overlay on
+        //Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
 
 		//Our pressed tricon ***
 		$scope.pressedTricon = "";
 
+        //our array of tricons
+        var triconArray = [];
+
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
 
-		//Our merchants
-		$scope.merchants = [{
-			area: "4th Street Retro Row",
-			name: "Goldies On 4th",
-			id: 0,
-			address: "2106 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Aji Peruvian Cuisine",
-			id: 1,
-			address: "2308 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "P3 Artisan Pizza",
-			id: 2,
-			address: "2306 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "The Social List",
-			id: 3,
-			address: "2105 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Lola's",
-			id: 4,
-			address: "2030 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Portfolio's Coffee",
-			id: 5,
-			address: "2300 E 4th St, Long Beach, CA"
-		}]
+        //Get our location
+        $scope.getLocation = function() {
+            //Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "id" : $scope.Id,
+                "sessionToken" : $scope.sessionToken
+            }
+
+            $scope.merchantLocation = LocationById.get(getJson, function(){
+                //Check for errors
+                if($scope.merchantLocation.errorid)
+                {
+                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
+                    return;
+                }
+                else {
+                    //there was no error continue as normal
+                    //Stop any loading bars or things here
+                }
+            });
+
+        }
 
 		//Shuffles an array using the Fisher-Yates algorithm
 		$scope.shuffle = function(array) {
@@ -100,10 +97,44 @@ angular.module('angularLocalightApp')
 			//And, add a star to pressed tricon
 			$scope.pressedTricon = $scope.pressedTricon + "*";
 
+            //Push the tricon onto the array
+            triconArray.push($scope.images[id].code);
+
 			//Check if it has more than 2 characters, if it does, go to the confirmation page
 			if($scope.pressedTricon.length > 2)
 			{
-				$location.path("/merchants/" + $scope.Id + "/confirmation")
+                //Send the data to the backend and make sure it's good!
+                var spendJson = {
+                    "id" : $scope.Id,
+                    "sessionToken" : $scope.sessionToken,
+                    "amount" : $cookies.get("igosdmbmtv"),
+                    "triconKey" : triconArray
+                }
+
+                $scope.spendResponse = Spend.spendGiftcard(spendJson, function () {
+                    //Check for errors
+                    if($scope.spendResponse.errorid)
+                    {
+                        //Show our error
+                        $scope.errorMsg = $scope.spendResponse.msg;
+
+                        //Clear the array and the pressed tricons
+                        //Our pressed tricon ***
+                        $scope.pressedTricon = "";
+
+                        //our array of tricons
+                        var triconArray = [];
+
+                        return;
+                    }
+                    else {
+                        //there was no error continue as normal
+                        //Stop any loading bars or things here
+                        //Go to the confirmation page
+
+                        $location.path("/merchants/" + $scope.Id + "/confirmation");
+                    }
+                });
 			}
 		}
 
@@ -122,15 +153,15 @@ angular.module('angularLocalightApp')
 		//Array of the eatery tricons and their paths
 		$scope.images =
 		[
-			{name: "tricon-coffee", pos: "600"},
-			{name: "tricon-cupcake", pos: "0"},
-			{name: "tricon-dinner", pos: "300"},
-			{name: "tricon-pie-slice", pos: "800"},
-			{name: "tricon-sandwich", pos: "100"},
-			{name: "tricon-shrimp", pos: "200"},
-			{name: "tricon-soup", pos: "400"},
-			{name: "tricon-sundae", pos: "700"},
-			{name: "tricon-wine", pos: "500"}
+			{name: "tricon-coffee", pos: "600", code: "e107"},
+			{name: "tricon-cupcake", pos: "0", code: "e101"},
+			{name: "tricon-dinner", pos: "300", code: "e104"},
+			{name: "tricon-pie", pos: "800", code: "e109"},
+			{name: "tricon-sandwich", pos: "100", code: "e102"},
+			{name: "tricon-sushi", pos: "200", code: "e103"},
+			{name: "tricon-pho-soup", pos: "400", code: "e105"},
+			{name: "tricon-sundae", pos: "700", code: "e108"},
+			{name: "tricon-wine", pos: "500", code: "e106"}
 		];
 
 		//Shuffles the images array of tricons to always
@@ -141,7 +172,7 @@ angular.module('angularLocalightApp')
 		$scope.getAmount = function()
 		{
 			//Retrive the cookie with our amount
-			var amount = $cookieStore.get("igosdmbmtv");
+			var amount = $cookies.get("igosdmbmtv");
 			if(!amount)
 			{
 				$scope.goTo("/merchants/" + $scope.Id + "/amount");

@@ -1,4 +1,4 @@
-<section class="upside">
+<section class="upside" ng-init = "getLocation()">
 
 	<!-- The amount entered -->
 	<h2 class="whiteText center">${{getAmount()}}</h2>
@@ -7,7 +7,7 @@
 	<img class="center upside" src="../images/up-arrow-wht.png">
 
 	<!--Merchants name -->
-	<h2 class="whiteText center">{{merchants[Id].name}}</h2>
+	<h2 class="whiteText center">{{merchantLocation.name}}</h2>
 
 	<!-- Our checkmark -->
 	<img class = "center" style = "padding-bottom: 30%;margin-top: 40%;"src="../images/checkmark-blk.png">
