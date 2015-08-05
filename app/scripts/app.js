@@ -100,6 +100,11 @@ angular
         controller: 'MainpanelCtrl',
         controllerAs: 'mainPanel'
       })
+      .when('/createlocation', {
+        templateUrl: 'views/createlocation.html',
+        controller: 'CreatelocationCtrl',
+        controllerAs: 'createlocation'
+      })
       .otherwise({
         redirectTo: '/'
       });
