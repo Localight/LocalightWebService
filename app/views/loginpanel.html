@@ -1,10 +1,12 @@
-<form class = "center">
+<form class = "center" ng-submit = "signUp()">
 
     <h1>Login</h1>
 
+    <h3 ng-show = "submitError">{{theError}}</h3>
+
     <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="email" name="email" ng-model="email" placeholder="Email" required>
 
-    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="password" ng-model="password" placeholder="Password" required>
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="password" name="password" ng-model="password" placeholder="Password" required>
 
     <br>
     <button type = "submit" style = "margin-top: 10px;font-size: 1.5em;">Submit</button>
