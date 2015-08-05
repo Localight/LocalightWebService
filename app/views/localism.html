@@ -4,7 +4,7 @@
 	<!-- header section with give option, clique logo and available balance -->
 	<table class = "sub-header">
 		<tr>
-			<td class="paddingLeft"><a class="blackText navText" href="/#!/giftcards/create">
+			<td class="paddingLeft"><a class="blackText navText" ng-href="/#/giftcards/create/{{sessionToken}}">
 				<img class="imagePaddingRight" ng-src="../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
 				Give</a></td>
 				<td class = "textRightAlign blackText navText paddingRight">${{totalValue()}}</td>
@@ -24,5 +24,5 @@
 	<h3 class = "blackText center" style = "margin-top: 0px"> Why does it matter to choose local? Watch the video.</h3>
 
 	<!-- video link -->
-	<a href = "https://www.youtube.com/watch?v=TNz5Q0G-KAs"><img class = "center" src = "../images/bowtie.png"</a>
+	<a href = "https://www.youtube.com/watch?v=TNz5Q0G-KAs"><img style = "margin-top: 20px" class = "center" src = "../images/video-play-btn-small.png"</a>
 </section>

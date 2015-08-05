@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, $window) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,11 +16,23 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
+    //Boolean for alert
+    $scope.rotateAlert = false;
+
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+        {
+            $scope.rotateAlert = true;
+            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
+
         //Switch overlay off
 		document.getElementById('darkerOverlay').style.display = "none";
 
         //get our session token from the cookies
-        var sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken = $cookies.get("sessionToken");
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
@@ -29,7 +41,7 @@ angular.module('angularLocalightApp')
 			//Get our giftcards from the user
             //First set up some JSON for the session token
             var getJson = {
-                "sessionToken" : sessionToken
+                "sessionToken" : $scope.sessionToken
             }
 
             //Query the backend using out session token
@@ -92,5 +104,16 @@ angular.module('angularLocalightApp')
 			//Wedding
 			"/../images/occasion-wedding-icon-wht.png"
 		]
+
+
+        //Function to go to another url, if giftcards is not zero
+		$scope.goTo = function(place)
+		{
+			//Save our final amount if the path is to pay
+			if($scope.giftcards.length > 0)
+			{
+			    $location.path(place);
+            }
+		}
 
   });

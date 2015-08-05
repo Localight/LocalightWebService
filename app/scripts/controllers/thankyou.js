@@ -8,19 +8,28 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookieStore, $location) {
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById) {
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    //Boolean for alert
+    $scope.rotateAlert = false;
 
-    //Switch overlay off
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+        {
+            $scope.rotateAlert = true;
+            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
+
+        //Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
 
-		//Initialize scope.giftcards
-		$scope.giftcards = null;
+          //giftcards list
+          $scope.giftcards;
+
+         //get our session token from the cookies
+         $scope.sessionToken = $cookies.get("sessionToken");
 
 		//Our character count for the text area
 		$scope.charCount;
@@ -28,22 +37,44 @@ angular.module('angularLocalightApp')
 		//Total purcahse value
 		$scope.purchaseValue;
 
-		//Retrive the cookie with our amount
-		var amount = $cookieStore.get("igosdmbmtv");
-		if(!amount)
-		{
-			amount = 0;
-		}
-		$cookieStore.remove("igosdmbmtv");
-		$scope.purchaseValue = (parseInt(amount) / 100).toFixed(2);
+        //Get our merchant ID
+		$scope.Id = $routeParams.merchantId;
+
+        //Get our amount
+        $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
+        $cookies.remove("igosdmbmtv");
+
+        //Get our location
+        $scope.getLocation = function() {
+            //Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "id" : $scope.Id,
+                "sessionToken" : $scope.sessionToken
+            }
+
+            $scope.merchantLocation = LocationById.get(getJson, function(){
+                //Check for errors
+                if($scope.merchantLocation.errorid)
+                {
+                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
+                    return;
+                }
+                else {
+                    //there was no error continue as normal
+                    //Stop any loading bars or things here
+                }
+            });
+
+        }
 
 
 		//Prepare our text area
 		$scope.setTextArea = function ()
 		{
 			//Set the default value of our text area
-			document.getElementById("thankYouNote").value = $scope.giftcards[0].from + ", I used the Local Giftcard at "
-			+ $scope.merchants[$scope.Id].name + " to get...";
+			document.getElementById("thankYouNote").value = $scope.giftcards[0].fromId.name + ", I used the Local Giftcard at "
+			+ $scope.merchantLocation.name + " to get...";
 		}
 
 		//Count our text area characters
@@ -52,83 +83,31 @@ angular.module('angularLocalightApp')
 			$scope.charCount = 160 - document.getElementById("thankYouNote").value.length;
 		}
 
-		//Get our merchant ID
-		$scope.Id = $routeParams.merchantId;
-
-		//Our merchants
-		$scope.merchants = [{
-			area: "4th Street Retro Row",
-			name: "Goldies On 4th",
-			id: 0,
-			address: "2106 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Aji Peruvian Cuisine",
-			id: 1,
-			address: "2308 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "P3 Artisan Pizza",
-			id: 2,
-			address: "2306 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "The Social List",
-			id: 3,
-			address: "2105 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Lola's",
-			id: 4,
-			address: "2030 E 4th St, Long Beach, CA"
-		},{
-			area: "4th Street Retro Row",
-			name: "Portfolio's Coffee",
-			id: 5,
-			address: "2300 E 4th St, Long Beach, CA"
-		}]
-
-		// Find a list of Giftcards
+        // Find a list of Giftcards
 		$scope.getGiftcards = function() {
-			//$scope.giftcards = Giftcards.query();
+			//Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "sessionToken" : $scope.sessionToken
+            }
 
-			//FOr testing, hardcoding scope giftcards
-			$scope.giftcards =
-			[
-				{
-					_id: "1",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Tony',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!",
-					occasionHeading: "Happy Birthday!",
-					occasionNumber: "2"
-				},
-				{
-					_id: "2",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Frank',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Congratulations on your baby!",
-					occasionHeader: "Get Well Soon!",
-					occasionNumber: "5"
-				}
-			]
-			var giftcard;
-			for (giftcard in $scope.giftcards){
-				if($scope.giftcards[giftcard]._id == $routeParams.giftcardId){
-					$scope.giftcard = $scope.giftcards[giftcard];
-					break;
-				}
-			}
+            //Query the backend using out session token
+            $scope.giftcards = Giftcards.get(getJson, function()
+            {
+                //Check for errors
+                if($scope.giftcards.errorid)
+                {
+                    console.log("Error #" + $scope.giftcards.errorid + ": " + $scope.giftcards.msg);
+                    return;
+                }
+                else {
+                    //there was no error continue as normal
+                    //Stop any loading bars or things here
+
+                    //set the text area
+                    $scope.setTextArea();
+                }
+            });
 		}
 
 		$scope.totalValue = function()
@@ -137,7 +116,7 @@ angular.module('angularLocalightApp')
 			var total = 0;
 			for(var i = 0; i < $scope.giftcards.length; ++i)
 			{
-				total = total + parseInt($scope.giftcards[i].amt, 10);
+				total = total + parseInt($scope.giftcards[i].amount, 10);
 			}
 
 			//Return the total value as a formatted string
@@ -174,6 +153,31 @@ angular.module('angularLocalightApp')
 			"../images/occasion-thankyou-icon-wht.png",
 			//Wedding
 			"../images/occasion-wedding-icon-wht.png"
+		]
+
+        //Array of Occasion headings
+		$scope.iconHeaders =
+		[
+			//Anniversary
+			"Happy Anniversary!",
+			//Baby
+			"Congratulations on the Baby!",
+			//Birthday
+			"Happy Birthday!",
+			//Congrats
+			"Congratulations!",
+			//Present (Custom Icon)
+			"Enjoy Your Gift!",
+			//Get Well Soon
+			"Get Well Soon!",
+			//Love
+			"Love You!",
+			//Sympathy
+			"Feel Better Soon!",
+			//Thank You
+			"Thank You!",
+			//Wedding
+			"Congratulations on the Wedding!"
 		]
 
 

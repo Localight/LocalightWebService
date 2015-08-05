@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('CreategiftcardCtrl', function ($scope, $http, $routeParams, $location, $window, $timeout,
-  $log, $q, $cookies, OccasionService, Users, Join, Giftcards) {
+  $log, $q, $cookies, OccasionService, Users, Join, Giftcards, $document) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -26,9 +26,21 @@ angular.module('angularLocalightApp')
         OccasionService
     */
 
+    //Boolean for alert
+    $scope.rotateAlert = false;
+
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+        {
+            $scope.rotateAlert = true;
+            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
+
 
     //Switch overlay off
-  document.getElementById('darkerOverlay').style.display = "none";
+    document.getElementById('darkerOverlay').style.display = "none";
 
   //Keeping track of stripe verified fields
   $scope.cardIndex = 0;
@@ -60,10 +72,36 @@ angular.module('angularLocalightApp')
 
   $scope.prices = [2, 5, 10, 25, 50, 75, 100];
 
+  //Focus on the to field as soon as it is done loading
+  angular.element(document).ready(function () {
+        document.getElementById("clique_input_to").focus();
+    });
+
+  //Scrolling boolean
+  $scope.scrolling = false;
+
   //Function to scroll to the bottom of our page
   $scope.scrollToBottom = function()
   {
-      window.scrollTo(0,document.body.scrollHeight);
+      //Prevent scrolling multiple times by setting variable
+      if(!$scope.scrolling)
+      {
+          //sET SCROLLING TO true
+          $scope.scrolling = true;
+
+          //Wait a second to scroll so element can load and show
+          $timeout(function() {
+              //Use smooth scroll to scroll to the bottom
+              var bottom = angular.element(document.getElementById('scrollDiv'));
+              //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+              $document.scrollToElement(bottom, 0, 1000, function (t) { return t*t*t });
+
+              //Now timeout till we set scrolling back to true'
+              $timeout(function() {
+                  $scope.scrolling = false;
+              }, 5);
+          }, 5);
+      }
   }
 
   //We need to set the primary and secondary input
@@ -132,10 +170,10 @@ angular.module('angularLocalightApp')
    {
        //Focus on the credit card number
        $window.document.getElementById('clique_date_selection').blur();
-       //wait a tiny bit and then scroll
-       $timeout($scope.scrollToBottom, 100);
+       //Scroll to the bottom
+       $scope.scrollToBottom();
    }
-});
+   });
 
 
   //Flags for various things.
@@ -206,6 +244,9 @@ angular.module('angularLocalightApp')
            {
                $scope.hideCard = true;
                $scope.codeMax = true;
+
+               //Scroll to the bottom for the occasion
+               $scope.scrollToBottom();
            }
            else
            {
@@ -393,35 +434,46 @@ angular.module('angularLocalightApp')
   */
 
   //Mask for translating and validating phone numbers
-  $scope.mask = function(f){
-      f = $window.document.getElementById(f);
-      $scope.clique_input_phonenumber_validity = true;
-      var tel='(';
-      var val =f.value.split('');
-      for(var i=0; i<val.length; i++){
-          if( val[i]==='(' ){
-              val[i]='';
+  $scope.mask = function(f, event){
+
+      //First check if the key pressed was backspace, if it was, dont do the function
+      if(event.keyCode != 8)
+      {
+          f = $window.document.getElementById(f);
+          $scope.clique_input_phonenumber_validity = true;
+          var tel='(';
+          var val =f.value.split('');
+          for(var i=0; i<val.length; i++){
+              if( val[i]==='(' ){
+                  val[i]='';
+              }
+              if( val[i]===')' ){
+                  val[i]='';
+              }
+              if( val[i]==='-' ){
+                  val[i]='';
+              }
+              if( val[i]==='' ){
+                  val[i]='';
+              }
+              if(isNaN(val[i])){
+                  $scope.clique_input_phonenumber_validity = false;
+              }
           }
-          if( val[i]===')' ){
-              val[i]='';
+          //
+          for(i=0; i<val.length; i++){
+              if(i===3){ val[i]=val[i]+')'; }
+              if(i===7){ val[i]=val[i]+'-'; }
+              tel=tel+val[i];
           }
-          if( val[i]==='-' ){
-              val[i]='';
-          }
-          if( val[i]==='' ){
-              val[i]='';
-          }
-          if(isNaN(val[i])){
-              $scope.clique_input_phonenumber_validity = false;
-          }
+          f.value=tel;
       }
-      //
-      for(i=0; i<val.length; i++){
-          if(i===3){ val[i]=val[i]+')'; }
-          if(i===7){ val[i]=val[i]+'-'; }
-          tel=tel+val[i];
+
+      //Now check if we can scroll to the next field
+      if(f.value.length > 11)
+      {
+          $scope.scrollToBottom();
       }
-      f.value=tel;
   }
 
   //Credit card Verification
@@ -534,6 +586,30 @@ angular.module('angularLocalightApp')
       {
           $scope.cardValidated = false;
           $scope.cardType = "";
+      }
+  }
+
+  $scope.validateEmail = function()
+  {
+      //get the email
+      var email = $scope.gc.email;
+
+      //check if the email has an @ sign
+      if(email.indexOf("@") > -1)
+      {
+          //If it does, get a sub string after that, and check for a period
+          if(email.substring(email.indexOf("@"))
+          .indexOf(".") > -1)
+          {
+              //if it exists return true
+              return true;
+          }
+          else {
+              return false;
+          }
+      }
+      else {
+          return false;
       }
   }
 
@@ -660,12 +736,12 @@ angular.module('angularLocalightApp')
                   else {
                       //SUCCESSSSSSSS
 
-                      //fade out to the fancy black page to confirm giftcard
+                      //Store the phone number and email in the cookies
+                      $cookies.put("phone", $scope.gc.phoneNumber);
+                      $cookies.put("email", $scope.gc.email);
 
-
-                      //For testing Go to the giftcards page
-                      console.log("Success!");
-                      $location.path("/giftcards");
+                      //For testing Go to the sent page
+                      $location.path("/sent");
                   }
               });
           }

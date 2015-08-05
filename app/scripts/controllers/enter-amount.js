@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookieStore) {
+  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards, $window) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,8 +16,23 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Switch overlay on
+    //Boolean for alert
+    $scope.rotateAlert = false;
+
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+        {
+            $scope.rotateAlert = true;
+            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
+
+        //Switch overlay on
 		document.getElementById('darkerOverlay').style.display = "block";
+
+        //get our session token from the cookies
+        $scope.sessionToken = $cookies.get("sessionToken");
 
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
@@ -55,34 +70,29 @@ angular.module('angularLocalightApp')
 				[7,8,9]
 		];
 
-		// Find a list of Giftcards
-		$scope.getGiftcards = function() {
-			//$scope.giftcards = Giftcards.query();
+        // Find a list of Giftcards from the DB
+        $scope.getGiftcards = function() {
+            //Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "sessionToken" : $scope.sessionToken
+            }
 
-			//FOr testing, hardcoding scope giftcards
-			$scope.giftcards =
-			[
-				{
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Tony',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!"
-				},
-				{
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Frank',
-					message: "hi",
-					districtNumber: 'number'
-				}
-			]
-		}
+            //Query the backend using out session token
+            $scope.giftcards = Giftcards.get(getJson, function()
+            {
+                //Check for errors
+                if($scope.giftcards.errorid)
+                {
+                    console.log($scope.giftcards.errorid + ": " + $scope.giftcards.msg);
+                    return;
+                }
+                else {
+                    //there was no error continue as normal
+                    //Stop any loading bars or things here
+                }
+            });
+        }
 
 		$scope.totalValue = function()
 		{
@@ -90,7 +100,7 @@ angular.module('angularLocalightApp')
 			var total = 0;
 			for(var i = 0; i < $scope.giftcards.length; ++i)
 			{
-				total = total + parseInt($scope.giftcards[i].amt, 10);
+				total = total + parseInt($scope.giftcards[i].amount, 10);
 			}
 
 			//Return the total value as a formatted string
@@ -264,7 +274,7 @@ angular.module('angularLocalightApp')
 		$scope.goTo = function(place) {
 			//Save our final amount if the path is to pay
 			if(place == "/merchants/" + $scope.Id + "/tilt") {
-				$cookieStore.put('igosdmbmtv', $scope.trueAmount);
+				$cookies.put('igosdmbmtv', $scope.trueAmount);
 			}
 
 			$location.path(place);

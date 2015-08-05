@@ -1,0 +1,23 @@
+<form class = "center" ng-submit = "submitLocation()" ng-model = "theForm">
+
+    <h1>Create A Location</h1>
+
+    <h3 ng-show = "submitError">{{theError}}</h3>
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="locationName" ng-model="locationName" placeholder="Name" required>
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="triconKey" ng-model="triconKey" placeholder="Tricon Key" required>
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="address1" ng-model="address1" placeholder="Address" required>
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="address2" ng-model="address2" placeholder="Address 2 (Apt., Suite, etc...)">
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="city" ng-model="city" placeholder="City">
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="state" ng-model="state" placeholder="State">
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="zipcode" ng-model="zipcode" placeholder="Zip Code">
+
+    <br>
+    <button type = "submit" style = "margin-top: 10px;font-size: 1.5em;">Submit</button>
+</form>

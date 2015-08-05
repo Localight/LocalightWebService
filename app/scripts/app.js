@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'duScroll'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -78,6 +79,31 @@ angular
         templateUrl: 'views/recipientredirect.html',
         controller: 'RecipientredirectCtrl',
         controllerAs: 'recipientRedirect'
+      })
+      .when('/sent', {
+        templateUrl: 'views/sentconfirmation.html',
+        controller: 'SentconfirmationCtrl',
+        controllerAs: 'sentConfirmation'
+      })
+      .when('/panel/signup', {
+        templateUrl: 'views/signuppanel.html',
+        controller: 'SignuppanelCtrl',
+        controllerAs: 'signupPanel'
+      })
+      .when('/panel/login', {
+        templateUrl: 'views/loginpanel.html',
+        controller: 'LoginpanelCtrl',
+        controllerAs: 'loginPanel'
+      })
+      .when('/panel/main', {
+        templateUrl: 'views/mainpanel.html',
+        controller: 'MainpanelCtrl',
+        controllerAs: 'mainPanel'
+      })
+      .when('/panel/createlocation', {
+        templateUrl: 'views/createlocation.html',
+        controller: 'CreatelocationCtrl',
+        controllerAs: 'createlocation'
       })
       .otherwise({
         redirectTo: '/'

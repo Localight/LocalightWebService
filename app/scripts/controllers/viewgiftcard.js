@@ -8,13 +8,25 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, $window) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    //Boolean for alert
+    $scope.rotateAlert = false;
+
+    //Check for device orientation
+    $window.addEventListener("orientationchange", function() {
+        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+        {
+            $scope.rotateAlert = true;
+            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+        }
+    }, false);
 
     //Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
@@ -23,7 +35,7 @@ angular.module('angularLocalightApp')
 		$scope.giftcard;
 
         //get our session token from the cookies
-        var sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken = $cookies.get("sessionToken");
 
         //Get our giftcard id from the route params
         var giftcardId = $routeParams.giftcardId;
@@ -35,13 +47,13 @@ angular.module('angularLocalightApp')
 			""
 		]
 
-		// Find a list of Giftcards
+		// Find the giftcard
 		$scope.getGiftcards = function() {
             //Get our giftcards from the user
             //First set up some JSON for the session token
             var getJson = {
                 "id" : giftcardId,
-                "sessionToken" : sessionToken
+                "sessionToken" : $scope.sessionToken
             }
 
             $scope.giftcard = GiftcardById.get(getJson, function(){

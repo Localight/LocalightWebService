@@ -532,7 +532,6 @@ label.inputlabel {
     border: none;
     margin-bottom: 2px;
     padding: 5px;
-    padding-left: 15px;
     border-radius: 0px !important;
 }
 
@@ -552,7 +551,7 @@ label.inputlabel {
 .flatRowListItem .glyphicon {
     position: absolute;
     right: 0;
-    padding-top: 5px;
+    padding-top: 5%;
     padding-right: 5px;
     font-size: 50px;
 }
@@ -820,8 +819,8 @@ label.inputlabel {
     background-image: url("../images/auth-delete-btn-aqua.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 38px;
-    width: 50px;
+    height: 55px;
+    width: 75px;
 }
 
 .triconButton {
@@ -901,6 +900,10 @@ label.inputlabel {
     color: #0E0C0F;
 }
 
+.blackText::-webkit-input-placeholder {
+   opacity: .35;
+}
+
 .redText {
     color: #df5241;
 }
@@ -963,7 +966,7 @@ label.inputlabel {
 
 .creditCardIcon {
   width: 12%;
-  max-width: 40px;
+  max-width: 30px;
 }
 
 .creditCardIcon.ng-hide {
@@ -972,9 +975,25 @@ label.inputlabel {
 }
 
 .creditCardNumInput {
-    width: 16%;
-    float: left;
+    width: 18%;
     margin-left: 5px;
+    font-size: 2.5em;
+    font-family: 'profontwindowsregular';
+}
+
+.swipeLock {
+    width: 71px;
+    height: 71px;
+    max-width:100%;
+    max-height:100%;
+    background: url('../images/lock-anim-sprite-wht.png') right center;
+    background-size: cover;
+    animation: play 2.5s steps(15) infinite;
+}
+
+@keyframes play {
+    from { background-position:    0px; }
+    to { background-position: 2130px; }
 }
 
 textarea {

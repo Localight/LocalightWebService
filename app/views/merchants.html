@@ -1,4 +1,4 @@
-<section class="flatRowSection" ng-init="getGiftcards()">
+<section class="flatRowSection" ng-init="getGiftcards();getLocations();">
 
 
       <!-- header section with give option, clique logo and available balance -->
@@ -17,14 +17,24 @@
     <h1 class = "whiteHeader paddingLeft">Select Merchant</h1>
 
     <div class="list-group flatRowList">
-        <h4 class= "paddingLeft">{{merchantsArray[0].area}}</h4>
-        <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index].id}}/amount">
-          <h3 class = "whiteHeader">{{merchant.name}}</h3>
+        <!-- Not doing areas yet <h4 class= "paddingLeft">{{merchantsArray[0].area}}</h4> -->
+        <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index]._id}}/amount">
+          <h2 style = "margin-top: 0px" class = "whiteHeader">{{merchant.name}}</h2>
 
-            <h5 class="list-group-item-text">
-				<span data-ng-bind="merchant.address"></span>
-			</h5>
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true">
+            <div class = "whiteText">
+                <h4 style = "margin-top: 0px" class="list-group-item-text">
+    				<span data-ng-bind="merchant.address1"></span>
+    			</h4>
+                <h4 style = "margin-top: 0px" class="list-group-item-text">
+                    <span data-ng-bind="merchant.address2"></span>
+                </h4>
+                <!-- since things are local, we do not need this, keeping though in case of future changes
+                <h4 style = "margin-top: 0px" class="list-group-item-text">
+                    <span>{{merchant.city}}, {{merchant.state}} {{merchant.zipcode}}</span>
+                </h4>
+            -->
+            </div>
+            <span style = "color: black" class="glyphicon glyphicon-menu-right" aria-hidden="true">
         </a>
     </div>
 </section>

@@ -4,7 +4,7 @@
         <!-- header section with give option, clique logo and available balance -->
         <table class = "sub-header">
             <tr>
-                <td class="paddingLeft"><a class="blackText navText" href="/#!/giftcards/create">
+                <td class="paddingLeft"><a class="blackText navText" ng-href="/#/giftcards/create/{{sessionToken}}">
                     <img class="imagePaddingRight" ng-src="/../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
                     Give</a></td>
                     <td class = "textRightAlign blackText navText paddingRight">${{totalValue()}}</td>
@@ -13,10 +13,9 @@
 
         <h1 class="listNameHeader heart">{{giftcards[0].toId.name}}</h1>
         <h1 class="whiteText paddingLeft whiteHeader">Gifts received</h1>
-        <h4 class="paddingLeft" ng-hide="giftcards.length < 1">Unused</h4>
     </div>
     <div class="list-group flatRowList">
-        <a class="list-group-item flatRowListItem" style="" data-ng-href="#!/merchants">
+        <a class="list-group-item flatRowListItem" style="" my-touchstart="goTo('/merchants')">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
@@ -36,7 +35,7 @@
             </table>
         </a>
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!giftcards.$resolved || giftcards.length">
+    <div class="alert alert-warning text-center" data-ng-hide="giftcards.length > 0">
     	No Giftcards yet, why don't you <a href="/#!/giftcards/create">create one</a>?
     </div>
 </section>
