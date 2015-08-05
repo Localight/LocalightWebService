@@ -85,17 +85,17 @@ angular
         controller: 'SentconfirmationCtrl',
         controllerAs: 'sentConfirmation'
       })
-      .when('/signupPanel', {
+      .when('/panel/signup', {
         templateUrl: 'views/signuppanel.html',
         controller: 'SignuppanelCtrl',
         controllerAs: 'signupPanel'
       })
-      .when('/loginPanel', {
+      .when('/panel/login', {
         templateUrl: 'views/loginpanel.html',
         controller: 'LoginpanelCtrl',
         controllerAs: 'loginPanel'
       })
-      .when('/mainPanel', {
+      .when('/panel/main', {
         templateUrl: 'views/mainpanel.html',
         controller: 'MainpanelCtrl',
         controllerAs: 'mainPanel'
