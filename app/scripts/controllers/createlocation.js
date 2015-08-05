@@ -13,6 +13,8 @@ angular.module('angularLocalightApp')
     //get our session token
     var sessionToken = $cookies.get("sessionToken");
 
+    //no errors
+    $scope.submitError;
 
     //Get our owner Info
     $scope.getOwner = function() {
@@ -59,6 +61,8 @@ angular.module('angularLocalightApp')
             if($scope.newLocation.errorid)
             {
                 console.log($scope.newLocation.msg);
+                $scope.submitError = true;
+                $scope.theError = $scope.newLocation.msg;
                 return;
             }
             else
@@ -81,6 +85,12 @@ angular.module('angularLocalightApp')
 
             //redirect back to the main page
             $location.path("/panel/main").replace();
+        }
+        else {
+            console.log($scope.newLocation.msg);
+            $scope.submitError = true;
+            $scope.theError = $scope.newLocation.msg;
+            return;
         }
     }
 
