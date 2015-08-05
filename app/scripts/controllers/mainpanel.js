@@ -60,7 +60,32 @@ angular.module('angularLocalightApp')
             else {
                 //there was no error continue as normal
                 //Stop any loading bars or things here
-                console.log("Whats up?");
+            }
+        });
+    }
+
+    //Delete a location
+    $scope.deleteLocation = function(theLocation) {
+
+        console.log("THIS DOESNT WORK YET, BACKEND IS NOT READY :(");
+
+        //First set up some JSON for the session token
+        var delJson = {
+           "sessionToken" : sessionToken
+        }
+
+        $scope.owner = Owners.get(getJson, function(){
+            //Check for errors
+            if($scope.owner.errorid)
+            {
+                console.log($scope.owner.msg);
+                return;
+            }
+            else
+            {
+                //there was no error continue as normal
+                //Save their session token
+
             }
         });
     }
