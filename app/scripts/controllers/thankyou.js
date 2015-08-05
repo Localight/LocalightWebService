@@ -10,12 +10,6 @@
 angular.module('angularLocalightApp')
   .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById) {
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
     //Boolean for alert
     $scope.rotateAlert = false;
 
@@ -31,12 +25,11 @@ angular.module('angularLocalightApp')
         //Switch overlay off
       	document.getElementById('darkerOverlay').style.display = "none";
 
+          //giftcards list
+          $scope.giftcards;
 
-          //get our session token from the cookies
-          $scope.sessionToken = $cookies.get("sessionToken");
-
-		//Initialize scope.giftcards
-		$scope.giftcards = null;
+         //get our session token from the cookies
+         $scope.sessionToken = $cookies.get("sessionToken");
 
 		//Our character count for the text area
 		$scope.charCount;
@@ -85,7 +78,7 @@ angular.module('angularLocalightApp')
 		$scope.setTextArea = function ()
 		{
 			//Set the default value of our text area
-			document.getElementById("thankYouNote").value = $scope.giftcards[0].from + ", I used the Local Giftcard at "
+			document.getElementById("thankYouNote").value = $scope.giftcards[0].fromId.name + ", I used the Local Giftcard at "
 			+ $scope.merchantLocation.name + " to get...";
 		}
 
@@ -115,6 +108,9 @@ angular.module('angularLocalightApp')
                 else {
                     //there was no error continue as normal
                     //Stop any loading bars or things here
+
+                    //set the text area
+                    $scope.setTextArea();
                 }
             });
 		}
@@ -162,6 +158,31 @@ angular.module('angularLocalightApp')
 			"../images/occasion-thankyou-icon-wht.png",
 			//Wedding
 			"../images/occasion-wedding-icon-wht.png"
+		]
+
+        //Array of Occasion headings
+		$scope.iconHeaders =
+		[
+			//Anniversary
+			"Happy Anniversary!",
+			//Baby
+			"Congratulations on the Baby!",
+			//Birthday
+			"Happy Birthday!",
+			//Congrats
+			"Congratulations!",
+			//Present (Custom Icon)
+			"Enjoy Your Gift!",
+			//Get Well Soon
+			"Get Well Soon!",
+			//Love
+			"Love You!",
+			//Sympathy
+			"Feel Better Soon!",
+			//Thank You
+			"Thank You!",
+			//Wedding
+			"Congratulations on the Wedding!"
 		]
 
 
