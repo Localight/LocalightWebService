@@ -85,6 +85,21 @@ angular
         controller: 'SentconfirmationCtrl',
         controllerAs: 'sentConfirmation'
       })
+      .when('/signupPanel', {
+        templateUrl: 'views/signuppanel.html',
+        controller: 'SignuppanelCtrl',
+        controllerAs: 'signupPanel'
+      })
+      .when('/loginPanel', {
+        templateUrl: 'views/loginpanel.html',
+        controller: 'LoginpanelCtrl',
+        controllerAs: 'loginPanel'
+      })
+      .when('/mainPanel', {
+        templateUrl: 'views/mainpanel.html',
+        controller: 'MainpanelCtrl',
+        controllerAs: 'mainPanel'
+      })
       .otherwise({
         redirectTo: '/'
       });
