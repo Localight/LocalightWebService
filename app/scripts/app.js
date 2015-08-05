@@ -100,7 +100,7 @@ angular
         controller: 'MainpanelCtrl',
         controllerAs: 'mainPanel'
       })
-      .when('/createlocation', {
+      .when('/panel/createlocation', {
         templateUrl: 'views/createlocation.html',
         controller: 'CreatelocationCtrl',
         controllerAs: 'createlocation'
