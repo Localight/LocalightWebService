@@ -40,6 +40,10 @@ angular.module('angularLocalightApp')
         //Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
 
+        //Get our amount
+        $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
+        $cookies.remove("igosdmbmtv");
+
         //Get our location
         $scope.getLocation = function() {
             //Get our giftcards from the user
@@ -63,15 +67,6 @@ angular.module('angularLocalightApp')
             });
 
         }
-
-		//Retrive the cookie with our amount
-		var amount = $cookies.get("igosdmbmtv");
-		if(!amount)
-		{
-			amount = 0;
-		}
-		$cookies.remove("igosdmbmtv");
-		$scope.purchaseValue = (parseInt(amount) / 100).toFixed(2);
 
 
 		//Prepare our text area
@@ -121,7 +116,7 @@ angular.module('angularLocalightApp')
 			var total = 0;
 			for(var i = 0; i < $scope.giftcards.length; ++i)
 			{
-				total = total + parseInt($scope.giftcards[i].amt, 10);
+				total = total + parseInt($scope.giftcards[i].amount, 10);
 			}
 
 			//Return the total value as a formatted string
