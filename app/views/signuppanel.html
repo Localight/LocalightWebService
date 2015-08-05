@@ -2,9 +2,15 @@
 
     <h1>Signup</h1>
 
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="name" ng-model="name" placeholder="Name" required>
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="stripeCustomerId" ng-model="stripeCustomerId" placeholder="Stripe Customer Id" required>
+
     <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="email" name="email" ng-model="email" placeholder="Email" required>
 
     <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="password" ng-model="password" placeholder="Password" required>
+
+    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password" required>
 
     <br>
     <button type = "submit" style = "margin-top: 10px;font-size: 1.5em;">Submit</button>
