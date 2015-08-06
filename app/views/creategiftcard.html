@@ -16,7 +16,7 @@
       <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px;" ng-show="priceSelectionFlag" my-touchend="">
         <span class="leftarrow"></span>
         <div id="clique_amt_scrollwindow">
-          <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setActiveField('clique_amt_selection');setSecondaryField(1);setAmount(price);">
+          <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setActiveField('clique_from');setSecondaryField(2);setAmount(price);">
             <small>$</small>{{price}}
           </span>
         </div>

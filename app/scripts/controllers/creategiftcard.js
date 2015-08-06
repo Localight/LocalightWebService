@@ -253,6 +253,12 @@ angular.module('angularLocalightApp')
                $scope.hideCard = true;
                $scope.codeMax = true;
 
+               //also hide the keyboard
+               // give focus to "From" if it isn't dirty yet
+               $timeout(function() {
+                   document.getElementById('clique_input_code').blur();
+               }, 100);
+
                //Scroll to the bottom for the occasion
                $scope.scrollToBottom();
            }
@@ -305,6 +311,11 @@ angular.module('angularLocalightApp')
       $scope.occasions.selectedIcon = occasion.images.selected;
       //Also set our occasion ID for our giftcard
       $scope.occasionId = occasion.images.iconId;
+
+      //Also bring up they keyboard
+      $timeout(function() {
+          document.getElementById('clique_input_occasion').focus();
+      }, 100);
     }
     //$scope.limitOccText(); // limit occasion text to 100 characters
   };
@@ -320,6 +331,11 @@ angular.module('angularLocalightApp')
   $scope.setDate = function() {
         document.getElementById('clique_date_selection').type = 'date';
         document.getElementById('clique_date_selection').focus();
+
+        //Also bring up they keyboard for the credit card
+        $timeout(function() {
+            document.getElementById('clique_input_creditcardnumber1').focus();
+        }, 100);
     }
 
   $scope.getDayClass = function(date, mode) {
