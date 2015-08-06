@@ -17,15 +17,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    /*
-        Commented out:
-        Giftcards
-        Authentication
-
-        Added Back In:
-        OccasionService
-    */
-
     //Boolean for alert
     $scope.rotateAlert = false;
 
@@ -331,7 +322,9 @@ angular.module('angularLocalightApp')
   $scope.setDate = function() {
         document.getElementById('clique_date_selection').type = 'date';
         document.getElementById('clique_date_selection').focus();
+    }
 
+    $scope.ccFocus = function() {
         //Also bring up they keyboard for the credit card
         $timeout(function() {
             document.getElementById('clique_input_creditcardnumber1').focus();
@@ -377,91 +370,6 @@ angular.module('angularLocalightApp')
     else
       $scope.cardTypeImg += '-blk.png';
   };
-
-  /*
-  $scope.create = function() {
-    var giftcard = new Giftcards($scope.gc);
-    var payload = {
-      card: $scope.cc
-    };
-    var callback = function(status, response) {
-      if (response.error) {
-        $scope.error = response.error.message;
-      } else {
-        giftcard.stripeCardToken = response.id;
-        return processPaymentService.findOrCreateUser(giftcard.mobileNumberOfRecipient, giftcard.giftRecipientFirstName)
-          .then(function anotherHandler(response) {
-            giftcard.spenderofgiftcard = response.data._id;
-            return giftcard.$save();
-          }).then(function yetAnotherHanlder(response) {
-            return $location.path('/giftcards');
-          }).catch(function errHandler(errorResponse) {
-            $scope.error = errorResponse.error.message;
-          });
-      }
-    };
-    Stripe.card.create(payload, callback);
-  };
-
-
-  // Remove existing Giftcard
-  $scope.remove = function(giftcard) {
-    if (giftcard) {
-      giftcard.$remove();
-
-      for (var i in $scope.giftcards) {
-        if ($scope.giftcards[i] === giftcard) {
-          $scope.giftcards.splice(i, 1);
-        }
-      }
-    } else {
-      $scope.giftcard.$remove(function() {
-        $location.path('giftcards');
-      });
-    }
-  };
-
-  // Update existing Giftcard
-  $scope.send = function() {
-    //1. before we can send the giftcard to the user we need the user's id.
-    //2. save the giftcard to the that user's id.
-    var giftcard = new Giftcards({
-      giftRecipientFirstName: $scope.gc.to,
-      amount: $scope.gc.amount,
-      mobileNumberOfRecipient: $scope.gc.phoneNumber,
-      merchant: $scope.gc.code,
-      spenderofgiftcardUserName: $scope.gc.phoneNumber,
-      message: $scope.gc.occasion
-      //districtNumber: 'number'
-    });
-
-    giftcard.$save(function() {
-      $location.path('giftcards/');
-    }, function(errorResponse) {
-      $scope.error = errorResponse.data.message;
-    });
-  };
-
-
-  // Update existing Giftcard
-  $scope.update = function() {
-    var giftcard = $scope.giftcard;
-
-    giftcard.$update(function() {
-      $location.path('giftcards/' + giftcard._id);
-    }, function(errorResponse) {
-      $scope.error = errorResponse.data.message;
-    });
-  };
-
-  // Find existing Giftcard
-  $scope.findOne = function() {
-    $scope.giftcard = Giftcards.get({
-      giftcardId: $routeParams.giftcardId
-    });
-  };
-
-  */
 
   //Mask for translating and validating phone numbers
   $scope.mask = function(f, event){
