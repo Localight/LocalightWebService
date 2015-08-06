@@ -329,13 +329,6 @@ angular.module('angularLocalightApp')
         document.getElementById('clique_date_selection').focus();
     }
 
-    $scope.ccFocus = function() {
-        //Also bring up they keyboard for the credit card
-        $timeout(function() {
-            document.getElementById('clique_input_creditcardnumber1').focus();
-        }, 100);
-    }
-
   $scope.getDayClass = function(date, mode) {
     if (mode === 'day') {
       var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
