@@ -159,7 +159,6 @@ angular.module('angularLocalightApp')
           $scope.secondaryField = $scope.inputFields[next];
       }
       $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.35)";
-      $scope.scrollToBottom();
   }
   //set our secondary field to 0
   $scope.setSecondaryField(0);
