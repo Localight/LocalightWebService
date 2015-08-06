@@ -73,7 +73,7 @@
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInput">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
-              <li ng-repeat="occasion in occasions" my-touchstart="setOccasion(occasion)" my-touchend="setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
+              <li ng-repeat="occasion in occasions" my-touchstart="setOccasion(occasion)">
                 <img ng-src="{{occasion.images.normal}}">{{occasion.alt}}
               </li>
             </ul>
@@ -85,7 +85,7 @@
             </label>
 
             <div id="clique_input_occasion_wrapper" class="rightColumn">
-              <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" ></textarea>
+              <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" ng-focus="setActiveField('clique_occasion_wrapper');setSecondaryField(4);"></textarea>
               <span id="occCharCount">{{100 - gc.occasion.length}} characters left</span>
             </div>
             <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
