@@ -9,7 +9,7 @@
       <!-- To, remove ng click to fix functionality -->
       <div id="clique_to" class = "currentInput" style = "margin-bottom: 10px;" my-touchstart="setActiveField('clique_to');">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
+        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-keypress="keyPress($event, 'clique_input_from')" required>
       </div>
 
       <!--Amount-->
@@ -29,9 +29,9 @@
     </div>
 
     <!--From, remove ng click to fix functionality -->
-    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}" my-touchstart="setActiveField('clique_from');setSecondaryField(2);">
+    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}">
       <label for="From" class="inputlabel">From </label>
-      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" required>
+      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-focus="setActiveField('clique_from');setSecondaryField(2);" ng-keypress="keyPress($event, 'clique_input_code')" required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
     <br>
@@ -39,7 +39,7 @@
 
     <!--Code, remove ng click to fix functionality -->
     <!-- little demo thing -->
-    <div id="clique_code_wrapper" class = "waterfall" ng-show = "giftcardForm.clique_input_to.$dirty && giftcardForm.clique_input_from.$dirty && secondaryIndex > 1">
+    <div id="clique_code_wrapper" class = "waterfall" ng-show = "giftcardForm.clique_input_to.$dirty && giftcardForm.clique_input_from.$dirty">
       <div id="flip_container" class = "waterfall" ng-show = "hideCard == false">
         <div class="dummy"></div>
         <div id="front" class="card"></div>
@@ -49,10 +49,10 @@
         </div>
       </div>
 
-      <div id="clique_code" class="marginBottom currentInput" my-touchstart="setActiveField('clique_code');setSecondaryField(3);flipCard();">
+      <div id="clique_code" class="marginBottom currentInput">
         <label for="Code" class="inputlabel">Code</label>
         <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number"
-        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5)" ng-model="gc.code" ng-change="getStoreName()" required>
+        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-focus="setActiveField('clique_code');setSecondaryField(3);flipCard();" ng-keypress="codeValidate('clique_input_code', $event, 5)" ng-model="gc.code" ng-change="getStoreName()" required>
       </div>
 
       <div id="clique_code_message" ng-show = "hideCard && gc.code > 9999 && giftcardForm.clique_input_code.$valid">
