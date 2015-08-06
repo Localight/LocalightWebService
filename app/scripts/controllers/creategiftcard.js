@@ -106,7 +106,7 @@ angular.module('angularLocalightApp')
         $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
     }
 
-    if(fieldId == "clique_amt_selection") $window.document.getElementById("localStreetNoBlur").className = "localStreet blur";
+    if(fieldId == "clique_from") $window.document.getElementById("localStreetNoBlur").className = "localStreet blur";
 
     //Check if it is the occasion wrapper, if it is, we need to turn white into transparent
     if(fieldId.indexOf("clique_occasion_wrapper") > -1)
