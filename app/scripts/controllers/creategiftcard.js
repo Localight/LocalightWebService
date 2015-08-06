@@ -29,6 +29,9 @@ angular.module('angularLocalightApp')
     //Boolean for alert
     $scope.rotateAlert = false;
 
+    //Initialize the giftcard
+    $scope.gc = {};
+
     //Check for device orientation
     $window.addEventListener("orientationchange", function() {
         if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
@@ -197,6 +200,11 @@ angular.module('angularLocalightApp')
     $scope.gc.amount = anAmount;
     $scope.priceSelectionFlag = false;
     $scope.showBackgroundFlag = false;
+
+    // give focus to "From" if it isn't dirty yet
+    $timeout(function() {
+        document.getElementById('clique_input_from').focus();
+    }, 100);
   };
 
   // flag for occasion Selector
