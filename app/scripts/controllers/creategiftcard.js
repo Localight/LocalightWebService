@@ -17,6 +17,10 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
+    $scope.keyPress = function(keyEvent, input){
+        if (keyEvent.which === 13) document.getElementById(input).focus();
+    }
+
     //Boolean for alert
     $scope.rotateAlert = false;
 
