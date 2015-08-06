@@ -308,6 +308,12 @@ angular.module('angularLocalightApp')
   // set default img
   $scope.dateTypeImg = '../images/send-today-blk.png';
 
+  //set as date instead of input
+  $scope.setDate = function() {
+        document.getElementById('clique_date_selection').type = 'date';
+        document.getElementById('clique_date_selection').focus();
+    }
+
   $scope.getDayClass = function(date, mode) {
     if (mode === 'day') {
       var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
