@@ -78,30 +78,6 @@ angular.module('angularLocalightApp')
   //Scrolling boolean
   $scope.scrolling = false;
 
-  //DEPRECIATED
-  $scope.scrollToBottom = function()
-  {
-      //Prevent scrolling multiple times by setting variable
-      if(!$scope.scrolling)
-      {
-          //sET SCROLLING TO true
-          $scope.scrolling = true;
-
-          //Wait a second to scroll so element can load and show
-          $timeout(function() {
-              //Use smooth scroll to scroll to the bottom
-              var bottom = angular.element(document.getElementById('scrollDiv'));
-              //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
-              $document.scrollToElement(bottom, 0, 1000, function (t) { return t*t*t });
-
-              //Now timeout till we set scrolling back to true'
-              $timeout(function() {
-                  $scope.scrolling = false;
-              }, 5);
-          }, 5);
-      }
-  }
-
   //Function to scroll to the bottom of our page
   $scope.scrollToElement = function(elementId, callback){
       //Pause before executing scroll to allow other events to complete
@@ -267,7 +243,7 @@ angular.module('angularLocalightApp')
                document.getElementById('clique_input_code').blur();
 
                //Scroll to the bottom for the occasion
-               $scope.scrollToBottom();
+               $scope.scrollToElement("bottom");
            }
            else
            {
@@ -419,7 +395,7 @@ angular.module('angularLocalightApp')
       //Now check if we can scroll to the next field
       if(f.value.length > 11)
       {
-          $scope.scrollToBottom();
+          $scope.scrollToElement("bottom");
       }
   }
 
