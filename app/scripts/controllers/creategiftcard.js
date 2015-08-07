@@ -264,11 +264,7 @@ angular.module('angularLocalightApp')
                $scope.hideCard = true;
                $scope.codeMax = true;
 
-               //also hide the keyboard
-               // give focus to "From" if it isn't dirty yet
-               $timeout(function() {
-                   document.getElementById('clique_input_code').blur();
-               }, 100);
+               document.getElementById('clique_input_code').blur();
 
                //Scroll to the bottom for the occasion
                $scope.scrollToBottom();
