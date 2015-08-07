@@ -73,7 +73,7 @@
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInput">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
-              <li ng-repeat="occasion in occasions" my-touchstart="setOccasion(occasion)">
+              <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion)">
                 <img ng-src="{{occasion.images.normal}}">{{occasion.alt}}
               </li>
             </ul>
@@ -99,7 +99,7 @@
         <input placeholder="Tap to set a date" style="font-size: 2em"
         class = "createGiftCardWidth center roundWhiteBorder currentInput"
         type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="2000-01-01" max="2020-01-01"
-        show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();" required></input>
+        show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();" ng-focus="setSecondaryField(5);setDate();" required></input>
     </div>
 
     <!--Pay by card-->
