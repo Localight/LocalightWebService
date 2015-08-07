@@ -243,7 +243,7 @@ angular.module('angularLocalightApp')
                document.getElementById('clique_input_code').blur();
 
                //Scroll to the bottom for the occasion
-               $scope.scrollToElement("bottom");
+               //$scope.scrollToElement("bottom");
            }
            else
            {
@@ -395,7 +395,7 @@ angular.module('angularLocalightApp')
       //Now check if we can scroll to the next field
       if(f.value.length > 11)
       {
-          $scope.scrollToElement("bottom");
+          //$scope.scrollToElement("bottom");
       }
   }
 
