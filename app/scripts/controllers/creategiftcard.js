@@ -78,7 +78,7 @@ angular.module('angularLocalightApp')
   //Scrolling boolean
   $scope.scrolling = false;
 
-  //Function to scroll to the bottom of our page
+  //DEPRECIATED
   $scope.scrollToBottom = function()
   {
       //Prevent scrolling multiple times by setting variable
@@ -100,6 +100,21 @@ angular.module('angularLocalightApp')
               }, 5);
           }, 5);
       }
+  }
+
+  //Function to scroll to the bottom of our page
+  $scope.scrollToElement = function(elementId, callback){
+      //Pause before executing scroll to allow other events to complete
+      setTimeout(function() {
+          //Use smooth scroll to scroll to the bottom
+          var element = angular.element(document.getElementById(elementId));
+          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+          $document.scrollToElement(element, 0, 1000, function (t) {
+              if(callback){
+                  callback();
+              }
+          });
+      }, 10);
   }
 
   //We need to set the primary and secondary input
@@ -167,10 +182,10 @@ angular.module('angularLocalightApp')
   $scope.$watch('giftcardForm.clique_date_selection.$valid', function(newValue, oldValue) {
    if (newValue)
    {
-       //Focus on the credit card number
-       $window.document.getElementById('clique_date_selection').blur();
        //Scroll to the bottom
-       $scope.scrollToBottom();
+       $scope.scrollToElement("clique_payment_card", function(){
+           document.getElementById('clique_input_creditcardnumber1').focus();
+       });
    }
    });
 
