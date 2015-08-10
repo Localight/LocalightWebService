@@ -84,16 +84,16 @@ angular.module('angularLocalightApp')
       setTimeout(function() {
           //Use smooth scroll to scroll to the bottom
           var element = angular.element(document.getElementById(elementId));
-          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing function
           $document.scrollToElement(element, 0, 1000, function (t) {
               if(callback){
                   callback();
               }
 
-              //Use cubic easing
-              return t*t*t;
+              //Use some easing
+               return 1-(--t)*t*t*t
           });
-      }, 10);
+      }, 100);
   }
 
   //We need to set the primary and secondary input
