@@ -7,13 +7,13 @@
       <img class="clique_logo" src="../images/logo-local-gift-card-blk.png">
 
       <!-- To, remove ng click to fix functionality -->
-      <div id="clique_to" class = "currentInput" style = "margin-bottom: 10px;" my-touchstart="setActiveField('clique_to');">
+      <div id="clique_to" class = "currentInput" style = "margin-bottom: 10px;">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" required>
+        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" required>
       </div>
 
       <!--Amount-->
-      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px;" ng-show="priceSelectionFlag" my-touchend="">
+      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px;" ng-show="priceSelectionFlag">
         <span class="leftarrow"></span>
         <div id="clique_amt_scrollwindow">
           <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setActiveField('clique_from');setSecondaryField(2);setAmount(price);">
@@ -29,9 +29,9 @@
     </div>
 
     <!--From, remove ng click to fix functionality -->
-    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}" my-touchstart="setActiveField('clique_from');setSecondaryField(2);">
+    <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}">
       <label for="From" class="inputlabel">From </label>
-      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-keypress="focusCode($event)" required>
+      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-focus="setActiveField('clique_from');setSecondaryField(2);" ng-keypress="keyPress($event, 'clique_input_code')" required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
     <br>
@@ -39,7 +39,7 @@
 
     <!--Code, remove ng click to fix functionality -->
     <!-- little demo thing -->
-    <div id="clique_code_wrapper" class = "waterfall" ng-show = "giftcardForm.clique_input_to.$dirty && giftcardForm.clique_input_from.$dirty && secondaryIndex > 1">
+    <div id="clique_code_wrapper" class = "waterfall" ng-show = "giftcardForm.clique_input_to.$dirty && giftcardForm.clique_input_from.$dirty">
       <div id="flip_container" class = "waterfall" ng-show = "hideCard == false">
         <div class="dummy"></div>
         <div id="front" class="card"></div>
@@ -52,7 +52,8 @@
       <div id="clique_code" class="marginBottom currentInput waterfall" ng-hide = "giftcardForm.clique_input_code.$valid">
         <label for="Code" class="inputlabel">Code</label>
         <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);hideCard = false;flipCard();"
-        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5, 'clique_occasion_selection')" ng-model="gc.code" ng-change="getStoreName()" required>
+        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5, 'clique_occasion_selection')" ng-model="gc.code" ng-change="getStoreName()"
+        ng-keypress="codeValidate('clique_input_code', $event, 5)" required>
       </div>
 
       <div id="clique_code_message" ng-show = "hideCard && gc.code > 9999 && giftcardForm.clique_input_code.$valid">
@@ -73,7 +74,7 @@
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInputNoBorder">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
-              <li ng-repeat="occasion in occasions" my-touchstart="setOccasion(occasion)" my-touchend="setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
+              <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
                 <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
               </li>
             </ul>
@@ -98,7 +99,7 @@
     <div class = "waterfall" ng-show = "secondaryIndex > 3">
         <input placeholder="Tap to set a date" style="font-size: 2em"
         class = "createGiftCardWidth center roundWhiteBorder currentInput"
-        type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="2000-01-01" max="2020-01-01"
+        type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="{{minDate}}" max="{{maxDate}}"
         show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();"
         ng-blur = "ccFocus()" required></input>
     </div>
@@ -107,7 +108,7 @@
     <div class = "waterfall" ng-show="giftcardForm.clique_date_selection.$dirty && giftcardForm.clique_date_selection.$valid && secondaryIndex > 4">
         <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">
           <!-- Inner Container -->
-          <div id="creditcardnumbercontainer" class = "paymentcontainer currentInputNoBorder">
+          <div id="creditcardnumbercontainer" style = "height: 45px" class = "paymentcontainer currentInputNoBorder">
             <!-- Credit Card Logo Img -->
             <img class = "creditCardIcon" style = "float: left; margin-top: 12px; margin-left: 5px;" ng-src="{{cardIcons[cardIndex]}}">
             <!-- Credit Card Number Input -->
@@ -119,16 +120,16 @@
             <img class = "creditCardIcon" style = "float: right; margin-top: 6px; margin-right: 5px;" src = "../images/checkmark-blk.png" ng-show = "numberValidated">
           </div>
           <!-- lower box that within same box but differnet background -->
-          <div id="creditcardinfo" class="paymentcontainerasd currentInputNoBorder">
+          <div id="creditcardinfo" style = "height: 45px" class="paymentcontainerasd currentInputNoBorder">
             <!-- Date input for credit card -->
-            <input type="number" name="clique_input_expiry_m" id="clique_input_expiry_m" style = "width: 15%" class="profont expiry credit_card_expiry currentInput creditCardNumInput" ng-keyup = "validateDate()" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="cc.ExpiryM" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_expiry_m', $event, 2, 'creditcardinfo')" onKeyUp="if(document.getElementById('clique_input_expiry_m').value.length > 1){document.getElementById('clique_input_expiry_y').focus();}">
-            <input type="number" name="clique_input_expiry_y" id="clique_input_expiry_y" style = "width: 20%" class="profont expiry credit_card_expiry currentInput creditCardNumInput" ng-keyup = "validateDate()" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="cc.ExpiryY" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_expiry_y', $event, 2, 'creditcardinfo')" onKeyUp="if(document.getElementById('clique_input_expiry_y').value.length > 3){document.getElementById('clique_input_cvv').focus();}">
+            <input type="number" name="clique_input_expiry_m" id="clique_input_expiry_m" style = "width: 15%;line-height: 45px;" class="profont expiry credit_card_expiry currentInput creditCardNumInput" ng-keyup = "validateDate()" placeholder="MM" maxlength="2" ng-minlength="2" size="5" pattern="\d*" ng-model="cc.ExpiryM" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_expiry_m', $event, 2, 'creditcardinfo')" onKeyUp="if(document.getElementById('clique_input_expiry_m').value.length > 1){document.getElementById('clique_input_expiry_y').focus();}">
+            <input type="number" name="clique_input_expiry_y" id="clique_input_expiry_y" style = "width: 20%;line-height: 45px;" class="profont expiry credit_card_expiry currentInput creditCardNumInput" ng-keyup = "validateDate()" placeholder="YYYY" maxlength="4" ng-minlength="4" size="5" pattern="\d*" ng-model="cc.ExpiryY" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_expiry_y', $event, 4, 'creditcardinfo')" onKeyUp="if(document.getElementById('clique_input_expiry_y').value.length > 3){document.getElementById('clique_input_cvv').focus();}">
             <!-- CVV for Credit Card -->
             <!-- TODO: Come back and split up the month and year -->
-            <input type="number" name="clique_input_cvv" id="clique_input_cvv" style = "width: 18%" class="profont expiry credit_card_cvc currentInput creditCardNumInput" ng-keyup = "validateCVC()" placeholder="CVC" maxlength="3" ng-minlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_cvv', $event, 3, 'creditcardinfo')" onKeyUp="if(document.getElementById('clique_input_cvv').value.length > 2){document.getElementById('clique_input_zip').focus();}">
+            <input type="number" name="clique_input_cvv" id="clique_input_cvv" style = "width: 18%;line-height: 45px;" class="profont expiry credit_card_cvc currentInput creditCardNumInput" ng-keyup = "validateCVC()" placeholder="CVC" maxlength="3" ng-minlength="3" size="5" pattern="\d*" ng-model="cc.cvc" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_cvv', $event, 3, 'creditcardinfo')" onKeyUp="if(document.getElementById('clique_input_cvv').value.length > 2){document.getElementById('clique_input_zip').focus();}">
             <!-- Zip for credit card -->
-            <input type="number" name="clique_input_zip" id="clique_input_zip" numbers-only="numbers-only" ng-keyup = "validateZip()" style = "width: 24%" class="profont expiry number currentInput creditCardNumInput" placeholder="ZIP" maxlength="5" ng-minlength="5" size="5" pattern="\d*" ng-model="cc.ZIPcode" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_zip', $event, 5, 'creditcardinfo')">
-            <img class = "creditCardIcon" style = "float: right; margin-top: 6px; margin-right: 5px;" src = "../images/checkmark-wht.png" ng-show = "dateValidated && cvcValidated && zipValidated">
+            <input type="number" name="clique_input_zip" id="clique_input_zip" numbers-only="numbers-only" ng-keyup = "validateZip()" style = "width: 24%;line-height: 45px;" class="profont expiry number currentInput creditCardNumInput" placeholder="ZIP" maxlength="5" ng-minlength="5" size="5" pattern="\d*" ng-model="cc.ZIPcode" ng-focus="expiryFocus();setActiveField('creditcardinfo');" ng-keypress="codeValidate('clique_input_zip', $event, 5, 'creditcardinfo')">
+            <img class = "creditCardIcon" style = "float: right; margin-top: 6px; margin-right: 5px;" src = "../images/checkmark-blk.png" ng-show = "dateValidated && cvcValidated && zipValidated">
           </div>
         </div>
 
@@ -149,7 +150,7 @@
     giftcardForm.clique_input_expiry_y.$dirty &&
     giftcardForm.clique_input_cvv.$dirty &&
     giftcardForm.clique_input_zip.$dirty">
-      <button class="proceed_button"
+      <button class="proceed_button" id="proceed_button"
           ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated && !tokenizing)" ng-click="tokenizeInfo();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
@@ -229,5 +230,5 @@
 </section>
 
 <!-- Very bottom of the page, use this empty element to always be able to scroll to the bottom -->
-<div id = "scrollDiv">
+<div id = "bottom">
 </div>
