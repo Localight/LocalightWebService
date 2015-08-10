@@ -78,26 +78,29 @@ angular.module('angularLocalightApp')
   //Scrolling boolean
   $scope.scrolling = false;
 
-  //Function to scroll to the bottom of our page
+  //Function to scroll to an element in our page
   $scope.scrollToElement = function(elementId, callback){
       //Pause before executing scroll to allow other events to complete
       setTimeout(function() {
           //Use smooth scroll to scroll to the bottom
           var element = angular.element(document.getElementById(elementId));
-          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing function
           $document.scrollToElement(element, 0, 1000, function (t) {
               if(callback){
                   callback();
               }
+
+              //Use some easing
+               return 1-(--t)*t*t*t
           });
-      }, 10);
+      }, 100);
   }
 
   //We need to set the primary and secondary input
   $scope.activeField = null;
   $scope.setActiveField = function(fieldId) {
 
-    if($scope.activeField != null){
+    if($scope.activeField != null && $scope.activeField != fieldId){
         $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
     }
 
@@ -165,7 +168,6 @@ angular.module('angularLocalightApp')
    }
    });
 
-
   //Flags for various things.
 
   $scope.priceSelectionFlag = true;
@@ -174,13 +176,15 @@ angular.module('angularLocalightApp')
   $scope.flipCard = function() {
     //$scope.flipCardFlag = true;
 
-    //Add the classes to the front and back
-    var frontCard = $window.document.getElementById("front");
-    var backCard = $window.document.getElementById("back");
+    //Do this in a timeout to support showing the card and then flipping
+    $timeout(function() {
+        //Add the classes to the front and back
+        var frontCard = $window.document.getElementById("front");
+        var backCard = $window.document.getElementById("back");
 
-    frontCard.className = frontCard.className + " flipped";
-    backCard.className = backCard.className + " flipped";
-
+        frontCard.className = frontCard.className + " flipped";
+        backCard.className = backCard.className + " flipped";
+    }, 500);
   };
 
   $scope.setAmount = function(anAmount) {
@@ -217,19 +221,18 @@ angular.module('angularLocalightApp')
    **********/
 
    //Set hiding the card to false until we finish the code
-   $scope.hideCard = false;
+   $scope.hideCard = true;
    //Boolean if the code is at it's maximum value
    $scope.codeMax = false;
 
    //Validate our code length
-   $scope.codeValidate = function(id, event, maxlength)
+   $scope.codeValidate = function(id, event, maxlength, scrollId, activeId)
    {
             //Grab our element
            var element = $window.document.getElementById(id);
            //get our element length
            var len = element.value.toString().length + 1;
            //get the max length we assigned to it
-           console.log(len);
            var max = element.maxLength;
 
            //Our condition to check if it is a number
@@ -240,14 +243,20 @@ angular.module('angularLocalightApp')
            {
                $scope.hideCard = true;
 
-
-
+               if(id == 'clique_input_code')
                setTimeout(function(){
-                   document.getElementById('clique_input_code').blur();
+                   document.getElementById(id).blur();
                }, 20);
 
-               //Scroll to the bottom for the occasion
+               //Scroll to the requested element
+               $scope.scrollToElement(scrollId);
 
+               //And set the active field to the occasions
+               $scope.setActiveField(activeId);
+           }
+           else
+           {
+               $scope.codeMax = false;
            }
            if(len > maxlength || !cond){
                event.preventDefault();
