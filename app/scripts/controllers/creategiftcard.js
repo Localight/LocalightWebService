@@ -229,6 +229,7 @@ angular.module('angularLocalightApp')
            //get our element length
            var len = element.value.toString().length + 1;
            //get the max length we assigned to it
+           console.log(len);
            var max = element.maxLength;
 
            //Our condition to check if it is a number
@@ -238,22 +239,18 @@ angular.module('angularLocalightApp')
            if(len >= maxlength)
            {
                $scope.hideCard = true;
-               $scope.codeMax = true;
 
-               document.getElementById('clique_input_code').blur();
+
+
+               setTimeout(function(){
+                   document.getElementById('clique_input_code').blur();
+               }, 20);
 
                //Scroll to the bottom for the occasion
-               //$scope.scrollToElement("bottom");
-           }
-           else
-           {
-               $scope.codeMax = false;
-           }
 
-           if (!(cond && len <= max))
-           {
+           }
+           if(len > maxlength || !cond){
                event.preventDefault();
-               return false;
            }
    }
 
