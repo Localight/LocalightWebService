@@ -93,7 +93,7 @@ angular.module('angularLocalightApp')
               //Now timeout till we set scrolling back to true'
               $timeout(function() {
                   $scope.scrolling = false;
-              }, 5);
+              }, 1500);
           }, 5);
       }
   }
@@ -102,7 +102,7 @@ angular.module('angularLocalightApp')
   $scope.activeField = null;
   $scope.setActiveField = function(fieldId) {
 
-    if($scope.activeField != null){
+    if($scope.activeField != null && $scope.activeField != fieldId){
         $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
     }
 
@@ -240,7 +240,7 @@ angular.module('angularLocalightApp')
    $scope.codeMax = false;
 
    //Validate our code length
-   $scope.codeValidate = function(id, event, maxlength)
+   $scope.codeValidate = function(id, event, maxlength, fieldId)
    {
             //Grab our element
            var element = $window.document.getElementById(id);
@@ -268,7 +268,7 @@ angular.module('angularLocalightApp')
                $scope.scrollToBottom();
 
                //And set the active field to the occasions
-               $scope.setActiveField('clique_occasion_selection');
+               $scope.setActiveField(fieldId);
            }
            else
            {
