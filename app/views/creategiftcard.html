@@ -85,7 +85,7 @@
             </label>
 
             <div id="clique_input_occasion_wrapper" class="rightColumn">
-              <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true" ng-blur = "occasionFocused = false"></textarea>
+              <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true;setActiveField('clique_occasion');" ng-blur = "occasionFocused = false"></textarea>
               <span id="occCharCount" ng-show = "occasionFocused">{{100 - gc.occasion.length}} characters left</span>
             </div>
             <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
