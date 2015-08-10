@@ -190,13 +190,15 @@ angular.module('angularLocalightApp')
   $scope.flipCard = function() {
     //$scope.flipCardFlag = true;
 
-    //Add the classes to the front and back
-    var frontCard = $window.document.getElementById("front");
-    var backCard = $window.document.getElementById("back");
+    //Do this in a timeout to support showing the card and then flipping
+    $timeout(function() {
+        //Add the classes to the front and back
+        var frontCard = $window.document.getElementById("front");
+        var backCard = $window.document.getElementById("back");
 
-    frontCard.className = frontCard.className + " flipped";
-    backCard.className = backCard.className + " flipped";
-
+        frontCard.className = frontCard.className + " flipped";
+        backCard.className = backCard.className + " flipped";
+    }, 500);
   };
 
   $scope.setAmount = function(anAmount) {
@@ -233,7 +235,7 @@ angular.module('angularLocalightApp')
    **********/
 
    //Set hiding the card to false until we finish the code
-   $scope.hideCard = false;
+   $scope.hideCard = true;
    //Boolean if the code is at it's maximum value
    $scope.codeMax = false;
 

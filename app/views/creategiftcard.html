@@ -51,7 +51,7 @@
 
       <div id="clique_code" class="marginBottom currentInput waterfall" ng-hide = "giftcardForm.clique_input_code.$valid">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);flipCard();"
+        <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);hideCard = false;flipCard();"
         placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5)" ng-model="gc.code" ng-change="getStoreName()" required>
       </div>
 
