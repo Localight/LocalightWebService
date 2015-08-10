@@ -155,8 +155,8 @@ input, textarea {
 }
 
 .currentInput {
-  -webkit-transition:all linear 0.25s;
-  transition:all linear 0.25s;
+  -webkit-transition: background-color linear 0.25s;
+  transition: background-color linear 0.25s;
   border-radius: 7px !important;
   opacity: 1 !important;
 }
@@ -166,8 +166,8 @@ input, textarea {
 }
 
 .currentInputNoBorder {
-  -webkit-transition:all linear 0.25s;
-  transition:all linear 0.25s;
+  -webkit-transition: background-color linear 0.25s;
+  transition: background-color linear 0.25s;
   opacity: 1 !important;
 }
 
@@ -176,8 +176,8 @@ input, textarea {
 }
 
 .waterfall {
-  -webkit-transition:all linear 0.25s;
-  transition:all linear 0.25s;
+  -webkit-transition: opacoty linear 0.25s;
+  transition: opacity linear 0.25s;
   opacity: 1 !important;
 }
 
@@ -845,26 +845,26 @@ label.inputlabel {
 
 ::-webkit-input-placeholder {
    color: black;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 :-moz-placeholder { /* Firefox 18- */
    color: black;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
    color: black;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 :-ms-input-placeholder {
    color: black;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 /* Placeholder text ends */
@@ -873,26 +873,26 @@ label.inputlabel {
 
 input:focus::-webkit-input-placeholder {
    color: grey;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 input:focus:-moz-placeholder { /* Firefox 18- */
    color: grey;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 input:focus::-moz-placeholder {  /* Firefox 19+ */
    color: grey;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 input:focus:-ms-input-placeholder {
    color: grey;
-   -webkit-transition:all linear 0.15s;
-   transition:all linear 0.15s;
+   -webkit-transition: color linear 0.15s;
+   transition: color linear 0.15s;
 }
 
 /* Placeholder text ends */
