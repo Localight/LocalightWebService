@@ -69,12 +69,12 @@
     <br>
 
     <!--Occasion-->
-    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$dirty && secondaryIndex > 2">
-        <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInput">
+    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$dirty && giftcardForm.clique_input_code.$valid && secondaryIndex > 2">
+        <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInputNoBorder">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
               <li ng-repeat="occasion in occasions" my-touchstart="setOccasion(occasion)" my-touchend="setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
-                <img ng-src="{{occasion.images.normal}}">{{occasion.alt}}
+                <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
               </li>
             </ul>
           </div>

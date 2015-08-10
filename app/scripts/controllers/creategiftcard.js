@@ -254,6 +254,9 @@ angular.module('angularLocalightApp')
 
                //Scroll to the bottom for the occasion
                $scope.scrollToBottom();
+
+               //And set the active field to the occasions
+               $scope.setActiveField('clique_occasion_selection');
            }
            else
            {
