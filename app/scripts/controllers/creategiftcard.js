@@ -171,6 +171,16 @@ angular.module('angularLocalightApp')
    }
    });
 
+   //Focus on the code when enter is pressed on the tofield
+   $scope.focusCode = function(event)
+   {
+       if(event.keyCode == 13)
+       {
+           //Focus on the code field
+           document.getElementById('clique_input_code').focus();
+       }
+   }
+
 
   //Flags for various things.
 

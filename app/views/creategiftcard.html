@@ -31,7 +31,7 @@
     <!--From, remove ng click to fix functionality -->
     <div id="clique_from" class = "currentInput" ng-class="{currentInput : showBackgroundFlagTwo}" my-touchstart="setActiveField('clique_from');setSecondaryField(2);">
       <label for="From" class="inputlabel">From </label>
-      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" required>
+      <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-keypress="focusCode($event)" required>
     </div>
     <!-- ng-show="dirty.Occasion || valid.Code" -->
     <br>
@@ -49,9 +49,9 @@
         </div>
       </div>
 
-      <div id="clique_code" class="marginBottom currentInput waterfall" my-touchstart="setActiveField('clique_code');setSecondaryField(3);flipCard();" ng-hide = "giftcardForm.clique_input_code.$valid">
+      <div id="clique_code" class="marginBottom currentInput waterfall" ng-hide = "giftcardForm.clique_input_code.$valid">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number"
+        <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);flipCard();"
         placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5)" ng-model="gc.code" ng-change="getStoreName()" required>
       </div>
 
