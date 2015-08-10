@@ -17,10 +17,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    $scope.keyPress = function(keyEvent, input){
-        if (keyEvent.which === 13) document.getElementById(input).focus();
-    }
-
     //Boolean for alert
     $scope.rotateAlert = false;
 
@@ -79,18 +75,27 @@ angular.module('angularLocalightApp')
   $scope.scrolling = false;
 
   //Function to scroll to the bottom of our page
-  $scope.scrollToElement = function(elementId, callback){
-      //Pause before executing scroll to allow other events to complete
-      setTimeout(function() {
-          //Use smooth scroll to scroll to the bottom
-          var element = angular.element(document.getElementById(elementId));
-          //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
-          $document.scrollToElement(element, 0, 1000, function (t) {
-              if(callback){
-                  callback();
-              }
-          });
-      }, 10);
+  $scope.scrollToBottom = function()
+  {
+      //Prevent scrolling multiple times by setting variable
+      if(!$scope.scrolling)
+      {
+          //sET SCROLLING TO true
+          $scope.scrolling = true;
+
+          //Wait a second to scroll so element can load and show
+          $timeout(function() {
+              //Use smooth scroll to scroll to the bottom
+              var bottom = angular.element(document.getElementById('scrollDiv'));
+              //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing fucntion
+              $document.scrollToElement(bottom, 0, 1000, function (t) { return t*t*t });
+
+              //Now timeout till we set scrolling back to true'
+              $timeout(function() {
+                  $scope.scrolling = false;
+              }, 5);
+          }, 5);
+      }
   }
 
   //We need to set the primary and secondary input
@@ -150,6 +155,7 @@ angular.module('angularLocalightApp')
           $scope.secondaryField = $scope.inputFields[next];
       }
       $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.35)";
+      $scope.scrollToBottom();
   }
   //set our secondary field to 0
   $scope.setSecondaryField(0);
@@ -158,10 +164,10 @@ angular.module('angularLocalightApp')
   $scope.$watch('giftcardForm.clique_date_selection.$valid', function(newValue, oldValue) {
    if (newValue)
    {
+       //Focus on the credit card number
+       $window.document.getElementById('clique_date_selection').blur();
        //Scroll to the bottom
-       $scope.scrollToElement("clique_payment_card", function(){
-           document.getElementById('clique_input_creditcardnumber1').focus();
-       });
+       $scope.scrollToBottom();
    }
    });
 
@@ -229,7 +235,6 @@ angular.module('angularLocalightApp')
            //get our element length
            var len = element.value.toString().length + 1;
            //get the max length we assigned to it
-           console.log(len);
            var max = element.maxLength;
 
            //Our condition to check if it is a number
@@ -239,18 +244,26 @@ angular.module('angularLocalightApp')
            if(len >= maxlength)
            {
                $scope.hideCard = true;
+               $scope.codeMax = true;
 
-
-
-               setTimeout(function(){
+               //also hide the keyboard
+               // give focus to "From" if it isn't dirty yet
+               $timeout(function() {
                    document.getElementById('clique_input_code').blur();
-               }, 20);
+               }, 100);
 
                //Scroll to the bottom for the occasion
-
+               $scope.scrollToBottom();
            }
-           if(len > maxlength || !cond){
+           else
+           {
+               $scope.codeMax = false;
+           }
+
+           if (!(cond && len <= max))
+           {
                event.preventDefault();
+               return false;
            }
    }
 
@@ -311,6 +324,13 @@ angular.module('angularLocalightApp')
   $scope.setDate = function() {
         document.getElementById('clique_date_selection').type = 'date';
         document.getElementById('clique_date_selection').focus();
+    }
+
+    $scope.ccFocus = function() {
+        //Also bring up they keyboard for the credit card
+        $timeout(function() {
+            document.getElementById('clique_input_creditcardnumber1').focus();
+        }, 100);
     }
 
   $scope.getDayClass = function(date, mode) {
@@ -392,7 +412,7 @@ angular.module('angularLocalightApp')
       //Now check if we can scroll to the next field
       if(f.value.length > 11)
       {
-          //$scope.scrollToElement("bottom");
+          $scope.scrollToBottom();
       }
   }
 
