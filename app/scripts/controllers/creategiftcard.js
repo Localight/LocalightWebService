@@ -89,6 +89,9 @@ angular.module('angularLocalightApp')
               if(callback){
                   callback();
               }
+
+              //Use cubic easing
+              return t*t*t;
           });
       }, 10);
   }
@@ -223,7 +226,7 @@ angular.module('angularLocalightApp')
    $scope.codeMax = false;
 
    //Validate our code length
-   $scope.codeValidate = function(id, event, maxlength, fieldId)
+   $scope.codeValidate = function(id, event, maxlength, scrollId, activeId)
    {
             //Grab our element
            var element = $window.document.getElementById(id);
@@ -240,15 +243,16 @@ angular.module('angularLocalightApp')
            {
                $scope.hideCard = true;
 
+               if(id == 'clique_input_code')
                setTimeout(function(){
-                   document.getElementById('clique_input_code').blur();
+                   document.getElementById(id).blur();
                }, 20);
 
-               //Scroll to the bottom for the occasion
-               $scope.scrollToElement(fieldId);
+               //Scroll to the requested element
+               $scope.scrollToElement(scrollId);
 
                //And set the active field to the occasions
-               $scope.setActiveField(fieldId);
+               $scope.setActiveField(activeId);
            }
            else
            {
