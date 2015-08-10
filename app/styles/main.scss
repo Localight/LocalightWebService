@@ -872,25 +872,25 @@ label.inputlabel {
 /* Placeholder text for focused input */
 
 input:focus::-webkit-input-placeholder {
-   color: lightgrey;
+   color: grey;
    -webkit-transition:all linear 0.15s;
    transition:all linear 0.15s;
 }
 
 input:focus:-moz-placeholder { /* Firefox 18- */
-   color: lightgrey;
+   color: grey;
    -webkit-transition:all linear 0.15s;
    transition:all linear 0.15s;
 }
 
 input:focus::-moz-placeholder {  /* Firefox 19+ */
-   color: lightgrey;
+   color: grey;
    -webkit-transition:all linear 0.15s;
    transition:all linear 0.15s;
 }
 
 input:focus:-ms-input-placeholder {
-   color: lightgrey;
+   color: grey;
    -webkit-transition:all linear 0.15s;
    transition:all linear 0.15s;
 }
