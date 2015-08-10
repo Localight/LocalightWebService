@@ -304,8 +304,17 @@ angular.module('angularLocalightApp')
   /**********
    * Date
    **********/
+
   // set default img
   $scope.dateTypeImg = '../images/send-today-blk.png';
+
+  //Set the minimum date
+  $scope.minDate = new Date().toJSON().slice(0,10);
+
+  //Set the maximum date (5 years from now), plus 1900 because Y2K
+  $scope.maxDate = new Date();
+  $scope.maxDate.setFullYear($scope.maxDate.getFullYear() + 5);
+  $scope.maxDate = $scope.maxDate.toJSON().slice(0,10);
 
   //set as date instead of input
   $scope.setDate = function() {
