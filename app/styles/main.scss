@@ -165,6 +165,16 @@ input, textarea {
     display: none !important;
 }
 
+.currentInputNoBorder {
+  -webkit-transition:all linear 0.25s;
+  transition:all linear 0.25s;
+  opacity: 1 !important;
+}
+
+.currentInputNoBorder.ng-hide {
+    display: none !important;
+}
+
 .waterfall {
   -webkit-transition:all linear 0.25s;
   transition:all linear 0.25s;
@@ -715,7 +725,6 @@ label.inputlabel {
 .paymentcontainer {
   height: 45px;
   text-align: center;
-  background-color: white;
 }
 
 .paymentcontainer.filledIn input {
