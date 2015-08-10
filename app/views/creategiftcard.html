@@ -98,7 +98,7 @@
     <div class = "waterfall" ng-show = "secondaryIndex > 3">
         <input placeholder="Tap to set a date" style="font-size: 2em"
         class = "createGiftCardWidth center roundWhiteBorder currentInput"
-        type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="2000-01-01" max="2020-01-01"
+        type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="{{minDate}}" max="{{maxDate}}"
         show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();"
         ng-blur = "ccFocus()" required></input>
     </div>
