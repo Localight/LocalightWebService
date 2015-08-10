@@ -845,18 +845,54 @@ label.inputlabel {
 
 ::-webkit-input-placeholder {
    color: black;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
 }
 
 :-moz-placeholder { /* Firefox 18- */
    color: black;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
    color: black;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
 }
 
 :-ms-input-placeholder {
    color: black;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
+}
+
+/* Placeholder text ends */
+
+/* Placeholder text for focused input */
+
+input:focus::-webkit-input-placeholder {
+   color: lightgrey;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
+}
+
+input:focus:-moz-placeholder { /* Firefox 18- */
+   color: lightgrey;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
+}
+
+input:focus::-moz-placeholder {  /* Firefox 19+ */
+   color: lightgrey;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
+}
+
+input:focus:-ms-input-placeholder {
+   color: lightgrey;
+   -webkit-transition:all linear 0.15s;
+   transition:all linear 0.15s;
 }
 
 /* Placeholder text ends */
