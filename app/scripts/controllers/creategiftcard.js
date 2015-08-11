@@ -147,8 +147,6 @@ angular.module('angularLocalightApp')
             }
         });
 
-        $scope.showPageFlag = true;
-
         $scope.flipCard = function() {
             //Do this in a timeout to support showing the card and then flipping
             $timeout(function() {
@@ -543,7 +541,7 @@ angular.module('angularLocalightApp')
                 $scope.stripeToken = response.id;
 
                 //Show the next page
-                $scope.showPageFlag = !$scope.showPageFlag;
+                $scope.showPage2 = true;
             }
 
             //Force the change to refresh, we need to do this because I
