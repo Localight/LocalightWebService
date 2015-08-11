@@ -187,6 +187,7 @@ angular.module('angularLocalightApp')
         **********/
 
         //Validate our code length
+        //Optimize
         $scope.codeValidate = function(id, event, maxlength, scrollId, activeId) {
             //Grab our element
             var element = $window.document.getElementById(id);
@@ -224,7 +225,7 @@ angular.module('angularLocalightApp')
             var code = element.value.toString();
 
             //do stuff to return the correct name
-            return "Doly's Delectables"
+            return "MADE in Long Beach"
         }
 
 
