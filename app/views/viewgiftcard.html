@@ -36,14 +36,14 @@
       </div>
 
       <!-- gift card image -->
-      <img class = "center semiTransparentBGRounded" ng-src="{{merchantImages[0]}}" alt="Merchant Image" height="50%" width="100%" style = "max-width:400px;border-radius: 4px">
+      <img class = "center semiTransparentBGRounded" ng-src="{{merchants[0].image}}" alt="Merchant Image" height="50%" width="100%" style = "max-width:400px;border-radius: 4px">
 
     </div>
 
     <!-- amount to use at which merchant section -->
     <div class="text-center merchantInfo blackText">
       <h4 class="center" id="useAmount" style = "margin-top: 20px; margin-bottom: 0px; font-size: 1.15em">Use this ${{giftValue(giftcard.amount)}} gift at</h4>
-      <h2 class="center" style = "margin-top: 0px;font-weight: 400;margin-bottom: 20px">MADE In Long Beach</h2>
+      <h2 class="center" style = "margin-top: 0px;font-weight: 400;margin-bottom: 20px">{{merchants[0].name}}</h2>
     </div>
 
       <!-- use it now/later section -->
