@@ -48,7 +48,7 @@ angular.module('angularLocalightApp')
 		//Src to our merchant imgaes
 		$scope.merchantImages =
 		[
-			"../images/dolys-delectables-crop.jpg",
+			"../images/feature-card-made.jpg",
 			""
 		]
 
