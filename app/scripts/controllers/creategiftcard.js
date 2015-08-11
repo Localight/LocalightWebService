@@ -30,7 +30,7 @@ angular.module('angularLocalightApp')
 
         //Rotation warning detector
         $window.addEventListener("orientationchange", function() {
-            if (!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90)) {
+            if (!$scope.rotateAlert && ($window.orientation === -90 || $window.orientation === 90)) {
                 $scope.rotateAlert = true;
                 alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
             }
@@ -106,10 +106,10 @@ angular.module('angularLocalightApp')
                 $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
             }
 
-            if (fieldId == "clique_from") $window.document.getElementById("localStreetNoBlur").className = "localStreet blur";
+            if (fieldId === "clique_from") $window.document.getElementById("localStreetNoBlur").className = "localStreet blur";
 
             //Check if it is the occasion wrapper, if it is, we need to turn white into transparent
-            if (fieldId.indexOf("clique_occasion_wrapper") > -1) {
+            if (fieldId === "clique_occasion_wrapper") {
                 //Check if the active field is already occasion wrapper
                 if ($scope.occasionSelectionFlag) {
                     //Make the occasion transparent
@@ -203,7 +203,7 @@ angular.module('angularLocalightApp')
             if (len >= maxlength) {
                 $scope.showCard = false;
 
-                if (id == 'clique_input_code') setTimeout(function() {
+                if (id === 'clique_input_code') setTimeout(function() {
                     document.getElementById(id).blur();
                 }, 20);
 
