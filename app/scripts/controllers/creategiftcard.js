@@ -186,8 +186,6 @@ angular.module('angularLocalightApp')
         * Code
         **********/
 
-        //Set hiding the card to false until we finish the code
-        $scope.hideCard = true;
         //Boolean if the code is at it's maximum value
         $scope.codeMax = false;
 
@@ -205,7 +203,7 @@ angular.module('angularLocalightApp')
 
             //Check if we met our condition and our length is good
             if (len >= maxlength) {
-                $scope.hideCard = true;
+                $scope.showCard = false;
 
                 if (id == 'clique_input_code') setTimeout(function() {
                     document.getElementById(id).blur();

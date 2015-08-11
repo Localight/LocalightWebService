@@ -40,7 +40,7 @@
     <!--Code, remove ng click to fix functionality -->
     <!-- little demo thing -->
     <div id="clique_code_wrapper" class = "waterfall" ng-show = "giftcardForm.clique_input_to.$dirty && giftcardForm.clique_input_from.$dirty">
-      <div id="flip_container" class = "waterfall" ng-show = "hideCard == false">
+      <div id="flip_container" class = "waterfall" ng-show = "showCard">
         <div class="dummy"></div>
         <div id="front" class="card"></div>
         <div id="back" class="card">
@@ -51,12 +51,12 @@
 
       <div id="clique_code" class="marginBottom currentInput waterfall" ng-hide = "giftcardForm.clique_input_code.$valid">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);hideCard = false;flipCard();"
+        <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
         placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5, 'clique_occasion_selection','clique_occasion_selection')" ng-model="gc.code" ng-change="getStoreName()"
         ng-keypress="codeValidate('clique_input_code', $event, 5)" required>
       </div>
 
-      <div id="clique_code_message" ng-show = "hideCard && gc.code > 9999 && giftcardForm.clique_input_code.$valid">
+      <div id="clique_code_message" ng-show = "gc.code > 9999 && giftcardForm.clique_input_code.$valid">
         <label class="inputlabel">
           <img src="../images/at-icon-blk.png" >
         </label>
