@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, $window) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, $window, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,20 +16,25 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean for alert
-    $scope.rotateAlert = false;
+        //Boolean for alert
+        $scope.rotateAlert = false;
 
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
+        //Check for device orientation
+        $window.addEventListener("orientationchange", function() {
+            if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+            {
+                $scope.rotateAlert = true;
+                alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+            }
+        }, false);
 
         //Switch overlay off
 		document.getElementById('darkerOverlay').style.display = "none";
+
+        //Make the background blurred
+        setTimeout(function () {
+            document.getElementById("localStreetNoBlur").className = "localStreet blur";
+        }, 750);
 
         //get our session token from the cookies
         $scope.sessionToken = $cookies.get("sessionToken");

@@ -11,23 +11,21 @@
 		<!--Merchants name -->
 		<h2 class = "linkText center">{{merchantLocation.name}}</h2>
 
-		<!-- Lock Icon -->
-		<div style = "padding-left: 5%" class = "center swipeLock" my-touchend= "goTo('/merchants/{{Id}}/tricon')" ng-swipe-left = "goTo('/merchants/{{Id}}/tricon')" ng-swipe-right = "goTo('/merchants/{{Id}}/tricon')">
+		<div class = "lockBorder upside">
+			<div class = "center swipeLock upside" my-touchend= "goTo('/merchants/{{Id}}/tricon')" ng-swipe-left = "goTo('/merchants/{{Id}}/tricon')" ng-swipe-right = "goTo('/merchants/{{Id}}/tricon')">
+			</div>
 		</div>
-		<br>
 	</div>
 
 	<!-- Some Spacing -->
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<div style = "margin-top: 30%"></div>
 
 	<!-- title your screen Icon -->
 	<img class = "center" width = "75px" height = "100px"src = "../images/tilt-anim-5times@2x.gif">
 
 	<!-- Tilt your screen text -->
 	<h4 class = "whiteText center tiltText">Tilt your screen to {{getMerchant()}} staff</h4>
+
+	<!-- Place the Small localight logo -->
+    <img class="center" style = "margin-top: 10px" ng-src="/../images/logo-localight-outline-wht.png" alt="Localight" height="45px" width="45px">
 </section>
