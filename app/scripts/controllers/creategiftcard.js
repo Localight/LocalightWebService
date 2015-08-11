@@ -274,12 +274,12 @@ angular.module('angularLocalightApp')
             document.getElementById('clique_date_selection').focus();
         }
 
-        //Mask for translating and validating phone numbers
-        $scope.mask = function(f, event) {
+        //Masks phone number with (xxx)xxx-xxxx format
+        $scope.maskPhone = function(elementId, event) {
 
             //First check if the key pressed was backspace, if it was, dont do the function
             if (event.keyCode != 8) {
-                f = $window.document.getElementById(f);
+                element = $window.document.getElementById(elementId);
                 $scope.clique_input_phonenumber_validity = true;
                 var tel = '(';
                 var val = f.value.split('');
@@ -310,12 +310,7 @@ angular.module('angularLocalightApp')
                     }
                     tel = tel + val[i];
                 }
-                f.value = tel;
-            }
-
-            //Now check if we can scroll to the next field
-            if (f.value.length > 11) {
-                //$scope.scrollToElement("bottom");
+                element.value = tel;
             }
         }
 
