@@ -13,7 +13,7 @@
       </div>
 
       <!--Amount-->
-      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px;" ng-show="priceSelectionFlag">
+      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px;" ng-hide="amountSelected">
         <span class="leftarrow"></span>
         <div id="clique_amt_scrollwindow">
           <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setActiveField('clique_from');setSecondaryField(2);setAmount(price);">
@@ -22,7 +22,7 @@
         </div>
         <span class="rightarrow"></span>
       </div>
-      <div id="clique_amt" ng-hide="priceSelectionFlag" ng-click="setBack()">
+      <div id="clique_amt" ng-show="amountSelected" ng-click="amountSelected = false">
         <label class="inputlabel">$</label>
         <div class="helveticaInput rightColumn">{{gc.amount}}</div>
       </div>

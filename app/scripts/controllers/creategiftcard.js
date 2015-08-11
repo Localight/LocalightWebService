@@ -147,9 +147,6 @@ angular.module('angularLocalightApp')
       }
     });
 
-    //Flags for various things.
-
-    $scope.priceSelectionFlag = true;
     $scope.showPageFlag = true;
 
     $scope.flipCard = function() {
@@ -166,7 +163,9 @@ angular.module('angularLocalightApp')
 
     $scope.setAmount = function(anAmount) {
       $scope.gc.amount = anAmount;
-      $scope.priceSelectionFlag = false;
+
+      //Hide the amount picker
+      $scope.amountSelected = true;
       $scope.showBackgroundFlag = false;
 
       //Focus on "from"
@@ -181,9 +180,6 @@ angular.module('angularLocalightApp')
     //Flag for send selection flag
     $scope.sendSelectionFlag = true;
 
-    $scope.setBack = function() {
-      $scope.priceSelectionFlag = true;
-    };
     $scope.setOccasionBack = function() {
       $scope.occasionSelectionFlag = true;
     };
