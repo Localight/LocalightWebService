@@ -21,13 +21,14 @@ angular.module('angularLocalightApp')
       if (keyEvent.which === 13) document.getElementById(input).focus();
     }
 
-    //Boolean for alert
+    //****
+    //Page initialization
+    //****
+
+    //Rotation warning shown
     $scope.rotateAlert = false;
 
-    //Initialize the giftcard
-    $scope.gc = {};
-
-    //Check for device orientation
+    //Rotation warning detector
     $window.addEventListener("orientationchange", function() {
       if (!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90)) {
         $scope.rotateAlert = true;
@@ -35,11 +36,13 @@ angular.module('angularLocalightApp')
       }
     }, false);
 
-
-    //Switch overlay off
+    //Switch dark overlay off
     document.getElementById('darkerOverlay').style.display = "none";
 
-    //Keeping track of stripe verified fields
+    //Giftcard form object
+    $scope.gc = {};
+
+    //Credit card verification fields
     $scope.cardIndex = 0;
     $scope.cardValidated = false;
     $scope.numberValidated = false;
@@ -47,21 +50,37 @@ angular.module('angularLocalightApp')
     $scope.cvcValidated = false;
     $scope.zipValidated = false;
 
-    //Keeping track of the backend
+    //Server response
     $scope.backendError = false;
     $scope.backendRes = "";
 
-    //Get our session token cookie, and store it in the cookie store
+    //Store session token from url
     var sessionToken = $routeParams.token;
     $cookies.put("sessionToken", sessionToken);
 
-    //Amount selection slider amount array
+    //Amount selection slider amount options
     $scope.prices = [2, 5, 10, 25, 50, 75, 100];
 
-    //Focus on "to" field when document is loaded
+    //Focus on "to" field when document is done loading
     angular.element(document).ready(function() {
       document.getElementById("clique_input_to").focus();
     });
+
+    //Secondary form field highlighting (form field suggestions)
+    $scope.secondaryField = null;
+    $scope.secondaryIndex = 0;
+    $scope.inputFields = [
+      "clique_amt_selection",
+      "clique_from",
+      "clique_code",
+      "clique_occasion_wrapper",
+      "clique_date_selection",
+      "creditcardinfo"
+    ]
+
+    //****
+    //General functions
+    //****
 
     //Scroll to element by HTML ID
     $scope.scrollToElement = function(elementId, callback) {
@@ -111,18 +130,6 @@ angular.module('angularLocalightApp')
     //Start the first field highlighted
     //Optimize
     $scope.setActiveField('clique_to');
-
-    //Our secondary field
-    $scope.secondaryField = null;
-    $scope.secondaryIndex = 0;
-    $scope.inputFields = [
-      "clique_amt_selection",
-      "clique_from",
-      "clique_code",
-      "clique_occasion_wrapper",
-      "clique_date_selection",
-      "creditcardinfo"
-    ]
 
     $scope.setSecondaryField = function(next) {
       if (next >= $scope.secondaryIndex) {
