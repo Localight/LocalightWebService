@@ -954,7 +954,7 @@ input:focus:-ms-input-placeholder {
 }
 
 .linkText {
-    color: #56b4af;
+    color: #3fdcd5;
 }
 
 .placeHolderTextStyle {
@@ -1029,11 +1029,20 @@ input:focus:-ms-input-placeholder {
 .swipeLock {
     width: 71px;
     height: 71px;
-    max-width:100%;
-    max-height:100%;
-    background: url('../images/lock-anim-sprite-wht.png') right center;
+    max-width:70%;
+    max-height:70%;
+    background: url('../images/lock-anim-sprite-wht.png');
+    background-position: right bottom;
     background-size: cover;
     animation: play 2.5s steps(15) infinite;
+}
+
+.lockBorder {
+    border-style: solid;
+    border-radius: 45px;
+    border-color: #3fdcd5;
+    width: 80px;
+    height: 80px;
 }
 
 @keyframes play {
