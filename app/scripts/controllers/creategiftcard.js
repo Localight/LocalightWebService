@@ -253,16 +253,12 @@ angular.module('angularLocalightApp')
                     document.getElementById('clique_input_occasion').focus();
                 }, 100);
             }
-            //$scope.limitOccText(); // limit occasion text to 100 characters
         };
 
 
         /**********
         * Date
         **********/
-
-        // set default img
-        $scope.dateTypeImg = '../images/send-today-blk.png';
 
         //Set the minimum date
         $scope.minDate = new Date().toJSON().slice(0, 10);
@@ -272,51 +268,11 @@ angular.module('angularLocalightApp')
         $scope.maxDate.setFullYear($scope.maxDate.getFullYear() + 5);
         $scope.maxDate = $scope.maxDate.toJSON().slice(0, 10);
 
-        //set as date instead of input
+        //Switch date input to date type (hack to have a placeholder in a date field)
         $scope.setDate = function() {
             document.getElementById('clique_date_selection').type = 'date';
             document.getElementById('clique_date_selection').focus();
         }
-
-        $scope.getDayClass = function(date, mode) {
-            if (mode === 'day') {
-                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-                for (var i = 0; i < $scope.events.length; i++) {
-                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                    if (dayToCheck === currentDay) {
-                        return $scope.events[i].status;
-                    }
-                }
-            }
-
-            return '';
-        };
-        $scope.setDateType = function(type) {
-            $scope.sendSelectionFlag = true;
-            if (type === 'today')
-            $scope.dateTypeImg = '../images/send-today-blk.png';
-            else if (type === 'on-date')
-            $scope.dateTypeImg = '../images/send-on-date-blk.png';
-
-        };
-        $scope.updateCreditCardImg = function() {
-            var type = $.formance.creditCardType($scope.formData.CreditCardNumber);
-
-            var acceptedTypes = ['amex', 'discover', 'mastercard', 'visa'];
-
-            if (acceptedTypes.indexOf(type) !== -1)
-            $scope.cardTypeImg = '../images/cc-' + type;
-            else
-            $scope.cardTypeImg = '../images/cc-basic';
-
-            var filledIn = $('#creditcardnumbercontainer').hasClass('filledIn');
-            if (filledIn)
-            $scope.cardTypeImg += '-wht.png';
-            else
-            $scope.cardTypeImg += '-blk.png';
-        };
 
         //Mask for translating and validating phone numbers
         $scope.mask = function(f, event) {
