@@ -537,7 +537,7 @@ label.inputlabel {
 }
 
 .flatRowListItem {
-    background-color: rgba(0,0,0,0.15) ;
+    background-color: rgba(0,0,0,0.25) ;
     border: none;
     margin-bottom: 2px;
     padding: 5px;
@@ -560,7 +560,7 @@ label.inputlabel {
 .flatRowListItem .glyphicon {
     position: absolute;
     right: 0;
-    padding-top: 5%;
+    padding-top: 3.5%;
     padding-right: 5px;
     font-size: 50px;
 }
@@ -575,10 +575,10 @@ label.inputlabel {
 }
 
 .giftcardContainer {
-    background-color:rgba(37,81,79, 0.75);
+    background-color:rgba(37,81,79, 0.85);
     border-radius: 5px;
     padding: 10px;
-    margin: 15px;
+    margin: 0px;
     color: white;
 }
 
@@ -591,6 +591,7 @@ label.inputlabel {
   -moz-border-radius: 10;
   border-radius: 10px;
   font-size: 20px;
+  font-weight: 600;
   background: white;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
@@ -906,9 +907,9 @@ input:focus:-ms-input-placeholder {
 
 .listNameHeader {
     color: #df5241;
-    font-size: 4em;
+    font-size: 3em;
     text-align: right;
-    padding-right: 25px;
+    padding-right: 15px;
 }
 
 .backText {
@@ -1057,7 +1058,9 @@ textarea {
 
 .container {
     margin: 0;
-    padding: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
 }
 
 .container-fluid {

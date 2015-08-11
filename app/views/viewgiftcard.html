@@ -2,18 +2,21 @@
 
   <div ng-class="{giftToUseItSections: merchantList }" style="-webkit-transition: all 1.5s ease-in-out;">
 
-    <!-- header section with give option, clique logo and available balance -->
-    <table class = "sub-header">
-       <tr>
-           <td class="paddingLeft" style = "width: 33%;"><a class="blackText navText" ng-href="/#/giftcards/create/{{sessionToken}}">
-               <img class = "imagePaddingRight" ng-src="../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
-               Give</a></td>
-               <td class = "paddingLeft paddingRight center">
-                   <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
-               </td>
-           <td class="textRightAlign paddingRight blackText navText" style = "width: 33%;">${{totalValue()}}</td>
-       <tr>
-   </table>
+      <!-- header section with give option, clique logo and available balance -->
+      <table class = "sub-header">
+         <tr>
+             <td style = "width: 33%;">
+                 <a href = "#/giftcards">
+                     <img class = "inline" src = "../images/auth-lft-arrow.png" width = "14" height = "33">
+                     <p style="vertical-align: middle;font-size: 1em" class = "inline paddingLeft backText blackText">Back</p>
+                 </a>
+             </td>
+             <td class = "paddingLeft paddingRight center">
+                 <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+             </td>
+             <td class = "textRightAlign blackText navText" style = "width: 33%;"></td>
+         <tr>
+     </table>
 
 
 
