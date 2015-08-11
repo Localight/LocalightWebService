@@ -232,16 +232,9 @@ angular.module('angularLocalightApp')
         /**********
         * Occasion
         **********/
-        // import occasions object from OccasionService
+
+        //Get OccasionService array
         $scope.occasions = OccasionService;
-        //The occasion Id for our giftcard
-        $scope.occasionId = 0;
-
-        // set default occasion icon to display
-        $scope.occasions.selectedIcon = '../images/occasion-custom-icon-blk.png';
-
-        $scope.occasions.charsLeft = 100;
-        var occCharLimit = 100; // no need to include the character limit inside $scope
 
         $scope.setOccasion = function(occasion) {
             // change occasion text only if a new occasion is selected
