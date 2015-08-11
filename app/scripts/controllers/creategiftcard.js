@@ -328,14 +328,11 @@ angular.module('angularLocalightApp')
 
         //Stripe verification fileds
         $scope.validateCardNumber = function() {
-            //Concatante the giftcard number together
-            var input1 = document.getElementById("clique_input_creditcardnumber1");
-            var input2 = document.getElementById("clique_input_creditcardnumber2");
-            var input3 = document.getElementById("clique_input_creditcardnumber3");
-            var input4 = document.getElementById("clique_input_creditcardnumber4");
-
-            //concatante the values, using dashes so they wont add together, and stripe supports
-            var cardNumber = input1.value + "-" + input2.value + "-" + input3.value + "-" + input4.value;
+            //Concatante the credit card number together
+            var cardNumber = "";
+            for(var i=1; i <= 4; i++){
+                cardNumber += document.getElementById("clique_input_creditcardnumber" + i).value;
+            }
 
             $scope.numberValidated = Stripe.card.validateCardNumber(cardNumber);
 
