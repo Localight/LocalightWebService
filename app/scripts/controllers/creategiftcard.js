@@ -368,6 +368,9 @@ angular.module('angularLocalightApp')
             $scope.validateCard();
         }
 
+        /**
+         * Validates the zipcode. Checks for length.
+         */
         $scope.validateZip = function() {
             //get the input
             var input1 = document.getElementById("clique_input_zip");
@@ -383,6 +386,9 @@ angular.module('angularLocalightApp')
             $scope.validateCard();
         }
 
+        /**
+         * Checks if all CC fields have been validated independantly
+         */
         $scope.validateCard = function() {
             if ($scope.numberValidated && $scope.dateValidated && $scope.cvcValidated && $scope.zipValidated) {
                 $scope.cardValidated = true;
@@ -392,6 +398,9 @@ angular.module('angularLocalightApp')
             }
         }
 
+        /**
+         * Validates email field
+         */
         $scope.validateEmail = function() {
             //get the email
             var email = $scope.gc.email;
@@ -421,7 +430,9 @@ angular.module('angularLocalightApp')
         //Setting our stripe key
         Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
-        // finish the form, see if anything else is needed
+        /**
+         * Assembles CC info and creates a token with Stripe
+         */
         $scope.tokenizeInfo = function() {
 
             //Collect the credit card form info
@@ -446,6 +457,9 @@ angular.module('angularLocalightApp')
         //A place to store the stripe token until final sendoff
         var stripeToken;
 
+        /**
+         * Handles the response from Stripe after CC information is sent by createToken(), and operates as the callback.
+         */
         $scope.stripeResponseHandler = function(status, response) {
             if (response.error) {
                 //Inform the user
