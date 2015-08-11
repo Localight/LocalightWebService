@@ -421,12 +421,6 @@ angular.module('angularLocalightApp')
         //Setting our stripe key
         Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
-        //Our stripe token for their card
-        $scope.stripeToken;
-        $scope.tokenizing = false;
-        $scope.tokenizeFailure = false;
-
-
         // finish the form, see if anything else is needed
         $scope.tokenizeInfo = function() {
             //disable the submit button
