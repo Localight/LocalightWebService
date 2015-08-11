@@ -151,7 +151,7 @@
     giftcardForm.clique_input_cvv.$dirty &&
     giftcardForm.clique_input_zip.$dirty">
       <button class="proceed_button" id="continue_button"
-          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated && !tokenizing)" ng-click="tokenizeInfo();">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" ng-click="tokenizeInfo();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>

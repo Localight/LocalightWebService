@@ -423,8 +423,6 @@ angular.module('angularLocalightApp')
 
         // finish the form, see if anything else is needed
         $scope.tokenizeInfo = function() {
-            //disable the submit button
-            $scope.tokenizing = true;
 
             //Collect the credit card form info
             $scope.finalCard = {};
@@ -445,18 +443,18 @@ angular.module('angularLocalightApp')
             Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
         };
 
+        //A place to store the stripe token until final sendoff
+        var stripeToken;
+
         $scope.stripeResponseHandler = function(status, response) {
             if (response.error) {
                 //Inform the user
                 $scope.tokenizeFailure = true;
 
             } else {
-                //Tokenizing was a success!
-                $scope.tokenizeFailure = false;
-
                 //Get the token to be submitted later, after the second page
                 // response contains id and card, which contains additional card details
-                $scope.stripeToken = response.id;
+                stripeToken = response.id;
 
                 //Show the next page
                 $scope.showPage2 = true;
@@ -466,11 +464,6 @@ angular.module('angularLocalightApp')
             //guess response scope is a different scope and has to be
             //forced or interacted with
             $scope.$apply();
-
-
-            //We are no longer tokenizing
-            $scope.tokenizing = false;
-
         };
 
 
@@ -507,7 +500,7 @@ angular.module('angularLocalightApp')
                         "amount": intAmount,
                         "iconId": $scope.occasionId,
                         "message": $scope.gc.occasion,
-                        "stripeCardToken": $scope.stripeToken
+                        "stripeCardToken": stripeToken
                     }
 
                     var newGiftcard = Giftcards.create(newGiftcardJson, function() {
