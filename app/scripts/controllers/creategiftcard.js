@@ -86,15 +86,14 @@ angular.module('angularLocalightApp')
     $scope.scrollToElement = function(elementId, callback) {
       //Pause before executing scroll to allow other events to complete
       setTimeout(function() {
-        //Use smooth scroll to scroll to the bottom
+        //Find the angular element requested
         var element = angular.element(document.getElementById(elementId));
-        //Scrol to the bottom div, with 0 offset, in 1 second, with inout easing function
+        //Scroll to the selected element
         $document.scrollToElement(element, 0, 1000, function(t) {
           if (callback) {
             callback();
           }
-
-          //Use some easing
+          //Use cubic easing math
           return 1 - (--t) * t * t * t
         });
       }, 100);
@@ -126,10 +125,6 @@ angular.module('angularLocalightApp')
         $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
       }
     };
-
-    //Start the first field highlighted
-    //Optimize
-    $scope.setActiveField('clique_to');
 
     $scope.setSecondaryField = function(next) {
       if (next >= $scope.secondaryIndex) {
@@ -218,10 +213,9 @@ angular.module('angularLocalightApp')
       if (len >= maxlength) {
         $scope.hideCard = true;
 
-        if (id == 'clique_input_code')
-          setTimeout(function() {
-            document.getElementById(id).blur();
-          }, 20);
+        if (id == 'clique_input_code') setTimeout(function() {
+          document.getElementById(id).blur();
+        }, 20);
 
         //Scroll to the requested element
         $scope.scrollToElement(scrollId);
@@ -623,5 +617,13 @@ angular.module('angularLocalightApp')
         }
       });
     }
+
+    //****
+    //Second initialization stage
+    //****
+
+    //Start the first field highlighted
+    //Optimize
+    $scope.setActiveField('clique_to');
 
   });
