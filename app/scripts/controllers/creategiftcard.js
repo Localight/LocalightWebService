@@ -182,9 +182,9 @@ angular.module('angularLocalightApp')
             $scope.occasionSelectionFlag = true;
         };
 
-        /**********
+        /****
         * Code
-        **********/
+        ****/
 
         //Validate our code length
         //Optimize
@@ -218,26 +218,33 @@ angular.module('angularLocalightApp')
             }
         }
 
-        //temporary function for getting a merchant name for a code
+        /**
+         * Gets the merchant associated with the code entered.
+         */
         $scope.getMerchantName = function() {
-            //get our code value here
+            //Get the code, transform it into a string
             var element = $window.document.getElementById('clique_input_code');
             var code = element.value.toString();
 
-            //do stuff to return the correct name
+            //SEND CODE TO BACKEND
+            //Return the name of the merchant from the backend (static placeholder)
             return "MADE in Long Beach"
         }
 
 
-        /**********
+        /****
         * Occasion
-        **********/
+        ****/
 
-        //Get OccasionService array
+        //Get OccasionService array containing all possible occasion presets
         $scope.occasions = OccasionService;
 
+        /**
+         * Sets/Unsets the occasion for the occasionPicker.
+         * @param {Occasion} occasion Occasion object that was selected
+         */
         $scope.setOccasion = function(occasion) {
-            // change occasion text only if a new occasion is selected
+            //Change occasion text only if a new occasion is selected
             $scope.occasionSelectionFlag = false;
             $scope.showBackgroundFlagFour = true;
 
@@ -256,25 +263,31 @@ angular.module('angularLocalightApp')
         };
 
 
-        /**********
+        /****
         * Date
-        **********/
+        ****/
 
-        //Set the minimum date
+        //Minimum date for datepicker (prevents Android datepicker lag)
         $scope.minDate = new Date().toJSON().slice(0, 10);
 
-        //Set the maximum date (5 years from now), plus 1900 because Y2K
+        //Set the maximum date (5 years from now), plus 1900 because Y2K (prevents Android datepicker lag)
         $scope.maxDate = new Date();
         $scope.maxDate.setFullYear($scope.maxDate.getFullYear() + 5);
         $scope.maxDate = $scope.maxDate.toJSON().slice(0, 10);
 
-        //Switch date input to date type (hack to have a placeholder in a date field)
+        /**
+         * Switch date input type=text to type=date (hack to have a placeholder in a date field)
+         */
         $scope.setDate = function() {
             document.getElementById('clique_date_selection').type = 'date';
             document.getElementById('clique_date_selection').focus();
         }
 
-        //Masks phone number with (xxx)xxx-xxxx format
+        /**
+         * Masks phone number with (xxx)xxx-xxxx format.
+         * @param {String} elementId The HTML ID for the element to validate.
+         * @param {$event} event The event which triggered the mask.
+         */
         $scope.maskPhone = function(elementId, event) {
 
             //First check if the key pressed was backspace, if it was, dont do the function
@@ -314,9 +327,11 @@ angular.module('angularLocalightApp')
             }
         }
 
-        //Credit card Verification
+        /****
+        * Credit Card Validation
+        ****/
 
-        //Stripe icons for cards
+        //Icon URLs for CCs
         //Default, Visa, Mastercard, Amex, Discover
         var cardIcons = [
             "../images/cc-basic-blk.png",
@@ -326,7 +341,9 @@ angular.module('angularLocalightApp')
             "../images/cc-discover-blk.png"
         ]
 
-        //Stripe verification fileds
+        /**
+         * Validates form CC. Checks Stripe for validity, determines card type and sets card icon.
+         */
         $scope.validateCardNumber = function() {
             //Concatante the credit card number together
             var cardNumber = "";
@@ -347,6 +364,9 @@ angular.module('angularLocalightApp')
             $scope.validateCard();
         }
 
+        /**
+         * Validates form Date. Checks Stripe for validity.
+         */
         $scope.validateDate = function() {
             //Concatante the giftcard number together
             var input1 = document.getElementById("clique_input_expiry_m");
@@ -358,6 +378,9 @@ angular.module('angularLocalightApp')
             $scope.validateCard();
         }
 
+        /**
+         * Validates form CVC. Checks Stripe for validity.
+         */
         $scope.validateCVC = function() {
             //get the input
             var input1 = document.getElementById("clique_input_cvv");
@@ -369,7 +392,7 @@ angular.module('angularLocalightApp')
         }
 
         /**
-         * Validates the zipcode. Checks for length.
+         * Validates form zipcode. Checks for length.
          */
         $scope.validateZip = function() {
             //get the input
