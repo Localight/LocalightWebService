@@ -124,7 +124,7 @@ body {
 
 body {
   font-family: 'helvetica','sans-serif','arial';
-  background-color: #58e6df;
+  background-color: #4fcfc8;
   padding: 0px;
   margin: 0px;
   height: 100%;
@@ -254,7 +254,7 @@ input, textarea {
   z-index: -2;
   background-size: cover;
   background-position: center top;
-  background-color: #58e6df;
+  background-color: #4fcfc8;
   transition: opacity 1s ease-out 0s; /* CSS property, duration, timing-function, delay */
   -o-transition: opacity 1s ease-out 0s;
   -webkit-transition: opacity 1s ease-out 0s;
@@ -590,7 +590,7 @@ label.inputlabel {
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 5vmin;
   font-weight: 600;
   background: white;
   padding: 10px 20px 10px 20px;
@@ -1027,27 +1027,24 @@ input:focus:-ms-input-placeholder {
 }
 
 .swipeLock {
-    width: 71px;
-    height: 71px;
-    max-width:70%;
-    max-height:70%;
+    width: 80px;
+    height: 80px;
     background: url('../images/lock-anim-sprite-wht.png');
-    background-position: right bottom;
-    background-size: cover;
+    background-origin: padding-box;
+    background-size: 60px 60px;
     animation: play 2.5s steps(15) infinite;
+    padding: 5px;
 }
 
 .lockBorder {
     border-style: solid;
     border-radius: 45px;
     border-color: #3fdcd5;
-    width: 80px;
-    height: 80px;
 }
 
 @keyframes play {
-    from { background-position:    0px; }
-    to { background-position: 2130px; }
+    0% { background-position:    0px; }
+    100% { background-position: 2130px; }
 }
 
 textarea {
