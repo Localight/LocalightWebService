@@ -4,11 +4,16 @@
 	<!-- header section with give option, clique logo and available balance -->
 	<table class = "sub-header">
 		<tr>
-			<td class="paddingLeft"><a class="blackText navText" ng-href="/#/giftcards/create/{{sessionToken}}">
+			<td class="paddingLeft" style = "width: 33%;">
+				<a class="blackText navText" ng-href="/#/giftcards/create/{{sessionToken}}">
 				<img class = "imagePaddingRight" ng-src="../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
-				Give</a></td>
-				<td class = "textRightAlign blackText navText paddingRight">${{totalValue()}}</td>
-				<tr>
+				Give</a>
+			</td>
+			<td class = "center">
+				<img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+			</td>
+			<td class = "textRightAlign blackText navText paddingRight" style = "width: 33%;">${{totalValue()}}</td>
+		<tr>
 	</table>
 
 	<!-- Occasion Icon -->
