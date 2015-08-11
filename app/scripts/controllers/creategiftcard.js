@@ -52,33 +52,19 @@ angular.module('angularLocalightApp')
   $scope.backendError = false;
   $scope.backendRes = "";
 
-  /* James Node Backend
-  $scope.user = AuthTwilio.login({"token": $routeParams.token},
-  function(){
-      console.log($scope.user);
-  });
-  */
-
   //Get our session token cookie, and store it in the cookie store
   var sessionToken = $routeParams.token;
   $cookies.put("sessionToken", sessionToken);
 
-  //Not using Authentication service
-  //$scope.authentication = Authentication;
-
-  //$scope.gc = new Giftcards();
-
+  //Amount selection slider amount array
   $scope.prices = [2, 5, 10, 25, 50, 75, 100];
 
-  //Focus on the to field as soon as it is done loading
+  //Focus on "to" field when document is loaded
   angular.element(document).ready(function () {
         document.getElementById("clique_input_to").focus();
     });
 
-  //Scrolling boolean
-  $scope.scrolling = false;
-
-  //Function to scroll to an element in our page
+  //Scroll to element by HTML ID
   $scope.scrollToElement = function(elementId, callback){
       //Pause before executing scroll to allow other events to complete
       setTimeout(function() {
@@ -96,11 +82,10 @@ angular.module('angularLocalightApp')
       }, 100);
   }
 
-  //We need to set the primary and secondary input
-  $scope.activeField = null;
+  //Sets the current active field background
   $scope.setActiveField = function(fieldId) {
 
-    if($scope.activeField != null && $scope.activeField != fieldId){
+    if($scope.activeField && $scope.activeField != fieldId){
         $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
     }
 
@@ -109,17 +94,16 @@ angular.module('angularLocalightApp')
     //Check if it is the occasion wrapper, if it is, we need to turn white into transparent
     if(fieldId.indexOf("clique_occasion_wrapper") > -1)
     {
-        //it is occasion wrapper handle here
         //Check if the active field is already occasion wrapper
         if($scope.occasionSelectionFlag)
         {
-            //make the occasion transparent again
+            //Make the occasion transparent
             $scope.activeField = fieldId;
             $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
         }
         else
         {
-            //make the occasion white
+            //Make the occasion white
             $scope.activeField = fieldId;
             $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
         }
@@ -130,7 +114,9 @@ angular.module('angularLocalightApp')
         $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
     }
   };
-  //start the first field highlightd
+
+  //Start the first field highlighted
+  //Optimize
   $scope.setActiveField('clique_to');
 
   //Our secondary field
@@ -154,10 +140,11 @@ angular.module('angularLocalightApp')
       }
       $window.document.getElementById($scope.secondaryField).style.backgroundColor = "rgba(255, 255, 255, 0.35)";
   }
-  //set our secondary field to 0
+
+  //Set the secondary field to clique_amt_selection
   $scope.setSecondaryField(0);
 
-  //Scroll to the botton when a field appears, this specifaically fixes the credit card not scrolling bug
+  //Scroll to clique_payment_card when clique_date_selection is valid
   $scope.$watch('giftcardForm.clique_date_selection.$valid', function(newValue, oldValue) {
    if (newValue)
    {
@@ -174,8 +161,6 @@ angular.module('angularLocalightApp')
   $scope.showPageFlag = true;
 
   $scope.flipCard = function() {
-    //$scope.flipCardFlag = true;
-
     //Do this in a timeout to support showing the card and then flipping
     $timeout(function() {
         //Add the classes to the front and back
@@ -192,17 +177,17 @@ angular.module('angularLocalightApp')
     $scope.priceSelectionFlag = false;
     $scope.showBackgroundFlag = false;
 
-    // give focus to "From" if it isn't dirty yet
+    //Focus on "from"
+    //Timeout prevents android keyboard from hiding
     $timeout(function() {
         document.getElementById('clique_input_from').focus();
     }, 100);
   };
 
-  // flag for occasion Selector
+  //Flag for occasion Selector
   $scope.occasionSelectionFlag = true;
-  // flag for send selection flag
+  //Flag for send selection flag
   $scope.sendSelectionFlag = true;
-
 
   $scope.setBack = function() {
     $scope.priceSelectionFlag = true;
@@ -210,12 +195,7 @@ angular.module('angularLocalightApp')
   $scope.setOccasionBack = function() {
     $scope.occasionSelectionFlag = true;
   };
-  /*
-  $scope.isAmount = function(checkAmount) {
-    return $scope.gc.amount === checkAmount; // boolean
-  };
-  */
-
+  
   /**********
    * Code
    **********/
