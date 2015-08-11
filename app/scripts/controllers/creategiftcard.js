@@ -186,9 +186,6 @@ angular.module('angularLocalightApp')
         * Code
         **********/
 
-        //Boolean if the code is at it's maximum value
-        $scope.codeMax = false;
-
         //Validate our code length
         $scope.codeValidate = function(id, event, maxlength, scrollId, activeId) {
             //Grab our element
@@ -214,8 +211,6 @@ angular.module('angularLocalightApp')
 
                 //And set the active field to the occasions
                 $scope.setActiveField(activeId);
-            } else {
-                $scope.codeMax = false;
             }
             if (len > maxlength || !cond) {
                 event.preventDefault();
