@@ -161,12 +161,12 @@ angular.module('angularLocalightApp')
             }, 500);
         };
 
-        $scope.setAmount = function(anAmount) {
-            $scope.gc.amount = anAmount;
+        $scope.setAmount = function(amount) {
+            //Store form amount
+            $scope.gc.amount = amount;
 
             //Hide the amount picker
             $scope.amountSelected = true;
-            $scope.showBackgroundFlag = false;
 
             //Focus on "from"
             //Timeout prevents android keyboard from hiding
@@ -179,7 +179,7 @@ angular.module('angularLocalightApp')
         $scope.occasionSelectionFlag = true;
         //Flag for send selection flag
         $scope.sendSelectionFlag = true;
-        
+
         $scope.setOccasionBack = function() {
             $scope.occasionSelectionFlag = true;
         };
