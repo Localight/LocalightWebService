@@ -318,7 +318,7 @@ angular.module('angularLocalightApp')
 
         //Stripe icons for cards
         //Default, Visa, Mastercard, Amex, Discover
-        $scope.cardIcons = [
+        var cardIcons = [
             "../images/cc-basic-blk.png",
             "../images/cc-visa-blk.png",
             "../images/cc-mastercard-blk.png",
@@ -334,25 +334,14 @@ angular.module('angularLocalightApp')
                 cardNumber += document.getElementById("clique_input_creditcardnumber" + i).value;
             }
 
-            $scope.numberValidated = Stripe.card.validateCardNumber(cardNumber);
+            $scope.validCC = Stripe.card.validateCardNumber(cardNumber);
 
             //Also we should set what card type we have
             var cardType = Stripe.card.cardType(cardNumber);
 
-            //Now set our array index for card type
-            if (cardType.indexOf("Visa") > -1) {
-                $scope.cardIndex = 1;
-            } else if (cardType.indexOf("MasterCard") > -1) {
-                $scope.cardIndex = 2;
-            } else if (cardType.indexOf("American Express") > -1) {
-                $scope.cardIndex = 3;
-            } else if (cardType.indexOf("Discover") > -1) {
-                $scope.cardIndex = 4;
-            }
-            //It is unkown go back to default
-            else {
-                $scope.cardIndex = 0;
-            }
+            var acceptedCards = ["Visa", "MasterCard", "American Express", "Discover"];
+
+            $scope.cardIcon = cardIcons[acceptedCards.indexOf(cardType) + 1];
 
             //Now see if the card is validated
             $scope.validateCard();
