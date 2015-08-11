@@ -14,11 +14,15 @@
                     <tr>
         </table>
 
-        <h1 class="listNameHeader heart">{{giftcards[0].toId.name}}</h1>
-        <h1 class="whiteText paddingLeft whiteHeader">Gifts received</h1>
+        <!-- div for our user -->
+        <div style = "text-align: right">
+            <h1 style = "vertical-align: middle; margin-bottom: 0px" class="listNameHeader heart inline">{{giftcards[0].toId.name}}</h1>
+            <img ng-src="/../images/account-icon.png" alt="Profile Icon" height="39px" width="55px">
+        </div>
+        <h1 class="whiteText paddingLeft whiteHeader" style = "margin-top: 0px" >Gifts received</h1>
     </div>
     <div class="list-group flatRowList">
-        <a class="list-group-item flatRowListItem" style="" my-touchstart="goTo('/merchants')">
+        <a class="list-group-item flatRowListItem" my-touchstart="goTo('/merchants')">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr style = "height: 50px">
