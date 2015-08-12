@@ -819,15 +819,26 @@ label.inputlabel {
 .creditCardIcon {
   width: 12%;
   max-width: 30px;
+  float: left;
+  margin-top: 12px;
+  margin-left: 5px;
+
+  &.ng-hide {
+      display: block !important;
+      visibility: hidden;
+  }
 }
 
-.creditCardIcon.ng-hide {
-    display: block !important;
-    visibility: hidden;
+.creditCardCheck {
+    @extend .creditCardIcon;
+
+    float: right;
+    margin-top: 6px;
+    margin-right: 5px;
 }
 
 .creditCardNumInput {
-    width: 18%;
+    width: 13%;
     padding: 0px !important;
     margin-left: 5px;
     font-size: 2.5em;
@@ -866,6 +877,22 @@ label.inputlabel {
 }
 
 /* End Aaron's Styles */
+
+//Create giftcard
+.createCode {
+    @extend .currentInput;
+    @extend .waterfall;
+
+    margin-bottom: 1.5%;
+}
+
+.createCodeMessage {
+    @extend .helveticaText;
+    @extend .rightColumn;
+
+    padding-top: 7px;
+    font-size: 5vmin;
+}
 
 /*Enter amount page */
 .enteredAmount {
@@ -973,6 +1000,14 @@ label.inputlabel {
     margin-left: -5px;
     display: inline;
     color: $standard;
+}
+
+//Confirmation Timeout
+.confirmationCheckmark {
+    @extend .center;
+
+    padding-bottom: 30%;
+    margin-top: 40%;
 }
 
 
