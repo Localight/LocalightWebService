@@ -874,6 +874,61 @@ label.inputlabel {
     padding-top: 15px;
 }
 
+.amountText {
+    font-size: 1.5em;
+    color: $inverseStandard;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.payText {
+    font-size: 1.3em;
+    vertical-align: text-bottom;
+    color: $darkOverlay;
+    display: inline;
+    padding-left: 10px;
+}
+
+.payArrow {
+    display: inline;
+    vertical-align: text-bottom;
+}
+
+.amountWarning {
+    @extend .center;
+    color: $danger;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.dialSheet {
+    background-image: url(../images/auth-aqua-sheet.png);
+    background-size: 1000px;
+}
+
+.dialBack {
+    @extend .center;
+    padding-top: 5%;
+}
+
+.dialBackText {
+    color: $danger;
+    padding-left: 10px;
+    display: inline;
+    vertical-align: sub;
+    font-size: 1.3em;
+}
+
+.dialBackSpace {
+    padding-top: 20%;
+}
+
+.localightLogoBottom {
+    @extend .center;
+    margin-top: 10px;
+}
+
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';
