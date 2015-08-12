@@ -488,7 +488,6 @@ label.inputlabel {
 
     .fromText {
         @extend .heart;
-        @extend .tableCell;
 
         color: $inverseStandard;
     }
