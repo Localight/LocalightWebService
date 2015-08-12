@@ -5,7 +5,7 @@
     <!-- Our Value that we will be spending -->
     <table class = "sub-header">
        <tr>
-           <td class="whiteText paddingLeft paddingTop largerText">${{amount}}</td>
+           <td style = "font-size: 1.5em;" class="whiteText paddingLeft paddingTop largerText">${{amount}}</td>
 
            <td class = "paddingLeft" ng-hide = "clicked == true">
            <h5 class ="linkText"> Your total balance is ${{totalValue()}}.</h5>
@@ -13,7 +13,7 @@
            </td>
 
            <td class="textRightAlign paddingRight" style="padding-top: 15px;" my-touchstart="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
-                <p class="inline paddingLeft backText linkText" style="vertical-align: top;">Pay</p>
+                <p style = "font-size: 1.3em;" class="inline paddingLeft backText linkText" style="vertical-align: top;">Pay</p>
                <img class="inline" style="vertical-align: text-bottom;" src="../images/auth-rt-arrow.png">
            </td>
        <tr>
@@ -36,7 +36,7 @@
             <td ng-click="goTo('/merchants')">
                 <div style="padding-top: 5%;" class = "center">
                     <img class = "inline" src = "../images/auth-lft-arrow.png">
-                    <p style="vertical-align: sub;" class = "inline paddingLeft backText redText">Back</p>
+                    <p style="vertical-align: sub;font-size: 1.3em;" class = "inline paddingLeft backText redText">Back</p>
                 </div>
             </td>
             <td>

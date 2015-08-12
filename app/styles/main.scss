@@ -36,10 +36,6 @@ body {
 }
 
 /* General Styles */
-.hide {
-  display: none;
-}
-
 *:focus {
   outline: 0; /* remove border around focused elements, especially on Google Chrome */
 }
@@ -47,10 +43,6 @@ body {
 .roundWhiteBorder {
   border: 2px solid $inverseStandard;
   border-radius: 7px;
-}
-
-.marginBottom {
-  margin-bottom: 1.5% !important;
 }
 
 input, textarea {
@@ -96,10 +88,6 @@ input, textarea {
   background-color: $inverseStandardAlphaDark;
 }
 
-.credit_card_number {
-    padding: 0px !important;
-}
-
 .form-incomplete {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -108,12 +96,6 @@ input, textarea {
     text-align: center;
     background-color: $inverseStandardAlphaLight;
     border-radius: 7px;
-}
-
-.filledIn {
-  color: $standard;
-  border-color: transparent;
-  background-color: transparent !important;
 }
 /* End General Styles */
 
@@ -217,34 +199,7 @@ input, textarea {
   margin: 0 auto;
 }
 
-/* Removing inherited padding
-.wrapper > div {
-  margin-bottom: 2.5% !important;
-}
-*/
-
 /*--- section styles ---*/
-.checkmark {
-  visibility: hidden;
-  float: right;
-  display: inline-block;
-  position: relative;
-  right: 2%;
-  top: 5%;
-  z-index: 2;
-  width: 10%;
-  max-width: 25px;
-  height: 80%;
-  background-image: url('../images/checkmark-blk.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-
-.filledIn .checkmark {
-  background-image: url('../images/checkmark-wht.png');
-}
-
 label.inputlabel {
   font-size: 1.5em;
   width: 25%;
@@ -630,17 +585,9 @@ label.inputlabel {
   text-align: center;
 }
 
-.paymentcontainer.filledIn input {
-  color: $standard;
-}
-
 .paymentcontainer input {
   background-color: transparent;
   height: 100%;
-}
-
-.checkinput {
-  max-width: 70%;
 }
 
 .expiry {
@@ -689,20 +636,6 @@ label.inputlabel {
 
 #finalOverlay.complete {
   opacity: 0.9;
-}
-
-.overlayText {
-	color: $darkOverlay;
-	font-size: 3em;
-  display: table-cell;
-  vertical-align: middle;
-}
-.well{
-  background: transparent;
-  border: 2px solid $inverseStandard;
-  border-radius: 7px;
-  background-position: center;
-
 }
 
 /* DialPad Buttons */
@@ -770,10 +703,6 @@ label.inputlabel {
    transition: color linear 0.15s;
 }
 
-/* Placeholder text ends */
-
-/* Placeholder text for focused input */
-
 input:focus::-webkit-input-placeholder {
    color: $placeHolder;
    -webkit-transition: color linear 0.15s;
@@ -814,15 +743,7 @@ input:focus:-ms-input-placeholder {
     padding-right: 15px;
 }
 
-.backText {
-    font-size: 1.3em;
-}
-
 .inline{
-    display: inline;
-}
-
-.arrowImg {
     display: inline;
 }
 
@@ -833,10 +754,6 @@ input:focus:-ms-input-placeholder {
 
 .textRightAlign {
     text-align: right;
-}
-
-.occasionMessage{
-    text-align: left;
 }
 
 .whiteText{
@@ -861,10 +778,6 @@ input:focus:-ms-input-placeholder {
 
 .placeHolderTextStyle {
     color: $placeHolder;
-}
-
-.largerText {
-    font-size: 1.5em;
 }
 
 .center{
@@ -923,6 +836,7 @@ input:focus:-ms-input-placeholder {
 
 .creditCardNumInput {
     width: 18%;
+    padding: 0px !important;
     margin-left: 5px;
     font-size: 2.5em;
     font-family: 'profontwindowsregular';
