@@ -10,13 +10,13 @@
 	<h2 class="whiteText center">{{merchantLocation.name}}</h2>
 
 	<!-- Error Display -->
-	<h1 class = "center whiteText" ng-show="errorMsg" style="padding: 10px;">
+	<h1 class = "triconError" ng-show="errorMsg">
 		{{errorMsg}}
 	</h1>
 
 	<!-- Our Tricon Pad -->
 	<!-- Our table for tricon, the dialpad -->
-	<h1 class = "center whiteText" style="padding: 10px;">
+	<h1 class = "triconStar">
 		{{pressedTricon}}
 	</h1>
 	<table class="dialPad upside" align="center">
@@ -24,7 +24,7 @@
 		<tr ng-repeat="n in tableLayout">
 			<!-- Using inline styles for our randomization so we can edit this later-->
 			<td ng-repeat="i in n">
-			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-image: url(../images/eatery-tricons-aqua-filled.png); background-position-x: -{{images[i].pos}}px; background-size: 897px;" class="triconButton"></div></td>
+			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position-x: -{{images[i].pos}}px;" class="triconButton triconSheet"></div></td>
 		</tr>
 	</table>
 
