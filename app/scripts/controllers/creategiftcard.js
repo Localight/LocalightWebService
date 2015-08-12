@@ -287,10 +287,10 @@ angular.module('angularLocalightApp')
 
             //First check if the key pressed was backspace, if it was, dont do the function
             if (event.keyCode != 8) {
-                element = $window.document.getElementById(elementId);
+                var element = $window.document.getElementById(elementId);
                 $scope.clique_input_phonenumber_validity = true;
                 var tel = '(';
-                var val = f.value.split('');
+                var val = element.value.split('');
                 for (var i = 0; i < val.length; i++) {
                     if (val[i] === '(') {
                         val[i] = '';
