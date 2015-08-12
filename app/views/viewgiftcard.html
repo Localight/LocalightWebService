@@ -1,14 +1,12 @@
 <div class="container-fluid wrapper" ng-init="getGiftcards()">
 
-  <div ng-class="{giftToUseItSections: merchantList }" style="-webkit-transition: all 1.5s ease-in-out;">
-
       <!-- header section with give option, clique logo and available balance -->
       <table class = "sub-header">
          <tr>
              <td style = "width: 33%;">
                  <a href = "#/giftcards">
                     <span class="glyphicon glyphicon-menu-left" style = "color: black; font-size: 25px;vertical-align:middle" aria-hidden="true"></span>
-                     <p style="vertical-align: middle;margin-left: -5px" class = "inline navText blackText">Back</p>
+                     <p class = "viewBackText">Back</p>
                  </a>
              </td>
              <td class = "paddingLeft paddingRight center">
@@ -52,7 +50,6 @@
           <a class="giftcardButtonUse" href="#/merchants">Use It Now</a>
       </div>
 
-  </div>
   <!-- for beta -->
   <div class="col-xs-12 text-center nearbyMerchant">
     <h4 class = "blackText">Or select from a list of local merchants</h4>

@@ -929,6 +929,52 @@ label.inputlabel {
     margin-top: 10px;
 }
 
+/*merchants page */
+.merchantBackText {
+    @extend .navText;
+
+    vertical-align: middle;
+    margin-left: -5px;
+    display: inline;
+    color: $standard;
+}
+
+//Recipient redirect
+.redirectText {
+    @extend .center;
+    padding-left: 10px;
+    padding-right:10px;
+}
+
+//Tricon page
+.triconStar {
+    @extend .center;
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconError {
+    @extend .center;
+
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconSheet {
+    background-image: url(../images/eatery-tricons-aqua-filled.png);
+    background-size: 897px;
+}
+
+//View giftcard
+.viewBackText {
+    @extend .navText;
+
+    vertical-align: middle;
+    margin-left: -5px;
+    display: inline;
+    color: $standard;
+}
+
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';
