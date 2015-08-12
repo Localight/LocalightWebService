@@ -450,8 +450,10 @@ label.inputlabel {
         width: 100%;
     }
 
-    .glyphPadding {
-        padding-right: 50px;
+    .glyphAlign {
+        line-height: 50px;
+        text-align: left;
+        padding-right: 0px
     }
 
     h3 {
@@ -465,6 +467,30 @@ label.inputlabel {
         padding-top: 3.5%;
         padding-right: 5px;
         font-size: 50px;
+    }
+
+    &.totalAmount {
+        background-color: rgba(255,255,255,1);
+    }
+
+    .dollarIcon {
+        margin-right: 5px;
+        margin-left: 2px;
+    }
+
+    .dollarGlyphicon {
+        @extend .glyphicon;
+
+        padding-top: 10px;
+        color: $standard;
+        font-size: 40px;
+    }
+
+    .fromText {
+        @extend .heart;
+        @extend .tableCell;
+
+        color: $inverseStandard;
     }
 }
 
@@ -639,9 +665,30 @@ label.inputlabel {
 
 }
 
-.expiry {
+.expiryM {
   box-sizing: border-box;
+  width: 15%;
+  line-height: 45px;
 }
+
+.expiryY {
+    @extend .expiryM;
+
+    width: 20%;
+}
+
+.cvv {
+    @extend .expiryM;
+
+    width: 18%;
+}
+
+.zipCC {
+    @extend .expiryM;
+
+    width: 24%;
+}
+
 /* end payment styles */
 
 .proceed_button {
@@ -733,13 +780,6 @@ label.inputlabel {
     padding: 0px;
 }
 
-.listNameHeader {
-    color: $danger;
-    font-size: 3em;
-    text-align: right;
-    padding-right: 15px;
-}
-
 .inline{
     display: inline;
 }
@@ -794,6 +834,24 @@ label.inputlabel {
 
 .navText {
     font-size: .75em;
+}
+
+.navCell {
+    @extend .navText;
+
+    width: 33%;
+    color: $standard;
+
+    a {
+        color: $standard !important;
+        text-decoration: none;
+    }
+}
+
+.navBowTie {
+    text-align: left;
+    width: 25px;
+    height: 15px;
 }
 
 .tiltText {
@@ -893,6 +951,34 @@ label.inputlabel {
 
     padding-top: 7px;
     font-size: 5vmin;
+}
+
+//list giftcard page
+.listName {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.listUserName {
+    color: $danger;
+    font-size: 3em;
+    text-align: right;
+    padding-right: 15px;
+    vertical-align: -webkit-baseline-middle;
+    margin-bottom: 0px
+}
+
+.listProfileIcon {
+    height: 29px;
+    width: 41px;
+    opacity: .3;
+}
+
+.listSectionHeader {
+    margin-top: 20px;
+    padding-left: 10px;
+    color: $inverseStandard;
+    font-weight: 300 !important;
 }
 
 /*Enter amount page */
