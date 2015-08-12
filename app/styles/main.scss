@@ -90,6 +90,18 @@ input {
       display: none !important;
   }
 
+  &.createTo {
+      margin-bottom: 10px;
+  }
+
+  &.createAmount {
+      padding-top: 3px;
+  }
+
+  &.datePicker {
+      font-size: 2em
+  }
+
 }
 
 .currentInputNoBorder {
@@ -228,7 +240,8 @@ input {
 /* Wrapper */
 .wrapper {
   width: 100%;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*--- section styles ---*/
@@ -853,6 +866,13 @@ label.inputlabel {
 }
 
 /* End Aaron's Styles */
+
+/*Enter amount page */
+.enteredAmount {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 15px;
+}
 
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point

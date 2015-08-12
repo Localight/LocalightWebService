@@ -1,19 +1,19 @@
-<section ng-hide="showPage2">
     <!-- call whatever method you want on submit -->
-    <form name="giftcardForm" id="giftcardForm" class="form-horizontal" novalidate>
+<section ng-hide="showPage2">
+    <form name="giftcardForm" class="form-horizontal" novalidate>
     <div class="wrapper">
 
       <!-- logo -->
       <img class="clique_logo" src="../images/logo-local-gift-card-blk.png">
 
       <!-- To, remove ng click to fix functionality -->
-      <div id="clique_to" class = "currentInput" style = "margin-bottom: 10px;">
+      <div id="clique_to" class = "currentInput createTo">
         <label class="inputlabel" for="giftRecipientName">To</label>
         <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" required>
       </div>
 
       <!--Amount-->
-      <div id="clique_amt_selection" class = "currentInput" style = "padding-top: 3px;" ng-hide="amountSelected">
+      <div id="clique_amt_selection" class = "currentInput" ng-hide="amountSelected">
         <span class="leftarrow"></span>
         <div id="clique_amt_scrollwindow">
           <span ng-repeat="price in prices" class="price" ng-class="{active: isAmount(price)}" ng-click="setActiveField('clique_from');setSecondaryField(2);setAmount(price);">
@@ -97,8 +97,8 @@
 
     <!--Date picker -->
     <div class = "waterfall" ng-show = "secondaryIndex > 3">
-        <input placeholder="Tap to set a date" style="font-size: 2em"
-        class = "createGiftCardWidth center roundWhiteBorder currentInput"
+        <input placeholder="Tap to set a date"
+        class = "createGiftCardWidth center roundWhiteBorder currentInput datePicker"
         type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="{{minDate}}" max="{{maxDate}}"
         show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();"
         ng-blur = "scrollToElement('creditcardinfo')" required></input>
