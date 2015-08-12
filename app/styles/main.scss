@@ -29,7 +29,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 body {
   font-family: $familyStandard;
-  background-color: $bgBlue;
+  background-color: $colorBg;
   padding: 0px;
   margin: 0px;
   height: 100%;
@@ -44,7 +44,7 @@ body {
   outline: 0; /* remove border around focused elements, especially on Google Chrome */
 }
 
-.round$inverseStandardBorder {
+.whiteround {
   border: 2px solid $inverseStandard;
   border-radius: 7px;
 }
@@ -155,7 +155,7 @@ input, textarea {
   z-index: -2;
   background-size: cover;
   background-position: center top;
-  background-color: $bgBlue;
+  background-color: $colorBg;
   transition: opacity 1s ease-out 0s; /* CSS property, duration, timing-function, delay */
   -o-transition: opacity 1s ease-out 0s;
   -webkit-transition: opacity 1s ease-out 0s;
@@ -385,7 +385,7 @@ label.inputlabel {
   -webkit-transform: rotateY(180deg);
 }
 
-.$standardstrip {
+.blackstrip {
 	text-align: right;
   box-sizing: border-box;
   width: 100%;
@@ -433,7 +433,7 @@ label.inputlabel {
     font-weight: 200;
 }
 
-.$inverseStandardHeader{
+.whiteHeader{
     color: $inverseStandard;
     font-weight: 300 !important;
 }
@@ -839,20 +839,20 @@ input:focus:-ms-input-placeholder {
     text-align: left;
 }
 
-.$inverseStandardText{
-    color: $textInverse;
+.whiteText{
+    color: $inverseStandard;
 }
 
-.$standardText{
-    color: $textStandard;
+.blackText{
+    color: $standard;
 }
 
-.$standardText::-webkit-input-placeholder {
+.blackText::-webkit-input-placeholder {
    opacity: .35;
 }
 
 .redText {
-    color: $textDanger;
+    color: $danger;
 }
 
 .linkText {
@@ -860,7 +860,7 @@ input:focus:-ms-input-placeholder {
 }
 
 .placeHolderTextStyle {
-    color: $textPlaceHolder;
+    color: $placeHolder;
 }
 
 .largerText {
