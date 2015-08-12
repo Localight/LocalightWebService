@@ -402,27 +402,27 @@ label.inputlabel {
     margin-bottom: 5px;
     padding: 5px;
     border-radius: 3px !important;
-}
 
-.flatRowListItem table {
-    width: 100%;
-}
+    table {
+        width: 100%;
+    }
 
-.flatRowListItem .glyphPadding {
-    padding-right: 50px;
-}
+    .glyphPadding {
+        padding-right: 50px;
+    }
 
-.flatRowListItem h3 {
-    margin: 0px;
-    font-weight: 300 !important;
-}
+    h3 {
+        margin: 0px;
+        font-weight: 300 !important;
+    }
 
-.flatRowListItem .glyphicon {
-    position: absolute;
-    right: 0;
-    padding-top: 3.5%;
-    padding-right: 5px;
-    font-size: 50px;
+    .glyphicon {
+        position: absolute;
+        right: 0;
+        padding-top: 3.5%;
+        padding-right: 5px;
+        font-size: 50px;
+    }
 }
 
 .giftlistAmount {
@@ -446,7 +446,7 @@ label.inputlabel {
     text-align: center;
 }
 
-.giftcardButtonSave, .giftcardButtonUse {
+.giftcardButtonSave {
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
   border-radius: 10px;
@@ -459,16 +459,18 @@ label.inputlabel {
   margin-bottom: 10px;
   display: inline-block;
   white-space: pre;
+
+  &:hover {
+      text-decoration: none;
+      color: $placeHolder;
+  }
+
 }
 
 .giftcardButtonUse {
+    @extend ..giftcardButtonSave
     padding: 10px 30px 10px 30px;
     color: $useItNow;
-}
-
-.giftcardButtonSave:hover, .giftcardButtonUse:hover {
-  text-decoration: none;
-  color: $placeHolder;
 }
 /* End Clique Code Styles */
 
@@ -586,11 +588,12 @@ label.inputlabel {
 .paymentcontainer {
   height: 45px;
   text-align: center;
-}
 
-.paymentcontainer input {
-  background-color: transparent;
-  height: 100%;
+  input {
+      background-color: transparent;
+      height: 100%;
+  }
+
 }
 
 .expiry {
@@ -598,7 +601,6 @@ label.inputlabel {
 }
 /* end payment styles */
 
-/* Proceed Button Styles */
 .proceed_button {
   background-color: $standard;
   background-size: auto 60%;
@@ -613,14 +615,14 @@ label.inputlabel {
   font-size: 1.2em;
   padding-right: 1em;
   cursor: pointer;
-}
 
-.proceed_button:disabled {
-  background-color: $placeHolder;
-  opacity: 0.6;
-  cursor: default;
+  &:disabled {
+      background-color: $placeHolder;
+      opacity: 0.6;
+      cursor: default;
+  }
+
 }
-/* End Proceed Button Styles */
 
 /* Final Overlay Styles */
 #finalOverlay {
@@ -635,10 +637,11 @@ label.inputlabel {
   text-align: center;
   transition: opacity 2s;
   -webkit-transition: opacity 2s;
-}
 
-#finalOverlay.complete {
-  opacity: 0.9;
+  .complete {
+      opacity: 0.9;
+  }
+
 }
 
 /* DialPad Buttons */
@@ -765,10 +768,11 @@ input:focus:-ms-input-placeholder {
 
 .blackText{
     color: $standard;
-}
 
-.blackText::-webkit-input-placeholder {
-   opacity: .35;
+    &::-webkit-input-placeholder {
+       opacity: .35;
+    }
+
 }
 
 .redText {
