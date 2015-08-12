@@ -19,6 +19,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     //Import the default yeoman sass
     @import 'yeomanstyles';
 
+    //Import Bootstrap CSS changes
+    @import 'bootstrapchanges';
+
 
 /******
     END Imports
@@ -41,8 +44,8 @@ body {
   outline: 0; /* remove border around focused elements, especially on Google Chrome */
 }
 
-.round$inverseBorder {
-  border: 2px solid $inverse;
+.round$inverseStandardBorder {
+  border: 2px solid $inverseStandard;
   border-radius: 7px;
 }
 
@@ -90,7 +93,7 @@ input, textarea {
 .nextInput {
   opacity: 0.5;
   border-radius: 7px;
-  background-color: $inverseAlphaDark;
+  background-color: $inverseStandardAlphaDark;
 }
 
 .credit_card_number {
@@ -103,7 +106,7 @@ input, textarea {
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center;
-    background-color: $inverseAlphaLight;
+    background-color: $inverseStandardAlphaLight;
     border-radius: 7px;
 }
 
@@ -116,13 +119,13 @@ input, textarea {
 
 /* Font Styles */
 .heart {
-  font-family: 'always_in_my_heartregular';
+  font-family: $familyFancy;
   font-size: 2.4em;
   padding: 0 1%;
 }
 
 .profont {
-  font-family: 'profontwindowsregular',Courier,serif;
+  font-family: $familyDigital;
   font-size: 2em;
   padding: 0 2%;
 }
@@ -141,10 +144,6 @@ input, textarea {
 
 .bold {
   font-weight: bold;
-}
-
-.$inverseText{
-    color: $inverse;
 }
 /* End Font Styles */
 
@@ -283,7 +282,7 @@ label.inputlabel {
   display: inline-block;
    overflow-x: scroll;
   height: 100000em; /* push scroll bar downwards out of field of view */
-  $inverse-space: nowrap; /* don't wrap the price spans */
+  $inverseStandard-space: nowrap; /* don't wrap the price spans */
 }
 
 #clique_amt_scrollwindow small {
@@ -309,7 +308,7 @@ label.inputlabel {
 }
 
 .price.active {
-  background-color: $inverse;
+  background-color: $inverseStandard;
   border: 2px solid $standard;
   color: $standard;
 }
@@ -358,9 +357,9 @@ label.inputlabel {
 
   position: absolute;
   top: 0;
-  border: 3px solid $inverse;
+  border: 3px solid $inverseStandard;
   border-radius: 12px;
-  background-color: $inverseAlphaLight; /* translucent background */
+  background-color: $inverseStandardAlphaLight; /* translucent background */
 
   transition: transform 1.5s;
   -webkit-transition: -webkit-transform 1.5s;
@@ -396,7 +395,7 @@ label.inputlabel {
 	opacity: 0.8;
 	font-size: 1.6em;
 	color: $placeHolder;
-	background-color: $inverse;
+	background-color: $inverseStandard;
 }
 
 #back img {
@@ -434,8 +433,8 @@ label.inputlabel {
     font-weight: 200;
 }
 
-.$inverseHeader{
-    color: $inverse;
+.$inverseStandardHeader{
+    color: $inverseStandard;
     font-weight: 300 !important;
 }
 
@@ -470,11 +469,11 @@ label.inputlabel {
 
 .giftlistAmount {
     float: right;
-    color: $inverse;
+    color: $inverseStandard;
     padding: 5px;
     font-size: 1.4em;
     border-radius: 5px;
-    border: 1px solid $inverse;
+    border: 1px solid $inverseStandard;
 }
 
 .giftcardContainer {
@@ -482,7 +481,7 @@ label.inputlabel {
     border-radius: 5px;
     padding: 10px;
     margin: 0px;
-    color: $inverse;
+    color: $inverseStandard;
 }
 
 .giftcardButtonContainer {
@@ -495,13 +494,13 @@ label.inputlabel {
   border-radius: 10px;
   font-size: 5vmin;
   font-weight: 600;
-  background: $inverse;
+  background: $inverseStandard;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
   color: $saveForLater;
   margin-bottom: 10px;
   display: inline-block;
-  $inverse-space: pre;
+  $inverseStandard-space: pre;
 }
 
 .giftcardButtonUse {
@@ -560,7 +559,7 @@ label.inputlabel {
   position: relative; /* needed for occCharCount to be positioned properly */
   height: 100%;
   padding: 0.2em 0.5em 1.3em 2%;
-  /* background-color: $inverse; */
+  /* background-color: $inverseStandard; */
 }
 
 #clique_input_occasion {
@@ -577,7 +576,7 @@ label.inputlabel {
   color: $placeHolder;
   bottom: 0.3em;
   right: 0.4em;
-  $inverse-space: nowrap; /* don't let character count take up more than 1 line */
+  $inverseStandard-space: nowrap; /* don't let character count take up more than 1 line */
 }
 /* end occasion section styles */
 
@@ -700,7 +699,7 @@ label.inputlabel {
 }
 .well{
   background: transparent;
-  border: 2px solid $inverse;
+  border: 2px solid $inverseStandard;
   border-radius: 7px;
   background-position: center;
 
@@ -840,7 +839,7 @@ input:focus:-ms-input-placeholder {
     text-align: left;
 }
 
-.$inverseText{
+.$inverseStandardText{
     color: $textInverse;
 }
 
@@ -966,31 +965,6 @@ textarea {
 	box-sizing: border-box;
 
 	width: 100%;
-}
-
-
-/* Overriding Bootstrap css for a more native app look */
-.content {
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    margin: 0;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-}
-
-.container-fluid {
-    margin: 0;
-    padding: 0;
-}
-
-.form-horizontal .form-group
-{
-    margin-right: 0px;
-    margin-left: 0px;
 }
 
 /* End Aaron's Styles */
