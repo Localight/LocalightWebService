@@ -335,6 +335,8 @@ angular.module('angularLocalightApp')
             "../images/cc-amex-blk.png",
             "../images/cc-discover-blk.png"
         ]
+        //Set starter icon to be blank
+        $scope.cardIcon = cardIcons[0];
 
         /**
          * Validates form CC. Checks Stripe for validity, determines card type and sets card icon.
