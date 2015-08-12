@@ -56,30 +56,33 @@ input, textarea {
   transition: background-color linear 0.25s;
   border-radius: 7px !important;
   opacity: 1 !important;
-}
 
-.currentInput.ng-hide {
-    display: none !important;
+  &.ng-hide {
+      display: none !important;
+  }
+
 }
 
 .currentInputNoBorder {
   -webkit-transition: background-color linear 0.25s;
   transition: background-color linear 0.25s;
   opacity: 1 !important;
-}
 
-.currentInputNoBorder.ng-hide {
-    display: none !important;
+  &.ng-hide {
+      display: none !important;
+  }
+
 }
 
 .waterfall {
   -webkit-transition: opacoty linear 0.25s;
   transition: opacity linear 0.25s;
   opacity: 1 !important;
-}
 
-.waterfall.ng-hide {
-    opacity: 0 !important;
+  &.ng-hide {
+      opacity: 0 !important;
+  }
+
 }
 
 .nextInput {
