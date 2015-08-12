@@ -36,6 +36,13 @@ body {
 }
 
 /* General Styles */
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content}
+  &:-moz-placeholder           {@content}
+  &::-moz-placeholder          {@content}
+  &:-ms-input-placeholder      {@content}
+}
+
 *:focus {
   outline: 0; /* remove border around focused elements, especially on Google Chrome */
 }
@@ -45,10 +52,32 @@ body {
   border-radius: 7px;
 }
 
-input, textarea {
-  border: 0;
-  background-color: transparent;
-  background-image: none; /* remove inset gradient on Firefox mobile */
+textarea {
+    border: 0;
+    background-color: transparent;
+    background-image: none; /* remove inset gradient on Firefox mobile */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input {
+    @extend textarea;
+
+    @include placeholder {
+        color: $standard;
+        -webkit-transition: color linear 0.15s;
+        transition: color linear 0.15s;
+    }
+
+    &:focus {
+        @include placeholder {
+            color: $placeHolder;
+            -webkit-transition: color linear 0.15s;
+            transition: color linear 0.15s;
+        }
+    }
 }
 
 .currentInput {
@@ -468,7 +497,7 @@ label.inputlabel {
 }
 
 .giftcardButtonUse {
-    @extend ..giftcardButtonSave
+    @extend .giftcardButtonSave;
     padding: 10px 30px 10px 30px;
     color: $useItNow;
 }
@@ -683,58 +712,6 @@ label.inputlabel {
 
 /* End Dialad Buttons */
 
-/* Placeholder text */
-
-::-webkit-input-placeholder {
-   color: $standard;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   color: $standard;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   color: $standard;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-:-ms-input-placeholder {
-   color: $standard;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-input:focus::-webkit-input-placeholder {
-   color: $placeHolder;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-input:focus:-moz-placeholder { /* Firefox 18- */
-   color: $placeHolder;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-input:focus::-moz-placeholder {  /* Firefox 19+ */
-   color: $placeHolder;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-input:focus:-ms-input-placeholder {
-   color: $placeHolder;
-   -webkit-transition: color linear 0.15s;
-   transition: color linear 0.15s;
-}
-
-/* Placeholder text ends */
-
 /* Aaron's Styles */
 
 .notFoundLinkList {
@@ -768,11 +745,6 @@ input:focus:-ms-input-placeholder {
 
 .blackText{
     color: $standard;
-
-    &::-webkit-input-placeholder {
-       opacity: .35;
-    }
-
 }
 
 .redText {
@@ -878,14 +850,6 @@ input:focus:-ms-input-placeholder {
 @-webkit-keyframes play {
     from { background-position:    0px; }
     to { background-position: 2130px; }
-}
-
-textarea {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-
-	width: 100%;
 }
 
 /* End Aaron's Styles */
