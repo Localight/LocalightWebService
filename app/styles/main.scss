@@ -44,7 +44,7 @@ body {
   outline: 0; /* remove border around focused elements, especially on Google Chrome */
 }
 
-.whiteround {
+.roundWhiteBorder {
   border: 2px solid $inverseStandard;
   border-radius: 7px;
 }
@@ -282,7 +282,7 @@ label.inputlabel {
   display: inline-block;
    overflow-x: scroll;
   height: 100000em; /* push scroll bar downwards out of field of view */
-  $inverseStandard-space: nowrap; /* don't wrap the price spans */
+  white-space: nowrap; /* don't wrap the price spans */
 }
 
 #clique_amt_scrollwindow small {
@@ -439,7 +439,7 @@ label.inputlabel {
 }
 
 .flatRowListItem {
-    background-color: standardAlphaLight ;
+    background-color: $standardAlphaLight;
     border: none;
     margin-bottom: 5px;
     padding: 5px;
@@ -500,7 +500,7 @@ label.inputlabel {
   color: $saveForLater;
   margin-bottom: 10px;
   display: inline-block;
-  $inverseStandard-space: pre;
+  white-space: pre;
 }
 
 .giftcardButtonUse {
@@ -576,7 +576,7 @@ label.inputlabel {
   color: $placeHolder;
   bottom: 0.3em;
   right: 0.4em;
-  $inverseStandard-space: nowrap; /* don't let character count take up more than 1 line */
+  white-space: nowrap; /* don't let character count take up more than 1 line */
 }
 /* end occasion section styles */
 
