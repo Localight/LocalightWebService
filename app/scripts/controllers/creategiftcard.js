@@ -44,11 +44,6 @@ angular.module('angularLocalightApp')
 
         //Credit card verification fields
         $scope.cardIndex = 0;
-        $scope.cardValidated = false;
-        $scope.numberValidated = false;
-        $scope.dateValidated = false;
-        $scope.cvcValidated = false;
-        $scope.zipValidated = false;
 
         //Server response
         $scope.backendError = false;
@@ -413,7 +408,7 @@ angular.module('angularLocalightApp')
          * Checks if all CC fields have been validated independantly
          */
         $scope.validateCard = function() {
-            if ($scope.numberValidated && $scope.dateValidated && $scope.cvcValidated && $scope.zipValidated) {
+            if ($scope.validCC && $scope.dateValidated && $scope.cvcValidated && $scope.zipValidated) {
                 $scope.cardValidated = true;
             } else {
                 $scope.cardValidated = false;
