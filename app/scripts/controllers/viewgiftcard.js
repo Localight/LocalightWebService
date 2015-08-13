@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, $window) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, $window, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -39,11 +39,29 @@ angular.module('angularLocalightApp')
 		//Initialize scope.giftcards
 		$scope.giftcard;
 
-        //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
-
         //Get our giftcard id from the route params
         var giftcardId = $routeParams.giftcardId;
+
+        //Get the session token
+        var sessionToken;
+
+        if($location.search().token)
+        {
+            //get our session token
+            sessionToken = $location.search().token;
+
+            //Place the session token in the cookies
+            $cookies.put("sessionToken", sessionToken);
+        }
+        else if($cookies.get("sessionToken"))
+        {
+            //get our session token from the cookies
+            sessionToken = $cookies.get("sessionToken");
+        }
+        else {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
 
 		//Src to our merchant imgaes
 		$scope.merchants =
@@ -60,22 +78,35 @@ angular.module('angularLocalightApp')
             //First set up some JSON for the session token
             var getJson = {
                 "id" : giftcardId,
-                "sessionToken" : $scope.sessionToken
+                "sessionToken" : sessionToken
             }
 
-            $scope.giftcard = GiftcardById.get(getJson, function(){
+            $scope.giftcard = GiftcardById.get(getJson, function(response){
                 //Check for errors
-                if($scope.giftcard.errorid)
+                if(response.status)
                 {
-                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
+                    console.log($scope.giftcard.status);
+
+                    //Redirect them to a 404
+                    $location.path("#/");
+
                     return;
                 }
                 else {
                     //there was no error continue as normal
                     //Stop any loading bars or things here
                 }
+            },
+             //Error catching function
+            function() {
+                //Also check if there was a response (Check the to id as it must always be returned)
+                if(!$scope.giftcard._id)
+                {
+                    //if there wasnt, redirect
+                    //Redirect them to a 404
+                    $location.path("#/");
+                }
             });
-
 		}
 
 		$scope.totalValue = function()

@@ -75,11 +75,6 @@ angular
         controller: 'LocalismCtrl',
         controllerAs: 'localism'
       })
-      .when('/giftcards/receive/:token', {
-        templateUrl: 'views/recipientredirect.html',
-        controller: 'RecipientredirectCtrl',
-        controllerAs: 'recipientRedirect'
-      })
       .when('/sent', {
         templateUrl: 'views/sentconfirmation.html',
         controller: 'SentconfirmationCtrl',
