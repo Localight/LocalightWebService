@@ -9,7 +9,7 @@
       <!-- To, remove ng click to fix functionality -->
       <div id="clique_to" class = "currentInput createTo">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" required>
+        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" autocomplete="off" autocorrect="off" spellcheck="false" required>
       </div>
 
       <!--Amount-->
