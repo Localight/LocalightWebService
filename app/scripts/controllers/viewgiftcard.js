@@ -45,6 +45,11 @@ angular.module('angularLocalightApp')
         //Get our giftcard id from the route params
         var giftcardId = $routeParams.giftcardId;
 
+        //Get the session token and save it
+        var sessionToken = $routeParams.token;
+
+        $cookies.put("sessionToken", sessionToken);
+
 		//Src to our merchant imgaes
 		$scope.merchants =
 		[
