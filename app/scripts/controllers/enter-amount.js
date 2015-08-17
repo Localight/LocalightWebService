@@ -43,6 +43,7 @@ angular.module('angularLocalightApp')
             //Redirect them to a 404
             $location.path("#/");
         }
+        
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
 
