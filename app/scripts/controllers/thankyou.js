@@ -125,34 +125,22 @@ angular.module('angularLocalightApp')
             //Query the backend using out session token
             $scope.giftcards = Giftcards.get(getJson, function(response)
             {
-                //Check for errors
-                if(typeof response === "object")
-                {
-                    if(response.status)
-                    {
-                        if(response.status == 401)
-                        {
-                            //Bad session
-                            //Redirect them to a 404
-                            $location.path("#/");
-                            return;
-                        }
-                        else
-                        {
-                            console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                            return;
-                        }
-                    }
-                }
-                else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
-                }
+                //Error checking should be done in next block
             },
             //check for a 500
             function(response)
             {
-                console.log("Status:" + response.status + ", Internal Server Error");
+                //Check for unauthorized
+                if(response.status == 401)
+                {
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
+                }
+                else {
+                    //log the status
+                    console.log("Status:" + response.status);
+                }
                 return;
             });
 		}

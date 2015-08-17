@@ -43,7 +43,7 @@ angular.module('angularLocalightApp')
             //Redirect them to a 404
             $location.path("#/");
         }
-        
+
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
 
@@ -83,7 +83,7 @@ angular.module('angularLocalightApp')
         //Initialize scope.giftcards
 		$scope.giftcards = null;
 
-		// Find a list of Giftcards
+        // Find a list of Giftcards
 		$scope.getGiftcards = function() {
 			//Get our giftcards from the user
             //First set up some JSON for the session token
@@ -94,31 +94,22 @@ angular.module('angularLocalightApp')
             //Query the backend using out session token
             $scope.giftcards = Giftcards.get(getJson, function(response)
             {
-                //Check for errors
-                if(response.status)
-                {
-                    if(response.status == 401)
-                    {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                        return;
-                    }
-                }
-                else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
-                }
+                //Error checking should be done in next block
             },
             //check for a 500
             function(response)
             {
-                console.log("Status:" + response.status + ", Internal Server Error");
+                //Check for unauthorized
+                if(response.status == 401)
+                {
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
+                }
+                else {
+                    //log the status
+                    console.log("Status:" + response.status);
+                }
                 return;
             });
 		}
