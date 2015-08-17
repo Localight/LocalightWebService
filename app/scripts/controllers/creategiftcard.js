@@ -52,10 +52,11 @@ angular.module('angularLocalightApp')
         //Store session token from url
         var sessionToken;
 
-        if($cookies.get("sessionToken"))
+        if($routeParams.token)
         {
-            //get our session token from the cookies
-            sessionToken = $cookies.get("sessionToken");
+            //put our session token in our cookies
+            sessionToken = $routeParams.token;
+            $cookies.put("sessionToken", sessionToken)
         }
         else {
             //Redirect them to a 404
@@ -559,11 +560,22 @@ angular.module('angularLocalightApp')
                     }
 
                     var newGiftcard = Giftcards.create(newGiftcardJson, function() {
-                        if (newGiftcard.errorid) {
-                            $scope.backendError = true;
-                            $scope.backendRes = newGiftcard.msg;
+                        if (response.status)
+                        {
+                            if(response.status == 401)
+                            {
+                                //Bad session
+                                //Redirect them to a 404
+                                $location.path("#/");
+                            }
+                            else
+                            {
+                                $scope.backendError = true;
+                                $scope.backendRes = newGiftcard.msg;
+                            }
                             return;
-                        } else {
+                        }
+                        else {
                             //SUCCESSSSSSSS
 
                             //Store the phone number and email in the cookies
@@ -573,8 +585,20 @@ angular.module('angularLocalightApp')
                             //For testing Go to the sent page
                             $location.path("/sent");
                         }
+                    },
+                    //incase of internal server error
+                    function(response) {
+                        $scope.backendError = true;
+                        $scope.backendRes = newGiftcard.msg;
+                        return;
                     });
                 }
+            },
+            //Incase of internal server Error
+            function(response) {
+                $scope.backendError = true;
+                $scope.backendRes = updateUser.msg;
+                return;
             });
         }
 
