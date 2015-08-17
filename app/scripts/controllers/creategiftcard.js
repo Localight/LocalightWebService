@@ -530,6 +530,7 @@ angular.module('angularLocalightApp')
                         //Bad session
                         //Redirect them to a 404
                         $location.path("#/");
+                        return;
                     }
                     else
                     {
@@ -567,6 +568,7 @@ angular.module('angularLocalightApp')
                                 //Bad session
                                 //Redirect them to a 404
                                 $location.path("#/");
+                                return;
                             }
                             else
                             {
