@@ -21,8 +21,7 @@
                },
                get: {
                    method: 'GET',
-                   params: {},
-                   isArray: true
+                   params: {}
                }
            } );
    });
