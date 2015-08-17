@@ -78,12 +78,12 @@ angular.module('angularLocalightApp')
                     //Stop any loading bars or things here
                 }
             },
-        //check for a 500
-        function(response)
-        {
-            console.log("Status:" + response.status + ", Internal Server Error");
-            return;
-        });
+            //check for a 500
+            function(response)
+            {
+                console.log("Status:" + response.status + ", Internal Server Error");
+                return;
+            });
 
         }
 
