@@ -64,19 +64,22 @@ angular.module('angularLocalightApp')
             $scope.giftcards = Giftcards.get(getJson, function(response)
             {
                 //Check for errors
-                if(response.status)
+                if(typeof response === "object")
                 {
-                    if(response.status == 401)
+                    if(response.status)
                     {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                        return;
+                        if(response.status == 401)
+                        {
+                            //Bad session
+                            //Redirect them to a 404
+                            $location.path("#/");
+                            return;
+                        }
+                        else
+                        {
+                            console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
+                            return;
+                        }
                     }
                 }
                 else {

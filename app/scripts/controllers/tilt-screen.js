@@ -35,7 +35,17 @@ angular.module('angularLocalightApp')
 		$scope.Id = $routeParams.merchantId;
 
         //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken;
+
+        if($cookies.get("sessionToken"))
+        {
+            $scope.sessionToken = $cookies.get("sessionToken");
+        }
+        else
+        {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
 
         //Get our location
         $scope.getLocation = function() {
@@ -46,18 +56,34 @@ angular.module('angularLocalightApp')
                 "sessionToken" : $scope.sessionToken
             }
 
-            $scope.merchantLocation = LocationById.get(getJson, function(){
+            $scope.merchantLocation = LocationById.get(getJson, function(response){
                 //Check for errors
-                if($scope.merchantLocation.errorid)
+                if(response.status)
                 {
-                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
-                    return;
+                    if(response.status == 401)
+                    {
+                        //Bad session
+                        //Redirect them to a 404
+                        $location.path("#/");
+                        return;
+                    }
+                    else
+                    {
+                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
+                        return;
+                    }
                 }
                 else {
                     //there was no error continue as normal
                     //Stop any loading bars or things here
                 }
-            });
+            },
+        //check for a 500
+        function(response)
+        {
+            console.log("Status:" + response.status + ", Internal Server Error");
+            return;
+        });
 
         }
 
