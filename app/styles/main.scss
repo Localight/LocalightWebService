@@ -1105,6 +1105,26 @@ label.inputlabel {
     margin-top: 15px;
 }
 
+.spentFooter {
+    @extend .whiteText;
+
+    padding-left: 2px;
+    font-size: .85em;
+    opacity: .5;
+}
+
+.fromTextSpent {
+    @extend .fromText;
+
+    opacity: .5;
+}
+
+.giftlistAmountSpent {
+    @extend .giftlistAmount;
+
+    opacity: .5;
+}
+
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';
