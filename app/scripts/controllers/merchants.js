@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MerchantsCtrl', function ($scope, $window, Giftcards, Locations, $cookies) {
+  .controller('MerchantsCtrl', function ($scope, $window, Giftcards, Locations, $cookies, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
