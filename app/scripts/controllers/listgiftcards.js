@@ -144,16 +144,16 @@ angular.module('angularLocalightApp')
 		]
 
         //function to return if a giftcard is spent
-        $scope.isSpent = function(amount)
+        $scope.isSpent = function(giftcard)
         {
-            if(amount > 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return !(giftcard.amount > 0);
+        }
+
+        //function to return if a giftcard is not spent
+        //Angular filters cannot be done in reverse
+        $scope.isNotSpent = function(giftcard)
+        {
+            return (giftcard.amount > 0);
         }
 
         //Function to go to another url, if giftcards is not zero

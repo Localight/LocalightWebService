@@ -37,7 +37,7 @@
 
         <!--spendable giftcards -->
         <h4 class = "giftSection">Recent</h4>
-        <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards" data-ng-href="#/giftcards/{{giftcard._id}}">
+        <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | filter: isNotSpent" data-ng-href="#/giftcards/{{giftcard._id}}">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
@@ -51,7 +51,7 @@
         <!--spendable giftcards -->
         <div ng-if = "spentGifts">
             <h4 class = "giftSection">Spent</h4>
-            <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | limitTo: -3  | filter: { amount: !isSpent }" data-ng-href="#/giftcards/{{giftcard._id}}">
+            <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -3" data-ng-href="#/giftcards/{{giftcard._id}}">
             <!-- Line breaks to space the list so it's easier to click -->
                 <table>
                     <tr>
