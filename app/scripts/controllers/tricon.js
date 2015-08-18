@@ -134,7 +134,7 @@ angular.module('angularLocalightApp')
                     "id" : $scope.Id,
                     "sessionToken" : $scope.sessionToken,
                     "amount" : $cookies.get("igosdmbmtv"),
-                    "triconKey" : triconArray[0] + triconArray[1] + triconArray[2]
+                    "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
                 }
 
                 console.log(spendJson);
