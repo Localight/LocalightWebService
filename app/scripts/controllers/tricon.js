@@ -115,6 +115,11 @@ angular.module('angularLocalightApp')
 
 		//When tricon is being pressed, this function will be launched
 		$scope.pressed = function(id){
+
+            //remove the error text
+            //Error message
+            $scope.errorMsg = "";
+
 			//Add tricon code here
 			//console.log("Tricon Pressed: " + $scope.images[id]);
 			//
@@ -174,6 +179,21 @@ angular.module('angularLocalightApp')
                         //Bad session
                         //Redirect them to a 404
                         $location.path("#/");
+                    }
+                    //If they enter the wrong tricon key
+                    else if(response.status == 404)
+                    {
+                        //reset everything
+
+                        //Our pressed tricon ***
+                        $scope.pressedTricon = "";
+
+                        //our array of tricons
+                        triconArray = [];
+
+
+                        //Error message
+                        $scope.errorMsg = "Sorry, that is the incorrect tricon code, please try again.";
                     }
                     else {
                         //log the status
