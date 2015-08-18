@@ -124,7 +124,7 @@ angular.module('angularLocalightApp')
 			//console.log("Tricon Pressed: " + $scope.images[id]);
 			//
             var offset;
-            if(window.innerWidth < 320){
+            if(window.innerWidth <= 320){
                 offset = '-75px';
             } else {
                 offset = '-100px';
