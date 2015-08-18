@@ -497,7 +497,10 @@ label.inputlabel {
     float: right;
     color: $inverseStandard;
     padding: 5px;
-    font-size: 1.4em;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 15px;
+    font-size: 1.25em;
     border-radius: 5px;
     border: 1px solid $inverseStandard;
 }
@@ -1095,6 +1098,34 @@ label.inputlabel {
 
     padding-bottom: 30%;
     margin-top: 40%;
+}
+
+.giftSection {
+    @extend .whiteText;
+
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.spentFooter {
+    @extend .whiteText;
+
+    padding-left: 2px;
+    font-size: .85em;
+    opacity: .5;
+}
+
+.fromTextSpent {
+    @extend .fromText;
+
+    opacity: .5;
+}
+
+.giftlistAmountSpent {
+    @extend .giftlistAmount;
+
+    opacity: .5;
 }
 
 

@@ -19,6 +19,9 @@ angular.module('angularLocalightApp')
         //Boolean for alert
         $scope.rotateAlert = false;
 
+        //Boolean for if we have spent Giftcards
+        $scope.spentGifts;
+
         //Check for device orientation
         $window.addEventListener("orientationchange", function() {
             if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
@@ -64,6 +67,18 @@ angular.module('angularLocalightApp')
             $scope.giftcards = Giftcards.get(getJson, function(response)
             {
                 //Error checking should be done in next block
+
+                //And since everthign went good, check if we have spent giftcards.
+                for(var i = 0; i < $scope.giftcards.length; i++)
+                {
+                    if($scope.giftcards[i].amount < 1)
+                    {
+                        $scope.spentGifts = true;
+                        return;
+                    }
+                }
+
+                //No giftcard is spent
             },
             //check for a 500
             function(response)
@@ -96,13 +111,6 @@ angular.module('angularLocalightApp')
 			return (parseInt(total) / 100).toFixed(2);
 		}
 
-		//function to fomat a giftcard value for us
-		$scope.giftValue = function(amount)
-		{
-			//Return the total value as a formatted string
-			return (parseInt(amount) / 100).toFixed(2);
-		}
-
 		//Array of occasion Icons, simply a link to their icon
 		$scope.icons =
 		[
@@ -128,6 +136,18 @@ angular.module('angularLocalightApp')
 			"/../images/occasion-wedding-icon-wht.png"
 		]
 
+        //function to return if a giftcard is spent
+        $scope.isSpent = function(giftcard)
+        {
+            return !(giftcard.amount > 0);
+        }
+
+        //function to return if a giftcard is not spent
+        //Angular filters cannot be done in reverse
+        $scope.isNotSpent = function(giftcard)
+        {
+            return (giftcard.amount > 0);
+        }
 
         //Function to go to another url, if giftcards is not zero
 		$scope.goTo = function(place)

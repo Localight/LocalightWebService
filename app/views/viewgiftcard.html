@@ -37,31 +37,35 @@
       <img class = "center semiTransparentBGRounded" ng-src="{{merchants[0].image}}" alt="Merchant Image" height="50%" width="100%" style = "max-width:400px;border-radius: 4px">
 
     </div>
+    <!-- check if already spent -->
+    <div ng-if = "!isValid">
 
-    <!-- amount to use at which merchant section -->
-    <div class="text-center merchantInfo blackText">
-      <h4 class="center" id="useAmount" style = "margin-top: 20px; margin-bottom: 0px; font-size: 1.15em">Use this ${{giftValue(giftcard.amount)}} gift at</h4>
-      <h2 class="center" style = "margin-top: 0px;font-weight: 400;margin-bottom: 20px">{{merchants[0].name}}</h2>
-    </div>
+        <!-- amount to use at which merchant section -->
+        <div class="text-center merchantInfo blackText">
+          <h4 class="center" id="useAmount" style = "margin-top: 20px; margin-bottom: 0px; font-size: 1.15em">Use this ${{giftcard.origAmount / 100}} gift at</h4>
+          <h2 class="center" style = "margin-top: 0px;font-weight: 400;margin-bottom: 20px">{{merchants[0].name}}</h2>
+        </div>
 
-      <!-- use it now/later section -->
-      <div class="giftcardButtonContainer">
-          <a class="giftcardButtonSave" href="#/giftcards">Save For Later</a>
-          <a class="giftcardButtonUse" href="#/merchants">Use It Now</a>
+          <!-- use it now/later section -->
+          <div class="giftcardButtonContainer">
+              <a class="giftcardButtonSave" href="#/giftcards">Save For Later</a>
+              <a class="giftcardButtonUse" href="#/merchants">Use It Now</a>
+          </div>
+
+      <!-- for beta -->
+      <div class="col-xs-12 text-center nearbyMerchant">
+        <h4 class = "blackText">Or select from a list of local merchants</h4>
+      </div>
+      <div class=""></div>
+      <div class="col-xs-4 merchantArrow" ng-click="showMerchantList()"></div>
+      <div class="col-xs-4"></div>
+
+      <div class="col-xs-12 merchantList">
+        <div class="district" ng-repeat="location in locations">
+          {{location.location}}
+          <div class="shop center blackText" ng-repeat="merchant in merchantsArray">{{merchant.name}}</div>
       </div>
 
-  <!-- for beta -->
-  <div class="col-xs-12 text-center nearbyMerchant">
-    <h4 class = "blackText">Or select from a list of local merchants</h4>
-  </div>
-  <div class=""></div>
-  <div class="col-xs-4 merchantArrow" ng-click="showMerchantList()"></div>
-  <div class="col-xs-4"></div>
-
-  <div class="col-xs-12 merchantList">
-    <div class="district" ng-repeat="location in locations">
-      {{location.location}}
-      <div class="shop center blackText" ng-repeat="merchant in merchantsArray">{{merchant.name}}</div>
   </div>
 
 </div>
