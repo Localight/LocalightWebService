@@ -757,15 +757,8 @@ label.inputlabel {
     background-size: 897px;
 }
 
-.triconButton {
-    transition: none;
-    background-repeat: no-repeat;
-    height: 100px;
-    width: 100px;
-}
-
 @media (max-width: 320px) {
-    .triconButton {
+    .dialButton {
         height: 75px;
         width: 75px;
     }
