@@ -228,6 +228,12 @@ angular.module('angularLocalightApp')
 			{name: "tricon-wine", pos: "500", code: "e106"}
 		];
 
+        if(window.innerWidth < 320){
+            for(var i = 0; i < $scope.images.length; i++){
+                $scope.images[i].pos = $scope.images[i].pos * .75;
+            }
+        }
+
 		//Shuffles the images array of tricons to always
 		//display in different order
 		$scope.images = $scope.shuffle($scope.images);
