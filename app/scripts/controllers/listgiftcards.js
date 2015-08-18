@@ -128,6 +128,18 @@ angular.module('angularLocalightApp')
 			"/../images/occasion-wedding-icon-wht.png"
 		]
 
+        //function to return if a giftcard is spent
+        $scope.isSpent = function(amount) {
+            if(amount > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
 
         //Function to go to another url, if giftcards is not zero
 		$scope.goTo = function(place)

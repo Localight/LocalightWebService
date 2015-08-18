@@ -1097,6 +1097,14 @@ label.inputlabel {
     margin-top: 40%;
 }
 
+.giftSection {
+    @extend .whiteText;
+
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';

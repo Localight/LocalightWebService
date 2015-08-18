@@ -34,7 +34,23 @@
                 </tr>
             </table>
         </a>
+
+        <!--spendable giftcards -->
+        <h4 class = "giftSection">Recent</h4>
         <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards" data-ng-href="#/giftcards/{{giftcard._id}}">
+        <!-- Line breaks to space the list so it's easier to click -->
+            <table>
+                <tr>
+                    <td class="fromText"><img style = "margin-right: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                    <td class="textRightAlign tableCell">
+                        <div class="giftlistAmount" style = "font-size: 1.25em">${{giftValue(giftcard.amount)}}</div></td>
+                </tr>
+            </table>
+        </a>
+
+        <!--spendable giftcards -->
+        <h4 class = "giftSection" ng-hide = "" >Spent</h4>
+        <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | limitTo: -3  | filter: { amount: !isSpent }" data-ng-href="#/giftcards/{{giftcard._id}}">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
