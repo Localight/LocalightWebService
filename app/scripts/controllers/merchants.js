@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MerchantsCtrl', function ($scope, $window, Giftcards, Locations, $cookies) {
+  .controller('MerchantsCtrl', function ($scope, $window, Giftcards, Locations, $cookies, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -43,7 +43,17 @@ angular.module('angularLocalightApp')
 	$scope.merchantsArray;
 
     //get our session token from the cookies
-    $scope.sessionToken = $cookies.get("sessionToken");
+    $scope.sessionToken;
+
+    if($cookies.get("sessionToken"))
+    {
+        $scope.sessionToken = $cookies.get("sessionToken");
+    }
+    else
+    {
+        //Redirect them to a 404
+        $location.path("#/");
+    }
 
     $scope.getLocations = function() {
         //Json to send to the backend
@@ -51,23 +61,38 @@ angular.module('angularLocalightApp')
             "sessionToken" : $scope.sessionToken
         }
 
-        $scope.merchantsArray = Locations.get(locationJson, function()
+        $scope.merchantsArray = Locations.get(locationJson, function(response)
         {
             //Check for errors
-            if($scope.giftcards.errorid)
+            if(response.status)
             {
-                console.log($scope.giftcards.errorid + ": " + $scope.giftcards.msg);
-                return;
+                if(response.status == 401)
+                {
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
+                    return;
+                }
+                else
+                {
+                    console.log("Status:" + response.status + ", " + $scope.merchantsArray.msg);
+                    return;
+                }
             }
             else {
-                //there was no error continue as normal
-                //Stop any loading bars or things here
+                //No problem
             }
+        },
+        //CHeck for 500
+        function(response)
+        {
+            console.log("Status:" + response.status + ", Internal Server Error");
+            return;
         });
     }
 
 
-    // Find a list of Giftcards from the DB
+    // Find a list of Giftcards
     $scope.getGiftcards = function() {
         //Get our giftcards from the user
         //First set up some JSON for the session token
@@ -76,18 +101,25 @@ angular.module('angularLocalightApp')
         }
 
         //Query the backend using out session token
-        $scope.giftcards = Giftcards.get(getJson, function()
+        $scope.giftcards = Giftcards.get(getJson, function(response)
         {
-            //Check for errors
-            if($scope.giftcards.errorid)
+            //Error checking should be done in next block
+        },
+        //check for a 500
+        function(response)
+        {
+            //Check for unauthorized
+            if(response.status == 401)
             {
-                console.log($scope.giftcards.errorid + ": " + $scope.giftcards.msg);
-                return;
+                //Bad session
+                //Redirect them to a 404
+                $location.path("#/");
             }
             else {
-                //there was no error continue as normal
-                //Stop any loading bars or things here
+                //log the status
+                console.log("Status:" + response.status);
             }
+            return;
         });
     }
 

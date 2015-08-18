@@ -42,36 +42,35 @@ angular.module('angularLocalightApp')
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
-		// Find a list of Giftcards
+        // Find a list of Giftcards
 		$scope.getGiftcards = function() {
-			//$scope.giftcards = Giftcards.query();
+			//Get our giftcards from the user
+            //First set up some JSON for the session token
+            var getJson = {
+                "sessionToken" : $scope.sessionToken
+            }
 
-			//FOr testing, hardcoding scope giftcards
-			$scope.giftcards =
-			[
-				{
-					_id: "1",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Tony',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Variety is the spice of life. So I'm giving you the gift of choice!"
-				},
-				{
-					_id: "2",
-					to: "John",
-					amt: "10000",
-					mobileNumberOfRecipient: "5625555555",
-					merchant: "xxxxx",
-					from: 'Frank',
-					message: "hi",
-					districtNumber: 'number',
-					occasionMessage: "Congratulations on your baby!"
-				}
-			]
+            //Query the backend using out session token
+            $scope.giftcards = Giftcards.get(getJson, function(response)
+            {
+                //Error checking should be done in next block
+            },
+            //check for a 500
+            function(response)
+            {
+                //Check for unauthorized
+                if(response.status == 401)
+                {
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
+                }
+                else {
+                    //log the status
+                    console.log("Status:" + response.status);
+                }
+                return;
+            });
 		}
 
 		$scope.totalValue = function()

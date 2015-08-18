@@ -37,7 +37,18 @@ angular.module('angularLocalightApp')
         }, 750);
 
         //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken;
+
+        if($cookies.get("sessionToken"))
+        {
+            $scope.sessionToken = $cookies.get("sessionToken");
+        }
+        else
+        {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
+
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
@@ -50,18 +61,25 @@ angular.module('angularLocalightApp')
             }
 
             //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function()
+            $scope.giftcards = Giftcards.get(getJson, function(response)
             {
-                //Check for errors
-                if($scope.giftcards.errorid)
+                //Error checking should be done in next block
+            },
+            //check for a 500
+            function(response)
+            {
+                //Check for unauthorized
+                if(response.status == 401)
                 {
-                    console.log("Error #" + $scope.giftcards.errorid + ": " + $scope.giftcards.msg);
-                    return;
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
                 }
                 else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
+                    //log the status
+                    console.log("Status:" + response.status);
                 }
+                return;
             });
 		}
 

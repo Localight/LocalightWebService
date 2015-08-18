@@ -32,7 +32,17 @@ angular.module('angularLocalightApp')
 		document.getElementById('darkerOverlay').style.display = "block";
 
         //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken;
+
+        if($cookies.get("sessionToken"))
+        {
+            $scope.sessionToken = $cookies.get("sessionToken");
+        }
+        else
+        {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
 
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
@@ -70,29 +80,39 @@ angular.module('angularLocalightApp')
 				[7,8,9]
 		];
 
-        // Find a list of Giftcards from the DB
-        $scope.getGiftcards = function() {
-            //Get our giftcards from the user
+        //Initialize scope.giftcards
+		$scope.giftcards = null;
+
+        // Find a list of Giftcards
+		$scope.getGiftcards = function() {
+			//Get our giftcards from the user
             //First set up some JSON for the session token
             var getJson = {
                 "sessionToken" : $scope.sessionToken
             }
 
             //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function()
+            $scope.giftcards = Giftcards.get(getJson, function(response)
             {
-                //Check for errors
-                if($scope.giftcards.errorid)
+                //Error checking should be done in next block
+            },
+            //check for a 500
+            function(response)
+            {
+                //Check for unauthorized
+                if(response.status == 401)
                 {
-                    console.log($scope.giftcards.errorid + ": " + $scope.giftcards.msg);
-                    return;
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
                 }
                 else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
+                    //log the status
+                    console.log("Status:" + response.status);
                 }
+                return;
             });
-        }
+		}
 
 		$scope.totalValue = function()
 		{

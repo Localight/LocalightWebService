@@ -50,8 +50,18 @@ angular.module('angularLocalightApp')
         $scope.backendRes = "";
 
         //Store session token from url
-        var sessionToken = $routeParams.token;
-        $cookies.put("sessionToken", sessionToken);
+        var sessionToken;
+
+        if($routeParams.token)
+        {
+            //put our session token in our cookies
+            sessionToken = $routeParams.token;
+            $cookies.put("sessionToken", sessionToken)
+        }
+        else {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
 
         //Amount selection slider amount options
         $scope.prices = [2, 5, 10, 25, 50, 75, 100];
@@ -512,12 +522,25 @@ angular.module('angularLocalightApp')
             };
 
             //If it is successful, Update the spending user
-            var updateUser = Users.update(userJson, function() {
-                if (updateUser.errorid) {
-                    $scope.backendError = true;
-                    $scope.backendRes = updateUser.msg;
+            var updateUser = Users.update(userJson, function(response) {
+                if (response.status)
+                {
+                    if(response.status == 401)
+                    {
+                        //Bad session
+                        //Redirect them to a 404
+                        $location.path("#/");
+                        return;
+                    }
+                    else
+                    {
+                        $scope.backendError = true;
+                        $scope.backendRes = updateUser.msg;
+                    }
                     return;
-                } else {
+                }
+                else
+                {
                     //First, fix the formatting on the phone
                     //This will remove all special characters from the string
 
@@ -538,11 +561,23 @@ angular.module('angularLocalightApp')
                     }
 
                     var newGiftcard = Giftcards.create(newGiftcardJson, function() {
-                        if (newGiftcard.errorid) {
-                            $scope.backendError = true;
-                            $scope.backendRes = newGiftcard.msg;
+                        if (response.status)
+                        {
+                            if(response.status == 401)
+                            {
+                                //Bad session
+                                //Redirect them to a 404
+                                $location.path("#/");
+                                return;
+                            }
+                            else
+                            {
+                                $scope.backendError = true;
+                                $scope.backendRes = newGiftcard.msg;
+                            }
                             return;
-                        } else {
+                        }
+                        else {
                             //SUCCESSSSSSSS
 
                             //Store the phone number and email in the cookies
@@ -552,8 +587,20 @@ angular.module('angularLocalightApp')
                             //For testing Go to the sent page
                             $location.path("/sent");
                         }
+                    },
+                    //incase of internal server error
+                    function(response) {
+                        $scope.backendError = true;
+                        $scope.backendRes = newGiftcard.msg;
+                        return;
                     });
                 }
+            },
+            //Incase of internal server Error
+            function(response) {
+                $scope.backendError = true;
+                $scope.backendRes = updateUser.msg;
+                return;
             });
         }
 
