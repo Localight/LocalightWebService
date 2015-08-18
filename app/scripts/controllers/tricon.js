@@ -137,29 +137,49 @@ angular.module('angularLocalightApp')
                     "triconKey" : triconArray[0] + triconArray[1] + triconArray[2]
                 }
 
-                $scope.spendResponse = Spend.spendGiftcard(spendJson, function () {
+                console.log(spendJson);
+
+                $scope.spendResponse = Spend.spendGiftcard(spendJson, function (response) {
                     //Check for errors
-                    if($scope.spendResponse.errorid)
+                    if(response.status)
                     {
-                        //Show our error
-                        $scope.errorMsg = $scope.spendResponse.msg;
-
-                        //Clear the array and the pressed tricons
-                        //Our pressed tricon ***
-                        $scope.pressedTricon = "";
-
-                        //our array of tricons
-                        var triconArray = [];
-
-                        return;
+                        if(response.status == 401)
+                        {
+                            //Bad session
+                            //Redirect them to a 404
+                            $location.path("#/");
+                            return;
+                        }
+                        else
+                        {
+                            console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
+                            return;
+                        }
                     }
-                    else {
+                    else
+                    {
                         //there was no error continue as normal
                         //Stop any loading bars or things here
                         //Go to the confirmation page
 
                         $location.path("/merchants/" + $scope.Id + "/confirmation");
                     }
+                },
+                //check for a 500
+                function(response)
+                {
+                    //Check for unauthorized
+                    if(response.status == 401)
+                    {
+                        //Bad session
+                        //Redirect them to a 404
+                        $location.path("#/");
+                    }
+                    else {
+                        //log the status
+                        console.log("Status:" + response.status);
+                    }
+                    return;
                 });
 			}
 		}
