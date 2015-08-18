@@ -145,7 +145,7 @@ angular.module('angularLocalightApp')
 
 			//Set clicked button styling
             var offset;
-            if(window.innerWidth < 320){
+            if(window.innerWidth <= 320){
                 offset = '-75px';
             } else {
                 offset = '-100px';
