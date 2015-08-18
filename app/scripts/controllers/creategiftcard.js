@@ -49,14 +49,21 @@ angular.module('angularLocalightApp')
         $scope.backendError = false;
         $scope.backendRes = "";
 
-        //Store session token from url
+        //Get the session token
         var sessionToken;
 
-        if($routeParams.token)
+        if($location.search().token)
         {
-            //put our session token in our cookies
-            sessionToken = $routeParams.token;
-            $cookies.put("sessionToken", sessionToken)
+            //get our session token
+            sessionToken = $location.search().token;
+
+            //Place the session token in the cookies
+            $cookies.put("sessionToken", sessionToken);
+        }
+        else if($cookies.get("sessionToken"))
+        {
+            //get our session token from the cookies
+            sessionToken = $cookies.get("sessionToken");
         }
         else {
             //Redirect them to a 404
