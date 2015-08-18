@@ -77,11 +77,12 @@ angular.module('angularLocalightApp')
 			//Get our giftcards from the user
             //First set up some JSON for the session token
             var getJson = {
-                "sessionToken" : $scope.sessionToken
+                "id" : giftcardId,
+                "sessionToken" : sessionToken
             }
 
             //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function(response)
+            $scope.giftcard = GiftcardById.get(getJson, function(response)
             {
                 //Error checking should be done in next block
             },
