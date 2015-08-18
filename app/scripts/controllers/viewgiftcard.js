@@ -90,7 +90,7 @@ angular.module('angularLocalightApp')
             function(response)
             {
                 //Check for unauthorized
-                if(response.status == 401)
+                if(response.status == 401 || response.status == 500)
                 {
                     //Bad session
                     //Redirect them to a 404
