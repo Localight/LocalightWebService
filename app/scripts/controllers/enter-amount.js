@@ -80,6 +80,14 @@ angular.module('angularLocalightApp')
 				[7,8,9]
 		];
 
+        if(window.innerWidth < 320){
+            $scope.tableLayout = [
+    				[.75,1.5,2.25],
+    				[3,3.75,4.5],
+    				[5.25,6,6.75]
+    		];
+        }
+
         //Initialize scope.giftcards
 		$scope.giftcards = null;
 
