@@ -123,7 +123,13 @@ angular.module('angularLocalightApp')
 			//Add tricon code here
 			//console.log("Tricon Pressed: " + $scope.images[id]);
 			//
-			event.currentTarget.style.backgroundPositionY = '-100px';
+            var offset;
+            if(window.innerWidth < 320){
+                offset = '-75px';
+            } else {
+                offset = '-100px';
+            }
+			event.currentTarget.style.backgroundPositionY = offset;
 
 			//And, add a star to pressed tricon
 			$scope.pressedTricon = $scope.pressedTricon + "*";
