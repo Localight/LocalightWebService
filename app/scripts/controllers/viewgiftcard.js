@@ -19,6 +19,9 @@ angular.module('angularLocalightApp')
         //Boolean for alert
         $scope.rotateAlert = false;
 
+        //Boolean if the giftcard can e spent
+        $scope.isValid;
+
         //Check for device orientation
         $window.addEventListener("orientationchange", function() {
             if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
@@ -85,6 +88,12 @@ angular.module('angularLocalightApp')
             $scope.giftcard = GiftcardById.get(getJson, function(response)
             {
                 //Error checking should be done in next block
+
+                //check if it was spent
+                if($scope.giftcard.amount < 1)
+                {
+                    $scope.isValid = false;
+                }
             },
             //check for a 500
             function(response)
