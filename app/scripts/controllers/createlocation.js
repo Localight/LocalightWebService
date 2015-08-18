@@ -16,30 +16,6 @@ angular.module('angularLocalightApp')
     //no errors
     $scope.submitError;
 
-    //Get our owner Info
-    $scope.getOwner = function() {
-
-        //First set up some JSON for the session token
-        var getJson = {
-           "sessionToken" : sessionToken
-        }
-
-        $scope.owner = Owners.get(getJson, function(){
-            //Check for errors
-            if($scope.owner.errorid)
-            {
-                console.log($scope.owner.msg);
-                return;
-            }
-            else
-            {
-                //there was no error continue as normal
-                //Save their session token
-
-            }
-        });
-    }
-
     //Create the location
     $scope.submitLocation = function() {
 
@@ -52,8 +28,7 @@ angular.module('angularLocalightApp')
            "address2" : $scope.address2,
            "city" : $scope.city,
            "state" : $scope.state,
-           "zipcode" : $scope.zipcode,
-           "ownerId" : $scope.owner._id
+           "zipcode" : $scope.zipcode
        };
 
         $scope.newLocation = Locations.create(postJson, function(){
