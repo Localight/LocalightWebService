@@ -20,7 +20,7 @@ angular.module('angularLocalightApp')
         $scope.rotateAlert = false;
 
         //Boolean for if we have spent Giftcards
-        $scope.spentGifts = false;
+        $scope.spentGifts;
 
         //Check for device orientation
         $window.addEventListener("orientationchange", function() {
@@ -69,9 +69,9 @@ angular.module('angularLocalightApp')
                 //Error checking should be done in next block
 
                 //And since everthign went good, check if we have spent giftcards.
-                for(giftcard in $scope.getGiftcards)
+                for(var i = 0; i < $scope.giftcards.length; i++)
                 {
-                    if(giftcard.amount < 1)
+                    if($scope.giftcards[i].amount < 1)
                     {
                         $scope.spentGifts = true;
                         return;
