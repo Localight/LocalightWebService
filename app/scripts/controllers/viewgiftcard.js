@@ -119,13 +119,6 @@ angular.module('angularLocalightApp')
 			return (parseInt($scope.giftcard.amount) / 100).toFixed(2);
 		}
 
-		//function to fomat a giftcard value for us
-		$scope.giftValue = function(amt)
-		{
-			//Return the total value as a formatted string
-			return (parseInt(amt) / 100).toFixed(2);
-		}
-
 		//Array of occasion Icons, simply a link to their icon
 		$scope.icons =
 		[

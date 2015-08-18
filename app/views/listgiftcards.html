@@ -43,7 +43,7 @@
                 <tr>
                     <td class="fromText"><img style = "margin-right: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                     <td class="textRightAlign tableCell">
-                        <div class="giftlistAmount" style = "font-size: 1.25em">${{giftValue(giftcard.amount)}}</div></td>
+                        <div class="giftlistAmount" style = "font-size: 1.25em">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
             </table>
         </a>
@@ -57,7 +57,7 @@
                     <tr>
                         <td class="fromTextSpent"><img style = "margin-right: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                         <td class="textRightAlign tableCell">
-                            <div class="giftlistAmountSpent" style = "font-size: 1.25em">${{giftValue(giftcard.amount)}}</div></td>
+                            <div class="giftlistAmountSpent" style = "font-size: 1.25em">${{giftcard.origAmount / 100}}</div></td>
                     </tr>
                     <tr>
                         <td class = "spentFooter">
