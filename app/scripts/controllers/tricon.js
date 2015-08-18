@@ -142,8 +142,6 @@ angular.module('angularLocalightApp')
                     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
                 }
 
-                console.log(spendJson);
-
                 $scope.spendResponse = Spend.spendGiftcard(spendJson, function (response) {
                     //Check for errors
                     if(response.status)
