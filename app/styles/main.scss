@@ -716,18 +716,18 @@ label.inputlabel {
     border-spacing: 10px;
 }
 
-@media (max-width: 340px) {
-    .dialPad {
-        border-spacing: 0px !important;
-    }
-}
-
 .dialButton {
     transition: none;
     background-repeat: no-repeat;
     background-size: contain;
     height: 100px;
     width: 100px;
+}
+
+@media (max-width: 340px) {
+    .dialPad {
+        border-spacing: 0px;
+    }
 }
 
 .buttonDel {
@@ -738,12 +738,40 @@ label.inputlabel {
     width: 75px;
 }
 
+//Tricon page
+.triconStar {
+    @extend .center;
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconError {
+    @extend .center;
+
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconSheet {
+    background-image: url(../images/eatery-tricons-aqua-filled.png);
+    background-size: 897px;
+}
+
 .triconButton {
     transition: none;
     background-repeat: no-repeat;
-    background-size: contain;
     height: 100px;
     width: 100px;
+}
+
+@media (max-width: 320px) {
+    .triconButton {
+        height: 75px;
+        width: 75px;
+    }
+    .triconSheet {
+        background-size: 672.75px;
+    }
 }
 
 /* End Dialad Buttons */
@@ -1058,25 +1086,6 @@ label.inputlabel {
     @extend .center;
     padding-left: 10px;
     padding-right:10px;
-}
-
-//Tricon page
-.triconStar {
-    @extend .center;
-    color: $inverseStandard;
-    padding: 10px;
-}
-
-.triconError {
-    @extend .center;
-
-    color: $inverseStandard;
-    padding: 10px;
-}
-
-.triconSheet {
-    background-image: url(../images/eatery-tricons-aqua-filled.png);
-    background-size: 897px;
 }
 
 //View giftcard
