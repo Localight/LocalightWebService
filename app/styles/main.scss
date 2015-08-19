@@ -824,6 +824,20 @@ label.inputlabel {
     .dialSheet {
         background-size: 750px;
     }
+    .dialBackText {
+        color: $danger;
+        padding-left: 5px;
+        display: inline;
+        vertical-align: sub;
+        font-size: 1.15em;
+    }
+    .buttonDel {
+        background-image: url("../images/auth-delete-btn-aqua.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 44px;
+        width: 56px;
+    }
     .triconSheet {
         background-size: 672.75px;
     }
