@@ -27,11 +27,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     END Imports
 *******/
 
-body {
+body, html {
   font-family: $familyStandard;
   background-color: $colorBg;
   padding: 0px;
   margin: 0px;
+  background-repeat: no-repeat;
+  background-image: url("../images/local-street-bg.png");
+  background-position: bottom;
 }
 
 html, body, .container, .fn-app {
@@ -220,7 +223,7 @@ input {
 
 #localStreetNoBlur {
   opacity: 1;
-  background-image: url('../images/local-street-bg.png');
+
 }
 
 #localStreetNoBlur.blur {
