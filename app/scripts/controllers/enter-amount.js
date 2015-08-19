@@ -88,6 +88,13 @@ angular.module('angularLocalightApp')
     		];
         }
 
+        //Tricon values
+        $scope.tableValues = [
+				[1,2,3],
+				[4,5,6],
+				[7,8,9]
+		];
+
         //Initialize scope.giftcards
 		$scope.giftcards = null;
 
