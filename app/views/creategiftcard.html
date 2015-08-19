@@ -176,7 +176,7 @@
         </label>
         <div class="rightColumn helveticaText">
           Send this gift of
-          <span class="bold">${{gc.amt}}</span>
+          <span class="bold">${{gc.amount}}</span>
         </div>
       </div>
       <!--To-->
@@ -189,7 +189,7 @@
         <label class="inputlabel" for="clique_input_phonenumber">
           <img alt="Enter Phone Number" src="../images/phone.png" />
         </label>
-        <input type="tel" ng-keydown="maskPhone('clique_input_phonenumber', $event)" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn phone_number" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" data-ng-model="gc.phoneNumber">
+        <input type="tel" ng-keyup="maskPhone('clique_input_phonenumber', $event)" name="clique_input_phonenumber" id="clique_input_phonenumber" class="helveticaInput rightColumn blackText" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" data-ng-model="gc.phoneNumber">
       </div>
       <!--From-->
       <div>
@@ -201,7 +201,7 @@
       <!--Send Receipt To-->
       <div>
         <label class="inputlabel">&nbsp;</label>
-        <div class="rightColumn helveticaText">Send receipt to</div>
+        <div class="rightColumn helveticaText">Send the receipt to your e-mail:</div>
     </div>
 
       <!--Email-->
@@ -209,7 +209,7 @@
         <label class="inputlabel">
           <img alt="Enter Email Address" src="../images/emailsign_blk.png" />
         </label>
-        <input type="email" name="clique_input_email" id="clique_input_email" class="rightColumn helveticaInput email blackText" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.email" required>
+        <input type="email" name="clique_input_email" id="clique_input_email" class="rightColumn helveticaInput blackText" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.email" required>
       </div>
 
       <!--Schedule Gift-->
