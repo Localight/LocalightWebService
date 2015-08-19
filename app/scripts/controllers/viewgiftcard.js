@@ -28,8 +28,9 @@ angular.module('angularLocalightApp')
             }
         }, false);
 
-        //Switch overlay off
-      	document.getElementById('darkerOverlay').style.display = "none";
+        //Switch dark overlay off
+        document.body.style.backgroundImage = "url('../images/local-street-bg-blur.png')";
+        document.body.style.backgroundColor = "#4fcfc8"
 
           //Make the background blurred
           setTimeout(function () {

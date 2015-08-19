@@ -35,7 +35,8 @@ angular.module('angularLocalightApp')
     }, false);
 
     //Switch overlay on
-		document.getElementById('darkerOverlay').style.display = "block";
+    document.body.style.backgroundImage = "url('../images/auth-bg.png')";
+    document.body.style.backgroundColor = "#316D6B"
 
 		//Timeout to the next page
 		$timeout(timeoutRedirect, 2000);

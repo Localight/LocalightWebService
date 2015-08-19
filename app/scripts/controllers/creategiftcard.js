@@ -37,7 +37,8 @@ angular.module('angularLocalightApp')
         }, false);
 
         //Switch dark overlay off
-        document.getElementById('darkerOverlay').style.display = "none";
+        document.body.style.backgroundImage = "url('../images/local-street-bg-blur.png')";
+        document.body.style.backgroundColor = "#4fcfc8"
 
         //Giftcard form object
         $scope.gc = {};

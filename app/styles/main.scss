@@ -32,6 +32,7 @@ body {
     background-image: url('../images/local-street-bg-blur.png');
     background-position: bottom;
     background-size: cover;
+    z-index: -4;
 }
 
 body, html {
