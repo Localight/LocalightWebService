@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -50,8 +50,10 @@
 -->
 
     <!-- Our View -->
-    <div class="container">
-    <div ng-view=""></div>
+    <div class="fn-app">
+    <div class="container" id="content">
+    <div ng-view="" class="finalContent"></div>
+    </div>
     </div>
 
     <!-- Our city Background -->
@@ -76,6 +78,9 @@
         var w = screen.width;
 
         var bgHeight = h - 400;
+        var content = document.getElementById("content");
+        content.style.height = h;
+
 
         background1 = document.getElementById("localStreetBlur");
         background2 = document.getElementById('localStreetNoBlur');
@@ -83,7 +88,14 @@
         background2.style.top = bgHeight + "px";
         background1.style.width = w + "px";
         background2.style.width = w + "px";
+
+        var content = document.getElementById("content");
+        content.style.height = h;
+
+
     </script>
+
+
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
