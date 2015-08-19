@@ -27,14 +27,30 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     END Imports
 *******/
 
+body {
+    background-repeat: no-repeat;
+    background-image: url('../images/local-street-bg-blur.png');
+    background-position: bottom;
+    background-size: contain;
+}
+
 body, html {
   font-family: $familyStandard;
   background-color: $colorBg;
   padding: 0px;
   margin: 0px;
-  background-repeat: no-repeat;
-  background-image: url("../images/local-street-bg.png");
-  background-position: bottom;
+
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 html, body, .container, .fn-app {
@@ -45,6 +61,11 @@ html, body, .container, .fn-app {
 
 .container{
     position:relative !important;
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+         -moz-animation: fadein 2s; /* Firefox < 16 */
+          -ms-animation: fadein 2s; /* Internet Explorer */
+           -o-animation: fadein 2s; /* Opera < 12.1 */
+              animation: fadein 2s;
 }
 
 .finalContent {
@@ -204,9 +225,7 @@ input {
   background-size: cover;
   background-position: center top;
   background-color: $colorBg;
-  transition: opacity 1s ease-out 0s; /* CSS property, duration, timing-function, delay */
-  -o-transition: opacity 1s ease-out 0s;
-  -webkit-transition: opacity 1s ease-out 0s;
+
 }
 
 @media screen and ( min-height: 1000px ){
@@ -219,20 +238,6 @@ input {
     .localStreet {
         height: 300px;
     }
-}
-
-#localStreetNoBlur {
-  opacity: 1;
-
-}
-
-#localStreetNoBlur.blur {
-  opacity: 0;
-}
-
-#localStreetBlur {
-  /* background-image: url('images/local-street-low2-blur.png'); */
-  background-image: url('../images/local-street-bg-blur.png');
 }
 
 #darkerOverlay {
@@ -253,7 +258,13 @@ input {
 /* Clique Logo */
 .clique_logo {
   margin: 10px auto 5%;
-  width: 40%;
+  height: 73px;
+  max-width: 300px;
+  display: block;
+}
+.clique_logo_wrapper {
+  margin: 10px auto 5%;
+  height: 73px;
   max-width: 300px;
   display: block;
 }

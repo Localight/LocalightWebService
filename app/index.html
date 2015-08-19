@@ -58,9 +58,6 @@
 
     <!-- Our city Background -->
     <div id="darkerOverlay"></div>
-    <div id="localStreetBlur" class="localStreet"></div>
-    <div id="localStreetNoBlur" class="localStreet"></div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -76,18 +73,6 @@
     <script>
         var h = screen.height;
         var w = screen.width;
-
-        var bgHeight = h - 400;
-        var content = document.getElementById("content");
-        content.style.height = h;
-
-
-        background1 = document.getElementById("localStreetBlur");
-        background2 = document.getElementById('localStreetNoBlur');
-        background1.style.top = bgHeight + "px";
-        background2.style.top = bgHeight + "px";
-        background1.style.width = w + "px";
-        background2.style.width = w + "px";
 
         var content = document.getElementById("content");
         content.style.height = h;
