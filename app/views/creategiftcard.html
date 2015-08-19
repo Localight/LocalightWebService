@@ -52,8 +52,8 @@
       <div id="clique_code" class="createCode" ng-hide = "giftcardForm.clique_input_code.$valid">
         <label for="Code" class="inputlabel">Code</label>
         <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
-        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keypress="codeValidate('clique_input_code', $event, 5, 'clique_occasion_selection','clique_occasion_selection')" ng-model="gc.code" ng-change="getStoreName()"
-        ng-keypress="codeValidate('clique_input_code', $event, 5)" required>
+        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keyup="codeValidate('clique_input_code', $event, 5, 'clique_occasion_selection','clique_occasion_selection')"
+        ng-model="gc.code" ng-change="getStoreName()" pattern="\d*" required>
       </div>
 
       <div id="clique_code_message" ng-show = "giftcardForm.clique_input_code.$valid">

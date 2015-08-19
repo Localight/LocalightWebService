@@ -207,7 +207,7 @@ angular.module('angularLocalightApp')
             //Grab our element
             var element = $window.document.getElementById(id);
             //get our element length
-            var len = element.value.toString().length + 1;
+            var len = element.value.toString().length;
             //get the max length we assigned to it
             var max = element.maxLength;
 
@@ -223,7 +223,8 @@ angular.module('angularLocalightApp')
                 }, 20);
 
                 //Scroll to the requested element
-                $scope.scrollToElement(scrollId);
+                //Now done by the flip card
+                //$scope.scrollToElement(scrollId);
 
                 //And set the active field to the occasions
                 $scope.setActiveField(activeId);
