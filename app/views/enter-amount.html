@@ -29,7 +29,8 @@
         <tr ng-repeat="n in tableLayout">
 			<!-- Using inline styles for our randomization so we can edit this later-->
 			<td ng-repeat="i in n">
-			<div my-touchstart="pressButton(i);" my-touchend="pressButton(-1);" style="background-position-x: -{{i*100}}px;" class="dialButton dialSheet"></div></td>
+            <!--Need to use table values for press buttont hat way we dont send th wrong values -->
+			<div my-touchstart="pressButton({{tableValues[$parent.$index][$index]}});" my-touchend="pressButton(-1);" style="background-position-x: -{{i*100}}px;" class="dialButton dialSheet"></div></td>
 		</tr>
         <tr>
 			<!-- Using inline styles for our randomization so we can edit this later-->
