@@ -1125,6 +1125,10 @@ label.inputlabel {
     max-width:400px;
 }
 
+.phoneEmailCheck {
+    @extend .creditCardCheck;
+}
+
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';

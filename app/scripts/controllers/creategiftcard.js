@@ -215,7 +215,7 @@ angular.module('angularLocalightApp')
             var cond = (46 < event.keyCode && event.keyCode < 58);
 
             //Check if we met our condition and our length is good
-            if (len >= maxlength) {
+            if (len >= maxlength - 1) {
                 $scope.showCard = false;
 
                 if (id === 'clique_input_code') setTimeout(function() {
@@ -339,7 +339,14 @@ angular.module('angularLocalightApp')
                     }
                     tel = tel + val[i];
                 }
+
                 element.value = tel;
+
+                //now check if we should focus on the email
+                if($scope.clique_input_phonenumber_validity && tel.length > 12)
+                {
+                    document.getElementById("clique_input_email").focus();
+                }
             }
         }
 
@@ -447,7 +454,7 @@ angular.module('angularLocalightApp')
             var email = $scope.gc.email;
 
             //check if the email has an @ sign
-            if (email.indexOf("@") > -1) {
+            if ($scope.gc.email && email.indexOf("@") > -1) {
                 //If it does, get a sub string after that, and check for a period
                 if (email.substring(email.indexOf("@"))
                 .indexOf(".") > -1) {
@@ -493,6 +500,12 @@ angular.module('angularLocalightApp')
 
             //Now send to stripe to be tokenized
             Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
+
+            //timeout and focus on the phone field
+            $timeout(function() {
+                //focus on the phone element
+                document.getElementById("clique_input_phonenumber").focus();
+            }, 500)
         };
 
         //A place to store the stripe token until final sendoff
