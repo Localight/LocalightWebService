@@ -438,24 +438,8 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    },
-
-    browserSync: {
-        files: {
-        src : [
-          'app/styles/*.css',
-          'app/images/*',
-          'app/controllers/*.js',
-          '**/*.html'
-        ],
-      },
-      options: {
-        watchTask: true
-      }
     }
   });
-
-  grunt.loadNpmTasks('grunt-browser-sync');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'prod') {
@@ -479,8 +463,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
-      'connect:livereload',
-      'browserSync',
+      'connect:livereload'
       'watch'
     ]);
 
