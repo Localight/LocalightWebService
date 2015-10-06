@@ -28,23 +28,16 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 *******/
 
 body {
-
-    .lightBodyBg {
-        background-repeat: no-repeat;
-        background-image: url('../images/local-street-bg-blur.png');
-        background-position: bottom;
-        background-color: $colorBg;
-        background-size: cover;
-        z-index: -4;
-    }
+    background-repeat: no-repeat;
+    background-image: url('../images/local-street-bg-blur.png');
+    background-position: bottom;
+    background-color: $colorBg;
+    background-size: cover;
+    z-index: -4;
 
     .darkBlurBodyBg {
-        background-repeat: no-repeat;
         background-image: url('../images/auth-bg.png');
-        background-position: bottom;
         background-color: $authBg;
-        background-size: cover;
-        z-index: -4;
     }
 }
 
