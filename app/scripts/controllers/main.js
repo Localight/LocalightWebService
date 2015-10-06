@@ -9,11 +9,6 @@
  */
 angular.module('angularLocalightApp')
   .controller('MainCtrl', function ($window, $scope) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
 
     //Boolean for alert
     $scope.rotateAlert = false;

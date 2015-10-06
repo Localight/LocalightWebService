@@ -28,9 +28,6 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-        //Switch overlay on
-		document.getElementById('darkerOverlay').style.display = "block";
-
         //get our session token from the cookies
         $scope.sessionToken;
 

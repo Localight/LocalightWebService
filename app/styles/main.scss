@@ -28,12 +28,62 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 *******/
 
 body {
+    background-repeat: no-repeat;
+    background-image: url('../images/local-street-bg-blur.png');
+    background-position: bottom;
+    background-color: $colorBg;
+    background-size: cover;
+    z-index: -4;
+}
+
+.darkBlurBodyBg {
+    background-image: url('../images/auth-bg.png');
+    background-color: $authBg;
+}
+
+body, html {
   font-family: $familyStandard;
   background-color: $colorBg;
   padding: 0px;
   margin: 0px;
-  height: 100%;
+
 }
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+html, body, .container, .fn-app {
+    height: 100% !important;
+    overflow: hidden !important;
+    padding: 0px !important;
+}
+
+.container{
+    position:relative !important;
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+         -moz-animation: fadein 2s; /* Firefox < 16 */
+          -ms-animation: fadein 2s; /* Internet Explorer */
+           -o-animation: fadein 2s; /* Opera < 12.1 */
+              animation: fadein 2s;
+}
+
+.finalContent {
+    overflow:scroll;
+    overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    height: 100%;
+}
+
+
 
 /* General Styles */
 @mixin placeholder {
@@ -182,9 +232,7 @@ input {
   background-size: cover;
   background-position: center top;
   background-color: $colorBg;
-  transition: opacity 1s ease-out 0s; /* CSS property, duration, timing-function, delay */
-  -o-transition: opacity 1s ease-out 0s;
-  -webkit-transition: opacity 1s ease-out 0s;
+
 }
 
 @media screen and ( min-height: 1000px ){
@@ -197,20 +245,6 @@ input {
     .localStreet {
         height: 300px;
     }
-}
-
-#localStreetNoBlur {
-  opacity: 1;
-  background-image: url('../images/local-street-bg.png');
-}
-
-#localStreetNoBlur.blur {
-  opacity: 0;
-}
-
-#localStreetBlur {
-  /* background-image: url('images/local-street-low2-blur.png'); */
-  background-image: url('../images/local-street-bg-blur.png');
 }
 
 #darkerOverlay {
@@ -231,7 +265,13 @@ input {
 /* Clique Logo */
 .clique_logo {
   margin: 10px auto 5%;
-  width: 40%;
+  height: 73px;
+  max-width: 300px;
+  display: block;
+}
+.clique_logo_wrapper {
+  margin: 10px auto 5%;
+  height: 73px;
   max-width: 300px;
   display: block;
 }
@@ -497,10 +537,7 @@ label.inputlabel {
     float: right;
     color: $inverseStandard;
     padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    line-height: 15px;
-    font-size: 1.25em;
+    font-size: 1.4em;
     border-radius: 5px;
     border: 1px solid $inverseStandard;
 }
@@ -713,83 +750,24 @@ label.inputlabel {
 }
 
 /* DialPad Buttons */
-.enteredAmount {
-    text-align: right;
-    padding-right: 10px;
-    padding-top: 15px;
-}
-
-.amountText {
-    font-size: 1.5em;
-    color: $inverseStandard;
-    padding-left: 10px;
-    padding-top: 10px;
-}
-
-.payText {
-    font-size: 1.3em;
-    vertical-align: text-bottom;
-    color: $darkOverlay;
-    display: inline;
-    padding-left: 10px;
-}
-
-.payArrow {
-    display: inline;
-    vertical-align: text-bottom;
-}
-
-.amountWarning {
-    @extend .center;
-    color: $danger;
-    padding-right: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.dialSheet {
-    background-image: url(../images/auth-aqua-sheet.png);
-    background-size: 1000px;
-}
-
-.dialBack {
-    @extend .center;
-    padding-top: 5%;
-}
-
-.dialBackText {
-    color: $danger;
-    padding-left: 10px;
-    display: inline;
-    vertical-align: sub;
-    font-size: 1.3em;
-}
-
-.dialBackSpace {
-    padding-top: 20%;
-}
-
-.localightLogoBottom {
-    @extend .center;
-    margin-top: 10px;
-}
 
 .dialPad {
     border-collapse: separate;
     border-spacing: 10px;
 }
 
+@media (max-width: 340px) {
+    .dialPad {
+        border-spacing: 0px !important;
+    }
+}
+
 .dialButton {
     transition: none;
     background-repeat: no-repeat;
+    background-size: contain;
     height: 100px;
     width: 100px;
-}
-
-@media (max-width: 340px) {
-    .dialPad {
-        border-spacing: 0px;
-    }
 }
 
 .buttonDel {
@@ -800,54 +778,12 @@ label.inputlabel {
     width: 75px;
 }
 
-//Tricon page
-.triconStar {
-    @extend .center;
-    color: $inverseStandard;
-    padding: 10px;
-}
-
-.triconError {
-    @extend .center;
-
-    color: $inverseStandard;
-    padding: 10px;
-}
-
-.triconSheet {
-    background-image: url(../images/eatery-tricons-aqua-filled.png);
-    background-size: 897px;
-}
-
-@media (max-width: 320px) {
-    .dialButton {
-        height: 75px;
-        width: 75px;
-    }
-    .dialSheet {
-        background-size: 750px;
-    }
-    .dialBackText {
-        color: $danger;
-        padding-left: 5px;
-        display: inline;
-        vertical-align: sub;
-        font-size: 1.15em;
-    }
-    .buttonDel {
-        background-image: url("../images/auth-delete-btn-aqua.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        height: 44px;
-        width: 56px;
-    }
-    .triconSheet {
-        background-size: 672.75px;
-    }
-    .triconStar {
-        padding: 0px;
-        margin: 0px;
-    }
+.triconButton {
+    transition: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
 }
 
 /* End Dialad Buttons */
@@ -1085,6 +1021,68 @@ label.inputlabel {
     font-weight: 300 !important;
 }
 
+/*Enter amount page */
+.enteredAmount {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 15px;
+}
+
+.amountText {
+    font-size: 1.5em;
+    color: $inverseStandard;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.payText {
+    font-size: 1.3em;
+    vertical-align: text-bottom;
+    color: $darkOverlay;
+    display: inline;
+    padding-left: 10px;
+}
+
+.payArrow {
+    display: inline;
+    vertical-align: text-bottom;
+}
+
+.amountWarning {
+    @extend .center;
+    color: $danger;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.dialSheet {
+    background-image: url(../images/auth-aqua-sheet.png);
+    background-size: 1000px;
+}
+
+.dialBack {
+    @extend .center;
+    padding-top: 5%;
+}
+
+.dialBackText {
+    color: $danger;
+    padding-left: 10px;
+    display: inline;
+    vertical-align: sub;
+    font-size: 1.3em;
+}
+
+.dialBackSpace {
+    padding-top: 20%;
+}
+
+.localightLogoBottom {
+    @extend .center;
+    margin-top: 10px;
+}
+
 /*merchants page */
 .merchantBackText {
     @extend .navText;
@@ -1100,6 +1098,25 @@ label.inputlabel {
     @extend .center;
     padding-left: 10px;
     padding-right:10px;
+}
+
+//Tricon page
+.triconStar {
+    @extend .center;
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconError {
+    @extend .center;
+
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconSheet {
+    background-image: url(../images/eatery-tricons-aqua-filled.png);
+    background-size: 897px;
 }
 
 //View giftcard
@@ -1118,34 +1135,6 @@ label.inputlabel {
 
     padding-bottom: 30%;
     margin-top: 40%;
-}
-
-.giftSection {
-    @extend .whiteText;
-
-    text-align: left;
-    margin-bottom: 5px;
-    margin-top: 15px;
-}
-
-.spentFooter {
-    @extend .whiteText;
-
-    padding-left: 2px;
-    font-size: .85em;
-    opacity: .5;
-}
-
-.fromTextSpent {
-    @extend .fromText;
-
-    opacity: .5;
-}
-
-.giftlistAmountSpent {
-    @extend .giftlistAmount;
-
-    opacity: .5;
 }
 
 
