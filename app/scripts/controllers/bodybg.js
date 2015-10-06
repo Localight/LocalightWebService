@@ -12,7 +12,7 @@ angular.module('angularLocalightApp')
 
       //Simply switch the variable value
       $scope.switchBackground = function() {
-
+          $scope.darkBody = !$scope.darkBody;
       }
 
   });
