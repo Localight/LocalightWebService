@@ -7,44 +7,41 @@
  * # Owners
  * Service in the angularLocalightApp.
  */
- angular.module('angularLocalightApp')
- .factory('Owners', ['$resource', function($resource) {
+angular.module('angularLocalightApp')
+  .factory('Owners', ['$resource', 'ENV', function($resource, ENV) {
 
- return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/owners',
-     { }, {
-         get: {
-             method: 'GET',
-             params: {},
-             isArray: false
-         }
+    return $resource(ENV.API_BASE + '/owners', {}, {
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: false
+      }
 
-     } );
- }]);
+    });
+  }]);
 
- angular.module('angularLocalightApp')
- .factory('JoinOwner', ['$resource', function($resource) {
+angular.module('angularLocalightApp')
+  .factory('JoinOwner', ['$resource', 'ENV', function($resource, ENV) {
 
- return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/owners/join',
-     { }, {
-         submit: {
-             method: 'POST',
-             params: {},
-             isArray: false
-         }
+    return $resource(ENV.API_BASE + '/owners/join', {}, {
+      submit: {
+        method: 'POST',
+        params: {},
+        isArray: false
+      }
 
-     } );
- }]);
+    });
+  }]);
 
- angular.module('angularLocalightApp')
- .factory('LoginOwner', ['$resource', function($resource) {
+angular.module('angularLocalightApp')
+  .factory('LoginOwner', ['$resource', 'ENV', function($resource, ENV) {
 
- return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/owners/login',
-     { }, {
-         submit: {
-             method: 'POST',
-             params: {},
-             isArray: false
-         }
+    return $resource(ENV.API_BASE + '/owners/login', {}, {
+      submit: {
+        method: 'POST',
+        params: {},
+        isArray: false
+      }
 
-     } );
- }]);
+    });
+  }]);
