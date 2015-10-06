@@ -1,29 +1,31 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body ng-app="angularLocalightApp" ng-controller = "BodyCtrl" ng-class = "{darkBlurBodyBg: isDark('/amount')
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+
+<body ng-app="angularLocalightApp" ng-controller="BodyCtrl" ng-class="{darkBlurBodyBg: isDark('/amount')
   || isDark('/tilt')
   || isDark('/tricon')
   || isDark('/confirmation')}">
-    <!--[if lte IE 8]>
+  <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <!-- No Navbar
+  <!-- Add your site or application content here -->
+  <!-- No Navbar
     <div class="header">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
@@ -52,82 +54,85 @@
     </div>
 -->
 
-    <!-- Our View -->
-    <div class="fn-app">
+  <!-- Our View -->
+  <div class="fn-app">
     <div class="container" id="content">
-    <div ng-view="" class="finalContent"></div>
+      <div ng-view="" class="finalContent"></div>
     </div>
-    </div>
+  </div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+  <script>
+    ! function(A, n, g, u, l, a, r) {
+      A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+          (A[l].q = A[l].q || []).push(arguments)
+        }, A[l].l = +new Date, a = n.createElement(g),
+        r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+    }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+  </script>
 
-    <script>
-        var h = screen.height;
-        var w = screen.width;
+  <script>
+    var h = screen.height;
+    var w = screen.width;
 
-        var content = document.getElementById("content");
-        content.style.height = h;
-        content.style.width = w;
-    </script>
+    var content = document.getElementById("content");
+    content.style.height = h;
+    content.style.width = w;
+  </script>
 
 
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/angular-scroll/angular-scroll.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/bodybg.js"></script>
-        <script src="scripts/controllers/creategiftcard.js"></script>
-        <script src="scripts/directives/touching.js"></script>
-        <script src="scripts/services/occasionservice.js"></script>
-        <script src="scripts/controllers/listgiftcards.js"></script>
-        <script src="scripts/controllers/viewgiftcard.js"></script>
-        <script src="scripts/controllers/merchants.js"></script>
-        <script src="scripts/controllers/enter-amount.js"></script>
-        <script src="scripts/controllers/tilt-screen.js"></script>
-        <script src="scripts/controllers/tricon.js"></script>
-        <script src="scripts/controllers/confirmation-timeout.js"></script>
-        <script src="scripts/controllers/thankyou.js"></script>
-        <script src="scripts/controllers/localism.js"></script>
-        <script src="scripts/services/users.js"></script>
-        <script src="scripts/services/giftcards.js"></script>
-        <script src="scripts/services/locations.js"></script>
-        <script src="scripts/controllers/sentconfirmation.js"></script>
-        <script src="scripts/controllers/signuppanel.js"></script>
-        <script src="scripts/controllers/loginpanel.js"></script>
-        <script src="scripts/controllers/mainpanel.js"></script>
-        <script src="scripts/services/owners.js"></script>
-        <script src="scripts/controllers/createlocation.js"></script>
-        <!-- endbuild -->
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/main.js"></script>
+  <script src="scripts/controllers/bodybg.js"></script>
+  <script src="scripts/controllers/creategiftcard.js"></script>
+  <script src="scripts/directives/touching.js"></script>
+  <script src="scripts/services/occasionservice.js"></script>
+  <script src="scripts/controllers/listgiftcards.js"></script>
+  <script src="scripts/controllers/viewgiftcard.js"></script>
+  <script src="scripts/controllers/merchants.js"></script>
+  <script src="scripts/controllers/enter-amount.js"></script>
+  <script src="scripts/controllers/tilt-screen.js"></script>
+  <script src="scripts/controllers/tricon.js"></script>
+  <script src="scripts/controllers/confirmation-timeout.js"></script>
+  <script src="scripts/controllers/thankyou.js"></script>
+  <script src="scripts/controllers/localism.js"></script>
+  <script src="scripts/services/users.js"></script>
+  <script src="scripts/services/giftcards.js"></script>
+  <script src="scripts/services/locations.js"></script>
+  <script src="scripts/controllers/sentconfirmation.js"></script>
+  <script src="scripts/controllers/signuppanel.js"></script>
+  <script src="scripts/controllers/loginpanel.js"></script>
+  <script src="scripts/controllers/mainpanel.js"></script>
+  <script src="scripts/services/owners.js"></script>
+  <script src="scripts/controllers/createlocation.js"></script>
+  <!-- endbuild -->
 
-        <script src="/scripts/config/env.js"></script>
+  <script src="/scripts/config/env.js"></script>
 
-        <!-- Stripe -->
-        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-        <!-- build:remove:prod -->
-<!-- /build -->
+  <!-- Stripe -->
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <!-- build:remove:prod -->
+  <!-- /build -->
 </body>
+
 </html>
