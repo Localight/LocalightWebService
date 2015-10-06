@@ -41,10 +41,6 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-    //Switch overlay on
-    document.body.style.backgroundImage = "url('../images/auth-bg.png')";
-    document.body.style.backgroundColor = "#316D6B"
-
 		//Our pressed tricon ***
 		$scope.pressedTricon = "";
 

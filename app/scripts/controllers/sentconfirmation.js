@@ -10,16 +10,6 @@
 angular.module('angularLocalightApp')
   .controller('SentconfirmationCtrl', function ($scope, $cookies) {
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
-    //Switch dark overlay off
-    document.body.style.backgroundImage = "url('../images/local-street-bg-blur.png')";
-    document.body.style.backgroundColor = "#4fcfc8"
-
     $scope.getInit = function()
     {
         //Place our cookies in scope variables and then remove the cookies

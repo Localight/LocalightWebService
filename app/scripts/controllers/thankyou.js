@@ -22,15 +22,6 @@ angular.module('angularLocalightApp')
             }
         }, false);
 
-        //Switch dark overlay off
-        document.body.style.backgroundImage = "url('../images/local-street-bg-blur.png')";
-        document.body.style.backgroundColor = "#4fcfc8"
-
-        //Make the background blurred
-        setTimeout(function () {
-            document.getElementById("localStreetNoBlur").className = "localStreet blur";
-        }, 750);
-
           //giftcards list
           $scope.giftcards;
 

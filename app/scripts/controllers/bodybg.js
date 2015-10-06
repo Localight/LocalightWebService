@@ -12,7 +12,7 @@ angular.module('angularLocalightApp')
 
       //Fucntion to find the active page
       $scope.isDark = function(route) {
-          return route === $location.path();
+          return ($location.path().indexOf(route) > -1);
     }
 
   });
