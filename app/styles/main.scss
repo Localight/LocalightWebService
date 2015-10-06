@@ -537,7 +537,10 @@ label.inputlabel {
     float: right;
     color: $inverseStandard;
     padding: 5px;
-    font-size: 1.4em;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 15px;
+    font-size: 1.25em;
     border-radius: 5px;
     border: 1px solid $inverseStandard;
 }
@@ -750,24 +753,83 @@ label.inputlabel {
 }
 
 /* DialPad Buttons */
+.enteredAmount {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 15px;
+}
+
+.amountText {
+    font-size: 1.5em;
+    color: $inverseStandard;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.payText {
+    font-size: 1.3em;
+    vertical-align: text-bottom;
+    color: $darkOverlay;
+    display: inline;
+    padding-left: 10px;
+}
+
+.payArrow {
+    display: inline;
+    vertical-align: text-bottom;
+}
+
+.amountWarning {
+    @extend .center;
+    color: $danger;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.dialSheet {
+    background-image: url(../images/auth-aqua-sheet.png);
+    background-size: 1000px;
+}
+
+.dialBack {
+    @extend .center;
+    padding-top: 5%;
+}
+
+.dialBackText {
+    color: $danger;
+    padding-left: 10px;
+    display: inline;
+    vertical-align: sub;
+    font-size: 1.3em;
+}
+
+.dialBackSpace {
+    padding-top: 20%;
+}
+
+.localightLogoBottom {
+    @extend .center;
+    margin-top: 10px;
+}
 
 .dialPad {
     border-collapse: separate;
     border-spacing: 10px;
 }
 
-@media (max-width: 340px) {
-    .dialPad {
-        border-spacing: 0px !important;
-    }
-}
-
 .dialButton {
     transition: none;
     background-repeat: no-repeat;
-    background-size: contain;
     height: 100px;
     width: 100px;
+}
+
+@media (max-width: 340px) {
+    .dialPad {
+        border-spacing: 0px;
+    }
 }
 
 .buttonDel {
@@ -778,12 +840,54 @@ label.inputlabel {
     width: 75px;
 }
 
-.triconButton {
-    transition: none;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
+//Tricon page
+.triconStar {
+    @extend .center;
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconError {
+    @extend .center;
+
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconSheet {
+    background-image: url(../images/eatery-tricons-aqua-filled.png);
+    background-size: 897px;
+}
+
+@media (max-width: 320px) {
+    .dialButton {
+        height: 75px;
+        width: 75px;
+    }
+    .dialSheet {
+        background-size: 750px;
+    }
+    .dialBackText {
+        color: $danger;
+        padding-left: 5px;
+        display: inline;
+        vertical-align: sub;
+        font-size: 1.15em;
+    }
+    .buttonDel {
+        background-image: url("../images/auth-delete-btn-aqua.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 44px;
+        width: 56px;
+    }
+    .triconSheet {
+        background-size: 672.75px;
+    }
+    .triconStar {
+        padding: 0px;
+        margin: 0px;
+    }
 }
 
 /* End Dialad Buttons */
@@ -1021,68 +1125,6 @@ label.inputlabel {
     font-weight: 300 !important;
 }
 
-/*Enter amount page */
-.enteredAmount {
-    text-align: right;
-    padding-right: 10px;
-    padding-top: 15px;
-}
-
-.amountText {
-    font-size: 1.5em;
-    color: $inverseStandard;
-    padding-left: 10px;
-    padding-top: 10px;
-}
-
-.payText {
-    font-size: 1.3em;
-    vertical-align: text-bottom;
-    color: $darkOverlay;
-    display: inline;
-    padding-left: 10px;
-}
-
-.payArrow {
-    display: inline;
-    vertical-align: text-bottom;
-}
-
-.amountWarning {
-    @extend .center;
-    color: $danger;
-    padding-right: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.dialSheet {
-    background-image: url(../images/auth-aqua-sheet.png);
-    background-size: 1000px;
-}
-
-.dialBack {
-    @extend .center;
-    padding-top: 5%;
-}
-
-.dialBackText {
-    color: $danger;
-    padding-left: 10px;
-    display: inline;
-    vertical-align: sub;
-    font-size: 1.3em;
-}
-
-.dialBackSpace {
-    padding-top: 20%;
-}
-
-.localightLogoBottom {
-    @extend .center;
-    margin-top: 10px;
-}
-
 /*merchants page */
 .merchantBackText {
     @extend .navText;
@@ -1098,25 +1140,6 @@ label.inputlabel {
     @extend .center;
     padding-left: 10px;
     padding-right:10px;
-}
-
-//Tricon page
-.triconStar {
-    @extend .center;
-    color: $inverseStandard;
-    padding: 10px;
-}
-
-.triconError {
-    @extend .center;
-
-    color: $inverseStandard;
-    padding: 10px;
-}
-
-.triconSheet {
-    background-image: url(../images/eatery-tricons-aqua-filled.png);
-    background-size: 897px;
 }
 
 //View giftcard
@@ -1135,6 +1158,34 @@ label.inputlabel {
 
     padding-bottom: 30%;
     margin-top: 40%;
+}
+
+.giftSection {
+    @extend .whiteText;
+
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.spentFooter {
+    @extend .whiteText;
+
+    padding-left: 2px;
+    font-size: .85em;
+    opacity: .5;
+}
+
+.fromTextSpent {
+    @extend .fromText;
+
+    opacity: .5;
+}
+
+.giftlistAmountSpent {
+    @extend .giftlistAmount;
+
+    opacity: .5;
 }
 
 

@@ -25,7 +25,7 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/giftcards/create/:token', {
+      .when('/giftcards/create', {
         templateUrl: 'views/creategiftcard.html',
         controller: 'CreategiftcardCtrl',
         controllerAs: 'createGiftcard'

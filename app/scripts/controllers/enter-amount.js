@@ -81,6 +81,21 @@ angular.module('angularLocalightApp')
 				[7,8,9]
 		];
 
+        if(window.innerWidth <= 320){
+            $scope.tableLayout = [
+    				[.75,1.5,2.25],
+    				[3,3.75,4.5],
+    				[5.25,6,6.75]
+    		];
+        }
+
+        //Tricon values
+        $scope.tableValues = [
+				[1,2,3],
+				[4,5,6],
+				[7,8,9]
+		];
+
         //Initialize scope.giftcards
 		$scope.giftcards = null;
 
@@ -137,7 +152,13 @@ angular.module('angularLocalightApp')
 			$scope.pressed = i;
 
 			//Set clicked button styling
-			event.currentTarget.style.backgroundPositionY = '-100px';
+            var offset;
+            if(window.innerWidth <= 320){
+                offset = '-75px';
+            } else {
+                offset = '-100px';
+            }
+            event.currentTarget.style.backgroundPositionY = offset;
 
 			//Ignore values that are negative one, since thye simply disable our selectors
 			//Also checking for the number of digits

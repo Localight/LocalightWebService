@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('LocalismCtrl', function ($scope, $cookies, $window) {
+  .controller('LocalismCtrl', function ($scope, $cookies, $window, Giftcards) {
 
         this.awesomeThings = [
           'HTML5 Boilerplate',
@@ -74,13 +74,13 @@ angular.module('angularLocalightApp')
             });
 		}
 
-		$scope.totalValue = function()
+        $scope.totalValue = function()
 		{
 			//Get the total value of all the giftcards
 			var total = 0;
 			for(var i = 0; i < $scope.giftcards.length; ++i)
 			{
-				total = total + parseInt($scope.giftcards[i].amt, 10);
+				total = total + parseInt($scope.giftcards[i].amount, 10);
 			}
 
 			//Return the total value as a formatted string

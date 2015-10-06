@@ -50,14 +50,21 @@ angular.module('angularLocalightApp')
         $scope.backendError = false;
         $scope.backendRes = "";
 
-        //Store session token from url
+        //Get the session token
         var sessionToken;
 
-        if($routeParams.token)
+        if($location.search().token)
         {
-            //put our session token in our cookies
-            sessionToken = $routeParams.token;
-            $cookies.put("sessionToken", sessionToken)
+            //get our session token
+            sessionToken = $location.search().token;
+
+            //Place the session token in the cookies
+            $cookies.put("sessionToken", sessionToken);
+        }
+        else if($cookies.get("sessionToken"))
+        {
+            //get our session token from the cookies
+            sessionToken = $cookies.get("sessionToken");
         }
         else {
             //Redirect them to a 404
@@ -161,6 +168,9 @@ angular.module('angularLocalightApp')
                 frontCard.className = frontCard.className + " flipped";
                 backCard.className = backCard.className + " flipped";
             }, 500);
+
+            //Try and scroll to the card again, in case iPhone pushed it away
+            $scope.scrollToElement("cardCodeStrip");
         };
 
         $scope.setAmount = function(amount) {
@@ -196,7 +206,7 @@ angular.module('angularLocalightApp')
             //Grab our element
             var element = $window.document.getElementById(id);
             //get our element length
-            var len = element.value.toString().length + 1;
+            var len = element.value.toString().length;
             //get the max length we assigned to it
             var max = element.maxLength;
 
@@ -212,7 +222,8 @@ angular.module('angularLocalightApp')
                 }, 20);
 
                 //Scroll to the requested element
-                $scope.scrollToElement(scrollId);
+                //Now done by the flip card
+                //$scope.scrollToElement(scrollId);
 
                 //And set the active field to the occasions
                 $scope.setActiveField(activeId);

@@ -19,6 +19,9 @@ angular.module('angularLocalightApp')
         //Boolean for alert
         $scope.rotateAlert = false;
 
+        //Boolean if the giftcard can e spent
+        $scope.isValid;
+
         //Check for device orientation
         $window.addEventListener("orientationchange", function() {
             if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
@@ -86,12 +89,18 @@ angular.module('angularLocalightApp')
             $scope.giftcard = GiftcardById.get(getJson, function(response)
             {
                 //Error checking should be done in next block
+
+                //check if it was spent
+                if($scope.giftcard.amount < 1)
+                {
+                    $scope.isValid = false;
+                }
             },
             //check for a 500
             function(response)
             {
                 //Check for unauthorized
-                if(response.status == 401)
+                if(response.status == 401 || response.status == 500)
                 {
                     //Bad session
                     //Redirect them to a 404
@@ -109,13 +118,6 @@ angular.module('angularLocalightApp')
 		{
 			//Return the total value as a formatted string
 			return (parseInt($scope.giftcard.amount) / 100).toFixed(2);
-		}
-
-		//function to fomat a giftcard value for us
-		$scope.giftValue = function(amt)
-		{
-			//Return the total value as a formatted string
-			return (parseInt(amt) / 100).toFixed(2);
 		}
 
 		//Array of occasion Icons, simply a link to their icon
