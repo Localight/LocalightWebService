@@ -8,10 +8,11 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('BodybgCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('BodybgCtrl', function ($scope) {
+
+      //Simply switch the variable value
+      $scope.switchBackground = function() {
+
+      }
+
   });
