@@ -14,7 +14,10 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="angularLocalightApp" ng-controller = "BodybgCtrl" ng-class = "{darkBlurBodyBg: darkBody}">
+  <body ng-app="angularLocalightApp" ng-controller = "BodyCtrl" ng-class = "{darkBlurBodyBg: isDark('/merchants/:merchantId/amount')
+  || isDark('/merchants/:merchantId/tilt')
+  || isDark('/merchants/:merchantId/tricon')
+  || isDark('/merchants/:merchantId/confirmation')}">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->

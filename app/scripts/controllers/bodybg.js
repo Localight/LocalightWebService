@@ -8,11 +8,11 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('BodybgCtrl', function ($scope) {
+  .controller('BodyCtrl', function ($scope, $location) {
 
-      //Simply switch the variable value
-      $scope.switchBackground = function() {
-          $scope.darkBody = !$scope.darkBody;
-      }
+      //Fucntion to find the active page
+      $scope.isDark = function(route) {
+          return route === $location.path();
+    }
 
   });
