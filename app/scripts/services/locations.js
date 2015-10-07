@@ -10,7 +10,7 @@
 
 //Get all the giftcards, or creat one
 angular.module('angularLocalightApp')
-  .service('Locations', 'ENV', function($resource, ENV) {
+  .service('Locations', ['$resource', 'ENV', function($resource, ENV) {
 
     return $resource(ENV.API_BASE + '/locations', {}, {
       create: {
@@ -24,7 +24,7 @@ angular.module('angularLocalightApp')
         isArray: true
       }
     });
-  });
+}]);
 
 //Location By Id
 angular.module('angularLocalightApp')
@@ -42,9 +42,9 @@ angular.module('angularLocalightApp')
 
 //Spending a Giftcard
 angular.module('angularLocalightApp')
-  .factory('Spend', ['$resource', function($resource) {
+  .factory('Spend', ['$resource', 'ENV', function($resource, ENV) {
 
-    return $resource(window.location.protocol + "//" + window.location.hostname + ':3000/locations/:id/spend', {
+    return $resource(ENV.API_BASE + '/locations/:id/spend', {
       id: '@id'
     }, {
       spendGiftcard: {
