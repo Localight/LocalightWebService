@@ -469,6 +469,17 @@ module.exports = function(grunt) {
             API_BASE: 'http://srv.julianjp.com:3000'
           }
         }
+      },
+      // Development production environment targets
+      distribution: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/config/env.js'
+        },
+        constants: {
+          ENV: {
+            API_BASE: 'http://srv.julianjp.com:3000'
+          }
+        }
       }
     }
   });
@@ -536,7 +547,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'ngconstant:production',
+    'ngconstant:distribution',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
