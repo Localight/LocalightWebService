@@ -7,50 +7,47 @@
  * # Users
  * Service in the angularLocalightApp.
  */
- angular.module('angularLocalightApp')
- .factory('Users', ['$resource', function($resource) {
+angular.module('angularLocalightApp')
+  .factory('Users', ['$resource', 'ENV', function($resource, ENV) {
 
- return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users',
-     { }, {
-         get: {
-             method: 'GET',
-             params: {},
-             isArray: false
-         },
-         update: {
-             method: 'PUT',
-             params: {},
-             isArray: false
-         }
+    return $resource(ENV.API_BASE + '/users', {}, {
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: false
+      },
+      update: {
+        method: 'PUT',
+        params: {},
+        isArray: false
+      }
 
 
-     } );
- }]);
+    });
+  }]);
 
 angular.module('angularLocalightApp')
-.factory('Login', ['$resource', function($resource) {
+  .factory('Login', ['$resource', 'ENV', function($resource, ENV) {
 
-return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users/login',
-    { }, {
-        submit: {
-            method: 'POST',
-            params: {},
-            isArray: false
-        }
+    return $resource(ENV.API_BASE + '/users/login', {}, {
+      submit: {
+        method: 'POST',
+        params: {},
+        isArray: false
+      }
 
-    } );
-}]);
+    });
+  }]);
 
 angular.module('angularLocalightApp')
-.factory('Join', ['$resource', function($resource) {
+  .factory('Join', ['$resource', 'ENV', function($resource, ENV) {
 
-return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/users/join',
-    { }, {
-        submit: {
-            method: 'POST',
-            params: {},
-            isArray: false
-        }
+    return $resource(ENV.API_BASE + '/users/join', {}, {
+      submit: {
+        method: 'POST',
+        params: {},
+        isArray: false
+      }
 
-    } );
-}]);
+    });
+  }]);
