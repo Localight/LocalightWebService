@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, $window) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, $window, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,72 +16,99 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean for alert
-    $scope.rotateAlert = false;
+        //Boolean for alert
+        $scope.rotateAlert = false;
 
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
+        //Boolean if the giftcard can e spent
+        $scope.isValid;
 
-    //Switch overlay off
-      	document.getElementById('darkerOverlay').style.display = "none";
+        //Check for device orientation
+        $window.addEventListener("orientationchange", function() {
+            if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+            {
+                $scope.rotateAlert = true;
+                alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+            }
+        }, false);
 
 		//Initialize scope.giftcards
 		$scope.giftcard;
 
-        //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
-
         //Get our giftcard id from the route params
         var giftcardId = $routeParams.giftcardId;
 
+        //Get the session token
+        var sessionToken;
+
+        if($location.search().token)
+        {
+            //get our session token
+            sessionToken = $location.search().token;
+
+            //Place the session token in the cookies
+            $cookies.put("sessionToken", sessionToken);
+        }
+        else if($cookies.get("sessionToken"))
+        {
+            //get our session token from the cookies
+            sessionToken = $cookies.get("sessionToken");
+        }
+        else {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
+
 		//Src to our merchant imgaes
-		$scope.merchantImages =
+		$scope.merchants =
 		[
-			"../images/dolys-delectables-crop.jpg",
-			""
+            {
+                "name": "MADE In Long Beach",
+                "image": "../images/feature-card-made.jpg"
+            }
 		]
 
-		// Find the giftcard
+        // Find a list of Giftcards
 		$scope.getGiftcards = function() {
-            //Get our giftcards from the user
+			//Get our giftcards from the user
             //First set up some JSON for the session token
             var getJson = {
                 "id" : giftcardId,
-                "sessionToken" : $scope.sessionToken
+                "sessionToken" : sessionToken
             }
 
-            $scope.giftcard = GiftcardById.get(getJson, function(){
-                //Check for errors
-                if($scope.giftcard.errorid)
+            //Query the backend using out session token
+            $scope.giftcard = GiftcardById.get(getJson, function(response)
+            {
+                //Error checking should be done in next block
+
+                //check if it was spent
+                if($scope.giftcard.amount < 1)
                 {
-                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
-                    return;
+                    $scope.isValid = false;
+                }
+            },
+            //check for a 500
+            function(response)
+            {
+                //Check for unauthorized
+                if(response.status == 401 || response.status == 500)
+                {
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
                 }
                 else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
+                    //log the status
+                    console.log("Status:" + response.status);
                 }
+                return;
             });
-
 		}
 
 		$scope.totalValue = function()
 		{
 			//Return the total value as a formatted string
 			return (parseInt($scope.giftcard.amount) / 100).toFixed(2);
-		}
-
-		//function to fomat a giftcard value for us
-		$scope.giftValue = function(amt)
-		{
-			//Return the total value as a formatted string
-			return (parseInt(amt) / 100).toFixed(2);
 		}
 
 		//Array of occasion Icons, simply a link to their icon
@@ -108,38 +135,4 @@ angular.module('angularLocalightApp')
 			//Wedding
 			"../images/occasion-wedding-icon-wht.png"
 		]
-
-        $scope.merchantsArray = [{
-    		area: "4th Street Retro Row",
-    		name: "Goldies On 4th",
-    		id: 0,
-    		address: "2106 E 4th St, Long Beach, CA"
-    	},{
-    		area: "4th Street Retro Row",
-    		name: "Aji Peruvian Cuisine",
-    		id: 1,
-    		address: "2308 E 4th St, Long Beach, CA"
-    	},{
-    		area: "4th Street Retro Row",
-    		name: "P3 Artisan Pizza",
-    		id: 2,
-    		address: "2306 E 4th St, Long Beach, CA"
-    	},{
-    		area: "4th Street Retro Row",
-    		name: "The Social List",
-    		id: 3,
-    		address: "2105 E 4th St, Long Beach, CA"
-    	},{
-    		area: "4th Street Retro Row",
-    		name: "Lola's",
-    		id: 4,
-    		address: "2030 E 4th St, Long Beach, CA"
-    	},{
-    		area: "4th Street Retro Row",
-    		name: "Portfolio's Coffee",
-    		id: 5,
-    		address: "2300 E 4th St, Long Beach, CA"
-    	}];
-
-
   });

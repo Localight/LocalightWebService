@@ -1,16 +1,20 @@
 <div class="container-fluid wrapper" ng-init="getGiftcards()">
 
-  <div ng-class="{giftToUseItSections: merchantList }" style="-webkit-transition: all 1.5s ease-in-out;">
-
-    <!-- header section with give option, clique logo and available balance -->
-    <table class = "sub-header">
-       <tr>
-           <td class="paddingLeft"><a class="blackText navText" ng-href="/#/giftcards/create/{{sessionToken}}">
-               <img class = "imagePaddingRight" ng-src="../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
-               Give</a></td>
-           <td class="textRightAlign paddingRight blackText navText">${{totalValue()}}</td>
-       <tr>
-   </table>
+      <!-- header section with give option, clique logo and available balance -->
+      <table class = "sub-header">
+         <tr>
+             <td style = "width: 33%;">
+                 <a href = "#/giftcards">
+                    <span class="glyphicon glyphicon-menu-left" style = "color: black; font-size: 25px;vertical-align:middle" aria-hidden="true"></span>
+                     <p class = "viewBackText">Back</p>
+                 </a>
+             </td>
+             <td class = "paddingLeft paddingRight center">
+                 <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+             </td>
+             <td class = "textRightAlign blackText navText" style = "width: 33%;"></td>
+         <tr>
+     </table>
 
 
 
@@ -18,47 +22,50 @@
     <div class="giftcardContainer center" style = "max-width:500px;">
 
        <!-- Occasion Icon -->
-       <img style = "float: left; margin-top: 10px" ng-src = "{{icons[giftcard.iconId]}}" width= "45px" height = "45px">
+       <img style = "float: left; margin-top: 0px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">
 
        <!-- div for our text -->
-       <div style = "padding-left: 55px">
+       <div style = "padding-left: 45px">
           <!-- personal message -->
-          <h4 class = "occasionMessage whiteText">{{giftcard.message}}</h4>
+          <div class = "occasionMessage whiteText" style = "margin-top: 0px; font-size: 1.15em;text-align: left;">{{giftcard.message}}</div>
 
           <!-- From -->
-          <h3 class = "textRightAlign heart whiteText">~ {{giftcard.fromId.name}}</h3>
+          <h3 class = "textRightAlign heart whiteText" style = "font-size: 1.75em; padding-right: 10px; margin-top: 0px">~ {{giftcard.fromId.name}}</h3>
       </div>
 
       <!-- gift card image -->
-      <img class = "center semiTransparentBGRounded" ng-src="{{merchantImages[0]}}" alt="Merchant Image" height="50%" width="100%" style = "max-width:400px;">
+      <img class = "center semiTransparentBGRounded" ng-src="{{merchants[0].image}}" alt="Merchant Image" height="50%" width="100%" style = "max-width:400px;border-radius: 4px">
 
     </div>
+    <!-- check if already spent -->
+    <div ng-if = "!isValid">
 
-    <!-- amount to use at which merchant section -->
-    <div class="text-center merchantInfo blackText">
-      <h4 class="center" id="useAmount">Use this ${{giftValue(giftcard.amount)}} gift at</p>
-      <h2 class="center">Doly's Delectables</p>
-    </div>
+        <!-- amount to use at which merchant section -->
+        <div class="text-center merchantInfo blackText">
+          <h4 class="center" id="useAmount" style = "margin-top: 20px; margin-bottom: 0px; font-size: 1.15em">Use this ${{giftcard.origAmount / 100}} gift at</h4>
+          <h2 class="center" style = "margin-top: 0px;font-weight: 400;margin-bottom: 20px">{{merchants[0].name}}</h2>
+        </div>
 
-      <!-- use it now/later section -->
-      <div class="giftcardButtonContainer">
-          <a class="giftcardButtonSave" href="#/giftcards">Save For Later</a>
-          <a class="giftcardButtonUse" href="#/merchants">Use It Now</a>
+          <!-- use it now/later section -->
+          <div class="giftcardButtonContainer">
+              <a class="giftcardButtonSave" href="#/giftcards">Save For Later</a>
+              <a class="giftcardButtonUse" href="#/merchants">Use It Now</a>
+          </div>
+
+      <!-- for beta -->
+      <div class="col-xs-12 text-center nearbyMerchant">
+        <h4 class = "blackText">Or select from a list of local merchants</h4>
+      </div>
+      <div class=""></div>
+      <div class="col-xs-4 merchantArrow" ng-click="showMerchantList()"></div>
+      <div class="col-xs-4"></div>
+
+      <div class="col-xs-12 merchantList">
+        <div class="district" ng-repeat="location in locations">
+          {{location.location}}
+          <div class="shop center blackText" ng-repeat="merchant in merchantsArray">{{merchant.name}}</div>
       </div>
 
-  </div>
-  <!-- for beta -->
-  <div class="col-xs-12 text-center nearbyMerchant">
-    <h4 class = "blackText">Or use it at one of many local merchants</h4>
-  </div>
-  <div class=""></div>
-  <div class="col-xs-4 merchantArrow" ng-click="showMerchantList()"></div>
-  <div class="col-xs-4"></div>
-
-  <div class="col-xs-12 merchantList">
-    <div class="district" ng-repeat="location in locations">
-      {{location.location}}
-      <div class="shop center blackText" ng-repeat="merchant in merchantsArray">{{merchant.name}}</div>
   </div>
 
 </div>

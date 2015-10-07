@@ -28,11 +28,18 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-        //Switch overlay on
-		document.getElementById('darkerOverlay').style.display = "block";
-
         //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken;
+
+        if($cookies.get("sessionToken"))
+        {
+            $scope.sessionToken = $cookies.get("sessionToken");
+        }
+        else
+        {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
 
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
@@ -70,29 +77,54 @@ angular.module('angularLocalightApp')
 				[7,8,9]
 		];
 
-        // Find a list of Giftcards from the DB
-        $scope.getGiftcards = function() {
-            //Get our giftcards from the user
+        if(window.innerWidth <= 320){
+            $scope.tableLayout = [
+    				[.75,1.5,2.25],
+    				[3,3.75,4.5],
+    				[5.25,6,6.75]
+    		];
+        }
+
+        //Tricon values
+        $scope.tableValues = [
+				[1,2,3],
+				[4,5,6],
+				[7,8,9]
+		];
+
+        //Initialize scope.giftcards
+		$scope.giftcards = null;
+
+        // Find a list of Giftcards
+		$scope.getGiftcards = function() {
+			//Get our giftcards from the user
             //First set up some JSON for the session token
             var getJson = {
                 "sessionToken" : $scope.sessionToken
             }
 
             //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function()
+            $scope.giftcards = Giftcards.get(getJson, function(response)
             {
-                //Check for errors
-                if($scope.giftcards.errorid)
+                //Error checking should be done in next block
+            },
+            //check for a 500
+            function(response)
+            {
+                //Check for unauthorized
+                if(response.status == 401)
                 {
-                    console.log($scope.giftcards.errorid + ": " + $scope.giftcards.msg);
-                    return;
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
                 }
                 else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
+                    //log the status
+                    console.log("Status:" + response.status);
                 }
+                return;
             });
-        }
+		}
 
 		$scope.totalValue = function()
 		{
@@ -116,7 +148,13 @@ angular.module('angularLocalightApp')
 			$scope.pressed = i;
 
 			//Set clicked button styling
-			event.currentTarget.style.backgroundPositionY = '-100px';
+            var offset;
+            if(window.innerWidth <= 320){
+                offset = '-75px';
+            } else {
+                offset = '-100px';
+            }
+            event.currentTarget.style.backgroundPositionY = offset;
 
 			//Ignore values that are negative one, since thye simply disable our selectors
 			//Also checking for the number of digits

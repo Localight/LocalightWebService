@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, $window) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, $window, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,23 +16,34 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean for alert
-    $scope.rotateAlert = false;
+        //Boolean for alert
+        $scope.rotateAlert = false;
 
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
+        //Boolean for if we have spent Giftcards
+        $scope.spentGifts;
 
-        //Switch overlay off
-		document.getElementById('darkerOverlay').style.display = "none";
+        //Check for device orientation
+        $window.addEventListener("orientationchange", function() {
+            if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+            {
+                $scope.rotateAlert = true;
+                alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+            }
+        }, false);
 
         //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
+        $scope.sessionToken;
+
+        if($cookies.get("sessionToken"))
+        {
+            $scope.sessionToken = $cookies.get("sessionToken");
+        }
+        else
+        {
+            //Redirect them to a 404
+            $location.path("#/");
+        }
+
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
@@ -45,18 +56,37 @@ angular.module('angularLocalightApp')
             }
 
             //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function()
+            $scope.giftcards = Giftcards.get(getJson, function(response)
             {
-                //Check for errors
-                if($scope.giftcards.errorid)
+                //Error checking should be done in next block
+
+                //And since everthign went good, check if we have spent giftcards.
+                for(var i = 0; i < $scope.giftcards.length; i++)
                 {
-                    console.log("Error #" + $scope.giftcards.errorid + ": " + $scope.giftcards.msg);
-                    return;
+                    if($scope.giftcards[i].amount < 1)
+                    {
+                        $scope.spentGifts = true;
+                        return;
+                    }
+                }
+
+                //No giftcard is spent
+            },
+            //check for a 500
+            function(response)
+            {
+                //Check for unauthorized
+                if(response.status == 401)
+                {
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
                 }
                 else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
+                    //log the status
+                    console.log("Status:" + response.status);
                 }
+                return;
             });
 		}
 
@@ -71,13 +101,6 @@ angular.module('angularLocalightApp')
 
 			//Return the total value as a formatted string
 			return (parseInt(total) / 100).toFixed(2);
-		}
-
-		//function to fomat a giftcard value for us
-		$scope.giftValue = function(amount)
-		{
-			//Return the total value as a formatted string
-			return (parseInt(amount) / 100).toFixed(2);
 		}
 
 		//Array of occasion Icons, simply a link to their icon
@@ -105,6 +128,18 @@ angular.module('angularLocalightApp')
 			"/../images/occasion-wedding-icon-wht.png"
 		]
 
+        //function to return if a giftcard is spent
+        $scope.isSpent = function(giftcard)
+        {
+            return !(giftcard.amount > 0);
+        }
+
+        //function to return if a giftcard is not spent
+        //Angular filters cannot be done in reverse
+        $scope.isNotSpent = function(giftcard)
+        {
+            return (giftcard.amount > 0);
+        }
 
         //Function to go to another url, if giftcards is not zero
 		$scope.goTo = function(place)

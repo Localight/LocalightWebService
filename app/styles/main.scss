@@ -3,136 +3,94 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
+/******
+    Imports
+******/
+
+    //Import the colors
+    @import 'colors';
+
+    //Import our variables
+    @import 'variables';
+
+    //Import the font families
+    @import 'fonts';
+
+    //Import the default yeoman sass
+    @import 'yeomanstyles';
+
+    //Import Bootstrap CSS changes
+    @import 'bootstrapchanges';
+
+
+/******
+    END Imports
+*******/
 
 body {
-  padding: 0;
+    background-repeat: no-repeat;
+    background-image: url('../images/local-street-bg-blur.png');
+    background-position: bottom;
+    background-color: $colorBg;
+    background-size: cover;
+    z-index: -4;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.darkBlurBodyBg {
+    background-image: url('../images/auth-bg.png');
+    background-color: $authBg;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
-
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-
-  p + h4 {
-    margin-top: 28px;
-  }
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
-}
-
-
-
-/*
-    THE ORIGINAL CSS
-    ----------------
-    ----------------
-    ----------------
-*/
-
-
-@font-face {
-    font-family: 'always_in_my_heartregular';
-    src: url('../fonts/always_in_my_heart-webfont.eot');
-    src: url('../fonts/always_in_my_heart-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/always_in_my_heart-webfont.woff') format('woff'),
-         url('../fonts/always_in_my_heart-webfont.ttf') format('truetype'),
-         url('../fonts/always_in_my_heart-webfont.svg#always_in_my_heartregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'profontwindowsregular';
-    src: url('../fonts/ProFontWindows-webfont.eot');
-    src: url('../fonts/ProFontWindows-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/ProFontWindows-webfont.woff') format('woff'),
-         url('../fonts/ProFontWindows-webfont.ttf') format('truetype'),
-         url('../fonts/ProFontWindows-webfont.svg#profontwindowsregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-body {
-  font-family: 'helvetica','sans-serif','arial';
-  background-color: #58e6df;
+body, html {
+  font-family: $familyStandard;
+  background-color: $colorBg;
   padding: 0px;
   margin: 0px;
-  height: 100%;
+
 }
 
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+html, body, .container, .fn-app {
+    height: 100% !important;
+    overflow: hidden !important;
+    padding: 0px !important;
+}
+
+.container{
+    position:relative !important;
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+         -moz-animation: fadein 2s; /* Firefox < 16 */
+          -ms-animation: fadein 2s; /* Internet Explorer */
+           -o-animation: fadein 2s; /* Opera < 12.1 */
+              animation: fadein 2s;
+}
+
+.finalContent {
+    overflow:scroll;
+    overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    height: 100%;
+}
+
+
+
 /* General Styles */
-.hide {
-  display: none;
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content}
+  &:-moz-placeholder           {@content}
+  &::-moz-placeholder          {@content}
+  &:-ms-input-placeholder      {@content}
 }
 
 *:focus {
@@ -140,49 +98,88 @@ body {
 }
 
 .roundWhiteBorder {
-  border: 2px solid white;
+  border: 2px solid $inverseStandard;
   border-radius: 7px;
 }
 
-.marginBottom {
-  margin-bottom: 1.5% !important;
+textarea {
+    border: 0;
+    background-color: transparent;
+    background-image: none; /* remove inset gradient on Firefox mobile */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
 }
 
-input, textarea {
-  border: 0;
-  background-color: transparent;
-  background-image: none; /* remove inset gradient on Firefox mobile */
+input {
+    @extend textarea;
+
+    @include placeholder {
+        color: $standard;
+        -webkit-transition: color linear 0.15s;
+        transition: color linear 0.15s;
+    }
+
+    &:focus {
+        @include placeholder {
+            color: $placeHolder;
+            -webkit-transition: color linear 0.15s;
+            transition: color linear 0.15s;
+        }
+    }
 }
 
 .currentInput {
-  -webkit-transition:all linear 0.25s;
-  transition:all linear 0.25s;
+  -webkit-transition: background-color linear 0.25s;
+  transition: background-color linear 0.25s;
   border-radius: 7px !important;
   opacity: 1 !important;
+
+  &.ng-hide {
+      display: none !important;
+  }
+
+  &.createTo {
+      margin-bottom: 10px;
+  }
+
+  &.createAmount {
+      padding-top: 3px;
+  }
+
+  &.datePicker {
+      font-size: 2em
+  }
+
 }
 
-.currentInput.ng-hide {
-    display: none !important;
+.currentInputNoBorder {
+  -webkit-transition: background-color linear 0.25s;
+  transition: background-color linear 0.25s;
+  opacity: 1 !important;
+
+  &.ng-hide {
+      display: none !important;
+  }
+
 }
 
 .waterfall {
-  -webkit-transition:all linear 0.25s;
-  transition:all linear 0.25s;
+  -webkit-transition: opacoty linear 0.25s;
+  transition: opacity linear 0.25s;
   opacity: 1 !important;
-}
 
-.waterfall.ng-hide {
-    opacity: 0 !important;
+  &.ng-hide {
+      opacity: 0 !important;
+  }
+
 }
 
 .nextInput {
   opacity: 0.5;
   border-radius: 7px;
-  background-color: rgba(255,255,255,0.7);
-}
-
-.credit_card_number {
-    padding: 0px !important;
+  background-color: $inverseStandardAlphaDark;
 }
 
 .form-incomplete {
@@ -191,26 +188,20 @@ input, textarea {
     padding-top: 5px;
     padding-bottom: 5px;
     text-align: center;
-    background-color: white;
+    background-color: $inverseStandardAlphaLight;
     border-radius: 7px;
-}
-
-.filledIn {
-  color: black;
-  border-color: transparent;
-  background-color: transparent !important;
 }
 /* End General Styles */
 
 /* Font Styles */
 .heart {
-  font-family: 'always_in_my_heartregular';
+  font-family: $familyFancy;
   font-size: 2.4em;
   padding: 0 1%;
 }
 
 .profont {
-  font-family: 'profontwindowsregular',Courier,serif;
+  font-family: $familyDigital;
   font-size: 2em;
   padding: 0 2%;
 }
@@ -230,25 +221,18 @@ input, textarea {
 .bold {
   font-weight: bold;
 }
-
-.whiteText{
-    color: #e8e9ea;
-}
 /* End Font Styles */
 
 /* Background Image */
 .localStreet {
   position: fixed;
-  bottom: 0px;
   width: 100%;
   height: 400px; /* 60% + 40% (from "top") = 100% of the screen's height*/
   z-index: -2;
   background-size: cover;
   background-position: center top;
-  background-color: #58e6df;
-  transition: opacity 1s ease-out 0s; /* CSS property, duration, timing-function, delay */
-  -o-transition: opacity 1s ease-out 0s;
-  -webkit-transition: opacity 1s ease-out 0s;
+  background-color: $colorBg;
+
 }
 
 @media screen and ( min-height: 1000px ){
@@ -263,20 +247,6 @@ input, textarea {
     }
 }
 
-#localStreetNoBlur {
-  opacity: 1;
-  background-image: url('../images/local-street-bg.png');
-}
-
-#localStreetNoBlur.blur {
-  opacity: 0;
-}
-
-#localStreetBlur {
-  /* background-image: url('images/local-street-low2-blur.png'); */
-  background-image: url('../images/local-street-bg-blur.png');
-}
-
 #darkerOverlay {
     display:none;
     position: fixed;
@@ -286,7 +256,8 @@ input, textarea {
     z-index: -1;
     background-size: cover;
     background-position: center top;
-    background-color: #58e6df; background-image: url('../images/auth-bg.png');
+    background-color: $darkOverlay;
+    background-image: url('../images/auth-bg.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -294,7 +265,13 @@ input, textarea {
 /* Clique Logo */
 .clique_logo {
   margin: 10px auto 5%;
-  width: 40%;
+  height: 73px;
+  max-width: 300px;
+  display: block;
+}
+.clique_logo_wrapper {
+  margin: 10px auto 5%;
+  height: 73px;
   max-width: 300px;
   display: block;
 }
@@ -303,37 +280,11 @@ input, textarea {
 /* Wrapper */
 .wrapper {
   width: 100%;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-/* Removing inherited padding
-.wrapper > div {
-  margin-bottom: 2.5% !important;
-}
-*/
 
 /*--- section styles ---*/
-.checkmark {
-  visibility: hidden;
-  float: right;
-  display: inline-block;
-  position: relative;
-  right: 2%;
-  top: 5%;
-  z-index: 2;
-  width: 10%;
-  max-width: 25px;
-  height: 80%;
-  background-image: url('../images/checkmark-blk.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-
-.filledIn .checkmark {
-  background-image: url('../images/checkmark-wht.png');
-}
-
 label.inputlabel {
   font-size: 1.5em;
   width: 25%;
@@ -361,6 +312,7 @@ label.inputlabel {
 #clique_amt_selection {
   height: 45px !important;
   position: relative;
+  padding-top: 3px;
    overflow: hidden; /* don't show scroll bar */
   text-align: center; /* horizontally center this scrollwindow on the page */
 }
@@ -383,9 +335,9 @@ label.inputlabel {
 }
 
 .price {
-  border: 2px solid black;
+  border: 2px solid $standard;
   border-radius: 5px;
-  color: black;
+  color: $standard;
   font-size: 1.6em;
   display: inline-block;
   padding: 3px 0 0; /* top, left/right, bottom */
@@ -397,9 +349,9 @@ label.inputlabel {
 }
 
 .price.active {
-  background-color: white;
-  border: 2px solid black;
-  color: black;
+  background-color: $inverseStandard;
+  border: 2px solid $standard;
+  color: $standard;
 }
 
 .rightarrow,
@@ -413,11 +365,11 @@ label.inputlabel {
 }
 
 .rightarrow {
-  border-left: 0.8em solid black;
+  border-left: 0.8em solid $standard;
 }
 
 .leftarrow {
-  border-right: 0.8em solid black;
+  border-right: 0.8em solid $standard;
 }
 /* End Amount Selection */
 
@@ -446,9 +398,9 @@ label.inputlabel {
 
   position: absolute;
   top: 0;
-  border: 3px solid white;
+  border: 3px solid $inverseStandard;
   border-radius: 12px;
-  background-color: rgba(255,255,255,0.2); /* translucent background */
+  background-color: $inverseStandardAlphaLight; /* translucent background */
 
   transition: transform 1.5s;
   -webkit-transition: -webkit-transform 1.5s;
@@ -483,8 +435,8 @@ label.inputlabel {
   top: 10%;
 	opacity: 0.8;
 	font-size: 1.6em;
-	color: grey;
-	background-color: white;
+	color: $placeHolder;
+	background-color: $inverseStandard;
 }
 
 #back img {
@@ -518,87 +470,115 @@ label.inputlabel {
   font-size: small;
 }
 
-.flatRowSection{
+.wSection{
     font-weight: 200;
 }
 
 .whiteHeader{
-    color: white;
+    color: $inverseStandard;
     font-weight: 300 !important;
 }
 
 .flatRowListItem {
-    background-color: rgba(0,0,0,0.15) ;
+    background-color: $standardAlphaLight;
     border: none;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
     padding: 5px;
-    border-radius: 0px !important;
-}
+    border-radius: 3px !important;
 
-.flatRowListItem table {
-    width: 100%;
-}
+    table {
+        width: 100%;
+    }
 
-.flatRowListItem .glyphPadding {
-    padding-right: 50px;
-}
+    .glyphAlign {
+        line-height: 50px;
+        text-align: left;
+        padding-right: 0px
+    }
 
-.flatRowListItem h3 {
-    margin: 0px;
-    font-weight: 300 !important;
-}
+    h3 {
+        margin: 0px;
+        font-weight: 300 !important;
+    }
 
-.flatRowListItem .glyphicon {
-    position: absolute;
-    right: 0;
-    padding-top: 5%;
-    padding-right: 5px;
-    font-size: 50px;
+    .glyphicon {
+        position: absolute;
+        right: 0;
+        padding-top: 3.5%;
+        padding-right: 5px;
+        font-size: 50px;
+    }
+
+    &.totalAmount {
+        background-color: rgba(255,255,255,1);
+    }
+
+    .dollarIcon {
+        margin-right: 5px;
+        margin-left: 2px;
+    }
+
+    .dollarGlyphicon {
+        @extend .glyphicon;
+
+        padding-top: 10px;
+        color: $standard;
+        font-size: 40px;
+    }
+
+    .fromText {
+        @extend .heart;
+
+        color: $inverseStandard;
+    }
 }
 
 .giftlistAmount {
     float: right;
-    color: white;
+    color: $inverseStandard;
     padding: 5px;
     font-size: 1.4em;
     border-radius: 5px;
-    border: 1px solid white;
+    border: 1px solid $inverseStandard;
 }
 
 .giftcardContainer {
-    background-color:rgba(37,81,79, 0.75);
+    background-color: $container;
     border-radius: 5px;
     padding: 10px;
-    margin: 15px;
-    color: white;
+    margin: 0px;
+    color: $inverseStandard;
 }
 
 .giftcardButtonContainer {
     text-align: center;
 }
 
-.giftcardButtonSave, .giftcardButtonUse {
+.giftcardButtonSave {
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
   border-radius: 10px;
-  font-size: 20px;
-  background: rgba(0,0,0,0.4);
+  font-size: 5vmin;
+  font-weight: 600;
+  background: $inverseStandard;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
-  color: lightcoral;
+  color: $saveForLater;
   margin-bottom: 10px;
   display: inline-block;
   white-space: pre;
+
+  &:hover {
+      text-decoration: none;
+      color: $placeHolder;
+  }
+
 }
 
 .giftcardButtonUse {
+    @extend .giftcardButtonSave;
     padding: 10px 30px 10px 30px;
-    color: lightseagreen;
-}
-
-.giftcardButtonSave:hover, .giftcardButtonUse:hover {
-  text-decoration: none;
-  color: lightgrey;
+    color: $useItNow;
 }
 /* End Clique Code Styles */
 
@@ -620,7 +600,7 @@ label.inputlabel {
   width: 50%;
   height: 20%;
   float: left;
-  color: black;
+  color: $standard;
   font-size: 1.2em;
   margin-bottom: 2.1%; /* 0.02/0.96 = 0.21 (try to match the padding from the other sides of the ul) */
 }
@@ -647,7 +627,7 @@ label.inputlabel {
   position: relative; /* needed for occCharCount to be positioned properly */
   height: 100%;
   padding: 0.2em 0.5em 1.3em 2%;
-  /* background-color: white; */
+  /* background-color: $inverseStandard; */
 }
 
 #clique_input_occasion {
@@ -661,7 +641,7 @@ label.inputlabel {
 
 #occCharCount {
   position: absolute;
-  color: lightgrey; /* same as #cccccc */
+  color: $placeHolder;
   bottom: 0.3em;
   right: 0.4em;
   white-space: nowrap; /* don't let character count take up more than 1 line */
@@ -670,7 +650,7 @@ label.inputlabel {
 
 /* date picker styles */
 #clique_date_selection {
-  color: black;
+  color: $standard;
   width: 100%;
   text-align: center;
   font-size: 1.75em;
@@ -716,30 +696,18 @@ label.inputlabel {
 .paymentcontainer {
   height: 45px;
   text-align: center;
-  background-color: white;
+
+  input {
+      background-color: transparent;
+      height: 100%;
+  }
+
 }
 
-.paymentcontainer.filledIn input {
-  color: black;
-}
-
-.paymentcontainer input {
-  background-color: transparent;
-  height: 100%;
-}
-
-.checkinput {
-  max-width: 70%;
-}
-
-.expiry {
-  box-sizing: border-box;
-}
 /* end payment styles */
 
-/* Proceed Button Styles */
 .proceed_button {
-  background-color: black;
+  background-color: $standard;
   background-size: auto 60%;
   background-position: 1em 60%;
   background-repeat: no-repeat;
@@ -748,18 +716,18 @@ label.inputlabel {
   width: 100%;
   height: 45px;
   text-align: right;
-  color: #58e6df;
+  color: $darkOverlay;
   font-size: 1.2em;
   padding-right: 1em;
   cursor: pointer;
-}
 
-.proceed_button:disabled {
-  background-color: gray;
-  opacity: 0.6;
-  cursor: default;
+  &:disabled {
+      background-color: $placeHolder;
+      opacity: 0.6;
+      cursor: default;
+  }
+
 }
-/* End Proceed Button Styles */
 
 /* Final Overlay Styles */
 #finalOverlay {
@@ -768,29 +736,16 @@ label.inputlabel {
   width: 100%;
   height: 100%;
   padding: 0;
-  background-color: black;
+  background-color: $standard;
   opacity: 0.5;
   display: table;
   text-align: center;
   transition: opacity 2s;
   -webkit-transition: opacity 2s;
-}
 
-#finalOverlay.complete {
-  opacity: 0.9;
-}
-
-.overlayText {
-	color: #58e6df;
-	font-size: 3em;
-  display: table-cell;
-  vertical-align: middle;
-}
-.well{
-  background: transparent;
-  border: 2px solid white;
-  border-radius: 7px;
-  background-position: center;
+  .complete {
+      opacity: 0.9;
+  }
 
 }
 
@@ -833,26 +788,6 @@ label.inputlabel {
 
 /* End Dialad Buttons */
 
-/* Placeholder text */
-
-::-webkit-input-placeholder {
-   color: black;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   color: black;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   color: black;
-}
-
-:-ms-input-placeholder {
-   color: black;
-}
-
-/* Placeholder text ends */
-
 /* Aaron's Styles */
 
 .notFoundLinkList {
@@ -860,22 +795,7 @@ label.inputlabel {
     padding: 0px;
 }
 
-.listNameHeader {
-    color: #df5241;
-    font-size: 4em;
-    text-align: right;
-    padding-right: 25px;
-}
-
-.backText {
-    font-size: 1.3em;
-}
-
 .inline{
-    display: inline;
-}
-
-.arrowImg {
     display: inline;
 }
 
@@ -888,36 +808,24 @@ label.inputlabel {
     text-align: right;
 }
 
-.occasionMessage{
-    text-align: left;
-}
-
 .whiteText{
-    color: #E9EEF6;
+    color: $inverseStandard;
 }
 
 .blackText{
-    color: #0E0C0F;
-}
-
-.blackText::-webkit-input-placeholder {
-   opacity: .35;
+    color: $standard;
 }
 
 .redText {
-    color: #df5241;
+    color: $danger;
 }
 
 .linkText {
-    color: #56b4af;
+    color: $darkOverlay;
 }
 
 .placeHolderTextStyle {
-    color: lightgrey;
-}
-
-.largerText {
-    font-size: 1.5em;
+    color: $placeHolder;
 }
 
 .center{
@@ -943,6 +851,24 @@ label.inputlabel {
     font-size: .75em;
 }
 
+.navCell {
+    @extend .navText;
+
+    width: 33%;
+    color: $standard;
+
+    a {
+        color: $standard !important;
+        text-decoration: none;
+    }
+}
+
+.navBowTie {
+    text-align: left;
+    width: 25px;
+    height: 15px;
+}
+
 .tiltText {
     padding-left: 25%;
     padding-right: 25%;
@@ -965,30 +891,78 @@ label.inputlabel {
 }
 
 .creditCardIcon {
-  width: 12%;
+  width: 50px;
   max-width: 30px;
+  float: left;
+  margin-top: 12px;
+  margin-left: 5px;
+
+  &.ng-hide {
+      display: block !important;
+      visibility: hidden;
+  }
 }
 
-.creditCardIcon.ng-hide {
-    display: block !important;
-    visibility: hidden;
+.creditCardCheck {
+    @extend .creditCardIcon;
+
+    float: right;
+    margin-top: 6px;
+    margin-right: 5px;
 }
 
 .creditCardNumInput {
-    width: 18%;
+    width: 45px;
+    padding: 0px !important;
     margin-left: 5px;
     font-size: 2.5em;
     font-family: 'profontwindowsregular';
 }
 
+.expiryM {
+    @extend .creditCardNumInput;
+  box-sizing: border-box;
+  width: 30px;
+  line-height: 45px;
+}
+
+.expiryY {
+    @extend .expiryM;
+
+    width: 45px;
+}
+
+.cvv {
+    @extend .expiryM;
+    margin-left: 10px;
+    width: 37px;
+}
+
+.zipCC {
+    @extend .expiryM;
+
+    width: 75px;
+}
+
 .swipeLock {
     width: 71px;
     height: 71px;
-    max-width:100%;
-    max-height:100%;
-    background: url('../images/lock-anim-sprite-wht.png') right center;
-    background-size: cover;
-    animation: play 2.5s steps(15) infinite;
+    background: url('../images/lock-anim-sprite-wht.png') left bottom;
+    background-size: auto 71px;
+    animation: play 2.5s steps(15, end) infinite;
+    transition: none;
+    margin-top:5px;
+
+}
+
+.lockBorder {
+    border-style: solid;
+    border-radius: 45px;
+    border-color: $darkOverlay;
+    width: 90px;
+    height: 90px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 @keyframes play {
@@ -996,35 +970,173 @@ label.inputlabel {
     to { background-position: 2130px; }
 }
 
-textarea {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-
-	width: 100%;
-}
-
-
-/* Overriding Bootstrap css for a more native app look */
-.content {
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    margin: 0;
-    padding: 0;
-}
-
-.container-fluid {
-    margin: 0;
-    padding: 0;
-}
-
-.form-horizontal .form-group
-{
-    margin-right: 0px;
-    margin-left: 0px;
+@-webkit-keyframes play {
+    from { background-position:    0px; }
+    to { background-position: 2130px; }
 }
 
 /* End Aaron's Styles */
+
+//Create giftcard
+.createCode {
+    @extend .currentInput;
+    @extend .waterfall;
+
+    margin-bottom: 1.5%;
+}
+
+.createCodeMessage {
+    @extend .helveticaText;
+    @extend .rightColumn;
+
+    padding-top: 7px;
+    font-size: 5vmin;
+}
+
+//list giftcard page
+.listName {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.listUserName {
+    color: $danger;
+    font-size: 3em;
+    text-align: right;
+    padding-right: 15px;
+    vertical-align: -webkit-baseline-middle;
+    margin-bottom: 0px
+}
+
+.listProfileIcon {
+    height: 29px;
+    width: 41px;
+    opacity: .3;
+}
+
+.listSectionHeader {
+    margin-top: 20px;
+    padding-left: 10px;
+    color: $inverseStandard;
+    font-weight: 300 !important;
+}
+
+/*Enter amount page */
+.enteredAmount {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 15px;
+}
+
+.amountText {
+    font-size: 1.5em;
+    color: $inverseStandard;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.payText {
+    font-size: 1.3em;
+    vertical-align: text-bottom;
+    color: $darkOverlay;
+    display: inline;
+    padding-left: 10px;
+}
+
+.payArrow {
+    display: inline;
+    vertical-align: text-bottom;
+}
+
+.amountWarning {
+    @extend .center;
+    color: $danger;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.dialSheet {
+    background-image: url(../images/auth-aqua-sheet.png);
+    background-size: 1000px;
+}
+
+.dialBack {
+    @extend .center;
+    padding-top: 5%;
+}
+
+.dialBackText {
+    color: $danger;
+    padding-left: 10px;
+    display: inline;
+    vertical-align: sub;
+    font-size: 1.3em;
+}
+
+.dialBackSpace {
+    padding-top: 20%;
+}
+
+.localightLogoBottom {
+    @extend .center;
+    margin-top: 10px;
+}
+
+/*merchants page */
+.merchantBackText {
+    @extend .navText;
+
+    vertical-align: middle;
+    margin-left: -5px;
+    display: inline;
+    color: $standard;
+}
+
+//Recipient redirect
+.redirectText {
+    @extend .center;
+    padding-left: 10px;
+    padding-right:10px;
+}
+
+//Tricon page
+.triconStar {
+    @extend .center;
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconError {
+    @extend .center;
+
+    color: $inverseStandard;
+    padding: 10px;
+}
+
+.triconSheet {
+    background-image: url(../images/eatery-tricons-aqua-filled.png);
+    background-size: 897px;
+}
+
+//View giftcard
+.viewBackText {
+    @extend .navText;
+
+    vertical-align: middle;
+    margin-left: -5px;
+    display: inline;
+    color: $standard;
+}
+
+//Confirmation Timeout
+.confirmationCheckmark {
+    @extend .center;
+
+    padding-bottom: 30%;
+    margin-top: 40%;
+}
+
+
+//Final Import, this for any quick fixes, that should integrated into the main at some point
+@import 'quickfix';

@@ -4,38 +4,71 @@
         <!-- header section with give option, clique logo and available balance -->
         <table class = "sub-header">
             <tr>
-                <td class="paddingLeft"><a class="blackText navText" ng-href="/#/giftcards/create/{{sessionToken}}">
-                    <img class="imagePaddingRight" ng-src="/../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
+                <td class="navCell"><a ng-href="/#/giftcards/create">
+                    <img class = "navBowTie" ng-src="/../images/bowtie.png" alt="Give Icon">
                     Give</a></td>
-                    <td class = "textRightAlign blackText navText paddingRight">${{totalValue()}}</td>
+                    <td class = "paddingLeft paddingRight center">
+                        <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+                    </td>
+                    <td class = "textRightAlign navCell">${{totalValue()}}</td>
                     <tr>
         </table>
 
-        <h1 class="listNameHeader heart">{{giftcards[0].toId.name}}</h1>
-        <h1 class="whiteText paddingLeft whiteHeader">Gifts received</h1>
+        <!-- div for our user -->
+        <div class = "listName">
+            <h1 class="listUserName heart inline">{{giftcards[0].toId.name}}</h1>
+            <img ng-src="/../images/account-icon.png" class = "listProfileIcon" alt="Profile Icon">
+        </div>
+        <h3 class="listSectionHeader">Gifts received</h3>
     </div>
     <div class="list-group flatRowList">
-        <a class="list-group-item flatRowListItem" style="" my-touchstart="goTo('/merchants')">
+        <a class="list-group-item flatRowListItem totalAmount" my-touchstart="goTo('/merchants')">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="heart tableCell glyphPadding">You have a total of {{totalValue()}} to spend.</td>
-                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true">
+                    <td class="tableCell glyphAlign center">
+                        <img class = "dollarIcon" ng-src = "../images/dollar-circle-icon-blk.png" width= "35px" height = "35px">
+                        You have ${{totalValue()}} to spend
+                    </td>
+                    <span class="dollarGlyphicon glyphicon-menu-right" aria-hidden="true">
                 </tr>
             </table>
         </a>
-        <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards" data-ng-href="#/giftcards/{{giftcard._id}}">
+
+        <!--spendable giftcards -->
+        <h4 class = "giftSection">Recent</h4>
+        <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | filter: isNotSpent | orderBy:'+':true" data-ng-href="#/giftcards/{{giftcard._id}}">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="heart tableCell"><img style = "margin-right: 10px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                    <td class="fromText"><img style = "margin-right: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                     <td class="textRightAlign tableCell">
-                        <div class="giftlistAmount">${{giftValue(giftcard.amount)}}</div></td>
+                        <div class="giftlistAmount">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
             </table>
         </a>
+
+        <!--spendable giftcards -->
+        <div ng-if = "spentGifts">
+            <h4 class = "giftSection">Spent</h4>
+            <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -3 | orderBy:'+':true" data-ng-href="#/giftcards/{{giftcard._id}}">
+            <!-- Line breaks to space the list so it's easier to click -->
+                <table>
+                    <tr>
+                        <td class="fromTextSpent"><img style = "margin-right: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                        <td class="textRightAlign tableCell">
+                            <div class="giftlistAmountSpent" style = "font-size: 1.25em">${{giftcard.origAmount / 100}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class = "spentFooter">
+                            Spent
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </div>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="giftcards.length > 0">
-    	No Giftcards yet, why don't you <a href="/#!/giftcards/create">create one</a>?
+    	No Giftcards yet, why don't you <a href="/#/giftcards/create">create one</a>?
     </div>
 </section>

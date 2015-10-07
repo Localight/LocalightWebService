@@ -25,7 +25,7 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/giftcards/create/:token', {
+      .when('/giftcards/create', {
         templateUrl: 'views/creategiftcard.html',
         controller: 'CreategiftcardCtrl',
         controllerAs: 'createGiftcard'
@@ -74,11 +74,6 @@ angular
         templateUrl: 'views/localism.html',
         controller: 'LocalismCtrl',
         controllerAs: 'localism'
-      })
-      .when('/giftcards/receive/:token', {
-        templateUrl: 'views/recipientredirect.html',
-        controller: 'RecipientredirectCtrl',
-        controllerAs: 'recipientRedirect'
       })
       .when('/sent', {
         templateUrl: 'views/sentconfirmation.html',

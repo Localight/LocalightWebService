@@ -10,26 +10,33 @@
 angular.module('angularLocalightApp')
   .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById) {
 
-    //Boolean for alert
-    $scope.rotateAlert = false;
+        //Boolean for alert
+        $scope.rotateAlert = false;
 
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
-
-        //Switch overlay off
-      	document.getElementById('darkerOverlay').style.display = "none";
+        //Check for device orientation
+        $window.addEventListener("orientationchange", function() {
+            if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
+            {
+                $scope.rotateAlert = true;
+                alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
+            }
+        }, false);
 
           //giftcards list
           $scope.giftcards;
 
-         //get our session token from the cookies
-         $scope.sessionToken = $cookies.get("sessionToken");
+          //get our session token from the cookies
+          $scope.sessionToken;
+
+          if($cookies.get("sessionToken"))
+          {
+              $scope.sessionToken = $cookies.get("sessionToken");
+          }
+          else
+          {
+              //Redirect them to a 404
+              $location.path("#/");
+          }
 
 		//Our character count for the text area
 		$scope.charCount;
@@ -53,17 +60,33 @@ angular.module('angularLocalightApp')
                 "sessionToken" : $scope.sessionToken
             }
 
-            $scope.merchantLocation = LocationById.get(getJson, function(){
+            $scope.merchantLocation = LocationById.get(getJson, function(response){
                 //Check for errors
-                if($scope.merchantLocation.errorid)
+                if(response.status)
                 {
-                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
-                    return;
+                    if(response.status == 401)
+                    {
+                        //Bad session
+                        //Redirect them to a 404
+                        $location.path("#/");
+                        return;
+                    }
+                    else
+                    {
+                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
+                        return;
+                    }
                 }
                 else {
                     //there was no error continue as normal
                     //Stop any loading bars or things here
                 }
+            },
+            //check for a 500
+            function(response)
+            {
+                console.log("Status:" + response.status + ", Internal Server Error");
+                return;
             });
 
         }
@@ -92,21 +115,25 @@ angular.module('angularLocalightApp')
             }
 
             //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function()
+            $scope.giftcards = Giftcards.get(getJson, function(response)
             {
-                //Check for errors
-                if($scope.giftcards.errorid)
+                //Error checking should be done in next block
+            },
+            //check for a 500
+            function(response)
+            {
+                //Check for unauthorized
+                if(response.status == 401)
                 {
-                    console.log("Error #" + $scope.giftcards.errorid + ": " + $scope.giftcards.msg);
-                    return;
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
                 }
                 else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
-
-                    //set the text area
-                    $scope.setTextArea();
+                    //log the status
+                    console.log("Status:" + response.status);
                 }
+                return;
             });
 		}
 
