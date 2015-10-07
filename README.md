@@ -33,6 +33,21 @@ You should use branching rather than forking to contribute, however here are ins
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
+Some guidelines for pull requests and issues:
+When a pull is not assigned to you, do not pull it in unless specifically asked to by @mention.
+When a pull request titled PROD - … Exists, pull that request in before any other requests. This is a pull from master into production. If you pull another request in before pulling that request in, you will include the pull in the sync. This is BAD, because it pulls potentially unreviewed and untested code into production.
+Use labels accordingly:
+backburner - Issues that are valid, but are not currently important. Issues with this tag should NOT have a milestone attached
+bug - Issues that BREAK functionality or previously written code that executes unexpectedly.
+cleanup - For issues dealing with messy code, or bad implementations.
+design - Issues that have to do with graphical finesse. Does not include building functionality in the frontend such as forms. Has to do with styling, colors, animations etc.
+discussion - Anything that is up for discussion where an approach has yet to be decided. This tag should be removed when a consensus is reached.
+enhancement - Issues that improve pre-existing functionality.
+needs backend - Issues that exist in the frontend, but cannot be completed without backend functionality being implemented first, or that need backend functionality to work better.
+needs milestone - All issues should be created with this tag. This tag will be removed by the timeline manager when a milestone is appointed.
+new feature - This tag is the opposite of enhancement. Anything that involves building new functionality should have this tag.
+urgent - Any issue or pull request that requires IMMEDIATE attention.
+
 ## History
 
 This project was originally created in MeanJS, however has now been switched to plain components of the MEAN stack. This was due to bad implementation and coding on the old project. We have now started fresh, and are using MEAN to accomplish the project goals. To assemble mean, we have compiled plain MongoDB, Express and Angular through independant sources.
