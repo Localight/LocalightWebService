@@ -324,7 +324,7 @@ angular.module('angularLocalightApp')
                         $scope.clique_input_phonenumber_validity = false;
                     }
                 }
-                //
+
                 for (i = 0; i < val.length; i++) {
                     if (i === 3) {
                         val[i] = val[i] + ')';
@@ -334,7 +334,12 @@ angular.module('angularLocalightApp')
                     }
                     tel = tel + val[i];
                 }
+
+                //Finalize the value
                 element.value = tel;
+
+                //Focus on the next element once it's done!
+                tel.length >= 13 ? document.getElementById('clique_input_email').focus() : false;
             }
         }
 
@@ -617,5 +622,4 @@ angular.module('angularLocalightApp')
         //Start the first field highlighted
         //Optimize
         $scope.setActiveField('clique_to');
-
     });
