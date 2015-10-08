@@ -9,7 +9,7 @@
  */
 
 angular.module('angularLocalightApp')
-  .service('Giftcards', 'ENV', function($resource, ENV) {
+  .service('Giftcards', ['$resource', 'ENV', function($resource, ENV) {
 
     return $resource(ENV.API_BASE + '/giftcards', {}, {
       create: {
@@ -23,7 +23,7 @@ angular.module('angularLocalightApp')
         isArray: true
       }
     });
-  });
+}]);
 
 angular.module('angularLocalightApp')
   .factory('GiftcardById', ['$resource', 'ENV', function($resource, ENV) {
