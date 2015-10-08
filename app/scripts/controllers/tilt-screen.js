@@ -28,9 +28,6 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-    //Switch overlay on
-		document.getElementById('darkerOverlay').style.display = "block";
-
 		//Get our merchant ID
 		$scope.Id = $routeParams.merchantId;
 

@@ -10,12 +10,6 @@
 angular.module('angularLocalightApp')
   .controller('SentconfirmationCtrl', function ($scope, $cookies) {
 
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
     $scope.getInit = function()
     {
         //Place our cookies in scope variables and then remove the cookies

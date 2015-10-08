@@ -36,9 +36,6 @@ angular.module('angularLocalightApp')
             }
         }, false);
 
-        //Switch dark overlay off
-        document.getElementById('darkerOverlay').style.display = "none";
-
         //Giftcard form object
         $scope.gc = {};
 
@@ -117,8 +114,6 @@ angular.module('angularLocalightApp')
             if ($scope.activeField && $scope.activeField != fieldId) {
                 $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
             }
-
-            if (fieldId === "clique_from") $window.document.getElementById("localStreetNoBlur").className = "localStreet blur";
 
             //Check if it is the occasion wrapper, if it is, we need to turn white into transparent
             if (fieldId === "clique_occasion_wrapper") {

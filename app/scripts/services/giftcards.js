@@ -9,33 +9,31 @@
  */
 
 angular.module('angularLocalightApp')
-  .service('Giftcards', function ($resource) {
+  .service('Giftcards', ['$resource', 'ENV', function($resource, ENV) {
 
-      return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/giftcards',
-          { }, {
-              create: {
-                  method: 'POST',
-                  params: {},
-                  isArray: false
-              },
-              get: {
-                  method: 'GET',
-                  params: {},
-                  isArray: true
-              }
-          } );
-  });
+    return $resource(ENV.API_BASE + '/giftcards', {}, {
+      create: {
+        method: 'POST',
+        params: {},
+        isArray: false
+      },
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: true
+      }
+    });
+}]);
 
-  angular.module('angularLocalightApp')
-  .factory('GiftcardById', ['$resource', function($resource) {
+angular.module('angularLocalightApp')
+  .factory('GiftcardById', ['$resource', 'ENV', function($resource, ENV) {
 
-  return $resource( window.location.protocol + "//" + window.location.hostname + ':3000/giftcards/:id',
-      { }, {
-          get: {
-              method: 'GET',
-              params: {},
-              isArray: false
-          }
+    return $resource(ENV.API_BASE + '/giftcards/:id', {}, {
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: false
+      }
 
-      } );
+    });
   }]);

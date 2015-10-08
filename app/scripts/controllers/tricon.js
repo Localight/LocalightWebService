@@ -41,9 +41,6 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-        //Switch overlay on
-		document.getElementById('darkerOverlay').style.display = "block";
-
 		//Our pressed tricon ***
 		$scope.pressedTricon = "";
 

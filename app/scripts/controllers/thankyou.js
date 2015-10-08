@@ -22,14 +22,6 @@ angular.module('angularLocalightApp')
             }
         }, false);
 
-        //Switch overlay off
-        document.getElementById('darkerOverlay').style.display = "none";
-
-        //Make the background blurred
-        setTimeout(function () {
-            document.getElementById("localStreetNoBlur").className = "localStreet blur";
-        }, 750);
-
           //giftcards list
           $scope.giftcards;
 
