@@ -976,7 +976,7 @@ label.inputlabel {
 
 /* End Aaron's Styles */
 
-//Create giftcard
+//Create giftcard Page
 .createCode {
     @extend .currentInput;
     @extend .waterfall;
@@ -990,6 +990,14 @@ label.inputlabel {
 
     padding-top: 7px;
     font-size: 5vmin;
+}
+
+.toPhone {
+    @extend .helveticaInput;
+    @extend .rightColumn;
+    @extend .blackText;
+
+    width: 100px;
 }
 
 //list giftcard page

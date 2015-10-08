@@ -371,7 +371,13 @@ angular.module('angularLocalightApp')
                 cardNumber += document.getElementById("clique_input_creditcardnumber" + i).value;
             }
 
-            $scope.validCC = Stripe.card.validateCardNumber(cardNumber);
+            //Check if the credit card number is US valid
+            if(Stripe.card.validateCardNumber(cardNumber) && cardNumber.length == 16) {
+                $scope.validCC = true;
+            }
+            else {
+                $scope.validCC = false;
+            }
 
             //Also we should set what card type we have
             var cardType = Stripe.card.cardType(cardNumber);
