@@ -289,7 +289,7 @@ label.inputlabel {
   width: 25%;
   text-align: right;
   position: relative;
-  top: 8px;
+  top: 7px;
   float: left;
 }
 
@@ -997,7 +997,11 @@ label.inputlabel {
     @extend .rightColumn;
     @extend .blackText;
 
-    width: calc(75% - (40px + 25px))
+    width: calc(75% - (40px + 25px));
+
+    @include placeholder {
+        font-size: .95em;
+    }
 }
 
 //list giftcard page

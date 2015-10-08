@@ -185,49 +185,52 @@
         {{gc.to}}
       </div>
       <!--Phone Number-->
-      <div id="clique_phonenumber" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.PhoneNumber}">
+      <div id="clique_phonenumber" class = "createGiftCardWidth currentInput" ng-class="{nextInput: !dirty.PhoneNumber}">
         <label class="inputlabel" for="clique_input_phonenumber">
           <img alt="Enter Phone Number" src="../images/phone.png" />
         </label>
-        <input type="tel" ng-keyup="maskPhone('clique_input_phonenumber', $event)" name="clique_input_phonenumber" id="clique_input_phonenumber" class="PageTwoInput" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" data-ng-model="gc.phoneNumber">
+        <input type="tel" ng-keyup="maskPhone('clique_input_phonenumber', $event)" name="clique_input_phonenumber" id="clique_input_phonenumber" ng-focus="setActiveField('clique_phonenumber')" class="PageTwoInput" placeholder="(XXX) XXX-XXXX" maxlength="13" ng-minlength="13" data-ng-model="gc.phoneNumber">
         <img class = "phoneEmailCheck" src = "../images/checkmark-blk.png" ng-show = "giftcardForm2.clique_input_phonenumber.$valid && gc.phoneNumber">
       </div>
 
       <!-- Waterfall the next part -->
-      <!--From-->
-      <div>
-        <label class="inputlabel">From</label>
-        <div class="heart rightColumn">
-          {{gc.from}}
+      <div class = "waterfall" ng-show = "clique_input_phonenumber_validity && gc.phoneNumber.length >= 13">
+
+          <!--From-->
+          <div>
+            <label class="inputlabel">From</label>
+            <div class="heart rightColumn">
+              {{gc.from}}
+            </div>
+          </div>
+          <!--Send Receipt To-->
+          <div>
+            <label class="inputlabel">&nbsp;</label>
+            <div class="rightColumn helveticaText">Send the receipt to your e-mail:</div>
         </div>
-      </div>
-      <!--Send Receipt To-->
-      <div>
-        <label class="inputlabel">&nbsp;</label>
-        <div class="rightColumn helveticaText">Send the receipt to your e-mail:</div>
-    </div>
 
-      <!--Email-->
-      <div id="clique_email" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.Email}">
-        <label class="inputlabel">
-          <img alt="Enter Email Address" src="../images/emailsign_blk.png" />
-        </label>
-        <input type="email" name="clique_input_email" id="clique_input_email" class="PageTwoInput" placeholder="you@email.com" data-formance_algorithm='complex' ng-model="gc.email" required>
-        <img class = "phoneEmailCheck" src = "../images/checkmark-blk.png" ng-show = "validateEmail()">
-     </div>
+          <!--Email-->
+          <div id="clique_email" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.Email}">
+            <label class="inputlabel">
+              <img alt="Enter Email Address" src="../images/emailsign_blk.png" />
+            </label>
+            <input type="email" name="clique_input_email" id="clique_input_email" class="PageTwoInput" ng-focus="setActiveField('clique_email')" placeholder="you@email.com" ng-model="gc.email" required>
+            <img class = "phoneEmailCheck" src = "../images/checkmark-blk.png" ng-show = "validateEmail()">
+         </div>
 
-      <!--Schedule Gift-->
-      <div data-ng-hide="(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail())" class="form-incomplete blackText createGiftCardWidth">
-        <strong>Please complete all information</strong>
-      </div>
+          <!--Schedule Gift-->
+          <div data-ng-hide="(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail())" class="form-incomplete blackText createGiftCardWidth">
+            <strong>Please complete all information</strong>
+          </div>
 
-      <!-- Error messages from the backend -->
-      <div data-ng-show="(backendError && backendRes.length > 1)" class="text-danger form-incomplete createGiftCardWidth">
-        <strong>{{backendRes}}</strong>
-      </div>
+          <!-- Error messages from the backend -->
+          <div data-ng-show="(backendError && backendRes.length > 1)" class="text-danger form-incomplete createGiftCardWidth">
+            <strong>{{backendRes}}</strong>
+          </div>
 
 
-        <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail())" ng-click = "submitGiftcard()">Submit</button>
+            <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail())" ng-click = "submitGiftcard()">Submit</button>
+        </div>
     </div>
    </form>
   </section>
