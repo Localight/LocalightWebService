@@ -992,12 +992,12 @@ label.inputlabel {
     font-size: 5vmin;
 }
 
-.toPhone {
+.PageTwoInput {
     @extend .helveticaInput;
     @extend .rightColumn;
     @extend .blackText;
 
-    width: 100px;
+    width: calc(75% - (40px + 25px))
 }
 
 //list giftcard page
