@@ -340,7 +340,9 @@ angular.module('angularLocalightApp')
                 //now check if we should focus on the email
                 if($scope.clique_input_phonenumber_validity && tel.length > 12)
                 {
-                    document.getElementById("clique_input_email").focus();
+                    $timeout(function () {
+                        document.getElementById("clique_input_email").focus();
+                    }, 250);
                 }
             }
         }
@@ -501,12 +503,6 @@ angular.module('angularLocalightApp')
 
             //Now send to stripe to be tokenized
             Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
-
-            //timeout and focus on the phone field
-            $timeout(function() {
-                //focus on the phone element
-                document.getElementById("clique_input_phonenumber").focus();
-            }, 500)
         };
 
         //A place to store the stripe token until final sendoff
@@ -527,6 +523,12 @@ angular.module('angularLocalightApp')
 
                 //Show the next page
                 $scope.showPage2 = true;
+
+                //timeout and focus on the phone field
+                $timeout(function() {
+                    //focus on the phone element
+                    document.getElementById("clique_input_phonenumber").focus();
+                }, 250);
             }
 
             //Force the change to refresh, we need to do this because I
