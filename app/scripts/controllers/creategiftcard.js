@@ -291,7 +291,10 @@ angular.module('angularLocalightApp')
          */
         $scope.setDate = function() {
             document.getElementById('clique_date_selection').type = 'date';
-            document.getElementById('clique_date_selection').focus();
+            //Focus on the date field after setting the type to avoid it blurring
+            $timeout(function () {
+                document.getElementById('clique_date_selection').focus();
+            }, 25);
         }
 
         /**
