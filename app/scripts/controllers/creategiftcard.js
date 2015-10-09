@@ -376,7 +376,7 @@ angular.module('angularLocalightApp')
             }
 
             //Check if the credit card number is US valid
-            if(Stripe.card.validateCardNumber(cardNumber) && cardNumber.length == 16) {
+            if(Stripe.card.validateCardNumber(cardNumber)) {
                 $scope.validCC = true;
             }
             else {
