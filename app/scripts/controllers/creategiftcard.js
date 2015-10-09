@@ -324,7 +324,8 @@ angular.module('angularLocalightApp')
                         $scope.clique_input_phonenumber_validity = false;
                     }
                 }
-                //
+
+                
                 for (i = 0; i < val.length; i++) {
                     if (i === 3) {
                         val[i] = val[i] + ')';
@@ -335,6 +336,7 @@ angular.module('angularLocalightApp')
                     tel = tel + val[i];
                 }
 
+                //Finalize the value
                 element.value = tel;
 
                 //now check if we should focus on the email
