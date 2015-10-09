@@ -1138,5 +1138,37 @@ label.inputlabel {
 }
 
 
+
+
+/**
+***********************
+    MERCHANT PANEL
+***********************
+**/
+
+.authContainer {
+    padding: 10px;
+}
+
+.authInput {
+    margin-top: 10px;
+    font-size: 1.5em;
+    background-color: $inverseStandardAlphaDark;
+    border-radius: 3px;
+}
+
+.authButton {
+    margin-top: 10px;
+    font-size: 1.5em;
+}
+
+
+/**
+***********************
+  MERCHANT PANEL END
+***********************
+**/
+
+
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';
