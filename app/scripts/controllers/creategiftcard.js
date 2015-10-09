@@ -325,7 +325,7 @@ angular.module('angularLocalightApp')
                     }
                 }
 
-                
+
                 for (i = 0; i < val.length; i++) {
                     if (i === 3) {
                         val[i] = val[i] + ')';
