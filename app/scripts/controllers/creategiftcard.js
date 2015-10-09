@@ -190,6 +190,7 @@ angular.module('angularLocalightApp')
 
         $scope.setOccasionBack = function() {
             $scope.occasionSelectionFlag = true;
+            $scope.gc.Icon = "";
         };
 
         /****
