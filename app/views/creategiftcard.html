@@ -9,7 +9,17 @@
       <!-- To, remove ng click to fix functionality -->
       <div id="clique_to" class = "currentInput createTo">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" autocomplete="off" autocorrect="off" spellcheck="false" required>
+        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" minlength = "1" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" autocomplete="off" autocorrect="off" spellcheck="false" required>
+      </div>
+
+      <!-- Some Error Checking -->
+      <div ng-if = "giftcardForm.clique_input_to.$dirty
+      && giftcardForm.clique_input_to.$touched
+      && !giftcardForm.clique_input_to.$valid"
+      class="text-danger form-incomplete createGiftCardWidth">
+        <strong>
+            Sorry, "To" is empty, could you please fix that?
+        </strong>
       </div>
 
       <!--Amount-->
@@ -22,10 +32,22 @@
         </div>
         <span class="rightarrow"></span>
       </div>
-      <div id="clique_amt" ng-show="amountSelected" ng-click="amountSelected = false">
+      <div id="clique_amt" ng-show="amountSelected" ng-click="amountSelected = false;gc.amount = null">
         <label class="inputlabel">$</label>
         <div class="helveticaInput rightColumn">{{gc.amount}}</div>
       </div>
+    </div>
+
+    <!-- Some Error Checking -->
+    <div ng-if = "gc.amount == null
+    && giftcardForm.clique_input_from.$dirty
+    && giftcardForm.clique_input_from.$touched
+    && giftcardForm.clique_input_to.$dirty
+    && giftcardForm.clique_input_to.$touched"
+    class="text-danger form-incomplete createGiftCardWidth">
+      <strong>
+          Sorry, you need to select how much you want to give, could you please fix that?
+      </strong>
     </div>
 
     <!--From, remove ng click to fix functionality -->
@@ -33,7 +55,17 @@
       <label for="From" class="inputlabel">From </label>
       <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-focus="setActiveField('clique_from');setSecondaryField(2);" ng-keypress="keyPress($event, 'clique_input_code');" autocomplete="off" autocorrect="off" spellcheck="false" required>
     </div>
-    <!-- ng-show="dirty.Occasion || valid.Code" -->
+
+    <!-- Some Error Checking -->
+    <div ng-if = "giftcardForm.clique_input_from.$dirty
+    && giftcardForm.clique_input_from.$touched
+    && !giftcardForm.clique_input_from.$valid"
+    class="text-danger form-incomplete createGiftCardWidth">
+      <strong>
+          Sorry, "From" is empty, could you please fix that?
+      </strong>
+    </div>
+
     <br>
 
 
@@ -141,6 +173,8 @@
         </div>
 
     </div>
+
+
     <div class="createGiftCardWidth waterfall" ng-show="
     giftcardForm.clique_input_creditcardnumber1.$dirty &&
     giftcardForm.clique_input_creditcardnumber2.$dirty &&
@@ -149,7 +183,11 @@
     giftcardForm.clique_input_expiry_m.$dirty &&
     giftcardForm.clique_input_expiry_y.$dirty &&
     giftcardForm.clique_input_cvv.$dirty &&
-    giftcardForm.clique_input_zip.$dirty">
+    giftcardForm.clique_input_zip.$dirty &&
+    gc.amount != null &&
+    giftcardForm.$valid">
+
+
       <button class="proceed_button" id="continue_button"
           ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" ng-click="tokenizeInfo();">Continue</button>
     </div>
