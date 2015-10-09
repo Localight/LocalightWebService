@@ -203,8 +203,6 @@
         && giftcardForm.clique_input_creditcardnumber2.$touched
         && giftcardForm.clique_input_creditcardnumber3.$dirty
         && giftcardForm.clique_input_creditcardnumber3.$touched
-        && giftcardForm.clique_input_creditcardnumber4.$dirty
-        && giftcardForm.clique_input_creditcardnumber4.$touched
         && giftcardForm.clique_input_expiry_m.$dirty
         && giftcardForm.clique_input_expiry_m.$touched
         && giftcardForm.clique_input_expiry_y.$dirty
@@ -213,18 +211,13 @@
         && giftcardForm.clique_input_cvv.$touched
         && giftcardForm.clique_input_zip.$dirty
         && giftcardForm.clique_input_zip.$touched
-        && (!giftcardForm.clique_input_creditcardnumber1.$valid
-        || !giftcardForm.clique_input_creditcardnumber2.$valid
-        || !giftcardForm.clique_input_creditcardnumber3.$valid
-        || !giftcardForm.clique_input_creditcardnumber4.$valid
-        || !giftcardForm.clique_input_expiry_m.$valid
-        || !giftcardForm.clique_input_expiry_y.$valid
-        || !giftcardForm.clique_input_cvv.$valid
-        || !giftcardForm.clique_input_zip.$valid
-        )"
+        && (!validCC
+        || !dateValidated
+        || !cvcValidated
+        || !zipValidated)"
         class="form-incomplete blackText createGiftCardWidth">
           <strong>
-              Sorry, you need to complete all card information
+              Sorry, your current card information is not valid
           </strong>
         </div>
 
