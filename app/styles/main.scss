@@ -1153,13 +1153,26 @@ label.inputlabel {
 .authInput {
     margin-top: 10px;
     font-size: 1.5em;
+    color: $standard;
     background-color: $inverseStandardAlphaDark;
     border-radius: 3px;
 }
 
 .authButton {
+    @extend .giftcardButtonSave;
+
+    color: $useItNow;
+    border-style: none;
     margin-top: 10px;
-    font-size: 1.5em;
+
+}
+
+.authWarning {
+    @extend .form-incomplete;
+    @extend .blackText;
+
+    margin-top: 10px;
+
 }
 
 

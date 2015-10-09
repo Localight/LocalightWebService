@@ -19,7 +19,7 @@ angular.module('angularLocalightApp')
     $scope.submitError;
 
     //Sign up our owner!
-    $scope.signUp = function() {
+    $scope.login = function() {
 
         //First set up some JSON for the session token
         var postJson = {
@@ -28,23 +28,27 @@ angular.module('angularLocalightApp')
         }
 
         $scope.owner = LoginOwner.submit(postJson, function(){
-            //Check for errors
-            if($scope.owner.errorid)
-            {
-                $scope.submitError = true;
-                $scope.theError = $scope.owner.msg;
-                return;
-            }
-            else
-            {
                 //there was no error continue as normal
                 //Save their session token
                 $cookies.put("sessionToken", $scope.owner.token);
 
                 //Finally redirect to the main page
                 $location.path("/panel/main");
-            }
-        });
+            },
+            //check for errors
+            function(response)
+            {
+                //Create the error object
+                $scope.error = {
+                    isError : true,
+                    text: ""
+                };
 
-    }
+                if(response.status == 401)
+                {
+                    $scope.error.text = "Sorry, the entered account information is incorrect.";
+                }
+            });
+        }
+
   });
