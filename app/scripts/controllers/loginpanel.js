@@ -48,6 +48,9 @@ angular.module('angularLocalightApp')
                 {
                     $scope.error.text = "Sorry, the entered account information is incorrect.";
                 }
+                else {
+                    $scope.error.text = "Sorry, an error has occured connecting to the database";
+                }
             });
         }
 

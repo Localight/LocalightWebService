@@ -2,8 +2,6 @@
 
     <h1>Signup</h1>
 
-    <h3 ng-show = "submitError">{{theError}}</h3>
-
     <input class = "authInput center" type="text" name="name" ng-model="username" placeholder="Name" required>
 
     <input class = "authInput center" type="text" name="stripeCustomerId" ng-model="stripeCustomerId" placeholder="Stripe Customer Id" required>
@@ -13,6 +11,11 @@
     <input class = "authInput center" type="password" name="password" ng-model="password" placeholder="Password" required>
 
     <input class = "authInput center" type="password" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password" required>
-    
+
+    <div ng-show = "error.isError" class = "authWarning">
+            <strong>{{error.text}}</strong>
+    </div>
+
+
     <button class = "authButton" type = "submit">Submit</button>
 </form>
