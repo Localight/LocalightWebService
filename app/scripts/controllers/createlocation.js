@@ -32,41 +32,28 @@ angular.module('angularLocalightApp')
        };
 
         $scope.newLocation = Locations.create(postJson, function(){
-            //Check for errors
-            if($scope.newLocation.errorid)
-            {
-                console.log($scope.newLocation.msg);
-                $scope.submitError = true;
-                $scope.theError = $scope.newLocation.msg;
-                return;
-            }
-            else
-            {
-                //there was no error continue as normal
-                //Save their session token
-                console.log("Location Created!");
 
-                //redirect back to the main page
-                $location.path("/panel/main");
+            //Success!
+            //redirect back to the main page
+            $location.path("/panel/main");
+        },
+        //check for errors
+        function(response)
+        {
+            //Create the error object
+            $scope.error = {
+                isError : true,
+                text: ""
+            };
+
+            if(response.status == 401)
+            {
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
         });
-
-        //Since there is no response, we need to redirect down here
-        if(!$scope.newLocation.errorid)
-        {
-            //there was no error continue as normal
-            //Save their session token
-            console.log("Location Created!");
-
-            //redirect back to the main page
-            $location.path("/panel/main").replace();
-        }
-        else {
-            console.log($scope.newLocation.msg);
-            $scope.submitError = true;
-            $scope.theError = $scope.newLocation.msg;
-            return;
-        }
     }
 
   });
