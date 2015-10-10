@@ -1,14 +1,22 @@
-<div class = "center" ng-init = "getLocations()">
+<div class = "authContainer center" ng-init = "getOwner();">
 
-    <h1>Hello {{owner.name}}!</h1>
+    <h1>Welcome Back</h1>
+    <h1 ng-if = "owner.name">{{owner.name}}!</h1>
 
-    <h3>Stripe Customer Id: {{owner.stripeCustomerId}}</h3>
-    <h3>Email: {{owner.email}}</h3>
+    <h3>Stripe Customer Id:</h3>
+    <h4>{{owner.stripeCustomerId}}</h4>
 
-    <br>
-    <h1>Your Locations</h1>
-    <br>
-    <button style = "margin-top: 10px;font-size: 1.5em;" ng-click = "redirectCreate()">Create a Location</button>
-    <br>
+    <h3>Email:</h3>
+    <h4>{{owner.email}}</h4>
+
+    <h3 ng-if = "locations">Your Locations</h3>
+    <h4 ng-if = "error.noLocations">You have no locations.
+        Please tap below to create one!</h4>
+
+    <div ng-repeat = "location in locations">
+        {{location.name}}
+    </div>
+
+    <button class = "authButton" ng-click = "redirectCreate()">Create a Location</button>
 
 </div>

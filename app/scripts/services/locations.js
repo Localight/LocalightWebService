@@ -40,6 +40,20 @@ angular.module('angularLocalightApp')
     });
   }]);
 
+  //Location By Owner
+  angular.module('angularLocalightApp')
+    .factory('LocationByOwner', ['$resource', 'ENV', function($resource, ENV) {
+
+      return $resource(ENV.API_BASE + '/locations/owners/:id', {}, {
+        get: {
+          method: 'GET',
+          params: {},
+          isArray: false
+        }
+
+      });
+    }]);
+
 //Spending a Giftcard
 angular.module('angularLocalightApp')
   .factory('Spend', ['$resource', 'ENV', function($resource, ENV) {
