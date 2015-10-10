@@ -210,7 +210,7 @@ angular.module('angularLocalightApp')
             var cond = (46 < event.keyCode && event.keyCode < 58);
 
             //Check if we met our condition and our length is good
-            if (len >= maxlength) {
+            if (len >= maxlength - 1) {
                 $scope.showCard = false;
 
                 if (id === 'clique_input_code') setTimeout(function() {
@@ -327,7 +327,8 @@ angular.module('angularLocalightApp')
                         $scope.clique_input_phonenumber_validity = false;
                     }
                 }
-                //
+
+
                 for (i = 0; i < val.length; i++) {
                     if (i === 3) {
                         val[i] = val[i] + ')';
@@ -337,7 +338,17 @@ angular.module('angularLocalightApp')
                     }
                     tel = tel + val[i];
                 }
+
+                //Finalize the value
                 element.value = tel;
+
+                //now check if we should focus on the email
+                if($scope.clique_input_phonenumber_validity && tel.length > 12)
+                {
+                    $timeout(function () {
+                        document.getElementById("clique_input_email").focus();
+                    }, 250);
+                }
             }
         }
 
@@ -367,7 +378,13 @@ angular.module('angularLocalightApp')
                 cardNumber += document.getElementById("clique_input_creditcardnumber" + i).value;
             }
 
-            $scope.validCC = Stripe.card.validateCardNumber(cardNumber);
+            //Check if the credit card number is US valid
+            if(Stripe.card.validateCardNumber(cardNumber)) {
+                $scope.validCC = true;
+            }
+            else {
+                $scope.validCC = false;
+            }
 
             //Also we should set what card type we have
             var cardType = Stripe.card.cardType(cardNumber);
@@ -445,7 +462,7 @@ angular.module('angularLocalightApp')
             var email = $scope.gc.email;
 
             //check if the email has an @ sign
-            if (email.indexOf("@") > -1) {
+            if ($scope.gc.email && email.indexOf("@") > -1) {
                 //If it does, get a sub string after that, and check for a period
                 if (email.substring(email.indexOf("@"))
                 .indexOf(".") > -1) {
@@ -511,6 +528,12 @@ angular.module('angularLocalightApp')
 
                 //Show the next page
                 $scope.showPage2 = true;
+
+                //timeout and focus on the phone field
+                $timeout(function() {
+                    //focus on the phone element
+                    document.getElementById("clique_input_phonenumber").focus();
+                }, 250);
             }
 
             //Force the change to refresh, we need to do this because I
