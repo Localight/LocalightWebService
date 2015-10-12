@@ -9,7 +9,17 @@
       <!-- To, remove ng click to fix functionality -->
       <div id="clique_to" class = "currentInput createTo">
         <label class="inputlabel" for="giftRecipientName">To</label>
-        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" autocomplete="off" autocorrect="off" spellcheck="false" required>
+        <input type="text" name="clique_input_to" id="clique_input_to" ng-model="gc.to" class="heart rightColumn" minlength = "1" maxlength="16" placeholder="First Name" ng-focus="setActiveField('clique_to');" ng-keypress="keyPress($event, 'clique_input_from')" autocomplete="off" autocorrect="off" spellcheck="false" required>
+      </div>
+
+      <!-- Some Error Checking -->
+      <div ng-if = "giftcardForm.clique_input_to.$dirty
+      && giftcardForm.clique_input_to.$touched
+      && !giftcardForm.clique_input_to.$valid"
+      class="form-incomplete blackText createGiftCardWidth">
+        <strong>
+            Sorry, "To" is empty, could you please fix that?
+        </strong>
       </div>
 
       <!--Amount-->
@@ -22,10 +32,22 @@
         </div>
         <span class="rightarrow"></span>
       </div>
-      <div id="clique_amt" ng-show="amountSelected" ng-click="amountSelected = false">
+      <div id="clique_amt" ng-show="amountSelected" ng-click="amountSelected = false;gc.amount = null">
         <label class="inputlabel">$</label>
         <div class="helveticaInput rightColumn">{{gc.amount}}</div>
       </div>
+    </div>
+
+    <!-- Some Error Checking -->
+    <div ng-if = "gc.amount == null
+    && giftcardForm.clique_input_from.$dirty
+    && giftcardForm.clique_input_from.$touched
+    && giftcardForm.clique_input_to.$dirty
+    && giftcardForm.clique_input_to.$touched"
+    class="form-incomplete blackText createGiftCardWidth">
+      <strong>
+          Sorry, you need to select an amount to give.
+      </strong>
     </div>
 
     <!--From, remove ng click to fix functionality -->
@@ -33,7 +55,17 @@
       <label for="From" class="inputlabel">From </label>
       <input type="text" name="clique_input_from" id="clique_input_from" ng-model="gc.from" class="heart rightColumn" placeholder="Your Name" maxlength="16" ng-focus="setActiveField('clique_from');setSecondaryField(2);" ng-keypress="keyPress($event, 'clique_input_code');" autocomplete="off" autocorrect="off" spellcheck="false" required>
     </div>
-    <!-- ng-show="dirty.Occasion || valid.Code" -->
+
+    <!-- Some Error Checking -->
+    <div ng-if = "giftcardForm.clique_input_from.$dirty
+    && giftcardForm.clique_input_from.$touched
+    && !giftcardForm.clique_input_from.$valid"
+    class="form-incomplete blackText createGiftCardWidth">
+      <strong>
+          Sorry, "From" is empty, could you please fix that?
+      </strong>
+    </div>
+
     <br>
 
 
@@ -67,6 +99,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Some Error Checking -->
+    <div ng-if = "giftcardForm.clique_input_code.$dirty
+    && giftcardForm.clique_input_code.$touched
+    && !giftcardForm.clique_input_code.$valid"
+    class="form-incomplete blackText createGiftCardWidth">
+      <strong>
+          Sorry, the Code is 5 numbers, could you please fix that?
+      </strong>
+    </div>
+
     <br>
 
     <!--Occasion-->
@@ -86,14 +129,24 @@
             </label>
 
             <div id="clique_input_occasion_wrapper" class="rightColumn">
-              <textarea id="clique_input_occasion" maxlength="100" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true;setActiveField('clique_occasion');" ng-blur = "occasionFocused = false"></textarea>
+              <textarea id="clique_input_occasion" name="clique_input_occasion" maxlength="100" minlength = "1" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true;setActiveField('clique_occasion');" ng-blur = "occasionFocused = false"></textarea>
               <span id="occCharCount" ng-show = "occasionFocused">{{100 - gc.occasion.length}} characters left</span>
             </div>
             <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
           </div>
         </div>
     </div>
-    <br>
+
+
+    <!-- Some Error Checking -->
+    <div ng-if = "giftcardForm.clique_input_occasion.$dirty
+    && (gc.occasion.length < 1 || gc.Icon.length < 1)
+    && giftcardForm.clique_input_occasion.$touched"
+    class="form-incomplete blackText createGiftCardWidth">
+      <strong>
+          You need to select an occasion, and write a short message to the recipient.
+      </strong>
+    </div>
 
     <!--Date picker -->
     <div class = "waterfall" ng-show = "secondaryIndex > 3">
@@ -102,6 +155,16 @@
         type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="{{minDate}}" max="{{maxDate}}"
         show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();"
         ng-blur = "scrollToElement('creditcardinfo')" required></input>
+    </div>
+
+    <!-- Some Error Checking -->
+    <div ng-if = "giftcardForm.clique_date_selection.$dirty
+    && giftcardForm.clique_date_selection.$touched
+    && !giftcardForm.clique_date_selection.$valid"
+    class="form-incomplete blackText createGiftCardWidth">
+      <strong>
+          Sorry, you need to select a date to send this gift.
+      </strong>
     </div>
 
     <!--Pay by card-->
@@ -133,14 +196,38 @@
           </div>
         </div>
 
-        <div data-ng-hide="(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" class="form-incomplete blackText createGiftCardWidth">
-          <strong>Please complete all information</strong>
+        <!-- Some Error Checking -->
+        <div ng-if = "giftcardForm.clique_input_creditcardnumber1.$dirty
+        && giftcardForm.clique_input_creditcardnumber1.$touched
+        && giftcardForm.clique_input_creditcardnumber2.$dirty
+        && giftcardForm.clique_input_creditcardnumber2.$touched
+        && giftcardForm.clique_input_creditcardnumber3.$dirty
+        && giftcardForm.clique_input_creditcardnumber3.$touched
+        && giftcardForm.clique_input_expiry_m.$dirty
+        && giftcardForm.clique_input_expiry_m.$touched
+        && giftcardForm.clique_input_expiry_y.$dirty
+        && giftcardForm.clique_input_expiry_y.$touched
+        && giftcardForm.clique_input_cvv.$dirty
+        && giftcardForm.clique_input_cvv.$touched
+        && giftcardForm.clique_input_zip.$dirty
+        && giftcardForm.clique_input_zip.$touched
+        && (!validCC
+        || !dateValidated
+        || !cvcValidated
+        || !zipValidated)"
+        class="form-incomplete blackText createGiftCardWidth">
+          <strong>
+              Sorry, your current card information is not valid
+          </strong>
         </div>
+
         <div data-ng-show="tokenizeFailure" class="text-danger form-incomplete createGiftCardWidth">
           <strong>Oops, something went wrong! Please check your card information</strong>
         </div>
 
     </div>
+
+
     <div class="createGiftCardWidth waterfall" ng-show="
     giftcardForm.clique_input_creditcardnumber1.$dirty &&
     giftcardForm.clique_input_creditcardnumber2.$dirty &&
@@ -149,7 +236,12 @@
     giftcardForm.clique_input_expiry_m.$dirty &&
     giftcardForm.clique_input_expiry_y.$dirty &&
     giftcardForm.clique_input_cvv.$dirty &&
-    giftcardForm.clique_input_zip.$dirty">
+    giftcardForm.clique_input_zip.$dirty &&
+    gc.amount != null &&
+    !(gc.occasion.length < 1 || gc.Icon.length < 1) &&
+    giftcardForm.$valid">
+
+
       <button class="proceed_button" id="continue_button"
           ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" ng-click="tokenizeInfo();">Continue</button>
     </div>
