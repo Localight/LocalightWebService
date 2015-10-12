@@ -1,24 +1,70 @@
-<form class = "authContainer center" ng-submit = "submitLocation()" ng-model = "theForm">
+<form class = "authContainer center"
+name = "locationForm"
+ng-submit = "submitLocation()"
+ng-model = "theForm">
+
+    <!-- Part one of the creat location -->
+    <div ng-show = "!showNextPage">
 
     <h1>Create Location</h1>
 
-    <input class = "authInput center" type="text" name="locationName" ng-model="locationName" placeholder="Name" required>
+    <input class = "authInput center"
+    type="text"
+    name="locationName"
+    minlength = "1"
+    ng-model="locationName"
+    placeholder="Name" required>
 
-    <input class = "authInput center" type="text" name="address1" ng-model="address1" placeholder="Address" required>
+    <input class = "authInput center"
+    type="text"
+    minlength = "1"
+    name="address1"
+    ng-model="address1"
+    placeholder="Address" required>
 
-    <input class = "authInput center" type="text" name="address2" ng-model="address2" placeholder="Address 2 (Apt., Suite, etc...)">
+    <input class = "authInput center"
+    type="text"
+    name="address2"
+    ng-model="address2"
+    placeholder="Address 2 (Apt., Suite, etc...)">
 
-    <input class = "authInput center" type="text" name="city" ng-model="city" placeholder="City">
+    <input class = "authInput center"
+    type="text"
+    name="city"
+    minlength = "1"
+    ng-model="city"
+    placeholder="City" required>
 
-    <input class = "authInput center" type="text" name="state" ng-model="state" placeholder="State">
+    <input class = "authInput center"
+    type="text"
+    minlength = "1"
+    name="state"
+    ng-model="state"
+    placeholder="State" required>
 
-    <input class = "authInput center" type="text" name="zipcode" ng-model="zipcode" placeholder="Zip Code">
+    <input class = "authInput center"
+    type="text"
+    name="zipcode"
+    minlength = "5"
+    maxlenght = "5"
+    ng-model="zipcode"
+    placeholder="Zip Code" required>
+
+    <button class = "authButton"
+    ng-disabled = "!locationForm.locationName.$valid ||
+    !locationForm.address1.$valid ||
+    !locationForm.city.$valid ||
+    !locationForm.state.$valid ||
+    !locationForm.zipcode.$valid"
+    ng-click = "showNextPage = true">Continue</button>
+    </div>
 
     <!-- Tricon Keys -->
+    <div ng-show = "showNextPage">
 
     <div ng-show = "error.isError" class = "authWarning">
             <strong>{{error.text}}</strong>
     </div>
-
     <button class = "authButton" type = "submit">Submit</button>
+    </div>
 </form>

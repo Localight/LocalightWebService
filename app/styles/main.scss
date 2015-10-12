@@ -1166,6 +1166,11 @@ label.inputlabel {
     border-style: none;
     margin-top: 10px;
 
+    &:disabled {
+        background-color: $inverseStandardAlphaLight;
+        color: $standardAlphaDark;
+    }
+
 }
 
 .authWarning {
