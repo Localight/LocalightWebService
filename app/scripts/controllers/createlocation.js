@@ -13,8 +13,15 @@ angular.module('angularLocalightApp')
     //get our session token
     var sessionToken = $cookies.get("sessionToken");
 
-    //no errors
-    $scope.submitError;
+    //switch the pages
+    $scope.switchPage = function() {
+        //Set the background to dark
+        document.body.style.backgroundImage = "url('../images/auth-bg.png')";
+        document.body.style.backgroundColor = "#316D6B"
+
+        //Set show the next page to true
+        $scope.showNextPage = true;
+    }
 
     //Create the location
     $scope.submitLocation = function() {
