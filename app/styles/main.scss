@@ -177,9 +177,8 @@ input {
 }
 
 .nextInput {
-  opacity: 0.5;
   border-radius: 7px;
-  background-color: $inverseStandardAlphaDark;
+  background-color: $inverseStandardAlphaLight;
 }
 
 .form-incomplete {
@@ -290,7 +289,7 @@ label.inputlabel {
   width: 25%;
   text-align: right;
   position: relative;
-  top: 8px;
+  top: 7px;
   float: left;
 }
 
@@ -977,7 +976,7 @@ label.inputlabel {
 
 /* End Aaron's Styles */
 
-//Create giftcard
+//Create giftcard Page
 .createCode {
     @extend .currentInput;
     @extend .waterfall;
@@ -991,6 +990,18 @@ label.inputlabel {
 
     padding-top: 7px;
     font-size: 5vmin;
+}
+
+.PageTwoInput {
+    @extend .helveticaInput;
+    @extend .rightColumn;
+    @extend .blackText;
+
+    width: calc(75% - (40px + 25px));
+
+    @include placeholder {
+        font-size: .95em;
+    }
 }
 
 //list giftcard page
@@ -1137,6 +1148,18 @@ label.inputlabel {
     margin-top: 40%;
 }
 
+.featuredImage {
+    @extend .center;
+
+    border-radius: 15px;
+    border-top: 2px solid $inverseStandard;
+    border-left: 2px solid $inverseStandard;
+    max-width:400px;
+}
+
+.phoneEmailCheck {
+    @extend .creditCardCheck;
+}
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';
