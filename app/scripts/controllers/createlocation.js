@@ -71,6 +71,11 @@ angular.module('angularLocalightApp')
     //Our pressed tricon ***
     $scope.pressedTricon = "";
 
+    //Our tricon message
+    $scope.triconMessage = "Please enter a 3 item tricon code.
+    This will be used by employees for confirmation to use a giftcard
+    at your location."
+
     //our array of tricons
     var triconArray = [];
 
