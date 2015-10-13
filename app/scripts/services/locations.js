@@ -44,11 +44,11 @@ angular.module('angularLocalightApp')
   angular.module('angularLocalightApp')
     .factory('LocationByOwner', ['$resource', 'ENV', function($resource, ENV) {
 
-      return $resource(ENV.API_BASE + '/locations/owners/:id', {}, {
+      return $resource(ENV.API_BASE + '/locations/owner/:id', {}, {
         get: {
           method: 'GET',
           params: {},
-          isArray: false
+          isArray: true
         }
 
       });
