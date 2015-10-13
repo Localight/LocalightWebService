@@ -201,7 +201,7 @@ angular.module('angularLocalightApp')
         //Optimize
         $scope.codeValidate = function(event) {
             //get our element length
-            var len = event.target.value.length + 1;
+            var len = event.target.value.length;
             //get the max length we assigned to it
             var max = event.target.maxLength;
 
@@ -212,21 +212,26 @@ angular.module('angularLocalightApp')
 
             //Check if we met our condition and our length is good
             if (len == max) {
-                $scope.showCard = false;
+                LocationByCode.get({
+                    code: event.target.value
+                }, function(data, status){
+                    $scope.location.name = data.name;
+                    $scope.showCard = false;
 
-                if (event.target.id === 'clique_input_code') setTimeout(function() {
-                    event.target.blur();
-                }, 20);
+                    if (event.target.id === 'clique_input_code') setTimeout(function() {
+                        event.target.blur();
+                    }, 20);
 
-                //CALL TO BACKEND
-                $scope.location.name = "MADE in Long Beach";
+                    //Scroll to the requested element
+                    //Now done by the flip card
+                    //$scope.scrollToElement(scrollId);
 
-                //Scroll to the requested element
-                //Now done by the flip card
-                //$scope.scrollToElement(scrollId);
+                    //And set the active field to the occasions
+                    $scope.setActiveField(event.target.getAttribute("nextId"));
+                }, function(err){
+                    alert("Wrong code!");
+                });
 
-                //And set the active field to the occasions
-                $scope.setActiveField(event.target.getAttribute("nextId"));
             }
             if (len > max || !cond) {
                 event.preventDefault();

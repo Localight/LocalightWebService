@@ -81,10 +81,10 @@
         </div>
       </div>
 
-      <div id="clique_code" class="createCode" ng-hide = "giftcardForm.clique_input_code.$valid">
+      <div id="clique_code" class="createCode" ng-hide = "location.name">
         <label for="Code" class="inputlabel">Code</label>
         <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
-        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keydown="codeValidate($event)"
+        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keyup="codeValidate($event)"
         nextId="clique_occasion_selection"
         ng-model="gc.code" pattern="\d*" required>
       </div>
@@ -114,7 +114,7 @@
     <br>
 
     <!--Occasion-->
-    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$dirty && giftcardForm.clique_input_code.$valid && secondaryIndex > 2">
+    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$dirty && giftcardForm.clique_input_code.$valid && secondaryIndex > 2 && location.name">
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInputNoBorder">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
