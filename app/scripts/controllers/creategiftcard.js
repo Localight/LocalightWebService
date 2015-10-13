@@ -210,6 +210,8 @@ angular.module('angularLocalightApp')
             //Our condition to check if it is a number
             var cond = (46 < event.keyCode && event.keyCode < 58);
 
+            $scope.location = {};
+
             //Check if we met our condition and our length is good
             if (len >= maxlength - 1) {
                 $scope.showCard = false;
@@ -217,6 +219,9 @@ angular.module('angularLocalightApp')
                 if (id === 'clique_input_code') setTimeout(function() {
                     document.getElementById(id).blur();
                 }, 20);
+
+                //CALL TO BACKEND
+                $scope.location.name = "MADE in Long Beach";
 
                 //Scroll to the requested element
                 //Now done by the flip card
@@ -229,20 +234,6 @@ angular.module('angularLocalightApp')
                 event.preventDefault();
             }
         }
-
-        /**
-         * Gets the merchant associated with the code entered.
-         */
-        $scope.getMerchantName = function() {
-            //Get the code, transform it into a string
-            var element = $window.document.getElementById('clique_input_code');
-            var code = element.value.toString();
-
-            //SEND CODE TO BACKEND
-            //Return the name of the merchant from the backend (static placeholder)
-            return "MADE in Long Beach"
-        }
-
 
         /****
         * Occasion

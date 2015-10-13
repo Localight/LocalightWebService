@@ -85,16 +85,16 @@
         <label for="Code" class="inputlabel">Code</label>
         <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
         placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keydown="codeValidate('clique_input_code', $event, 5, 'clique_occasion_selection','clique_occasion_selection')"
-        ng-model="gc.code" ng-change="getStoreName()" pattern="\d*" required>
+        ng-model="gc.code" pattern="\d*" required>
       </div>
 
-      <div id="clique_code_message" ng-show = "giftcardForm.clique_input_code.$valid">
+      <div id="clique_code_message" ng-show = "location.name">
         <label class="inputlabel">
           <img src="../images/at-icon-blk.png" >
         </label>
         <div class="createCodeMessage">
           Good at
-          <span class="bold">{{getMerchantName()}}</span>
+          <span class="bold">{{location.name}}</span>
           <span class="italicMessage">and participating merchants</span>
         </div>
       </div>
