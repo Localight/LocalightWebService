@@ -9,7 +9,7 @@
 */
 angular.module('angularLocalightApp')
 .controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, $timeout,
-    $log, $q, $cookies, OccasionService, Users, Join, Giftcards, $document) {
+    $log, $q, $cookies, OccasionService, Users, Join, Giftcards, LocationByCode, $document) {
 
         this.awesomeThings = [
             'HTML5 Boilerplate',
@@ -199,13 +199,11 @@ angular.module('angularLocalightApp')
 
         //Validate our code length
         //Optimize
-        $scope.codeValidate = function(id, event, maxlength, scrollId, activeId) {
-            //Grab our element
-            var element = $window.document.getElementById(id);
+        $scope.codeValidate = function(event) {
             //get our element length
-            var len = element.value.toString().length;
+            var len = event.target.value.length + 1;
             //get the max length we assigned to it
-            var max = element.maxLength;
+            var max = event.target.maxLength;
 
             //Our condition to check if it is a number
             var cond = (46 < event.keyCode && event.keyCode < 58);
@@ -213,11 +211,11 @@ angular.module('angularLocalightApp')
             $scope.location = {};
 
             //Check if we met our condition and our length is good
-            if (len >= maxlength - 1) {
+            if (len == max) {
                 $scope.showCard = false;
 
-                if (id === 'clique_input_code') setTimeout(function() {
-                    document.getElementById(id).blur();
+                if (event.target.id === 'clique_input_code') setTimeout(function() {
+                    event.target.blur();
                 }, 20);
 
                 //CALL TO BACKEND
@@ -228,9 +226,9 @@ angular.module('angularLocalightApp')
                 //$scope.scrollToElement(scrollId);
 
                 //And set the active field to the occasions
-                $scope.setActiveField(activeId);
+                $scope.setActiveField(event.target.getAttribute("nextId"));
             }
-            if (len > maxlength || !cond) {
+            if (len > max || !cond) {
                 event.preventDefault();
             }
         }
