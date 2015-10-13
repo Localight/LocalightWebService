@@ -58,10 +58,11 @@ ng-model = "theForm">
     !locationForm.zipcode.$valid"
     ng-click = "switchPage()">Continue</button>
     </div>
+
 </form>
 
 <!-- Tricon Keys -->
-<div class = "authContainer" ng-show = "showNextPage">
+<div class = "authContainer center" ng-show = "showNextPage">
 
     <!-- Our message to the user -->
     <h4 class = "triconHeader">{{triconMessage}}</h4>
@@ -93,6 +94,7 @@ ng-model = "theForm">
     <button
     class = "authButton center"
     ng-disabled = "!confirmedCode"
-    type = "submit">Submit</button>
+    ng-click = "submitLocation()"
+    type = "submit">Create</button>
 
 </div>

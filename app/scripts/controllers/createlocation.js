@@ -13,8 +13,6 @@ angular.module('angularLocalightApp')
     //get our session token
     var sessionToken = $cookies.get("sessionToken");
 
-    $scope.showNextPage = true;
-
     //switch the pages
     $scope.switchPage = function() {
         //Set the background to dark
@@ -32,7 +30,7 @@ angular.module('angularLocalightApp')
         var postJson = {
            "sessionToken" : sessionToken,
            "name" : $scope.locationName,
-           "triconKey" : $scope.triconKey,
+           "triconKey" : $scope.triconArray[0].code + "" + $scope.triconArray[1].code + "" + $scope.triconArray[2].code,
            "address1" : $scope.address1,
            "address2" : $scope.address2,
            "city" : $scope.city,
@@ -64,57 +62,6 @@ angular.module('angularLocalightApp')
             }
         });
     }
-
-    // //Send the data to the backend and make sure it's good!
-    // var spendJson = {
-    //     "id" : $scope.Id,
-    //     "sessionToken" : $scope.sessionToken,
-    //     "amount" : $cookies.get("igosdmbmtv"),
-    //     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
-    // }
-    //
-    // $scope.spendResponse = Spend.spendGiftcard(spendJson, function (response) {
-    //     //Check for errors
-    //     if(response.status)
-    //     {
-    //         if(response.status == 401)
-    //         {
-    //             //Bad session
-    //             //Redirect them to a 404
-    //             $location.path("#/");
-    //             return;
-    //         }
-    //         else
-    //         {
-    //             console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-    //             return;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         //there was no error continue as normal
-    //         //Stop any loading bars or things here
-    //         //Go to the confirmation page
-    //
-    //         $location.path("/merchants/" + $scope.Id + "/confirmation");
-    //     }
-    // },
-    // //check for a 500
-    // function(response)
-    // {
-    //     //Check for unauthorized
-    //     if(response.status == 401 || response.status == 500)
-    //     {
-    //         //Bad session
-    //         //Redirect them to a 404
-    //         $location.path("#/");
-    //     }
-    //     else {
-    //         //log the status
-    //         console.log("Status:" + response.status);
-    //     }
-    //     return;
-    // });
 
     /*--------------------------------
     *

@@ -18,6 +18,10 @@ angular.module('angularLocalightApp')
     //Grab our session token
     var sessionToken = $cookies.get("sessionToken");
 
+    //Switch Overlay off from the create location page
+    document.body.style.backgroundImage = "url('../images/local-street-bg-blur.png')";
+    document.body.style.backgroundColor = "#4fcfc8"
+
     //Get our owner Info
     $scope.getOwner = function() {
 
