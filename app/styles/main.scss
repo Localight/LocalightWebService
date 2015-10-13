@@ -1181,6 +1181,26 @@ label.inputlabel {
 
 }
 
+.selectedTricon {
+    display: inline-block;
+}
+
+.triconHeader {
+    @extend .center;
+
+    color: $inverseStandard;
+}
+
+.confirmCode {
+    text-align: center;
+    display: inline-flex;
+}
+
+.triconBreak {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 
 /**
 ***********************

@@ -58,36 +58,41 @@ ng-model = "theForm">
     !locationForm.zipcode.$valid"
     ng-click = "switchPage()">Continue</button>
     </div>
-
-    <!-- Tricon Keys -->
-    <div ng-show = "showNextPage">
-
-        <!-- Our message to the user -->
-        <h4>{{triconMessage}}</h4>
-
-        <!-- Our Tricon Pad -->
-    	<!-- Our table for tricon, the dialpad -->
-    	<h1 class = "triconStar">
-    		{{pressedTricon}}
-    	</h1>
-
-    	<table class="dialPad upside" align="center">
-
-    		<tr ng-repeat="n in tableLayout">
-    			<!-- Using inline styles for our randomization so we can edit this later-->
-    			<td ng-repeat="i in n">
-    			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position-x: -{{images[i].pos}}px;" class="dialButton triconSheet"></div></td>
-    		</tr>
-    	</table>
-
-        <div ng-show = "error.isError" class = "authWarning">
-                <strong>{{error.text}}</strong>
-        </div>
-
-        <button
-        class = "authButton"
-        ng-disabled = "!locationForm.$valid"
-        type = "submit">Submit</button>
-
-    </div>
 </form>
+
+<!-- Tricon Keys -->
+<div class = "authContainer" ng-show = "showNextPage">
+
+    <!-- Our message to the user -->
+    <h4 class = "triconHeader">{{triconMessage}}</h4>
+
+    <!-- Our Tricon Pad -->
+	<!-- Our Selected tricons -->
+	<!-- Using inline styles for our randomization so we can edit this later-->
+	<div class = "confirmCode">
+        <div ng-repeat="i in triconArray track by $index">
+		          <div style="background-position-x: -{{i.pos}}px;" class="dialButton triconSheet selectedTricon upside"></div>
+        </div>
+    </div>
+
+    <hr class = "triconBreak">
+
+	<table class="dialPad upside" align="center">
+
+		<tr ng-repeat="n in tableLayout">
+			<!-- Using inline styles for our randomization so we can edit this later-->
+			<td ng-repeat="i in n">
+			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position-x: -{{images[i].pos}}px;" class="dialButton triconSheet"></div></td>
+		</tr>
+	</table>
+
+    <div ng-show = "error.isError" class = "authWarning">
+            <strong>{{error.text}}</strong>
+    </div>
+
+    <button
+    class = "authButton center"
+    ng-disabled = "!confirmedCode"
+    type = "submit">Submit</button>
+
+</div>

@@ -13,6 +13,8 @@ angular.module('angularLocalightApp')
     //get our session token
     var sessionToken = $cookies.get("sessionToken");
 
+    $scope.showNextPage = true;
+
     //switch the pages
     $scope.switchPage = function() {
         //Set the background to dark
@@ -63,21 +65,69 @@ angular.module('angularLocalightApp')
         });
     }
 
+    // //Send the data to the backend and make sure it's good!
+    // var spendJson = {
+    //     "id" : $scope.Id,
+    //     "sessionToken" : $scope.sessionToken,
+    //     "amount" : $cookies.get("igosdmbmtv"),
+    //     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
+    // }
+    //
+    // $scope.spendResponse = Spend.spendGiftcard(spendJson, function (response) {
+    //     //Check for errors
+    //     if(response.status)
+    //     {
+    //         if(response.status == 401)
+    //         {
+    //             //Bad session
+    //             //Redirect them to a 404
+    //             $location.path("#/");
+    //             return;
+    //         }
+    //         else
+    //         {
+    //             console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
+    //             return;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         //there was no error continue as normal
+    //         //Stop any loading bars or things here
+    //         //Go to the confirmation page
+    //
+    //         $location.path("/merchants/" + $scope.Id + "/confirmation");
+    //     }
+    // },
+    // //check for a 500
+    // function(response)
+    // {
+    //     //Check for unauthorized
+    //     if(response.status == 401 || response.status == 500)
+    //     {
+    //         //Bad session
+    //         //Redirect them to a 404
+    //         $location.path("#/");
+    //     }
+    //     else {
+    //         //log the status
+    //         console.log("Status:" + response.status);
+    //     }
+    //     return;
+    // });
+
     /*--------------------------------
     *
     *   SECOND PAGE LOGIC
     *
     --------------------------------*/
-    //Our pressed tricon ***
-    $scope.pressedTricon = "";
-
     //Our tricon message
-    $scope.triconMessage = "Please enter a 3 item tricon code.
-    This will be used by employees for confirmation to use a giftcard
-    at your location."
+    $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
 
     //our array of tricons
-    var triconArray = [];
+    $scope.triconArray = [];
+
+    $scope.confirmedCode = false;
 
     //Shuffles an array using the Fisher-Yates algorithm
     $scope.shuffle = function(array) {
@@ -117,80 +167,27 @@ angular.module('angularLocalightApp')
         }
         event.currentTarget.style.backgroundPositionY = offset;
 
-        //And, add a star to pressed tricon
-        $scope.pressedTricon = $scope.pressedTricon + "*";
+        //Check if they had already entered a code
+        if($scope.triconArray.length > 2) {
+            //Reset the code fresh
+            $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
+
+            //our array of tricons
+            $scope.triconArray = [];
+
+            $scope.confirmedCode = false;
+        }
 
         //Push the tricon onto the array
-        triconArray.push($scope.images[id].code);
+        $scope.triconArray.push($scope.images[id]);
 
-        //Check if it has more than 2 characters, if it does, go to the confirmation page
-        if($scope.pressedTricon.length > 2)
-        {
-            //Send the data to the backend and make sure it's good!
-            var spendJson = {
-                "id" : $scope.Id,
-                "sessionToken" : $scope.sessionToken,
-                "amount" : $cookies.get("igosdmbmtv"),
-                "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
-            }
+        //Check if it has more than 2 images, if it does, go to the confirmation page
+        if($scope.triconArray.length > 2) {
 
-            $scope.spendResponse = Spend.spendGiftcard(spendJson, function (response) {
-                //Check for errors
-                if(response.status)
-                {
-                    if(response.status == 401)
-                    {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                        return;
-                    }
-                }
-                else
-                {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
-                    //Go to the confirmation page
+            //Inform the user that it is good!
+            $scope.triconMessage = "Please submit to finish creating your location, or enter another code"
 
-                    $location.path("/merchants/" + $scope.Id + "/confirmation");
-                }
-            },
-            //check for a 500
-            function(response)
-            {
-                //Check for unauthorized
-                if(response.status == 401 || response.status == 500)
-                {
-                    //Bad session
-                    //Redirect them to a 404
-                    $location.path("#/");
-                }
-                //If they enter the wrong tricon key
-                else if(response.status == 404)
-                {
-                    //reset everything
-
-                    //Our pressed tricon ***
-                    $scope.pressedTricon = "";
-
-                    //our array of tricons
-                    triconArray = [];
-
-
-                    //Error message
-                    $scope.errorMsg = "Sorry, that is the incorrect tricon code, please try again.";
-                }
-                else {
-                    //log the status
-                    console.log("Status:" + response.status);
-                }
-                return;
-            });
+            $scope.confirmedCode = true;
         }
     }
 
