@@ -89,7 +89,7 @@
         nextId="clique_occasion_selection"
          pattern="\d*" required>
       </div>
-      <a class="center" href="" ng-hide="location.name" ng-click="gc.code = 10000;codeValidate($event)">I don't have a merchant code</a>
+      <a class="center" href="" ng-hide="location.name" ng-click="gc.code = 10000;codeValidate($event);setSecondaryField(3);">I don't have a merchant code</a>
 
       <div id="clique_code_message" ng-show = "location.name">
         <label class="inputlabel">
@@ -116,7 +116,7 @@
     <br>
 
     <!--Occasion-->
-    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$dirty && giftcardForm.clique_input_code.$valid && secondaryIndex > 2 && location.name">
+    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$valid && secondaryIndex > 2 && location.name">
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInputNoBorder">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
