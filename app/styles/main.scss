@@ -1201,6 +1201,23 @@ label.inputlabel {
     margin-bottom: 5px;
 }
 
+.locationContainer {
+    @extend .giftcardContainer;
+
+    margin-top: 10px;
+
+    h2 {
+        margin-top: 0px;
+    }
+
+    .locationArrow {
+        position: relative;
+        color: black;
+        font-size: 40px;
+        float: right;
+    }
+}
+
 
 /**
 ***********************
