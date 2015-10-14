@@ -1,1 +1,105 @@
-<p>This is the editlocation view.</p>
+<form class = "authContainer center"
+name = "locationForm"
+ng-init = "getLocation()"
+ng-model = "theForm">
+
+    <!-- Part one of the creat location -->
+    <div ng-show = "!showNextPage">
+
+    <h1>Edit Location</h1>
+
+    <input class = "authInput center"
+    type="text"
+    name="locationName"
+    minlength = "1"
+    ng-model="locationName"
+    placeholder="Name" required>
+
+    <input class = "authInput center"
+    type="text"
+    minlength = "1"
+    name="address1"
+    ng-model="address1"
+    placeholder="Address" required>
+
+    <input class = "authInput center"
+    type="text"
+    name="address2"
+    ng-model="address2"
+    placeholder="Address 2 (Apt., Suite, etc...)">
+
+    <input class = "authInput center"
+    type="text"
+    name="city"
+    minlength = "1"
+    ng-model="city"
+    placeholder="City" required>
+
+    <input class = "authInput center"
+    type="text"
+    minlength = "1"
+    name="state"
+    ng-model="state"
+    placeholder="State" required>
+
+    <input class = "authInput center"
+    type="text"
+    name="zipcode"
+    minlength = "5"
+    maxlenght = "5"
+    ng-model="zipcode"
+    placeholder="Zip Code" required>
+
+    <a href = "/#/panel/main">
+    <button
+    class = "authButton center">Back</button>
+    </a>
+
+    <button class = "authButton"
+    ng-disabled = "!locationForm.locationName.$valid ||
+    !locationForm.address1.$valid ||
+    !locationForm.city.$valid ||
+    !locationForm.state.$valid ||
+    !locationForm.zipcode.$valid"
+    ng-click = "switchPage()">Continue</button>
+    </div>
+
+</form>
+
+<!-- Tricon Keys -->
+<div class = "authContainer center" ng-show = "showNextPage">
+
+    <!-- Our message to the user -->
+    <h4 class = "triconHeader">{{triconMessage}}</h4>
+
+    <!-- Our Tricon Pad -->
+	<!-- Our Selected tricons -->
+	<!-- Using inline styles for our randomization so we can edit this later-->
+	<div class = "confirmCode">
+        <div ng-repeat="i in triconArray track by $index">
+		          <div style="background-position-x: -{{i.pos}}px;" class="dialButton triconSheet selectedTricon upside"></div>
+        </div>
+    </div>
+
+    <hr class = "triconBreak">
+
+	<table class="dialPad upside" align="center">
+
+		<tr ng-repeat="n in tableLayout">
+			<!-- Using inline styles for our randomization so we can edit this later-->
+			<td ng-repeat="i in n">
+			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position-x: -{{images[i].pos}}px;" class="dialButton triconSheet"></div></td>
+		</tr>
+	</table>
+
+    <div ng-show = "error.isError" class = "authWarning">
+            <strong>{{error.text}}</strong>
+    </div>
+
+    <button
+    class = "authButton center"
+    ng-disabled = "!confirmedCode"
+    ng-click = "submitLocation()"
+    type = "submit">Create</button>
+
+</div>

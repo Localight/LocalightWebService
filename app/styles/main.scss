@@ -1165,6 +1165,7 @@ label.inputlabel {
     color: $useItNow;
     border-style: none;
     margin-top: 10px;
+    display: inline-block;
 
     &:disabled {
         background-color: $inverseStandardAlphaLight;
@@ -1206,6 +1207,11 @@ label.inputlabel {
 
     margin-top: 10px;
 
+    a {
+        color: $inverseStandard;
+        text-decoration: none;
+    }
+
     h2 {
         margin-top: 0px;
     }
@@ -1215,6 +1221,10 @@ label.inputlabel {
         color: black;
         font-size: 40px;
         float: right;
+    }
+
+    &:hover {
+        background-color: $containerHover;
     }
 }
 
