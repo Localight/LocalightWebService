@@ -218,6 +218,8 @@ angular.module('angularLocalightApp')
                         code: $scope.gc.code
                     }, function(data, status){
                         $scope.location.name = data.name;
+                        $scope.location = data;
+
                         $scope.showCard = false;
 
                         if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
@@ -585,6 +587,8 @@ angular.module('angularLocalightApp')
                         "phone": formattedPhone,
                         "amount": intAmount,
                         "iconId": $scope.occasionId,
+                        "locationId": $scope.location._id,
+                        "subId": $scope.location.subId,
                         "message": $scope.gc.occasion,
                         "stripeCardToken": stripeToken
                     }
