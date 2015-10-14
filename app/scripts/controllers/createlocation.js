@@ -16,12 +16,16 @@ angular.module('angularLocalightApp')
     //switch the pages
     $scope.switchPage = function() {
         //Set the background to dark
-        document.body.style.backgroundImage = "url('../images/auth-bg.png')";
-        document.body.style.backgroundColor = "#316D6B"
+        document.body.className = "darkBlurBodyBg";
 
         //Set show the next page to true
         $scope.showNextPage = true;
     }
+
+    //Set the background class back if going to a new url
+    $scope.$on('$locationChangeStart', function(next, current) {
+        document.body.className = "";
+    });
 
     //Create the location
     $scope.submitLocation = function() {
