@@ -21,6 +21,12 @@ angular.module('angularLocalightApp')
             if (keyEvent.which === 13) document.getElementById(input).focus();
         }
 
+        document.getElementById("clique_input_code").oninput = function () {
+            if (this.value.length > 5) {
+                this.value = this.value.slice(0,5);
+            }
+        }
+
         //****
         //Page initialization
         //****
@@ -200,41 +206,35 @@ angular.module('angularLocalightApp')
         //Validate our code length
         //Optimize
         $scope.codeValidate = function(event) {
-            //get our element length
-            var len = event.target.value.length;
-            //get the max length we assigned to it
-            var max = event.target.maxLength;
-
             //Our condition to check if it is a number
-            var cond = (46 < event.keyCode && event.keyCode < 58);
+            var cond = event ? (46 < event.keyCode && event.keyCode < 58) : true;
 
             $scope.location = {};
 
             //Check if we met our condition and our length is good
-            if (len == max) {
-                LocationByCode.get({
-                    code: event.target.value
-                }, function(data, status){
-                    $scope.location.name = data.name;
-                    $scope.showCard = false;
+            if($scope.gc.code != null){
+                if ($scope.gc.code.toString().length == 5) {
+                    LocationByCode.get({
+                        code: $scope.gc.code
+                    }, function(data, status){
+                        $scope.location.name = data.name;
+                        $scope.showCard = false;
 
-                    if (event.target.id === 'clique_input_code') setTimeout(function() {
-                        event.target.blur();
-                    }, 20);
+                        if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
+                            event.target.blur();
+                        }, 20);
 
-                    //Scroll to the requested element
-                    //Now done by the flip card
-                    //$scope.scrollToElement(scrollId);
+                        //Scroll to the requested element
+                        //Now done by the flip card
+                        //$scope.scrollToElement(scrollId);
 
-                    //And set the active field to the occasions
-                    $scope.setActiveField(event.target.getAttribute("nextId"));
-                }, function(err){
-                    alert("Wrong code!");
-                });
+                        //And set the active field to the occasions
+                        $scope.setActiveField(document.getElementById("clique_input_code").getAttribute("nextId"));
+                    }, function(err){
+                        alert("Wrong code!");
+                    });
 
-            }
-            if (len > max || !cond) {
-                event.preventDefault();
+                }
             }
         }
 
