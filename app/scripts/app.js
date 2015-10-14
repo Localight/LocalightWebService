@@ -101,7 +101,7 @@ angular
         controller: 'CreatelocationCtrl',
         controllerAs: 'createlocation'
       })
-      .when('/editlocation', {
+      .when('/panel/editlocation/:locationid', {
         templateUrl: 'views/editlocation.html',
         controller: 'EditlocationCtrl',
         controllerAs: 'editlocation'
