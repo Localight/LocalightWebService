@@ -101,6 +101,11 @@ angular
         controller: 'CreatelocationCtrl',
         controllerAs: 'createlocation'
       })
+      .when('/editlocation', {
+        templateUrl: 'views/editlocation.html',
+        controller: 'EditlocationCtrl',
+        controllerAs: 'editlocation'
+      })
       .otherwise({
         redirectTo: '/'
       });
