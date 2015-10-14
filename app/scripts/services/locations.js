@@ -24,13 +24,27 @@ angular.module('angularLocalightApp')
         isArray: true
       }
     });
-}]);
+  }]);
 
 //Location By Id
 angular.module('angularLocalightApp')
   .factory('LocationById', ['$resource', 'ENV', function($resource, ENV) {
 
     return $resource(ENV.API_BASE + '/locations/:id', {}, {
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: false
+      }
+
+    });
+  }]);
+
+//Location By Code
+angular.module('angularLocalightApp')
+  .factory('LocationByCode', ['$resource', 'ENV', function($resource, ENV) {
+
+    return $resource(ENV.API_BASE + '/locations/code', {}, {
       get: {
         method: 'GET',
         params: {},

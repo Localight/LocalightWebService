@@ -81,20 +81,23 @@
         </div>
       </div>
 
-      <div id="clique_code" class="createCode" ng-hide = "giftcardForm.clique_input_code.$valid">
+      <div id="clique_code" class="createCode" ng-hide = "location.name">
         <label for="Code" class="inputlabel">Code</label>
-        <input type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
-        placeholder="XXXXX" maxlength="5" ng-minlength="5" size="3" ng-keydown="codeValidate('clique_input_code', $event, 5, 'clique_occasion_selection','clique_occasion_selection')"
-        ng-model="gc.code" ng-change="getStoreName()" pattern="\d*" required>
-      </div>
+        <input ng-model="gc.code" type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-focus="setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
 
-      <div id="clique_code_message" ng-show = "giftcardForm.clique_input_code.$valid">
+        placeholder="XXXXX" size="3" ng-keyup="codeValidate($event)"
+        nextId="clique_occasion_selection"
+         pattern="\d*" required>
+      </div>
+      <a class="center" href="" ng-hide="location.name" ng-click="gc.code = 10000;codeValidate($event);setSecondaryField(3);">I don't have a merchant code</a>
+
+      <div id="clique_code_message" ng-show = "location.name">
         <label class="inputlabel">
           <img src="../images/at-icon-blk.png" >
         </label>
         <div class="createCodeMessage">
           Good at
-          <span class="bold">{{getMerchantName()}}</span>
+          <span class="bold">{{location.name}}</span>
           <span class="italicMessage">and participating merchants</span>
         </div>
       </div>
@@ -113,7 +116,7 @@
     <br>
 
     <!--Occasion-->
-    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$dirty && giftcardForm.clique_input_code.$valid && secondaryIndex > 2">
+    <div class = "waterfall" ng-show="giftcardForm.clique_input_code.$valid && secondaryIndex > 2 && location.name">
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInputNoBorder">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>

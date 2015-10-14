@@ -9,7 +9,7 @@
 */
 angular.module('angularLocalightApp')
 .controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, $timeout,
-    $log, $q, $cookies, OccasionService, Users, Join, Giftcards, $document) {
+    $log, $q, $cookies, OccasionService, Users, Join, Giftcards, LocationByCode, $document) {
 
         this.awesomeThings = [
             'HTML5 Boilerplate',
@@ -19,6 +19,12 @@ angular.module('angularLocalightApp')
 
         $scope.keyPress = function(keyEvent, input) {
             if (keyEvent.which === 13) document.getElementById(input).focus();
+        }
+
+        document.getElementById("clique_input_code").oninput = function () {
+            if (this.value.length > 5) {
+                this.value = this.value.slice(0,5);
+            }
         }
 
         //****
@@ -199,50 +205,40 @@ angular.module('angularLocalightApp')
 
         //Validate our code length
         //Optimize
-        $scope.codeValidate = function(id, event, maxlength, scrollId, activeId) {
-            //Grab our element
-            var element = $window.document.getElementById(id);
-            //get our element length
-            var len = element.value.toString().length;
-            //get the max length we assigned to it
-            var max = element.maxLength;
-
+        $scope.codeValidate = function(event) {
             //Our condition to check if it is a number
-            var cond = (46 < event.keyCode && event.keyCode < 58);
+            var cond = event ? (46 < event.keyCode && event.keyCode < 58) : true;
+
+            $scope.location = {};
 
             //Check if we met our condition and our length is good
-            if (len >= maxlength - 1) {
-                $scope.showCard = false;
+            if($scope.gc.code != null){
+                if ($scope.gc.code.toString().length == 5) {
+                    LocationByCode.get({
+                        code: $scope.gc.code
+                    }, function(data, status){
+                        $scope.location.name = data.name;
+                        $scope.location = data;
 
-                if (id === 'clique_input_code') setTimeout(function() {
-                    document.getElementById(id).blur();
-                }, 20);
+                        $scope.showCard = false;
 
-                //Scroll to the requested element
-                //Now done by the flip card
-                //$scope.scrollToElement(scrollId);
+                        if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
+                            event.target.blur();
+                        }, 20);
 
-                //And set the active field to the occasions
-                $scope.setActiveField(activeId);
-            }
-            if (len > maxlength || !cond) {
-                event.preventDefault();
+                        //Scroll to the requested element
+                        //Now done by the flip card
+                        //$scope.scrollToElement(scrollId);
+
+                        //And set the active field to the occasions
+                        $scope.setActiveField(document.getElementById("clique_input_code").getAttribute("nextId"));
+                    }, function(err){
+                        alert("Wrong code!");
+                    });
+
+                }
             }
         }
-
-        /**
-         * Gets the merchant associated with the code entered.
-         */
-        $scope.getMerchantName = function() {
-            //Get the code, transform it into a string
-            var element = $window.document.getElementById('clique_input_code');
-            var code = element.value.toString();
-
-            //SEND CODE TO BACKEND
-            //Return the name of the merchant from the backend (static placeholder)
-            return "MADE in Long Beach"
-        }
-
 
         /****
         * Occasion
@@ -591,6 +587,8 @@ angular.module('angularLocalightApp')
                         "phone": formattedPhone,
                         "amount": intAmount,
                         "iconId": $scope.occasionId,
+                        "locationId": $scope.location._id,
+                        "subId": $scope.location.subId,
                         "message": $scope.gc.occasion,
                         "stripeCardToken": stripeToken
                     }
