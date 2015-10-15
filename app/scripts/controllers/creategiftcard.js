@@ -9,7 +9,7 @@
 */
 angular.module('angularLocalightApp')
 .controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, $timeout,
-    $log, $q, $cookies, OccasionService, Users, Join, Giftcards, $document) {
+    $log, $q, $cookies, OccasionService, Users, Join, Giftcards, LocationByCode, $document) {
 
         this.awesomeThings = [
             'HTML5 Boilerplate',
@@ -19,6 +19,12 @@ angular.module('angularLocalightApp')
 
         $scope.keyPress = function(keyEvent, input) {
             if (keyEvent.which === 13) document.getElementById(input).focus();
+        }
+
+        document.getElementById("clique_input_code").oninput = function () {
+            if (this.value.length > 5) {
+                this.value = this.value.slice(0,5);
+            }
         }
 
         //****
@@ -190,6 +196,7 @@ angular.module('angularLocalightApp')
 
         $scope.setOccasionBack = function() {
             $scope.occasionSelectionFlag = true;
+            $scope.gc.Icon = "";
         };
 
         /****
@@ -198,50 +205,40 @@ angular.module('angularLocalightApp')
 
         //Validate our code length
         //Optimize
-        $scope.codeValidate = function(id, event, maxlength, scrollId, activeId) {
-            //Grab our element
-            var element = $window.document.getElementById(id);
-            //get our element length
-            var len = element.value.toString().length;
-            //get the max length we assigned to it
-            var max = element.maxLength;
-
+        $scope.codeValidate = function(event) {
             //Our condition to check if it is a number
-            var cond = (46 < event.keyCode && event.keyCode < 58);
+            var cond = event ? (46 < event.keyCode && event.keyCode < 58) : true;
+
+            $scope.location = {};
 
             //Check if we met our condition and our length is good
-            if (len >= maxlength) {
-                $scope.showCard = false;
+            if($scope.gc.code != null){
+                if ($scope.gc.code.toString().length == 5) {
+                    LocationByCode.get({
+                        code: $scope.gc.code
+                    }, function(data, status){
+                        $scope.location.name = data.name;
+                        $scope.location = data;
 
-                if (id === 'clique_input_code') setTimeout(function() {
-                    document.getElementById(id).blur();
-                }, 20);
+                        $scope.showCard = false;
 
-                //Scroll to the requested element
-                //Now done by the flip card
-                //$scope.scrollToElement(scrollId);
+                        if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
+                            event.target.blur();
+                        }, 20);
 
-                //And set the active field to the occasions
-                $scope.setActiveField(activeId);
-            }
-            if (len > maxlength || !cond) {
-                event.preventDefault();
+                        //Scroll to the requested element
+                        //Now done by the flip card
+                        //$scope.scrollToElement(scrollId);
+
+                        //And set the active field to the occasions
+                        $scope.setActiveField(document.getElementById("clique_input_code").getAttribute("nextId"));
+                    }, function(err){
+                        alert("Wrong code!");
+                    });
+
+                }
             }
         }
-
-        /**
-         * Gets the merchant associated with the code entered.
-         */
-        $scope.getMerchantName = function() {
-            //Get the code, transform it into a string
-            var element = $window.document.getElementById('clique_input_code');
-            var code = element.value.toString();
-
-            //SEND CODE TO BACKEND
-            //Return the name of the merchant from the backend (static placeholder)
-            return "MADE in Long Beach"
-        }
-
 
         /****
         * Occasion
@@ -327,7 +324,8 @@ angular.module('angularLocalightApp')
                         $scope.clique_input_phonenumber_validity = false;
                     }
                 }
-                //
+
+
                 for (i = 0; i < val.length; i++) {
                     if (i === 3) {
                         val[i] = val[i] + ')';
@@ -337,7 +335,17 @@ angular.module('angularLocalightApp')
                     }
                     tel = tel + val[i];
                 }
+
+                //Finalize the value
                 element.value = tel;
+
+                //now check if we should focus on the email
+                if($scope.clique_input_phonenumber_validity && tel.length > 12)
+                {
+                    $timeout(function () {
+                        document.getElementById("clique_input_email").focus();
+                    }, 250);
+                }
             }
         }
 
@@ -367,7 +375,13 @@ angular.module('angularLocalightApp')
                 cardNumber += document.getElementById("clique_input_creditcardnumber" + i).value;
             }
 
-            $scope.validCC = Stripe.card.validateCardNumber(cardNumber);
+            //Check if the credit card number is US valid
+            if(Stripe.card.validateCardNumber(cardNumber)) {
+                $scope.validCC = true;
+            }
+            else {
+                $scope.validCC = false;
+            }
 
             //Also we should set what card type we have
             var cardType = Stripe.card.cardType(cardNumber);
@@ -445,7 +459,7 @@ angular.module('angularLocalightApp')
             var email = $scope.gc.email;
 
             //check if the email has an @ sign
-            if (email.indexOf("@") > -1) {
+            if ($scope.gc.email && email.indexOf("@") > -1) {
                 //If it does, get a sub string after that, and check for a period
                 if (email.substring(email.indexOf("@"))
                 .indexOf(".") > -1) {
@@ -511,6 +525,12 @@ angular.module('angularLocalightApp')
 
                 //Show the next page
                 $scope.showPage2 = true;
+
+                //timeout and focus on the phone field
+                $timeout(function() {
+                    //focus on the phone element
+                    document.getElementById("clique_input_phonenumber").focus();
+                }, 250);
             }
 
             //Force the change to refresh, we need to do this because I
@@ -561,10 +581,14 @@ angular.module('angularLocalightApp')
                     //Create a giftcard
                     var newGiftcardJson = {
                         "sessionToken": sessionToken,
-                        "name": $scope.gc.to,
+                        "toName": $scope.gc.to,
+                        "fromName": $scope.gc.from,
+                        "email": $scope.gc.email,
                         "phone": formattedPhone,
                         "amount": intAmount,
                         "iconId": $scope.occasionId,
+                        "locationId": $scope.location._id,
+                        "subId": $scope.location.subId,
                         "message": $scope.gc.occasion,
                         "stripeCardToken": stripeToken
                     }

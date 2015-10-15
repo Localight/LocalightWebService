@@ -24,7 +24,7 @@ angular.module('angularLocalightApp')
         isArray: true
       }
     });
-}]);
+  }]);
 
 //Location By Id
 angular.module('angularLocalightApp')
@@ -48,6 +48,7 @@ angular.module('angularLocalightApp')
     });
   }]);
 
+
   //Location By Owner
   angular.module('angularLocalightApp')
     .factory('LocationByOwner', ['$resource', 'ENV', function($resource, ENV) {
@@ -63,6 +64,22 @@ angular.module('angularLocalightApp')
 
       });
     }]);
+
+
+//Location By Code
+angular.module('angularLocalightApp')
+  .factory('LocationByCode', ['$resource', 'ENV', function($resource, ENV) {
+
+    return $resource(ENV.API_BASE + '/locations/code', {}, {
+      get: {
+        method: 'GET',
+        params: {},
+        isArray: false
+      }
+
+    });
+  }]);
+
 
 //Spending a Giftcard
 angular.module('angularLocalightApp')
