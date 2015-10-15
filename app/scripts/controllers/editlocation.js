@@ -120,13 +120,7 @@ angular.module('angularLocalightApp')
 
         //Add tricon code here
         //console.log("Tricon Pressed: " + $scope.images[id]);
-        //
-        var offset;
-        if(window.innerWidth <= 320){
-            offset = '-75px';
-        } else {
-            offset = '-100px';
-        }
+        var offset = '-100px';
         event.currentTarget.style.backgroundPositionY = offset;
 
         //Check if they had already entered a code
@@ -178,12 +172,6 @@ angular.module('angularLocalightApp')
         {name: "tricon-sundae", pos: "700", code: "e108"},
         {name: "tricon-wine", pos: "500", code: "e106"}
     ];
-
-    if(window.innerWidth <= 320){
-        for(var i = 0; i < $scope.images.length; i++){
-            $scope.images[i].pos = $scope.images[i].pos * .75;
-        }
-    }
 
     //Shuffles the images array of tricons to always
     //display in different order
