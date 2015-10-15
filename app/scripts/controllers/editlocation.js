@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('EditlocationCtrl', function ($scope, $cookies, $location, $route, $routeParams, Owners, LocationById, Locations) {
+  .controller('EditlocationCtrl', function ($scope, $cookies, $location, $route, $routeParams, Owners, LocationById) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -194,17 +194,18 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var postJson = {
-           "sessionToken" : sessionToken,
-           "name" : $scope.locationName,
-           "triconKey" : $scope.triconArray[0].code + "" + $scope.triconArray[1].code + "" + $scope.triconArray[2].code,
-           "address1" : $scope.address1,
-           "address2" : $scope.address2,
-           "city" : $scope.city,
-           "state" : $scope.state,
-           "zipcode" : $scope.zipcode
+           "id": $routeParams.locationId,
+           "sessionToken": sessionToken,
+           "name": $scope.locationName,
+           "triconKey": $scope.triconArray[0].code + "" + $scope.triconArray[1].code + "" + $scope.triconArray[2].code,
+           "address1": $scope.address1,
+           "address2": $scope.address2,
+           "city": $scope.city,
+           "state": $scope.state,
+           "zipcode": $scope.zipcode
        };
 
-        $scope.newLocation = Locations.create(postJson, function(){
+        $scope.newLocation = LocationById.update(postJson, function(){
 
             //Success!
             //redirect back to the main page
