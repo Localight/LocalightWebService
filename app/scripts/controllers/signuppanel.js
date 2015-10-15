@@ -55,7 +55,25 @@ angular.module('angularLocalightApp')
                 //Finally redirect to the main page
                 $location.path("/panel/main");
             }
-        });
+        },
+        //check for errors
+        function(response)
+        {
+            //Create the error object
+            $scope.error = {
+                isError : true,
+                text: ""
+            };
+
+            if(response.status == 401)
+            {
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
+            }
+        }
+        );
 
     }
 
