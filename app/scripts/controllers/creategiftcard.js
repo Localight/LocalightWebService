@@ -488,7 +488,7 @@ angular.module('angularLocalightApp')
         */
 
         //Setting our stripe key
-        Stripe.setPublishableKey('pk_live_q0ROOXVPDxwiOBxWrdLj5Gib');
+        Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
 
         /**
          * Assembles CC info and creates a token with Stripe
