@@ -488,64 +488,49 @@ angular.module('angularLocalightApp')
         */
 
         //Setting our stripe key
-        Stripe.setPublishableKey('pk_test_XHrjrZeUDNIITwzqrw9OEpQG');
+        Stripe.setPublishableKey('pk_live_q0ROOXVPDxwiOBxWrdLj5Gib');
 
         /**
          * Assembles CC info and creates a token with Stripe
          */
         $scope.tokenizeInfo = function() {
+            //Create finalized card number
+            var cardNumber = $scope.cc.number1 + "" + $scope.cc.number2 + "" + $scope.cc.number3 + "" + $scope.cc.number4;
 
-            //Collect the credit card form info
-            $scope.finalCard = {};
+            //Send card info to stripe for tokenization
+            Stripe.card.createToken({
+                "number": cardNumber,
+                "cvc": $scope.cc.cvc,
+                "exp_month": $scope.cc.ExpiryM,
+                "exp_year": $scope.cc.ExpiryY
+            }, function(status, response) {
+                if (response.error) {
+                    //Display card error message
+                    $scope.tokenizeFailure = true;
+                } else {
+                    //Get the token to be submitted later, after the second page
+                    // response contains id and card, which contains additional card details
+                    stripeToken = response.id;
 
-            //First concatanate the number, use dashes to keep things from adding
-            var cardNumber = $scope.cc.number1 + "-" + $scope.cc.number2 + "-" + $scope.cc.number3 + "-" + $scope.cc.number4;
-            //Add card number to our finalCard
-            $scope.finalCard.number = cardNumber;
+                    //Show the next page
+                    $scope.showPage2 = true;
 
-            //Add the cvc
-            $scope.finalCard.cvc = $scope.cc.cvc;
+                    //timeout and focus on the phone field
+                    $timeout(function() {
+                        //focus on the phone element
+                        document.getElementById("clique_input_phonenumber").focus();
+                    }, 250);
+                }
 
-            //Add the month and year (used with an undescore)
-            $scope.finalCard.exp_month = $scope.cc.ExpiryM;
-            $scope.finalCard.exp_year = $scope.cc.ExpiryY;
-
-            //Now send to stripe to be tokenized
-            Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
+                //Force the change to refresh, we need to do this because I
+                //guess response scope is a different scope and has to be
+                //forced or interacted with
+                $scope.$apply();
+            });
         };
 
         //A place to store the stripe token until final sendoff
-        var stripeToken;
-
-        /**
-         * Handles the response from Stripe after CC information is sent by createToken(), and operates as the callback.
-         */
-        $scope.stripeResponseHandler = function(status, response) {
-            if (response.error) {
-                //Inform the user
-                $scope.tokenizeFailure = true;
-
-            } else {
-                //Get the token to be submitted later, after the second page
-                // response contains id and card, which contains additional card details
-                stripeToken = response.id;
-
-                //Show the next page
-                $scope.showPage2 = true;
-
-                //timeout and focus on the phone field
-                $timeout(function() {
-                    //focus on the phone element
-                    document.getElementById("clique_input_phonenumber").focus();
-                }, 250);
-            }
-
-            //Force the change to refresh, we need to do this because I
-            //guess response scope is a different scope and has to be
-            //forced or interacted with
-            $scope.$apply();
-        };
-
+        var $scope.stripeToken;
 
         //Finally SUBMIT EVERYTHING!
 
@@ -597,7 +582,7 @@ angular.module('angularLocalightApp')
                         "locationId": $scope.location._id,
                         "subId": $scope.location.subId,
                         "message": $scope.gc.occasion,
-                        "stripeCardToken": stripeToken
+                        "stripeCardToken": $scope.stripeToken
                     }
 
                     var newGiftcard = Giftcards.create(newGiftcardJson, function() {
