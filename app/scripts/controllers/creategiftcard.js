@@ -17,21 +17,11 @@ angular.module('angularLocalightApp')
             'Karma'
         ];
 
-        $scope.keyPress = function(keyEvent, input) {
-            if (keyEvent.which === 13) document.getElementById(input).focus();
-        }
-
-        document.getElementById("clique_input_code").oninput = function () {
-            if (this.value.length > 5) {
-                this.value = this.value.slice(0,5);
-            }
-        }
-
         //****
         //Page initialization
         //****
 
-        //Rotation warning shown
+        //Rotation warning boolean
         $scope.rotateAlert = false;
 
         //Rotation warning detector
@@ -96,6 +86,18 @@ angular.module('angularLocalightApp')
         //****
         //General functions
         //****
+
+        //Fuction to focus on a field if the user presses Enter
+        $scope.keyPress = function(keyEvent, input) {
+            if (keyEvent.which === 13) document.getElementById(input).focus();
+        }
+
+        //Chops off end character for specified field
+        document.getElementById("clique_input_code").oninput = function () {
+            if (this.value.length > 5) {
+                this.value = this.value.slice(0,5);
+            }
+        }
 
         //Scroll to element by HTML ID
         $scope.scrollToElement = function(elementId, callback) {
@@ -547,100 +549,68 @@ angular.module('angularLocalightApp')
         };
 
 
-        //Finally SUBMIT EVERYTHING!
-
+        //Finally SUBMIT EVERYTHING to the backend!
         $scope.submitGiftcard = function() {
             //Creating the users Json
-            var userJson = {
+            var payload = {
                 "sessionToken": sessionToken,
                 "name": $scope.gc.from,
                 "email": $scope.gc.email
             };
 
             //If it is successful, Update the spending user
-            var updateUser = Users.update(userJson, function(response) {
-                if (response.status)
-                {
-                    if(response.status == 401)
-                    {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        $scope.backendError = true;
-                        $scope.backendRes = updateUser.msg;
-                    }
-                    return;
+            var updateUser;
+            Users.update(payload,
+                function(data, status) {
+
+                //Success, First, fix the formatting on the phone
+                //This will remove all special characters from the string
+                var formattedPhone = $scope.gc.phoneNumber.replace(/[^a-zA-Z0-9]/g, '');
+
+                //Also, we need to convert our amount into integers
+                var intAmount = $scope.gc.amount * 100;
+
+                //Create a giftcard
+                var newGiftcardPayload= {
+                    "sessionToken": sessionToken,
+                    "toName": $scope.gc.to,
+                    "fromName": $scope.gc.from,
+                    "email": $scope.gc.email,
+                    "phone": formattedPhone,
+                    "amount": intAmount,
+                    "iconId": $scope.occasionId,
+                    "locationId": $scope.location._id,
+                    "subId": $scope.location.subId,
+                    "message": $scope.gc.occasion,
+                    "stripeCardToken": stripeToken
                 }
-                else
-                {
-                    //First, fix the formatting on the phone
-                    //This will remove all special characters from the string
 
-                    var formattedPhone = $scope.gc.phoneNumber.replace(/[^a-zA-Z0-9]/g, '');
+                //Send the giftcard to the backend to be created
+                var newGiftcard;
+                Giftcards.create(newGiftcardPayload,
+                    function(data, status) {
 
-                    //Also, we need to convert our amount into integers
-                    var intAmount = $scope.gc.amount * 100;
+                        //Success, Store the phone number and email in the cookies
+                        $cookies.put("phone", $scope.gc.phoneNumber);
+                        $cookies.put("email", $scope.gc.email);
 
-                    //Create a giftcard
-                    var newGiftcardJson = {
-                        "sessionToken": sessionToken,
-                        "toName": $scope.gc.to,
-                        "fromName": $scope.gc.from,
-                        "email": $scope.gc.email,
-                        "phone": formattedPhone,
-                        "amount": intAmount,
-                        "iconId": $scope.occasionId,
-                        "locationId": $scope.location._id,
-                        "subId": $scope.location.subId,
-                        "message": $scope.gc.occasion,
-                        "stripeCardToken": stripeToken
-                    }
+                        //Go to the sent page
+                        $location.path("/sent");
+                },
+                function(err) {
 
-                    var newGiftcard = Giftcards.create(newGiftcardJson, function() {
-                        if (response.status)
-                        {
-                            if(response.status == 401)
-                            {
-                                //Bad session
-                                //Redirect them to a 404
-                                $location.path("#/");
-                                return;
-                            }
-                            else
-                            {
-                                $scope.backendError = true;
-                                $scope.backendRes = newGiftcard.msg;
-                            }
-                            return;
-                        }
-                        else {
-                            //SUCCESSSSSSSS
-
-                            //Store the phone number and email in the cookies
-                            $cookies.put("phone", $scope.gc.phoneNumber);
-                            $cookies.put("email", $scope.gc.email);
-
-                            //For testing Go to the sent page
-                            $location.path("/sent");
-                        }
-                    },
-                    //incase of internal server error
-                    function(response) {
-                        $scope.backendError = true;
-                        $scope.backendRes = newGiftcard.msg;
-                        return;
-                    });
-                }
+                    //Error, Inform the user of the status
+                    console.log("Status: " + err.status + " " + err.data.msg);
+                    $scope.backendError = true;
+                    $scope.backendRes = updateUser.msg;
+                });
             },
-            //Incase of internal server Error
-            function(response) {
+            function(err) {
+
+                //Error, Inform the user of the status
+                console.log("Status: " + err.status + " " + err.data.msg);
                 $scope.backendError = true;
                 $scope.backendRes = updateUser.msg;
-                return;
             });
         }
 

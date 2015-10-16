@@ -53,7 +53,7 @@ angular.module('angularLocalightApp')
                 $scope.merchantLocation = data;
 
             }, function(err) {
-                //Error, Infrom the user of the status
+                //Error, Inform the user of the status
                 if (err.status == 401) {
                    //Session is invalid! Redirect to 404
                    $location.path("/");
