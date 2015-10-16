@@ -16,14 +16,17 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean for alert
+    //Boolean to alert rotation to the user
     $scope.rotateAlert = false;
+
+    //get our session token from the cookies
+    $scope.sessionToken = $cookies.get("sessionToken");
 
     //Get our merchant ID
     $scope.Id = $routeParams.merchantId;
 
-    //get our session token from the cookies
-    $scope.sessionToken = $cookies.get("sessionToken");
+    //Timeout, the redirect to the next page
+    $timeout(timeoutRedirect, 2000);
 
     //Check for device orientation
     $window.addEventListener("orientationchange", function() {
@@ -34,31 +37,29 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-		//Timeout to the next page
-		$timeout(timeoutRedirect, 2000);
-
-		//Get our merchant ID
-		$scope.Id = $routeParams.merchantId;
-
         //Get our location
         $scope.getLocation = function() {
-            //Get our giftcards from the user
+
             //First set up some JSON for the session token
-            var getJson = {
+            var payload = {
                 "id" : $scope.Id,
                 "sessionToken" : $scope.sessionToken
             }
 
-            $scope.merchantLocation = LocationById.get(getJson, function(){
-                //Check for errors
-                if($scope.merchantLocation.errorid)
-                {
-                    console.log("Error #" + $scope.giftcard.errorid + ": " + $scope.giftcard.msg);
-                    return;
-                }
-                else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
+            //Send the payload to the backend
+            LocationById.get(payload,
+                function(data, status) {
+                //Success! Save the response to our scope!
+                $scope.merchantLocation = data;
+
+            }, function(err) {
+                //Error, Infrom the user of the status
+                if (err.status == 401) {
+                   //Session is invalid! Redirect to 404
+                   $location.path("/");
+                } else {
+                   //An unexpected error has occured, log into console
+                   console.log("Status: " + err.status + " " + err.data.msg);
                 }
             });
 
@@ -71,6 +72,7 @@ angular.module('angularLocalightApp')
 			var amount = $cookies.get("igosdmbmtv");
 			if(!amount)
 			{
+                //Redierect to the amount screen if there is no amount cookie
 				$scope.goTo("/merchants/" + $scope.Id + "/amount");
 			}
 			return (parseInt(amount) / 100).toFixed(2);
