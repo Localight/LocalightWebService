@@ -10,13 +10,13 @@
 angular.module('angularLocalightApp')
   .controller('TriconCtrl', function ($scope, $routeParams, $location, $window, $cookies, LocationById, Spend) {
 
-    //Boolean for alert
+    //Boolean for rotation alert to the user
     $scope.rotateAlert = false;
 
-    //Error message
+    //Boolean to display an error message
     $scope.errorMsg
 
-    //Get our merchant ID
+    //Get our merchant ID from the url
     $scope.Id = $routeParams.merchantId;
 
     //get our session token from the cookies
@@ -41,53 +41,38 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-		//Our pressed tricon ***
+		//The string to diplay the *** to the users on tricon enter
 		$scope.pressedTricon = "";
 
-        //our array of tricons
+        //Array of entered tricons
         var triconArray = [];
-
-		//Get our merchant ID
-		$scope.Id = $routeParams.merchantId;
 
         //Get our location
         $scope.getLocation = function() {
-            //Get our giftcards from the user
+
             //First set up some JSON for the session token
-            var getJson = {
+            var payload = {
                 "id" : $scope.Id,
                 "sessionToken" : $scope.sessionToken
             }
 
-            $scope.merchantLocation = LocationById.get(getJson, function(response){
-                //Check for errors
-                if(response.status)
-                {
-                    if(response.status == 401)
-                    {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                        return;
-                    }
-                }
-                else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
-                }
-            },
-            //check for a 500
-            function(response)
-            {
-                console.log("Status:" + response.status + ", Internal Server Error");
-                return;
-            });
+            //Send the payload to the backend
+            LocationById.get(payload,
+                function(data, status) {
+                //Success! Save the response to our scope!
+                $scope.merchantLocation = data;
 
+            }, function(err) {
+
+                //Error, Inform the user of the status
+                if (err.status == 401) {
+                   //Session is invalid! Redirect to 404
+                   $location.path("/");
+                } else {
+                   //An unexpected error has occured, log into console
+                   console.log("Status: " + err.status + " " + err.data.msg);
+                }
+            });
         }
 
 		//Shuffles an array using the Fisher-Yates algorithm
@@ -110,16 +95,13 @@ angular.module('angularLocalightApp')
 		  return array;
 		}
 
-		//When tricon is being pressed, this function will be launched
+		//Function to handle tricon presses
 		$scope.pressed = function(id){
 
-            //remove the error text
-            //Error message
+            //reset the error text
             $scope.errorMsg = "";
 
-			//Add tricon code here
-			//console.log("Tricon Pressed: " + $scope.images[id]);
-			//
+            //Set the tricon to the pressed image
             var offset = '-100px';
 			event.currentTarget.style.backgroundPositionY = offset;
 
@@ -132,76 +114,54 @@ angular.module('angularLocalightApp')
 			//Check if it has more than 2 characters, if it does, go to the confirmation page
 			if($scope.pressedTricon.length > 2)
 			{
+
                 //Send the data to the backend and make sure it's good!
-                var spendJson = {
+                var payload = {
                     "id" : $scope.Id,
                     "sessionToken" : $scope.sessionToken,
                     "amount" : $cookies.get("igosdmbmtv"),
                     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
                 }
 
-                $scope.spendResponse = Spend.spendGiftcard(spendJson, function (response) {
-                    //Check for errors
-                    if(response.status)
-                    {
-                        if(response.status == 401)
-                        {
-                            //Bad session
-                            //Redirect them to a 404
-                            $location.path("#/");
-                            return;
-                        }
-                        else
-                        {
-                            console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        //there was no error continue as normal
-                        //Stop any loading bars or things here
-                        //Go to the confirmation page
+                Spend.spendGiftcard(payload,
+                function (data, status) {
 
+                        //success save the response in scope
+                        $scope.spendResponse = data;
+
+                        //Go to the confirmation page
                         $location.path("/merchants/" + $scope.Id + "/confirmation");
-                    }
                 },
-                //check for a 500
-                function(response)
+                function(err)
                 {
                     //Check for unauthorized
-                    if(response.status == 401 || response.status == 500)
+                    if(err.status == 401 || err.status == 500)
                     {
                         //Bad session
                         //Redirect them to a 404
                         $location.path("#/");
                     }
                     //If they enter the wrong tricon key
-                    else if(response.status == 404)
+                    else if(err.status == 404)
                     {
-                        //reset everything
-
-                        //Our pressed tricon ***
+                        //Reset everything
                         $scope.pressedTricon = "";
-
-                        //our array of tricons
                         triconArray = [];
 
-
-                        //Error message
+                        //Display the error
                         $scope.errorMsg = "Sorry, that is the incorrect tricon code, please try again.";
                     }
                     else {
                         //log the status
-                        console.log("Status:" + response.status);
+                        console.log("Status:" + err.status + " " + err.data.msg);
                     }
                     return;
                 });
 			}
 		}
 
-		//When tricon is unpressed, this function will be launched
-		$scope.unpressed = function(id){
+		//Handle when a tricon becomes unpressed
+		$scope.unpressed = function(id) {
 			event.currentTarget.style.backgroundPositionY = '0px';
 		}
 

@@ -10,6 +10,7 @@
 angular.module('angularLocalightApp')
   .controller('SentconfirmationCtrl', function ($scope, $cookies) {
 
+    //Display the phone number and email to the user, and then remove them from the cookies
     $scope.getInit = function()
     {
         //Place our cookies in scope variables and then remove the cookies

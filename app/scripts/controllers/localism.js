@@ -16,7 +16,7 @@ angular.module('angularLocalightApp')
           'Karma'
         ];
 
-        //Boolean for alert
+        //Boolean to alertthe user about rotation
         $scope.rotateAlert = false;
 
         //Check for device orientation
@@ -28,42 +28,39 @@ angular.module('angularLocalightApp')
             }
         }, false);
 
-          //get our session token from the cookies
-          $scope.sessionToken = $cookies.get("sessionToken");
+        //get our session token from the cookies
+        $scope.sessionToken = $cookies.get("sessionToken");
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
 
         // Find a list of Giftcards
-		$scope.getGiftcards = function() {
-			//Get our giftcards from the user
+    	$scope.getGiftcards = function() {
+
             //First set up some JSON for the session token
-            var getJson = {
+            var payload = {
                 "sessionToken" : $scope.sessionToken
             }
 
-            //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function(response)
-            {
-                //Error checking should be done in next block
+            //Query the backend using our session token
+            Giftcards.get(payload,
+            function(data, status) {
+                ///Success save giftcards in scope
+                $scope.giftcards = data;
             },
-            //check for a 500
-            function(response)
+
+            function(err)
             {
-                //Check for unauthorized
-                if(response.status == 401)
-                {
-                    //Bad session
-                    //Redirect them to a 404
-                    $location.path("#/");
+                //Error, Inform the user of the status
+                if (err.status == 401) {
+                   //Session is invalid! Redirect to 404
+                   $location.path("/");
+                } else {
+                   //An unexpected error has occured, log into console
+                   console.log("Status: " + err.status + " " + err.data.msg);
                 }
-                else {
-                    //log the status
-                    console.log("Status:" + response.status);
-                }
-                return;
             });
-		}
+    	}
 
         $scope.totalValue = function()
 		{

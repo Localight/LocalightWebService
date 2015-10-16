@@ -16,7 +16,7 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean for alert
+    //Boolean Rotation alert to display to the user
     $scope.rotateAlert = false;
 
     //Check for device orientation
@@ -28,7 +28,7 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-		//Get our merchant ID
+		//Get our merchant ID from the url
 		$scope.Id = $routeParams.merchantId;
 
         //get our session token from the cookies
@@ -46,42 +46,30 @@ angular.module('angularLocalightApp')
 
         //Get our location
         $scope.getLocation = function() {
-            //Get our giftcards from the user
+
             //First set up some JSON for the session token
-            var getJson = {
+            var payload = {
                 "id" : $scope.Id,
                 "sessionToken" : $scope.sessionToken
             }
 
-            $scope.merchantLocation = LocationById.get(getJson, function(response){
-                //Check for errors
-                if(response.status)
-                {
-                    if(response.status == 401)
-                    {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                        return;
-                    }
-                }
-                else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
-                }
-            },
-            //check for a 500
-            function(response)
-            {
-                console.log("Status:" + response.status + ", Internal Server Error");
-                return;
-            });
+            //Send the payload to the backend
+            LocationById.get(payload,
+                function(data, status) {
+                //Success! Save the response to our scope!
+                $scope.merchantLocation = data;
 
+            }, function(err) {
+
+                //Error, Inform the user of the status
+                if (err.status == 401) {
+                   //Session is invalid! Redirect to 404
+                   $location.path("/");
+                } else {
+                   //An unexpected error has occured, log into console
+                   console.log("Status: " + err.status + " " + err.data.msg);
+                }
+            });
         }
 
 		//Get the amount we are going to send the server
@@ -96,7 +84,7 @@ angular.module('angularLocalightApp')
 			return (parseInt(amount) / 100).toFixed(2);
 		}
 
-		//Function to go back to selecting merchants
+		//Function to go to the route provided in the params
 		$scope.goTo = function(place)
 		{
 			//Save our final amount if the path is to pay
@@ -104,7 +92,6 @@ angular.module('angularLocalightApp')
 			{
 
 			}
-
 			$location.path(place);
 		}
 
