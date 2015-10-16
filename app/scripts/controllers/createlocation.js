@@ -32,6 +32,7 @@ angular.module('angularLocalightApp')
     *   SECOND PAGE LOGIC
     *
     --------------------------------*/
+    
     //Our tricon message that is displayed to the user
     $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
 
