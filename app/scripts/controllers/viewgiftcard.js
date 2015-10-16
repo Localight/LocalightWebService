@@ -16,10 +16,10 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-        //Boolean for alert
+        //Boolean for rotation alert to the user
         $scope.rotateAlert = false;
 
-        //Boolean if the giftcard can e spent
+        //Boolean if the giftcard can be spent
         $scope.isValid;
 
         //Check for device orientation
@@ -31,13 +31,13 @@ angular.module('angularLocalightApp')
             }
         }, false);
 
-		//Initialize scope.giftcards
+		//Initialize giftcards in scope
 		$scope.giftcard;
 
-        //Get our giftcard id from the route params
+        //Get our giftcard id from the url
         var giftcardId = $routeParams.giftcardId;
 
-        //Get the session token
+        //Get the session token from the cookies
         var sessionToken;
 
         if($location.search().token)
@@ -68,47 +68,47 @@ angular.module('angularLocalightApp')
 		]
 
         // Find a list of Giftcards
-		$scope.getGiftcards = function() {
-			//Get our giftcards from the user
+    	$scope.getGiftcard = function() {
+
             //First set up some JSON for the session token
-            var getJson = {
-                "id" : giftcardId,
-                "sessionToken" : sessionToken
+            var payload = {
+                "sessionToken" : sessionToken,
+                "id": giftcardId
             }
 
-            //Query the backend using out session token
-            $scope.giftcard = GiftcardById.get(getJson, function(response)
-            {
-                //Error checking should be done in next block
-
-                //check if it was spent
-                if($scope.giftcard.amount < 1)
-                {
-                    $scope.isValid = false;
-                }
+            //Query the backend using our session token
+            GiftcardById.get(payload,
+            function(data, status) {
+                ///Success save giftcards in scope
+                $scope.giftcard = data;
             },
-            //check for a 500
-            function(response)
-            {
-                //Check for unauthorized
-                if(response.status == 401 || response.status == 500)
-                {
-                    //Bad session
-                    //Redirect them to a 404
-                    $location.path("#/");
-                }
-                else {
-                    //log the status
-                    console.log("Status:" + response.status);
-                }
-                return;
-            });
-		}
 
-		$scope.totalValue = function()
+            function(err)
+            {
+                //Error, Inform the user of the status
+                if (err.status == 401) {
+                   //Session is invalid! Redirect to 404
+                   $location.path("/");
+                } else {
+                   //An unexpected error has occured, log into console
+                   console.log("Status: " + err.status + " " + err.data.msg);
+                }
+            });
+    	}
+
+        //The total value of all of the user's giftcards
+        $scope.totalValue = "";
+		$scope.getTotalValue = function()
 		{
+			//Get the total value of all the giftcards
+			var total = 0;
+			for(var i = 0; i < $scope.giftcards.length; ++i)
+			{
+				total = total + parseInt($scope.giftcards[i].amount, 10);
+			}
+
 			//Return the total value as a formatted string
-			return (parseInt($scope.giftcard.amount) / 100).toFixed(2);
+			$scope.totalValue = (parseInt(total) / 100).toFixed(2);
 		}
 
 		//Array of occasion Icons, simply a link to their icon

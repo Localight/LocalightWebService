@@ -9,30 +9,35 @@
  */
 angular.module('angularLocalightApp')
   .controller('MainpanelCtrl', function ($scope, $cookies, $location, Owners, LocationByOwner) {
+
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    //Grab our session token
+    //Grab our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
-    
-    //Get our owner Info
+
+    //Get our owner info on page load
     $scope.getOwner = function() {
 
         //First set up some JSON for the session token
-        var getJson = {
+        var payload = {
            "sessionToken" : sessionToken
         }
 
-        $scope.owner = Owners.get(getJson, function(){
-                //there was no error continue as normal
-                //Get the locations
-                $scope.getLocations();
+        Owners.get(payload,
+        function(data, status){
+
+            //Success, save the data to scope
+            $scope.owner = data;
+
+            //Get the locations
+            $scope.getLocations();
         },
         //check for errors
-        function(response)
+        function(err)
         {
             //Create the error object
             $scope.error = {
@@ -40,44 +45,49 @@ angular.module('angularLocalightApp')
                 text: ""
             };
 
-            if(response.status == 401)
+            //Error, Inform the user of the status
+            if(err.status == 401)
             {
+                //Session is invalid! Redirect to 404
                 $scope.error.text = "Sorry, the entered account information is incorrect.";
             }
-            else {
+            else
+            {
+                //An unexpected error has occured, log into console
                 $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
         });
 
     }
 
-    //get the locations
+    //get the locations from the backend
     $scope.getLocations = function() {
+
         //Json to send to the backend
-        var locationJson = {
+        var payload = {
             "id" : $scope.owner._id
         }
 
-        $scope.locations = LocationByOwner.get(locationJson, function()
-        {
-                //there was no error continue as normal
-                //Stop any loading bars or things here
+        LocationByOwner.get(payload,
+        function(data, status) {
+
+            //Success, save the data from the backend in scope
+            $scope.locations = data;
         },
-        //Check for errors
-        function(response)
+        function(err)
         {
-            //Create the error object
+            //Error, Create the error object
             $scope.error = {
                 isError : true,
                 text: "",
                 noLocations: false
             };
 
-            if(response.status == 401)
+            if(err.status == 401)
             {
                 $scope.error.text = "Sorry, the entered account information is incorrect.";
             }
-            if(response.status == 404)
+            if(err.status == 404)
             {
                 $scope.error.noLocations = true;
             }
@@ -93,22 +103,35 @@ angular.module('angularLocalightApp')
         console.log("THIS DOESNT WORK YET, BACKEND IS NOT READY :(");
 
         //First set up some JSON for the session token
-        var delJson = {
+        var payload = {
            "sessionToken" : sessionToken
         }
 
-        $scope.owner = Owners.get(getJson, function(){
-            //Check for errors
-            if($scope.owner.errorid)
-            {
-                console.log($scope.owner.msg);
-                return;
-            }
-            else
-            {
-                //there was no error continue as normal
-                //Save their session token
+        Owners.get(payload,
+        function(data, status) {
 
+            //Success, save the data from the backend to scope
+            $scope.owner = data;
+        },
+        function(err)
+        {
+            //Error, Create the error object
+            $scope.error = {
+                isError : true,
+                text: "",
+                noLocations: false
+            };
+
+            if(err.status == 401)
+            {
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            if(err.status == 404)
+            {
+                $scope.error.noLocations = true;
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
         });
     }
