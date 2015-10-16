@@ -68,18 +68,19 @@ angular.module('angularLocalightApp')
 		]
 
         // Find a list of Giftcards
-    	$scope.getGiftcards = function() {
+    	$scope.getGiftcard = function() {
 
             //First set up some JSON for the session token
             var payload = {
-                "sessionToken" : $scope.sessionToken
+                "sessionToken" : sessionToken,
+                "id": giftcardId
             }
 
             //Query the backend using our session token
-            Giftcards.get(payload,
+            GiftcardById.get(payload,
             function(data, status) {
                 ///Success save giftcards in scope
-                $scope.giftcards = data;
+                $scope.giftcard = data;
             },
 
             function(err)
@@ -95,10 +96,19 @@ angular.module('angularLocalightApp')
             });
     	}
 
-		$scope.totalValue = function()
+        //The total value of all of the user's giftcards
+        $scope.totalValue = "";
+		$scope.getTotalValue = function()
 		{
+			//Get the total value of all the giftcards
+			var total = 0;
+			for(var i = 0; i < $scope.giftcards.length; ++i)
+			{
+				total = total + parseInt($scope.giftcards[i].amount, 10);
+			}
+
 			//Return the total value as a formatted string
-			return (parseInt($scope.giftcard.amount) / 100).toFixed(2);
+			$scope.totalValue = (parseInt(total) / 100).toFixed(2);
 		}
 
 		//Array of occasion Icons, simply a link to their icon

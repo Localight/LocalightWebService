@@ -47,6 +47,9 @@ angular.module('angularLocalightApp')
             function(data, status) {
                 ///Success save giftcards in scope
                 $scope.giftcards = data;
+
+                //Get the total value of all the Giftcards
+                $scope.getTotalValue();
             },
 
             function(err)
@@ -62,17 +65,19 @@ angular.module('angularLocalightApp')
             });
     	}
 
-        $scope.totalValue = function()
-		{
-			//Get the total value of all the giftcards
-			var total = 0;
-			for(var i = 0; i < $scope.giftcards.length; ++i)
-			{
-				total = total + parseInt($scope.giftcards[i].amount, 10);
-			}
+        //The total value of all of the user's giftcards
+        $scope.totalValue = "";
+        $scope.getTotalValue = function()
+        {
+            //Get the total value of all the giftcards
+            var total = 0;
+            for(var i = 0; i < $scope.giftcards.length; ++i)
+            {
+                total = total + parseInt($scope.giftcards[i].amount, 10);
+            }
 
-			//Return the total value as a formatted string
-			return (parseInt(total) / 100).toFixed(2);
-		}
+            //Return the total value as a formatted string
+            $scope.totalValue = (parseInt(total) / 100).toFixed(2);
+        }
 
   });
