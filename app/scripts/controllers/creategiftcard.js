@@ -510,7 +510,7 @@ angular.module('angularLocalightApp')
                 } else {
                     //Get the token to be submitted later, after the second page
                     // response contains id and card, which contains additional card details
-                    stripeToken = response.id;
+                    $scope.stripeToken = response.id;
 
                     //Show the next page
                     $scope.showPage2 = true;
@@ -528,9 +528,6 @@ angular.module('angularLocalightApp')
                 $scope.$apply();
             });
         };
-
-        //A place to store the stripe token until final sendoff
-        var $scope.stripeToken;
 
         //Finally SUBMIT EVERYTHING!
 
