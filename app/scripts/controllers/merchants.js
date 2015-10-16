@@ -60,6 +60,9 @@ angular.module('angularLocalightApp')
 
             //Success save the response to scope
             $scope.merchantsArray = data;
+
+            //Show(true)/Hide(false) the loading spinner, if everything is loaded
+            if($scope.giftcards) $scope.loading = false;
         },
         function(err)
         {
@@ -92,6 +95,9 @@ angular.module('angularLocalightApp')
 
             //the values of the giftcards
             $scope.getTotalValue();
+
+            //Show(true)/Hide(false) the loading spinner, if everything is loaded
+            if($scope.merchantsArray) $scope.loading = false;
         },
 
         function(err)
