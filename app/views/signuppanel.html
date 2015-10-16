@@ -1,19 +1,21 @@
-<form class = "center" ng-submit = "signUp()">
+<form class = "authContainer center" ng-submit = "signUp()">
 
     <h1>Signup</h1>
 
-    <h3 ng-show = "submitError">{{theError}}</h3>
+    <input class = "authInput center" type="text" name="name" ng-model="username" placeholder="Name" required>
 
-    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="name" ng-model="username" placeholder="Name" required>
+    <input class = "authInput center" type="text" name="stripeCustomerId" ng-model="stripeCustomerId" placeholder="Stripe Customer Id" required>
 
-    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="text" name="stripeCustomerId" ng-model="stripeCustomerId" placeholder="Stripe Customer Id" required>
+    <input class = "authInput center" type="email" name="email" ng-model="email" placeholder="Email" required>
 
-    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="email" name="email" ng-model="email" placeholder="Email" required>
+    <input class = "authInput center" type="password" name="password" ng-model="password" placeholder="Password" required>
 
-    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="password" name="password" ng-model="password" placeholder="Password" required>
+    <input class = "authInput center" type="password" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password" required>
 
-    <input style = "margin-top: 10px;font-size: 1.5em;background-color: white" type="password" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password" required>
+    <div ng-show = "error.isError" class = "authWarning">
+            <strong>{{error.text}}</strong>
+    </div>
 
-    <br>
-    <button type = "submit" style = "margin-top: 10px;font-size: 1.5em;">Submit</button>
+
+    <button class = "authButton" type = "submit">Submit</button>
 </form>

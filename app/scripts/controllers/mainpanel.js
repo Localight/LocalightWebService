@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MainpanelCtrl', function ($scope, $cookies, $location, Owners, Locations) {
+  .controller('MainpanelCtrl', function ($scope, $cookies, $location, Owners, LocationByOwner) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -17,7 +17,7 @@ angular.module('angularLocalightApp')
 
     //Grab our session token
     var sessionToken = $cookies.get("sessionToken");
-
+    
     //Get our owner Info
     $scope.getOwner = function() {
 
@@ -27,39 +27,62 @@ angular.module('angularLocalightApp')
         }
 
         $scope.owner = Owners.get(getJson, function(){
-            //Check for errors
-            if($scope.owner.errorid)
-            {
-                console.log($scope.owner.msg);
-                return;
-            }
-            else
-            {
                 //there was no error continue as normal
-                //Save their session token
+                //Get the locations
+                $scope.getLocations();
+        },
+        //check for errors
+        function(response)
+        {
+            //Create the error object
+            $scope.error = {
+                isError : true,
+                text: ""
+            };
 
+            if(response.status == 401)
+            {
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
         });
+
     }
 
     //get the locations
     $scope.getLocations = function() {
         //Json to send to the backend
         var locationJson = {
-            "sessionToken" : $scope.sessionToken
+            "id" : $scope.owner._id
         }
 
-        $scope.locations = Locations.get(locationJson, function()
+        $scope.locations = LocationByOwner.get(locationJson, function()
         {
-            //Check for errors
-            if($scope.locations.errorid)
-            {
-                console.log($scope.locations.errorid + ": " + $scope.locations.msg);
-                return;
-            }
-            else {
                 //there was no error continue as normal
                 //Stop any loading bars or things here
+        },
+        //Check for errors
+        function(response)
+        {
+            //Create the error object
+            $scope.error = {
+                isError : true,
+                text: "",
+                noLocations: false
+            };
+
+            if(response.status == 401)
+            {
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            if(response.status == 404)
+            {
+                $scope.error.noLocations = true;
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
         });
     }
@@ -95,6 +118,5 @@ angular.module('angularLocalightApp')
         //redirect to the create a location page
         $location.path("/panel/createlocation")
     }
-
 
   });

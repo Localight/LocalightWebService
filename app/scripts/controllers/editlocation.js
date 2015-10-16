@@ -2,13 +2,19 @@
 
 /**
  * @ngdoc function
- * @name angularLocalightApp.controller:CreatelocationCtrl
+ * @name angularLocalightApp.controller:EditlocationCtrl
  * @description
- * # CreatelocationCtrl
+ * # EditlocationCtrl
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('CreatelocationCtrl', function ($scope, $cookies, $location, $route, Owners, Locations) {
+  .controller('EditlocationCtrl', function ($scope, $cookies, $location, $route, $routeParams, Owners, LocationById) {
+
+    this.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
 
     //get our session token
     var sessionToken = $cookies.get("sessionToken");
@@ -27,45 +33,50 @@ angular.module('angularLocalightApp')
         document.body.className = "";
     });
 
-    //Create the location
-    $scope.submitLocation = function() {
-
+    //Get our location
+    $scope.getLocation = function() {
+        //Get our giftcards from the user
         //First set up some JSON for the session token
-        var postJson = {
-           "sessionToken" : sessionToken,
-           "name" : $scope.locationName,
-           "triconKey" : $scope.triconArray[0].code + "" + $scope.triconArray[1].code + "" + $scope.triconArray[2].code,
-           "address1" : $scope.address1,
-           "address2" : $scope.address2,
-           "city" : $scope.city,
-           "state" : $scope.state,
-           "zipcode" : $scope.zipcode
-       };
+        var getJson = {
+            "id" : $routeParams.locationId,
+            "sessionToken" : $scope.sessionToken
+        }
 
-        $scope.newLocation = Locations.create(postJson, function(){
-
-            //Success!
-            //redirect back to the main page
-            $location.path("/panel/main");
-        },
-        //check for errors
-        function(response)
-        {
-            //Create the error object
-            $scope.error = {
-                isError : true,
-                text: ""
-            };
-
-            if(response.status == 401)
+        $scope.merchantLocation = LocationById.get(getJson, function(response){
+            //Check for errors
+            if(response.status)
             {
-                $scope.error.text = "Sorry, the entered account information is incorrect.";
+                if(response.status == 401)
+                {
+                    //Bad session
+                    //Redirect them to a 404
+                    $location.path("#/");
+                    return;
+                }
+                else
+                {
+                    console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
+                    return;
+                }
             }
             else {
-                $scope.error.text = "Sorry, an error has occured connecting to the database";
+                //Set the variables for the form here!
+                $scope.locationName = $scope.merchantLocation.name;
+                $scope.address1 = $scope.merchantLocation.address1;
+                $scope.address2 = $scope.merchantLocation.address2;
+                $scope.city = $scope.merchantLocation.city;
+                $scope.state = $scope.merchantLocation.state;
+                $scope.zipcode= $scope.merchantLocation.zipcode;
             }
-        });
-    }
+        },
+        //check for a 500
+        function(response)
+        {
+            console.log("Status:" + response.status + ", Internal Server Error");
+            return;
+        })
+     };
+
 
     /*--------------------------------
     *
@@ -73,7 +84,7 @@ angular.module('angularLocalightApp')
     *
     --------------------------------*/
     //Our tricon message
-    $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
+    $scope.triconMessage = "Please enter (or re-enter) a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
 
     //our array of tricons
     $scope.triconArray = [];
@@ -115,7 +126,7 @@ angular.module('angularLocalightApp')
         //Check if they had already entered a code
         if($scope.triconArray.length > 2) {
             //Reset the code fresh
-            $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
+            $scope.triconMessage = "Please enter (or re-enter) a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
 
             //our array of tricons
             $scope.triconArray = [];
@@ -165,5 +176,46 @@ angular.module('angularLocalightApp')
     //Shuffles the images array of tricons to always
     //display in different order
     $scope.images = $scope.shuffle($scope.images);
+
+    //Create the location
+    $scope.updateLocation = function() {
+
+        //First set up some JSON for the session token
+        var postJson = {
+           "id": $routeParams.locationId,
+           "sessionToken": sessionToken,
+           "name": $scope.locationName,
+           "triconKey": $scope.triconArray[0].code + "" + $scope.triconArray[1].code + "" + $scope.triconArray[2].code,
+           "address1": $scope.address1,
+           "address2": $scope.address2,
+           "city": $scope.city,
+           "state": $scope.state,
+           "zipcode": $scope.zipcode
+       };
+
+        $scope.newLocation = LocationById.update(postJson, function(){
+
+            //Success!
+            //redirect back to the main page
+            $location.path("/panel/main");
+        },
+        //check for errors
+        function(response)
+        {
+            //Create the error object
+            $scope.error = {
+                isError : true,
+                text: ""
+            };
+
+            if(response.status == 401)
+            {
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
+            }
+        });
+    }
 
   });

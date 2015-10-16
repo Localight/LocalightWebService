@@ -1,11 +1,12 @@
 <form class = "authContainer center"
 name = "locationForm"
+ng-init = "getLocation()"
 ng-model = "theForm">
 
     <!-- Part one of the creat location -->
     <div ng-show = "!showNextPage">
 
-    <h1>Create Location</h1>
+    <h1>Edit Location</h1>
 
     <input class = "authInput center"
     type="text"
@@ -48,6 +49,11 @@ ng-model = "theForm">
     maxlenght = "5"
     ng-model="zipcode"
     placeholder="Zip Code" required>
+
+    <a href = "/#/panel/main">
+    <button
+    class = "authButton center">Back</button>
+    </a>
 
     <button class = "authButton"
     ng-disabled = "!locationForm.locationName.$valid ||
@@ -93,7 +99,7 @@ ng-model = "theForm">
     <button
     class = "authButton center"
     ng-disabled = "!confirmedCode"
-    ng-click = "submitLocation()"
-    type = "submit">Create</button>
+    ng-click = "updateLocation()"
+    type = "submit">Update</button>
 
 </div>
