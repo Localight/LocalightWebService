@@ -496,6 +496,7 @@ angular.module('angularLocalightApp')
          * Assembles CC info and creates a token with Stripe
          */
         $scope.tokenizeInfo = function() {
+
             //Create finalized card number
             var cardNumber = $scope.cc.number1 + "" + $scope.cc.number2 + "" + $scope.cc.number3 + "" + $scope.cc.number4;
 
@@ -564,7 +565,7 @@ angular.module('angularLocalightApp')
                     "locationId": $scope.location._id,
                     "subId": $scope.location.subId,
                     "message": $scope.gc.occasion,
-                    "stripeCardToken": stripeToken
+                    "stripeCardToken": $scope.stripeToken
                 }
 
                 //Send the giftcard to the backend to be created
