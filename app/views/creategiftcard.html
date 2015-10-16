@@ -1,4 +1,8 @@
-    <!-- call whatever method you want on submit -->
+<!-- The Loading Spinner that will show on page load -->
+<div ng-class = "{spinner: loading}" ng-init = "loading = false;">
+</div>
+
+<!-- call whatever method you want on submit -->
 <section ng-hide="showPage2">
     <form name="giftcardForm" class="form-horizontal" novalidate>
     <div class="wrapper">
@@ -70,7 +74,6 @@
 
 
     <!--Code, remove ng click to fix functionality -->
-    <!-- little demo thing -->
     <div id="clique_code_wrapper" class = "waterfall" ng-show = "giftcardForm.clique_input_to.$dirty && giftcardForm.clique_input_from.$dirty">
       <div id="flip_container" class = "waterfall" ng-show = "showCard">
         <div class="dummy"></div>
