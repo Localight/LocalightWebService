@@ -1157,6 +1157,19 @@ label.inputlabel {
     max-width:400px;
 }
 
+.giftAmount {
+    position: absolute;
+    font-size: 30px;
+    left: 32px;
+    margin-top: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: $inverseStandard;
+    border-width: 2px;
+}
+
 .phoneEmailCheck {
     @extend .creditCardCheck;
 }
