@@ -508,6 +508,9 @@ angular.module('angularLocalightApp')
             //Show(true)/Hide(false) the loading spinner
             $scope.loading = true;
 
+            //Disable button while tokenzing the card
+            $scope.tokenzing = true;
+
             //Create finalized card number
             var cardNumber = $scope.cc.number1 + "" + $scope.cc.number2 + "" + $scope.cc.number3 + "" + $scope.cc.number4;
 
@@ -594,15 +597,20 @@ angular.module('angularLocalightApp')
                 Giftcards.create(newGiftcardPayload,
                     function(data, status) {
 
+                        //Disable the charging button for slower devices,
+                        //since the loading symbol will disappear before
+                        //they navigate to the sent page
+                        $scope.disableSubmit = true;
+
                         //Success, Store the phone number and email in the cookies
                         $cookies.put("phone", $scope.gc.phoneNumber);
                         $cookies.put("email", $scope.gc.email);
 
-                        //Show(true)/Hide(false) the loading spinner
-                        $scope.loading = false;
-
                         //Go to the sent page
                         $location.path("/sent");
+
+                        //Show(true)/Hide(false) the loading spinner
+                        $scope.loading = false;
                 },
                 function(err) {
 
@@ -619,6 +627,9 @@ angular.module('angularLocalightApp')
 
                 //Show(true)/Hide(false) the loading spinner
                 $scope.loading = false;
+
+                //Re enable the submit button
+                $scope.giftSubmit = false;
 
                 //Error, Inform the user of the status
                 console.log("Status: " + err.status + " " + err.data.msg);

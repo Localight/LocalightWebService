@@ -57,6 +57,9 @@ angular.module('angularLocalightApp')
                 $scope.city = $scope.merchantLocation.city;
                 $scope.state = $scope.merchantLocation.state;
                 $scope.zipcode= $scope.merchantLocation.zipcode;
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
         },
         function(err)
         {
@@ -171,6 +174,9 @@ angular.module('angularLocalightApp')
     //Update the location
     $scope.updateLocation = function() {
 
+        //Show(true)/Hide(false) the loading spinner
+        $scope.loading = true;
+
         //First set up some JSON for the session token
         var payload = {
            "id": $routeParams.locationId,
@@ -190,6 +196,9 @@ angular.module('angularLocalightApp')
 
             //Success! Redirect back to the main page
             $location.path("/panel/main");
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         },
 
         function(err) {
@@ -209,6 +218,9 @@ angular.module('angularLocalightApp')
                console.log("Status: " + err.status + " " + err.data.msg);
                $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         });
     }
 

@@ -346,7 +346,7 @@
 
 
       <button class="proceed_button" id="continue_button"
-          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" ng-click="tokenizeInfo();">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated) || loading" ng-click="tokenizeInfo();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
@@ -424,7 +424,7 @@
           </div>
 
 
-            <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail())" ng-click = "submitGiftcard()">Submit</button>
+            <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail()) || loading || disableSubmit" ng-click = "submitGiftcard()">Submit</button>
         </div>
     </div>
    </form>
