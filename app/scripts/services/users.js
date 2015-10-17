@@ -51,3 +51,16 @@ angular.module('angularLocalightApp')
 
     });
   }]);
+
+  angular.module('angularLocalightApp')
+    .factory('Thanks', ['$resource', 'ENV', function($resource, ENV) {
+
+      return $resource(ENV.API_BASE + '/users/thanks', {}, {
+        submit: {
+          method: 'POST',
+          params: {},
+          isArray: false
+        }
+
+      });
+    }]);
