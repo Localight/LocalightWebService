@@ -31,7 +31,7 @@
 		<div class = "giftcardContainer blackText" style = "background-color: white;">
 			<!-- Our text area and sign off, may be used in order to position the character counter -->
 				<!-- input box, value must be done in the controller -->
-				<textarea id = "thankYouNote" ng-keydown="countCharacters()" type="text" style = "font-size: 1.5em;" class = "largerText" ng-trim="false" maxlength = "160" rows = "4" autofocus>
+				<textarea id = "thankYouNote" ng-model = "thanksMessage" ng-keydown="countCharacters()" type="text" style = "font-size: 1.5em;" class = "largerText" ng-trim="false" maxlength = "160" rows = "4" autofocus>
 				</textarea>
 				<!-- Person's name in the lower right hand corner -->
 				<div class = "textRightAlign">
@@ -40,10 +40,15 @@
 				</div>
 		</div>
 
+		<!-- Show an error if we have one -->
+		<div ng-show = "error.isError" class = "authWarning">
+				<strong>{{error.text}}</strong>
+		</div>
+
 		<!-- our two buttons -->
 		<div class="giftcardButtonContainer" style = "margin-top: 10px">
 			<a class="giftcardButtonSave" style = "padding-right: 33px; padding-left: 33px;" href="#/localism">Remind Me</a>
-			<a class="giftcardButtonUse" href="#/localism">Send It Now</a>
+			<a class="giftcardButtonUse" ng-click = "sendThanks()">Send It Now</a>
 		</div>
 
 	</form>

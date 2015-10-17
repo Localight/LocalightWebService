@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById) {
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById, Thanks) {
 
         //Boolean for rotation alert to the user alert
         $scope.rotateAlert = false;
@@ -65,7 +65,6 @@ angular.module('angularLocalightApp')
             function(data, status) {
             //Success! Save the response to our scope!
             $scope.merchantLocation = data;
-
         }, function(err) {
 
             //Error, Inform the user of the status
@@ -110,6 +109,12 @@ angular.module('angularLocalightApp')
 
             //Get the total value of all the Giftcards
             $scope.getTotalValue();
+
+            //Need to throw into a better location and the giftcards callback
+            //Initialize our thanks message
+            $scope.thanksMessage = $scope.giftcards[0].fromId.name +
+            " I used the Local Giftcard at " + $scope.merchantLocation.name +
+            " to get ..."
         },
 
         function(err)
@@ -151,21 +156,19 @@ angular.module('angularLocalightApp')
         //First set up some JSON for the session token
         var payload = {
            "sessionToken" : $scope.sessionToken,
-           "password" : $scope.password
+           //"fromId" : //Something goes here,
+           "message": $scope.thanksMessage
         }
 
         //Login the user, submit the payload to the backend
-        LoginOwner.submit(payload,
+        Thanks.submit(payload,
         function(data, status) {
 
             //Success, save the response in scope
-            $scope.owner = data;
+            $scope.thankResponse = data;
 
-            //Save their session token
-            $cookies.put("sessionToken", $scope.owner.token);
-
-            //Finally redirect to the main page
-            $location.path("/panel/main");
+            //Finally redirect to the localism page
+            $location.path("/localism");
         },
         function(err) {
             //Create the error object
