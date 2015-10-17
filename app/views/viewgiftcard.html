@@ -37,7 +37,8 @@
       <div class = "featuredImageContainer">
           <!-- The Amount -->
           <div class = "giftAmount">
-              ${{(giftcard.origAmount / 100)}}
+              <div class = "smallDollar">$</div>
+              {{(giftcard.origAmount / 100)}}
           </div>
           <img class = "featuredImage" ng-src="{{merchants[0].image}}" alt="Merchant Image" height="50%" width="100%" />
       </div>
