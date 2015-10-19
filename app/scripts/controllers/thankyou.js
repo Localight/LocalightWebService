@@ -120,6 +120,32 @@ angular.module('angularLocalightApp')
             " I used the Local Giftcard at " + $scope.merchantLocation.name +
             " to get ..."
 
+            //Get our user who sent the giftcard
+            $scope.sender;
+            if($cookies.get("senderName"))
+            {
+                $scope.sender = {
+                    "name": $cookies.get("senderName"),
+                    "id": $cookies.get("senderId")
+                }
+
+                $cookies.remove("senderName");
+                $cookies.remove("senderId");
+            }
+            else {
+                //Make the oldest, non thanked giftcard the sender since its the one we spent
+                for(var i = $scope.giftcards.length - 1; i > 0; i--)
+                {
+                    if($scope.giftcards[i].thanked == false)
+                    {
+                        $scope.sender = {
+                            "name": $scope.giftcards[i].fromId.name,
+                            "id": $scope.giftcards[i].fromId._id
+                        }
+                    }
+                }
+            }
+
             //Show(true)/Hide(false) the loading spinner, if everything is loaded
             if($scope.merchantsArray) $scope.loading = false;
         },

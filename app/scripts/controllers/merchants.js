@@ -128,4 +128,14 @@ angular.module('angularLocalightApp')
         $scope.totalValue = (parseInt(total) / 100).toFixed(2);
     }
 
+    //Remove the sender's id for the thank you page
+    $scope.senderId = function () {
+        //put the sender into cookies to retrieve later
+        $cookies.remove('senderName', $scope.giftcard.fromId.name);
+        $cookies.remove('senderId', $scope.giftcard.fromId._id);
+
+        //Change locations to the merchants page
+        $location.path("/giftcards");
+    }
+
   });
