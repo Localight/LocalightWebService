@@ -1251,13 +1251,18 @@ label.inputlabel {
     }
 }
 
-
 /**
 ***********************
-  MERCHANT PANEL END
+  Responsiveness Fixes
 ***********************
 **/
 
+@media screen and (min-width: 768px) {
+    .container {
+      max-width: none;
+      width: 100%;
+    }
+}
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';
