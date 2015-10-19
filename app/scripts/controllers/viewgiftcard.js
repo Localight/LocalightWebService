@@ -81,6 +81,9 @@ angular.module('angularLocalightApp')
             function(data, status) {
                 ///Success save giftcards in scope
                 $scope.giftcard = data;
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
             },
 
             function(err)

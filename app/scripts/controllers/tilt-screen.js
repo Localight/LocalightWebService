@@ -59,6 +59,8 @@ angular.module('angularLocalightApp')
                 //Success! Save the response to our scope!
                 $scope.merchantLocation = data;
 
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
             }, function(err) {
 
                 //Error, Inform the user of the status

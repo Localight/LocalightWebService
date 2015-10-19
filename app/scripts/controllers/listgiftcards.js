@@ -63,6 +63,9 @@ angular.module('angularLocalightApp')
 
                 //Also get the total value
                 $scope.getTotalValue();
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
             },
 
             function(err)
