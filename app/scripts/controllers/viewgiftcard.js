@@ -119,6 +119,7 @@ angular.module('angularLocalightApp')
             //put the sender into cookies to retrieve later
             $cookies.put('senderName', $scope.giftcard.fromId.name);
             $cookies.put('senderId', $scope.giftcard.fromId._id);
+            $cookies.put('senderIcon', $scope.giftcard.iconId);
 
             //Change locations to the merchants page
             $location.path("/merchants");

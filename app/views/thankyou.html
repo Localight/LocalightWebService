@@ -21,14 +21,14 @@
 	</table>
 
 	<!-- Occasion Icon -->
-	<img class = "center" style = "margin-top: 10px" ng-src = "{{icons[giftcards[0].iconId]}}" width= "75px" height = "75px">
+	<img class = "center" style = "margin-top: 10px" ng-src = "{{icons[sender.icon]}}" width= "75px" height = "75px">
 
 	<!-- Our occasion Heading -->
-	<h1 class = "center heart" style = "margin-top: 5px">{{iconHeaders[giftcards[0].iconId]}}</h1>
+	<h1 class = "center heart" style = "margin-top: 5px">{{iconHeaders[sender.icon]}}</h1>
 
 	<!-- Our message -->
 	<h4 class = "center">${{spentAmount}} was successfully transferred.
-		Wanna send a thank you to {{giftcards[0].fromId.name}}?</h4>
+		Wanna send a thank you to {{sender.name}}?</h4>
 
 	<!-- div to enter thank you note -->
 	<form>

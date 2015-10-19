@@ -114,37 +114,43 @@ angular.module('angularLocalightApp')
             //Get the total value of all the Giftcards
             $scope.getTotalValue();
 
-            //Need to throw into a better location and the giftcards callback
-            //Initialize our thanks message
-            $scope.thanksMessage = $scope.giftcards[0].fromId.name +
-            " I used the Local Giftcard at " + $scope.merchantLocation.name +
-            " to get ..."
-
             //Get our user who sent the giftcard
-            $scope.sender;
+            $scope.sender = {};
             if($cookies.get("senderName"))
             {
                 $scope.sender = {
                     "name": $cookies.get("senderName"),
-                    "id": $cookies.get("senderId")
+                    "id": $cookies.get("senderId"),
+                    "icon": $cookies.get("senderIcon")
                 }
 
                 $cookies.remove("senderName");
                 $cookies.remove("senderId");
+                $cookies.remove("senderIcon");
             }
             else {
                 //Make the oldest, non thanked giftcard the sender since its the one we spent
                 for(var i = $scope.giftcards.length - 1; i > 0; i--)
                 {
-                    if($scope.giftcards[i].thanked == false)
+                    if(!$scope.giftcards[i].thanked)
                     {
                         $scope.sender = {
                             "name": $scope.giftcards[i].fromId.name,
-                            "id": $scope.giftcards[i].fromId._id
+                            "id": $scope.giftcards[i].fromId._id,
+                            "icon": $scope.giftcards[i].iconId
                         }
+
+                        //Since we got what we needed, BREAK, and be efficient
+                        break;
                     }
                 }
             }
+
+            //Need to throw into a better location and the giftcards callback
+            //Initialize our thanks message
+            $scope.thanksMessage = $scope.sender.name +
+            " I used the Local Giftcard at " + $scope.merchantLocation.name +
+            " to get ..."
 
             //Show(true)/Hide(false) the loading spinner, if everything is loaded
             if($scope.merchantsArray) $scope.loading = false;
@@ -189,7 +195,7 @@ angular.module('angularLocalightApp')
         //First set up some JSON for the session token
         var payload = {
            "sessionToken" : $scope.sessionToken,
-           //"fromId" : //Something goes here,
+           "fromId" : $scope.sender.id,
            "message": $scope.thanksMessage
         }
 
