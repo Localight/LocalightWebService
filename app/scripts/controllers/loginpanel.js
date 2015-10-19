@@ -18,8 +18,12 @@ angular.module('angularLocalightApp')
     //Boolean to show an error to the user
     $scope.submitError;
 
-    //Sign up our owner!
+    //Log in our owner!
     $scope.login = function() {
+
+        //Show(true)/Hide(false) the loading spinner
+        $scope.loading = true;
+
 
         //First set up some JSON for the session token
         var payload = {
@@ -33,12 +37,15 @@ angular.module('angularLocalightApp')
 
             //Success, save the response in scope
             $scope.owner = data;
-            
+
             //Save their session token
             $cookies.put("sessionToken", $scope.owner.token);
 
             //Finally redirect to the main page
             $location.path("/panel/main");
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         },
         function(err) {
             //Create the error object
@@ -54,6 +61,9 @@ angular.module('angularLocalightApp')
             else {
                 $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         });
     }
 

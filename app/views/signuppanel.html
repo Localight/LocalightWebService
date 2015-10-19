@@ -1,3 +1,7 @@
+<!-- The Loading Spinner that will show on page load -->
+<div ng-class = "{spinner: loading}">
+</div>
+
 <form class = "authContainer center" ng-submit = "signUp()">
 
     <h1>Signup</h1>
@@ -17,5 +21,5 @@
     </div>
 
 
-    <button class = "authButton" type = "submit">Submit</button>
+    <button class = "authButton" type = "submit" ng-diabled = "loading">Submit</button>
 </form>

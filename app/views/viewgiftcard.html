@@ -1,3 +1,7 @@
+<!-- The Loading Spinner that will show on page load -->
+<div ng-class = "{spinner: loading}" ng-init = "loading = true;">
+</div>
+
 <div class="container-fluid wrapper" ng-init="getGiftcard()">
 
       <!-- header section with give option, clique logo and available balance -->
@@ -35,6 +39,11 @@
 
       <!-- gift card image -->
       <div class = "featuredImageContainer">
+          <!-- The Amount -->
+          <div class = "giftAmount">
+              <div class = "smallDollar">$</div>
+              {{(giftcard.origAmount / 100)}}
+          </div>
           <img class = "featuredImage" ng-src="{{merchants[0].image}}" alt="Merchant Image" height="50%" width="100%" />
       </div>
 

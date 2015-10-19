@@ -29,6 +29,9 @@ angular.module('angularLocalightApp')
             return;
         }
 
+        //Show(true)/Hide(false) the loading spinner
+        $scope.loading = true;
+
         //First set up some JSON for the session token
         var payload = {
            "name" : $scope.username,
@@ -48,6 +51,9 @@ angular.module('angularLocalightApp')
 
             //Finally redirect to the main page
             $location.path("/panel/main");
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         },
         function(err)
         {
@@ -64,6 +70,9 @@ angular.module('angularLocalightApp')
             else {
                 $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         });
     }
   });

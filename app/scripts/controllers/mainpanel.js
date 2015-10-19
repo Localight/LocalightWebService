@@ -73,6 +73,9 @@ angular.module('angularLocalightApp')
 
             //Success, save the data from the backend in scope
             $scope.locations = data;
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         },
         function(err)
         {

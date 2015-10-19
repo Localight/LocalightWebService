@@ -216,9 +216,15 @@ angular.module('angularLocalightApp')
             //Check if we met our condition and our length is good
             if($scope.gc.code != null){
                 if ($scope.gc.code.toString().length == 5) {
+                    //Show the loading spinner
+                    $scope.loading = true;
+
                     LocationByCode.get({
                         code: $scope.gc.code
                     }, function(data, status){
+                        //Hide the loading spinner
+                        $scope.loading = false;
+
                         $scope.location.name = data.name;
                         $scope.location = data;
 
@@ -235,6 +241,8 @@ angular.module('angularLocalightApp')
                         //And set the active field to the occasions
                         $scope.setActiveField(document.getElementById("clique_input_code").getAttribute("nextId"));
                     }, function(err){
+                        //Hide the loading spinner
+                        $scope.loading = false;
                         alert("Wrong code!");
                     });
 
@@ -497,6 +505,12 @@ angular.module('angularLocalightApp')
          */
         $scope.tokenizeInfo = function() {
 
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = true;
+
+            //Disable button while tokenzing the card
+            $scope.tokenzing = true;
+
             //Create finalized card number
             var cardNumber = $scope.cc.number1 + "" + $scope.cc.number2 + "" + $scope.cc.number3 + "" + $scope.cc.number4;
 
@@ -508,12 +522,18 @@ angular.module('angularLocalightApp')
                 "exp_year": $scope.cc.ExpiryY
             }, function(status, response) {
                 if (response.error) {
+                    //Show(true)/Hide(false) the loading spinner
+                    $scope.loading = false;
+
                     //Display card error message
                     $scope.tokenizeFailure = true;
                 } else {
                     //Get the token to be submitted later, after the second page
                     // response contains id and card, which contains additional card details
                     $scope.stripeToken = response.id;
+
+                    //Show(true)/Hide(false) the loading spinner
+                    $scope.loading = false;
 
                     //Show the next page
                     $scope.showPage2 = true;
@@ -534,6 +554,10 @@ angular.module('angularLocalightApp')
 
         //Finally SUBMIT EVERYTHING to the backend!
         $scope.submitGiftcard = function() {
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = true;
+
+
             //Creating the users Json
             var payload = {
                 "sessionToken": sessionToken,
@@ -573,14 +597,25 @@ angular.module('angularLocalightApp')
                 Giftcards.create(newGiftcardPayload,
                     function(data, status) {
 
+                        //Disable the charging button for slower devices,
+                        //since the loading symbol will disappear before
+                        //they navigate to the sent page
+                        $scope.disableSubmit = true;
+
                         //Success, Store the phone number and email in the cookies
                         $cookies.put("phone", $scope.gc.phoneNumber);
                         $cookies.put("email", $scope.gc.email);
 
                         //Go to the sent page
                         $location.path("/sent");
+
+                        //Show(true)/Hide(false) the loading spinner
+                        $scope.loading = false;
                 },
                 function(err) {
+
+                    //Show(true)/Hide(false) the loading spinner
+                    $scope.loading = false;
 
                     //Error, Inform the user of the status
                     console.log("Status: " + err.status + " " + err.data.msg);
@@ -589,6 +624,12 @@ angular.module('angularLocalightApp')
                 });
             },
             function(err) {
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
+
+                //Re enable the submit button
+                $scope.giftSubmit = false;
 
                 //Error, Inform the user of the status
                 console.log("Status: " + err.status + " " + err.data.msg);

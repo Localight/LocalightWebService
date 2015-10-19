@@ -99,6 +99,9 @@ angular.module('angularLocalightApp')
 
             //Get the total value of all the Giftcards
             $scope.getTotalValue();
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         },
 
         function(err)

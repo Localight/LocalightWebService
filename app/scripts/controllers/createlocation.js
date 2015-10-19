@@ -32,7 +32,7 @@ angular.module('angularLocalightApp')
     *   SECOND PAGE LOGIC
     *
     --------------------------------*/
-    
+
     //Our tricon message that is displayed to the user
     $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
 
@@ -126,6 +126,9 @@ angular.module('angularLocalightApp')
     //Create the location
     $scope.submitLocation = function() {
 
+        //Show(true)/Hide(false) the loading spinner
+        $scope.loading = true;
+
         //First set up some JSON for the session token
         var payload = {
            "sessionToken" : sessionToken,
@@ -145,6 +148,9 @@ angular.module('angularLocalightApp')
                 //Success, redirect back to the main page, add data to scope
                 $scope.newLocation = data;
                 $location.path("/panel/main");
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
             },
             function(err) {
 
@@ -163,6 +169,9 @@ angular.module('angularLocalightApp')
                    console.log("Status: " + err.status + " " + err.data.msg);
                    $scope.error.text = "Sorry, an error has occured connecting to the database";
                 }
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
             });
     }
 
