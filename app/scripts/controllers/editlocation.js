@@ -16,12 +16,12 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //get our session token
+    //get our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
 
-    //switch the pages
+    //Switch the view from the first and second "page" of the process
     $scope.switchPage = function() {
-        //Set the background to dark
+        //Set the body background to dark
         document.body.className = "darkBlurBodyBg";
 
         //Set show the next page to true
@@ -33,33 +33,23 @@ angular.module('angularLocalightApp')
         document.body.className = "";
     });
 
-    //Get our location
+    //Initialized function to get location info to auto fill old data
     $scope.getLocation = function() {
-        //Get our giftcards from the user
+
         //First set up some JSON for the session token
-        var getJson = {
+        var payload = {
             "id" : $routeParams.locationId,
             "sessionToken" : $scope.sessionToken
         }
 
-        $scope.merchantLocation = LocationById.get(getJson, function(response){
-            //Check for errors
-            if(response.status)
-            {
-                if(response.status == 401)
-                {
-                    //Bad session
-                    //Redirect them to a 404
-                    $location.path("#/");
-                    return;
-                }
-                else
-                {
-                    console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                    return;
-                }
-            }
-            else {
+        //Send the payload to the backend
+        LocationById.get(payload,
+
+        function(data, status) {
+
+                //Set our response data to scope
+                $scope.merchantLocation = data;
+
                 //Set the variables for the form here!
                 $scope.locationName = $scope.merchantLocation.name;
                 $scope.address1 = $scope.merchantLocation.address1;
@@ -67,13 +57,20 @@ angular.module('angularLocalightApp')
                 $scope.city = $scope.merchantLocation.city;
                 $scope.state = $scope.merchantLocation.state;
                 $scope.zipcode= $scope.merchantLocation.zipcode;
-            }
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
         },
-        //check for a 500
-        function(response)
+        function(err)
         {
-            console.log("Status:" + response.status + ", Internal Server Error");
-            return;
+            //Error, Inform the user of the status
+            if (err.status == 401) {
+               //Session is invalid! Redirect to 404
+               $location.path("/");
+            } else {
+               //An unexpected error has occured, log into console
+               console.log("Status: " + err.status + " " + err.data.msg);
+            }
         })
      };
 
@@ -83,12 +80,14 @@ angular.module('angularLocalightApp')
     *   SECOND PAGE LOGIC
     *
     --------------------------------*/
-    //Our tricon message
-    $scope.triconMessage = "Please enter (or re-enter) a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
 
-    //our array of tricons
+    //Our tricon message that is displayed to the user
+    $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
+
+    //Array of entered tricons
     $scope.triconArray = [];
 
+    //Boolean to show if the tricon ahs been confirmed
     $scope.confirmedCode = false;
 
     //Shuffles an array using the Fisher-Yates algorithm
@@ -111,26 +110,22 @@ angular.module('angularLocalightApp')
       return array;
     }
 
-    //When tricon is being pressed, this function will be launched
+    //Function to respond to tricon presses
     $scope.pressed = function(id){
 
-        //remove the error text
-        //Error message
+        //Reset the error message
         $scope.errorMsg = "";
 
-        //Add tricon code here
-        //console.log("Tricon Pressed: " + $scope.images[id]);
+        //Change the tricon image to pressed
         var offset = '-100px';
         event.currentTarget.style.backgroundPositionY = offset;
 
         //Check if they had already entered a code
         if($scope.triconArray.length > 2) {
-            //Reset the code fresh
-            $scope.triconMessage = "Please enter (or re-enter) a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
 
-            //our array of tricons
+            //Reset the message, array, and confirmation for the user
+            $scope.triconMessage = "Please enter a 3 item tricon code. This will be used by employees for confirmation to use a giftcard at your location.";
             $scope.triconArray = [];
-
             $scope.confirmedCode = false;
         }
 
@@ -140,14 +135,13 @@ angular.module('angularLocalightApp')
         //Check if it has more than 2 images, if it does, go to the confirmation page
         if($scope.triconArray.length > 2) {
 
-            //Inform the user that it is good!
+            //Inform the user that it is good, and confirmed!
             $scope.triconMessage = "Please submit to finish creating your location, or enter another code"
-
             $scope.confirmedCode = true;
         }
     }
 
-    //When tricon is unpressed, this function will be launched
+    //When tricon is unpressed, reset the tricon background
     $scope.unpressed = function(id){
         event.currentTarget.style.backgroundPositionY = '0px';
     }
@@ -177,11 +171,14 @@ angular.module('angularLocalightApp')
     //display in different order
     $scope.images = $scope.shuffle($scope.images);
 
-    //Create the location
+    //Update the location
     $scope.updateLocation = function() {
 
+        //Show(true)/Hide(false) the loading spinner
+        $scope.loading = true;
+
         //First set up some JSON for the session token
-        var postJson = {
+        var payload = {
            "id": $routeParams.locationId,
            "sessionToken": sessionToken,
            "name": $scope.locationName,
@@ -193,28 +190,37 @@ angular.module('angularLocalightApp')
            "zipcode": $scope.zipcode
        };
 
-        $scope.newLocation = LocationById.update(postJson, function(){
+        $scope.newLocation = LocationById.update(payload,
 
-            //Success!
-            //redirect back to the main page
+        function(data, status) {
+
+            //Success! Redirect back to the main page
             $location.path("/panel/main");
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         },
-        //check for errors
-        function(response)
-        {
+
+        function(err) {
+
             //Create the error object
             $scope.error = {
                 isError : true,
                 text: ""
             };
 
-            if(response.status == 401)
-            {
-                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            //Error, Inform the user of the status
+            if (err.status == 401) {
+               //Session is invalid! Redirect to 404
+               $scope.error.text = "Sorry, the entered account information is incorrect.";
+            } else {
+               //An unexpected error has occured, inform user, log into console
+               console.log("Status: " + err.status + " " + err.data.msg);
+               $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
-            else {
-                $scope.error.text = "Sorry, an error has occured connecting to the database";
-            }
+
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = false;
         });
     }
 

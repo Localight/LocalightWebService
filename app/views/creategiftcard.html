@@ -1,4 +1,8 @@
-    <!-- call whatever method you want on submit -->
+<!-- The Loading Spinner that will show on page load -->
+<div ng-class = "{spinner: loading}" ng-init = "loading = false;">
+</div>
+
+<!-- call whatever method you want on submit -->
 <section ng-hide="showPage2">
     <form name="giftcardForm" class="form-horizontal" novalidate>
     <div class="wrapper">
@@ -70,7 +74,6 @@
 
 
     <!--Code, remove ng click to fix functionality -->
-    <!-- little demo thing -->
     <div id="clique_code_wrapper" class = "waterfall" ng-show = "giftcardForm.clique_input_to.$dirty && giftcardForm.clique_input_from.$dirty">
       <div id="flip_container" class = "waterfall" ng-show = "showCard">
         <div class="dummy"></div>
@@ -343,7 +346,7 @@
 
 
       <button class="proceed_button" id="continue_button"
-          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated)" ng-click="tokenizeInfo();">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated) || loading" ng-click="tokenizeInfo();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
@@ -421,7 +424,7 @@
           </div>
 
 
-            <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail())" ng-click = "submitGiftcard()">Submit</button>
+            <button class="proceed_button createGiftCardWidth center" ng-disabled="!(giftcardForm2.$valid && clique_input_phonenumber_validity && validateEmail()) || loading || disableSubmit" ng-click = "submitGiftcard()">Submit</button>
         </div>
     </div>
    </form>

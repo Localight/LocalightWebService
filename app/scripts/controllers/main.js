@@ -10,7 +10,7 @@
 angular.module('angularLocalightApp')
   .controller('MainCtrl', function ($window, $scope) {
 
-    //Boolean for alert
+    //Boolean to alret the user about rotation
     $scope.rotateAlert = false;
 
     //Check for device orientation

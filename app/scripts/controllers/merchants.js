@@ -16,7 +16,7 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean for alert
+    //Boolean to alert the user for rotation
     $scope.rotateAlert = false;
 
     //Check for device orientation
@@ -28,13 +28,13 @@ angular.module('angularLocalightApp')
         }
     }, false);
 
-	//Initialize scope.giftcards
+	//Initialize our giftcards in scope
 	$scope.giftcards;
 
-    //The array of available locations
+    //Initialize our merchants in scope
 	$scope.merchantsArray;
 
-    //get our session token from the cookies
+    //Get our session token from the cookies
     $scope.sessionToken;
 
     if($cookies.get("sessionToken"))
@@ -48,84 +48,95 @@ angular.module('angularLocalightApp')
     }
 
     $scope.getLocations = function() {
+
         //Json to send to the backend
-        var locationJson = {
+        var payload = {
             "sessionToken" : $scope.sessionToken
         }
 
-        $scope.merchantsArray = Locations.get(locationJson, function(response)
-        {
-            //Check for errors
-            if(response.status)
-            {
-                if(response.status == 401)
-                {
-                    //Bad session
-                    //Redirect them to a 404
-                    $location.path("#/");
-                    return;
-                }
-                else
-                {
-                    console.log("Status:" + response.status + ", " + $scope.merchantsArray.msg);
-                    return;
-                }
-            }
-            else {
-                //No problem
-            }
+        //Send the payload to the backend to get the locations
+        Locations.get(payload,
+        function(data, status) {
+
+            //Success save the response to scope
+            $scope.merchantsArray = data;
+
+            //Show(true)/Hide(false) the loading spinner, if everything is loaded
+            if($scope.giftcards) $scope.loading = false;
         },
-        //CHeck for 500
-        function(response)
+        function(err)
         {
-            console.log("Status:" + response.status + ", Internal Server Error");
-            return;
+
+            //Error, Inform the user of the status
+            if (err.status == 401) {
+               //Session is invalid! Redirect to 404
+               $location.path("/");
+            } else {
+               //An unexpected error has occured, log into console
+               console.log("Status: " + err.status + " " + err.data.msg);
+            }
         });
     }
 
 
     // Find a list of Giftcards
-    $scope.getGiftcards = function() {
-        //Get our giftcards from the user
+	$scope.getGiftcards = function() {
+
         //First set up some JSON for the session token
-        var getJson = {
+        var payload = {
             "sessionToken" : $scope.sessionToken
         }
 
-        //Query the backend using out session token
-        $scope.giftcards = Giftcards.get(getJson, function(response)
-        {
-            //Error checking should be done in next block
+        //Query the backend using our session token
+        Giftcards.get(payload,
+        function(data, status) {
+            ///Success save giftcards in scope
+            $scope.giftcards = data;
+
+            //the values of the giftcards
+            $scope.getTotalValue();
+
+            //Show(true)/Hide(false) the loading spinner, if everything is loaded
+            if($scope.merchantsArray) $scope.loading = false;
         },
-        //check for a 500
-        function(response)
+
+        function(err)
         {
-            //Check for unauthorized
-            if(response.status == 401)
-            {
-                //Bad session
-                //Redirect them to a 404
-                $location.path("#/");
+            //Error, Inform the user of the status
+            if (err.status == 401) {
+               //Session is invalid! Redirect to 404
+               $location.path("/");
+            } else {
+               //An unexpected error has occured, log into console
+               console.log("Status: " + err.status + " " + err.data.msg);
             }
-            else {
-                //log the status
-                console.log("Status:" + response.status);
-            }
-            return;
         });
+	}
+
+    //The total value of all of the user's giftcards
+    $scope.totalValue = "";
+    $scope.getTotalValue = function()
+    {
+        //Get the total value of all the giftcards
+        var total = 0;
+        for(var i = 0; i < $scope.giftcards.length; ++i)
+        {
+            total = total + parseInt($scope.giftcards[i].amount, 10);
+        }
+
+        //Return the total value as a formatted string
+        $scope.totalValue = (parseInt(total) / 100).toFixed(2);
     }
 
-	$scope.totalValue = function()
-	{
-		//Get the total value of all the giftcards
-		var total = 0;
-		for(var i = 0; i < $scope.giftcards.length; ++i)
-		{
-			total = total + parseInt($scope.giftcards[i].amount, 10);
-		}
+    //Remove the sender's id for the thank you page
+    $scope.senderId = function () {
+        //put the sender into cookies to retrieve later
+        $cookies.remove('senderName');
+        $cookies.remove('senderId');
+        $cookies.remove('senderIcon');
 
-		//Return the total value as a formatted string
-		return (parseInt(total) / 100).toFixed(2);
-	}
+        //Change locations to the merchants page
+        $location.path("/giftcards");
+    }
 
   });

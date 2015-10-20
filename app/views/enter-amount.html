@@ -1,3 +1,7 @@
+<!-- The Loading Spinner that will show on page load -->
+<div ng-class = "{spinner: loading}" ng-init = "loading = true;">
+</div>
+
 <div ng-init = "getGiftcards()">
 
 
@@ -8,7 +12,7 @@
            <td class="amountText">${{amount}}</td>
 
            <td class = "paddingLeft" ng-hide = "clicked == true">
-           <h5 class ="linkText"> Your total balance is ${{totalValue()}}.</h5>
+           <h5 class ="linkText"> Your total balance is ${{totalValue}}.</h5>
            <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
            </td>
 
@@ -21,7 +25,7 @@
 
    <!-- Warning no values greater than $500 -->
    <h5 class = "amountWarning" ng-show = "warning == true">Sorry, No values greater than $500</h5>
-   <h5 class = "amountWarning" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue()}}</h5>
+   <h5 class = "amountWarning" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue}}</h5>
 
     <!-- Our table for spending, the dialpad -->
     <table class="dialPad" align="center">

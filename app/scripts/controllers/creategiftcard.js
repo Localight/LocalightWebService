@@ -17,21 +17,11 @@ angular.module('angularLocalightApp')
             'Karma'
         ];
 
-        $scope.keyPress = function(keyEvent, input) {
-            if (keyEvent.which === 13) document.getElementById(input).focus();
-        }
-
-        document.getElementById("clique_input_code").oninput = function () {
-            if (this.value.length > 5) {
-                this.value = this.value.slice(0,5);
-            }
-        }
-
         //****
         //Page initialization
         //****
 
-        //Rotation warning shown
+        //Rotation warning boolean
         $scope.rotateAlert = false;
 
         //Rotation warning detector
@@ -96,6 +86,18 @@ angular.module('angularLocalightApp')
         //****
         //General functions
         //****
+
+        //Fuction to focus on a field if the user presses Enter
+        $scope.keyPress = function(keyEvent, input) {
+            if (keyEvent.which === 13) document.getElementById(input).focus();
+        }
+
+        //Chops off end character for specified field
+        document.getElementById("clique_input_code").oninput = function () {
+            if (this.value.length > 5) {
+                this.value = this.value.slice(0,5);
+            }
+        }
 
         //Scroll to element by HTML ID
         $scope.scrollToElement = function(elementId, callback) {
@@ -214,9 +216,15 @@ angular.module('angularLocalightApp')
             //Check if we met our condition and our length is good
             if($scope.gc.code != null){
                 if ($scope.gc.code.toString().length == 5) {
+                    //Show the loading spinner
+                    $scope.loading = true;
+
                     LocationByCode.get({
                         code: $scope.gc.code
                     }, function(data, status){
+                        //Hide the loading spinner
+                        $scope.loading = false;
+
                         $scope.location.name = data.name;
                         $scope.location = data;
 
@@ -233,6 +241,8 @@ angular.module('angularLocalightApp')
                         //And set the active field to the occasions
                         $scope.setActiveField(document.getElementById("clique_input_code").getAttribute("nextId"));
                     }, function(err){
+                        //Hide the loading spinner
+                        $scope.loading = false;
                         alert("Wrong code!");
                     });
 
@@ -495,152 +505,136 @@ angular.module('angularLocalightApp')
          */
         $scope.tokenizeInfo = function() {
 
-            //Collect the credit card form info
-            $scope.finalCard = {};
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = true;
 
-            //First concatanate the number, use dashes to keep things from adding
-            var cardNumber = $scope.cc.number1 + "-" + $scope.cc.number2 + "-" + $scope.cc.number3 + "-" + $scope.cc.number4;
-            //Add card number to our finalCard
-            $scope.finalCard.number = cardNumber;
+            //Disable button while tokenzing the card
+            $scope.tokenzing = true;
 
-            //Add the cvc
-            $scope.finalCard.cvc = $scope.cc.cvc;
+            //Create finalized card number
+            var cardNumber = $scope.cc.number1 + "" + $scope.cc.number2 + "" + $scope.cc.number3 + "" + $scope.cc.number4;
 
-            //Add the month and year (used with an undescore)
-            $scope.finalCard.exp_month = $scope.cc.ExpiryM;
-            $scope.finalCard.exp_year = $scope.cc.ExpiryY;
+            //Send card info to stripe for tokenization
+            Stripe.card.createToken({
+                "number": cardNumber,
+                "cvc": $scope.cc.cvc,
+                "exp_month": $scope.cc.ExpiryM,
+                "exp_year": $scope.cc.ExpiryY
+            }, function(status, response) {
+                if (response.error) {
+                    //Show(true)/Hide(false) the loading spinner
+                    $scope.loading = false;
 
-            //Now send to stripe to be tokenized
-            Stripe.card.createToken($scope.finalCard, $scope.stripeResponseHandler);
+                    //Display card error message
+                    $scope.tokenizeFailure = true;
+                } else {
+                    //Get the token to be submitted later, after the second page
+                    // response contains id and card, which contains additional card details
+                    $scope.stripeToken = response.id;
+
+                    //Show(true)/Hide(false) the loading spinner
+                    $scope.loading = false;
+
+                    //Show the next page
+                    $scope.showPage2 = true;
+
+                    //timeout and focus on the phone field
+                    $timeout(function() {
+                        //focus on the phone element
+                        document.getElementById("clique_input_phonenumber").focus();
+                    }, 250);
+                }
+
+                //Force the change to refresh, we need to do this because I
+                //guess response scope is a different scope and has to be
+                //forced or interacted with
+                $scope.$apply();
+            });
         };
 
-        //A place to store the stripe token until final sendoff
-        var stripeToken;
-
-        /**
-         * Handles the response from Stripe after CC information is sent by createToken(), and operates as the callback.
-         */
-        $scope.stripeResponseHandler = function(status, response) {
-            if (response.error) {
-                //Inform the user
-                $scope.tokenizeFailure = true;
-
-            } else {
-                //Get the token to be submitted later, after the second page
-                // response contains id and card, which contains additional card details
-                stripeToken = response.id;
-
-                //Show the next page
-                $scope.showPage2 = true;
-
-                //timeout and focus on the phone field
-                $timeout(function() {
-                    //focus on the phone element
-                    document.getElementById("clique_input_phonenumber").focus();
-                }, 250);
-            }
-
-            //Force the change to refresh, we need to do this because I
-            //guess response scope is a different scope and has to be
-            //forced or interacted with
-            $scope.$apply();
-        };
-
-
-        //Finally SUBMIT EVERYTHING!
-
+        //Finally SUBMIT EVERYTHING to the backend!
         $scope.submitGiftcard = function() {
+            //Show(true)/Hide(false) the loading spinner
+            $scope.loading = true;
+
+
             //Creating the users Json
-            var userJson = {
+            var payload = {
                 "sessionToken": sessionToken,
                 "name": $scope.gc.from,
                 "email": $scope.gc.email
             };
 
             //If it is successful, Update the spending user
-            var updateUser = Users.update(userJson, function(response) {
-                if (response.status)
-                {
-                    if(response.status == 401)
-                    {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        $scope.backendError = true;
-                        $scope.backendRes = updateUser.msg;
-                    }
-                    return;
+            var updateUser;
+            Users.update(payload,
+                function(data, status) {
+
+                //Success, First, fix the formatting on the phone
+                //This will remove all special characters from the string
+                var formattedPhone = $scope.gc.phoneNumber.replace(/[^a-zA-Z0-9]/g, '');
+
+                //Also, we need to convert our amount into integers
+                var intAmount = $scope.gc.amount * 100;
+
+                //Create a giftcard
+                var newGiftcardPayload= {
+                    "sessionToken": sessionToken,
+                    "toName": $scope.gc.to,
+                    "fromName": $scope.gc.from,
+                    "email": $scope.gc.email,
+                    "phone": formattedPhone,
+                    "amount": intAmount,
+                    "iconId": $scope.occasionId,
+                    "locationId": $scope.location._id,
+                    "subId": $scope.location.subId,
+                    "message": $scope.gc.occasion,
+                    "stripeCardToken": $scope.stripeToken
                 }
-                else
-                {
-                    //First, fix the formatting on the phone
-                    //This will remove all special characters from the string
 
-                    var formattedPhone = $scope.gc.phoneNumber.replace(/[^a-zA-Z0-9]/g, '');
+                //Send the giftcard to the backend to be created
+                var newGiftcard;
+                Giftcards.create(newGiftcardPayload,
+                    function(data, status) {
 
-                    //Also, we need to convert our amount into integers
-                    var intAmount = $scope.gc.amount * 100;
+                        //Disable the charging button for slower devices,
+                        //since the loading symbol will disappear before
+                        //they navigate to the sent page
+                        $scope.disableSubmit = true;
 
-                    //Create a giftcard
-                    var newGiftcardJson = {
-                        "sessionToken": sessionToken,
-                        "toName": $scope.gc.to,
-                        "fromName": $scope.gc.from,
-                        "email": $scope.gc.email,
-                        "phone": formattedPhone,
-                        "amount": intAmount,
-                        "iconId": $scope.occasionId,
-                        "locationId": $scope.location._id,
-                        "subId": $scope.location.subId,
-                        "message": $scope.gc.occasion,
-                        "stripeCardToken": stripeToken
-                    }
+                        //Success, Store the phone number and email in the cookies
+                        $cookies.put("phone", $scope.gc.phoneNumber);
+                        $cookies.put("email", $scope.gc.email);
 
-                    var newGiftcard = Giftcards.create(newGiftcardJson, function() {
-                        if (response.status)
-                        {
-                            if(response.status == 401)
-                            {
-                                //Bad session
-                                //Redirect them to a 404
-                                $location.path("#/");
-                                return;
-                            }
-                            else
-                            {
-                                $scope.backendError = true;
-                                $scope.backendRes = newGiftcard.msg;
-                            }
-                            return;
-                        }
-                        else {
-                            //SUCCESSSSSSSS
+                        //Go to the sent page
+                        $location.path("/sent");
 
-                            //Store the phone number and email in the cookies
-                            $cookies.put("phone", $scope.gc.phoneNumber);
-                            $cookies.put("email", $scope.gc.email);
+                        //Show(true)/Hide(false) the loading spinner
+                        $scope.loading = false;
+                },
+                function(err) {
 
-                            //For testing Go to the sent page
-                            $location.path("/sent");
-                        }
-                    },
-                    //incase of internal server error
-                    function(response) {
-                        $scope.backendError = true;
-                        $scope.backendRes = newGiftcard.msg;
-                        return;
-                    });
-                }
+                    //Show(true)/Hide(false) the loading spinner
+                    $scope.loading = false;
+
+                    //Error, Inform the user of the status
+                    console.log("Status: " + err.status + " " + err.data.msg);
+                    $scope.backendError = true;
+                    $scope.backendRes = updateUser.msg;
+                });
             },
-            //Incase of internal server Error
-            function(response) {
+            function(err) {
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
+
+                //Re enable the submit button
+                $scope.giftSubmit = false;
+
+                //Error, Inform the user of the status
+                console.log("Status: " + err.status + " " + err.data.msg);
                 $scope.backendError = true;
                 $scope.backendRes = updateUser.msg;
-                return;
             });
         }
 

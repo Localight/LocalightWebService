@@ -1,3 +1,7 @@
+<!-- The Loading Spinner that will show on page load -->
+<div ng-class = "{spinner: loading}" ng-init = "loading = true;">
+</div>
+
 <form class = "authContainer center"
 name = "locationForm"
 ng-init = "getLocation()"
@@ -98,7 +102,7 @@ ng-model = "theForm">
 
     <button
     class = "authButton center"
-    ng-disabled = "!confirmedCode"
+    ng-disabled = "!confirmedCode || loading"
     ng-click = "updateLocation()"
     type = "submit">Update</button>
 

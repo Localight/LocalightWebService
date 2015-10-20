@@ -8,9 +8,9 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById) {
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById, Thanks) {
 
-        //Boolean for alert
+        //Boolean for rotation alert to the user alert
         $scope.rotateAlert = false;
 
         //Check for device orientation
@@ -22,190 +22,259 @@ angular.module('angularLocalightApp')
             }
         }, false);
 
-          //giftcards list
-          $scope.giftcards;
+      //Initialize our giftcards in scope
+      $scope.giftcards;
 
-          //get our session token from the cookies
-          $scope.sessionToken;
+      //get our session token from the cookies
+      $scope.sessionToken;
 
-          if($cookies.get("sessionToken"))
-          {
-              $scope.sessionToken = $cookies.get("sessionToken");
-          }
-          else
-          {
-              //Redirect them to a 404
-              $location.path("#/");
-          }
+      if($cookies.get("sessionToken"))
+      {
+          $scope.sessionToken = $cookies.get("sessionToken");
+      }
+      else
+      {
+          //Redirect them to a 404
+          $location.path("#/");
+      }
 
-		//Our character count for the text area
-		$scope.charCount;
+	//Our character count for the text area
+	$scope.charCount;
 
-		//Total purcahse value
-		$scope.purchaseValue;
+	//Total purcahse value
+	$scope.purchaseValue;
 
-        //Get our merchant ID
-		$scope.Id = $routeParams.merchantId;
+    //Get our merchant ID
+	$scope.Id = $routeParams.merchantId;
 
-        //Get our amount
-        $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
-        $cookies.remove("igosdmbmtv");
+    //Get our amount
+    $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
+    $cookies.remove("igosdmbmtv");
 
-        //Get our location
-        $scope.getLocation = function() {
-            //Get our giftcards from the user
-            //First set up some JSON for the session token
-            var getJson = {
-                "id" : $scope.Id,
-                "sessionToken" : $scope.sessionToken
-            }
+    //Get our location
+    $scope.getLocation = function() {
 
-            $scope.merchantLocation = LocationById.get(getJson, function(response){
-                //Check for errors
-                if(response.status)
-                {
-                    if(response.status == 401)
-                    {
-                        //Bad session
-                        //Redirect them to a 404
-                        $location.path("#/");
-                        return;
-                    }
-                    else
-                    {
-                        console.log("Status:" + response.status + ", " + $scope.giftcards.msg);
-                        return;
-                    }
-                }
-                else {
-                    //there was no error continue as normal
-                    //Stop any loading bars or things here
-                }
-            },
-            //check for a 500
-            function(response)
-            {
-                console.log("Status:" + response.status + ", Internal Server Error");
-                return;
-            });
-
+        //First set up some JSON for the session token
+        var payload = {
+            "id" : $scope.Id,
+            "sessionToken" : $scope.sessionToken
         }
 
+        //Send the payload to the backend
+        LocationById.get(payload,
+            function(data, status) {
 
-		//Prepare our text area
-		$scope.setTextArea = function ()
-		{
-			//Set the default value of our text area
-			document.getElementById("thankYouNote").value = $scope.giftcards[0].fromId.name + ", I used the Local Giftcard at "
-			+ $scope.merchantLocation.name + " to get...";
-		}
+            //Success! Save the response to our scope!
+            $scope.merchantLocation = data;
 
-		//Count our text area characters
-		$scope.countCharacters = function()
-		{
-			$scope.charCount = 160 - document.getElementById("thankYouNote").value.length;
-		}
+            //Initialize our thanks message
+            $scope.thanksMessage = $scope.sender.name +
+            " I used the Local Giftcard at " + $scope.merchantLocation.name +
+            " to get ..."
 
-        // Find a list of Giftcards
-		$scope.getGiftcards = function() {
-			//Get our giftcards from the user
-            //First set up some JSON for the session token
-            var getJson = {
-                "sessionToken" : $scope.sessionToken
+
+            //Show(true)/Hide(false) the loading spinner, if everything is loaded
+            if($scope.giftcards) $scope.loading = false;
+
+        }, function(err) {
+
+            //Error, Inform the user of the status
+            if (err.status == 401) {
+               //Session is invalid! Redirect to 404
+               $location.path("/");
+            } else {
+               //An unexpected error has occured, log into console
+               console.log("Status: " + err.status + " " + err.data.msg);
+            }
+        });
+    }
+
+
+	//Prepare our text area
+	$scope.setTextArea = function ()
+	{
+		//Set the default value of our text area
+		document.getElementById("thankYouNote").value = $scope.giftcards[0].fromId.name + ", I used the Local Giftcard at "
+		+ $scope.merchantLocation.name + " to get...";
+	}
+
+	//Count our text area characters
+	$scope.countCharacters = function()
+	{
+		$scope.charCount = 160 - document.getElementById("thankYouNote").value.length;
+	}
+
+    // Find a list of Giftcards
+	$scope.getGiftcards = function() {
+
+        //First set up some JSON for the session token
+        var payload = {
+            "sessionToken" : $scope.sessionToken
+        }
+
+        //Query the backend using our session token
+        Giftcards.get(payload,
+        function(data, status) {
+            ///Success save giftcards in scope
+            $scope.giftcards = data;
+
+            //Get the total value of all the Giftcards
+            $scope.getTotalValue();
+
+            //Get our user who sent the giftcard
+            $scope.sender = {};
+            if($cookies.get("senderName"))
+            {
+                $scope.sender = {
+                    "name": $cookies.get("senderName"),
+                    "id": $cookies.get("senderId"),
+                    "icon": $cookies.get("senderIcon")
+                }
+
+                $cookies.remove("senderName");
+                $cookies.remove("senderId");
+                $cookies.remove("senderIcon");
+            }
+            else {
+                //Make the oldest, non thanked giftcard the sender since its the one we spent
+                for(var i = $scope.giftcards.length - 1; i >= 0; i--)
+                {
+                    if(!$scope.giftcards[i].thanked || i == 0)
+                    {
+                        $scope.sender = {
+                            "name": $scope.giftcards[i].fromId.name,
+                            "id": $scope.giftcards[i].fromId._id,
+                            "icon": $scope.giftcards[i].iconId
+                        }
+
+                        //Since we got what we needed, BREAK, and be efficient
+                        break;
+                    }
+                }
             }
 
-            //Query the backend using out session token
-            $scope.giftcards = Giftcards.get(getJson, function(response)
+            //Now query the backend for the location
+            $scope.getLocation();
+
+        },
+
+        function(err)
+        {
+            //Error, Inform the user of the status
+            if (err.status == 401) {
+               //Session is invalid! Redirect to 404
+               $location.path("/");
+            } else {
+               //An unexpected error has occured, log into console
+               console.log("Status: " + err.status + " " + err.data.msg);
+            }
+        });
+	}
+
+    //The total value of all of the user's giftcards
+    $scope.totalValue = "";
+    $scope.getTotalValue = function()
+    {
+        //Get the total value of all the giftcards
+        var total = 0;
+        for(var i = 0; i < $scope.giftcards.length; ++i)
+        {
+            total = total + parseInt($scope.giftcards[i].amount, 10);
+        }
+
+        //Return the total value as a formatted string
+        $scope.totalValue = (parseInt(total) / 100).toFixed(2);
+    }
+
+	//Function to go back to a page passed in params
+	$scope.goTo = function(place) {
+		$location.path(place);
+	}
+
+    //Send the thank you
+    $scope.sendThanks = function() {
+
+        //First set up some JSON for the session token
+        var payload = {
+           "sessionToken" : $scope.sessionToken,
+           "fromId" : $scope.sender.id,
+           "message": $scope.thanksMessage
+        }
+
+        //Login the user, submit the payload to the backend
+        Thanks.submit(payload,
+        function(data, status) {
+
+            //Success, save the response in scope
+            $scope.thankResponse = data;
+
+            //Finally redirect to the localism page
+            $location.path("/localism");
+        },
+        function(err) {
+            //Create the error object
+            $scope.error = {
+                isError : true,
+                text: ""
+            };
+
+            if(err.status == 401)
             {
-                //Error checking should be done in next block
-            },
-            //check for a 500
-            function(response)
-            {
-                //Check for unauthorized
-                if(response.status == 401)
-                {
-                    //Bad session
-                    //Redirect them to a 404
-                    $location.path("#/");
-                }
-                else {
-                    //log the status
-                    console.log("Status:" + response.status);
-                }
-                return;
-            });
-		}
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
+            }
+        });
+    }
 
-		$scope.totalValue = function()
-		{
-			//Get the total value of all the giftcards
-			var total = 0;
-			for(var i = 0; i < $scope.giftcards.length; ++i)
-			{
-				total = total + parseInt($scope.giftcards[i].amount, 10);
-			}
+	//Array of occasion Icons, simply a link to their icon
+	$scope.icons =
+	[
+		//Anniversary
+		"../images/occasion-anniversary-icon-wht.png",
+		//Baby
+		"../images/occasion-baby-icon-wht.png",
+		//Birthday
+		"../images/occasion-birthday-icon-wht.png",
+		//Congrats
+		"../images/occasion-congrats-icon-wht.png",
+		//Present (Custom Icon)
+		"../images/occasion-custom-icon-wht.png",
+		//Get Well Soon
+		"../images/occasion-getwell-icon-wht.png",
+		//Love
+		"../images/occasion-love-icon-wht.png",
+		//Sympathy
+		"../images/occasion-sympathy-icon-wht.png",
+		//Thank You
+		"../images/occasion-thankyou-icon-wht.png",
+		//Wedding
+		"../images/occasion-wedding-icon-wht.png"
+	]
 
-			//Return the total value as a formatted string
-			return (parseInt(total) / 100).toFixed(2);
-		}
-
-		//Function to go back to selecting merchants
-		$scope.goTo = function(place) {
-			//Send the user to another page!
-
-			$location.path(place);
-		}
-
-		//Array of occasion Icons, simply a link to their icon
-		$scope.icons =
-		[
-			//Anniversary
-			"../images/occasion-anniversary-icon-wht.png",
-			//Baby
-			"../images/occasion-baby-icon-wht.png",
-			//Birthday
-			"../images/occasion-birthday-icon-wht.png",
-			//Congrats
-			"../images/occasion-congrats-icon-wht.png",
-			//Present (Custom Icon)
-			"../images/occasion-custom-icon-wht.png",
-			//Get Well Soon
-			"../images/occasion-getwell-icon-wht.png",
-			//Love
-			"../images/occasion-love-icon-wht.png",
-			//Sympathy
-			"../images/occasion-sympathy-icon-wht.png",
-			//Thank You
-			"../images/occasion-thankyou-icon-wht.png",
-			//Wedding
-			"../images/occasion-wedding-icon-wht.png"
-		]
-
-        //Array of Occasion headings
-		$scope.iconHeaders =
-		[
-			//Anniversary
-			"Happy Anniversary!",
-			//Baby
-			"Congratulations on the Baby!",
-			//Birthday
-			"Happy Birthday!",
-			//Congrats
-			"Congratulations!",
-			//Present (Custom Icon)
-			"Enjoy Your Gift!",
-			//Get Well Soon
-			"Get Well Soon!",
-			//Love
-			"Love You!",
-			//Sympathy
-			"Feel Better Soon!",
-			//Thank You
-			"Thank You!",
-			//Wedding
-			"Congratulations on the Wedding!"
-		]
-
-
+    //Array of Occasion headings
+	$scope.iconHeaders =
+	[
+		//Anniversary
+		"Happy Anniversary!",
+		//Baby
+		"Congratulations on the Baby!",
+		//Birthday
+		"Happy Birthday!",
+		//Congrats
+		"Congratulations!",
+		//Present (Custom Icon)
+		"Enjoy Your Gift!",
+		//Get Well Soon
+		"Get Well Soon!",
+		//Love
+		"Love You!",
+		//Sympathy
+		"Feel Better Soon!",
+		//Thank You
+		"Thank You!",
+		//Wedding
+		"Congratulations on the Wedding!"
+	]
   });

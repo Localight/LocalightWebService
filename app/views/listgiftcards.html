@@ -1,3 +1,7 @@
+<!-- The Loading Spinner that will show on page load -->
+<div ng-class = "{spinner: loading}" ng-init = "loading = true;">
+</div>
+
 <section data-ng-init="getGiftcards()">
     <div class="">
 
@@ -10,7 +14,7 @@
                     <td class = "paddingLeft paddingRight center">
                         <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
                     </td>
-                    <td class = "textRightAlign navCell">${{totalValue()}}</td>
+                    <td class = "textRightAlign navCell">${{totalValue}}</td>
                     <tr>
         </table>
 
@@ -28,7 +32,7 @@
                 <tr>
                     <td class="tableCell glyphAlign center">
                         <img class = "dollarIcon" ng-src = "../images/dollar-circle-icon-blk.png" width= "35px" height = "35px">
-                        You have ${{totalValue()}} to spend
+                        You have ${{totalValue}} to spend
                     </td>
                     <span class="dollarGlyphicon glyphicon-menu-right" aria-hidden="true">
                 </tr>
