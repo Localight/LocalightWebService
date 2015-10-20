@@ -114,6 +114,17 @@ angular.module('angularLocalightApp')
 			$scope.totalValue = (parseInt(total) / 100).toFixed(2);
 		}
 
+        //Save the sender's id for the thank you page
+        $scope.senderId = function () {
+            //put the sender into cookies to retrieve later
+            $cookies.put('senderName', $scope.giftcard.fromId.name);
+            $cookies.put('senderId', $scope.giftcard.fromId._id);
+            $cookies.put('senderIcon', $scope.giftcard.iconId);
+
+            //Change locations to the merchants page
+            $location.path("/merchants");
+        }
+
 		//Array of occasion Icons, simply a link to their icon
 		$scope.icons =
 		[

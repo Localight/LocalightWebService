@@ -212,4 +212,15 @@ angular.module('angularLocalightApp')
 			return "MADE In Long Beach";
 		}
 
+        //Remove the sender's id for the thank you page
+        $scope.senderId = function () {
+            //Remove the cookies since this info is no longer valid
+            $cookies.remove('senderName');
+            $cookies.remove('senderId');
+            $cookies.remove('senderIcon');
+
+            //Change locations to the merchants page
+            $location.path("/giftcards");
+        }
+
   });

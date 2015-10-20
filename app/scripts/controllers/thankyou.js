@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById) {
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, Giftcards, LocationById, Thanks) {
 
         //Boolean for rotation alert to the user alert
         $scope.rotateAlert = false;
@@ -63,8 +63,15 @@ angular.module('angularLocalightApp')
         //Send the payload to the backend
         LocationById.get(payload,
             function(data, status) {
+
             //Success! Save the response to our scope!
             $scope.merchantLocation = data;
+
+            //Initialize our thanks message
+            $scope.thanksMessage = $scope.sender.name +
+            " I used the Local Giftcard at " + $scope.merchantLocation.name +
+            " to get ..."
+
 
             //Show(true)/Hide(false) the loading spinner, if everything is loaded
             if($scope.giftcards) $scope.loading = false;
@@ -114,8 +121,41 @@ angular.module('angularLocalightApp')
             //Get the total value of all the Giftcards
             $scope.getTotalValue();
 
-            //Show(true)/Hide(false) the loading spinner, if everything is loaded
-            if($scope.merchantsArray) $scope.loading = false;
+            //Get our user who sent the giftcard
+            $scope.sender = {};
+            if($cookies.get("senderName"))
+            {
+                $scope.sender = {
+                    "name": $cookies.get("senderName"),
+                    "id": $cookies.get("senderId"),
+                    "icon": $cookies.get("senderIcon")
+                }
+
+                $cookies.remove("senderName");
+                $cookies.remove("senderId");
+                $cookies.remove("senderIcon");
+            }
+            else {
+                //Make the oldest, non thanked giftcard the sender since its the one we spent
+                for(var i = $scope.giftcards.length - 1; i >= 0; i--)
+                {
+                    if(!$scope.giftcards[i].thanked || i == 0)
+                    {
+                        $scope.sender = {
+                            "name": $scope.giftcards[i].fromId.name,
+                            "id": $scope.giftcards[i].fromId._id,
+                            "icon": $scope.giftcards[i].iconId
+                        }
+
+                        //Since we got what we needed, BREAK, and be efficient
+                        break;
+                    }
+                }
+            }
+
+            //Now query the backend for the location
+            $scope.getLocation();
+
         },
 
         function(err)
@@ -150,6 +190,43 @@ angular.module('angularLocalightApp')
 	$scope.goTo = function(place) {
 		$location.path(place);
 	}
+
+    //Send the thank you
+    $scope.sendThanks = function() {
+
+        //First set up some JSON for the session token
+        var payload = {
+           "sessionToken" : $scope.sessionToken,
+           "fromId" : $scope.sender.id,
+           "message": $scope.thanksMessage
+        }
+
+        //Login the user, submit the payload to the backend
+        Thanks.submit(payload,
+        function(data, status) {
+
+            //Success, save the response in scope
+            $scope.thankResponse = data;
+
+            //Finally redirect to the localism page
+            $location.path("/localism");
+        },
+        function(err) {
+            //Create the error object
+            $scope.error = {
+                isError : true,
+                text: ""
+            };
+
+            if(err.status == 401)
+            {
+                $scope.error.text = "Sorry, the entered account information is incorrect.";
+            }
+            else {
+                $scope.error.text = "Sorry, an error has occured connecting to the database";
+            }
+        });
+    }
 
 	//Array of occasion Icons, simply a link to their icon
 	$scope.icons =
