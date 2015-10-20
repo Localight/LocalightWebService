@@ -139,7 +139,7 @@ angular.module('angularLocalightApp')
                 //Make the oldest, non thanked giftcard the sender since its the one we spent
                 for(var i = $scope.giftcards.length - 1; i >= 0; i--)
                 {
-                    if(!$scope.giftcards[i].thanked)
+                    if(!$scope.giftcards[i].thanked || i == 0)
                     {
                         $scope.sender = {
                             "name": $scope.giftcards[i].fromId.name,
