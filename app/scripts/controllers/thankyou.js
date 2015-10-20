@@ -63,8 +63,15 @@ angular.module('angularLocalightApp')
         //Send the payload to the backend
         LocationById.get(payload,
             function(data, status) {
+
             //Success! Save the response to our scope!
             $scope.merchantLocation = data;
+
+            //Initialize our thanks message
+            $scope.thanksMessage = $scope.sender.name +
+            " I used the Local Giftcard at " + $scope.merchantLocation.name +
+            " to get ..."
+
 
             //Show(true)/Hide(false) the loading spinner, if everything is loaded
             if($scope.giftcards) $scope.loading = false;
@@ -130,7 +137,7 @@ angular.module('angularLocalightApp')
             }
             else {
                 //Make the oldest, non thanked giftcard the sender since its the one we spent
-                for(var i = $scope.giftcards.length - 1; i > 0; i--)
+                for(var i = $scope.giftcards.length - 1; i >= 0; i--)
                 {
                     if(!$scope.giftcards[i].thanked)
                     {
@@ -146,14 +153,9 @@ angular.module('angularLocalightApp')
                 }
             }
 
-            //Need to throw into a better location and the giftcards callback
-            //Initialize our thanks message
-            $scope.thanksMessage = $scope.sender.name +
-            " I used the Local Giftcard at " + $scope.merchantLocation.name +
-            " to get ..."
+            //Now query the backend for the location
+            $scope.getLocation();
 
-            //Show(true)/Hide(false) the loading spinner, if everything is loaded
-            if($scope.merchantsArray) $scope.loading = false;
         },
 
         function(err)
