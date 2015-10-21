@@ -94,7 +94,7 @@ angular.module('angularLocalightApp')
 	$scope.setTextArea = function ()
 	{
 		//Set the default value of our text area
-		document.getElementById("thankYouNote").value = $scope.giftcards[0].fromId.name + ", I used the Local Giftcard at "
+		document.getElementById("thankYouNote").value = sender.name + ", I used the Local Giftcard at "
 		+ $scope.merchantLocation.name + " to get...";
 	}
 
