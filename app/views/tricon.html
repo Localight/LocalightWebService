@@ -2,7 +2,7 @@
 <div ng-class = "{spinner: loading}" ng-init = "loading = true;">
 </div>
 
-<section class="upside" ng-init="getLocation()">
+<section ng-class = "{'friendlyShake': shaky,'upside': true}" ng-init="getLocation()">
 	<!-- The amount entered -->
 	<h2 class="whiteText center">${{getAmount()}}</h2>
 
