@@ -49,7 +49,7 @@
 
     </div>
     <!-- check if already spent -->
-    <div ng-if = "!isValid">
+    <div ng-if = "isValid">
 
         <!-- amount to use at which merchant section -->
         <div class="text-center merchantInfo blackText">
@@ -77,6 +77,6 @@
           <div class="shop center blackText" ng-repeat="merchant in merchantsArray">{{merchant.name}}</div>
       </div>
 
-  </div>
+      </div>
 
 </div>
