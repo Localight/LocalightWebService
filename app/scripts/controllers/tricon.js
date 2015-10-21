@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TriconCtrl', function ($scope, $routeParams, $location, $window, $cookies, LocationById, Spend) {
+  .controller('TriconCtrl', function ($scope, $routeParams, $location, $window, $cookies, LocationById, Spend, $timeout) {
 
     //Boolean for rotation alert to the user
     $scope.rotateAlert = false;
@@ -153,6 +153,12 @@ angular.module('angularLocalightApp')
 
                         //Display the error
                         $scope.errorMsg = "Sorry, that is the incorrect tricon code, please try again.";
+
+                        //Shake the screen
+                        $scope.shaky = true;
+                        $timeout(function () {
+                            $scope.shaky = false;
+                        }, 375);
                     }
                     else {
                         //log the status
