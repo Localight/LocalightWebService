@@ -573,6 +573,18 @@ label.inputlabel {
 
         color: $inverseStandard;
     }
+
+    .fromTextSpent {
+        @extend .fromText;
+
+        color: $inverseStandardAlphaDark;
+    }
+
+    .spentFooter {
+        @extend .fromTextSpent;
+
+        font-size: 20px;
+    }
 }
 
 .giftlistAmount {
@@ -582,6 +594,13 @@ label.inputlabel {
     font-size: 1.4em;
     border-radius: 5px;
     border: 1px solid $inverseStandard;
+}
+
+.giftlistAmountSpent {
+    @extend .giftlistAmount;
+
+    color: $inverseStandardAlphaDark;
+    border-color: $inverseStandardAlphaDark;
 }
 
 .giftcardContainer {
