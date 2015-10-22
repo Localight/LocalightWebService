@@ -45,7 +45,7 @@
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="fromText"><img style = "margin-right: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                    <td class="fromText"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                     <td class="textRightAlign tableCell">
                         <div class="giftlistAmount">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
@@ -58,9 +58,9 @@
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="fromTextSpent"><img style = "margin-right: 4px;opacity: .7;margin-bottom: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                    <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                     <td class="textRightAlign tableCell">
-                        <div class="giftlistAmountSpent" style = "font-size: 1.25em">${{giftcard.origAmount / 100}}</div></td>
+                        <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
                 <tr>
                     <td class = "spentFooter">

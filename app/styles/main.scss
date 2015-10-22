@@ -1,5 +1,6 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
@@ -574,10 +575,21 @@ label.inputlabel {
         color: $inverseStandard;
     }
 
+    .fromIcon {
+        margin-right: 4px;
+    }
+
     .fromTextSpent {
         @extend .fromText;
 
         color: $inverseStandardAlphaDark;
+    }
+
+    .fromIconSpent {
+        @extend .fromIcon;
+
+        opacity: .7;
+        margin-bottom: 4px
     }
 
     .spentFooter {
@@ -601,6 +613,7 @@ label.inputlabel {
 
     color: $inverseStandardAlphaDark;
     border-color: $inverseStandardAlphaDark;
+    font-size: 1.25em;
 }
 
 .giftcardContainer {
@@ -1038,6 +1051,17 @@ label.inputlabel {
 
 /* End Aaron's Styles */
 
+//Main Page
+.mainContainer {
+    @extend .giftcardContainer;
+    @extend .center;
+
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+
 //Create giftcard Page
 .createCode {
     @extend .currentInput;
@@ -1275,6 +1299,41 @@ label.inputlabel {
 
 .phoneEmailCheck {
     @extend .creditCardCheck;
+}
+
+//Localism
+.projectOfContainer {
+    @extend .center;
+
+    padding-top: 50px;
+
+    p {
+        @extend .blackText;
+        @extend .inline;
+
+        font-size: 2em;
+    }
+
+    h1 {
+        @extend .blackText;
+        @extend .inline;
+        @extend .heart;
+
+        font-size: 3em;
+    }
+}
+
+.chooseLocal {
+    @extend .blackText;
+    @extend .center;
+
+    margin-top: 0px;
+}
+
+.localismVideo {
+    @extend .center;
+
+    margin-top: 20px;
 }
 
 
