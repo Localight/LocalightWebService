@@ -943,6 +943,12 @@ label.inputlabel {
     height: 15px;
 }
 
+.navArrow {
+    color: black;
+    font-size: 25px;
+    vertical-align: middle;
+}
+
 .tiltText {
     padding-left: 25%;
     padding-right: 25%;
@@ -1184,10 +1190,10 @@ label.inputlabel {
 .merchantBackText {
     @extend .navText;
 
-    vertical-align: middle;
     margin-left: -5px;
     display: inline;
     color: $standard;
+    font-size: 25px;
 }
 
 //Recipient redirect
