@@ -520,6 +520,7 @@ label.inputlabel {
 .whiteHeader{
     color: $inverseStandard;
     font-weight: 300 !important;
+    margin-top: 0px;
 }
 
 .flatRowListItem {
@@ -544,10 +545,15 @@ label.inputlabel {
         font-weight: 300 !important;
     }
 
+    h4 {
+        margin-top: 0px;
+    }
+
     .glyphicon {
         position: absolute;
+        color: black;
         right: 0;
-        padding-top: 3.5%;
+        top: calc(50% - 25px);
         padding-right: 5px;
         font-size: 50px;
     }
