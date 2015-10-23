@@ -101,10 +101,13 @@ angular.module('angularLocalightApp')
 
         //Scroll to element by HTML ID
         $scope.scrollToElement = function(elementId, callback) {
+
             //Pause before executing scroll to allow other events to complete
             setTimeout(function() {
+
                 //Find the angular element requested
                 var element = angular.element(document.getElementById(elementId));
+
                 //Scroll to the selected element
                 $document.scrollToElement(element, 0, 1000, function(t) {
                     if (callback) {
@@ -455,6 +458,15 @@ angular.module('angularLocalightApp')
         $scope.validateCard = function() {
             if ($scope.validCC && $scope.dateValidated && $scope.cvcValidated && $scope.zipValidated) {
                 $scope.cardValidated = true;
+
+                //Since the card is validated, scroll to the bottom of the page
+                //And focus on the continue button
+                $scope.scrollToElement("continue_button");
+
+                $timeout(function () {
+                    document.getElementById("continue_button").focus();
+                }, 100);
+                
             } else {
                 $scope.cardValidated = false;
                 $scope.cardType = "";
