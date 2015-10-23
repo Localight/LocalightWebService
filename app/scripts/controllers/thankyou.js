@@ -25,6 +25,19 @@ angular.module('angularLocalightApp')
       //Initialize our giftcards in scope
       $scope.giftcards;
 
+      //Our character count for the text area
+      $scope.charCount;
+
+      //Total purcahse value
+      $scope.purchaseValue;
+
+      //Get our merchant ID
+      $scope.Id = $routeParams.merchantId;
+
+      //Get our amount
+      $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
+      $cookies.remove("igosdmbmtv");
+
       //get our session token from the cookies
       var sessionToken;
 
@@ -37,19 +50,6 @@ angular.module('angularLocalightApp')
           //Redirect them to a 404
           $location.path("#/");
       }
-
-	//Our character count for the text area
-	$scope.charCount;
-
-	//Total purcahse value
-	$scope.purchaseValue;
-
-    //Get our merchant ID
-	$scope.Id = $routeParams.merchantId;
-
-    //Get our amount
-    $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
-    $cookies.remove("igosdmbmtv");
 
     //Get our location
     $scope.getLocation = function() {
