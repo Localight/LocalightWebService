@@ -26,11 +26,11 @@ angular.module('angularLocalightApp')
       $scope.giftcards;
 
       //get our session token from the cookies
-      $scope.sessionToken;
+      var sessionToken;
 
       if($cookies.get("sessionToken"))
       {
-          $scope.sessionToken = $cookies.get("sessionToken");
+          sessionToken = $cookies.get("sessionToken");
       }
       else
       {
@@ -57,7 +57,7 @@ angular.module('angularLocalightApp')
         //First set up some JSON for the session token
         var payload = {
             "id" : $scope.Id,
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Send the payload to the backend
@@ -109,7 +109,7 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var payload = {
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Query the backend using our session token
@@ -196,7 +196,7 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var payload = {
-           "sessionToken" : $scope.sessionToken,
+           "sessionToken" : sessionToken,
            "fromId" : $scope.sender.id,
            "message": $scope.thanksMessage
         }

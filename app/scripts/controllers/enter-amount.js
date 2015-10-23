@@ -29,11 +29,11 @@ angular.module('angularLocalightApp')
     }, false);
 
     //get our session token from the cookies
-    $scope.sessionToken;
+    var sessionToken;
 
     if($cookies.get("sessionToken"))
     {
-        $scope.sessionToken = $cookies.get("sessionToken");
+        sessionToken = $cookies.get("sessionToken");
     }
     else
     {
@@ -88,7 +88,7 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var payload = {
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Query the backend using our session token
