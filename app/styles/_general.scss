@@ -185,6 +185,8 @@ input {
 }
 
 .localightImg {
+    @extend .center;
+
     padding-left: 10px;
     padding-right: 10px;
 }

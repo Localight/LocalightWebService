@@ -164,10 +164,23 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 }
 
+.creditCardIcon {
+    width: 50px;
+    max-width: 30px;
+    float: left;
+    margin-top: 12px;
+    margin-left: 5px;
+
+    &.ng-hide {
+      display: block !important;
+      visibility: hidden;
+    }
+}
+
 .creditCardCheck {
     @extend .creditCardIcon;
 
-    float: right;
+    float: right !important;
     margin-top: 6px;
     margin-right: 5px;
 }
@@ -203,19 +216,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     @extend .expiryM;
 
     width: 75px;
-}
-
-.creditCardIcon {
-  width: 50px;
-  max-width: 30px;
-  float: left;
-  margin-top: 12px;
-  margin-left: 5px;
-
-  &.ng-hide {
-      display: block !important;
-      visibility: hidden;
-  }
 }
 
 /**
@@ -792,12 +792,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .thankYouNote {
-    @extend .blackText;
 
+    color: $standard;
     background-color: $inverseStandard;
 }
 
 .thankYouNoteText {
+
+    color: $standard;
     font-size: 1.5em;
 }
 
