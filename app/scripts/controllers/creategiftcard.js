@@ -8,7 +8,7 @@
 * Controller of the angularLocalightApp
 */
 angular.module('angularLocalightApp')
-.controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, $timeout,
+.controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, rotationCheck, $timeout,
     $log, $q, $cookies, OccasionService, Users, Join, Giftcards, LocationByCode, $document) {
 
         this.awesomeThings = [
@@ -21,16 +21,8 @@ angular.module('angularLocalightApp')
         //Page initialization
         //****
 
-        //Rotation warning boolean
-        $scope.rotateAlert = false;
-
-        //Rotation warning detector
-        $window.addEventListener("orientationchange", function() {
-            if (!$scope.rotateAlert && ($window.orientation === -90 || $window.orientation === 90)) {
-                $scope.rotateAlert = true;
-                alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-            }
-        }, false);
+        //Reset the rotation alert boolean
+        rotationCheck.reset();
 
         //Giftcard form object
         $scope.gc = {};

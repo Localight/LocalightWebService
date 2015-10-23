@@ -8,10 +8,10 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TriconCtrl', function ($scope, $routeParams, $location, $window, $cookies, LocationById, Spend, $timeout) {
+  .controller('TriconCtrl', function ($scope, $routeParams, $location, rotationCheck, $cookies, LocationById, Spend, $timeout) {
 
-    //Boolean for rotation alert to the user
-    $scope.rotateAlert = false;
+    //Reset the rotation alert boolean
+    rotationCheck.reset();
 
     //Boolean to display an error message
     $scope.errorMsg
@@ -31,15 +31,6 @@ angular.module('angularLocalightApp')
         //Redirect them to a 404
         $location.path("#/");
     }
-
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
 
 		//The string to diplay the *** to the users on tricon enter
 		$scope.pressedTricon = "";
