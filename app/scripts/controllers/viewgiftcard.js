@@ -82,6 +82,9 @@ angular.module('angularLocalightApp')
                 ///Success save giftcards in scope
                 $scope.giftcard = data;
 
+                //Check if the giftcard can be used, aka non-zero amount
+                if($scope.giftcard.amount > 0) $scope.isValid = true;
+
                 //Show(true)/Hide(false) the loading spinner
                 $scope.loading = false;
             },
