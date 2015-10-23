@@ -1321,7 +1321,51 @@ label.inputlabel {
     @extend .creditCardCheck;
 }
 
-//Localism
+//Thank You Page
+
+.headerIcon {
+    margin-top: 10px;
+}
+
+.headerOccasion {
+    margin-top: 5px;
+}
+
+.thankYouNote {
+    @extend .blackText;
+
+    background-color: $inverseStandard;
+}
+
+.thankYouNoteText {
+    font-size: 1.5em;
+}
+
+.signing {
+    display:inline-block;
+}
+
+.thankCharCount {
+    @extend .placeHolderTextStyle;
+
+    display:inline-block;
+    padding-left: 10px;
+}
+
+.thankButtonContainer {
+    @extend .giftcardButtonContainer;
+
+    margin-top: 10px;
+}
+
+.thankButtonSave {
+    @extend .giftcardButtonSave;
+
+    padding-right: 33px;
+    padding-left: 33px;
+}
+
+//Localism Page
 .projectOfContainer {
     @extend .center;
 
