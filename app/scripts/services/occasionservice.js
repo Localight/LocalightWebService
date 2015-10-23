@@ -7,6 +7,14 @@
  * # OccasionService
  * Service in the angularLocalightApp.
  */
+
+ /*
+ * Simply a re-do of old clique code, to keep it working,
+ * this service will allow us to access all of
+ * the information form an occasions
+ * throughout the entire app
+ */
+
 angular.module('angularLocalightApp')
   .service('OccasionService', function(){
   var occasions = [

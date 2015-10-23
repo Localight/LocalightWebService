@@ -8,13 +8,13 @@
 	<!-- header section with give option, clique logo and available balance -->
 	<table class = "sub-header">
 		<tr>
-			<td class="paddingLeft" style = "width: 33%;"><a class="blackText navText" ng-href="/#/giftcards/create">
-				<img class="imagePaddingRight" ng-src="../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
+			<td class="navCell"><a ng-href="/#/giftcards/create">
+				<img class = "navBowTie" ng-src="/../images/bowtie.png" alt="Give Icon">
 				Give</a></td>
-				<td class = "paddingLeft paddingRight center">
+				<td class = "localightImg center">
 					<img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
 				</td>
-				<td class = "textRightAlign blackText navText paddingRight" style = "width: 33%;">${{totalValue}}</td>
+				<td class = "textRightAlign navCell">${{totalValue}}</td>
 				<tr>
 	</table>
 
@@ -22,14 +22,16 @@
 	<h2 class = "heart blackText center">Send another gift!</h2>
 
 	<!-- Product of localism -->
-	<div class = "center" style = "padding-top: 50px;">
-		<p class = "blackText inline" style = "font-size: 2em"> A project of</p>
-		<h1 class = "blackText inline heart" style = "font-size: 3em">Localism!</h1>
+	<div class = "projectOfContainer">
+		<p> A project of</p>
+		<h1>Localism!</h1>
 	</div>
 
 	<!-- why does it matter to choose local -->
-	<h3 class = "blackText center" style = "margin-top: 0px"> Why does it matter to choose local? Watch the video.</h3>
+	<h3 class = "chooseLocal"> Why does it matter to choose local? Watch the video.</h3>
 
 	<!-- video link -->
-	<a href = "https://www.youtube.com/watch?v=TNz5Q0G-KAs"><img style = "margin-top: 20px" class = "center" src = "../images/video-play-btn-small.png"</a>
+	<a href = "https://www.youtube.com/watch?v=TNz5Q0G-KAs">
+		<img class = "localismVideo" src = "../images/video-play-btn-small.png">
+	</a>
 </section>

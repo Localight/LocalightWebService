@@ -29,7 +29,7 @@ angular.module('angularLocalightApp')
         }, false);
 
         //get our session token from the cookies
-        $scope.sessionToken = $cookies.get("sessionToken");
+        var sessionToken = $cookies.get("sessionToken");
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;
@@ -39,7 +39,7 @@ angular.module('angularLocalightApp')
 
             //First set up some JSON for the session token
             var payload = {
-                "sessionToken" : $scope.sessionToken
+                "sessionToken" : sessionToken
             }
 
             //Query the backend using our session token

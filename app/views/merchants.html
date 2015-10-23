@@ -8,40 +8,34 @@
       <!-- header section with give option, clique logo and available balance -->
       <table class = "sub-header">
          <tr>
-             <td style = "width: 33%;">
+             <td class = "navCell">
                  <a ng-click = "senderId()">
-                    <span class="glyphicon glyphicon-menu-left" style = "color: black; font-size: 25px;vertical-align:middle" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                      <p class = "merchantBackText">Back</p>
                  </a>
              </td>
-             <td class = "paddingLeft paddingRight center">
+             <td class = "localightImg center">
                  <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
              </td>
-             <td class = "textRightAlign blackText navText" style = "width: 33%;">${{totalValue}}</td>
+             <td class = "textRightAlign navCell">${{totalValue}}</td>
          <tr>
      </table>
 
-    <h1 class = "whiteHeader paddingLeft">Select Merchant</h1>
+    <h1 class = "whitePaddingHeader">Select Merchant</h1>
 
     <div class="list-group flatRowList">
-        <!-- Not doing areas yet <h4 class= "paddingLeft">{{merchantsArray[0].area}}</h4> -->
         <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index]._id}}/amount">
-          <h2 style = "margin-top: 0px" class = "whiteHeader">{{merchant.name}}</h2>
+          <h2 class = "whiteHeader">{{merchant.name}}</h2>
 
             <div class = "whiteText">
-                <h4 style = "margin-top: 0px" class="list-group-item-text">
+                <h4 class="list-group-item-text">
     				<span data-ng-bind="merchant.address1"></span>
     			</h4>
-                <h4 style = "margin-top: 0px" class="list-group-item-text">
+                <h4 class="list-group-item-text">
                     <span data-ng-bind="merchant.address2"></span>
                 </h4>
-                <!-- since things are local, we do not need this, keeping though in case of future changes
-                <h4 style = "margin-top: 0px" class="list-group-item-text">
-                    <span>{{merchant.city}}, {{merchant.state}} {{merchant.zipcode}}</span>
-                </h4>
-            -->
             </div>
-            <span style = "color: black" class="glyphicon glyphicon-menu-right" aria-hidden="true">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true">
         </a>
     </div>
 </section>

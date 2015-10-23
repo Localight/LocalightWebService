@@ -25,12 +25,25 @@ angular.module('angularLocalightApp')
       //Initialize our giftcards in scope
       $scope.giftcards;
 
+      //Our character count for the text area
+      $scope.charCount;
+
+      //Total purcahse value
+      $scope.purchaseValue;
+
+      //Get our merchant ID
+      $scope.Id = $routeParams.merchantId;
+
+      //Get our amount
+      $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
+      $cookies.remove("igosdmbmtv");
+
       //get our session token from the cookies
-      $scope.sessionToken;
+      var sessionToken;
 
       if($cookies.get("sessionToken"))
       {
-          $scope.sessionToken = $cookies.get("sessionToken");
+          sessionToken = $cookies.get("sessionToken");
       }
       else
       {
@@ -38,26 +51,13 @@ angular.module('angularLocalightApp')
           $location.path("#/");
       }
 
-	//Our character count for the text area
-	$scope.charCount;
-
-	//Total purcahse value
-	$scope.purchaseValue;
-
-    //Get our merchant ID
-	$scope.Id = $routeParams.merchantId;
-
-    //Get our amount
-    $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
-    $cookies.remove("igosdmbmtv");
-
     //Get our location
     $scope.getLocation = function() {
 
         //First set up some JSON for the session token
         var payload = {
             "id" : $scope.Id,
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Send the payload to the backend
@@ -94,8 +94,9 @@ angular.module('angularLocalightApp')
 	$scope.setTextArea = function ()
 	{
 		//Set the default value of our text area
-		document.getElementById("thankYouNote").value = sender.name + ", I used the Local Giftcard at "
-		+ $scope.merchantLocation.name + " to get...";
+		document.getElementById("thankYouNote").value = sender.name +
+        ", I used the Local Giftcard at " +
+        $scope.merchantLocation.name + " to get...";
 	}
 
 	//Count our text area characters
@@ -109,7 +110,7 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var payload = {
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Query the backend using our session token
@@ -196,7 +197,7 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var payload = {
-           "sessionToken" : $scope.sessionToken,
+           "sessionToken" : sessionToken,
            "fromId" : $scope.sender.id,
            "message": $scope.thanksMessage
         }

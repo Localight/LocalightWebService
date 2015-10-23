@@ -20,11 +20,11 @@ angular.module('angularLocalightApp')
     $scope.Id = $routeParams.merchantId;
 
     //get our session token from the cookies
-    $scope.sessionToken;
+    var sessionToken;
 
     if($cookies.get("sessionToken"))
     {
-        $scope.sessionToken = $cookies.get("sessionToken");
+        sessionToken = $cookies.get("sessionToken");
     }
     else
     {
@@ -53,7 +53,7 @@ angular.module('angularLocalightApp')
             //First set up some JSON for the session token
             var payload = {
                 "id" : $scope.Id,
-                "sessionToken" : $scope.sessionToken
+                "sessionToken" : sessionToken
             }
 
             //Send the payload to the backend
@@ -121,7 +121,7 @@ angular.module('angularLocalightApp')
                 //Send the data to the backend and make sure it's good!
                 var payload = {
                     "id" : $scope.Id,
-                    "sessionToken" : $scope.sessionToken,
+                    "sessionToken" : sessionToken,
                     "amount" : $cookies.get("igosdmbmtv"),
                     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
                 }

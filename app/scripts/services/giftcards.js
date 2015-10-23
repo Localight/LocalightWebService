@@ -8,6 +8,7 @@
  * Service in the angularLocalightApp.
  */
 
+//Create a giftcard, or return all of a user's giftcards
 angular.module('angularLocalightApp')
   .service('Giftcards', ['$resource', 'ENV', function($resource, ENV) {
 
@@ -25,6 +26,7 @@ angular.module('angularLocalightApp')
     });
 }]);
 
+//Get a giftcard by it's ID
 angular.module('angularLocalightApp')
   .factory('GiftcardById', ['$resource', 'ENV', function($resource, ENV) {
 
