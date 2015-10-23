@@ -184,66 +184,122 @@ input {
     }
 }
 
-.currentInput {
-  -webkit-transition: background-color linear 0.25s;
-  transition: background-color linear 0.25s;
-  border-radius: 7px !important;
-  opacity: 1 !important;
-
-  &.ng-hide {
-      display: none !important;
-  }
-
-  &.createTo {
-      margin-bottom: 10px;
-  }
-
-  &.createAmount {
-      padding-top: 3px;
-  }
-
-  &.datePicker {
-      font-size: 2em
-  }
-
+.localightImg {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-.currentInputNoBorder {
-  -webkit-transition: background-color linear 0.25s;
-  transition: background-color linear 0.25s;
-  opacity: 1 !important;
 
-  &.ng-hide {
-      display: none !important;
-  }
-
+.sub-header{
+    width: 100%;
+    font-size: 2em;
 }
 
-.waterfall {
-  -webkit-transition: opacoty linear 0.25s;
-  transition: opacity linear 0.25s;
-  opacity: 1 !important;
-
-  &.ng-hide {
-      opacity: 0 !important;
-  }
-
+.darkerCity {
+    background-image: url("../images/auth-bg.png");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
 }
 
-.nextInput {
-  border-radius: 7px;
-  background-color: $inverseStandardAlphaLight;
-}
-
-.form-incomplete {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.center {
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
-    background-color: $inverseStandardAlphaLight;
-    border-radius: 7px;
+    display: block;
 }
+
+.upside {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+.textRightAlign {
+    text-align: right;
+}
+
+.whiteText{
+    color: $inverseStandard;
+}
+
+.blackText{
+    color: $standard;
+}
+
+.linkText {
+    color: $darkOverlay;
+}
+
+.placeHolderTextStyle {
+    color: $placeHolder;
+}
+
+.navText {
+    font-size: .75em;
+}
+
+.navCell {
+    @extend .navText;
+
+    width: 33%;
+    color: $standard;
+
+    a {
+        color: $standard !important;
+        text-decoration: none;
+    }
+}
+
+.navBowTie {
+    text-align: left;
+    width: 25px;
+    height: 15px;
+}
+
+.navArrow {
+    color: black;
+    font-size: 25px;
+    vertical-align: middle;
+}
+
+/* DialPad Buttons */
+
+.dialPad {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+@media (max-width: 340px) {
+    .dialPad {
+        border-spacing: 0px !important;
+    }
+}
+
+.dialButton {
+    transition: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+.buttonDel {
+    background-image: url("../images/auth-delete-btn-aqua.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 55px;
+    width: 75px;
+}
+
+.triconButton {
+    transition: none;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+}
+
+/* End Dialad Buttons */
 
 /**
 ***********************

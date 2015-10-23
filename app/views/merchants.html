@@ -14,17 +14,16 @@
                      <p class = "merchantBackText">Back</p>
                  </a>
              </td>
-             <td class = "paddingLeft paddingRight center">
+             <td class = "localightImg center">
                  <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
              </td>
              <td class = "textRightAlign navCell">${{totalValue}}</td>
          <tr>
      </table>
 
-    <h1 class = "whiteHeader paddingLeft">Select Merchant</h1>
+    <h1 class = "whitePaddingHeader">Select Merchant</h1>
 
     <div class="list-group flatRowList">
-        <!-- Not doing areas yet <h4 class= "paddingLeft">{{merchantsArray[0].area}}</h4> -->
         <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index]._id}}/amount">
           <h2 class = "whiteHeader">{{merchant.name}}</h2>
 
