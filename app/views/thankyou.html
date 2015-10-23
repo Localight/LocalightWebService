@@ -2,29 +2,27 @@
 <div ng-class = "{spinner: loading}" ng-init = "loading = true;">
 </div>
 
-<section ng-init = "getGiftcards();">
+<!-- ng init loading hre too because of a strange, random bug -->
+<section ng-init = "getGiftcards();loading = true;">
 
-	<!-- our nav/status bar -->
 	<!-- header section with give option, clique logo and available balance -->
 	<table class = "sub-header">
 		<tr>
-			<td class="paddingLeft" style = "width: 33%;">
-				<a class="blackText navText" ng-href="/#/giftcards/create">
-				<img class = "imagePaddingRight" ng-src="../images/bowtie.png" alt="Give Icon" height="15px" width="30px">
-				Give</a>
-			</td>
-			<td class = "center">
-				<img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
-			</td>
-			<td class = "textRightAlign blackText navText paddingRight" style = "width: 33%;">${{totalValue}}</td>
-		<tr>
+			<td class="navCell"><a ng-href="/#/giftcards/create">
+				<img class = "navBowTie" ng-src="/../images/bowtie.png" alt="Give Icon">
+				Give</a></td>
+				<td class = "localightImg center">
+					<img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+				</td>
+				<td class = "textRightAlign navCell">${{totalValue}}</td>
+				<tr>
 	</table>
 
 	<!-- Occasion Icon -->
-	<img class = "center" style = "margin-top: 10px" ng-src = "{{icons[sender.icon]}}" width= "75px" height = "75px">
+	<img class = "center headerIcon" ng-src = "{{icons[sender.icon]}}" width= "75px" height = "75px">
 
 	<!-- Our occasion Heading -->
-	<h1 class = "center heart" style = "margin-top: 5px">{{iconHeaders[sender.icon]}}</h1>
+	<h1 class = "center heart headerOccasion">{{iconHeaders[sender.icon]}}</h1>
 
 	<!-- Our message -->
 	<h4 class = "center">${{spentAmount}} was successfully transferred.
@@ -32,15 +30,15 @@
 
 	<!-- div to enter thank you note -->
 	<form>
-		<div class = "giftcardContainer blackText" style = "background-color: white;">
+		<div class = "giftcardContainer thankYouNote">
 			<!-- Our text area and sign off, may be used in order to position the character counter -->
 				<!-- input box, value must be done in the controller -->
-				<textarea id = "thankYouNote" ng-model = "thanksMessage" ng-keydown="countCharacters()" type="text" style = "font-size: 1.5em;" class = "largerText" ng-trim="false" maxlength = "160" rows = "4" autofocus>
+				<textarea id = "thankYouNote" class = "thankYouNoteText" ng-model = "thanksMessage" ng-keydown="countCharacters()" type="text" ng-trim="false" maxlength = "160" rows = "4" autofocus>
 				</textarea>
 				<!-- Person's name in the lower right hand corner -->
 				<div class = "textRightAlign">
-				<p style = "display:inline-block" class = "textRightAlign heart">~ {{giftcards[0].toId.name}}</p>
-				<p ng-init = "countCharacters()" style = "display:inline-block; padding-left: 10px;" class = "placeHolderTextStyle textRightAlign">{{charCount}}</p>
+					<p class = "heart signing">~ {{giftcards[0].toId.name}}</p>
+					<p ng-init = "countCharacters()" class = "thankCharCount">{{charCount}}</p>
 				</div>
 		</div>
 
@@ -50,8 +48,8 @@
 		</div>
 
 		<!-- our two buttons -->
-		<div class="giftcardButtonContainer" style = "margin-top: 10px">
-			<a class="giftcardButtonSave" style = "padding-right: 33px; padding-left: 33px;" href="#/localism">Remind Me</a>
+		<div class= "thankButtonContainer">
+			<a class="thankButtonSave" href="#/localism">Remind Me</a>
 			<a class="giftcardButtonUse" ng-click = "sendThanks()">Send It Now</a>
 		</div>
 

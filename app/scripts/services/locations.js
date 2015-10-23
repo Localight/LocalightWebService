@@ -8,7 +8,7 @@
  * Service in the angularLocalightApp.
  */
 
-//Get all the giftcards, or creat one
+//Get all the giftcards, or create one
 angular.module('angularLocalightApp')
   .service('Locations', ['$resource', 'ENV', function($resource, ENV) {
 
@@ -26,7 +26,7 @@ angular.module('angularLocalightApp')
     });
   }]);
 
-//Location By Id
+//Get a location by it's ID
 angular.module('angularLocalightApp')
   .factory('LocationById', ['$resource', 'ENV', function($resource, ENV) {
 
@@ -49,7 +49,7 @@ angular.module('angularLocalightApp')
   }]);
 
 
-  //Location By Owner
+  //Get all of the locations under an owner
   angular.module('angularLocalightApp')
     .factory('LocationByOwner', ['$resource', 'ENV', function($resource, ENV) {
 
@@ -66,7 +66,7 @@ angular.module('angularLocalightApp')
     }]);
 
 
-//Location By Code
+//Get a Location by it's location code
 angular.module('angularLocalightApp')
   .factory('LocationByCode', ['$resource', 'ENV', function($resource, ENV) {
 
@@ -81,7 +81,7 @@ angular.module('angularLocalightApp')
   }]);
 
 
-//Spending a Giftcard
+//Spend a giftcard at a location
 angular.module('angularLocalightApp')
   .factory('Spend', ['$resource', 'ENV', function($resource, ENV) {
 
