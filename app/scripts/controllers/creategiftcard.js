@@ -465,19 +465,14 @@ angular.module('angularLocalightApp')
          * Validates email field
          */
         $scope.validateEmail = function() {
-            //get the email
+            //Fetch email from giftcard form
             var email = $scope.gc.email;
 
-            //check if the email has an @ sign
-            if ($scope.gc.email && email.indexOf("@") > -1) {
-                //If it does, get a sub string after that, and check for a period
-                if (email.substring(email.indexOf("@"))
-                .indexOf(".") > -1) {
-                    //if it exists return true
-                    return true;
-                } else {
-                    return false;
-                }
+            //Regex for all valid emails. To add a TLD, edit the final OR statement.
+            var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|co|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
+            //Test the form email against the regex
+            if (emailRegex.test(email)) {
+                return true;
             } else {
                 return false;
             }
