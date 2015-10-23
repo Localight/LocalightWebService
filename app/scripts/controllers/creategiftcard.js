@@ -459,14 +459,13 @@ angular.module('angularLocalightApp')
             if ($scope.validCC && $scope.dateValidated && $scope.cvcValidated && $scope.zipValidated) {
                 $scope.cardValidated = true;
 
-                //Since the card is validated, scroll to the bottom of the page
-                //And focus on the continue button
-                $scope.scrollToElement("continue_button");
+                //Since the card is validated
+                //focus on the continue button
 
                 $timeout(function () {
                     document.getElementById("continue_button").focus();
                 }, 100);
-                
+
             } else {
                 $scope.cardValidated = false;
                 $scope.cardType = "";
