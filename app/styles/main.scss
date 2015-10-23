@@ -1236,6 +1236,21 @@ label.inputlabel {
     background-size: 897px;
 }
 
+.triconFooterContainer {
+    width: 33%;
+}
+
+.cancelIcon {
+    vertical-align: sub;
+    margin-left: 25%;
+}
+
+.infoIcon {
+    @extend .cancelIcon;
+
+    margin-left: 55%;
+}
+
 .friendlyShake {
 
     animation-name: shake;
@@ -1505,7 +1520,7 @@ label.inputlabel {
 
 //Adding some padding to the entire app
 .container {
-    padding: 10px !important;
+    padding: 5px !important;
 }
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
