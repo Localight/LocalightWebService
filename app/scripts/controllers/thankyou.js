@@ -94,8 +94,9 @@ angular.module('angularLocalightApp')
 	$scope.setTextArea = function ()
 	{
 		//Set the default value of our text area
-		document.getElementById("thankYouNote").value = sender.name + ", I used the Local Giftcard at "
-		+ $scope.merchantLocation.name + " to get...";
+		document.getElementById("thankYouNote").value = sender.name +
+        ", I used the Local Giftcard at " +
+        $scope.merchantLocation.name + " to get...";
 	}
 
 	//Count our text area characters

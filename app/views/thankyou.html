@@ -2,7 +2,8 @@
 <div ng-class = "{spinner: loading}" ng-init = "loading = true;">
 </div>
 
-<section ng-init = "getGiftcards();">
+<!-- ng init loading hre too because of a strange, random bug -->
+<section ng-init = "getGiftcards();loading = true;">
 
 	<!-- header section with give option, clique logo and available balance -->
 	<table class = "sub-header">
