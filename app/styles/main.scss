@@ -34,7 +34,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     END Imports
 *******/
 
-//Create Giftcard Page
+/**
+***********************
+  Create Giftcard
+***********************
+**/
 
 .proceed_button {
   background-color: $standard;
@@ -217,7 +221,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   }
 }
 
-//List Giftcard Page
+/**
+***********************
+  End Create Giftcard
+***********************
+**/
+
+/**
+***********************
+  List Giftcards
+***********************
+**/
+
 .flatRowListItem {
     background-color: $standardAlphaLight;
     border: none;
@@ -347,7 +362,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     font-weight: 300 !important;
 }
 
-//View Giftcard Page
+/**
+***********************
+  End List Giftcards
+***********************
+**/
+
+/**
+***********************
+  View Giftcard
+***********************
+**/
+
 .giftcardContainer {
     background-color: $container;
     border-radius: 5px;
@@ -435,8 +461,17 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     display: inline;
     color: $standard;
 }
+/**
+***********************
+  End View Giftcard
+***********************
+**/
 
-/*merchants page */
+/**
+***********************
+  Merchant Selection
+***********************
+**/
 
 .merchantBackText {
     @extend .navText;
@@ -459,7 +494,17 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     padding-left: 10px;
 }
 
-/*Enter amount page */
+/**
+***********************
+  End Merchant Selection
+***********************
+**/
+
+/**
+***********************
+  Enter Amount
+***********************
+**/
 
 .enteredAmount {
     text-align: right;
@@ -530,8 +575,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-top: 10px;
 }
 
+/**
+***********************
+  End Enter Amount
+***********************
+**/
 
-//Tilt Screen Page
+
+/**
+***********************
+  Tilt Screen
+***********************
+**/
 
 .tiltText {
     padding-left: 25%;
@@ -581,7 +636,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     to { background-position: 2130px; }
 }
 
-//Tricon page
+/**
+***********************
+  End Tilt Screen
+***********************
+**/
+
+/**
+***********************
+  Enter Tricon
+***********************
+**/
+
 .triconStar {
     @extend .center;
     color: $inverseStandard;
@@ -648,7 +714,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     100% { -webkit-transform: translate(4px, 0px) rotate(180deg); }
 }
 
-//Confirmation Timeout
+/**
+***********************
+  End Enter Tricon
+***********************
+**/
+
+/**
+***********************
+  Confirmation Timeout
+***********************
+**/
+
 .confirmationCheckmark {
     @extend .center;
 
@@ -696,8 +773,19 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     padding-right:10px;
 }
 
+/**
+***********************
+  End Confirmation Timeout
+***********************
+**/
 
-//Thank You Page
+
+/**
+***********************
+  Thank You
+***********************
+**/
+
 .headerIcon {
     margin-top: 10px;
 }
@@ -740,7 +828,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     padding-left: 33px;
 }
 
-//Localism Page
+/**
+***********************
+  End Thank You
+***********************
+**/
+
+/**
+***********************
+  Localism
+***********************
+**/
+
 .projectOfContainer {
     @extend .center;
 
@@ -775,7 +874,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-top: 20px;
 }
 
-//Main Page
+/**
+***********************
+  End Localism
+***********************
+**/
+
+/**
+***********************
+  Main 404
+***********************
+**/
+
 .mainContainer {
     @extend .giftcardContainer;
     @extend .center;
@@ -784,6 +894,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-right: 10px;
     margin-top: 10px;
 }
+
+/**
+***********************
+  End Main 404
+***********************
+**/
 
 
 /**
@@ -804,6 +920,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     padding: 5px !important;
 }
 
+/**
+***********************
+  End Responsiveness Fixes
+***********************
+**/
 
 //Merchant Panel import, depends on above styles
 @import 'merchantpanel';
