@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, $window, $location) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards, $window, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -67,7 +67,41 @@ angular.module('angularLocalightApp')
             }
 		]
 
-        // Find a list of Giftcards
+        // Find a list of Giftcards (For our total value)
+    	$scope.getGiftcards = function() {
+
+            //First set up some JSON for the session token
+            var payload = {
+                "sessionToken" : sessionToken
+            }
+
+            //Query the backend using our session token
+            Giftcards.get(payload,
+            function(data, status) {
+                ///Success save giftcards in scope
+                $scope.giftcards = data;
+
+                //Also get the total value
+                $scope.getTotalValue();
+
+                //Show(true)/Hide(false) the loading spinner
+                $scope.loading = false;
+            },
+
+            function(err)
+            {
+                //Error, Inform the user of the status
+                if (err.status == 401) {
+                   //Session is invalid! Redirect to 404
+                   $location.path("/");
+                } else {
+                   //An unexpected error has occured, log into console
+                   console.log("Status: " + err.status + " " + err.data.msg);
+                }
+            });
+    	}
+
+        // Get the Selected Giftcard
     	$scope.getGiftcard = function() {
 
             //First set up some JSON for the session token

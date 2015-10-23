@@ -2,23 +2,23 @@
 <div ng-class = "{spinner: loading}" ng-init = "loading = true;">
 </div>
 
-<div class="container-fluid wrapper" ng-init="getGiftcard()">
+<div class="container-fluid wrapper" ng-init="getGiftcard();getGiftcards();">
 
-      <!-- header section with give option, clique logo and available balance -->
-      <table class = "sub-header">
-         <tr>
-             <td style = "width: 33%;">
-                 <a href = "#/giftcards">
-                    <span class="glyphicon glyphicon-menu-left" style = "color: black; font-size: 25px;vertical-align:middle" aria-hidden="true"></span>
-                     <p class = "viewBackText">Back</p>
-                 </a>
-             </td>
-             <td class = "paddingLeft paddingRight center">
-                 <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
-             </td>
-             <td class = "textRightAlign blackText navText" style = "width: 33%;"></td>
-         <tr>
-     </table>
+    <!-- header section with give option, clique logo and available balance -->
+    <table class = "sub-header">
+       <tr>
+           <td class = "navCell">
+               <a href = "#/giftcards">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                   <p class = "merchantBackText">Back</p>
+               </a>
+           </td>
+           <td class = "paddingLeft paddingRight center">
+               <img ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+           </td>
+           <td class = "textRightAlign navCell">${{totalValue}}</td>
+       <tr>
+   </table>
 
 
 
