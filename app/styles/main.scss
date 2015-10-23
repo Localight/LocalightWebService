@@ -1503,5 +1503,10 @@ label.inputlabel {
     }
 }
 
+//Adding some padding to the entire app
+.container {
+    padding: 10px !important;
+}
+
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';
