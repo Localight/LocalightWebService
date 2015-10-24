@@ -122,23 +122,9 @@ angular.module('angularLocalightApp')
             if ($scope.activeField && $scope.activeField != fieldId) {
                 $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
             }
-
-            //Check if it is the occasion wrapper, if it is, we need to turn white into transparent
-            if (fieldId === "clique_occasion_wrapper") {
-                //Check if the active field is already occasion wrapper
-                if ($scope.occasionSelectionFlag) {
-                    //Make the occasion transparent
-                    $scope.activeField = fieldId;
-                    $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
-                } else {
-                    //Make the occasion white
-                    $scope.activeField = fieldId;
-                    $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
-                }
-            } else {
-                $scope.activeField = fieldId;
-                $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
-            }
+            
+            $scope.activeField = fieldId;
+            $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
         };
 
         $scope.setSecondaryField = function(next) {
@@ -191,15 +177,8 @@ angular.module('angularLocalightApp')
             }, 100);
         };
 
-        //Flag for occasion Selector
-        $scope.occasionSelectionFlag = true;
         //Flag for send selection flag
         $scope.sendSelectionFlag = true;
-
-        $scope.setOccasionBack = function() {
-            $scope.occasionSelectionFlag = true;
-            $scope.gc.Icon = "";
-        };
 
         /****
         * Code
@@ -257,6 +236,9 @@ angular.module('angularLocalightApp')
         //Get OccasionService array containing all possible occasion presets
         $scope.occasions = OccasionService;
 
+        //Flag for occasion Selector
+        $scope.occasionSelectionFlag = true;
+
         /**
          * Sets/Unsets the occasion for the occasionPicker.
          * @param {Occasion} occasion Occasion object that was selected
@@ -278,6 +260,11 @@ angular.module('angularLocalightApp')
                     document.getElementById('clique_input_occasion').focus();
                 }, 100);
             }
+        };
+
+        $scope.setOccasionBack = function() {
+            $scope.occasionSelectionFlag = true;
+            $scope.gc.Icon = "";
         };
 
 

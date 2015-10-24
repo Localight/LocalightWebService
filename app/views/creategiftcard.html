@@ -123,23 +123,23 @@
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInputNoBorder">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
-              <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
-                <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
+              <li ng-repeat="occasion in occasions"
+              my-touchend="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
+                    <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
               </li>
             </ul>
           </div>
 
           <div id="clique_occasion" ng-hide="occasionSelectionFlag">
-            <label for="clique_input_occasion" class="inputlabel" my-touchstart="setOccasionBack();" my-touchend="setActiveField('clique_occasion');">
+            <label for="clique_input_occasion"
+            class="inputlabel"
+            my-touchstart="setOccasionBack()"
+            my-touchend="setActiveField('clique_occasion_selection');">
               <img ng-src="{{occasions.selectedIcon}}">
             </label>
 
             <div id="clique_input_occasion_wrapper" class="rightColumn">
-              <textarea id="clique_input_occasion" name="clique_input_occasion"
-              maxlength="100" minlength = "1" ng-trim="false"
-              ng-model="gc.occasion"
-              ng-focus = "occasionFocused = true;setActiveField('clique_occasion');"
-              ng-blur = "occasionFocused = false"></textarea>
+              <textarea id="clique_input_occasion" name="clique_input_occasion" maxlength="100" minlength = "1" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true;setActiveField('clique_occasion');" ng-blur = "occasionFocused = false"></textarea>
               <span id="occCharCount" ng-show = "occasionFocused">{{100 - gc.occasion.length}} characters left</span>
             </div>
             <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
