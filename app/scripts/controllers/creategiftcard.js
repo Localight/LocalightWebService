@@ -538,18 +538,13 @@ angular.module('angularLocalightApp')
                     //Show(true)/Hide(false) the loading spinner
                     $scope.loading = false;
 
-                    //Force the change to refresh, we need to do this because I
-                    //guess response scope is a different scope and has to be
-                    //forced or interacted with
-                    $scope.$apply();
-
                     //timeout and focus on the phone field
                     $timeout(function() {
-                        //Go back to the top
-                        $window.scrollTo(0, 0);
-
                         //focus on the phone element
                         document.getElementById("clique_input_phonenumber").focus();
+
+                        //Go back to the top
+                        $window.scrollTo(0, 0);
                     }, 250);
                 }
 
