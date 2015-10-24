@@ -158,8 +158,8 @@ angular.module('angularLocalightApp')
             $cookies.put('senderId', $scope.giftcard.fromId._id);
             $cookies.put('senderIcon', $scope.giftcard.iconId);
 
-            //Change locations to the merchants page
-            $location.path("/merchants");
+            //Change locations to the merchants page, and include the location id
+            $location.path("/merchants").search({merchant: $scope.giftcard.location.locationId._id});
         }
 
 		//Array of occasion Icons, simply a link to their icon
