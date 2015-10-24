@@ -130,12 +130,16 @@
           </div>
 
           <div id="clique_occasion" ng-hide="occasionSelectionFlag">
-            <label for="clique_input_occasion" class="inputlabel" my-touchstart="setOccasionBack()" my-touchend="setActiveField('clique_occasion');">
+            <label for="clique_input_occasion" class="inputlabel" my-touchstart="setOccasionBack();" my-touchend="setActiveField('clique_occasion');">
               <img ng-src="{{occasions.selectedIcon}}">
             </label>
 
             <div id="clique_input_occasion_wrapper" class="rightColumn">
-              <textarea id="clique_input_occasion" name="clique_input_occasion" maxlength="100" minlength = "1" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true;setActiveField('clique_occasion');" ng-blur = "occasionFocused = false"></textarea>
+              <textarea id="clique_input_occasion" name="clique_input_occasion"
+              maxlength="100" minlength = "1" ng-trim="false"
+              ng-model="gc.occasion"
+              ng-focus = "occasionFocused = true;setActiveField('clique_occasion');"
+              ng-blur = "occasionFocused = false"></textarea>
               <span id="occCharCount" ng-show = "occasionFocused">{{100 - gc.occasion.length}} characters left</span>
             </div>
             <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
@@ -160,7 +164,7 @@
         class = "createGiftCardWidth center roundWhiteBorder currentInput datePicker"
         type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="{{minDate}}" max="{{maxDate}}"
         show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();"
-        ng-blur = "scrollToElement('creditcardinfo')" required></input>
+        ng-blur = "scrollToElement('creditcardinfo')" required disabled></input>
     </div>
 
     <!-- Some Error Checking -->

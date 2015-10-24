@@ -300,6 +300,7 @@ angular.module('angularLocalightApp')
             document.getElementById('clique_date_selection').type = 'date';
             //Focus on the date field after setting the type to avoid it blurring
             $timeout(function () {
+                document.getElementById('clique_date_selection').disabled = false;
                 document.getElementById('clique_date_selection').focus();
             }, 25);
         }
