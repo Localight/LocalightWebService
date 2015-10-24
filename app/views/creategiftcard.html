@@ -236,7 +236,10 @@
                 ng-keydown="trimInput($event, 4)"
                 onKeyDown="if(document.getElementById('clique_input_creditcardnumber4').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber3').focus();}">
             <!-- Checkmark box to the right -->
-            <img class = "creditCardCheck" src = "../images/checkmark-blk.png" ng-show = "validCC">
+            <img class = "creditCardCheck"
+            src = "../images/checkmark-blk.png"
+            ng-show = "validCC"
+            ng-click = "ccDateSwitch();">
           </div>
           <!-- lower box that within same box but differnet background -->
           <div id="creditcardinfo" class="paymentcontainer currentInputNoBorder">
