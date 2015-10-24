@@ -47,6 +47,18 @@ angular.module('angularLocalightApp')
         $location.path("#/");
     }
 
+    //Get the intended merchant
+    $scope.intendedMerchant;
+
+    if($location.search().merchant)
+    {
+        //get our intended Merchant id
+        $scope.intendedMerchant = $location.search().merchant;
+
+        //Getting this individual
+        //location will be done in the get location
+    }
+
     $scope.getLocations = function() {
 
         //Json to send to the backend
