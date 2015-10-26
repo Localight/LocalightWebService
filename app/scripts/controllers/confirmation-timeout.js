@@ -8,16 +8,13 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ConfirmationTimeoutCtrl', function ($scope, $timeout, $location, $routeParams, $cookies, $window, LocationById) {
+  .controller('ConfirmationTimeoutCtrl', function ($scope, $timeout, $location, $routeParams, $cookies, LocationById) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-
-    //Boolean to alert rotation to the user
-    $scope.rotateAlert = false;
 
     //get our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
@@ -27,15 +24,6 @@ angular.module('angularLocalightApp')
 
     //Timeout, the redirect to the next page
     $timeout(timeoutRedirect, 2000);
-
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
 
         //Get our location
         $scope.getLocation = function() {
