@@ -391,7 +391,7 @@ angular.module('angularLocalightApp')
 
                 //Jump to the date field
                 if(cardNumber.length == 13 ||
-                cardNumber.length == 14 ||
+                cardNumber.length == 15 ||
                 cardNumber.length == 16)
                 {
                     $scope.ccDateSwitch();
