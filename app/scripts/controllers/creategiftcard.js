@@ -390,7 +390,12 @@ angular.module('angularLocalightApp')
                 $scope.validCC = true;
 
                 //Jump to the date field
-                $scope.ccDateSwitch();
+                if(cardNumber.length == 13 ||
+                cardNumber.length == 14 ||
+                cardNumber.length == 16)
+                {
+                    $scope.ccDateSwitch();
+                }
             }
             else {
                 $scope.validCC = false;
