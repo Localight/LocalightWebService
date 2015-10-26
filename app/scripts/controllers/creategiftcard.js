@@ -389,11 +389,8 @@ angular.module('angularLocalightApp')
             if(Stripe.card.validateCardNumber(cardNumber)) {
                 $scope.validCC = true;
 
-                //Jump to the date field if a full 16 digit card
-                if(cardNumber.length >= 16)
-                {
-                    $scope.ccDateSwitch();
-                }
+                //Jump to the date field
+                $scope.ccDateSwitch();
             }
             else {
                 $scope.validCC = false;
