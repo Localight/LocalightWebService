@@ -161,6 +161,9 @@ angular.module('angularLocalightApp')
         $cookies.remove('senderId');
         $cookies.remove('senderIcon');
 
+        //Remove the merchants query param
+        $location.url($location.path());
+
         //Change locations to the merchants page
         $location.path("/giftcards");
     }
