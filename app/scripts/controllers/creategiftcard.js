@@ -368,6 +368,14 @@ angular.module('angularLocalightApp')
             //Check if the credit card number is US valid
             if(Stripe.card.validateCardNumber(cardNumber)) {
                 $scope.validCC = true;
+
+                //Jump to the date field
+                if(cardNumber.length == 13 ||
+                cardNumber.length == 15 ||
+                cardNumber.length == 16)
+                {
+                    $scope.ccDateSwitch();
+                }
             }
             else {
                 $scope.validCC = false;
@@ -382,6 +390,13 @@ angular.module('angularLocalightApp')
 
             //Now see if the card is validated
             $scope.validateCard();
+        }
+
+        //Simply focuses on the credit card date fields
+        $scope.ccDateSwitch = function () {
+            $timeout(function () {
+                document.getElementById("clique_input_expiry_m").focus();
+            }, 100);
         }
 
         /**
