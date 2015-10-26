@@ -25,7 +25,7 @@
 
     <!-- Section to show the intendedMerchant, only show if we have one -->
     <div ng-if = "intendedMerchant">
-        <h4 class = "giftSection">Giftcard Merchant</h4>
+        <h4 class = "giftSection">Selected Merchant</h4>
         <div class="list-group flatRowList">
             <a class="list-group-item flatRowListItem"data-ng-href="#/merchants/{{intendedMerchant._id}}/amount">
               <h2 class = "whiteHeader">{{intendedMerchant.name}}</h2>
