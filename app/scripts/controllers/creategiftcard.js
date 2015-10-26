@@ -532,16 +532,19 @@ angular.module('angularLocalightApp')
                     // response contains id and card, which contains additional card details
                     $scope.stripeToken = response.id;
 
-                    //Show(true)/Hide(false) the loading spinner
-                    $scope.loading = false;
-
                     //Show the next page
                     $scope.showPage2 = true;
+
+                    //Show(true)/Hide(false) the loading spinner
+                    $scope.loading = false;
 
                     //timeout and focus on the phone field
                     $timeout(function() {
                         //focus on the phone element
                         document.getElementById("clique_input_phonenumber").focus();
+
+                        //Go back to the top
+                        $window.scrollTo(0, 0);
                     }, 250);
                 }
 
