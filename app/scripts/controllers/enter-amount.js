@@ -269,12 +269,20 @@ angular.module('angularLocalightApp')
 
 	//Function to go back to selecting merchants
 	$scope.goTo = function(place) {
+        
 		//Save our final amount if the path is to pay
 		if(place == "/merchants/" + $scope.Id + "/tilt") {
 			$cookies.put('igosdmbmtv', $scope.trueAmount);
+            $location.path(place);
 		}
-
-		$location.path(place);
+        else if(place == "/merchants")
+        {
+            //Change locations to the merchants page, and include the location id
+            $location.path("/merchants").search({merchant: $scope.Id});
+        }
+        else {
+            $location.path(place);
+        }
 	}
 
 });

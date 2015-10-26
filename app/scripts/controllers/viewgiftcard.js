@@ -110,8 +110,8 @@ angular.module('angularLocalightApp')
                 //Check if the giftcard can be used, aka non-zero amount
                 if($scope.giftcard.amount > 0) $scope.isValid = true;
 
-                //Show(true)/Hide(false) the loading spinner
-                $scope.loading = false;
+                //Now get all of the giftcards
+                $scope.getGiftcards();
             },
 
             function(err)
@@ -149,8 +149,8 @@ angular.module('angularLocalightApp')
             $cookies.put('senderId', $scope.giftcard.fromId._id);
             $cookies.put('senderIcon', $scope.giftcard.iconId);
 
-            //Change locations to the merchants page
-            $location.path("/merchants");
+            //Change locations to the merchants page, and include the location id
+            $location.path("/merchants").search({merchant: $scope.giftcard.location.locationId._id});
         }
 
 		//Array of occasion Icons, simply a link to their icon

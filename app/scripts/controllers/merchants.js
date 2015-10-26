@@ -38,6 +38,18 @@ angular.module('angularLocalightApp')
         $location.path("#/");
     }
 
+    //Get the intended merchant
+    $scope.intendedMerchant;
+
+    if($location.search().merchant)
+    {
+        //get our intended Merchant id
+        $scope.intendedMerchant = $location.search().merchant;
+
+        //Getting this individual
+        //location will be done in the get location
+    }
+
     $scope.getLocations = function() {
 
         //Json to send to the backend
@@ -52,8 +64,22 @@ angular.module('angularLocalightApp')
             //Success save the response to scope
             $scope.merchantsArray = data;
 
-            //Show(true)/Hide(false) the loading spinner, if everything is loaded
-            if($scope.giftcards) $scope.loading = false;
+            //Find the location with the id from the query param
+            if($scope.intendedMerchant)
+            {
+                for(var i = 0; i < data.length; i++)
+                {
+                    if(data[i]._id == $scope.intendedMerchant)
+                    {
+                        //Save the object, and break the loop
+                        $scope.intendedMerchant = data[i];
+                        break;
+                    }
+                }
+            }
+
+            //Now get all of the giftcards for our navbar
+            $scope.getGiftcards();
         },
         function(err)
         {
@@ -88,7 +114,7 @@ angular.module('angularLocalightApp')
             $scope.getTotalValue();
 
             //Show(true)/Hide(false) the loading spinner, if everything is loaded
-            if($scope.merchantsArray) $scope.loading = false;
+            $scope.loading = false;
         },
 
         function(err)
@@ -125,6 +151,9 @@ angular.module('angularLocalightApp')
         $cookies.remove('senderName');
         $cookies.remove('senderId');
         $cookies.remove('senderIcon');
+
+        //Remove the merchants query param
+        $location.url($location.path());
 
         //Change locations to the merchants page
         $location.path("/giftcards");

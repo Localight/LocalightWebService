@@ -2,7 +2,7 @@
 <div ng-class = "{spinner: loading}" ng-init = "loading = true;">
 </div>
 
-<section class="flatRowSection" ng-init="getGiftcards();getLocations();">
+<section class="flatRowSection" ng-init="getLocations();">
 
 
       <!-- header section with give option, clique logo and available balance -->
@@ -23,6 +23,28 @@
 
     <h1 class = "whitePaddingHeader">Select Merchant</h1>
 
+    <!-- Section to show the intendedMerchant, only show if we have one -->
+    <div ng-if = "intendedMerchant">
+        <h4 class = "giftSection">Selected Merchant</h4>
+        <div class="list-group flatRowList">
+            <a class="list-group-item flatRowListItem"data-ng-href="#/merchants/{{intendedMerchant._id}}/amount">
+              <h2 class = "whiteHeader">{{intendedMerchant.name}}</h2>
+
+                <div class = "whiteText">
+                    <h4 class="list-group-item-text">
+                        <span data-ng-bind="intendedMerchant.address1"></span>
+                    </h4>
+                    <h4 class="list-group-item-text">
+                        <span data-ng-bind="intendedMerchant.address2"></span>
+                    </h4>
+                </div>
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true">
+            </a>
+        </div>
+    </div>
+
+    <!-- Section to show all of the merchants -->
+    <h4 class = "giftSection">All Merchants</h4>
     <div class="list-group flatRowList">
         <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index]._id}}/amount">
           <h2 class = "whiteHeader">{{merchant.name}}</h2>
