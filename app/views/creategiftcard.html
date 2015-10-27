@@ -190,7 +190,7 @@
                 pattern="\d*"
                 ng-focus="setActiveField('creditcardnumbercontainer');"
                 ng-model="cc.number"
-                ng-keydown="numbersOnly($event)"
+                ng-keydown="numbersOnly($event);maxLength($event, 19)"
                 ng-keyup="formatCC($event)"
                 onKeyUp="">
             <!-- Checkmark box to the right -->

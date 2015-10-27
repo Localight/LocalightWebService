@@ -481,7 +481,13 @@ angular.module('angularLocalightApp')
         }
 
         $scope.numbersOnly = function(event){
-            if((event.which < 48 || event.which > 57) && event.which != 46 && event.which != 8){
+            if(((event.which < 48 || event.which > 57) && event.which != 46 && event.which != 8) || event.shiftKey){
+                event.preventDefault();
+            }
+        }
+
+        $scope.maxLength = function(event, length){
+            if(event.target.value.length == length && event.which != 46 && event.which != 8){
                 event.preventDefault();
             }
         }
