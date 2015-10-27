@@ -191,7 +191,6 @@
                 id="clique_input_creditcardnumber1"
                 class="profont creditCardNumInput"
                 placeholder="XXXX-XXXX-XXXX-XXXX"
-                pattern="\d*"
                 ng-focus="setActiveField('creditcardnumbercontainer');"
                 ng-model="cc.number"
                 ng-keydown="numbersOnly($event);maxLength($event, 19)"
@@ -298,16 +297,15 @@
 
     <div class="createGiftCardWidth waterfall" ng-show="
     giftcardForm.clique_input_creditcardnumber1.$dirty &&
-    giftcardForm.clique_input_creditcardnumber2.$dirty &&
-    giftcardForm.clique_input_creditcardnumber3.$dirty &&
-    giftcardForm.clique_input_creditcardnumber4.$dirty &&
     giftcardForm.clique_input_expiry_m.$dirty &&
     giftcardForm.clique_input_expiry_y.$dirty &&
     giftcardForm.clique_input_cvv.$dirty &&
     giftcardForm.clique_input_zip.$dirty &&
     gc.amount != null &&
     !(gc.occasion.length < 1 || gc.Icon.length < 1) &&
-    giftcardForm.$valid">
+    giftcardForm.clique_input_to.$valid &&
+    giftcardForm.clique_input_from.$valid &&
+    gc.amount">
 
 
       <button class="proceed_button" id="continue_button"
