@@ -182,59 +182,17 @@
             <img class = "creditCardIcon" ng-src="{{cardIcon}}">
             <!-- Credit Card Number Input -->
             <input
-                type="number"
+                type="text"
                 name="clique_input_creditcardnumber1"
                 id="clique_input_creditcardnumber1"
                 class="profont creditCardNumInput"
-                placeholder="XXXX"
-                size="4"
+                placeholder="XXXX - XXXX - XXXX - XXXX"
                 pattern="\d*"
                 ng-focus="setActiveField('creditcardnumbercontainer');"
-                ng-model="cc.number1"
+                ng-model="cc.number"
                 ng-keyup = "validateCardNumber()"
-                ng-keydown="trimInput($event, 4)"
-                onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}">
-            <input
-                type="number"
-                name="clique_input_creditcardnumber2"
-                id="clique_input_creditcardnumber2"
-                class="profont creditCardNumInput"
-                placeholder="XXXX"
-                size="4"
-                pattern="\d*"
-                ng-focus="setActiveField('creditcardnumbercontainer');"
-                ng-model="cc.number2"
-                ng-keyup = "validateCardNumber()"
-                ng-keydown="trimInput($event, 4)"
-                onKeyDown="if(document.getElementById('clique_input_creditcardnumber2').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber1').focus();}"
-                onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}">
-            <input
-                type="number"
-                name="clique_input_creditcardnumber3"
-                id="clique_input_creditcardnumber3"
-                class="profont creditCardNumInput"
-                placeholder="XXXX"
-                size="4"
-                pattern="\d*"
-                ng-focus="setActiveField('creditcardnumbercontainer');"
-                ng-model="cc.number3"
-                ng-keyup = "validateCardNumber()"
-                ng-keydown="trimInput($event, 4)"
-                onKeyDown="if(document.getElementById('clique_input_creditcardnumber3').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber2').focus();}"
-                onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}">
-            <input
-                type="number"
-                name="clique_input_creditcardnumber4"
-                id="clique_input_creditcardnumber4"
-                class="profont creditCardNumInput"
-                placeholder="XXXX"
-                size="4"
-                pattern="\d*"
-                ng-focus="setActiveField('creditcardnumbercontainer');"
-                ng-model="cc.number4"
-                ng-keyup = "validateCardNumber();trimInput($event, 4)"
-                ng-keydown="trimInput($event, 4)"
-                onKeyDown="if(document.getElementById('clique_input_creditcardnumber4').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber3').focus();}">
+                ng-keyup="trimInput($event, 4)"
+                onKeyUp="">
             <!-- Checkmark box to the right -->
             <img class = "creditCardCheck" src = "../images/checkmark-blk.png" ng-show = "validCC">
           </div>
