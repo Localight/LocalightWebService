@@ -487,7 +487,10 @@ angular.module('angularLocalightApp')
         }
 
         $scope.maxLength = function(event, length){
-            if(event.target.value.length == length && event.which != 46 && event.which != 8){
+            if (event.target.value.length > length && event.which != 46 && event.which != 8) {
+                event.preventDefault();
+                event.target.value = event.target.value.slice(0,length);
+            } else if (event.target.value.length == length && event.which != 46 && event.which != 8){
                 event.preventDefault();
             }
         }
@@ -574,16 +577,6 @@ angular.module('angularLocalightApp')
             }
             $scope.validateCardNumber(event);
         }
-
-        $scope.trimInput = function(event, length){
-            if (event.target.value.length > length) {
-                event.preventDefault();
-                event.target.value = event.target.value.slice(0,length);
-            } else if (event.target.value.length == length){
-                event.preventDefault();
-            }
-        }
-
 
         /*
         STRIPE
