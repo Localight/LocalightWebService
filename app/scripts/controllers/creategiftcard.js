@@ -378,12 +378,9 @@ angular.module('angularLocalightApp')
         /**
          * Validates form CC. Checks Stripe for validity, determines card type and sets card icon.
          */
-        $scope.validateCardNumber = function() {
+        $scope.validateCardNumber = function(event) {
             //Concatante the credit card number together
-            var cardNumber = "";
-            for(var i=1; i <= 4; i++){
-                cardNumber += document.getElementById("clique_input_creditcardnumber" + i).value;
-            }
+            var cardNumber = event.target.value.replace(/-/g, '');
 
             //Check if the credit card number is US valid
             if(Stripe.card.validateCardNumber(cardNumber)) {
@@ -500,6 +497,7 @@ angular.module('angularLocalightApp')
                     event.target.value = value + "-";
                 }
             }
+            $scope.validateCardNumber(event);
         }
 
         $scope.trimInput = function(event, length){
