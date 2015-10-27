@@ -486,16 +486,85 @@ angular.module('angularLocalightApp')
             }
         }
 
-        $scope.formatCC = function(event){
-            if(event.which >= 48 && event.which <= 57){
-                var value = event.target.value;
-                if(value.indexOf("-") <= -1 && value.length == 4){
-                    event.target.value = value + "-";
-                } else if(value.indexOf("-", 5) <= -1 && value.length == 9){
-                    event.target.value = value + "-";
-                } else if(value.indexOf("-", 10) <= -1 && value.length == 14){
-                    event.target.value = value + "-";
+        function getCaretPosition(ctrl)
+        {
+            var caretPos = 0;
+            // IE
+            if (document.selection)
+            {
+                ctrl.focus ();
+                var sel = document.selection.createRange();
+                sel.moveStart ('character', -ctrl.value.length);
+                caretPos = sel.text.length;
+            }
+            // Firefox
+            else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+            {
+                caretPos = ctrl.selectionStart;
+            }
+
+            return caretPos;
+        }
+
+        function setCaretPosition(elemId, caretPos) {
+            var elem = document.getElementById(elemId);
+
+            if(elem != null) {
+                if(elem.createTextRange) {
+                    var range = elem.createTextRange();
+                    range.move('character', caretPos);
+                    range.select();
                 }
+                else {
+                    if(elem.selectionStart) {
+                        elem.focus();
+                        elem.setSelectionRange(caretPos, caretPos);
+                    }
+                    else
+                        elem.focus();
+                }
+            }
+        }
+
+        $scope.formatCC = function(event){
+            var caretPos = getCaretPosition(event.target) == event.target.value.length ? -3 : getCaretPosition(event.target);
+            if(event.which == 46 || event.which == 8){
+                var value = event.target.value.replace(/-/g, '');
+
+                if(value.length > 4){
+                    value = [value.slice(0, 4), "-", value.slice(4)].join('');
+
+                    if(value.length > 9){
+                        value = [value.slice(0, 9), "-", value.slice(9)].join('');
+
+                        if(value.length > 14){
+                            value = [value.slice(0, 14), "-", value.slice(14)].join('');
+                        }
+                    }
+                }
+                event.target.value = value;
+
+            } else if(event.which >= 48 && event.which <= 57){
+                var value = event.target.value.replace(/-/g, '');
+
+                if(value.length >= 4){
+                    value = [value.slice(0, 4), "-", value.slice(4)].join('');
+
+                    if(value.length >= 9){
+                        value = [value.slice(0, 9), "-", value.slice(9)].join('');
+
+                        if(value.length >= 14){
+                            value = [value.slice(0, 14), "-", value.slice(14)].join('');
+                        }
+                    }
+                }
+                if(caretPos == 4 || caretPos == 9 || caretPos == 14){
+                    caretPos++;
+                }
+                event.target.value = value;
+            }
+            if(caretPos >= 0){
+                setCaretPosition(event.target.id, caretPos);
             }
             $scope.validateCardNumber(event);
         }
