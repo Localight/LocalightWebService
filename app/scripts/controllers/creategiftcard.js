@@ -351,6 +351,20 @@ angular.module('angularLocalightApp')
         * Credit Card Validation
         ****/
 
+        $scope.dateOptions = {
+            onClose: function(e) {
+                console.log($scope.gc.date);
+                $timeout(function(){
+                    if($scope.gc.date){
+                        $scope.dateDirty = true;
+                        $scope.scrollToElement('creditcardinfo', function(){
+                            document.getElementById("clique_input_creditcardnumber1").focus();
+                        });
+                    }
+                }, 200);
+            }
+        }
+
         //Icon URLs for CCs
         //Default, Visa, Mastercard, Amex, Discover
         var cardIcons = [
