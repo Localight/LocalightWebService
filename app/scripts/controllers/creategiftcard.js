@@ -103,7 +103,7 @@ angular.module('angularLocalightApp')
         $scope.scrollToElement = function(elementId, callback) {
 
             //Pause before executing scroll to allow other events to complete
-            setTimeout(function() {
+            $timeout(function() {
 
                 //Find the angular element requested
                 var element = angular.element(document.getElementById(elementId));
@@ -177,7 +177,9 @@ angular.module('angularLocalightApp')
             }, 500);
 
             //Try and scroll to the card again, in case iPhone pushed it away
-            $scope.scrollToElement("cardCodeStrip");
+            $scope.scrollToElement("cardCodeStrip", function() {
+                document.getElementById('clique_input_code').focus();
+            });
         };
 
         $scope.setAmount = function(amount) {
@@ -460,11 +462,10 @@ angular.module('angularLocalightApp')
                 $scope.cardValidated = true;
 
                 //Since the card is validated
-                //focus on the continue button
-
-                $timeout(function () {
-                    document.getElementById("continue_button").focus();
-                }, 100);
+                //scroll/focus on the continue button
+                $scope.scrollToElement("continue_button", function() {
+                    document.getElementById('continue_button').focus();
+                });
 
             } else {
                 $scope.cardValidated = false;
