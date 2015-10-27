@@ -1,5 +1,6 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
@@ -10,9 +11,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     //Import the colors
     @import 'colors';
 
-    //Import our variables
-    @import 'variables';
-
     //Import the font families
     @import 'fonts';
 
@@ -22,154 +20,101 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     //Import Bootstrap CSS changes
     @import 'bootstrapchanges';
 
+    //Import General styles (body, backgrounds, etc...)
+    @import 'general';
+
+    //Import the old Clique css that is still being used
+    @import 'clique';
+
 
 /******
     END Imports
 *******/
 
-body {
-    background-repeat: no-repeat;
-    background-image: url('../images/local-street-bg-blur.png');
-    background-position: bottom;
-    background-color: $colorBg;
-    background-size: cover;
-    z-index: -4;
-}
-
-.darkBlurBodyBg {
-    background-image: url('../images/auth-bg.png');
-    background-color: $authBg;
-}
-
-body, html {
-  font-family: $familyStandard;
-  background-color: $colorBg;
-  padding: 0px;
-  margin: 0px;
-
-}
-
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-html, body, .container, .fn-app {
-    height: 100% !important;
-    overflow: hidden !important;
-    padding: 0px !important;
-}
-
-.container{
-    position:relative !important;
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-         -moz-animation: fadein 2s; /* Firefox < 16 */
-          -ms-animation: fadein 2s; /* Internet Explorer */
-           -o-animation: fadein 2s; /* Opera < 12.1 */
-              animation: fadein 2s;
-}
-
-.finalContent {
-    overflow:scroll;
-    overflow-scrolling: touch;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    height: 100%;
-}
-
 /**
 ***********************
-  LOADING SPINNER
+  Create Giftcard
 ***********************
 **/
 
-.spinner {
-   position: absolute;
-   left: 45%;
-   top: 45%;
-   height:60px;
-   width:60px;
-   margin:0px auto;
-   -webkit-animation: rotation .6s infinite linear;
-   -moz-animation: rotation .6s infinite linear;
-   -o-animation: rotation .6s infinite linear;
-   animation: rotation .6s infinite linear;
-   border-left:6px solid $spinnerLight;
-   border-right:6px solid $spinnerLight;
-   border-bottom:6px solid $spinnerLight;
-   border-top:6px solid $spinnerDark;
-   border-radius:100%;
-}
-
-@-webkit-keyframes rotation {
-   from {-webkit-transform: rotate(0deg);}
-   to {-webkit-transform: rotate(359deg);}
-}
-@-moz-keyframes rotation {
-   from {-moz-transform: rotate(0deg);}
-   to {-moz-transform: rotate(359deg);}
-}
-@-o-keyframes rotation {
-   from {-o-transform: rotate(0deg);}
-   to {-o-transform: rotate(359deg);}
-}
-@keyframes rotation {
-   from {transform: rotate(0deg);}
-   to {transform: rotate(359deg);}
-}
-
-/**
-***********************
-  GENERAL STYLES
-***********************
-**/
-@mixin placeholder {
-  &::-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
-  &::-moz-placeholder          {@content}
-  &:-ms-input-placeholder      {@content}
-}
-
-*:focus {
-  outline: 0; /* remove border around focused elements, especially on Google Chrome */
-}
-
-.roundWhiteBorder {
-  border: 2px solid $inverseStandard;
+.proceed_button {
+  background-color: $standard;
+  background-size: auto 60%;
+  background-position: 1em 60%;
+  background-repeat: no-repeat;
+  border: 0;
   border-radius: 7px;
+  width: 100%;
+  height: 45px;
+  text-align: right;
+  color: $darkOverlay;
+  font-size: 1.2em;
+  padding-right: 1em;
+  cursor: pointer;
+
+  &:disabled {
+      background-color: $placeHolder;
+      opacity: 0.6;
+      cursor: default;
+  }
+
 }
 
-textarea {
-    border: 0;
-    background-color: transparent;
-    background-image: none; /* remove inset gradient on Firefox mobile */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
+.createGiftCardWidth {
+  margin: 2% auto; /* increase margin-top and margin-bottom slightly */
+  max-width: 600px;
 }
 
-input {
-    @extend textarea;
+.paymentcontainer {
+  height: 45px;
+  text-align: center;
+
+  input {
+      background-color: transparent;
+      height: 100%;
+  }
+
+}
+
+.nextInput {
+  border-radius: 7px;
+  background-color: $inverseStandardAlphaLight;
+}
+
+.form-incomplete {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    background-color: $inverseStandardAlphaLight;
+    border-radius: 7px;
+}
+
+.createCode {
+    @extend .currentInput;
+    @extend .waterfall;
+
+    margin-bottom: 1.5%;
+}
+
+.createCodeMessage {
+    @extend .helveticaText;
+    @extend .rightColumn;
+
+    padding-top: 7px;
+    font-size: 5vmin;
+}
+
+.PageTwoInput {
+    @extend .helveticaInput;
+    @extend .rightColumn;
+    @extend .blackText;
+
+    width: calc(75% - (40px + 25px));
 
     @include placeholder {
-        color: $standard;
-        -webkit-transition: color linear 0.15s;
-        transition: color linear 0.15s;
-    }
-
-    &:focus {
-        @include placeholder {
-            color: $placeHolder;
-            -webkit-transition: color linear 0.15s;
-            transition: color linear 0.15s;
-        }
+        font-size: .95em;
     }
 }
 
@@ -219,307 +164,71 @@ input {
 
 }
 
-.nextInput {
-  border-radius: 7px;
-  background-color: $inverseStandardAlphaLight;
-}
+.creditCardIcon {
+    width: 50px;
+    max-width: 30px;
+    float: left;
+    margin-top: 12px;
+    margin-left: 5px;
 
-.form-incomplete {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    text-align: center;
-    background-color: $inverseStandardAlphaLight;
-    border-radius: 7px;
-}
-/* End General Styles */
-
-/* Font Styles */
-.heart {
-  font-family: $familyFancy;
-  font-size: 2.4em;
-  padding: 0 1%;
-}
-
-.profont {
-  font-family: $familyDigital;
-  font-size: 2em;
-  padding: 0 2%;
-}
-
-.helveticaInput {
-  font-size: 1.5em;
-  line-height: 45px;
-  padding-left: 2%;
-}
-
-.helveticaText {
-  font-size: 1em;
-  line-height: 45px;
-  padding-left: 2%;
-}
-
-.bold {
-  font-weight: bold;
-}
-/* End Font Styles */
-
-/* Background Image */
-.localStreet {
-  position: fixed;
-  width: 100%;
-  height: 400px; /* 60% + 40% (from "top") = 100% of the screen's height*/
-  z-index: -2;
-  background-size: cover;
-  background-position: center top;
-  background-color: $colorBg;
-
-}
-
-@media screen and ( min-height: 1000px ){
-    .localStreet {
-        height: 650px;
+    &.ng-hide {
+      display: block !important;
+      visibility: hidden;
     }
 }
 
-@media screen and ( max-height: 500px ){
-    .localStreet {
-        height: 300px;
-    }
+.creditCardCheck {
+    @extend .creditCardIcon;
+
+    float: right !important;
+    margin-top: 6px;
+    margin-right: 5px;
 }
 
-#darkerOverlay {
-    display:none;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background-size: cover;
-    background-position: center top;
-    background-color: $darkOverlay;
-    background-image: url('../images/auth-bg.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+.creditCardNumInput {
+    width: 45px;
+    padding: 0px !important;
+    margin-left: 5px;
+    font-size: 2.5em;
+    font-family: 'profontwindowsregular';
 }
 
-/* Clique Logo */
-.clique_logo {
-  margin: 10px auto 5%;
-  height: 73px;
-  max-width: 300px;
-  display: block;
-}
-.clique_logo_wrapper {
-  margin: 10px auto 5%;
-  height: 73px;
-  max-width: 300px;
-  display: block;
-}
-/* End Clique Logo */
-
-/* Wrapper */
-.wrapper {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/*--- section styles ---*/
-label.inputlabel {
-  font-size: 1.5em;
-  width: 25%;
-  text-align: right;
-  position: relative;
-  top: 7px;
-  float: left;
-}
-
-.inputlabel img {
-  height: 25px;
-}
-
-.rightColumn {
-  width: 73%;
-  border: 0;
-  border-radius: 7px;
-  margin: 0 0 0 2%; /* margin-left */
-  height: 45px;
-  display: inline-block;
+.expiryM {
+    @extend .creditCardNumInput;
   box-sizing: border-box;
+  width: 30px;
+  line-height: 45px;
 }
 
-/* Amount Selection */
-#clique_amt_selection {
-  height: 45px !important;
-  position: relative;
-  padding-top: 3px;
-   overflow: hidden; /* don't show scroll bar */
-  text-align: center; /* horizontally center this scrollwindow on the page */
+.expiryY {
+    @extend .expiryM;
+
+    width: 45px;
 }
 
-#clique_amt_scrollwindow {
-  width: 80%;
-  max-width: 600px;
-  display: inline-block;
-   overflow-x: scroll;
-  height: 100000em; /* push scroll bar downwards out of field of view */
-  white-space: nowrap; /* don't wrap the price spans */
+.cvv {
+    @extend .expiryM;
+    margin-left: 10px;
+    width: 37px;
 }
 
-#clique_amt_scrollwindow small {
-  font-size: 50%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-  top: -0.6em;
+.zipCC {
+    @extend .expiryM;
+
+    width: 75px;
 }
 
-.price {
-  border: 2px solid $standard;
-  border-radius: 5px;
-  color: $standard;
-  font-size: 1.6em;
-  display: inline-block;
-  padding: 3px 0 0; /* top, left/right, bottom */
-  height: 38px;
-  width: 25%;
-  min-width: 68px;
-  max-width: 100px;
-  margin: 0 1%; /* spacing between price boxes */
-}
+/**
+***********************
+  End Create Giftcard
+***********************
+**/
 
-.price.active {
-  background-color: $inverseStandard;
-  border: 2px solid $standard;
-  color: $standard;
-}
-
-.rightarrow,
-.leftarrow {
-  vertical-align: top;
-  border-top: 0.8em solid transparent;
-  border-bottom: 0.8em solid transparent;
-  display: inline-block;
-  position: relative;
-  top: 0.5em;
-}
-
-.rightarrow {
-  border-left: 0.8em solid $standard;
-}
-
-.leftarrow {
-  border-right: 0.8em solid $standard;
-}
-/* End Amount Selection */
-
-/* Clique Code Styles */
-#flip_container {
-  width: 70%;
-  max-width: 350px;
-  margin: auto;
-  position: relative;
-
-  perspective: 750px;
-  -webkit-perspective: 750px;
-}
-
-/* use dummy container to set aspect ration of card */
-.dummy {
-  padding-top: 60%;
-  /* Credit card dimensions are 85.60 × 53.98 mm. 53.98/85.60 = 0.63 */
-  /* See http://www.mademyday.de/css-height-equals-width-with-pure-css.html about setting fixed aspect ratios */
-}
-
-.card {
-  /* compensate for 3px border width */
-  height: 95%;
-  width: 97%;
-
-  position: absolute;
-  top: 0;
-  border: 3px solid $inverseStandard;
-  border-radius: 12px;
-  background-color: $inverseStandardAlphaLight; /* translucent background */
-
-  transition: transform 1.5s;
-  -webkit-transition: -webkit-transform 1.5s;
-
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-#front {
-  background-image: url('../images/logo-local-gift-card-wht.png');
-  background-position: center;
-  background-size: 70%;
-  background-repeat: no-repeat;
-}
-
-#front.flipped {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-}
-
-#back {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-}
-
-.blackstrip {
-	text-align: right;
-  box-sizing: border-box;
-  width: 100%;
-  padding-right: 8%;
-  position: absolute;
-  top: 10%;
-	opacity: 0.8;
-	font-size: 1.6em;
-	color: $placeHolder;
-	background-color: $inverseStandard;
-}
-
-#back img {
-	position: absolute;
-	right: 0;
-	top: 8%;
-	height: 2.2em;
-	z-index: 3;
-}
-
-#back.flipped {
-  transform: rotateY(360deg);
-  -webkit-transform: rotateY(360deg);
-}
-
-#clique_code {
-  position: relative;
-
-  /* somehow needed for Google Chrome to display the flip card correctly */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-#clique_code_message > div {
-  line-height: 1.2em;
-}
-
-.italicMessage {
-  display: block;
-  font-style: italic;
-  font-size: small;
-}
-
-.wSection{
-    font-weight: 200;
-}
-
-.whiteHeader{
-    color: $inverseStandard;
-    font-weight: 300 !important;
-}
+/**
+***********************
+  List Giftcards
+***********************
+**/
 
 .flatRowListItem {
     background-color: $standardAlphaLight;
@@ -543,10 +252,15 @@ label.inputlabel {
         font-weight: 300 !important;
     }
 
+    h4 {
+        margin-top: 0px;
+    }
+
     .glyphicon {
         position: absolute;
+        color: black;
         right: 0;
-        padding-top: 3.5%;
+        top: calc(50% - 25px);
         padding-right: 5px;
         font-size: 50px;
     }
@@ -574,10 +288,21 @@ label.inputlabel {
         color: $inverseStandard;
     }
 
+    .fromIcon {
+        margin-right: 4px;
+    }
+
     .fromTextSpent {
         @extend .fromText;
 
         color: $inverseStandardAlphaDark;
+    }
+
+    .fromIconSpent {
+        @extend .fromIcon;
+
+        opacity: .7;
+        margin-bottom: 4px
     }
 
     .spentFooter {
@@ -601,7 +326,50 @@ label.inputlabel {
 
     color: $inverseStandardAlphaDark;
     border-color: $inverseStandardAlphaDark;
+    font-size: 1.25em;
 }
+
+.listName {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.listUserName {
+    @extend .heart;
+
+    color: $danger;
+    font-size: 3em;
+    text-align: right;
+    padding-right: 15px;
+    vertical-align: -webkit-baseline-middle;
+    margin-bottom: 0px;
+    display: inline;
+}
+
+.listProfileIcon {
+    height: 29px;
+    width: 41px;
+    opacity: .3;
+}
+
+.listSectionHeader {
+    margin-top: 20px;
+    padding-left: 10px;
+    color: $inverseStandard;
+    font-weight: 300 !important;
+}
+
+/**
+***********************
+  End List Giftcards
+***********************
+**/
+
+/**
+***********************
+  View Giftcard
+***********************
+**/
 
 .giftcardContainer {
     background-color: $container;
@@ -641,368 +409,197 @@ label.inputlabel {
     padding: 10px 30px 10px 30px;
     color: $useItNow;
 }
-/* End Clique Code Styles */
 
-/* occasion styles */
-.createGiftCardWidth {
-  margin: 2% auto; /* increase margin-top and margin-bottom slightly */
-  max-width: 600px;
+.viewIcon {
+    float: left;
+    margin-top: 0px;
 }
 
-#clique_occasion_selection ul {
-  /* padding-bottom set to 0, relies on margin-bottom of each li instead */
-  padding: 2% 2% 0% 2%;
-  margin: 0;
-  display: table;
+.giftcardText {
+    padding-left: 45px;
 }
 
-#clique_occasion_selection li {
-  list-style-type: none;
-  width: 50%;
-  height: 20%;
-  float: left;
-  color: $standard;
-  font-size: 1.2em;
-  margin-bottom: 2.1%; /* 0.02/0.96 = 0.21 (try to match the padding from the other sides of the ul) */
+.giftcardMessage {
+    @extend .whiteText;
+
+    margin-top: 0px;
+    font-size: 1.15em;
+    text-align: left;
 }
 
-#clique_occasion_selection img {
-  max-width: 20%;
-  margin-right: 5%;
-  vertical-align: middle;
+.giftcardSignature {
+    @extend .textRightAlign;
+    @extend .heart;
+    @extend .whiteText;
+
+    font-size: 1.75em;
+    padding-right: 10px;
+    margin-top: 0px;
 }
 
-/* allow occasion selection and date selection to take up full screen width when width drops below 320px */
-@media screen and (max-width: 319px) {
-    #clique_occasion_selection li  {
-        float: none;
-        width: 100%;
-    }
-
-    #dateImages > div {
-        width: 100% !important;
-    }
+.giftcardAmount {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-size: 1.15em;
 }
 
-#clique_input_occasion_wrapper {
-  position: relative; /* needed for occCharCount to be positioned properly */
-  height: 100%;
-  padding: 0.2em 0.5em 1.3em 2%;
-  /* background-color: $inverseStandard; */
+.giftcardMerchant {
+
+    margin-top: 0px;
+    font-weight: 400;
+    margin-bottom: 20px;
 }
 
-#clique_input_occasion {
-  height: 5em;
-  outline: none;
-  resize: none;
-  font-size: 1em; /* by default, Google Chrome shrinks font-size in <input> and <textarea> fields, so we need to explicitly set the font-size to maintain consistency across browsers */
-  font-family: 'helvetica','sans-serif','arial';
-  width: 100%;
-}
+.viewBackText {
+    @extend .navText;
 
-#occCharCount {
-  position: absolute;
-  color: $placeHolder;
-  bottom: 0.3em;
-  right: 0.4em;
-  white-space: nowrap; /* don't let character count take up more than 1 line */
-}
-/* end occasion section styles */
-
-/* date picker styles */
-#clique_date_selection {
-  color: $standard;
-  width: 100%;
-  text-align: center;
-  font-size: 1.75em;
-}
-
-#clique_date_wrapper {
-    position: relative;
-    height: 100%;
-    padding: 0.2em 0.5em 1.3em 2%;
-}
-
-#dateImages {
-  font-size: 1.2em;
-  min-height: 45px;
-}
-
-#dateImages > div {
-  height: 100%;
-  width: 48%;
-  display: inline-block;
-  line-height: 2.1em;
-}
-
-#dateImages  img {
-  margin-right: 1%;
-  max-height: 80%;
-  max-width: 20%;
-  vertical-align: middle;
-}
-
-#clique_input_date {
-  background: transparent;
-  font-size: 1em;
-}
-/* end date picker styles */
-
-/* payment styles */
-#clique_payment_card {
-  /*overflow: hidden;*/
-  font-size: 0.6em;
-}
-
-.paymentcontainer {
-  height: 45px;
-  text-align: center;
-
-  input {
-      background-color: transparent;
-      height: 100%;
-  }
-
-}
-
-/* end payment styles */
-
-.proceed_button {
-  background-color: $standard;
-  background-size: auto 60%;
-  background-position: 1em 60%;
-  background-repeat: no-repeat;
-  border: 0;
-  border-radius: 7px;
-  width: 100%;
-  height: 45px;
-  text-align: right;
-  color: $darkOverlay;
-  font-size: 1.2em;
-  padding-right: 1em;
-  cursor: pointer;
-
-  &:disabled {
-      background-color: $placeHolder;
-      opacity: 0.6;
-      cursor: default;
-  }
-
-}
-
-/* Final Overlay Styles */
-#finalOverlay {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  background-color: $standard;
-  opacity: 0.5;
-  display: table;
-  text-align: center;
-  transition: opacity 2s;
-  -webkit-transition: opacity 2s;
-
-  .complete {
-      opacity: 0.9;
-  }
-
-}
-
-/* DialPad Buttons */
-
-.dialPad {
-    border-collapse: separate;
-    border-spacing: 10px;
-}
-
-@media (max-width: 340px) {
-    .dialPad {
-        border-spacing: 0px !important;
-    }
-}
-
-.dialButton {
-    transition: none;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-.buttonDel {
-    background-image: url("../images/auth-delete-btn-aqua.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 55px;
-    width: 75px;
-}
-
-.triconButton {
-    transition: none;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
-    width: 100px;
-}
-
-/* End Dialad Buttons */
-
-/* Aaron's Styles */
-
-.notFoundLinkList {
-    list-style-type: none;
-    padding: 0px;
-}
-
-.inline{
+    vertical-align: middle;
+    margin-left: -5px;
     display: inline;
-}
-
-.sub-header{
-    width: 100%;
-    font-size: 2em;
-}
-
-.textRightAlign {
-    text-align: right;
-}
-
-.whiteText{
-    color: $inverseStandard;
-}
-
-.blackText{
     color: $standard;
 }
+/**
+***********************
+  End View Giftcard
+***********************
+**/
 
-.redText {
-    color: $danger;
+/**
+***********************
+  Merchant Selection
+***********************
+**/
+
+.merchantBackText {
+    @extend .navText;
+
+    margin-left: -5px;
+    display: inline;
+    color: $standard;
+    font-size: 25px;
 }
 
-.linkText {
-    color: $darkOverlay;
+.whiteHeader{
+    color: $inverseStandard;
+    font-weight: 300 !important;
+    margin-top: 0px;
 }
 
-.placeHolderTextStyle {
-    color: $placeHolder;
-}
+.whitePaddingHeader {
+    @extend .whiteHeader;
 
-.center{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    display: block;
-}
-
-.paddingRight {
-    padding-right: 10px;
-}
-
-.paddingLeft {
     padding-left: 10px;
 }
 
-.paddingTop {
+/**
+***********************
+  End Merchant Selection
+***********************
+**/
+
+/**
+***********************
+  Enter Amount
+***********************
+**/
+
+.enteredAmount {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 15px;
+}
+
+.enterPadding {
+    padding-left: 10px;
+}
+
+.amountText {
+    font-size: 1.5em;
+    color: $inverseStandard;
+    padding-left: 10px;
     padding-top: 10px;
 }
 
-.navText {
-    font-size: .75em;
+.payText {
+    font-size: 1.3em;
+    vertical-align: text-bottom;
+    color: $darkOverlay;
+    display: inline;
+    padding-left: 10px;
 }
 
-.navCell {
-    @extend .navText;
+.payArrow {
+    display: inline;
+    vertical-align: text-bottom;
+}
 
-    width: 33%;
-    color: $standard;
+.amountWarning {
+    @extend .center;
+    color: $danger;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
-    a {
-        color: $standard !important;
-        text-decoration: none;
+.dialSheet {
+    background-image: url("../images/auth-aqua-sheet.png");
+    background-size: 1000px;
+}
+
+.dialBack {
+    @extend .center;
+    padding-top: 5%;
+
+    .dialBackImg {
+        display: inline;
+    }
+
+    .dialBackText {
+        color: $danger;
+        padding-left: 10px;
+        display: inline;
+        vertical-align: sub;
+        font-size: 1.3em;
     }
 }
 
-.navBowTie {
-    text-align: left;
-    width: 25px;
-    height: 15px;
+.dialBackSpace {
+    padding-top: 20%;
 }
+
+.localightLogoBottom {
+    @extend .center;
+    margin-top: 10px;
+}
+
+/**
+***********************
+  End Enter Amount
+***********************
+**/
+
+
+/**
+***********************
+  Tilt Screen
+***********************
+**/
 
 .tiltText {
     padding-left: 25%;
     padding-right: 25%;
 }
 
+.tiltSpacing {
+    margin-top: 25%;
+}
+
+.tiltLocalight {
+    margin-top: 10px;
+}
+
 .imagePaddingRight {
     padding-right: 5px;
-}
-
-.darkerCity {
-    background-image: url("../images/auth-bg.png");
-    background-repeat:no-repeat;
-    background-size: 100% 100%;
-}
-
-.upside {
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
-}
-
-.creditCardIcon {
-  width: 50px;
-  max-width: 30px;
-  float: left;
-  margin-top: 12px;
-  margin-left: 5px;
-
-  &.ng-hide {
-      display: block !important;
-      visibility: hidden;
-  }
-}
-
-.creditCardCheck {
-    @extend .creditCardIcon;
-
-    float: right;
-    margin-top: 6px;
-    margin-right: 5px;
-}
-
-.creditCardNumInput {
-    width: auto;
-    padding: 0px !important;
-    margin-left: 5px;
-    font-size: 2.5em;
-    font-family: 'profontwindowsregular';
-}
-
-.expiryM {
-    @extend .creditCardNumInput;
-  box-sizing: border-box;
-  width: 30px;
-  line-height: 45px;
-}
-
-.expiryY {
-    @extend .expiryM;
-
-    width: 45px;
-}
-
-.cvv {
-    @extend .expiryM;
-    margin-left: 10px;
-    width: 37px;
-}
-
-.zipCC {
-    @extend .expiryM;
-
-    width: 75px;
 }
 
 .swipeLock {
@@ -1036,144 +633,18 @@ label.inputlabel {
     to { background-position: 2130px; }
 }
 
-/* End Aaron's Styles */
+/**
+***********************
+  End Tilt Screen
+***********************
+**/
 
-//Create giftcard Page
-.createCode {
-    @extend .currentInput;
-    @extend .waterfall;
+/**
+***********************
+  Enter Tricon
+***********************
+**/
 
-    margin-bottom: 1.5%;
-}
-
-.createCodeMessage {
-    @extend .helveticaText;
-    @extend .rightColumn;
-
-    padding-top: 7px;
-    font-size: 5vmin;
-}
-
-.PageTwoInput {
-    @extend .helveticaInput;
-    @extend .rightColumn;
-    @extend .blackText;
-
-    width: calc(75% - (40px + 25px));
-
-    @include placeholder {
-        font-size: .95em;
-    }
-}
-
-//list giftcard page
-.listName {
-    text-align: right;
-    margin-top: 20px;
-}
-
-.listUserName {
-    color: $danger;
-    font-size: 3em;
-    text-align: right;
-    padding-right: 15px;
-    vertical-align: -webkit-baseline-middle;
-    margin-bottom: 0px
-}
-
-.listProfileIcon {
-    height: 29px;
-    width: 41px;
-    opacity: .3;
-}
-
-.listSectionHeader {
-    margin-top: 20px;
-    padding-left: 10px;
-    color: $inverseStandard;
-    font-weight: 300 !important;
-}
-
-/*Enter amount page */
-.enteredAmount {
-    text-align: right;
-    padding-right: 10px;
-    padding-top: 15px;
-}
-
-.amountText {
-    font-size: 1.5em;
-    color: $inverseStandard;
-    padding-left: 10px;
-    padding-top: 10px;
-}
-
-.payText {
-    font-size: 1.3em;
-    vertical-align: text-bottom;
-    color: $darkOverlay;
-    display: inline;
-    padding-left: 10px;
-}
-
-.payArrow {
-    display: inline;
-    vertical-align: text-bottom;
-}
-
-.amountWarning {
-    @extend .center;
-    color: $danger;
-    padding-right: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.dialSheet {
-    background-image: url(../images/auth-aqua-sheet.png);
-    background-size: 1000px;
-}
-
-.dialBack {
-    @extend .center;
-    padding-top: 5%;
-}
-
-.dialBackText {
-    color: $danger;
-    padding-left: 10px;
-    display: inline;
-    vertical-align: sub;
-    font-size: 1.3em;
-}
-
-.dialBackSpace {
-    padding-top: 20%;
-}
-
-.localightLogoBottom {
-    @extend .center;
-    margin-top: 10px;
-}
-
-/*merchants page */
-.merchantBackText {
-    @extend .navText;
-
-    vertical-align: middle;
-    margin-left: -5px;
-    display: inline;
-    color: $standard;
-}
-
-//Recipient redirect
-.redirectText {
-    @extend .center;
-    padding-left: 10px;
-    padding-right:10px;
-}
-
-//Tricon page
 .triconStar {
     @extend .center;
     color: $inverseStandard;
@@ -1188,8 +659,23 @@ label.inputlabel {
 }
 
 .triconSheet {
-    background-image: url(../images/eatery-tricons-aqua-filled.png);
+    background-image: url("../images/eatery-tricons-aqua-filled.png");
     background-size: 897px;
+}
+
+.triconFooterContainer {
+    width: 33%;
+}
+
+.cancelIcon {
+    vertical-align: sub;
+    margin-left: 25%;
+}
+
+.infoIcon {
+    @extend .cancelIcon;
+
+    margin-left: 55%;
 }
 
 .friendlyShake {
@@ -1225,17 +711,18 @@ label.inputlabel {
     100% { -webkit-transform: translate(4px, 0px) rotate(180deg); }
 }
 
-//View giftcard
-.viewBackText {
-    @extend .navText;
+/**
+***********************
+  End Enter Tricon
+***********************
+**/
 
-    vertical-align: middle;
-    margin-left: -5px;
-    display: inline;
-    color: $standard;
-}
+/**
+***********************
+  Confirmation Timeout
+***********************
+**/
 
-//Confirmation Timeout
 .confirmationCheckmark {
     @extend .center;
 
@@ -1277,95 +764,142 @@ label.inputlabel {
     @extend .creditCardCheck;
 }
 
+.redirectText {
+    @extend .center;
+    padding-left: 10px;
+    padding-right:10px;
+}
+
+/**
+***********************
+  End Confirmation Timeout
+***********************
+**/
 
 
 /**
 ***********************
-    MERCHANT PANEL
+  Thank You
 ***********************
 **/
 
-.authContainer {
-    padding: 10px;
-    color: $standard;
-}
-
-.authInput {
+.headerIcon {
     margin-top: 10px;
-    font-size: 1.5em;
-    color: $standard;
-    background-color: $inverseStandardAlphaDark;
-    border-radius: 3px;
 }
 
-.authButton {
+.headerOccasion {
+    margin-top: 5px;
+}
+
+.thankYouNote {
+
+    color: $standard;
+    background-color: $inverseStandard;
+}
+
+.thankYouNoteText {
+
+    color: $standard;
+    font-size: 1.5em;
+}
+
+.signing {
+    display:inline-block;
+}
+
+.thankCharCount {
+    @extend .placeHolderTextStyle;
+
+    display:inline-block;
+    padding-left: 10px;
+}
+
+.thankButtonContainer {
+    @extend .giftcardButtonContainer;
+
+    margin-top: 10px;
+}
+
+.thankButtonSave {
     @extend .giftcardButtonSave;
 
-    color: $useItNow;
-    border-style: none;
-    margin-top: 10px;
-    display: inline-block;
-
-    &:disabled {
-        background-color: $inverseStandardAlphaLight;
-        color: $standardAlphaDark;
-    }
-
+    padding-right: 33px;
+    padding-left: 33px;
 }
 
-.authWarning {
-    @extend .form-incomplete;
-    @extend .blackText;
+/**
+***********************
+  End Thank You
+***********************
+**/
 
-    margin-top: 10px;
+/**
+***********************
+  Localism
+***********************
+**/
 
-}
-
-.selectedTricon {
-    display: inline-block;
-}
-
-.triconHeader {
+.projectOfContainer {
     @extend .center;
 
-    color: $inverseStandard;
+    padding-top: 50px;
+
+    p {
+        @extend .blackText;
+
+        font-size: 2em;
+        display: inline;
+    }
+
+    h1 {
+        @extend .blackText;
+        @extend .heart;
+
+        font-size: 3em;
+        display: inline;
+    }
 }
 
-.confirmCode {
-    text-align: center;
-    display: inline-flex;
+.chooseLocal {
+    @extend .blackText;
+    @extend .center;
+
+    margin-top: 0px;
 }
 
-.triconBreak {
-    margin-top: 5px;
-    margin-bottom: 5px;
+.localismVideo {
+    @extend .center;
+
+    margin-top: 20px;
 }
 
-.locationContainer {
+/**
+***********************
+  End Localism
+***********************
+**/
+
+/**
+***********************
+  Main 404
+***********************
+**/
+
+.mainContainer {
     @extend .giftcardContainer;
+    @extend .center;
 
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 10px;
-
-    a {
-        color: $inverseStandard;
-        text-decoration: none;
-    }
-
-    h2 {
-        margin-top: 0px;
-    }
-
-    .locationArrow {
-        position: relative;
-        color: black;
-        font-size: 40px;
-        float: right;
-    }
-
-    &:hover {
-        background-color: $containerHover;
-    }
 }
+
+/**
+***********************
+  End Main 404
+***********************
+**/
+
 
 /**
 ***********************
@@ -1379,6 +913,20 @@ label.inputlabel {
       width: 100%;
     }
 }
+
+//Add padding across the app
+.container {
+    padding: 5px !important;
+}
+
+/**
+***********************
+  End Responsiveness Fixes
+***********************
+**/
+
+//Merchant Panel import, depends on above styles
+@import 'merchantpanel';
 
 //Final Import, this for any quick fixes, that should integrated into the main at some point
 @import 'quickfix';

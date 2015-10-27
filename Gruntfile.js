@@ -455,7 +455,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://localhost:3000'
+            API_BASE: 'http://jnode.ngrok.kondeo.com:8080'
           }
         }
       },

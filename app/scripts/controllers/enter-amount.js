@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards, $window) {
+  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards, rotationCheck) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,24 +16,15 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean to show the rotation alert to the user
-    $scope.rotateAlert = false;
-
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
+    //Reset the rotation alert boolean
+    rotationCheck.reset();
 
     //get our session token from the cookies
-    $scope.sessionToken;
+    var sessionToken;
 
     if($cookies.get("sessionToken"))
     {
-        $scope.sessionToken = $cookies.get("sessionToken");
+        sessionToken = $cookies.get("sessionToken");
     }
     else
     {
@@ -88,7 +79,7 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var payload = {
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Query the backend using our session token
@@ -278,12 +269,20 @@ angular.module('angularLocalightApp')
 
 	//Function to go back to selecting merchants
 	$scope.goTo = function(place) {
+        
 		//Save our final amount if the path is to pay
 		if(place == "/merchants/" + $scope.Id + "/tilt") {
 			$cookies.put('igosdmbmtv', $scope.trueAmount);
+            $location.path(place);
 		}
-
-		$location.path(place);
+        else if(place == "/merchants")
+        {
+            //Change locations to the merchants page, and include the location id
+            $location.path("/merchants").search({merchant: $scope.Id});
+        }
+        else {
+            $location.path(place);
+        }
 	}
 
 });

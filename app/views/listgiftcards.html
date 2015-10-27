@@ -11,8 +11,8 @@
                 <td class="navCell"><a ng-href="/#/giftcards/create">
                     <img class = "navBowTie" ng-src="/../images/bowtie.png" alt="Give Icon">
                     Give</a></td>
-                    <td class = "paddingLeft paddingRight center">
-                        <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+                    <td class = "localightImg">
+                        <img ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
                     </td>
                     <td class = "textRightAlign navCell">${{totalValue}}</td>
                     <tr>
@@ -20,7 +20,7 @@
 
         <!-- div for our user -->
         <div class = "listName">
-            <h1 class="listUserName heart inline">{{giftcards[0].toId.name}}</h1>
+            <h1 class="listUserName heart">{{giftcards[0].toId.name}}</h1>
             <img ng-src="/../images/account-icon.png" class = "listProfileIcon" alt="Profile Icon">
         </div>
         <h3 class="listSectionHeader">Gifts received</h3>
@@ -45,7 +45,7 @@
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="fromText"><img style = "margin-right: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                    <td class="fromText"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                     <td class="textRightAlign tableCell">
                         <div class="giftlistAmount">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
@@ -58,9 +58,9 @@
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="fromTextSpent"><img style = "margin-right: 4px;opacity: .7;margin-bottom: 4px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                    <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                     <td class="textRightAlign tableCell">
-                        <div class="giftlistAmountSpent" style = "font-size: 1.25em">${{giftcard.origAmount / 100}}</div></td>
+                        <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
                 <tr>
                     <td class = "spentFooter">

@@ -2,39 +2,39 @@
 <div ng-class = "{spinner: loading}" ng-init = "loading = true;">
 </div>
 
-<div class="container-fluid wrapper" ng-init="getGiftcard()">
+<div class="container-fluid wrapper" ng-init="getGiftcard();">
 
-      <!-- header section with give option, clique logo and available balance -->
-      <table class = "sub-header">
-         <tr>
-             <td style = "width: 33%;">
-                 <a href = "#/giftcards">
-                    <span class="glyphicon glyphicon-menu-left" style = "color: black; font-size: 25px;vertical-align:middle" aria-hidden="true"></span>
-                     <p class = "viewBackText">Back</p>
-                 </a>
-             </td>
-             <td class = "paddingLeft paddingRight center">
-                 <img class="" ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
-             </td>
-             <td class = "textRightAlign blackText navText" style = "width: 33%;"></td>
-         <tr>
-     </table>
+    <!-- header section with give option, clique logo and available balance -->
+    <table class = "sub-header">
+       <tr>
+           <td class = "navCell">
+               <a href = "#/giftcards">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                   <p class = "merchantBackText">Back</p>
+               </a>
+           </td>
+           <td class = "localightImg center">
+               <img ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+           </td>
+           <td class = "textRightAlign navCell">${{totalValue}}</td>
+       <tr>
+   </table>
 
 
 
     <!-- gift section -->
-    <div class="giftcardContainer center" style = "max-width:500px;">
+    <div class="giftcardContainer center">
 
        <!-- Occasion Icon -->
-       <img style = "float: left; margin-top: 0px" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">
+       <img class = "viewIcon" ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">
 
        <!-- div for our text -->
-       <div style = "padding-left: 45px">
+       <div class = "giftcardText">
           <!-- personal message -->
-          <div class = "occasionMessage whiteText" style = "margin-top: 0px; font-size: 1.15em;text-align: left;">{{giftcard.message}}</div>
+          <div class = "giftcardMessage">{{giftcard.message}}</div>
 
           <!-- From -->
-          <h3 class = "textRightAlign heart whiteText" style = "font-size: 1.75em; padding-right: 10px; margin-top: 0px">~ {{giftcard.fromId.name}}</h3>
+          <h3 class = "giftcardSignature">~ {{giftcard.fromId.name}}</h3>
       </div>
 
       <!-- gift card image -->
@@ -53,8 +53,8 @@
 
         <!-- amount to use at which merchant section -->
         <div class="text-center merchantInfo blackText">
-          <h4 class="center" id="useAmount" style = "margin-top: 20px; margin-bottom: 0px; font-size: 1.15em">Use this ${{giftcard.origAmount / 100}} gift at</h4>
-          <h2 class="center" style = "margin-top: 0px;font-weight: 400;margin-bottom: 20px">{{merchants[0].name}}</h2>
+          <h4 class="center giftcardAmount" id="useAmount">Use this ${{giftcard.origAmount / 100}} gift at</h4>
+          <h2 class="center giftcardMerchant">{{merchants[0].name}}</h2>
         </div>
 
           <!-- use it now/later section -->

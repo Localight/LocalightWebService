@@ -7,6 +7,8 @@
  * # Owners
  * Service in the angularLocalightApp.
  */
+
+ //Get an owner
 angular.module('angularLocalightApp')
   .factory('Owners', ['$resource', 'ENV', function($resource, ENV) {
 
@@ -20,6 +22,7 @@ angular.module('angularLocalightApp')
     });
   }]);
 
+// Sign up an owner to the app
 angular.module('angularLocalightApp')
   .factory('JoinOwner', ['$resource', 'ENV', function($resource, ENV) {
 
@@ -33,6 +36,7 @@ angular.module('angularLocalightApp')
     });
   }]);
 
+//Login an owner
 angular.module('angularLocalightApp')
   .factory('LoginOwner', ['$resource', 'ENV', function($resource, ENV) {
 

@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MerchantsCtrl', function ($scope, $window, Giftcards, Locations, $cookies, $location) {
+  .controller('MerchantsCtrl', function ($scope, rotationCheck, Giftcards, Locations, $cookies, $location) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,17 +16,8 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean to alert the user for rotation
-    $scope.rotateAlert = false;
-
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
+    //Reset the rotation alert boolean
+    rotationCheck.reset();
 
 	//Initialize our giftcards in scope
 	$scope.giftcards;
@@ -35,11 +26,11 @@ angular.module('angularLocalightApp')
 	$scope.merchantsArray;
 
     //Get our session token from the cookies
-    $scope.sessionToken;
+    var sessionToken;
 
     if($cookies.get("sessionToken"))
     {
-        $scope.sessionToken = $cookies.get("sessionToken");
+        sessionToken = $cookies.get("sessionToken");
     }
     else
     {
@@ -47,11 +38,23 @@ angular.module('angularLocalightApp')
         $location.path("#/");
     }
 
+    //Get the intended merchant
+    $scope.intendedMerchant;
+
+    if($location.search().merchant)
+    {
+        //get our intended Merchant id
+        $scope.intendedMerchant = $location.search().merchant;
+
+        //Getting this individual
+        //location will be done in the get location
+    }
+
     $scope.getLocations = function() {
 
         //Json to send to the backend
         var payload = {
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Send the payload to the backend to get the locations
@@ -61,8 +64,22 @@ angular.module('angularLocalightApp')
             //Success save the response to scope
             $scope.merchantsArray = data;
 
-            //Show(true)/Hide(false) the loading spinner, if everything is loaded
-            if($scope.giftcards) $scope.loading = false;
+            //Find the location with the id from the query param
+            if($scope.intendedMerchant)
+            {
+                for(var i = 0; i < data.length; i++)
+                {
+                    if(data[i]._id == $scope.intendedMerchant)
+                    {
+                        //Save the object, and break the loop
+                        $scope.intendedMerchant = data[i];
+                        break;
+                    }
+                }
+            }
+
+            //Now get all of the giftcards for our navbar
+            $scope.getGiftcards();
         },
         function(err)
         {
@@ -84,7 +101,7 @@ angular.module('angularLocalightApp')
 
         //First set up some JSON for the session token
         var payload = {
-            "sessionToken" : $scope.sessionToken
+            "sessionToken" : sessionToken
         }
 
         //Query the backend using our session token
@@ -97,7 +114,7 @@ angular.module('angularLocalightApp')
             $scope.getTotalValue();
 
             //Show(true)/Hide(false) the loading spinner, if everything is loaded
-            if($scope.merchantsArray) $scope.loading = false;
+            $scope.loading = false;
         },
 
         function(err)
@@ -134,6 +151,9 @@ angular.module('angularLocalightApp')
         $cookies.remove('senderName');
         $cookies.remove('senderId');
         $cookies.remove('senderIcon');
+
+        //Remove the merchants query param
+        $location.url($location.path());
 
         //Change locations to the merchants page
         $location.path("/giftcards");

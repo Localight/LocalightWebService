@@ -123,14 +123,18 @@
         <div id="clique_occasion_wrapper" class = "createGiftCardWidth currentInputNoBorder">
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
-              <li ng-repeat="occasion in occasions" ng-click="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
-                <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
+              <li ng-repeat="occasion in occasions"
+              my-touchend="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
+                    <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
               </li>
             </ul>
           </div>
 
           <div id="clique_occasion" ng-hide="occasionSelectionFlag">
-            <label for="clique_input_occasion" class="inputlabel" my-touchstart="setOccasionBack()" my-touchend="setActiveField('clique_occasion');">
+            <label for="clique_input_occasion"
+            class="inputlabel"
+            my-touchstart="setOccasionBack()"
+            my-touchend="setActiveField('clique_occasion_selection');">
               <img ng-src="{{occasions.selectedIcon}}">
             </label>
 
@@ -160,7 +164,7 @@
         class = "createGiftCardWidth center roundWhiteBorder currentInput datePicker"
         type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="{{minDate}}" max="{{maxDate}}"
         show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();"
-        ng-blur = "scrollToElement('creditcardinfo')" required></input>
+        ng-blur = "scrollToElement('creditcardinfo')" required disabled></input>
     </div>
 
     <!-- Some Error Checking -->
@@ -194,7 +198,10 @@
                 ng-keyup="formatCC($event)"
                 onKeyUp="">
             <!-- Checkmark box to the right -->
-            <img class = "creditCardCheck" src = "../images/checkmark-blk.png" ng-show = "validCC">
+            <img class = "creditCardCheck"
+            src = "../images/checkmark-blk.png"
+            ng-show = "validCC"
+            ng-click = "ccDateSwitch();">
           </div>
           <!-- lower box that within same box but differnet background -->
           <div id="creditcardinfo" class="paymentcontainer currentInputNoBorder">
@@ -304,7 +311,8 @@
 
 
       <button class="proceed_button" id="continue_button"
-          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated) || loading" ng-click="tokenizeInfo();">Continue</button>
+          ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated) || loading"
+          ng-click="tokenizeInfo();">Continue</button>
     </div>
     <div data-ng-show="error" class="text-danger">
       <strong data-ng-bind="error"></strong>
