@@ -111,7 +111,10 @@ angular.module('angularLocalightApp')
                 //Scroll to the selected element
                 $document.scrollToElement(element, 0, 1000, function(t) {
                     if (callback) {
-                        callback();
+                        //Call the callback after the timeout
+                        $timeout(function () {
+                            callback();
+                        }, 100);
                     }
                     //Use cubic easing math
                     return 1 - (--t) * t * t * t
