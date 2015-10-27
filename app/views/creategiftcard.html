@@ -160,11 +160,14 @@
 
     <!--Date picker -->
     <div class = "waterfall" ng-show = "secondaryIndex > 3">
-        <input placeholder="Tap to set a date"
-        class = "createGiftCardWidth center roundWhiteBorder currentInput datePicker"
-        type="text" id="clique_date_selection" name="clique_date_selection" ng-model="gc.date" min="{{minDate}}" max="{{maxDate}}"
-        show-weeks="true" my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);setDate();"
-        ng-blur = "scrollToElement('creditcardinfo')" required disabled></input>
+        <input id="clique_date_selection"
+        name="clique_date_selection"
+        type="text"
+        pick-a-date="gc.date"
+        placeholder="Select Send Date"
+        class="createGiftCardWidth center roundWhiteBorder currentInput datePicker"
+        my-touchstart="setActiveField('clique_date_selection');setSecondaryField(5);"
+        ng-blur="scrollToElement('creditcardinfo')"/>
     </div>
 
     <!-- Some Error Checking -->
