@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'duScroll',
-    'envConfig'
+    'envConfig',
+    'angular-datepicker'
   ])
   .config(function ($routeProvider) {
     $routeProvider
