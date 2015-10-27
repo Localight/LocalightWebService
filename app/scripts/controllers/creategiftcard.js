@@ -577,7 +577,10 @@ angular.module('angularLocalightApp')
 
         $scope.trimInput = function(event, length){
             if (event.target.value.length > length) {
+                event.preventDefault();
                 event.target.value = event.target.value.slice(0,length);
+            } else if (event.target.value.length == length){
+                event.preventDefault();
             }
         }
 
