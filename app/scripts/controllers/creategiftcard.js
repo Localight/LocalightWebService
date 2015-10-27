@@ -120,7 +120,7 @@ angular.module('angularLocalightApp')
             if ($scope.activeField && $scope.activeField != fieldId) {
                 $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
             }
-            
+
             $scope.activeField = fieldId;
             $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
         };
@@ -371,16 +371,11 @@ angular.module('angularLocalightApp')
             var cardNumber = event.target.value.replace(/-/g, '');
 
             //Check if the credit card number is US valid
-            if(Stripe.card.validateCardNumber(cardNumber)) {
+            if(Stripe.card.validateCardNumber(cardNumber) && (cardNumber.length == 13 || cardNumber.length == 15 || cardNumber.length == 16)) {
                 $scope.validCC = true;
 
                 //Jump to the date field
-                if(cardNumber.length == 13 ||
-                cardNumber.length == 15 ||
-                cardNumber.length == 16)
-                {
-                    $scope.ccDateSwitch();
-                }
+                $scope.ccDateSwitch();
             }
             else {
                 $scope.validCC = false;
