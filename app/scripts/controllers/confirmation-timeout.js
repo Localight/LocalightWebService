@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ConfirmationTimeoutCtrl', function ($scope, $timeout, $location, $routeParams, $cookies, $window, LocationById) {
+  .controller('ConfirmationTimeoutCtrl', function ($scope, $timeout, $location, $routeParams, $cookies, LocationById) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,34 +16,22 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean to alert rotation to the user
-    $scope.rotateAlert = false;
-
     //get our session token from the cookies
-    $scope.sessionToken = $cookies.get("sessionToken");
+    var sessionToken = $cookies.get("sessionToken");
 
     //Get our merchant ID
-    $scope.Id = $routeParams.merchantId;
+    var merchantId = $routeParams.merchantId;
 
     //Timeout, the redirect to the next page
     $timeout(timeoutRedirect, 2000);
-
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
 
         //Get our location
         $scope.getLocation = function() {
 
             //First set up some JSON for the session token
             var payload = {
-                "id" : $scope.Id,
-                "sessionToken" : $scope.sessionToken
+                "id" : merchantId,
+                "sessionToken" : sessionToken
             }
 
             //Send the payload to the backend
@@ -76,7 +64,7 @@ angular.module('angularLocalightApp')
 			if(!amount)
 			{
                 //Redierect to the amount screen if there is no amount cookie
-				$scope.goTo("/merchants/" + $scope.Id + "/amount");
+				$scope.goTo("/merchants/" + merchantId + "/amount");
 			}
 			return (parseInt(amount) / 100).toFixed(2);
 		}
@@ -84,7 +72,7 @@ angular.module('angularLocalightApp')
 		//Redirect to the thank you page
 		function timeoutRedirect()
 		{
-    		$location.path("/merchants/" + $scope.Id + "/thankyou");
+    		$location.path("/merchants/" + merchantId + "/thankyou");
 		}
 
   });

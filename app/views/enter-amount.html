@@ -11,9 +11,9 @@
        <tr>
            <td class="amountText">${{amount}}</td>
 
-           <td class = "paddingLeft" ng-hide = "clicked == true">
-           <h5 class ="linkText"> Your total balance is ${{totalValue}}.</h5>
-           <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
+           <td class = "enterPadding" ng-hide = "clicked == true">
+               <h5 class ="linkText"> Your total balance is ${{totalValue}}.</h5>
+               <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
            </td>
 
            <td class="enteredAmount" my-touchstart="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
@@ -40,7 +40,7 @@
 			<!-- Using inline styles for our randomization so we can edit this later-->
             <td ng-click="goTo('/merchants')">
                 <div class = "dialBack">
-                    <img class = "inline" src = "../images/auth-lft-arrow.png">
+                    <img class = "dialBackImg" src = "../images/auth-lft-arrow.png">
                     <p class = "dialBackText">Back</p>
                 </div>
             </td>

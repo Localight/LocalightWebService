@@ -10,7 +10,8 @@
 angular.module('angularLocalightApp')
   .controller('BodyCtrl', function ($scope, $location) {
 
-      //If the route is the route passed, it will switch the body ng-class
+      //If the route is the route passed,
+      //it will switch the body ng-class
       $scope.isDark = function(route) {
           return ($location.path().indexOf(route) > -1);
     }

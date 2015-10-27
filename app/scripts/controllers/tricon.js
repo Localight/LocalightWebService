@@ -8,10 +8,10 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TriconCtrl', function ($scope, $routeParams, $location, $window, $cookies, LocationById, Spend, $timeout) {
+  .controller('TriconCtrl', function ($scope, $routeParams, $location, rotationCheck, $cookies, LocationById, Spend, $timeout) {
 
-    //Boolean for rotation alert to the user
-    $scope.rotateAlert = false;
+    //Reset the rotation alert boolean
+    rotationCheck.reset();
 
     //Boolean to display an error message
     $scope.errorMsg
@@ -20,26 +20,17 @@ angular.module('angularLocalightApp')
     $scope.Id = $routeParams.merchantId;
 
     //get our session token from the cookies
-    $scope.sessionToken;
+    var sessionToken;
 
     if($cookies.get("sessionToken"))
     {
-        $scope.sessionToken = $cookies.get("sessionToken");
+        sessionToken = $cookies.get("sessionToken");
     }
     else
     {
         //Redirect them to a 404
         $location.path("#/");
     }
-
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
 
 		//The string to diplay the *** to the users on tricon enter
 		$scope.pressedTricon = "";
@@ -53,7 +44,7 @@ angular.module('angularLocalightApp')
             //First set up some JSON for the session token
             var payload = {
                 "id" : $scope.Id,
-                "sessionToken" : $scope.sessionToken
+                "sessionToken" : sessionToken
             }
 
             //Send the payload to the backend
@@ -121,7 +112,7 @@ angular.module('angularLocalightApp')
                 //Send the data to the backend and make sure it's good!
                 var payload = {
                     "id" : $scope.Id,
-                    "sessionToken" : $scope.sessionToken,
+                    "sessionToken" : sessionToken,
                     "amount" : $cookies.get("igosdmbmtv"),
                     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
                 }

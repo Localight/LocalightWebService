@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, LocationById, $window) {
+  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, LocationById, rotationCheck) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,27 +16,18 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Boolean Rotation alert to display to the user
-    $scope.rotateAlert = false;
-
-    //Check for device orientation
-    $window.addEventListener("orientationchange", function() {
-        if(!$scope.rotateAlert && ($window.orientation == -90 || $window.orientation == 90))
-        {
-            $scope.rotateAlert = true;
-            alert("Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.");
-        }
-    }, false);
+        //Reset the rotation alert boolean
+        rotationCheck.reset();
 
 		//Get our merchant ID from the url
 		$scope.Id = $routeParams.merchantId;
 
         //get our session token from the cookies
-        $scope.sessionToken;
+        var sessionToken;
 
         if($cookies.get("sessionToken"))
         {
-            $scope.sessionToken = $cookies.get("sessionToken");
+            sessionToken = $cookies.get("sessionToken");
         }
         else
         {
@@ -50,7 +41,7 @@ angular.module('angularLocalightApp')
             //First set up some JSON for the session token
             var payload = {
                 "id" : $scope.Id,
-                "sessionToken" : $scope.sessionToken
+                "sessionToken" : sessionToken
             }
 
             //Send the payload to the backend

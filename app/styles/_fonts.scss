@@ -25,3 +25,33 @@
 $familyStandard: 'helvetica','sans-serif','arial';
 $familyFancy: 'always_in_my_heartregular';
 $familyDigital: 'profontwindowsregular',Courier,serif;
+
+/* Font Styles */
+.heart {
+  font-family: $familyFancy;
+  font-size: 2.4em;
+  padding: 0 1%;
+}
+
+.profont {
+  font-family: $familyDigital;
+  font-size: 2em;
+  padding: 0 2%;
+}
+
+.helveticaInput {
+  font-size: 1.5em;
+  line-height: 45px;
+  padding-left: 2%;
+}
+
+.helveticaText {
+  font-size: 1em;
+  line-height: 45px;
+  padding-left: 2%;
+}
+
+.bold {
+  font-weight: bold;
+}
+/* End Font Styles */
