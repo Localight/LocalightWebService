@@ -186,12 +186,12 @@
                 name="clique_input_creditcardnumber1"
                 id="clique_input_creditcardnumber1"
                 class="profont creditCardNumInput"
-                placeholder="XXXX - XXXX - XXXX - XXXX"
+                placeholder="XXXX-XXXX-XXXX-XXXX"
                 pattern="\d*"
                 ng-focus="setActiveField('creditcardnumbercontainer');"
                 ng-model="cc.number"
-                ng-keyup = "validateCardNumber()"
-                ng-keyup="trimInput($event, 4)"
+                ng-keydown="numbersOnly($event)"
+                ng-keyup="formatCC($event)"
                 onKeyUp="">
             <!-- Checkmark box to the right -->
             <img class = "creditCardCheck" src = "../images/checkmark-blk.png" ng-show = "validCC">

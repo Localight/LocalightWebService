@@ -483,6 +483,25 @@ angular.module('angularLocalightApp')
             }
         }
 
+        $scope.numbersOnly = function(event){
+            if((event.which < 48 || event.which > 57) && event.which != 46 && event.which != 8){
+                event.preventDefault();
+            }
+        }
+
+        $scope.formatCC = function(event){
+            if(event.which >= 48 && event.which <= 57){
+                var value = event.target.value;
+                if(value.indexOf("-") <= -1 && value.length == 4){
+                    event.target.value = value + "-";
+                } else if(value.indexOf("-", 5) <= -1 && value.length == 9){
+                    event.target.value = value + "-";
+                } else if(value.indexOf("-", 10) <= -1 && value.length == 14){
+                    event.target.value = value + "-";
+                }
+            }
+        }
+
         $scope.trimInput = function(event, length){
             if (event.target.value.length > length) {
                 event.target.value = event.target.value.slice(0,length);
