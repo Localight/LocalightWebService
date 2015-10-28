@@ -59,7 +59,7 @@
             <!-- Line breaks to space the list so it's easier to click -->
                 <table>
                     <tr>
-                        <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                        <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" class = "fromIconSpent" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                         <td class="textRightAlign tableCell">
                             <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
                     </tr>
@@ -75,16 +75,16 @@
         <!--sent giftcards -->
         <div ng-if = "sentGiftcards">
             <h4 class = "giftSection">Sent</h4>
-            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in sentGiftcards | filter: isSpent | limitTo: -5 | orderBy:'+':true">
+            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in sentGiftcards | limitTo: -5 | orderBy:'+':true">
             <!-- Line breaks to space the list so it's easier to click -->
                 <table>
                     <tr>
-                        <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                        <td class="fromTextSent"><img ng-src = "{{icons[giftcard.iconId]}}" class = "fromIconSent" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                         <td class="textRightAlign tableCell">
-                            <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
+                            <div class="giftlistAmountSent">${{giftcard.origAmount / 100}}</div></td>
                     </tr>
                     <tr>
-                        <td class = "spentFooter">
+                        <td class = "sentFooter">
                             Sent
                         </td>
                     </tr>
