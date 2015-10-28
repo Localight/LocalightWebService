@@ -158,7 +158,7 @@ angular.module('angularLocalightApp')
             }, 500);
 
             //Try and scroll to the card again, in case iPhone pushed it away
-            $scope.scrollToElement("cardCodeStrip", function() {
+            $scope.scrollToElement("clique_input_code", function() {
                 document.getElementById('clique_input_code').focus();
             });
         };
