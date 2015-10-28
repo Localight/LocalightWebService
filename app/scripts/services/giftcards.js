@@ -39,3 +39,17 @@ angular.module('angularLocalightApp')
 
     });
   }]);
+
+//Get the giftcards sent by a user
+angular.module('angularLocalightApp')
+.factory('GivenGifts', ['$resource', 'ENV', function($resource, ENV) {
+
+  return $resource(ENV.API_BASE + '/giftcards/given', {}, {
+    get: {
+      method: 'GET',
+      params: {},
+      isArray: false
+    }
+
+  });
+}]);
