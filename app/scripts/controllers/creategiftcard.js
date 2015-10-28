@@ -252,9 +252,7 @@ angular.module('angularLocalightApp')
                 $scope.occasionId = occasion.images.iconId;
 
                 //Also bring up they keyboard
-                $timeout(function() {
-                    document.getElementById('clique_input_occasion').focus();
-                }, 100);
+                document.getElementById('clique_input_occasion').focus();
             }
         };
 

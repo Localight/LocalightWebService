@@ -127,7 +127,7 @@
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
               <li ng-repeat="occasion in occasions"
-              my-touchend="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
+              my-touchstart="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
                     <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
               </li>
             </ul>
@@ -136,8 +136,7 @@
           <div id="clique_occasion" ng-hide="occasionSelectionFlag">
             <label for="clique_input_occasion"
             class="inputlabel"
-            my-touchstart="setOccasionBack()"
-            my-touchend="setActiveField('clique_occasion_selection');">
+            my-touchstart="setOccasionBack();setActiveField('clique_occasion_selection');">
               <img ng-src="{{occasions.selectedIcon}}">
             </label>
 
@@ -166,6 +165,7 @@
         <input id="clique_date_selection"
         name="clique_date_selection"
         type="text"
+        ng-click="$event.preventDefault();$event.target.blur();"
         pick-a-date="gc.date"
         pick-a-date-options="dateOptions"
         placeholder="Select Send Date"
