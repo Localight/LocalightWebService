@@ -155,12 +155,8 @@ angular.module('angularLocalightApp')
 
                 frontCard.className = frontCard.className + " flipped";
                 backCard.className = backCard.className + " flipped";
-            }, 500);
-
-            //Try and scroll to the card again, in case iPhone pushed it away
-            $scope.scrollToElement("clique_input_code", function() {
                 document.getElementById('clique_input_code').focus();
-            });
+            }, 100);
         };
 
         $scope.setAmount = function(amount) {

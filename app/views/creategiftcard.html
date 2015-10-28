@@ -86,7 +86,7 @@
 
       <div id="clique_code" class="createCode" ng-hide = "location.name">
         <label for="Code" class="inputlabel">Code</label>
-        <input ng-model="gc.code" type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-click="$event.preventDefault();setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
+        <input ng-model="gc.code" type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" my-touchstart="$event.preventDefault();setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
 
         placeholder="XXXXX" size="3" ng-keyup="codeValidate($event)"
         nextId="clique_occasion_selection"
@@ -104,6 +104,9 @@
           <span class="italicMessage">and participating merchants</span>
         </div>
       </div>
+
+      <!-- Spacing for the card to be in correct position on iPhone -->
+      <div id="clique_code_spacer" ng-show="showCard == true" style="height: 50px;"></div>
     </div>
 
     <!-- Some Error Checking -->
