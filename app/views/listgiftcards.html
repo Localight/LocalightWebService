@@ -53,7 +53,7 @@
         </a>
 
         <!--spent giftcards -->
-        <div ng-if = "giftcards[giftcards.length - 1].amount > 0">
+        <div ng-if = "giftcards[giftcards.length - 1].amount <= 0">
             <h4 class = "giftSection">Spent</h4>
             <a class="list-group-item flatRowListItem" ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -5 | orderBy:'+':true" ng-href="#/giftcards/{{giftcard._id}}">
             <!-- Line breaks to space the list so it's easier to click -->
@@ -73,7 +73,7 @@
         </div>
 
         <!--sent giftcards -->
-        <div ng-if = "spentGiftcards">
+        <div ng-if = "sentGiftcards">
             <h4 class = "giftSection">Sent</h4>
             <a class="list-group-item flatRowListItem" ng-repeat="giftcard in sentGiftcards | filter: isSpent | limitTo: -5 | orderBy:'+':true">
             <!-- Line breaks to space the list so it's easier to click -->

@@ -48,7 +48,7 @@ angular.module('angularLocalightApp')
     get: {
       method: 'GET',
       params: {},
-      isArray: false
+      isArray: true
     }
 
   });
