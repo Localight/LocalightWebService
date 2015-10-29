@@ -58,11 +58,6 @@ angular.module('angularLocalightApp')
         //Amount selection slider amount options
         $scope.prices = [2, 5, 10, 25, 50, 75, 100];
 
-        //Focus on "to" field when document is done loading
-        angular.element(document).ready(function() {
-            document.getElementById("clique_input_to").focus();
-        });
-
         //Secondary form field highlighting (form field suggestions)
         $scope.secondaryField = null;
         $scope.secondaryIndex = 0;
@@ -251,14 +246,14 @@ angular.module('angularLocalightApp')
                 //Also set our occasion ID for our giftcard
                 $scope.occasionId = occasion.images.iconId;
 
-                //Also bring up they keyboard
-                document.getElementById('clique_input_occasion').focus();
+
             }
         };
 
         $scope.setOccasionBack = function() {
             $scope.occasionSelectionFlag = true;
             $scope.gc.Icon = "";
+            $scope.secondFlag = false;
         };
 
 
@@ -347,15 +342,9 @@ angular.module('angularLocalightApp')
 
         $scope.dateOptions = {
             onClose: function(e) {
-                console.log($scope.gc.date);
-                $timeout(function(){
-                    if($scope.gc.date){
-                        $scope.dateDirty = true;
-                        $scope.scrollToElement('creditcardinfo', function(){
-                            document.getElementById("clique_input_creditcardnumber1").focus();
-                        });
-                    }
-                }, 200);
+                document.getElementById('clique_date_selection').blur();
+                $scope.dateDirty = true;
+                document.getElementById("clique_input_creditcardnumber1").focus();
             }
         }
 

@@ -86,7 +86,7 @@
 
       <div id="clique_code" class="createCode" ng-hide = "location.name">
         <label for="Code" class="inputlabel">Code</label>
-        <input ng-model="gc.code" type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" my-touchstart="$event.preventDefault();setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
+        <input ng-model="gc.code" type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-click="$event.preventDefault();setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
 
         placeholder="XXXXX" size="3" ng-keyup="codeValidate($event)"
         nextId="clique_occasion_selection"
@@ -127,7 +127,7 @@
           <div id="clique_occasion_selection" class="roundWhiteBorder" ng-show="occasionSelectionFlag">
             <ul>
               <li ng-repeat="occasion in occasions"
-              my-touchstart="setOccasion(occasion);setActiveField('clique_occasion_wrapper');setSecondaryField(4);">
+              ng-click="$event.preventDefault();setSecondaryField(4);setOccasion(occasion);setActiveField('clique_occasion_wrapper');">
                     <img ng-src="{{occasion.images.selected}}">{{occasion.alt}}
               </li>
             </ul>
@@ -135,13 +135,13 @@
 
           <div id="clique_occasion" ng-hide="occasionSelectionFlag">
             <label for="clique_input_occasion"
-            class="inputlabel"
-            my-touchstart="setOccasionBack();setActiveField('clique_occasion_selection');">
-              <img ng-src="{{occasions.selectedIcon}}">
+            class="inputlabel">
+              <img ng-src="{{occasions.selectedIcon}}"
+              ng-click="setOccasionBack();setActiveField('clique_occasion_selection');">
             </label>
 
             <div id="clique_input_occasion_wrapper" class="rightColumn">
-              <textarea id="clique_input_occasion" name="clique_input_occasion" maxlength="100" minlength = "1" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true;setActiveField('clique_occasion');" ng-blur = "occasionFocused = false"></textarea>
+              <textarea id="clique_input_occasion" name="clique_input_occasion" maxlength="100" minlength = "1" ng-trim="false" ng-model="gc.occasion" ng-focus = "occasionFocused = true;setActiveField('clique_occasion');" ng-blur = "occasionFocused = false" autofocus></textarea>
               <span id="occCharCount" ng-show = "occasionFocused">{{100 - gc.occasion.length}} characters left</span>
             </div>
             <!--note: <textarea maxlength="100"> is only supported in HTML 5-->
@@ -165,7 +165,8 @@
         <input id="clique_date_selection"
         name="clique_date_selection"
         type="text"
-        ng-click="$event.preventDefault();$event.target.blur();"
+        ng-click="dateDirty=true;"
+        onclick="document.getElementById('clique_input_occasion').blur();"
         pick-a-date="gc.date"
         pick-a-date-options="dateOptions"
         placeholder="Select Send Date"
@@ -184,7 +185,7 @@
     </div>
 
     <!--Pay by card-->
-    <div class = "waterfall" ng-show="dateDirty && secondaryIndex > 4">
+    <div class = "waterfall" ng-show="dateDirty">
         <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">
           <!-- Inner Container -->
           <div id="creditcardnumbercontainer" class = "paymentcontainer currentInputNoBorder">
