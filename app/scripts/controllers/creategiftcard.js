@@ -120,7 +120,7 @@ angular.module('angularLocalightApp')
             if ($scope.activeField && $scope.activeField != fieldId) {
                 $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
             }
-            
+
             $scope.activeField = fieldId;
             $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
         };
@@ -292,6 +292,19 @@ angular.module('angularLocalightApp')
             }, 25);
         }
 
+        //Formats the phone contact for contact pasting
+        $scope.formatContact = function(elementId) {
+            //Remove all special scharacters from like a paste from contacts
+            var element = $window.document.getElementById(elementId);
+
+            setTimeout(function() {
+                var phone = element.value;
+                phone = phone.replace(new RegExp("[^0-9]", "g"), '');
+                if(phone.length > 10) phone = phone.slice(phone.length - 10, phone.length);
+                element.value = phone;
+            }, 0);
+        }
+
         /**
          * Masks phone number with (xxx)xxx-xxxx format.
          * @param {String} elementId The HTML ID for the element to validate.
@@ -301,7 +314,9 @@ angular.module('angularLocalightApp')
 
             //First check if the key pressed was backspace, if it was, dont do the function
             if (event.keyCode != 8) {
+
                 var element = $window.document.getElementById(elementId);
+
                 $scope.clique_input_phonenumber_validity = true;
                 var tel = '(';
                 var val = element.value.split('');
@@ -653,5 +668,7 @@ angular.module('angularLocalightApp')
         //Start the first field highlighted
         //Optimize
         $scope.setActiveField('clique_to');
+
+        $scope.showPage2 = true;
 
     });
