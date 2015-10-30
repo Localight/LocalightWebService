@@ -294,22 +294,39 @@ angular.module('angularLocalightApp')
 
         //Formats the phone contact for contact pasting
         $scope.formatContact = function(elementId) {
+
             //Remove all special scharacters from like a paste from contacts
             var element = $window.document.getElementById(elementId);
 
+            //Timeout to start a new thread so we can catch the paste
             setTimeout(function() {
-                var phone = element.value;
-                phone = phone.replace(new RegExp("[^0-9]", "g"), '');
-                if(phone.length > 10) phone = phone.slice(phone.length - 10, phone.length);
-                element.value = phone;
 
-                //Now mask the number
+                var phone = element.value;
+                //Parse only the digits from the phone number
+                phone = phone.replace(new RegExp("[^0-9]", "g"), '');
+                //Get only the last 10 digits, so we can remove the country codes
+                if(phone.length > 10) phone = phone.slice(phone.length - 10, phone.length);
+
+                //Mask the number, if we got a correct paste
+                if(phone.length == 10)
                 phone = "(" + phone.substring(0, 3) + ")"
                 + phone.substring(3, 6) + "-"
                 + phone.substring(6, 10);
 
+                //Check if it is valid, and our mask worked perfectly
+                $scope.clique_input_phonenumber_validity = false;
+                if(phone.length == 13) $scope.clique_input_phonenumber_validity = true;
 
+                //Finalize our value into the element!
                 element.value = phone;
+
+                //Last but now least, focus on the email
+                if($scope.clique_input_phonenumber_validity)
+                {
+                    $timeout(function () {
+                        document.getElementById("clique_input_email").focus();
+                    }, 250);
+                }
             }, 0);
         }
 
@@ -676,7 +693,5 @@ angular.module('angularLocalightApp')
         //Start the first field highlighted
         //Optimize
         $scope.setActiveField('clique_to');
-
-        $scope.showPage2 = true;
 
     });
