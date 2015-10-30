@@ -147,7 +147,7 @@ angular.module('angularLocalightApp')
 
                 //Success, redirect back to the main page, add data to scope
                 $scope.newLocation = data;
-                $location.path("/panel/main");
+                $location.path("/dashboard/main");
 
                 //Show(true)/Hide(false) the loading spinner
                 $scope.loading = false;

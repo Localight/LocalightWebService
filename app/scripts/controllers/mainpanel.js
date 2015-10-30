@@ -142,7 +142,7 @@ angular.module('angularLocalightApp')
     //create a location
     $scope.redirectCreate = function() {
         //redirect to the create a location page
-        $location.path("/panel/createlocation")
+        $location.path("/dashboard/createlocation")
     }
 
   });

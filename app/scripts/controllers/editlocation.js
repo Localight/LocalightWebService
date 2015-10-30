@@ -195,7 +195,7 @@ angular.module('angularLocalightApp')
         function(data, status) {
 
             //Success! Redirect back to the main page
-            $location.path("/panel/main");
+            $location.path("/dashboard/main");
 
             //Show(true)/Hide(false) the loading spinner
             $scope.loading = false;
