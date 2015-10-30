@@ -88,6 +88,17 @@
     }
 }
 
+.locationTriconContainer {
+    display: inline-block;
+
+    .locationTricon {
+        //Radical and awesome css zooming to resize the tricons
+        zoom: 0.5;
+        -moz-transform: scale(0.5);
+        -moz-transform-origin: 0 0;
+    }
+}
+
 /**
 ***********************
     END MERCHANT PANEL

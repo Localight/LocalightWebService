@@ -20,7 +20,15 @@
 <div class = "locationContainer"  ng-repeat = "location in locations">
     <a href = "/#/dashboard/editlocation/{{location._id}}">
         <h2>{{location.name}}</h2>
-        Location Code: {{location.ownerCode}}
+        Tricon Code:
+        <br>
+        <!-- the three tricon images -->
+        <div class = "locationTriconContainer"
+        ng-repeat = "tricon in getTricons('e107e107e107') track by $index">
+            <div style="background-position-x: -{{tricon}}px;"
+            class="dialButton triconSheet selectedTricon locationTricon upside">
+            </div>
+        </div>
         <br />
         {{location.address1}}, {{location.address2}}
         <br />
