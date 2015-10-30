@@ -40,6 +40,21 @@
 
 }
 
+.radioContainer {
+
+    .joinRadio {
+        width: 30px;
+        height: 30px;
+        vertical-align: top;
+    }
+
+    .radioText {
+        font-size: 25px;
+        font-weight: initial;
+    }
+
+}
+
 .selectedTricon {
     display: inline-block;
 }

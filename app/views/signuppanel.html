@@ -6,20 +6,39 @@
 
     <h1>Signup</h1>
 
-    <input class = "authInput center" type="text" name="name" ng-model="username" placeholder="Name" required>
+    <!-- Intro to the form -->
+    <h4>Thank you for choosing the Local Giftcard!
+        We're gonna need to know some information about you to get your account set up for payments and things.
+        Please fill out all of the forms below, and double check they are correct.</h4>
 
-    <input class = "authInput center" type="text" name="stripeCustomerId" ng-model="stripeCustomerId" placeholder="Stripe Customer Id" required>
+    <hr class = "triconBreak">
 
-    <input class = "authInput center" type="email" name="email" ng-model="email" placeholder="Email" required>
+    <!-- Are they a business or an individual -->
+    <div class = "radioContainer">
+        <h4> Is you legal entity a business or an individual?</h4>
+        <input class = "joinRadio" type="radio" name="bType" id = "cRadio" value="company" ng-model = "formData.bType" required>
+        <label class = "radioText" for = "cRadio">Business</label>
+        <br />
+        <input class = "joinRadio" type="radio" name="bType" id = "iRadio" value="individual" ng-model = "formData.bType" ng-click = "formData.bName = ''" required>
+        <label class = "radioText" for = "iRadio">Individual</label>
+    </div>
 
-    <input class = "authInput center" type="password" name="password" ng-model="password" placeholder="Password" required>
+    <input ng-show = "formData.bType == 'company'" class = "authInput center" type="text" name="name" ng-model="formData.bName" placeholder="Business Name">
 
-    <input class = "authInput center" type="password" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password" required>
+    <input ng-show = "formData.bType == 'individual' || formData.bName > 0" class = "authInput center" type="text" name="name" ng-model="formData.fName" placeholder="First Name" required>
+
+    <input ng-show = "formData.fname" class = "authInput center" type="text" name="name" ng-model="formData.lName" placeholder="Last Name" required>
+
+    <input ng-show = "formData.lname" class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
+
+    <input ng-show = "formData.email" class = "authInput center" type="password" name="password" ng-model="formData.password" placeholder="Password" required>
+
+    <input ng-show = "formData.email" class = "authInput center" type="password" name="confirmPassword" ng-model="formData.confirmPassword" placeholder="Confirm Password" required>
 
     <div ng-show = "error.isError" class = "authWarning">
             <strong>{{error.text}}</strong>
     </div>
 
 
-    <button class = "authButton" type = "submit" ng-diabled = "loading">Submit</button>
+    <button ng-show = "formData.confirmpassword" class = "authButton" type = "submit" ng-diabled = "loading">Submit</button>
 </form>
