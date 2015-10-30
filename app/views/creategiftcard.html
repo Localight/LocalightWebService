@@ -392,7 +392,17 @@
         <label class="inputlabel" for="clique_input_phonenumber">
           <img alt="Enter Phone Number" src="../images/phone.png" />
         </label>
-        <input type="tel" ng-paste="formatContact('clique_input_phonenumber')" ng-keyup="maskPhone('clique_input_phonenumber', $event)" name="clique_input_phonenumber" id="clique_input_phonenumber" ng-focus="setActiveField('clique_phonenumber')" class="PageTwoInput" placeholder="(XXX) XXX-XXXX" maxlength="18" minlength="13" data-ng-model="gc.phoneNumber">
+
+        <input type="tel"
+        ng-paste="formatContact('clique_input_phonenumber')"
+        ng-keyup="maskPhone('clique_input_phonenumber', $event)"
+        name="clique_input_phonenumber"
+        id="clique_input_phonenumber"
+        ng-focus="setActiveField('clique_phonenumber')"
+        class="PageTwoInput" placeholder="(XXX) XXX-XXXX"
+        maxlength="18" minlength="13"
+        ng-model="gc.phoneNumber">
+
         <img class = "phoneEmailCheck" src = "../images/checkmark-blk.png" ng-show = "giftcardForm2.clique_input_phonenumber.$valid && gc.phoneNumber">
       </div>
 

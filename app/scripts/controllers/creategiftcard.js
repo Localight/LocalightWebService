@@ -299,7 +299,10 @@ angular.module('angularLocalightApp')
             var element = $window.document.getElementById(elementId);
 
             //Timeout to start a new thread so we can catch the paste
-            setTimeout(function() {
+            $timeout(function() {
+
+                //Similar to mask, lets assume it is valid
+                $scope.clique_input_phonenumber_validity = true;
 
                 var phone = element.value;
                 //Parse only the digits from the phone number
@@ -314,14 +317,13 @@ angular.module('angularLocalightApp')
                 + phone.substring(6, 10);
 
                 //Check if it is valid, and our mask worked perfectly
-                $scope.clique_input_phonenumber_validity = false;
-                if(phone.length == 13) $scope.clique_input_phonenumber_validity = true;
+                if(phone.length != 13) $scope.clique_input_phonenumber_validity = false;
 
                 //Finalize our value into the element!
                 element.value = phone;
 
                 //Last but now least, focus on the email
-                if($scope.clique_input_phonenumber_validity)
+                if($scope.clique_input_phonenumber_validity && phone.length > 12)
                 {
                     $timeout(function () {
                         document.getElementById("clique_input_email").focus();
