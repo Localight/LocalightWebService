@@ -24,7 +24,7 @@
         <br>
         <!-- the three tricon images -->
         <div class = "locationTriconContainer"
-        ng-repeat = "tricon in getTricons('e107e107e107') track by $index">
+        ng-repeat = "tricon in getTricons(location.triconKey) track by $index">
             <div style="background-position-x: -{{tricon}}px;"
             class="dialButton triconSheet selectedTricon locationTricon upside">
             </div>

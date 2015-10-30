@@ -106,6 +106,11 @@ angular
         controller: 'EditlocationCtrl',
         controllerAs: 'editlocation'
       })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboardhome.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
+      })
       .otherwise({
         redirectTo: '/'
       });
