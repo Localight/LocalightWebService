@@ -302,6 +302,14 @@ angular.module('angularLocalightApp')
                 phone = phone.replace(new RegExp("[^0-9]", "g"), '');
                 if(phone.length > 10) phone = phone.slice(phone.length - 10, phone.length);
                 element.value = phone;
+
+                //Now mask the number
+                phone = "(" + phone.substring(0, 3) + ")"
+                + phone.substring(3, 6) + "-"
+                + phone.substring(6, 10);
+
+
+                element.value = phone;
             }, 0);
         }
 
@@ -313,7 +321,7 @@ angular.module('angularLocalightApp')
         $scope.maskPhone = function(elementId, event) {
 
             //First check if the key pressed was backspace, if it was, dont do the function
-            if (event.keyCode != 8) {
+            if (!event || event.keyCode != 8) {
 
                 var element = $window.document.getElementById(elementId);
 
