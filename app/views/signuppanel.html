@@ -2,7 +2,9 @@
 <div ng-class = "{spinner: loading}">
 </div>
 
-<form class = "authContainer center" name = "joinForm" ng-submit = "signUp()">
+<form class = "authContainer center"
+name = "joinForm" ng-submit = "signUp()"
+ng-init = "showPageTwo = false">
 
     <h1>Signup</h1>
 
@@ -13,41 +15,53 @@
 
     <hr class = "triconBreak">
 
-    <!-- Are they a business or an individual -->
-    <div class = "radioContainer">
-        <h4> Is you legal entity a business or an individual?</h4>
-        <input class = "joinRadio" type="radio" name="bType" id = "cRadio" value="company" ng-model = "formData.bType" required>
-        <label class = "radioText" for = "cRadio">Business</label>
-        <br />
-        <input class = "joinRadio" type="radio" name="bType" id = "iRadio" value="individual" ng-model = "formData.bType" ng-click = "formData.bName = ''" required>
-        <label class = "radioText" for = "iRadio">Individual</label>
+    <!-- Part One -->
+    <div ng-show = "!showPageTwo">
+        <!-- Are they a business or an individual -->
+        <div class = "radioContainer">
+            <h4>Is you legal entity a business or an individual?</h4>
+            <input class = "joinRadio" type="radio" name="bType" id = "cRadio" value="company" ng-model = "formData.bType" required>
+            <label class = "radioText" for = "cRadio">Business</label>
+            <br />
+            <input class = "joinRadio" type="radio" name="bType" id = "iRadio" value="individual" ng-model = "formData.bType" ng-click = "formData.bName = ''" required>
+            <label class = "radioText" for = "iRadio">Individual</label>
+        </div>
+
+        <input ng-show = "formData.bType == 'company'" class = "authInput center" type="text" name="bName" ng-model="formData.bName" placeholder="Legal Business Name">
+
+        <input ng-show = "formData.bType == 'individual' || joinForm.bName.$dirty" class = "authInput center" type="text" name="fName" ng-model="formData.fName" placeholder="Contact First Name" required>
+
+        <input ng-show = "joinForm.fName.$dirty" class = "authInput center" type="text" name="lName" ng-model="formData.lName" placeholder="Contact Last Name" required>
+
+        <!--Date picker -->
+        <input placeholder="Date of Birth"
+        ng-show = "joinForm.lName.$dirty"
+        class = "center datePicker authInput"
+        type="text" id="clique_date_selection" name="date"
+        ng-model="formData.date" max="{{getToday()}}"
+        my-touchstart="setDate();"
+        show-weeks="true" required></input>
+
+        <input ng-show = "joinForm.date.$valid" class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
+
+        <input ng-show = "joinForm.email.$valid" class = "authInput center" type="password" name="password" ng-model="formData.password" placeholder="Password" required>
+
+        <input ng-show = "joinForm.email.$valid" class = "authInput center" type="password" name="confirmPassword" ng-model="formData.confirmPassword" placeholder="Confirm Password" required>
+
+        <button ng-show = "formData.confirmpassword" class = "authButton" ng-disabled = "loading" ng-click = "createOwner()">Submit</button>
     </div>
 
-    <input ng-show = "formData.bType == 'company'" class = "authInput center" type="text" name="bName" ng-model="formData.bName" placeholder="Business Name">
+    <!-- Part Two -->
+    <div ng-show = "showPageTwo">
+        <h4>Your security and privacy are important to us. In order to deposit money to your account directly we need to verify the last four digits of your social security. We will not store this information.</h4>
 
-    <input ng-show = "formData.bType == 'individual' || joinForm.bName.$dirty" class = "authInput center" type="text" name="fName" ng-model="formData.fName" placeholder="First Name" required>
+        <input class = "authInput center" type="password" name="ssnDigits" ng-model="formData.confirmPassword" placeholder="Last 4 Digits of SSN" required>
 
-    <input ng-show = "joinForm.fName.$dirty" class = "authInput center" type="text" name="lName" ng-model="formData.lName" placeholder="Last Name" required>
-
-    <!--Date picker -->
-    <input placeholder="Date of Birth"
-    ng-show = "joinForm.lName.$dirty"
-    class = "center datePicker authInput"
-    type="text" id="clique_date_selection" name="date"
-    ng-model="formData.date" max="{{getToday()}}"
-    my-touchstart="setDate();"
-    show-weeks="true" required></input>
-
-    <input ng-show = "joinForm.date.$valid" class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
-
-    <input ng-show = "joinForm.email.$valid" class = "authInput center" type="password" name="password" ng-model="formData.password" placeholder="Password" required>
-
-    <input ng-show = "joinForm.email.$valid" class = "authInput center" type="password" name="confirmPassword" ng-model="formData.confirmPassword" placeholder="Confirm Password" required>
+        <button ng-show = "formData.confirmpassword" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
+    </div>
 
     <div ng-show = "error.isError" class = "authWarning">
             <strong>{{error.text}}</strong>
     </div>
 
-
-    <button ng-show = "formData.confirmpassword" class = "authButton" type = "submit" ng-diabled = "loading">Submit</button>
 </form>

@@ -61,7 +61,6 @@ angular.module('angularLocalightApp')
             //New owner payload
             var payload = {
                "name" : $scope.username,
-               "stripeCustomerId" : $scope.stripeCustomerId,
                "email" : $scope.email,
                "password" : $scope.password
             }
