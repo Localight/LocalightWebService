@@ -195,20 +195,20 @@ ng-init = "showPageTwo = false">
             </div>
 
             <!-- Some Error Checking -->
-            <div ng-if = "giftcardForm.clique_input_creditcardnumber1.$dirty
-            && giftcardForm.clique_input_creditcardnumber1.$touched
-            && giftcardForm.clique_input_creditcardnumber2.$dirty
-            && giftcardForm.clique_input_creditcardnumber2.$touched
-            && giftcardForm.clique_input_creditcardnumber3.$dirty
-            && giftcardForm.clique_input_creditcardnumber3.$touched
-            && giftcardForm.clique_input_expiry_m.$dirty
-            && giftcardForm.clique_input_expiry_m.$touched
-            && giftcardForm.clique_input_expiry_y.$dirty
-            && giftcardForm.clique_input_expiry_y.$touched
-            && giftcardForm.clique_input_cvv.$dirty
-            && giftcardForm.clique_input_cvv.$touched
-            && giftcardForm.clique_input_zip.$dirty
-            && giftcardForm.clique_input_zip.$touched
+            <div ng-if = "joinForm.clique_input_creditcardnumber1.$dirty
+            && joinForm.clique_input_creditcardnumber1.$touched
+            && joinForm.clique_input_creditcardnumber2.$dirty
+            && joinForm.clique_input_creditcardnumber2.$touched
+            && joinForm.clique_input_creditcardnumber3.$dirty
+            && joinForm.clique_input_creditcardnumber3.$touched
+            && joinForm.clique_input_expiry_m.$dirty
+            && joinForm.clique_input_expiry_m.$touched
+            && joinForm.clique_input_expiry_y.$dirty
+            && joinForm.clique_input_expiry_y.$touched
+            && joinForm.clique_input_cvv.$dirty
+            && joinForm.clique_input_cvv.$touched
+            && joinForm.clique_input_zip.$dirty
+            && joinForm.clique_input_zip.$touched
             && (!validCC
             || !dateValidated
             || !cvcValidated
@@ -239,7 +239,7 @@ ng-init = "showPageTwo = false">
             minlength = "4"
             required>
 
-            <button ng-show = "joinForm.ssnDigits.$valid" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
+            <button ng-show = "joinForm.ssnDigits.$valid && cardValidated" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
             <br>
             <h5>By registering your account, you agree to the
                 <a href = "https://stripe.com/connect/account-terms">
