@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('SignuppanelCtrl', function ($scope, $cookies, $location, JoinOwner) {
+  .controller('SignuppanelCtrl', function ($scope, $cookies, $location, $timeout, JoinOwner) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -17,6 +17,23 @@ angular.module('angularLocalightApp')
 
     //Boolean for if we receive errors
     $scope.submitError;
+
+    //Return today's date for the date picker
+    $scope.getToday = function() {
+        return new Date().getDate();
+    }
+
+    /**
+     * Switch date input type=text to type=date (hack to have a placeholder in a date field)
+     */
+    $scope.setDate = function() {
+        document.getElementById('clique_date_selection').type = 'date';
+        //Focus on the date field after setting the type to avoid it blurring
+        $timeout(function () {
+            document.getElementById('clique_date_selection').disabled = false;
+            document.getElementById('clique_date_selection').focus();
+        }, 25);
+    }
 
     //Sign up our owner!
     $scope.signUp = function() {
