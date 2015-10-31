@@ -217,9 +217,19 @@ ng-init = "showPageTwo = true">
         <div class = "waterfall" ng-show = "cardValidated">
             <h4>Your security and privacy are important to us. In order to deposit money to your account directly we need to verify the last four digits of your social security. We will not store this information.</h4>
 
-            <input class = "authInput center" type="password" name="ssnDigits" ng-model="formData.confirmPassword" placeholder="Last 4 Digits of SSN" required>
+            <input class = "authInput center"
+            type="password" name="ssnDigits"
+            ng-model="formData.confirmPassword"
+            placeholder="Last 4 Digits of SSN" min = "4"
+            max = "4" pattern="\d*" size = "4" required>
 
-            <button ng-show = "formData.confirmpassword" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
+            <button ng-show = "joinForm.ssnDigits.$valid" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
+            <br>
+            <h5>By registering your account, you agree to the
+                <a href = "https://stripe.com/connect/account-terms">
+                    Stripe Connected Account Agreement.
+                </a>
+            </h5>
         </div>
     </div>
 
