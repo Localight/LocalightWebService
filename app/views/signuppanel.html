@@ -214,14 +214,17 @@ ng-init = "showPageTwo = true">
 
 
         <!-- SSN -->
-        <div class = "waterfall" ng-show = "cardValidated">
+        <div class = "waterfall ssnContainer" ng-show = "cardValidated">
             <h4>Your security and privacy are important to us. In order to deposit money to your account directly we need to verify the last four digits of your social security. We will not store this information.</h4>
 
             <input class = "authInput center"
             type="password" name="ssnDigits"
             ng-model="formData.confirmPassword"
-            placeholder="Last 4 Digits of SSN" min = "4"
-            max = "4" pattern="\d*" size = "4" required>
+            placeholder="Last 4 Digits of SSN"
+            pattern="\d*"
+            maxlength = "4"
+            minlength = "4"
+            required>
 
             <button ng-show = "joinForm.ssnDigits.$valid" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
             <br>
