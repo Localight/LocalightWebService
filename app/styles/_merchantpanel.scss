@@ -14,7 +14,7 @@
 }
 
 .authInput {
-    
+
     @extend .waterfall;
 
     margin-top: 10px;
@@ -60,6 +60,14 @@
         font-weight: initial;
     }
 
+}
+
+.cardTop {
+    background-color: $inverseStandard;
+}
+
+.cardBottom {
+    background-color: $inverseStandardAlphaLight;
 }
 
 .selectedTricon {

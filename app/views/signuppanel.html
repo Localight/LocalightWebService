@@ -4,7 +4,7 @@
 
 <form class = "authContainer center"
 name = "joinForm" ng-submit = "signUp()"
-ng-init = "showPageTwo = false">
+ng-init = "showPageTwo = true">
 
     <h1>Signup</h1>
 
@@ -52,12 +52,175 @@ ng-init = "showPageTwo = false">
     </div>
 
     <!-- Part Two -->
-    <div ng-show = "showPageTwo">
-        <h4>Your security and privacy are important to us. In order to deposit money to your account directly we need to verify the last four digits of your social security. We will not store this information.</h4>
+    <div class = "waterfall" ng-show = "showPageTwo">
 
-        <input class = "authInput center" type="password" name="ssnDigits" ng-model="formData.confirmPassword" placeholder="Last 4 Digits of SSN" required>
+        <!-- Card Div -->
+        <h4>Please enter the debit card that your funds will be sent to.</h4>
 
-        <button ng-show = "formData.confirmpassword" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
+        <div class = "waterfall">
+            <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">
+              <!-- Inner Container -->
+              <div id="creditcardnumbercontainer" class = "paymentcontainer currentInputNoBorder cardTop">
+                <!-- Credit Card Logo Img -->
+                <img class = "creditCardIcon" ng-src="{{cardIcon}}">
+                <!-- Credit Card Number Input -->
+                <input
+                    type="number"
+                    name="clique_input_creditcardnumber1"
+                    id="clique_input_creditcardnumber1"
+                    class="profont creditCardNumInput"
+                    placeholder="XXXX"
+                    size="4"
+                    pattern="\d*"
+                    ng-model="cc.number1"
+                    ng-keyup = "validateCardNumber()"
+                    ng-keydown="trimInput($event, 4)"
+                    onKeyUp="if(document.getElementById('clique_input_creditcardnumber1').value.length > 3){document.getElementById('clique_input_creditcardnumber2').focus();}">
+                <input
+                    type="number"
+                    name="clique_input_creditcardnumber2"
+                    id="clique_input_creditcardnumber2"
+                    class="profont creditCardNumInput"
+                    placeholder="XXXX"
+                    size="4"
+                    pattern="\d*"
+                    ng-model="cc.number2"
+                    ng-keyup = "validateCardNumber()"
+                    ng-keydown="trimInput($event, 4)"
+                    onKeyDown="if(document.getElementById('clique_input_creditcardnumber2').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber1').focus();}"
+                    onKeyUp="if(document.getElementById('clique_input_creditcardnumber2').value.length > 3){document.getElementById('clique_input_creditcardnumber3').focus();}">
+                <input
+                    type="number"
+                    name="clique_input_creditcardnumber3"
+                    id="clique_input_creditcardnumber3"
+                    class="profont creditCardNumInput"
+                    placeholder="XXXX"
+                    size="4"
+                    pattern="\d*"
+                    ng-model="cc.number3"
+                    ng-keyup = "validateCardNumber()"
+                    ng-keydown="trimInput($event, 4)"
+                    onKeyDown="if(document.getElementById('clique_input_creditcardnumber3').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber2').focus();}"
+                    onKeyUp="if(document.getElementById('clique_input_creditcardnumber3').value.length > 3){document.getElementById('clique_input_creditcardnumber4').focus();}">
+                <input
+                    type="number"
+                    name="clique_input_creditcardnumber4"
+                    id="clique_input_creditcardnumber4"
+                    class="profont creditCardNumInput"
+                    placeholder="XXXX"
+                    size="4"
+                    pattern="\d*"
+                    ng-model="cc.number4"
+                    ng-keyup = "validateCardNumber();trimInput($event, 4)"
+                    ng-keydown="trimInput($event, 4)"
+                    onKeyDown="if(document.getElementById('clique_input_creditcardnumber4').value.length < 1 && event.keyCode == 8){document.getElementById('clique_input_creditcardnumber3').focus();}">
+                <!-- Checkmark box to the right -->
+                <img class = "creditCardCheck"
+                src = "../images/checkmark-blk.png"
+                ng-show = "validCC"
+                ng-click = "ccDateSwitch();">
+              </div>
+              <!-- lower box that within same box but differnet background -->
+              <div id="creditcardinfo" class="paymentcontainer currentInputNoBorder cardBottom">
+                <!-- Date input for credit card -->
+                <input
+                    type="number"
+                    name="clique_input_expiry_m"
+                    id="clique_input_expiry_m"
+                    class="profont currentInput expiryM "
+                    ng-keyup = "validateDate()"
+                    ng-keydown="trimInput($event, 4)"
+                    placeholder="MM"
+                    size="5"
+                    pattern="\d*"
+                    ng-model="cc.ExpiryM"
+                    ng-focus="expiryFocus();"
+                    onKeyUp="if(document.getElementById('clique_input_expiry_m').value.length > 1){document.getElementById('clique_input_expiry_y').focus();}">
+                <input
+                    type="number"
+                    name="clique_input_expiry_y"
+                    id="clique_input_expiry_y"
+                    class="profont currentInput expiryY"
+                    ng-keyup = "validateDate()"
+                    ng-keydown="trimInput($event, 4)"
+                    placeholder="YYYY"
+                    size="5"
+                    pattern="\d*"
+                    ng-model="cc.ExpiryY"
+                    ng-focus="expiryFocus();"
+                    onKeyUp="if(document.getElementById('clique_input_expiry_y').value.length > 3){document.getElementById('clique_input_cvv').focus();}">
+                <!-- CVV for Credit Card -->
+                <!-- TODO: Come back and split up the month and year -->
+                <input
+                    type="number"
+                    name="clique_input_cvv"
+                    id="clique_input_cvv"
+                    class="profont currentInput cvv"
+                    ng-keyup = "validateCVC()"
+                    ng-keydown="trimInput($event, 4)"
+                    placeholder="CVC"
+                    size="5"
+                    pattern="\d*"
+                    ng-model="cc.cvc"
+                    ng-focus="expiryFocus();"
+                    onKeyUp="if(document.getElementById('clique_input_cvv').value.length > 2){document.getElementById('clique_input_zip').focus();}">
+                <!-- Zip for credit card -->
+                <input
+                    type="number"
+                    name="clique_input_zip"
+                    id="clique_input_zip"
+                    ng-keyup = "validateZip()"
+                    ng-keydown="trimInput($event, 4)"
+                    class="profont currentInput zipCC"
+                    placeholder="ZIP"
+                    size="5"
+                    pattern="\d*"
+                    ng-model="cc.ZIPcode"
+                    ng-focus="expiryFocus();">
+                <img class = "creditCardCheck" src = "../images/checkmark-blk.png" ng-show = "dateValidated && cvcValidated && zipValidated">
+              </div>
+            </div>
+
+            <!-- Some Error Checking -->
+            <div ng-if = "giftcardForm.clique_input_creditcardnumber1.$dirty
+            && giftcardForm.clique_input_creditcardnumber1.$touched
+            && giftcardForm.clique_input_creditcardnumber2.$dirty
+            && giftcardForm.clique_input_creditcardnumber2.$touched
+            && giftcardForm.clique_input_creditcardnumber3.$dirty
+            && giftcardForm.clique_input_creditcardnumber3.$touched
+            && giftcardForm.clique_input_expiry_m.$dirty
+            && giftcardForm.clique_input_expiry_m.$touched
+            && giftcardForm.clique_input_expiry_y.$dirty
+            && giftcardForm.clique_input_expiry_y.$touched
+            && giftcardForm.clique_input_cvv.$dirty
+            && giftcardForm.clique_input_cvv.$touched
+            && giftcardForm.clique_input_zip.$dirty
+            && giftcardForm.clique_input_zip.$touched
+            && (!validCC
+            || !dateValidated
+            || !cvcValidated
+            || !zipValidated)"
+            class="form-incomplete blackText createGiftCardWidth">
+              <strong>
+                  Sorry, your current card information is not valid
+              </strong>
+            </div>
+
+            <div data-ng-show="tokenizeFailure" class="text-danger form-incomplete createGiftCardWidth">
+              <strong>Oops, something went wrong! Please check your card information</strong>
+            </div>
+
+        </div>
+
+
+        <!-- SSN -->
+        <div class = "waterfall" ng-show = "cardValidated">
+            <h4>Your security and privacy are important to us. In order to deposit money to your account directly we need to verify the last four digits of your social security. We will not store this information.</h4>
+
+            <input class = "authInput center" type="password" name="ssnDigits" ng-model="formData.confirmPassword" placeholder="Last 4 Digits of SSN" required>
+
+            <button ng-show = "formData.confirmpassword" class = "authButton" type = "submit" ng-disabled = "loading">Submit</button>
+        </div>
     </div>
 
     <div ng-show = "error.isError" class = "authWarning">
