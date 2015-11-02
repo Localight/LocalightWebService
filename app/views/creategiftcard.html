@@ -185,7 +185,7 @@
     </div>
 
     <!--Pay by card-->
-    <div class = "waterfall" ng-show="dateDirty">
+    <div class = "waterfall" ng-if="dateDirty">
         <div id="clique_payment_card" class = "roundWhiteBorder createGiftCardWidth">
           <!-- Inner Container -->
           <div id="creditcardnumbercontainer" class = "paymentcontainer currentInputNoBorder">
@@ -298,6 +298,8 @@
         <div data-ng-show="tokenizeFailure" class="text-danger form-incomplete createGiftCardWidth">
           <strong>Oops, something went wrong! Please check your card information</strong>
         </div>
+
+        <div style="height:200px;" ng-hide="hideCCSpacer"></div>
 
     </div>
 

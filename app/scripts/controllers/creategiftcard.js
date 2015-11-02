@@ -343,8 +343,15 @@ angular.module('angularLocalightApp')
         $scope.dateOptions = {
             onClose: function(e) {
                 document.getElementById('clique_date_selection').blur();
-                $scope.dateDirty = true;
-                document.getElementById("clique_input_creditcardnumber1").focus();
+
+                    $scope.dateDirty = true;
+                    document.getElementById("clique_input_creditcardnumber1").focus();
+
+                    $scope.$apply();
+
+
+
+
             }
         }
 
@@ -451,6 +458,7 @@ angular.module('angularLocalightApp')
                 //Since the card is validated
                 //scroll/focus on the continue button
                 $scope.scrollToElement("continue_button", function() {
+                    $scope.hideCCSpacer = true;
                     document.getElementById('continue_button').focus();
                 });
 
