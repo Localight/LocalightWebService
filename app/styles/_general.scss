@@ -6,6 +6,16 @@
 
 body {
     z-index: -4;
+    background: transparent;
+}
+
+html {
+    background: url('../images/local-street-bg-blur.png');
+    background-color: $colorBg;
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow:hidden;
 }
 
 body, html {
