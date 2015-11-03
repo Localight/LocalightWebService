@@ -283,6 +283,46 @@ angular.module('angularLocalightApp')
             }, 25);
         }
 
+        //Formats the phone contact for contact pasting
+        $scope.formatContact = function(elementId) {
+
+            //Remove all special scharacters from like a paste from contacts
+            var element = $window.document.getElementById(elementId);
+
+            //Timeout to start a new thread so we can catch the paste
+            $timeout(function() {
+
+                //Similar to mask, lets assume it is valid
+                $scope.clique_input_phonenumber_validity = true;
+
+                var phone = element.value;
+                //Parse only the digits from the phone number
+                phone = phone.replace(new RegExp("[^0-9]", "g"), '');
+                //Get only the last 10 digits, so we can remove the country codes
+                if(phone.length > 10) phone = phone.slice(phone.length - 10, phone.length);
+
+                //Mask the number, if we got a correct paste
+                if(phone.length == 10)
+                phone = "(" + phone.substring(0, 3) + ")"
+                + phone.substring(3, 6) + "-"
+                + phone.substring(6, 10);
+
+                //Check if it is valid, and our mask worked perfectly
+                if(phone.length != 13) $scope.clique_input_phonenumber_validity = false;
+
+                //Finalize our value into the element!
+                element.value = phone;
+
+                //Last but now least, focus on the email
+                if($scope.clique_input_phonenumber_validity && phone.length > 12)
+                {
+                    $timeout(function () {
+                        document.getElementById("clique_input_email").focus();
+                    }, 250);
+                }
+            }, 0);
+        }
+
         /**
          * Masks phone number with (xxx)xxx-xxxx format.
          * @param {String} elementId The HTML ID for the element to validate.
@@ -291,8 +331,10 @@ angular.module('angularLocalightApp')
         $scope.maskPhone = function(elementId, event) {
 
             //First check if the key pressed was backspace, if it was, dont do the function
-            if (event.keyCode != 8) {
+            if (!event || event.keyCode != 8) {
+
                 var element = $window.document.getElementById(elementId);
+
                 $scope.clique_input_phonenumber_validity = true;
                 var tel = '(';
                 var val = element.value.split('');
