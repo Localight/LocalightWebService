@@ -20,10 +20,10 @@ html {
 }
 
 .bgFade {
-    -webkit-transition: background 700ms ease-in 500ms; /* property duration timing-function delay */
-    -moz-transition: background 700ms ease-in 500ms;
-    -o-transition: background 700ms ease-in 500ms;
-    transition: background 700ms ease-in 500ms;
+    -webkit-transition: background 500ms ease-in 400ms; /* property duration timing-function delay */
+    -moz-transition: background 500ms ease-in 400ms;
+    -o-transition: background 500ms ease-in 400ms;
+    transition: background 500ms ease-in 400ms;
     background-image: url('../images/local-street-bg-blur.png');
 }
 
