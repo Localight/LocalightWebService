@@ -604,7 +604,7 @@ angular.module('angularLocalightApp')
             $scope.tokenzing = true;
 
             //Create finalized card number
-            var cardNumber = $scope.cc.number1 + "" + $scope.cc.number2 + "" + $scope.cc.number3 + "" + $scope.cc.number4;
+            var cardNumber = $scope.cc.number;
 
             //Send card info to stripe for tokenization
             Stripe.card.createToken({
