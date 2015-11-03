@@ -17,6 +17,8 @@ angular.module('angularLocalightApp')
             'Karma'
         ];
 
+        $scope.cc = {};
+
         //****
         //Page initialization
         //****
@@ -57,11 +59,6 @@ angular.module('angularLocalightApp')
 
         //Amount selection slider amount options
         $scope.prices = [2, 5, 10, 25, 50, 75, 100];
-
-        //Focus on "to" field when document is done loading
-        angular.element(document).ready(function() {
-            document.getElementById("clique_input_to").focus();
-        });
 
         //Secondary form field highlighting (form field suggestions)
         $scope.secondaryField = null;
@@ -120,7 +117,7 @@ angular.module('angularLocalightApp')
             if ($scope.activeField && $scope.activeField != fieldId) {
                 $window.document.getElementById($scope.activeField).style.backgroundColor = 'transparent';
             }
-            
+
             $scope.activeField = fieldId;
             $window.document.getElementById($scope.activeField).style.backgroundColor = "white";
         };
@@ -155,12 +152,8 @@ angular.module('angularLocalightApp')
 
                 frontCard.className = frontCard.className + " flipped";
                 backCard.className = backCard.className + " flipped";
-            }, 500);
-
-            //Try and scroll to the card again, in case iPhone pushed it away
-            $scope.scrollToElement("cardCodeStrip", function() {
                 document.getElementById('clique_input_code').focus();
-            });
+            }, 100);
         };
 
         $scope.setAmount = function(amount) {
@@ -255,16 +248,14 @@ angular.module('angularLocalightApp')
                 //Also set our occasion ID for our giftcard
                 $scope.occasionId = occasion.images.iconId;
 
-                //Also bring up they keyboard
-                $timeout(function() {
-                    document.getElementById('clique_input_occasion').focus();
-                }, 100);
+
             }
         };
 
         $scope.setOccasionBack = function() {
             $scope.occasionSelectionFlag = true;
             $scope.gc.Icon = "";
+            $scope.secondFlag = false;
         };
 
 
@@ -351,6 +342,21 @@ angular.module('angularLocalightApp')
         * Credit Card Validation
         ****/
 
+        $scope.dateOptions = {
+            onClose: function(e) {
+                document.getElementById('clique_date_selection').blur();
+
+                    $scope.dateDirty = true;
+                    document.getElementById("clique_input_creditcardnumber1").focus();
+
+                    $scope.$apply();
+
+
+
+
+            }
+        }
+
         //Icon URLs for CCs
         //Default, Visa, Mastercard, Amex, Discover
         var cardIcons = [
@@ -366,24 +372,16 @@ angular.module('angularLocalightApp')
         /**
          * Validates form CC. Checks Stripe for validity, determines card type and sets card icon.
          */
-        $scope.validateCardNumber = function() {
+        $scope.validateCardNumber = function(event) {
             //Concatante the credit card number together
-            var cardNumber = "";
-            for(var i=1; i <= 4; i++){
-                cardNumber += document.getElementById("clique_input_creditcardnumber" + i).value;
-            }
+            var cardNumber = event.target.value.replace(/-/g, '');
 
             //Check if the credit card number is US valid
-            if(Stripe.card.validateCardNumber(cardNumber)) {
+            if(Stripe.card.validateCardNumber(cardNumber) && (cardNumber.length == 13 || cardNumber.length == 15 || cardNumber.length == 16)) {
                 $scope.validCC = true;
 
                 //Jump to the date field
-                if(cardNumber.length == 13 ||
-                cardNumber.length == 15 ||
-                cardNumber.length == 16)
-                {
-                    $scope.ccDateSwitch();
-                }
+                $scope.ccDateSwitch();
             }
             else {
                 $scope.validCC = false;
@@ -462,6 +460,7 @@ angular.module('angularLocalightApp')
                 //Since the card is validated
                 //scroll/focus on the continue button
                 $scope.scrollToElement("continue_button", function() {
+                    $scope.hideCCSpacer = true;
                     document.getElementById('continue_button').focus();
                 });
 
@@ -488,13 +487,103 @@ angular.module('angularLocalightApp')
             }
         }
 
-        $scope.trimInput = function(event, length){
-            if (event.target.value.length > length) {
-                event.target.value = event.target.value.slice(0,length);
-                $scope.validateCardNumber();
+        $scope.numbersOnly = function(event){
+            if(((event.which < 48 || event.which > 57) && event.which != 46 && event.which != 8) || event.shiftKey){
+                event.preventDefault();
             }
         }
 
+        $scope.maxLength = function(event, length){
+            if (event.target.value.length > length && event.which != 46 && event.which != 8) {
+                event.preventDefault();
+                event.target.value = event.target.value.slice(0,length);
+            } else if (event.target.value.length == length && event.which != 46 && event.which != 8){
+                event.preventDefault();
+            }
+        }
+
+        function getCaretPosition(ctrl)
+        {
+            var caretPos = 0;
+            // IE
+            if (document.selection)
+            {
+                ctrl.focus ();
+                var sel = document.selection.createRange();
+                sel.moveStart ('character', -ctrl.value.length);
+                caretPos = sel.text.length;
+            }
+            // Firefox
+            else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+            {
+                caretPos = ctrl.selectionStart;
+            }
+
+            return caretPos;
+        }
+
+        function setCaretPosition(elemId, caretPos) {
+            var elem = document.getElementById(elemId);
+
+            if(elem != null) {
+                if(elem.createTextRange) {
+                    var range = elem.createTextRange();
+                    range.move('character', caretPos);
+                    range.select();
+                }
+                else {
+                    if(elem.selectionStart) {
+                        elem.focus();
+                        elem.setSelectionRange(caretPos, caretPos);
+                    }
+                    else
+                        elem.focus();
+                }
+            }
+        }
+
+        $scope.formatCC = function(event){
+            var caretPos = getCaretPosition(event.target) == event.target.value.length ? -3 : getCaretPosition(event.target);
+            if(event.which == 46 || event.which == 8){
+                var value = event.target.value.replace(/-/g, '');
+
+                if(value.length > 4){
+                    value = [value.slice(0, 4), "-", value.slice(4)].join('');
+
+                    if(value.length > 9){
+                        value = [value.slice(0, 9), "-", value.slice(9)].join('');
+
+                        if(value.length > 14){
+                            value = [value.slice(0, 14), "-", value.slice(14)].join('');
+                        }
+                    }
+                }
+                event.target.value = value;
+
+            } else if(event.which >= 48 && event.which <= 57){
+                var value = event.target.value.replace(/-/g, '');
+
+                if(value.length >= 4){
+                    value = [value.slice(0, 4), "-", value.slice(4)].join('');
+
+                    if(value.length >= 9){
+                        value = [value.slice(0, 9), "-", value.slice(9)].join('');
+
+                        if(value.length >= 14){
+                            value = [value.slice(0, 14), "-", value.slice(14)].join('');
+                        }
+                    }
+                }
+                if(caretPos == 4 || caretPos == 9 || caretPos == 14){
+                    caretPos++;
+                }
+                event.target.value = value;
+            }
+            if(caretPos >= 0){
+                setCaretPosition(event.target.id, caretPos);
+            }
+            $scope.validateCardNumber(event);
+        }
 
         /*
         STRIPE
@@ -517,7 +606,7 @@ angular.module('angularLocalightApp')
             $scope.tokenzing = true;
 
             //Create finalized card number
-            var cardNumber = $scope.cc.number1 + "" + $scope.cc.number2 + "" + $scope.cc.number3 + "" + $scope.cc.number4;
+            var cardNumber = $scope.cc.number;
 
             //Send card info to stripe for tokenization
             Stripe.card.createToken({
