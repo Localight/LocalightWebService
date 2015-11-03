@@ -17,6 +17,8 @@ angular.module('angularLocalightApp')
             'Karma'
         ];
 
+        $scope.cc = {};
+
         //****
         //Page initialization
         //****
