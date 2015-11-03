@@ -53,23 +53,47 @@
         </a>
 
         <!--spent giftcards -->
-        <h4 class = "giftSection">Spent</h4>
-        <a class="list-group-item flatRowListItem" ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -5 | orderBy:'+':true" ng-href="#/giftcards/{{giftcard._id}}">
-        <!-- Line breaks to space the list so it's easier to click -->
-            <table>
-                <tr>
-                    <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
-                    <td class="textRightAlign tableCell">
-                        <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
-                </tr>
-                <tr>
-                    <td class = "spentFooter">
-                        Spent
-                    </td>
-                </tr>
-            </table>
-        </a>
+        <div ng-if = "giftcards[giftcards.length - 1].amount <= 0">
+            <h4 class = "giftSection">Spent</h4>
+            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -5 | orderBy:'+':true" ng-href="#/giftcards/{{giftcard._id}}">
+            <!-- Line breaks to space the list so it's easier to click -->
+                <table>
+                    <tr>
+                        <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" class = "fromIconSpent" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                        <td class="textRightAlign tableCell">
+                            <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class = "spentFooter">
+                            Spent
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+
+        <!--sent giftcards -->
+        <div ng-if = "sentGiftcards">
+            <h4 class = "giftSection">Sent</h4>
+            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in sentGiftcards | limitTo: -5 | orderBy:'+':true">
+            <!-- Line breaks to space the list so it's easier to click -->
+                <table>
+                    <tr>
+                        <td class="fromTextSent"><img ng-src = "{{icons[giftcard.iconId]}}" class = "fromIconSent" width= "35px" height = "35px">To: {{giftcard.toId.name}}</td>
+                        <td class="textRightAlign tableCell">
+                            <div class="giftlistAmountSent">${{giftcard.origAmount / 100}}</div></td>
+                    </tr>
+                    <tr>
+                        <td class = "sentFooter">
+                            Sent
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+
     </div>
+
     <div class="alert alert-warning text-center" data-ng-hide="giftcards.length > 0">
     	No Giftcards yet, why don't you <a href="/#/giftcards/create">create one</a>?
     </div>

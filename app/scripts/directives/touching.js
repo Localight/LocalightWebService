@@ -6,7 +6,7 @@
  * @description
  * # touching
  */
- 
+
 angular.module('angularLocalightApp')
 .directive('myTouchstart', [function() {
       return function(scope, element, attr) {
@@ -16,7 +16,16 @@ angular.module('angularLocalightApp')
               });
           });
       };
-  }]).directive('myTouchend', [function() {
+  }]).directive('showFocus', function($timeout) {
+  return function(scope, element, attrs) {
+    scope.$watch(attrs.showFocus,
+      function (newValue) {
+        $timeout(function() {
+            newValue && element.focus();
+        });
+      },true);
+  };
+}).directive('myTouchend', [function() {
       return function(scope, element, attr) {
 
           element.on('touchend', function(event) {
