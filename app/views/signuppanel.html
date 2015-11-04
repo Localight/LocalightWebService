@@ -8,8 +8,8 @@
 
     <!-- Intro to the form -->
     <h4>Thank you for choosing the Local Giftcard!
-        We're gonna need to know some information about you to get your account set up for payments and things.
-        Please fill out all of the forms below, and double check they are correct.</h4>
+        We're going need to know some information about you to get your account set up for payments.
+        Please fill out all of the form below, and double check they are correct.</h4>
 
     <hr class = "triconBreak">
 
@@ -25,29 +25,32 @@
 
     <input ng-show = "formData.bType == 'company'" class = "authInput center" type="text" name="bName" ng-model="formData.bName" placeholder="Business Name">
 
-    <input ng-show = "formData.bType == 'individual' || joinForm.bName.$dirty" class = "authInput center" type="text" name="fName" ng-model="formData.fName" placeholder="First Name" required>
+    <input class = "authInput center" type="text" name="fName" ng-model="formData.fName" placeholder="First Name" required>
 
-    <input ng-show = "joinForm.fName.$dirty" class = "authInput center" type="text" name="lName" ng-model="formData.lName" placeholder="Last Name" required>
+    <input class = "authInput center" type="text" name="lName" ng-model="formData.date" placeholder="Last Name" required>
 
     <!--Date picker -->
-    <input placeholder="Date of Birth"
-    ng-show = "joinForm.lName.$dirty"
-    class = "center datePicker authInput"
-    type="text" id="clique_date_selection" name="date"
-    ng-model="formData.date" max="{{getToday()}}"
-    my-touchstart="setDate();"
-    show-weeks="true" required></input>
+    <input class = "authInput center" type="text" name="date" ng-model="formData.lName" placeholder="Date of Birth: mm/dd/yyyy" minlength = "10" maxlength = "10" required>
 
-    <input ng-show = "joinForm.date.$valid" class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
+    <input class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
 
-    <input ng-show = "joinForm.email.$valid" class = "authInput center" type="password" name="password" ng-model="formData.password" placeholder="Password" required>
+    <input class = "authInput center" type="password" name="password" ng-model="formData.password" placeholder="Password" required>
 
-    <input ng-show = "joinForm.email.$valid" class = "authInput center" type="password" name="confirmPassword" ng-model="formData.confirmPassword" placeholder="Confirm Password" required>
+    <input class = "authInput center" type="password" name="confirmPassword" ng-model="formData.confirmPassword" placeholder="Confirm Password" required>
 
     <div ng-show = "error.isError" class = "authWarning">
             <strong>{{error.text}}</strong>
     </div>
 
 
-    <button ng-show = "formData.confirmpassword" class = "authButton" type = "submit" ng-diabled = "loading">Submit</button>
+    <button class = "authButton"
+    type = "submit"
+    ng-disabled = "loading ||
+    !joinForm.bType.$valid ||
+    !joinForm.bName.$valid ||
+    !joinForm.fname.$valid ||
+    !joinForm.lname.$valid ||
+    !joinForm.email.$valid ||
+    !joinForm.password.$valid ||
+    !joinForm.confirmpassword.$valid">Submit</button>
 </form>
