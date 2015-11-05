@@ -8,12 +8,25 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('BodyCtrl', function ($scope, $location) {
+  .controller('BodyCtrl', function($scope, $location) {
 
-      //If the route is the route passed,
-      //it will switch the body ng-class
-      $scope.isDark = function(route) {
-          return ($location.path().indexOf(route) > -1);
+    //If the route is the route passed,
+    //it will switch the body ng-class
+    $scope.isDark = function(route) {
+      return ($location.path().indexOf(route) > -1);
     }
 
+    var invalidDevice = function(){
+        window.location = "/#/";
+    }
+
+    if($location.path() != "/"){
+        if (navigator.maxTouchPoints <= 1 || navigator.plugins.length > 0) {
+          invalidDevice();
+        } else if (window.chrome) {
+          if (window.chrome.webstore) {
+            invalidDevice();
+          }
+        };
+    }
   });
