@@ -17,7 +17,7 @@ angular.module('angularLocalightApp')
     }
 
     var invalidDevice = function(){
-        window.location = "http://lmgtfy.com/?q=mobile+browsers+only!";
+        window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
 
     if (navigator.maxTouchPoints <= 1 || navigator.plugins.length > 0) {
