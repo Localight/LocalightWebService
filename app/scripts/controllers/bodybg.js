@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('BodyCtrl', function($scope, $location) {
+  .controller('BodyCtrl', function ($scope, $location, $timeout) {
 
     //If the route is the route passed,
     //it will switch the body ng-class
@@ -29,4 +29,9 @@ angular.module('angularLocalightApp')
           }
         };
     }
+
+    $timeout(function(){
+        var html = document.getElementsByTagName("html");
+        html[0].className = html[0].className + " bgFade";
+    }, 100);
   });
