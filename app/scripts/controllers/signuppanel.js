@@ -34,7 +34,7 @@ angular.module('angularLocalightApp')
     $scope.signUp = function() {
 
         //First check if their passwords match
-        if($scope.password.indexOf($scope.confirmPassword) < 0)
+        if($scope.formData.password.indexOf($scope.formData.confirmPassword) < 0)
         {
             $scope.submitError = true;
             $scope.theError = "Passwords do not match!";
@@ -43,26 +43,25 @@ angular.module('angularLocalightApp')
 
         //Create the error object
         $scope.error = {
-            isError : true,
+            isError : false,
             text: ""
         };
 
         //Regex for all valid emails. To add a TLD, edit the final OR statement.
         var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|co|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
         //Test the form email against the regex
-        if (!emailRegex.test($scope.email)) {
+        if (!emailRegex.test($scope.formData.email)) {
             $scope.error.text = "Sorry, thats not a valid email.";
         } else {
             //New owner payload
             var payload = {
-               "legalEntity": $scope.formData.bType,
-               "businessName": $scope.formData.bName,
-               "contactFirstName" : $scope.formData.fName,
-               "contactLastName" : $scope.formData.lName,
-               "contactDOB" : $scope.formData.date,
-               "email" : $scope.email,
-               "password" : $scope.password,
-               "stripeCustomerId" : $scope.stripeCustomerId
+               "company": $scope.formData.bName,
+               "name": $scope.formData.fName + " " + $scope.formData.lName,
+               "dob": $scope.formData.date,
+               "email": $scope.formData.email,
+               "password": $scope.formData.password,
+               //Legacy
+               "stripeCustomerId": "0"
             }
 
             //Show(true)/Hide(false) the loading spinner
@@ -85,9 +84,13 @@ angular.module('angularLocalightApp')
             },
             function(err)
             {
+                $scope.isError = true;
                 if(err.status == 401)
                 {
                     $scope.error.text = "Sorry, the entered account information is incorrect.";
+                }
+                else if(err.status == 409) {
+                    $scope.error.text = "Sorry, e-mail already exists.";
                 }
                 else {
                     $scope.error.text = "Sorry, an error has occured connecting to the database";
