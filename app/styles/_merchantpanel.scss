@@ -7,9 +7,16 @@
 .authContainer {
     padding: 10px;
     color: $standard;
+
+    h1 {
+        margin-top: 0px;
+    }
 }
 
 .authInput {
+    
+    @extend .waterfall;
+
     margin-top: 10px;
     font-size: 1.5em;
     color: $standard;
@@ -40,6 +47,21 @@
 
 }
 
+.radioContainer {
+
+    .joinRadio {
+        width: 30px;
+        height: 30px;
+        vertical-align: top;
+    }
+
+    .radioText {
+        font-size: 25px;
+        font-weight: initial;
+    }
+
+}
+
 .selectedTricon {
     display: inline-block;
 }
@@ -48,11 +70,13 @@
     @extend .center;
 
     color: $inverseStandard;
+    height: 80px;
 }
 
 .confirmCode {
     text-align: center;
     display: inline-flex;
+    height: 100px;
 }
 
 .triconBreak {
@@ -83,6 +107,17 @@
 
     &:hover {
         background-color: $containerHover;
+    }
+}
+
+.locationTriconContainer {
+    display: inline-block;
+
+    .locationTricon {
+        //Radical and awesome css zooming to resize the tricons
+        zoom: 0.5;
+        -moz-transform: scale(0.5);
+        -moz-transform-origin: 0 0;
     }
 }
 

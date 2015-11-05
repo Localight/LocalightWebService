@@ -18,9 +18,17 @@
         Please tap below to create one!</h4>
 
 <div class = "locationContainer"  ng-repeat = "location in locations">
-    <a href = "/#/panel/editlocation/{{location._id}}">
+    <a href = "/#/dashboard/editlocation/{{location._id}}">
         <h2>{{location.name}}</h2>
-        Location Code: {{location.ownerCode}}
+        Tricon Code:
+        <br>
+        <!-- the three tricon images -->
+        <div class = "locationTriconContainer"
+        ng-repeat = "tricon in getTricons(location.triconKey) track by $index">
+            <div style="background-position-x: -{{tricon}}px;"
+            class="dialButton triconSheet selectedTricon locationTricon upside">
+            </div>
+        </div>
         <br />
         {{location.address1}}, {{location.address2}}
         <br />

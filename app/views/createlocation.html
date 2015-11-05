@@ -2,7 +2,7 @@
 <div ng-class = "{spinner: loading}">
 </div>
 
-<form class = "authContainer center"
+<form class = "center"
 name = "locationForm"
 ng-model = "theForm">
 
@@ -29,7 +29,7 @@ ng-model = "theForm">
     type="text"
     name="address2"
     ng-model="address2"
-    placeholder="Address 2 (Apt., Suite, etc...)">
+    placeholder="Address 2 (Suite, etc...) (Optional)">
 
     <input class = "authInput center"
     type="text"
@@ -65,7 +65,7 @@ ng-model = "theForm">
 </form>
 
 <!-- Tricon Keys -->
-<div class = "authContainer center" ng-show = "showNextPage">
+<div class = "center" ng-show = "showNextPage">
 
     <!-- Our message to the user -->
     <h4 class = "triconHeader">{{triconMessage}}</h4>

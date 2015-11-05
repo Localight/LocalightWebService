@@ -136,7 +136,7 @@ angular.module('angularLocalightApp')
         if($scope.triconArray.length > 2) {
 
             //Inform the user that it is good, and confirmed!
-            $scope.triconMessage = "Please submit to finish creating your location, or enter another code"
+            $scope.triconMessage = "Please submit the entered code to finish updating your location, or enter another tricon code to be used at your location"
             $scope.confirmedCode = true;
         }
     }
@@ -195,7 +195,7 @@ angular.module('angularLocalightApp')
         function(data, status) {
 
             //Success! Redirect back to the main page
-            $location.path("/panel/main");
+            $location.path("/dashboard/main");
 
             //Show(true)/Hide(false) the loading spinner
             $scope.loading = false;

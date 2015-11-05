@@ -42,7 +42,7 @@ angular.module('angularLocalightApp')
             $cookies.put("sessionToken", $scope.owner.token);
 
             //Finally redirect to the main page
-            $location.path("/panel/main");
+            $location.path("/dashboard/main");
 
             //Show(true)/Hide(false) the loading spinner
             $scope.loading = false;
