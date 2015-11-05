@@ -18,6 +18,9 @@ angular.module('angularLocalightApp')
         //Set the body background to dark
         document.body.className = "darkBlurBodyBg";
 
+        //Scroll back to the top
+        window.scrollTo(0, 0);
+
         //Set show the next page to true
         $scope.showNextPage = true;
     }
