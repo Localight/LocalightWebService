@@ -1,5 +1,5 @@
 <!-- The Loading Spinner that will show on page load -->
-<div ng-class = "{spinner: loading}">
+<div ng-class = "{spinner: loading}" ng-init = "loading = false">
 </div>
 
 <form class = "authContainer center" name = "joinForm" ng-submit = "signUp()">
@@ -27,10 +27,10 @@
 
     <input class = "authInput center" type="text" name="fName" ng-model="formData.fName" placeholder="First Name" required>
 
-    <input class = "authInput center" type="text" name="lName" ng-model="formData.date" placeholder="Last Name" required>
+    <input class = "authInput center" type="text" name="lName" ng-model="formData.lName" placeholder="Last Name" required>
 
     <!--Date picker -->
-    <input class = "authInput center" type="text" name="date" ng-model="formData.lName" placeholder="Date of Birth: mm/dd/yyyy" minlength = "10" maxlength = "10" required>
+    <input class = "authInput center" type="text" ng-keyup = "isDateValid()" name="date" ng-model="formData.date" placeholder="Contact Date of Birth: mm/dd/yyyy" required>
 
     <input class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
 
@@ -42,15 +42,16 @@
             <strong>{{error.text}}</strong>
     </div>
 
-
     <button class = "authButton"
     type = "submit"
     ng-disabled = "loading ||
     !joinForm.bType.$valid ||
     !joinForm.bName.$valid ||
-    !joinForm.fname.$valid ||
-    !joinForm.lname.$valid ||
+    !joinForm.fName.$valid ||
+    !joinForm.lName.$valid ||
+    !joinForm.dateValid ||
     !joinForm.email.$valid ||
     !joinForm.password.$valid ||
-    !joinForm.confirmpassword.$valid">Submit</button>
+    !joinForm.confirmPassword.$valid">Submit</button>
+    {{}}
 </form>

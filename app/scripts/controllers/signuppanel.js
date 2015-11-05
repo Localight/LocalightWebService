@@ -18,21 +18,16 @@ angular.module('angularLocalightApp')
     //Boolean for if we receive errors
     $scope.submitError;
 
-    //Return today's date for the date picker
-    $scope.getToday = function() {
-        return new Date().getDate();
-    }
+    //Get if our date is valid
+    $scope.isDateValid = function() {
+        //Regex the date to see if it is valid
+        var dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/;
 
-    /**
-     * Switch date input type=text to type=date (hack to have a placeholder in a date field)
-     */
-    $scope.setDate = function() {
-        document.getElementById('clique_date_selection').type = 'date';
-        //Focus on the date field after setting the type to avoid it blurring
-        $timeout(function () {
-            document.getElementById('clique_date_selection').disabled = false;
-            document.getElementById('clique_date_selection').focus();
-        }, 25);
+        //match our regex
+        if($scope.formData &&
+            $scope.formData.date &&
+            $scope.formData.date.match(dateReg)) $scope.joinForm.dateValid = true;
+        else $scope.joinForm.dateValid = false;
     }
 
     //Sign up our owner!
@@ -60,10 +55,14 @@ angular.module('angularLocalightApp')
         } else {
             //New owner payload
             var payload = {
-               "name" : $scope.username,
-               "stripeCustomerId" : $scope.stripeCustomerId,
+               "legalEntity": $scope.formData.bType,
+               "businessName": $scope.formData.bName,
+               "contactFirstName" : $scope.formData.fName,
+               "contactLastName" : $scope.formData.lName,
+               "contactDOB" : $scope.formData.date,
                "email" : $scope.email,
-               "password" : $scope.password
+               "password" : $scope.password,
+               "stripeCustomerId" : $scope.stripeCustomerId
             }
 
             //Show(true)/Hide(false) the loading spinner
