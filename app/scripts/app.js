@@ -82,30 +82,35 @@ angular
         controller: 'SentconfirmationCtrl',
         controllerAs: 'sentConfirmation'
       })
-      .when('/panel/signup', {
+      .when('/dashboard/signup', {
         templateUrl: 'views/signuppanel.html',
         controller: 'SignuppanelCtrl',
         controllerAs: 'signupPanel'
       })
-      .when('/panel/login', {
+      .when('/dashboard/login', {
         templateUrl: 'views/loginpanel.html',
         controller: 'LoginpanelCtrl',
         controllerAs: 'loginPanel'
       })
-      .when('/panel/main', {
+      .when('/dashboard/main', {
         templateUrl: 'views/mainpanel.html',
         controller: 'MainpanelCtrl',
         controllerAs: 'mainPanel'
       })
-      .when('/panel/createlocation', {
+      .when('/dashboard/createlocation', {
         templateUrl: 'views/createlocation.html',
         controller: 'CreatelocationCtrl',
         controllerAs: 'createlocation'
       })
-      .when('/panel/editlocation/:locationId', {
+      .when('/dashboard/editlocation/:locationId', {
         templateUrl: 'views/editlocation.html',
         controller: 'EditlocationCtrl',
         controllerAs: 'editlocation'
+      })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboardhome.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
       })
       .otherwise({
         redirectTo: '/'
