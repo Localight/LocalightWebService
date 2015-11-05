@@ -75,7 +75,8 @@ ng-model = "theForm">
 	<!-- Using inline styles for our randomization so we can edit this later-->
 	<div class = "confirmCode">
         <div ng-repeat="i in triconArray track by $index">
-		          <div style="background-position-x: -{{i.pos}}px;" class="dialButton triconSheet selectedTricon upside"></div>
+		          <div style="background-position-x: -{{i.pos}}px;"
+                  class="dialButton triconSheet selectedTricon locationTricon upside"></div>
         </div>
     </div>
 

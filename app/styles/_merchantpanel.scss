@@ -14,7 +14,7 @@
 }
 
 .authInput {
-    
+
     @extend .waterfall;
 
     margin-top: 10px;
@@ -71,12 +71,7 @@
 
     color: $inverseStandard;
     height: 80px;
-}
-
-.confirmCode {
-    text-align: center;
-    display: inline-flex;
-    height: 100px;
+    margin-bottom: 2px;
 }
 
 .triconBreak {
@@ -117,6 +112,20 @@
         //Radical and awesome css zooming to resize the tricons
         zoom: 0.5;
         -moz-transform: scale(0.5);
+        -moz-transform-origin: 0 0;
+    }
+}
+
+.confirmCode {
+    @extend .locationTriconContainer;
+
+    height: 50px;
+    display: inline-flex;
+
+    .locationTricon {
+        //Radical and awesome css zooming to resize the tricons
+        zoom: 0.65;
+        -moz-transform: scale(0.65);
         -moz-transform-origin: 0 0;
     }
 }
