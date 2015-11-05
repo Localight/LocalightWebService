@@ -18,18 +18,6 @@ angular.module('angularLocalightApp')
     //Boolean for if we receive errors
     $scope.submitError;
 
-    //Get if our date is valid
-    $scope.isDateValid = function() {
-        //Regex the date to see if it is valid
-        var dateReg = /^\d{2}[./-]\d{2}[./-]\d{4}$/;
-
-        //match our regex
-        if($scope.formData &&
-            $scope.formData.date &&
-            $scope.formData.date.match(dateReg)) $scope.joinForm.dateValid = true;
-        else $scope.joinForm.dateValid = false;
-    }
-
     //Sign up our owner!
     $scope.signUp = function() {
 
@@ -57,7 +45,6 @@ angular.module('angularLocalightApp')
             var payload = {
                "company": $scope.formData.bName,
                "name": $scope.formData.fName + " " + $scope.formData.lName,
-               "dob": $scope.formData.date,
                "email": $scope.formData.email,
                "password": $scope.formData.password,
                //Legacy

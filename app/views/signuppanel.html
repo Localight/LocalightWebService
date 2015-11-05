@@ -30,7 +30,6 @@
     <input class = "authInput center" type="text" name="lName" ng-model="formData.lName" placeholder="Last Name" required>
 
     <!--Date picker -->
-    <input class = "authInput center" type="text" ng-change = "isDateValid()" name="date" ng-model="formData.date" placeholder="Date of Birth: mm/dd/yyyy" required>
 
     <input class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
 
@@ -49,7 +48,6 @@
     !joinForm.bName.$valid ||
     !joinForm.fName.$valid ||
     !joinForm.lName.$valid ||
-    !joinForm.dateValid ||
     !joinForm.email.$valid ||
     !joinForm.password.$valid ||
     !joinForm.confirmPassword.$valid">Submit</button>
