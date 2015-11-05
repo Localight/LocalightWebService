@@ -20,15 +20,13 @@ angular.module('angularLocalightApp')
         window.location = "http://lmgtfy.com/?q=mobile+browsers+only!";
     }
 
-    if($location.path() != "/"){
-        if (navigator.maxTouchPoints <= 1 || navigator.plugins.length > 0) {
-          invalidDevice();
-        } else if (window.chrome) {
-          if (window.chrome.webstore) {
-            invalidDevice();
-          }
-        };
-    }
+    if (navigator.maxTouchPoints <= 1 || navigator.plugins.length > 0) {
+      invalidDevice();
+    } else if (window.chrome) {
+      if (window.chrome.webstore) {
+        invalidDevice();
+      }
+    };
 
     $timeout(function(){
         var html = document.getElementsByTagName("html");
