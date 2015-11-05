@@ -83,32 +83,32 @@ angular
         controllerAs: 'sentConfirmation'
       })
       .when('/dashboard/signup', {
-        templateUrl: 'views/dashSignup.html',
+        templateUrl: 'views/dashboard/dashSignup.html',
         controller: 'SignuppanelCtrl',
         controllerAs: 'signupPanel'
       })
       .when('/dashboard/login', {
-        templateUrl: 'views/dashLogin.html',
+        templateUrl: 'views/dashboard/dashLogin.html',
         controller: 'LoginpanelCtrl',
         controllerAs: 'loginPanel'
       })
       .when('/dashboard/main', {
-        templateUrl: 'views/dashList.html',
+        templateUrl: 'views/dashboard/dashList.html',
         controller: 'MainpanelCtrl',
         controllerAs: 'mainPanel'
       })
       .when('/dashboard/createlocation', {
-        templateUrl: 'views/locationCreate.html',
+        templateUrl: 'views/dashboard/locationCreate.html',
         controller: 'CreatelocationCtrl',
         controllerAs: 'createlocation'
       })
       .when('/dashboard/editlocation/:locationId', {
-        templateUrl: 'views/locationEdit.html',
+        templateUrl: 'views/dashboard/locationEdit.html',
         controller: 'EditlocationCtrl',
         controllerAs: 'editlocation'
       })
       .when('/dashboard', {
-        templateUrl: 'views/dashHome.html',
+        templateUrl: 'views/dashboard/dashHome.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
       })
