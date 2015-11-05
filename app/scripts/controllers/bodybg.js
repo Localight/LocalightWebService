@@ -17,7 +17,7 @@ angular.module('angularLocalightApp')
     }
 
     var invalidDevice = function(){
-        window.location = "/#/";
+        window.location = "http://lmgtfy.com/?q=mobile+browsers+only!";
     }
 
     if($location.path() != "/"){
