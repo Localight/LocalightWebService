@@ -513,7 +513,7 @@ module.exports = function(grunt) {
       return;
     }
 
-    console.log("\nYou didn't specify an environment! Available: prod, dist\n");
+    console.log("\nYou didn't specify an environment! Available: dev, prod\n");
   });
 
   grunt.registerTask('production', 'Compile then start a connect web server', function(target) {
