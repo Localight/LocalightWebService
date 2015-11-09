@@ -494,7 +494,6 @@ module.exports = function(grunt) {
         'concurrent:server',
         'autoprefixer:server',
         'ngconstant:production',
-        'connect:livereload',
         'watch'
       ]);
       return;
@@ -507,13 +506,12 @@ module.exports = function(grunt) {
         'concurrent:server',
         'autoprefixer:server',
         'ngconstant:development',
-        'connect:livereload',
         'watch'
       ]);
       return;
     }
 
-    console.log("\nYou didn't specify an environment! Available: prod, dist\n");
+    console.log("\nYou didn't specify an environment! Available: dev, prod\n");
   });
 
   grunt.registerTask('production', 'Compile then start a connect web server', function(target) {
@@ -526,7 +524,6 @@ module.exports = function(grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
-      'connect:livereload',
       'watch'
     ]);
   });
