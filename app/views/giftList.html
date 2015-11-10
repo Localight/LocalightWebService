@@ -1,6 +1,8 @@
 <!-- The Loading Spinner that will show on page load -->
-<div ng-class = "{spinner: spinnerControl.loadingStack.length > 0}">
-    
+<div ng-class = "{spinner: loadingSpinner.loadingStack.length > 0 ||
+loadingSpinner.loadingStack.length > 0}">
+
+
 </div>
 
 <section data-ng-init="getGiftcards()">

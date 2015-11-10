@@ -16,26 +16,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //The super cool loading stack
-    //Julian knows wayyyyyyy too much about javascript
-    var loadingStack = [];
-    var errorStack = [];
-    $scope.spinnerControl = {
-        loadingStack: loadingStack,
-        errorStack: errorStack
-    };
-
-    $scope.spinnerControl.errorStack.push({
-        devMsg: "",
-        msg: ""
-    });
-
-    $scope.spinnerControl.loadingStack.push({
-        devMsg: "",
-        msg: ""
-    });
-
-
     //Reset the rotation alert boolean
     rotationCheck.reset();
 
@@ -65,8 +45,7 @@ angular.module('angularLocalightApp')
             }
 
             //Query the backend using our session token
-            Giftcards.get(payload,
-            function(data, status) {
+            Giftcards.get(payload, function(data, status) {
                 ///Success save giftcards in scope
                 $scope.giftcards = data;
 
