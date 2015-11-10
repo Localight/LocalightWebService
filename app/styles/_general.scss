@@ -117,9 +117,9 @@ body, html {
 **/
 
 .spinner {
-   position: absolute;
-   left: 47%;
-   top: 47%;
+   position: fixed;
+   left: calc(50% - 30px);
+   top: calc(50% - 30px);
    height:60px;
    width:60px;
    margin:0px auto;
@@ -132,6 +132,7 @@ body, html {
    border-bottom:6px solid $spinnerLight;
    border-top:6px solid $spinnerDark;
    border-radius:100%;
+   z-index: 2;
 }
 
 @-webkit-keyframes rotation {

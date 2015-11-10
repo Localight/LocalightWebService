@@ -16,6 +16,26 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
+    //The super cool loading stack
+    //Julian knows wayyyyyyy too much about javascript
+    var loadingStack = [];
+    var errorStack = [];
+    $scope.spinnerControl = {
+        loadingStack: loadingStack,
+        errorStack: errorStack
+    };
+
+    $scope.spinnerControl.errorStack.push({
+        devMsg: "",
+        msg: ""
+    });
+
+    $scope.spinnerControl.loadingStack.push({
+        devMsg: "",
+        msg: ""
+    });
+
+
     //Reset the rotation alert boolean
     rotationCheck.reset();
 
