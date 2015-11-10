@@ -8,7 +8,7 @@
  * Service in the angularLocalightApp.
  */
 angular.module('angularLocalightApp')
-  .service('loadingSpinner', function ($scope) {
+  .service('loadingSpinner', function () {
 
       //The super cool loading stack system!
       $scope.loadingStack = [];
@@ -52,16 +52,16 @@ angular.module('angularLocalightApp')
                   });
 
              return randomId;
-          }
+         },
 
           //Function to push onto the error stack
           //Param: Message to display to the user, Message to output into the console
           error: function (userMessage, consoleMessage) {
               errorTimeout(userMessage, consoleMessage)
-          }
+          },
 
           //Function to pop off of the loading stack
-          stopLoading: function(var loadingId) {
+          stopLoading: function(loadingId) {
 
               //Search through the stack and pop the error
               for(var i = 0; i < $scope.loadingStack.length; i++) {
