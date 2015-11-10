@@ -16,6 +16,10 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
+    //Initialize the loading service
+    $scope.loadHandler = loadingSpinner.loading;
+    $scope.errorHandler = loadingSpinner.loading;
+
     //Reset the rotation alert boolean
     rotationCheck.reset();
 
@@ -48,6 +52,8 @@ angular.module('angularLocalightApp')
 
             //Query the backend using our session token
             Giftcards.get(payload, function(data, status) {
+
+                loadingSpinner.stopLoading(loadRequest);
 
                 ///Success save giftcards in scope
                 $scope.giftcards = data;

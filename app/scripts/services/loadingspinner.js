@@ -8,11 +8,11 @@
  * Service in the angularLocalightApp.
  */
 angular.module('angularLocalightApp')
-  .service('loadingSpinner', function () {
+  .service('loadingSpinner', function ($timeout) {
 
       //The super cool loading stack system!
-      $scope.loadingStack = [];
-      $scope.errorStack = [];
+      var loadingStack = [];
+      var errorStack = [];
 
       //Function to push onto the error stack
       function errorTimeout(msg, devMsg) {
@@ -20,9 +20,9 @@ angular.module('angularLocalightApp')
           //Return a timeout to show a message if it does nt exectue after a set time
           return $timeout(function () {
 
-              $scope.errorStack.push(msg);
+              errorStack.push(msg);
 
-              conosle.log(devMsg);
+              console.log(devMsg);
 
               return false;
 
@@ -38,12 +38,12 @@ angular.module('angularLocalightApp')
           load: function(message) {
 
               //Create an object Id
-              var randomId = "loading" + $scope.loadingStack.length + Math.random() * (9999 - 1000) + 1000;
+              var randomId = "loading" + loadingStack.length + Math.random() * (9999 - 1000) + 1000;
 
               //Get default messages
 
               //Set up the loading!
-              $scope.loadingStack.push(
+              loadingStack.push(
                   {
                       request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server is down. If this persists, please try again at a later time",
                       "The server never gave a response"),
@@ -64,18 +64,24 @@ angular.module('angularLocalightApp')
           stopLoading: function(loadingId) {
 
               //Search through the stack and pop the error
-              for(var i = 0; i < $scope.loadingStack.length; i++) {
+              for(var i = 0; i < loadingStack.length; i++) {
 
                   //If the id is correct, Pop it from the stack and break
-                  if($scope.loadingStack[i].id == loadingId){
+                  if(loadingStack[i].id == loadingId){
 
-                      $scope.loadingStack[i].requst.cancel();
-                      $scope.loadingStack[i].pop();
+                      //loadingStack[i].request.cancel();
+                      loadingStack.splice(i, 1);
                       break;
                   }
 
               }
-          }
+          },
+
+          //Function to return the loading stack
+          loading: loadingStack,
+
+          //Function to return the error stack
+          error: errorStack
       }
 
   });
