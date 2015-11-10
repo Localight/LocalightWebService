@@ -3,6 +3,14 @@
 errorHandler.length > 0}">
 </div>
 
+<div class = "giftcardContainer"
+    ng-if = "errorHandler.length > 0"
+    ng-repeat = "error in errorHandler">
+
+    <h3>{{errorHandler[$index]}}</h3>
+
+</div>
+
 <section data-ng-init="getGiftcards()">
     <div class="">
 
