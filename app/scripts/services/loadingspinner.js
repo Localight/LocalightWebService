@@ -26,31 +26,41 @@ angular.module('angularLocalightApp')
 
               return false;
 
-          }, 10000);
+          }, 15000);
 
-      }
-
-      //Function to push onto the loading stack and error stack
-      //Id of the push
-      function pushLoading(loadingMessage,
-      "Sorry, but the server is not giving us a response. Please check your internet connection, or the server is down. If this persists, please try again at a later time",
-      "The server never gave a response") {
-
-          //Create an object Id
-          var randomId = "loading" + $scope.loadingStack.length + Math.random() * (1000 - 1) + 1;
-
-          //Set up the loading!
-          $scope.loadingStack.push(
-              {
-                  request: errorTimeout(),
-                  msg: loading,
-                  id:
-              });
       }
 
       //Our functions to be returned from the service
       return {
 
+          //Function to push onto the loading stack and error stack
+          //Param: Message of what is loading
+          load: function(message) {
+
+              //Create an object Id
+              var randomId = "loading" + $scope.loadingStack.length + Math.random() * (9999 - 1000) + 1000;
+
+              //Get default messages
+
+              //Set up the loading!
+              $scope.loadingStack.push(
+                  {
+                      request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server is down. If this persists, please try again at a later time",
+                      "The server never gave a response"),
+                      msg: message,
+                      id: randomId
+                  });
+
+             return randomId;
+          }
+
+          //Function to push onto the error stack
+          //Param: Message to display to the user, Message to output into the console
+          error: function (userMessage, consoleMessage) {
+              errorTimeout(userMessage, consoleMessage)
+          }
+
+          //Function to pop off of the loading stack
           stopLoading: function(var loadingId) {
 
               //Search through the stack and pop the error

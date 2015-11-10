@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, rotationCheck, $location, GivenGifts) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, rotationCheck, $location, GivenGifts loadingSpinner) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -39,6 +39,8 @@ angular.module('angularLocalightApp')
         // Find a list of Giftcards
     	$scope.getGiftcards = function() {
 
+            var loadRequest = loadingSpinner.load("Getting Giftcards...");
+
             //First set up some JSON for the session token
             var payload = {
                 "sessionToken" : sessionToken
@@ -46,6 +48,7 @@ angular.module('angularLocalightApp')
 
             //Query the backend using our session token
             Giftcards.get(payload, function(data, status) {
+
                 ///Success save giftcards in scope
                 $scope.giftcards = data;
 
