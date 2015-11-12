@@ -8,12 +8,16 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('SignuppanelCtrl', function ($scope, $cookies, $location, $timeout, JoinOwner) {
+  .controller('SignuppanelCtrl', function ($scope, $cookies, $location, $timeout, JoinOwner, loadingSpinner) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    //Initialize the loading service
+    $scope.loadHandler = loadingSpinner.loading;
+    $scope.errorHandler = loadingSpinner.error;
 
     //Boolean for if we receive errors
     $scope.submitError;
@@ -71,7 +75,12 @@ angular.module('angularLocalightApp')
             },
             function(err)
             {
-                $scope.isError = true;
+                //Create the error object
+                $scope.error = {
+                    isError : true,
+                    text: ""
+                };
+                
                 if(err.status == 401)
                 {
                     $scope.error.text = "Sorry, the entered account information is incorrect.";

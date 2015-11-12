@@ -8,12 +8,16 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('LoginpanelCtrl', function ($scope, $cookies, $location, LoginOwner) {
+  .controller('LoginpanelCtrl', function ($scope, $cookies, $location, LoginOwner, loadingSpinner) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    //Initialize the loading service
+    $scope.loadHandler = loadingSpinner.loading;
+    $scope.errorHandler = loadingSpinner.error;
 
     //Boolean to show an error to the user
     $scope.submitError;
