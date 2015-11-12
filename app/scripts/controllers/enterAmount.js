@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards, rotationCheck) {
+  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards, rotationCheck, loadingSpinner) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',

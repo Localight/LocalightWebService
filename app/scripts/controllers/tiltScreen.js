@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, LocationById, rotationCheck) {
+  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, LocationById, rotationCheck, loadingSpinner) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -74,7 +74,7 @@ angular.module('angularLocalightApp')
                    //Show an error
                    loadingSpinner.showError("No Session Found!","Session Token is invalid");
                 } else {
-                    
+
                     //An unexpected error has occured, log into console
                     loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
                     "Status: " + err.status + " " + err.data.msg);

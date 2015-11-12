@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, rotationCheck, Giftcards, LocationById, Thanks) {
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, rotationCheck, Giftcards, LocationById, Thanks, loadingSpinner) {
 
       //Initialize the loading service
       $scope.loadHandler = loadingSpinner.loading;
@@ -244,7 +244,7 @@ angular.module('angularLocalightApp')
 
             //Stop Loading
             loadingSpinner.stopLoading(loadRequest);
-            
+
             //Create the error object
             $scope.error = {
                 isError : true,

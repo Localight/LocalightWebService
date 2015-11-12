@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TriconCtrl', function ($scope, $routeParams, $location, rotationCheck, $cookies, LocationById, Spend, $timeout) {
+  .controller('TriconCtrl', function ($scope, $routeParams, $location, rotationCheck, $cookies, LocationById, Spend, $timeout, loadingSpinner) {
 
       //Initialize the loading service
       $scope.loadHandler = loadingSpinner.loading;
@@ -178,7 +178,7 @@ angular.module('angularLocalightApp')
                         }, 375);
                     }
                     else {
-                        
+
                         //An unexpected error has occured, log into console
                         loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
                         "Status: " + err.status + " " + err.data.msg);
