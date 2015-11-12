@@ -26,7 +26,7 @@ angular.module('angularLocalightApp')
 
               return false;
 
-          }, 7500);
+          }, 10000);
 
       }
 
@@ -45,7 +45,8 @@ angular.module('angularLocalightApp')
               //Set up the loading!
               loadingStack.push(
                   {
-                      request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server is down. If this persists, please try again at a later time",
+                      request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server may be down." +
+                      " If this persists, please try again at a later time",
                       "The server never gave a response"),
                       msg: message,
                       id: randomId
