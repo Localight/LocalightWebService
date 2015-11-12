@@ -84,7 +84,6 @@ angular.module('angularLocalightApp')
                 } else {
 
                    //An unexpected error has occured, log into console
-                   console.log("Status: " + err.status + " " + err.data.msg);
                    loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
                    "Status: " + err.status + " " + err.data.msg);
                 }
@@ -124,7 +123,6 @@ angular.module('angularLocalightApp')
                    loadingSpinner.showError("No Session Found!","Session Token is invalid");
                 } else {
                    //An unexpected error has occured, log into console
-                   console.log("Status: " + err.status + " " + err.data.msg);
                    loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
                    "Status: " + err.status + " " + err.data.msg);
                 }
