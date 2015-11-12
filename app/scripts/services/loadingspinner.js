@@ -26,7 +26,7 @@ angular.module('angularLocalightApp')
 
               return false;
 
-          }, 15000);
+          }, 7500);
 
       }
 
@@ -56,7 +56,7 @@ angular.module('angularLocalightApp')
 
           //Function to push onto the error stack
           //Param: Message to display to the user, Message to output into the console
-          error: function (userMessage, consoleMessage) {
+          showError: function (userMessage, consoleMessage) {
               errorTimeout(userMessage, consoleMessage)
           },
 
