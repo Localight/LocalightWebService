@@ -93,17 +93,14 @@ angular.module('angularLocalightApp')
         Giftcards.get(payload,
         function(data, status) {
 
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
-
             ///Success save giftcards in scope
             $scope.giftcards = data;
 
             //Get the total value of all the Giftcards
             $scope.getTotalValue();
 
-            //Show(true)/Hide(false) the loading spinner
-            $scope.loading = false;
+            //Stop Loading
+            loadingSpinner.stopLoading(loadRequest);
         },
 
         function(err)

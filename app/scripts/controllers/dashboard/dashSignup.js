@@ -51,8 +51,8 @@ angular.module('angularLocalightApp')
                "stripeCustomerId": "0"
             }
 
-            //Show(true)/Hide(false) the loading spinner
-            $scope.loading = true;
+            //Start loading
+            var loadRequest = loadingSpinner.load("Signing you in...");
 
             JoinOwner.submit(payload,
             function(data, status){
@@ -66,8 +66,8 @@ angular.module('angularLocalightApp')
                 //Finally redirect to the main page
                 $location.path("/dashboard/main");
 
-                //Show(true)/Hide(false) the loading spinner
-                $scope.loading = false;
+                //Stop Loading
+                loadingSpinner.stopLoading(loadRequest);
             },
             function(err)
             {
@@ -83,8 +83,8 @@ angular.module('angularLocalightApp')
                     $scope.error.text = "Sorry, an error has occured connecting to the database";
                 }
 
-                //Show(true)/Hide(false) the loading spinner
-                $scope.loading = false;
+                //Stop Loading
+                loadingSpinner.stopLoading(loadRequest);
             });
         }
 

@@ -759,8 +759,8 @@ angular.module('angularLocalightApp')
                         //Go to the sent page
                         $location.path("/sent");
 
-                        //Show(true)/Hide(false) the loading spinner
-                        $scope.loading = false;
+                        //Stop Loading
+                        loadingSpinner.stopLoading(loadRequest);
                 },
                 function(err) {
 
