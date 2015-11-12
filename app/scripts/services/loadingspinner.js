@@ -38,7 +38,7 @@ angular.module('angularLocalightApp')
           load: function(message) {
 
               //Create an object Id
-              var randomId = "loading" + loadingStack.length + Math.random() * (9999 - 1000) + 1000;
+              var randomId = "loading" + loadingStack.length + Math.floor(Math.random() * (9999 - 1000) + 1000);
 
               //Get default messages
 
@@ -69,7 +69,7 @@ angular.module('angularLocalightApp')
                   //If the id is correct, Pop it from the stack and break
                   if(loadingStack[i].id == loadingId){
 
-                      //loadingStack[i].request.cancel();
+                      $timeout.cancel(loadingStack[i].request);
                       loadingStack.splice(i, 1);
                       break;
                   }

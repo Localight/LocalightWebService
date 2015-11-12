@@ -18,7 +18,7 @@ angular.module('angularLocalightApp')
 
     //Initialize the loading service
     $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.loading;
+    $scope.errorHandler = loadingSpinner.error;
 
     //Reset the rotation alert boolean
     rotationCheck.reset();
