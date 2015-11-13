@@ -113,7 +113,7 @@ angular
         controllerAs: 'dashboard'
       })
       .when('/followUp', {
-        templateUrl: 'views/followup.html',
+        templateUrl: 'views/dashboard/followup.html',
         controller: 'FollowupCtrl',
         controllerAs: 'followUp'
       })
