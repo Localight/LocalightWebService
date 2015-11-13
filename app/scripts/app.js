@@ -112,6 +112,11 @@ angular
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
       })
+      .when('/followUp', {
+        templateUrl: 'views/followup.html',
+        controller: 'FollowupCtrl',
+        controllerAs: 'followUp'
+      })
       .otherwise({
         redirectTo: '/'
       });
