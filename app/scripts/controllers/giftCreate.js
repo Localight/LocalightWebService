@@ -773,7 +773,9 @@ angular.module('angularLocalightApp')
 
                     //Switch back the pages, and scroll to the bottom
                     $scope.showPage2 = false;
-                    window.scrollTo(0,document.body.scrollHeight);
+                    $timeout(function () {
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }, 0);
                 });
             },
             function(err) {
@@ -792,7 +794,9 @@ angular.module('angularLocalightApp')
 
                 //Switch back the pages, and scroll to the bottom
                 $scope.showPage2 = false;
-                window.scrollTo(0,document.body.scrollHeight);
+                $timeout(function () {
+                    window.scrollTo(0, document.body.scrollHeight);
+                }, 0);
             });
         }
 
