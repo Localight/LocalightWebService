@@ -705,7 +705,7 @@ angular.module('angularLocalightApp')
             };
 
             //If it is successful, Update the spending user
-            var updateUser;
+            var updateUser = "";
             Users.update(payload,
                 function(data, status) {
 
@@ -758,8 +758,22 @@ angular.module('angularLocalightApp')
 
                     //Error, Inform the user of the status
                     console.log("Status: " + err.status + " " + err.data.msg);
+
+                    if(err.status == 412 || 500)
+                    {
+                        //The card was declined!
+                        updateUser = "I'm sorry but the card information you entered seems to be invalid, or the card was declined. Please check and fix your card information.";
+                    }
+                    else {
+                        updateUser = "I'm sorry, an unexpected error has occured. Please contact a developer with your situation, and inform them of the status code: " + err.status;
+                    }
+
                     $scope.backendError = true;
-                    $scope.backendRes = updateUser.msg;
+                    $scope.backendRes = updateUser;
+
+                    //Switch back the pages, and scroll to the bottom
+                    $scope.showPage2 = false;
+                    window.scrollTo(0,document.body.scrollHeight);
                 });
             },
             function(err) {
@@ -772,8 +786,13 @@ angular.module('angularLocalightApp')
 
                 //Error, Inform the user of the status
                 console.log("Status: " + err.status + " " + err.data.msg);
+                updateUser = "I'm sorry, an unexpected error has occured. Please contact a developer with your situation, and inform them of the status code: " + err.status;
                 $scope.backendError = true;
-                $scope.backendRes = updateUser.msg;
+                $scope.backendRes = updateUser;
+
+                //Switch back the pages, and scroll to the bottom
+                $scope.showPage2 = false;
+                window.scrollTo(0,document.body.scrollHeight);
             });
         }
 
