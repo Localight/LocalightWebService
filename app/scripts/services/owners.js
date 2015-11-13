@@ -17,7 +17,13 @@ angular.module('angularLocalightApp')
         method: 'GET',
         params: {},
         isArray: false
+    },
+        update: {
+          method: 'PUT',
+          params: {},
+          isArray: false
       }
+
 
     });
   }]);

@@ -401,10 +401,6 @@ angular.module('angularLocalightApp')
                     document.getElementById("clique_input_creditcardnumber1").focus();
 
                     $scope.$apply();
-
-
-
-
             }
         }
 
