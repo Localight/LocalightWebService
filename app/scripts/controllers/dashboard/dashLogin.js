@@ -42,11 +42,27 @@ angular.module('angularLocalightApp')
             //Success, save the response in scope
             $scope.owner = data;
 
-            //Save their session token
-            $cookies.put("sessionToken", $scope.owner.token);
+            //Check if they are verfied
+            if(!$scope.owner.verified)
+            {
+                //They are not verified go straight to the followup page
+                $location.path("/dashboard/followup");
+            }
+            else {
 
-            //Finally redirect to the main page
-            $location.path("/dashboard/main");
+                //Save their session token
+                $cookies.put("sessionToken", $scope.owner.token);
+
+                //Check if they have completed additional info
+                if($scope.owner.dob) {
+                    //redirect to the main page
+                    $location.path("/dashboard/main");
+                }
+                else {
+                    //redirect to the additional info page
+                    $location.path("/dashboard/additionalinfo");
+                }
+            }
 
             //Stop Loading
             loadingSpinner.stopLoading(loadRequest);

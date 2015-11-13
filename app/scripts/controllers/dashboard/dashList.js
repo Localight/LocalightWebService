@@ -43,8 +43,16 @@ angular.module('angularLocalightApp')
             //Success, save the data to scope
             $scope.owner = data;
 
-            //Get the locations
-            $scope.getLocations();
+            //Check if they have completed their additionalinfo
+            if(!$scope.owner.dob)
+            {
+                //Redirect to the additionalinfo page
+                $location.path("/dashboard/additionalinfo");
+            }
+            else {
+                //Get the locations
+                $scope.getLocations();
+            }
         },
         //check for errors
         function(err)
