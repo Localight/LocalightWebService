@@ -82,7 +82,7 @@ angular
         controller: 'SentconfirmationCtrl',
         controllerAs: 'sentConfirmation'
       })
-      .when('/dashboard/signup', {
+      .when('/dashboard/request', {
         templateUrl: 'views/dashboard/dashSignup.html',
         controller: 'SignuppanelCtrl',
         controllerAs: 'signupPanel'
