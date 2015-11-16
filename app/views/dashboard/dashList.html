@@ -6,9 +6,6 @@
     <h1>Welcome Back</h1>
     <h1 ng-if = "owner.name">{{owner.name}}!</h1>
 
-    <h3>Stripe Customer Id:</h3>
-    <h4>{{owner.stripeCustomerId}}</h4>
-
     <h3>Email:</h3>
     <h4>{{owner.email}}</h4>
 
@@ -28,6 +25,8 @@
             class="dialButton triconSheet selectedTricon locationTricon upside">
             </div>
         </div>
+        <br />
+        Location Code: {{location.ownerCode}}
         <br />
         {{location.address1}}, {{location.address2}}
         <br />

@@ -82,7 +82,7 @@ angular
         controller: 'SentconfirmationCtrl',
         controllerAs: 'sentConfirmation'
       })
-      .when('/dashboard/signup', {
+      .when('/dashboard/request', {
         templateUrl: 'views/dashboard/dashSignup.html',
         controller: 'SignuppanelCtrl',
         controllerAs: 'signupPanel'
@@ -111,6 +111,21 @@ angular
         templateUrl: 'views/dashboard/dashHome.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
+      })
+      .when('/dashboard/followup', {
+        templateUrl: 'views/dashboard/followup.html',
+        controller: 'FollowupCtrl',
+        controllerAs: 'followUp'
+      })
+      .when('/dashboard/additionalinfo', {
+        templateUrl: 'views/dashboard/additionalinfo.html',
+        controller: 'AdditionalinfoCtrl',
+        controllerAs: 'additionalinfo'
+      })
+      .when('/terms', {
+        templateUrl: 'views/terms.html',
+        controller: 'TermsCtrl',
+        controllerAs: 'terms'
       })
       .otherwise({
         redirectTo: '/'

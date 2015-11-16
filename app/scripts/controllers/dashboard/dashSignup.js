@@ -56,7 +56,7 @@ angular.module('angularLocalightApp')
             }
 
             //Start loading
-            var loadRequest = loadingSpinner.load("Signing you in...");
+            var loadRequest = loadingSpinner.load("Creating your account...");
 
             JoinOwner.submit(payload,
             function(data, status){
@@ -64,11 +64,10 @@ angular.module('angularLocalightApp')
                 //Success, save the response from the backend
                 $scope.owner = data;
 
-                //Save their session token
-                $cookies.put("sessionToken", $scope.owner.token);
+                //dont save their session token, just take them to the followup
 
                 //Finally redirect to the main page
-                $location.path("/dashboard/main");
+                $location.path("/dashboard/followup");
 
                 //Stop Loading
                 loadingSpinner.stopLoading(loadRequest);
@@ -80,7 +79,7 @@ angular.module('angularLocalightApp')
                     isError : true,
                     text: ""
                 };
-                
+
                 if(err.status == 401)
                 {
                     $scope.error.text = "Sorry, the entered account information is incorrect.";

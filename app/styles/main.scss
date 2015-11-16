@@ -103,7 +103,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     @extend .rightColumn;
 
     padding-top: 7px;
-    font-size: 5vmin;
+    font-size: 18px;
 }
 
 .PageTwoInput {
@@ -422,7 +422,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
   border-radius: 10px;
-  font-size: 5vmin;
+  font-size: 18px;
   font-weight: 600;
   background: $inverseStandard;
   padding: 10px 20px 10px 20px;
@@ -932,6 +932,24 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 /**
 ***********************
   End Main 404
+***********************
+**/
+
+/**
+***********************
+  Terms and Privacy
+***********************
+**/
+
+.termsContainer {
+    @extend .mainContainer;
+
+
+}
+
+/**
+***********************
+    End Terms And Privacy
 ***********************
 **/
 
