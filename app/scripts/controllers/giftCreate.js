@@ -401,10 +401,6 @@ angular.module('angularLocalightApp')
                     document.getElementById("clique_input_creditcardnumber1").focus();
 
                     $scope.$apply();
-
-
-
-
             }
         }
 
@@ -705,7 +701,7 @@ angular.module('angularLocalightApp')
         $scope.submitGiftcard = function() {
 
             //Start loading
-            var loadRequest = loadingSpinner.load("Getting Giftcards...");
+            var loadRequest = loadingSpinner.load("Create Giftcard...");
 
 
             //Creating the users Json
