@@ -1,0 +1,54 @@
+<!-- The Loading Spinner that will show on page load -->
+<div ng-include src = "'views/loadingSpinner.html'"></div>
+
+<form class = "authContainer center" name = "joinForm" ng-submit = "signUp()">
+
+    <h1>Signup</h1>
+
+    <!-- Intro to the form -->
+    <h4>Thank you for choosing the Local Giftcard!
+        We're going need to know some information about you to get your account set up for payments.
+        Please fill out all of the form below, and double check they are correct.</h4>
+
+    <hr class = "triconBreak">
+
+    <!-- Are they a business or an individual -->
+    <div class = "radioContainer">
+        <h4> Is you legal entity a business or an individual?</h4>
+        <input class = "joinRadio" type="radio" name="bType" id = "cRadio" value="company" ng-model = "formData.bType" required>
+        <label class = "radioText" for = "cRadio">Business</label>
+        <br />
+        <input class = "joinRadio" type="radio" name="bType" id = "iRadio" value="individual" ng-model = "formData.bType" ng-click = "formData.bName = ''" required>
+        <label class = "radioText" for = "iRadio">Individual</label>
+    </div>
+
+    <input ng-show = "formData.bType == 'company'" class = "authInput center" type="text" name="bName" ng-model="formData.bName" placeholder="Business Name">
+
+    <input class = "authInput center" type="text" name="fName" ng-model="formData.fName" placeholder="First Name" required>
+
+    <input class = "authInput center" type="text" name="lName" ng-model="formData.lName" placeholder="Last Name" required>
+
+    <!--Date picker -->
+
+    <input class = "authInput center" type="email" name="email" ng-model="formData.email" placeholder="Email" required>
+
+    <input class = "authInput center" type="password" name="password" ng-model="formData.password" placeholder="Password" required>
+
+    <input class = "authInput center" type="password" name="confirmPassword" ng-model="formData.confirmPassword" placeholder="Confirm Password" required>
+
+    <div ng-show = "error.isError" class = "authWarning">
+            <strong>{{error.text}}</strong>
+    </div>
+
+    <button class = "authButton"
+    type = "submit"
+    ng-disabled = "loading ||
+    !joinForm.bType.$valid ||
+    !joinForm.bName.$valid ||
+    !joinForm.fName.$valid ||
+    !joinForm.lName.$valid ||
+    !joinForm.email.$valid ||
+    !joinForm.password.$valid ||
+    !joinForm.confirmPassword.$valid">Submit</button>
+    {{}}
+</form>

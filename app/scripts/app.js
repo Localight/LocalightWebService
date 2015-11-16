@@ -28,17 +28,17 @@ angular
         controllerAs: 'main'
       })
       .when('/giftcards/create', {
-        templateUrl: 'views/creategiftcard.html',
+        templateUrl: 'views/giftCreate.html',
         controller: 'CreategiftcardCtrl',
         controllerAs: 'createGiftcard'
       })
       .when('/giftcards', {
-        templateUrl: 'views/listgiftcards.html',
+        templateUrl: 'views/giftList.html',
         controller: 'ListgiftcardsCtrl',
         controllerAs: 'listGiftcards'
       })
       .when('/giftcards/:giftcardId', {
-        templateUrl: 'views/viewgiftcard.html',
+        templateUrl: 'views/giftView.html',
         controller: 'ViewgiftcardCtrl',
         controllerAs: 'viewGiftcard'
       })
@@ -48,12 +48,12 @@ angular
         controllerAs: 'merchants'
       })
       .when('/merchants/:merchantId/amount', {
-        templateUrl: 'views/enter-amount.html',
+        templateUrl: 'views/enterAmount.html',
         controller: 'EnterAmountCtrl',
         controllerAs: 'enterAmount'
       })
       .when('/merchants/:merchantId/tilt', {
-        templateUrl: 'views/tilt-screen.html',
+        templateUrl: 'views/tiltScreen.html',
         controller: 'TiltScreenCtrl',
         controllerAs: 'tiltScreen'
       })
@@ -63,12 +63,12 @@ angular
         controllerAs: 'tricon'
       })
       .when('/merchants/:merchantId/confirmation', {
-        templateUrl: 'views/confirmation-timeout.html',
+        templateUrl: 'views/confirmTimeout.html',
         controller: 'ConfirmationTimeoutCtrl',
         controllerAs: 'confirmationTimeout'
       })
       .when('/merchants/:merchantId/thankyou', {
-        templateUrl: 'views/thankyou.html',
+        templateUrl: 'views/thankYou.html',
         controller: 'ThankyouCtrl',
         controllerAs: 'thankyou'
       })
@@ -78,34 +78,39 @@ angular
         controllerAs: 'localism'
       })
       .when('/sent', {
-        templateUrl: 'views/sentconfirmation.html',
+        templateUrl: 'views/confirmSent.html',
         controller: 'SentconfirmationCtrl',
         controllerAs: 'sentConfirmation'
       })
-      .when('/panel/signup', {
-        templateUrl: 'views/signuppanel.html',
+      .when('/dashboard/signup', {
+        templateUrl: 'views/dashboard/dashSignup.html',
         controller: 'SignuppanelCtrl',
         controllerAs: 'signupPanel'
       })
-      .when('/panel/login', {
-        templateUrl: 'views/loginpanel.html',
+      .when('/dashboard/login', {
+        templateUrl: 'views/dashboard/dashLogin.html',
         controller: 'LoginpanelCtrl',
         controllerAs: 'loginPanel'
       })
-      .when('/panel/main', {
-        templateUrl: 'views/mainpanel.html',
+      .when('/dashboard/main', {
+        templateUrl: 'views/dashboard/dashList.html',
         controller: 'MainpanelCtrl',
         controllerAs: 'mainPanel'
       })
-      .when('/panel/createlocation', {
-        templateUrl: 'views/createlocation.html',
+      .when('/dashboard/createlocation', {
+        templateUrl: 'views/dashboard/locationCreate.html',
         controller: 'CreatelocationCtrl',
         controllerAs: 'createlocation'
       })
-      .when('/panel/editlocation/:locationId', {
-        templateUrl: 'views/editlocation.html',
+      .when('/dashboard/editlocation/:locationId', {
+        templateUrl: 'views/dashboard/locationEdit.html',
         controller: 'EditlocationCtrl',
         controllerAs: 'editlocation'
+      })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard/dashHome.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
       })
       .otherwise({
         redirectTo: '/'

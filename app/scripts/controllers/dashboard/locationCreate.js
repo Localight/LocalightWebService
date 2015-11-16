@@ -8,15 +8,22 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('CreatelocationCtrl', function ($scope, $cookies, $location, $route, Owners, Locations) {
+  .controller('CreatelocationCtrl', function ($scope, $cookies, $location, $route, Owners, Locations, loadingSpinner) {
 
     //get our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
+
+    //Initialize the loading service
+    $scope.loadHandler = loadingSpinner.loading;
+    $scope.errorHandler = loadingSpinner.error;
 
     //Switch the view from the first and second "page" of the process
     $scope.switchPage = function() {
         //Set the body background to dark
         document.body.className = "darkBlurBodyBg";
+
+        //Scroll back to the top
+        window.scrollTo(0, 0);
 
         //Set show the next page to true
         $scope.showNextPage = true;
@@ -88,7 +95,7 @@ angular.module('angularLocalightApp')
         if($scope.triconArray.length > 2) {
 
             //Inform the user that it is good, and confirmed!
-            $scope.triconMessage = "Please submit to finish creating your location, or enter another code"
+            $scope.triconMessage = "Please submit the entered code to finish creating your location, or enter another tricon code to be used at your location"
             $scope.confirmedCode = true;
         }
     }
@@ -126,8 +133,8 @@ angular.module('angularLocalightApp')
     //Create the location
     $scope.submitLocation = function() {
 
-        //Show(true)/Hide(false) the loading spinner
-        $scope.loading = true;
+        //Start loading
+        var loadRequest = loadingSpinner.load("Getting Giftcards...");
 
         //First set up some JSON for the session token
         var payload = {
@@ -147,10 +154,10 @@ angular.module('angularLocalightApp')
 
                 //Success, redirect back to the main page, add data to scope
                 $scope.newLocation = data;
-                $location.path("/panel/main");
+                $location.path("/dashboard/main");
 
-                //Show(true)/Hide(false) the loading spinner
-                $scope.loading = false;
+                //Stop Loading
+                loadingSpinner.stopLoading(loadRequest);
             },
             function(err) {
 
@@ -170,8 +177,8 @@ angular.module('angularLocalightApp')
                    $scope.error.text = "Sorry, an error has occured connecting to the database";
                 }
 
-                //Show(true)/Hide(false) the loading spinner
-                $scope.loading = false;
+                //Stop Loading
+                loadingSpinner.stopLoading(loadRequest);
             });
     }
 

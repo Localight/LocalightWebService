@@ -8,12 +8,16 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('SignuppanelCtrl', function ($scope, $cookies, $location, JoinOwner) {
+  .controller('SignuppanelCtrl', function ($scope, $cookies, $location, $timeout, JoinOwner, loadingSpinner) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    //Initialize the loading service
+    $scope.loadHandler = loadingSpinner.loading;
+    $scope.errorHandler = loadingSpinner.error;
 
     //Boolean for if we receive errors
     $scope.submitError;
@@ -22,7 +26,7 @@ angular.module('angularLocalightApp')
     $scope.signUp = function() {
 
         //First check if their passwords match
-        if($scope.password.indexOf($scope.confirmPassword) < 0)
+        if($scope.formData.password.indexOf($scope.formData.confirmPassword) < 0)
         {
             $scope.submitError = true;
             $scope.theError = "Passwords do not match!";
@@ -31,26 +35,28 @@ angular.module('angularLocalightApp')
 
         //Create the error object
         $scope.error = {
-            isError : true,
+            isError : false,
             text: ""
         };
 
         //Regex for all valid emails. To add a TLD, edit the final OR statement.
         var emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|co|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
         //Test the form email against the regex
-        if (!emailRegex.test($scope.email)) {
+        if (!emailRegex.test($scope.formData.email)) {
             $scope.error.text = "Sorry, thats not a valid email.";
         } else {
             //New owner payload
             var payload = {
-               "name" : $scope.username,
-               "stripeCustomerId" : $scope.stripeCustomerId,
-               "email" : $scope.email,
-               "password" : $scope.password
+               "company": $scope.formData.bName,
+               "name": $scope.formData.fName + " " + $scope.formData.lName,
+               "email": $scope.formData.email,
+               "password": $scope.formData.password,
+               //Legacy
+               "stripeCustomerId": "0"
             }
 
-            //Show(true)/Hide(false) the loading spinner
-            $scope.loading = true;
+            //Start loading
+            var loadRequest = loadingSpinner.load("Signing you in...");
 
             JoinOwner.submit(payload,
             function(data, status){
@@ -62,23 +68,32 @@ angular.module('angularLocalightApp')
                 $cookies.put("sessionToken", $scope.owner.token);
 
                 //Finally redirect to the main page
-                $location.path("/panel/main");
+                $location.path("/dashboard/main");
 
-                //Show(true)/Hide(false) the loading spinner
-                $scope.loading = false;
+                //Stop Loading
+                loadingSpinner.stopLoading(loadRequest);
             },
             function(err)
             {
+                //Create the error object
+                $scope.error = {
+                    isError : true,
+                    text: ""
+                };
+                
                 if(err.status == 401)
                 {
                     $scope.error.text = "Sorry, the entered account information is incorrect.";
+                }
+                else if(err.status == 409) {
+                    $scope.error.text = "Sorry, e-mail already exists.";
                 }
                 else {
                     $scope.error.text = "Sorry, an error has occured connecting to the database";
                 }
 
-                //Show(true)/Hide(false) the loading spinner
-                $scope.loading = false;
+                //Stop Loading
+                loadingSpinner.stopLoading(loadRequest);
             });
         }
 

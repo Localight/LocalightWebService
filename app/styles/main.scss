@@ -218,6 +218,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     width: 75px;
 }
 
+.createBackendError {
+    padding: 5px;
+}
+
 /**
 ***********************
   End Create Giftcard
@@ -267,6 +271,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
     &.totalAmount {
         background-color: rgba(255,255,255,1);
+    }
+
+    &.totalAmount:hover {
+        background-color: rgba(255,255,255,1) !important;
     }
 
     .dollarIcon {
