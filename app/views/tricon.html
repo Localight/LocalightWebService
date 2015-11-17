@@ -9,20 +9,22 @@
 	<!-- down arrow -->
 	<img class="center upside" src="../images/up-arrow-wht.png">
 
-	<br>
 	<!--Merchants name -->
 	<h2 class="whiteText center">{{merchantLocation.name}}</h2>
 
-	<!-- Error Display -->
-	<h5 class = "triconError" ng-show="errorMsg">
-		{{errorMsg}}
-	</h5>
+	<!-- Our tricon message -->
+	<div class = "triconMessageContainer">
+		<!-- Error Display -->
+		<h5 class = "triconError" ng-show="errorMsg">
+			{{errorMsg}}
+		</h5>
+		<!-- Our Tricon Pad -->
+		<!-- Our table for tricon, the dialpad -->
+		<h1 class = "triconStar">
+			{{pressedTricon}}
+		</h1>
+	</div>
 
-	<!-- Our Tricon Pad -->
-	<!-- Our table for tricon, the dialpad -->
-	<h1 class = "triconStar">
-		{{pressedTricon}}
-	</h1>
 	<table class="dialPad upside" align="center">
 
 		<tr ng-repeat="n in tableLayout">
