@@ -80,17 +80,17 @@
 }
 
 .locationButtonLeft {
-    @extend authButton;
+    @extend .authButton;
 
     display: inline-block;
-    text-align: right;
+    float: left;
 }
 
 .locationButtonRight {
-    @extend authButton;
+    @extend .authButton;
 
     display: inline-block;
-    text-align: left;
+    float: right;
 }
 
 .locationContainer {
@@ -133,7 +133,7 @@
 .confirmCode {
     @extend .locationTriconContainer;
 
-    height: 50px;
+    height: 70px !important;
     display: inline-flex;
 
     .locationTricon {
@@ -141,7 +141,12 @@
         zoom: 0.65;
         -moz-transform: scale(0.65);
         -moz-transform-origin: 0 0;
+        margin-bottom: 0px;
+        margin-top: 0px;
     }
+
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 /**
