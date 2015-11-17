@@ -100,6 +100,12 @@ angular.module('angularLocalightApp')
         }
     }
 
+    //function to deleted from the tricon array
+    $scope.deleteTricon = function() {
+        //Simply pop from the stack
+        if($scope.triconArray.length > 0) $scope.triconArray.pop();
+    }
+
     //When tricon is unpressed, reset the tricon background
     $scope.unpressed = function(id){
         event.currentTarget.style.backgroundPositionY = '0px';

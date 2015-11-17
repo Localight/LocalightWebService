@@ -79,6 +79,20 @@
     margin-bottom: 5px;
 }
 
+.locationButtonLeft {
+    @extend authButton;
+
+    display: inline-block;
+    text-align: right;
+}
+
+.locationButtonRight {
+    @extend authButton;
+
+    display: inline-block;
+    text-align: left;
+}
+
 .locationContainer {
     @extend .giftcardContainer;
 
