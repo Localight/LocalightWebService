@@ -15,7 +15,7 @@
                <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
            </td>
 
-           <td class="enteredAmount" my-touchstart="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
+           <td class="enteredAmount" ng-click="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
                 <p class="payText">Pay</p>
                <img class="payArrow" src="../images/auth-rt-arrow.png">
            </td>
@@ -23,8 +23,10 @@
    </table>
 
    <!-- Warning no values greater than $500 -->
-   <h5 class = "amountWarning" ng-show = "warning == true">Sorry, No values greater than $500</h5>
-   <h5 class = "amountWarning" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue}}</h5>
+   <div class = "amountWarningContainer">
+       <h5 class = "amountWarning" ng-show = "warning == true">Sorry, No values greater than $500</h5>
+       <h5 class = "amountWarning" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue}}</h5>
+   </div>
 
     <!-- Our table for spending, the dialpad -->
     <table class="dialPad" align="center">
