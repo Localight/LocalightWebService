@@ -38,16 +38,15 @@ You should use branching rather than forking to contribute, however here are ins
 - When a pull request titled PROD - … Exists, pull that request in before any other requests. This is a pull from master into production. If you pull another request in before pulling that request in, you will include the pull in the sync. This is BAD, because it pulls potentially unreviewed and untested code into production.<br /><br />
 
 <b>Labels:</b><br />
-<b>backburner</b> - Issues that are valid, but are not currently important. Issues with this tag should NOT have a milestone attached<br />
 <b>bug</b> - Issues that BREAK functionality or previously written code that executes unexpectedly.<br />
-<b>cleanup</b> - For issues dealing with messy code, or bad implementations.<br />
-<b>design</b> - Issues that have to do with graphical finesse. Does not include building functionality in the frontend such as forms. Has to do with styling, colors, animations etc.<br />
-<b>discussion</b> - Anything that is up for discussion where an approach has yet to be decided. This tag should be removed when a consensus is reached.<br />
-<b>enhancement</b> - Issues that improve pre-existing functionality.<br />
-needs backend - Issues that exist in the frontend, but cannot be completed without backend functionality being implemented first, or that need backend functionality to work better.<br />
 <b>needs milestone</b> - All issues should be created with this tag. This tag will be removed by the timeline manager when a milestone is appointed.<br />
-<b>new feature</b> - This tag is the opposite of enhancement. Anything that involves building new functionality should have this tag.<br />
-<b>urgent</b> - Any issue or pull request that requires IMMEDIATE attention.<br />
+<b>urgent</b> - Any issue or pull request that requires IMMEDIATE attention. This can be used in conjunction with the bug tag.<br />
+<b>cleanup</b> - For issues dealing with messy code, or bad implementations NOT including bugs.<br />
+<b>design</b> - Issues that have to do with increasing existing graphical finesse. Does not include building functionality in the frontend such as forms. Has to do with styling, colors, animations etc.<br />
+<b>discussion</b> - Anything that is up for discussion and input is desired. This tag should be removed when a consensus is reached.<br />
+<b>enhancement</b> - Issues that improve pre-existing functionality.<br />
+<b>new feature</b> - Opposite of enhancement. Anything that involves building new functionality should have this tag.<br />
+<b>needs backend</b> - Issues that exist in the frontend, but cannot be completed without backend functionality being implemented first, or that need backend functionality to work better.<br />
 
 ## History
 
