@@ -101,25 +101,23 @@ ng-model = "theForm">
             <strong>{{error.text}}</strong>
     </div>
 
-    <!-- delete the last tricon entered -->
-    <div class = "dialBack"
-    ng-disabled = "triconArray.length < 1"
-    ng-click = "deleteTricon()">
-        <img class = "dialBackImg" src = "../images/auth-lft-arrow.png">
-        <p class = "dialBackText">Delete</p>
-    </div>
+    <!-- Delete and continue buttons -->
+    <div class = "locationFooterButtons">
+        <!-- delete the last tricon entered -->
+        <div class = "dialBack locationButtonLeft"
+        ng-disabled = "triconArray.length < 1"
+        ng-click = "deleteTricon()">
+            <img class = "dialBackImg" src = "../images/auth-lft-arrow.png">
+            <p class = "dialBackText">Delete</p>
+        </div>
 
-    <!-- Create the location -->
-    <td class="enteredAmount"
-        ng-hide = "!confirmedCode || loading"
-        ng-click = "submitLocation()">
-         <p class="payText">Continue</p>
-        <img class="payArrow" src="../images/auth-rt-arrow.png">
-    </td>
-    <button
-    class = "locationButtonRight"
-    ng-disabled = "!confirmedCode || loading"
-    ng-click = "submitLocation()"
-    type = "submit">Create</button>
+        <!-- Update the location -->
+        <div class="enteredAmount locationButtonRight"
+            ng-hide = "!confirmedCode || loading"
+            ng-click = "updateLocation()">
+             <p class="payText">Continue</p>
+            <img class="payArrow" src="../images/auth-rt-arrow.png">
+        </div>
+    </div>
 
 </div>

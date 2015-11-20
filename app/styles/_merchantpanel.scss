@@ -79,20 +79,37 @@
     margin-bottom: 5px;
 }
 
-.locationButtonLeft {
-    @extend .authButton;
+.locationFooterButtons {
 
-    display: inline-block;
-    float: left;
-    margin-left: 15px;
-}
+    .locationButtonLeft {
 
-.locationButtonRight {
-    @extend .authButton;
+        padding-top: 15px !important;
+        display: inline-block;
+        float: left;
+        margin-left: 20px;
+    }
 
-    display: inline-block;
-    float: right;
-    margin-right: 15px;
+    .locationButtonRight {
+
+        padding-top: 15px;
+        padding-right: 0px;
+
+        display: inline-block;
+        float: right;
+        margin-right: 15px;
+
+        .payText {
+            vertical-align: middle;
+            padding-right: 10px;
+        }
+
+        .payArrow {
+            vertical-align: middle;
+        }
+    }
+
+    margin-bottom: 5px;
+
 }
 
 .locationContainer {
