@@ -79,6 +79,39 @@
     margin-bottom: 5px;
 }
 
+.locationFooterButtons {
+
+    .locationButtonLeft {
+
+        padding-top: 15px !important;
+        display: inline-block;
+        float: left;
+        margin-left: 20px;
+    }
+
+    .locationButtonRight {
+
+        padding-top: 15px;
+        padding-right: 0px;
+
+        display: inline-block;
+        float: right;
+        margin-right: 15px;
+
+        .payText {
+            vertical-align: middle;
+            padding-right: 10px;
+        }
+
+        .payArrow {
+            vertical-align: middle;
+        }
+    }
+
+    margin-bottom: 5px;
+
+}
+
 .locationContainer {
     @extend .giftcardContainer;
 
@@ -119,7 +152,7 @@
 .confirmCode {
     @extend .locationTriconContainer;
 
-    height: 50px;
+    height: 65px;
     display: inline-flex;
 
     .locationTricon {
