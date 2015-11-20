@@ -428,9 +428,13 @@ angular.module('angularLocalightApp')
             //Loop through and add some stars
             for(var i = ccNum.length - 6; i >= 0; i--)
             {
+
                 //Replace the characters that are not dashes
-                if(ccNum.charAt(i) != '-') ccNum = ccNum.substring(0, i - 1) + "*" + ccNum.substring(0, i + 1);
+                if(ccNum.charAt(i) != '-') ccNum = ccNum.substring(0, i) + "*" + ccNum.substring(i + 1);
             }
+
+            //Set the field value!
+            ccField.value = ccNum
         }
 
         //unstar the credit card field

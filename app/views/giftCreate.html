@@ -197,8 +197,8 @@
                 id="clique_input_creditcardnumber1"
                 class="profont creditCardNumInput"
                 placeholder="XXXX-XXXX-XXXX-XXXX"
-                ng-focus="setActiveField('creditcardnumbercontainer');ccStar()"
-                ng-blur = "ccUnStar()"
+                ng-focus="setActiveField('creditcardnumbercontainer');ccUnStar()"
+                ng-blur = "ccStar()"
                 ng-keydown="numbersOnly($event);maxLength($event, 19)"
                 ng-keyup="formatCC($event)"
                 onKeyUp="">
