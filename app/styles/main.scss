@@ -568,12 +568,20 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     vertical-align: text-bottom;
 }
 
+.amountWarningContainer {
+    height: 30px;
+}
+
 .amountWarning {
     @extend .center;
+    font-weight: 600;
+    font-size: 16px;
     color: $danger;
     padding-right: 10px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .dialSheet {
@@ -680,10 +688,17 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 ***********************
 **/
 
+.triconMessageContainer {
+    height: 30px;
+    margin-bottom: 10px;
+}
+
 .triconStar {
     @extend .center;
     color: $inverseStandard;
     padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .triconError {
@@ -691,6 +706,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
     color: $inverseStandard;
     padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .triconSheet {
@@ -700,6 +717,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .triconFooterContainer {
     width: 33%;
+}
+
+.triconForceBottom {
+    display: inline-table;
 }
 
 .cancelIcon {
