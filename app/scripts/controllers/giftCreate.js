@@ -416,6 +416,30 @@ angular.module('angularLocalightApp')
         //Set starter icon to be blank
         $scope.cardIcon = cardIcons[0];
 
+        //Star the credit card field
+        $scope.ccStar = function () {
+
+            //First get the input field
+            var ccField = document.getElementById("clique_input_creditcardnumber1");
+
+            //Get the value
+            var ccNum = ccField.value;
+
+            //Loop through and add some stars
+            for(var i = ccNum.length - 6; i >= 0; i--)
+            {
+                //Replace the characters that are not dashes
+                if(ccNum.charAt(i) != '-') ccNum = ccNum.substring(0, i - 1) + "*" + ccNum.substring(0, i + 1);
+            }
+        }
+
+        //unstar the credit card field
+        $scope.ccUnStar = function () {
+
+            //Simply replace the field value with the actual value
+            document.getElementById("clique_input_creditcardnumber1").value = $scope.cc.number;
+        }
+
         /**
          * Validates form CC. Checks Stripe for validity, determines card type and sets card icon.
          */
@@ -589,6 +613,8 @@ angular.module('angularLocalightApp')
             }
         }
 
+        //Our credit card number
+        $scope.cc.number = "";
         $scope.formatCC = function(event){
             var caretPos = getCaretPosition(event.target) == event.target.value.length ? -3 : getCaretPosition(event.target);
             if(event.which == 46 || event.which == 8){
@@ -606,6 +632,9 @@ angular.module('angularLocalightApp')
                     }
                 }
                 event.target.value = value;
+
+                //Also save the value to the scope
+                $scope.cc.number = value;
 
             } else if(event.which >= 48 && event.which <= 57){
                 var value = event.target.value.replace(/-/g, '');
@@ -625,6 +654,9 @@ angular.module('angularLocalightApp')
                     caretPos++;
                 }
                 event.target.value = value;
+
+                //Also save the value to the scope
+                $scope.cc.number = value;
             }
             if(caretPos >= 0){
                 setCaretPosition(event.target.id, caretPos);
