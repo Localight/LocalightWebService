@@ -48,6 +48,11 @@
                     <td class="textRightAlign tableCell">
                         <div class="giftlistAmount">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
+                <tr>
+                    <td class = "sentFooter">
+                        Received on {{getDate(giftcard.created)}}
+                    </td>
+                </tr>
             </table>
         </a>
 
@@ -63,7 +68,7 @@
                             <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
                     </tr>
                     <tr>
-                        <td class = "spentFooter">
+                        <td class = "sentFooter">
                             Used
                         </td>
                     </tr>
