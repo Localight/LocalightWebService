@@ -58,7 +58,8 @@ angular.module('angularLocalightApp')
 		[
             {
                 "name": "MADE In Long Beach",
-                "image": "../images/feature-card-made.jpg"
+                "image": "../images/feature-card-made.jpg",
+                "address": "240 Pine Ave, Long Beach, CA"
             }
 		]
 
