@@ -27,15 +27,15 @@
         <h4 class = "giftSection">Selected Merchant</h4>
         <div class="list-group flatRowList">
             <a class="list-group-item flatRowListItem"data-ng-href="#/merchants/{{intendedMerchant._id}}/amount">
-              <h2 class = "whiteHeader">{{intendedMerchant.name}}</h2>
+              <h3 class = "whiteHeader">{{intendedMerchant.name}}</h3>
 
                 <div class = "whiteText">
-                    <h4 class="list-group-item-text">
+                    <h5 class="list-group-item-text">
                         <span data-ng-bind="intendedMerchant.address1"></span>
-                    </h4>
-                    <h4 class="list-group-item-text">
+                    </h5>
+                    <h5 class="list-group-item-text">
                         <span data-ng-bind="intendedMerchant.address2"></span>
-                    </h4>
+                    </h5>
                 </div>
                 <span class="glyphicon glyphicon-menu-right" aria-hidden="true">
             </a>
@@ -46,15 +46,15 @@
     <h4 class = "giftSection">All Merchants</h4>
     <div class="list-group flatRowList">
         <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index]._id}}/amount">
-          <h2 class = "whiteHeader">{{merchant.name}}</h2>
+          <h3 class = "whiteHeader">{{merchant.name}}</h3>
 
             <div class = "whiteText">
-                <h4 class="list-group-item-text">
+                <h5 class="list-group-item-text">
     				<span data-ng-bind="merchant.address1"></span>
-    			</h4>
-                <h4 class="list-group-item-text">
+    			</h5>
+                <h5 class="list-group-item-text">
                     <span data-ng-bind="merchant.address2"></span>
-                </h4>
+                </h5>
             </div>
             <span class="glyphicon glyphicon-menu-right" aria-hidden="true">
         </a>
