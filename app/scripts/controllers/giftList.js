@@ -199,4 +199,9 @@ angular.module('angularLocalightApp')
             }
 		}
 
+
+
+        //Init
+        $scope.getGiftcards();
+
   });

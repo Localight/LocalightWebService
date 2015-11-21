@@ -313,4 +313,12 @@ angular.module('angularLocalightApp')
 		//Wedding
 		"Congratulations on the Wedding!"
 	]
+
+
+
+    //Init
+    $scope.getGiftcards();
+    $scope.countCharacters();
+    $scope.loading = true;
+
   });

@@ -97,4 +97,9 @@ angular.module('angularLocalightApp')
             $scope.totalValue = (parseInt(total) / 100).toFixed(2);
         }
 
+
+
+        //Init
+        $scope.getGiftcards();
+
   });

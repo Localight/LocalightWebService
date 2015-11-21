@@ -183,7 +183,7 @@ angular.module('angularLocalightApp')
                         loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
                         "Status: " + err.status + " " + err.data.msg);
                     }
-                    
+
                     //Stop the loading spinner
                     loadingSpinner.stopLoading(loadRequest);
                 });
@@ -249,5 +249,10 @@ angular.module('angularLocalightApp')
             //Change locations to the merchants page
             $location.path("/giftcards");
         }
+
+
+
+        //Init
+        $scope.getLocation();
 
   });
