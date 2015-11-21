@@ -87,7 +87,7 @@ angular.module('angularLocalightApp')
         //First set up some JSON for the session token
         var payload = {
             "sessionToken" : sessionToken
-        }
+        };
 
         //Query the backend using our session token
         Giftcards.get(payload,
@@ -123,7 +123,7 @@ angular.module('angularLocalightApp')
                 "Status: " + err.status + " " + err.data.msg);
             }
         });
-	}
+	};
 
     //The total value of all of the user's giftcards
     $scope.totalValue = "";
@@ -138,10 +138,10 @@ angular.module('angularLocalightApp')
 
         //Return the total value as a formatted string
         $scope.totalValue = (parseInt(total) / 100).toFixed(2);
-    }
+    };
 
 	//Function to switch the value of pressed dialpad
-	$scope.pressButton = function (i)
+	$scope.pressButton = function (i, event)
 	{
 
 		//Set clicked to true, so we know the dialpad is being pressed
@@ -150,9 +150,11 @@ angular.module('angularLocalightApp')
         //Set the currently pressed dialpad button
 		$scope.pressed = i;
 
+        console.log(event);
+
 		//Set Clicked button styling to the dialpad button
         var offset = '-100px';
-        event.currentTarget.style.backgroundPositionY = offset;
+        event.currentTarget.style.backgroundPosition = "0px " + offset;
 
 		//Ignore values that are negative one, since thye simply disable our selectors
 		//Also checking for the number of digits
@@ -245,10 +247,11 @@ angular.module('angularLocalightApp')
 			}
 		}
         else {
+
 			//Set button styling back to original
-			event.currentTarget.style.backgroundPositionY = '0px';
+			event.currentTarget.style.backgroundPosition = '0px 0px';
 		}
-	}
+	};
 
 	//Function call when the back button non the dialpad is pressed
 	$scope.backSpace = function()
@@ -282,7 +285,7 @@ angular.module('angularLocalightApp')
 
 		//Nothing wrong, show!
 		$scope.amount = parseInt(answer) / 100;
-	}
+	};
 
 	//Function to go back to selecting merchants
 	$scope.goTo = function(place) {
@@ -300,6 +303,6 @@ angular.module('angularLocalightApp')
         else {
             $location.path(place);
         }
-	}
+	};
 
 });

@@ -92,7 +92,7 @@ ng-model = "theForm">
 		<tr ng-repeat="n in tableLayout">
 			<!-- Using inline styles for our randomization so we can edit this later-->
 			<td ng-repeat="i in n">
-			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position-x: -{{images[i].pos}}px;"
+			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position: -{{images[i].pos}}px 0;"
             class="dialButton triconSheet"></div></td>
 		</tr>
 	</table>
