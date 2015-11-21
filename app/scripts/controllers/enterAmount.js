@@ -150,11 +150,11 @@ angular.module('angularLocalightApp')
         //Set the currently pressed dialpad button
 		$scope.pressed = i;
 
-        console.log(event);
-
 		//Set Clicked button styling to the dialpad button
         var offset = '-100px';
-        event.currentTarget.style.backgroundPosition = "0px " + offset;
+        var backgroundX = event.currentTarget.style.backgroundPosition.slice(0,
+            event.currentTarget.style.backgroundPosition.indexOf("px ") + 3);
+        event.currentTarget.style.backgroundPosition = backgroundX + offset;
 
 		//Ignore values that are negative one, since thye simply disable our selectors
 		//Also checking for the number of digits
@@ -249,7 +249,7 @@ angular.module('angularLocalightApp')
         else {
 
 			//Set button styling back to original
-			event.currentTarget.style.backgroundPosition = '0px 0px';
+			event.currentTarget.style.backgroundPosition = backgroundX + "0px";
 		}
 	};
 
