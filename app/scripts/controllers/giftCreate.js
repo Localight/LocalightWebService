@@ -321,10 +321,14 @@ angular.module('angularLocalightApp')
 
                 //Finalize our value into the element!
                 element.value = phone;
+                $scope.gc.phoneNumber = phone;
 
                 //Last but now least, focus on the email
                 if($scope.clique_input_phonenumber_validity && phone.length > 12)
                 {
+                    //show the next field
+                    $scope.validContact = true;
+
                     $timeout(function () {
                         document.getElementById("clique_input_email").focus();
                     }, 250);
