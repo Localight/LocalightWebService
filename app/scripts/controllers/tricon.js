@@ -107,14 +107,16 @@ angular.module('angularLocalightApp')
 		}
 
 		//Function to handle tricon presses
-		$scope.pressed = function(id){
+		$scope.pressed = function(id, event){
 
             //reset the error text
             $scope.errorMsg = "";
 
-            //Set the tricon to the pressed image
+            //Set Clicked button styling to the tricon button
             var offset = '-100px';
-			event.currentTarget.style.backgroundPositionY = offset;
+            var backgroundX = event.currentTarget.style.backgroundPosition.slice(0,
+                event.currentTarget.style.backgroundPosition.indexOf("px ") + 3);
+            event.currentTarget.style.backgroundPosition = backgroundX + offset;
 
 			//And, add a star to pressed tricon
 			$scope.pressedTricon = $scope.pressedTricon + "*";
@@ -183,7 +185,7 @@ angular.module('angularLocalightApp')
                         loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
                         "Status: " + err.status + " " + err.data.msg);
                     }
-                    
+
                     //Stop the loading spinner
                     loadingSpinner.stopLoading(loadRequest);
                 });
@@ -191,8 +193,11 @@ angular.module('angularLocalightApp')
 		}
 
 		//Handle when a tricon becomes unpressed
-		$scope.unpressed = function(id) {
-			event.currentTarget.style.backgroundPositionY = '0px';
+		$scope.unpressed = function(id, event) {
+
+            var backgroundX = event.currentTarget.style.backgroundPosition.slice(0,
+                event.currentTarget.style.backgroundPosition.indexOf("px ") + 3);
+            event.currentTarget.style.backgroundPosition = backgroundX + "0px";
 		}
 
 		//Holds the table layout for the dynamic ng-repeat table

@@ -47,7 +47,8 @@
       </div>
 
     </div>
-    <!-- check if already spent -->
+
+    <!-- Shows if gift is not spent -->
     <div ng-if = "isValid">
 
         <!-- amount to use at which merchant section -->
@@ -77,5 +78,37 @@
       </div>
 
       </div>
+
+  </div>
+
+  <!-- Shows if gift is not spent -->
+  <div ng-if = "!isValid">
+
+      <!-- Used at and when -->
+      <div class="text-center merchantInfo blackText">
+        <h4 class="center giftcardAmount">This gift was used at</h4>
+        <h2 class="center viewGiftMerchantName">{{merchants[0].name}}</h2>
+        <h4 class="center viewGiftAddress">{{merchants[0].address}}</h4>
+      </div>
+
+      <!-- Send another gift -->
+      <a ng-href = "#/giftcards/create?token={{sessionToken}}">
+          <div class="text-center merchantInfo blackText viewSendAnother">
+              <!--Make a mobile card thingy -->
+              <div class = "cardBordersDiv">       </div>
+              <p class="center sendText">Send a mobile Giftcard to your friends & family! ></p>
+          </div>
+      </a>
+
+      <!-- Are you a merchant? -->
+      <a href = "#/dashboard">
+          <div class="text-center merchantInfo blackText viewMerchantInvite">
+              <h4 class="center giftcardAmount">Are you a Long Beach merchant? [YES]</h4>
+          </div>
+      </a>
+
+  </div>
+
+
 
 </div>
