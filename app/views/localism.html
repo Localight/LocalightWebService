@@ -18,6 +18,13 @@
 	</table>
 
 	<!-- Send another gift header -->
+	<div ng-if="sentThanks">
+		<h2>Sent your thanks!</h2>
+	</div>
+
+	<div ng-if="!sentThanks">
+		<h2>Reminder set!</h2>
+	</div>
 	<h2 class = "heart blackText center">Send another gift!</h2>
 
 	<!-- Product of localism -->

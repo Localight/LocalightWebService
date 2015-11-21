@@ -237,6 +237,9 @@ angular.module('angularLocalightApp')
             //Success, save the response in scope
             $scope.thankResponse = data;
 
+            //save a thanks cookies
+            $cookies.put("thanks", true);
+
             //Finally redirect to the localism page
             $location.path("/localism");
         },
