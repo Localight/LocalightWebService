@@ -182,6 +182,13 @@ angular.module('angularLocalightApp')
             return (giftcard.amount > 0);
         }
 
+        //Function to return a date's date, not time
+        $scope.getDate = function(date) {
+            var d = new Date(date);
+            var months = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            return months[d.getMonth()] + " " + d.getDay() + ", " + d.getFullYear();
+        }
+
         //Function to go to another url, if giftcards is not zero
 		$scope.goTo = function(place)
 		{
