@@ -70,7 +70,7 @@ angular.module('angularLocalightApp')
     }
 
     //Function to respond to tricon presses
-    $scope.pressed = function(id){
+    $scope.pressed = function(id, event){
 
         //Reset the error message
         $scope.errorMsg = "";
