@@ -62,7 +62,7 @@ angular.module('angularLocalightApp')
         }
 
         //Amount selection slider amount options
-        $scope.prices = [25, 150, 250, 500];
+        $scope.prices = [25, 50, 75, 100, 150, 250, 500];
 
         //Secondary form field highlighting (form field suggestions)
         $scope.secondaryField = null;

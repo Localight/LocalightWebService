@@ -20,13 +20,13 @@
          <tr>
      </table>
 
-    <h1 class = "whitePaddingHeader">Select Merchant</h1>
+    <h3 class = "whitePaddingHeader">Where would you like to use it?</h3>
 
     <!-- Section to show the intendedMerchant, only show if we have one -->
     <div ng-if = "intendedMerchant">
-        <h4 class = "giftSection">Selected Merchant</h4>
+        <h5 class = "giftSection">Selected Merchant</h5>
         <div class="list-group flatRowList">
-            <a class="list-group-item flatRowListItem"data-ng-href="#/merchants/{{intendedMerchant._id}}/amount">
+            <a class="list-group-item flatRowListDarker"data-ng-href="#/merchants/{{intendedMerchant._id}}/amount">
               <h3 class = "whiteHeader">{{intendedMerchant.name}}</h3>
 
                 <div class = "whiteText">
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Section to show all of the merchants -->
-    <h4 class = "giftSection">All Merchants</h4>
+    <h5 class = "giftSection">Or use it at another location</h5>
     <div class="list-group flatRowList">
         <a class="list-group-item flatRowListItem" ng-repeat="merchant in merchantsArray" data-ng-href="#/merchants/{{merchantsArray[$index]._id}}/amount">
           <h3 class = "whiteHeader">{{merchant.name}}</h3>

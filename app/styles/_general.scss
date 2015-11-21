@@ -4,6 +4,17 @@
 ***********************
 **/
 
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 body {
     z-index: -4;
     background: transparent;
@@ -75,17 +86,6 @@ body, html {
     background-image: url('../images/auth-bg.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
-}
-
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
 }
 
 .container, .fn-app {
