@@ -262,7 +262,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
     .glyphicon {
         position: absolute;
-        color: black;
+        color: $standard;
         right: 0;
         top: calc(50% - 25px);
         padding-right: 5px;
@@ -313,10 +313,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
         margin-bottom: 4px
     }
 
-    .spentFooter {
+    .sentFooter {
         @extend .fromTextSpent;
 
-        font-size: 20px;
+        font-size: 12px;
+        font-family: $familyStandard !important;
+        padding-left: 45px;
     }
 
     .fromTextSent {
@@ -331,11 +333,16 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
         opacity: .3;
         margin-bottom: 4px
     }
+}
 
-    .sentFooter {
-        @extend .fromTextSent;
+.flatRowListDarker {
+    @extend .flatRowListItem;
 
-        font-size: 20px;
+    background-color: $standardAlphaDark;
+    z-index: 0;
+
+    .glyphicon {
+        color: $inverseStandard;
     }
 }
 
@@ -491,6 +498,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
     margin-top: 0px;
     font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.giftcardAddress {
+    margin-top: 5px;
     margin-bottom: 20px;
 }
 
@@ -567,7 +579,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-left: -5px;
     display: inline;
     color: $standard;
-    font-size: 25px;
+    font-size: 21px;
+    vertical-align:sub;
 }
 
 .whiteHeader{
@@ -578,8 +591,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .whitePaddingHeader {
     @extend .whiteHeader;
-
-    padding-left: 10px;
 }
 
 /**

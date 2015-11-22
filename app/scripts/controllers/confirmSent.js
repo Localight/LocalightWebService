@@ -22,4 +22,7 @@ angular.module('angularLocalightApp')
         $cookies.remove("email");
     }
 
+    //Init
+    $scope.getInit();
+
   });

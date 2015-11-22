@@ -244,4 +244,10 @@ angular.module('angularLocalightApp')
         });
     }
 
+
+
+
+    //Init
+    $scope.getLocation();
+
   });

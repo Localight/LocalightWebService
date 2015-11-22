@@ -90,4 +90,8 @@ angular.module('angularLocalightApp')
     		$location.path("/merchants/" + merchantId + "/thankyou");
 		}
 
+
+        //Init
+        $scope.getLocation();
+
   });

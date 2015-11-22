@@ -1,7 +1,7 @@
 <!-- The Loading Spinner that will show on page load -->
 <div ng-include src = "'views/loadingSpinner.html'"></div>
 
-<div class="container-fluid wrapper" ng-init="getGiftcard();">
+<div class="container-fluid wrapper">
 
     <!-- header section with give option, clique logo and available balance -->
     <table class = "sub-header">
@@ -37,7 +37,7 @@
       </div>
 
       <!-- gift card image -->
-      <div class = "featuredImageContainer">
+      <div class = "featuredImageContainer" ng-click = "senderId()">
           <!-- The Amount -->
           <div class = "giftAmount">
               <div class = "smallDollar">$</div>
@@ -55,6 +55,7 @@
         <div class="text-center merchantInfo blackText">
           <h4 class="center giftcardAmount" id="useAmount">Use this ${{giftcard.origAmount / 100}} gift at</h4>
           <h2 class="center giftcardMerchant">{{merchants[0].name}}</h2>
+          <h5 class="center giftcardAddress">{{merchants[0].address}}</h5>
         </div>
 
           <!-- use it now/later section -->
@@ -65,7 +66,7 @@
 
       <!-- for beta -->
       <div class="col-xs-12 text-center nearbyMerchant">
-        <h4 class = "blackText">Or select from a list of local merchants</h4>
+        <h4 class = "blackText">Present this giftcard when you visit this merchant</h4>
       </div>
       <div class=""></div>
       <div class="col-xs-4 merchantArrow" ng-click="showMerchantList()"></div>

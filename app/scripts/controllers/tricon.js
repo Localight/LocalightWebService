@@ -255,4 +255,9 @@ angular.module('angularLocalightApp')
             $location.path("/giftcards");
         }
 
+
+
+        //Init
+        $scope.getLocation();
+
   });

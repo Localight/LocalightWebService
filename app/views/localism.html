@@ -1,7 +1,7 @@
 <!-- The Loading Spinner that will show on page load -->
 <div ng-include src = "'views/loadingSpinner.html'"></div>
 
-<section  data-ng-init="getGiftcards()">
+<section>
 
 	<!-- The navbar -->
 	<!-- header section with give option, clique logo and available balance -->
@@ -19,6 +19,15 @@
 
 	<!-- Send another gift header -->
 	<h2 class = "heart blackText center">Send another gift!</h2>
+
+	<!-- Thank you/ Reminder -->
+	<div ng-if="sentThanks">
+		<h3 class = "heart blackText center">Sent your thanks!</h2>
+	</div>
+
+	<div ng-if="!sentThanks">
+		<h3 class = "heart blackText center">Reminder set!</h2>
+	</div>
 
 	<!-- Product of localism -->
 	<div class = "projectOfContainer">

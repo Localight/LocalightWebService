@@ -2,7 +2,7 @@
 <div ng-include src = "'views/loadingSpinner.html'"></div>
 
 <!-- ng init loading hre too because of a strange, random bug -->
-<section ng-init = "getGiftcards();loading = true;">
+<section>
 
 	<!-- header section with give option, clique logo and available balance -->
 	<table class = "sub-header">
@@ -37,7 +37,7 @@
 				<!-- Person's name in the lower right hand corner -->
 				<div class = "textRightAlign">
 					<p class = "heart signing">~ {{giftcards[0].toId.name}}</p>
-					<p ng-init = "countCharacters()" class = "thankCharCount">{{charCount}}</p>
+					<p class = "thankCharCount">{{charCount}}</p>
 				</div>
 		</div>
 

@@ -201,4 +201,9 @@ angular.module('angularLocalightApp')
 			//Wedding
 			"../images/occasion-wedding-icon-wht.png"
 		]
+
+
+
+        //Init
+        $scope.getGiftcard();
   });
