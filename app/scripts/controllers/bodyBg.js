@@ -24,17 +24,22 @@ angular.module('angularLocalightApp')
       return ($location.path().indexOf(route) > -1);
     }
 
+    //Redirect function for invalid devices
     var invalidDevice = function(){
         window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
 
+    //Check if this is not a mobile device
     if (navigator.maxTouchPoints <= 1 || navigator.plugins.length > 0) {
       invalidDevice();
     } else if (window.chrome) {
       if (window.chrome.webstore) {
-        invalidDevice();
+          invalidDevice();
       }
     };
+
+    //Grab the device platform for android/iphone background switching
+
 
     $timeout(function(){
         var html = document.getElementsByTagName("html");
