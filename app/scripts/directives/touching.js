@@ -8,11 +8,14 @@
  */
 
 angular.module('angularLocalightApp')
-.directive('myTouchstart', [function() {
+.directive('myTouchstart', ['$parse', function($parse) {
       return function(scope, element, attr) {
+
+         //Grab our event
+         var touchEvent = $parse(attr.myTouchstart);
           element.on('touchstart', function(event) {
               scope.$apply(function() {
-                  scope.$eval(attr.myTouchstart);
+                  touchEvent(scope, {$event: event});
               });
           });
       };
@@ -25,12 +28,14 @@ angular.module('angularLocalightApp')
         });
       },true);
   };
-}).directive('myTouchend', [function() {
+}).directive('myTouchend', ['$parse', function($parse) {
       return function(scope, element, attr) {
 
+          //Grab our event
+          var touchEvent = $parse(attr.myTouchend);
           element.on('touchend', function(event) {
               scope.$apply(function() {
-                  scope.$eval(attr.myTouchend);
+                  touchEvent(scope, {$event: event});
               });
           });
       };

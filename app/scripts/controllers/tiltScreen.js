@@ -105,4 +105,9 @@ angular.module('angularLocalightApp')
 			$location.path(place);
 		}
 
+
+
+        //Init
+        $scope.getLocation();
+
   });

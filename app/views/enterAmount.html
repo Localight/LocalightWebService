@@ -1,9 +1,7 @@
 <!-- The Loading Spinner that will show on page load -->
 <div ng-include src = "'views/loadingSpinner.html'"></div>
 
-<div ng-init = "getGiftcards()">
-
-
+<div>
 
     <!-- Our Value that we will be spending -->
     <table class = "sub-header">
@@ -35,7 +33,7 @@
 			<!-- Using inline styles for our randomization so we can edit this later-->
 			<td ng-repeat="i in n">
             <!--Need to use table values for press buttont hat way we dont send th wrong values -->
-			<div my-touchstart="pressButton({{tableValues[$parent.$index][$index]}});" my-touchend="pressButton(-1);" style="background-position-x: -{{i*100}}px;" class="dialButton dialSheet"></div></td>
+			<div my-touchstart="pressButton({{tableValues[$parent.$index][$index]}}, $event);" my-touchend="pressButton(-1, $event);" style="background-position: -{{i*100}}px 0px;" class="dialButton dialSheet"></div></td>
 		</tr>
         <tr>
 			<!-- Using inline styles for our randomization so we can edit this later-->
@@ -46,7 +44,7 @@
                 </div>
             </td>
             <td>
-			<div my-touchstart="pressButton(0);" my-touchend="pressButton(-1);" style="background-position-x: -{{i*100}}px;" class="dialButton dialSheet"></div>
+			<div my-touchstart="pressButton(0, $event);" my-touchend="pressButton(-1, $event);" style="background-position: -{{i*100}}px 0px;" class="dialButton dialSheet"></div>
             </td>
             <td class = "center">
                 <div class = "dialBackSpace">
