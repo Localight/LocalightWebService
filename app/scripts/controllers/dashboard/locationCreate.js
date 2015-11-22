@@ -70,14 +70,16 @@ angular.module('angularLocalightApp')
     }
 
     //Function to respond to tricon presses
-    $scope.pressed = function(id){
+    $scope.pressed = function(id, event){
 
         //Reset the error message
         $scope.errorMsg = "";
 
-        //Change the tricon image to pressed
+        //Set Clicked button styling to the tricon button
         var offset = '-100px';
-        event.currentTarget.style.backgroundPositionY = offset;
+        var backgroundX = event.currentTarget.style.backgroundPosition.slice(0,
+            event.currentTarget.style.backgroundPosition.indexOf("px ") + 3);
+        event.currentTarget.style.backgroundPosition = backgroundX + offset;
 
         //Check if they had already entered a code
         if($scope.triconArray.length > 2) {
@@ -100,9 +102,18 @@ angular.module('angularLocalightApp')
         }
     }
 
-    //When tricon is unpressed, reset the tricon background
-    $scope.unpressed = function(id){
-        event.currentTarget.style.backgroundPositionY = '0px';
+    //function to deleted from the tricon array
+    $scope.deleteTricon = function() {
+        //Simply pop from the stack
+        if($scope.triconArray.length > 0) $scope.triconArray.pop();
+    }
+
+    //Handle when a tricon becomes unpressed
+    $scope.unpressed = function(id, event) {
+
+        var backgroundX = event.currentTarget.style.backgroundPosition.slice(0,
+            event.currentTarget.style.backgroundPosition.indexOf("px ") + 3);
+        event.currentTarget.style.backgroundPosition = backgroundX + "0px";
     }
 
     //Holds the table layout for the dynamic ng-repeat table

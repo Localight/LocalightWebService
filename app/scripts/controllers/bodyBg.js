@@ -13,6 +13,14 @@ angular.module('angularLocalightApp')
     //If the route is the route passed,
     //it will switch the body ng-class
     $scope.isDark = function(route) {
+
+        //Check to also switch our html color here with dark routes
+        //Colors should be kept in sync with colors sass
+        if($location.path().indexOf(route) > -1) {
+            document.documentElement.backgroundColor = "#316D6B"
+        }
+        else document.documentElement.backgroundColor = "#4fcfc8"
+
       return ($location.path().indexOf(route) > -1);
     }
 

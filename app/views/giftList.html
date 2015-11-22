@@ -1,7 +1,7 @@
 <!-- The Loading Spinner that will show on page load -->
 <div ng-include src = "'views/loadingSpinner.html'"></div>
 
-<section data-ng-init="getGiftcards()">
+<section>
     <div class="">
 
         <!-- header section with give option, clique logo and available balance -->
@@ -48,12 +48,17 @@
                     <td class="textRightAlign tableCell">
                         <div class="giftlistAmount">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
+                <tr>
+                    <td class = "sentFooter">
+                        Received on {{getDate(giftcard.created)}}
+                    </td>
+                </tr>
             </table>
         </a>
 
         <!--spent giftcards -->
         <div ng-if = "giftcards[giftcards.length - 1].amount <= 0">
-            <h4 class = "giftSection">Spent</h4>
+            <h4 class = "giftSection">Used</h4>
             <a class="list-group-item flatRowListItem" ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -5 | orderBy:'+':true" ng-href="#/giftcards/{{giftcard._id}}">
             <!-- Line breaks to space the list so it's easier to click -->
                 <table>
@@ -63,8 +68,8 @@
                             <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
                     </tr>
                     <tr>
-                        <td class = "spentFooter">
-                            Spent
+                        <td class = "sentFooter">
+                            Used
                         </td>
                     </tr>
                 </table>
@@ -84,7 +89,7 @@
                     </tr>
                     <tr>
                         <td class = "sentFooter">
-                            Sent
+                            Sent on {{getDate(giftcard.created)}}
                         </td>
                     </tr>
                 </table>

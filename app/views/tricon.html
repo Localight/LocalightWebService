@@ -2,48 +2,52 @@
 <div ng-class = "{spinner: loading}">
 </div>
 
-<section class = "upside" ng-class = "{friendlyShake: shaky}" ng-init="getLocation()">
+<section class = "upside" ng-class = "{friendlyShake: shaky}">
 	<!-- The amount entered -->
 	<h2 class="whiteText center">${{getAmount()}}</h2>
 
 	<!-- down arrow -->
 	<img class="center upside" src="../images/up-arrow-wht.png">
 
-	<br>
-	<!--Merchants name -->
-	<h2 class="whiteText center">{{merchantLocation.name}}</h2>
+	<!--Merchants name, upside container to fix a bug -->
+	<div class = "upside">
+		<h2 class="whiteText center upside">{{merchantLocation.name}}</h2>
+	</div>
 
-	<!-- Error Display -->
-	<h5 class = "triconError" ng-show="errorMsg">
-		{{errorMsg}}
-	</h5>
+	<!-- Our tricon message -->
+	<div class = "triconMessageContainer">
+		<!-- Error Display -->
+		<h5 class = "triconError" ng-show="errorMsg">
+			{{errorMsg}}
+		</h5>
+		<!-- Our Tricon Pad -->
+		<!-- Our table for tricon, the dialpad -->
+		<h1 class = "triconStar">
+			{{pressedTricon}}
+		</h1>
+	</div>
 
-	<!-- Our Tricon Pad -->
-	<!-- Our table for tricon, the dialpad -->
-	<h1 class = "triconStar">
-		{{pressedTricon}}
-	</h1>
 	<table class="dialPad upside" align="center">
 
 		<tr ng-repeat="n in tableLayout">
 			<!-- Using inline styles for our randomization so we can edit this later-->
 			<td ng-repeat="i in n">
-			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position-x: -{{images[i].pos}}px;" class="dialButton triconSheet"></div></td>
+			<div my-touchstart="pressed(i, $event);" my-touchend="unpressed(i, $event);" style="background-position: -{{images[i].pos}}px 0px;" class="dialButton triconSheet"></div></td>
 		</tr>
 	</table>
 
 	<!-- footer -->
-	<table class = "sub-header">
+	<table class = "sub-header triconForceBottom upside">
 		<tr>
-			<td class = "triconFooterContainer"><a class="blackText navText" ng-click = "senderId()">
+			<td class = "triconFooterContainer upside"><a class="blackText navText" ng-click = "senderId()">
 				<img class = "cancelIcon" ng-src="/../images/cancel-btn-orange.png" alt="Cancel Icon" height="25px" width="25px"></a>
 			</td>
 
-			<td class = "localightImg center">
+			<td class = "localightImg center upside">
 				<img ng-src="/../images/logo-localight-outline-wht.png" alt="Localight" height="45px" width="45px">
 			</td>
 
-			<td class = "triconFooterContainer"><a class="blackText navText" ng-href="/#/giftcards">
+			<td class = "triconFooterContainer upside"><a class="blackText navText" ng-href="/#/giftcards">
 				<img class = "infoIcon" ng-src="/../images/info-btn-aqua.png" alt="Info Icon" height="25px" width="25px"></a>
 			</td>
 

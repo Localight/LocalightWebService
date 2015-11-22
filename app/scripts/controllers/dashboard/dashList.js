@@ -225,4 +225,11 @@ angular.module('angularLocalightApp')
         $location.path("/dashboard/createlocation")
     }
 
+
+
+
+
+    //Init
+    $scope.getOwner();
+
   });

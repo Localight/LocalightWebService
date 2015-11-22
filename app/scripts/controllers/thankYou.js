@@ -237,6 +237,9 @@ angular.module('angularLocalightApp')
             //Success, save the response in scope
             $scope.thankResponse = data;
 
+            //save a thanks cookies
+            $cookies.put("thanks", true);
+
             //Finally redirect to the localism page
             $location.path("/localism");
         },
@@ -310,4 +313,12 @@ angular.module('angularLocalightApp')
 		//Wedding
 		"Congratulations on the Wedding!"
 	]
+
+
+
+    //Init
+    $scope.getGiftcards();
+    $scope.countCharacters();
+    $scope.loading = true;
+
   });

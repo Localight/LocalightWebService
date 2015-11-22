@@ -3,7 +3,6 @@
 
 <form class = "center"
 name = "locationForm"
-ng-init = "getLocation()"
 ng-model = "theForm">
 
     <!-- Part one of the creat location -->
@@ -80,7 +79,8 @@ ng-model = "theForm">
 	<!-- Using inline styles for our randomization so we can edit this later-->
 	<div class = "confirmCode">
         <div ng-repeat="i in triconArray track by $index">
-		          <div style="background-position-x: -{{i.pos}}px;" class="dialButton triconSheet selectedTricon upside"></div>
+		          <div style="background-position: -{{i.pos}}px 0px;"
+                  class="dialButton triconSheet selectedTricon locationTricon upside"></div>
         </div>
     </div>
 
@@ -91,7 +91,8 @@ ng-model = "theForm">
 		<tr ng-repeat="n in tableLayout">
 			<!-- Using inline styles for our randomization so we can edit this later-->
 			<td ng-repeat="i in n">
-			<div my-touchstart="pressed(i);" my-touchend="unpressed(i);" style="background-position-x: -{{images[i].pos}}px;" class="dialButton triconSheet"></div></td>
+			<div my-touchstart="pressed(i, $event);" my-touchend="unpressed(i, $event);" style="background-position: -{{images[i].pos}}px 0px;"
+            class="dialButton triconSheet"></div></td>
 		</tr>
 	</table>
 
@@ -99,10 +100,23 @@ ng-model = "theForm">
             <strong>{{error.text}}</strong>
     </div>
 
-    <button
-    class = "authButton center"
-    ng-disabled = "!confirmedCode || loading"
-    ng-click = "updateLocation()"
-    type = "submit">Update</button>
+    <!-- Delete and continue buttons -->
+    <div class = "locationFooterButtons">
+        <!-- delete the last tricon entered -->
+        <div class = "dialBack locationButtonLeft"
+        ng-disabled = "triconArray.length < 1"
+        ng-click = "deleteTricon()">
+            <img class = "dialBackImg" src = "../images/auth-lft-arrow.png">
+            <p class = "dialBackText">Delete</p>
+        </div>
+
+        <!-- Update the location -->
+        <div class="enteredAmount locationButtonRight"
+            ng-hide = "!confirmedCode || loading"
+            ng-click = "updateLocation()">
+             <p class="payText">Continue</p>
+            <img class="payArrow" src="../images/auth-rt-arrow.png">
+        </div>
+    </div>
 
 </div>

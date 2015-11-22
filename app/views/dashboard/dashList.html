@@ -1,7 +1,7 @@
 <!-- The Loading Spinner that will show on page load -->
 <div ng-include src = "'views/loadingSpinner.html'"></div>
 
-<div class = "authContainer center" ng-init = "getOwner();">
+<div class = "authContainer center">
 
     <h1>Welcome Back</h1>
     <h1 ng-if = "owner.name">{{owner.name}}!</h1>
@@ -21,7 +21,7 @@
         <!-- the three tricon images -->
         <div class = "locationTriconContainer"
         ng-repeat = "tricon in getTricons(location.triconKey) track by $index">
-            <div style="background-position-x: -{{tricon}}px;"
+            <div style="background-position: -{{tricon}}px 0px;"
             class="dialButton triconSheet selectedTricon locationTricon upside">
             </div>
         </div>

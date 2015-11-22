@@ -53,8 +53,6 @@ angular.module('angularLocalightApp')
                 //Save their session token
                 $cookies.put("sessionToken", $scope.owner.token);
 
-                console.log($scope.owner);
-
                 //Check if they have completed additional info
                 if($scope.owner.dob) {
                     //redirect to the main page

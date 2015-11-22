@@ -34,11 +34,16 @@ angular.module('angularLocalightApp')
 
         //Get the session token from the cookies
         var sessionToken;
+        //Scope session token for going to the giftcard create page
+        $scope.sessionToken = "";
 
         if($location.search().token)
         {
             //get our session token
             sessionToken = $location.search().token;
+
+            //also save in scope
+            $scope.sessionToken = sessionToken;
 
             //Place the session token in the cookies
             $cookies.put("sessionToken", sessionToken);
@@ -47,6 +52,9 @@ angular.module('angularLocalightApp')
         {
             //get our session token from the cookies
             sessionToken = $cookies.get("sessionToken");
+
+            //also save in scope
+            $scope.sessionToken = sessionToken;
         }
         else {
             //Redirect them to a 404
@@ -58,7 +66,8 @@ angular.module('angularLocalightApp')
 		[
             {
                 "name": "MADE In Long Beach",
-                "image": "../images/feature-card-made.jpg"
+                "image": "../images/feature-card-made.jpg",
+                "address": "240 Pine Ave, Long Beach, CA"
             }
 		]
 
@@ -192,4 +201,9 @@ angular.module('angularLocalightApp')
 			//Wedding
 			"../images/occasion-wedding-icon-wht.png"
 		]
+
+
+
+        //Init
+        $scope.getGiftcard();
   });
