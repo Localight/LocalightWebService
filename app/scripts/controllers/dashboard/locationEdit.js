@@ -23,10 +23,17 @@ angular.module('angularLocalightApp')
     //get our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
 
+    //Duplicate form scope
+    $scope.theForm = {};
+    $scope.formData = {};
+
     //Switch the view from the first and second "page" of the process
     $scope.switchPage = function() {
         //Set the body background to dark
         document.body.className = "darkBlurBodyBg";
+
+        //Duplicate form scope
+        $scope.formData = $scope.theForm;
 
         //Set show the next page to true
         $scope.showNextPage = true;
@@ -145,7 +152,7 @@ angular.module('angularLocalightApp')
         if($scope.triconArray.length > 2) {
 
             //Inform the user that it is good, and confirmed!
-            $scope.triconMessage = "Please submit the entered code to finish updating your location, or enter another tricon code to be used at your location"
+            $scope.triconMessage = "Please submit the entered code to finish updating your location"
             $scope.confirmedCode = true;
         }
     }
@@ -196,13 +203,13 @@ angular.module('angularLocalightApp')
         var payload = {
            "id": $routeParams.locationId,
            "sessionToken": sessionToken,
-           "name": $scope.locationName,
+           "name": $scope.formData.locationName,
            "triconKey": $scope.triconArray[0].code + "" + $scope.triconArray[1].code + "" + $scope.triconArray[2].code,
-           "address1": $scope.address1,
-           "address2": $scope.address2,
-           "city": $scope.city,
-           "state": $scope.state,
-           "zipcode": $scope.zipcode
+           "address1": $scope.formData.address1,
+           "address2": $scope.formData.address2,
+           "city": $scope.formData.city,
+           "state": $scope.formData.state,
+           "zipcode": $scope.formData.zipcode
        };
 
         $scope.newLocation = LocationById.update(payload,
