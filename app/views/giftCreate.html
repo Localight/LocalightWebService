@@ -197,11 +197,10 @@
                 id="clique_input_creditcardnumber1"
                 class="profont creditCardNumInput"
                 placeholder="XXXX-XXXX-XXXX-XXXX"
-                ng-focus="setActiveField('creditcardnumbercontainer');"
-                ng-model="cc.number"
+                ng-focus="setActiveField('creditcardnumbercontainer');ccUnStar()"
+                ng-blur = "ccStar()"
                 ng-keydown="numbersOnly($event);maxLength($event, 19)"
-                ng-keyup="formatCC($event)"
-                onKeyUp="">
+                ng-keyup="formatCC($event)">
             <!-- Checkmark box to the right -->
             <img class = "creditCardCheck"
             src = "../images/checkmark-blk.png"
@@ -270,13 +269,7 @@
         </div>
 
         <!-- Some Error Checking -->
-        <div ng-if = "giftcardForm.clique_input_creditcardnumber1.$dirty
-        && giftcardForm.clique_input_creditcardnumber1.$touched
-        && giftcardForm.clique_input_creditcardnumber2.$dirty
-        && giftcardForm.clique_input_creditcardnumber2.$touched
-        && giftcardForm.clique_input_creditcardnumber3.$dirty
-        && giftcardForm.clique_input_creditcardnumber3.$touched
-        && giftcardForm.clique_input_expiry_m.$dirty
+        <div ng-if = "giftcardForm.clique_input_expiry_m.$dirty
         && giftcardForm.clique_input_expiry_m.$touched
         && giftcardForm.clique_input_expiry_y.$dirty
         && giftcardForm.clique_input_expiry_y.$touched
@@ -304,7 +297,7 @@
 
 
     <div class="createGiftCardWidth waterfall" ng-show="
-    giftcardForm.clique_input_creditcardnumber1.$dirty &&
+    validCC &&
     giftcardForm.clique_input_expiry_m.$dirty &&
     giftcardForm.clique_input_expiry_y.$dirty &&
     giftcardForm.clique_input_cvv.$dirty &&
@@ -419,7 +412,3 @@
    </form>
   </section>
 </section>
-
-<!-- Very bottom of the page, use this empty element to always be able to scroll to the bottom -->
-<div id = "bottom">
-</div>
