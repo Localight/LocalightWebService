@@ -814,10 +814,15 @@ angular.module('angularLocalightApp')
                     $scope.backendError = true;
                     $scope.backendRes = updateUser;
 
-                    //Switch back the pages, and scroll to the bottom
+                    //Switch back the pages, and scroll to the bottom, and unstar credit card field
                     $scope.showPage2 = false;
                     $timeout(function () {
                         window.scrollTo(0, document.body.scrollHeight);
+
+                        //if it was a credit card error, unstar and focus
+                        $timeout(function () {
+                            if(err.status == 412 || 500) $scope.ccUnStar();
+                        }, 100);
                     }, 0);
                 });
             },
