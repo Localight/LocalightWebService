@@ -65,12 +65,12 @@ angular.module('angularLocalightApp')
                 $scope.merchantLocation = data;
 
                 //Set the variables for the form here!
-                $scope.locationName = $scope.merchantLocation.name;
-                $scope.address1 = $scope.merchantLocation.address1;
-                $scope.address2 = $scope.merchantLocation.address2;
-                $scope.city = $scope.merchantLocation.city;
-                $scope.state = $scope.merchantLocation.state;
-                $scope.zipcode= $scope.merchantLocation.zipcode;
+                $scope.theForm.locationName = $scope.merchantLocation.name;
+                $scope.theForm.address1 = $scope.merchantLocation.address1;
+                $scope.theForm.address2 = $scope.merchantLocation.address2;
+                $scope.theForm.city = $scope.merchantLocation.city;
+                $scope.theForm.state = $scope.merchantLocation.state;
+                $scope.theForm.zipcode= $scope.merchantLocation.zipcode;
 
                 //Stop Loading
                 loadingSpinner.stopLoading(loadRequest);
@@ -245,5 +245,10 @@ angular.module('angularLocalightApp')
             loadingSpinner.stopLoading(loadRequest);
         });
     }
+
+
+
+    //Init
+    $scope.getLocation();
 
   });
