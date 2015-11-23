@@ -1,11 +1,7 @@
 <!doctype html>
 <!-- Declaring on HTML for background purposes -->
 <html ng-app="angularLocalightApp"
-ng-controller="BodyCtrl"
-ng-class="{darkBlurBodyBg: isDark('/amount')
-  || isDark('/tilt')
-  || isDark('/tricon')
-  || isDark('/confirmation')}">
+ng-controller="BodyCtrl">
 
 <head>
   <meta charset="utf-8">
@@ -64,6 +60,16 @@ ng-class="{darkBlurBodyBg: isDark('/amount')
   <div class="fn-app">
     <div class="container" id="content">
       <div ng-view=""></div>
+    </div>
+  </div>
+
+  <!-- Our Background Image -->
+  <div id = "localCity" class = "localCity">
+      <!-- The darker Overlay -->
+      <div ng-class="{darkBlurBodyBg: isDark('/amount')
+        || isDark('/tilt')
+        || isDark('/tricon')
+        || isDark('/confirmation')}">
     </div>
   </div>
 

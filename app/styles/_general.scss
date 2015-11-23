@@ -16,16 +16,12 @@
 }
 
 body {
-    z-index: -4;
+    z-index: -1;
     background: transparent;
 }
 
 html {
-    background: url('../images/local-street-bg.png');
     background-color: $colorBg;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: contain;
 }
 
 body, html {
@@ -33,6 +29,21 @@ body, html {
   padding: 0px;
   margin: 0px;
   min-height:100%;
+}
+
+.localCity {
+    background-image: url('../images/local-street-bg.png');
+    background-repeat: no-repeat;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: -3;
+    //Essentially, 100% of the viewport, plus the disappearing iPhone navbar
+    height: calc(100% + 88px);
+    width: 100%;
+    position: fixed !important;
+    background-size: contain;
+    //Background position covered in JS
 }
 
 .bgFade {
@@ -44,8 +55,10 @@ body, html {
 }
 
 .darkBlurBodyBg {
-    //background-image: url('../images/auth-bg.png');
-    background-color: $authBg;
+    background-color: $standardAlphaDark;
+    height: calc(100% + 88px);
+    width: 100%;
+    z-index: -2;
 }
 
 .container{
