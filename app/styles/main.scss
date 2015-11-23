@@ -379,7 +379,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .listUserName {
     @extend .heart;
 
-    color: $danger;
+    color: $inverseStandard;
     font-size: 3em;
     text-align: right;
     padding-right: 15px;
@@ -580,7 +580,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     display: inline;
     color: $standard;
     font-size: 21px;
-    vertical-align:sub;
+    vertical-align:text-bottom;
 }
 
 .whiteHeader{
@@ -717,10 +717,15 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     height: 71px;
     background: url('../images/lock-anim-sprite-wht.png') left bottom;
     background-size: auto 71px;
-    animation: play 2.5s steps(15, end) infinite;
     transition: none;
     margin-top:5px;
 
+}
+
+.animateLock {
+    animation: play 2.5s steps(15, end);
+    animation-direction: reverse;
+    animation-iteration-count: 1
 }
 
 .lockBorder {

@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, LocationById, rotationCheck, loadingSpinner) {
+  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, $timeout, LocationById, rotationCheck, loadingSpinner) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -97,12 +97,19 @@ angular.module('angularLocalightApp')
 		//Function to go to the route provided in the params
 		$scope.goTo = function(place)
 		{
-			//Save our final amount if the path is to pay
-			if(place == "/#!/")
+			//Save our final amount if the path is to pay,
+            //also animate the lock before leaving
+			if(place.indexOf("tricon") > -1)
 			{
+                //Add the animate class to the lock
+                document.getElementById("theLock").className = document.getElementById("theLock").className + " animateLock"
 
+                //Timeout to the next page, keep current with .animateLock animate time
+                $timeout(function () {
+                    $location.path(place);
+                }, 1000);
 			}
-			$location.path(place);
+			else $location.path(place);
 		}
 
 
