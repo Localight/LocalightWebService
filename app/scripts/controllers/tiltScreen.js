@@ -97,12 +97,19 @@ angular.module('angularLocalightApp')
 		//Function to go to the route provided in the params
 		$scope.goTo = function(place)
 		{
-			//Save our final amount if the path is to pay
-			if(place == "/#!/")
+			//Save our final amount if the path is to pay,
+            //also animate the lock before leaving
+			if(place.indexOf("tricon") > -1)
 			{
+                //Add the animate class to the lock
+                document.getElementById("theLock").className = document.getElementById("theLock").className + " animateLock"
 
+                //Timeout to the next page, keep current with .animateLock animate time
+                $timeout(function () {
+                    $location.path(place);
+                }, 2500);
 			}
-			$location.path(place);
+			else $location.path(place);
 		}
 
 
