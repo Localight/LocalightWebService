@@ -1,5 +1,7 @@
 <!doctype html>
-<html>
+<!-- Declaring on HTML for background purposes -->
+<html ng-app="angularLocalightApp"
+ng-controller="BodyCtrl">
 
 <head>
   <meta charset="utf-8">
@@ -19,10 +21,7 @@
   <!-- endbuild -->
 </head>
 
-<body ng-app="angularLocalightApp" ng-controller="BodyCtrl" ng-class="{darkBlurBodyBg: isDark('/amount')
-  || isDark('/tilt')
-  || isDark('/tricon')
-  || isDark('/confirmation')}">
+<body>
   <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -60,7 +59,17 @@
   <!-- Our View -->
   <div class="fn-app">
     <div class="container" id="content">
-      <div ng-view="" class="finalContent"></div>
+      <div ng-view=""></div>
+    </div>
+  </div>
+
+  <!-- Our Background Image -->
+  <div id = "localCity" class = "localCity">
+      <!-- The darker Overlay -->
+      <div ng-class="{darkBlurBodyBg: isDark('/amount')
+        || isDark('/tilt')
+        || isDark('/tricon')
+        || isDark('/confirmation')}">
     </div>
   </div>
 
