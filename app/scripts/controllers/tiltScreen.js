@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, LocationById, rotationCheck, loadingSpinner) {
+  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, $timeout, LocationById, rotationCheck, loadingSpinner) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -107,7 +107,7 @@ angular.module('angularLocalightApp')
                 //Timeout to the next page, keep current with .animateLock animate time
                 $timeout(function () {
                     $location.path(place);
-                }, 2500);
+                }, 1000);
 			}
 			else $location.path(place);
 		}

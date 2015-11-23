@@ -723,7 +723,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .animateLock {
-    animation: play 2.5s steps(15, end) infinite;
+    animation: play 2.5s steps(15, end);
+    animation-direction: reverse;
+    animation-iteration-count: 1
 }
 
 .lockBorder {
