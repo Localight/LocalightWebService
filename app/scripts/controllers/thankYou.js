@@ -65,11 +65,16 @@ angular.module('angularLocalightApp')
             //Success! Save the response to our scope!
             $scope.merchantLocation = data;
 
-            //Initialize our thanks message
-            $scope.thanksMessage = $scope.sender.name +
-            " I used the Local Giftcard at " + $scope.merchantLocation.name +
-            " to get ..."
-
+            if($scope.sender.name == "Localight"){
+                //Initialize our thanks message
+                $scope.thanksMessage = $scope.sender.name +
+                "Make this app experience better by adding/improving...";
+            } else {
+                //Initialize our thanks message
+                $scope.thanksMessage = $scope.sender.name +
+                " I used the Local Giftcard at " + $scope.merchantLocation.name +
+                " to get ...";
+            }
 
             //Stop Loading
             loadingSpinner.stopLoading(loadRequest);
