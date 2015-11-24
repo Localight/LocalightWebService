@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $location, $window, rotationCheck, Giftcards, LocationById, Thanks, loadingSpinner) {
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $timeout, $location, $window, rotationCheck, Giftcards, LocationById, Thanks, loadingSpinner) {
 
       //Initialize the loading service
       $scope.loadHandler = loadingSpinner.loading;
@@ -65,19 +65,20 @@ angular.module('angularLocalightApp')
             //Success! Save the response to our scope!
             $scope.merchantLocation = data;
 
-            if($scope.sender.name == "Localight"){
-                //Initialize our thanks message
-                $scope.thanksMessage = $scope.sender.name +
-                "Make this app experience better by adding/improving...";
-            } else {
-                //Initialize our thanks message
-                $scope.thanksMessage = $scope.sender.name +
-                " I used the Local Giftcard at " + $scope.merchantLocation.name +
-                " to get ...";
-            }
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
+            $timeout(function(){
+                if($scope.sender.name == "Localight"){
+                    //Initialize our thanks message
+                    $scope.thanksMessage = $scope.sender.name +
+                    ", make this app experience better by adding/improving...";
+                } else {
+                    //Initialize our thanks message
+                    $scope.thanksMessage = $scope.sender.name +
+                    " I used the Local Giftcard at " + $scope.merchantLocation.name +
+                    " to get ...";
+                }
+                //Stop Loading
+                loadingSpinner.stopLoading(loadRequest);
+            }, 200);
 
         }, function(err) {
 
