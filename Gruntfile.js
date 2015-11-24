@@ -466,7 +466,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://db.localight.com:2096'
+            API_BASE: 'https://db.localight.com'
           }
         }
       },
@@ -477,7 +477,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://db.localight.com:2096'
+            API_BASE: 'https://db.localight.com'
           }
         }
       }
