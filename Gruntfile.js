@@ -466,7 +466,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://srv.julianjp.com:3000'
+            API_BASE: 'https://db.localight.com'
           }
         }
       },
@@ -477,7 +477,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://srv.julianjp.com:3000'
+            API_BASE: 'https://db.localight.com'
           }
         }
       }

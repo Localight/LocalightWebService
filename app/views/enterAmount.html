@@ -22,8 +22,8 @@
 
    <!-- Warning no values greater than $500 -->
    <div class = "amountWarningContainer">
-       <h5 class = "amountWarning" ng-show = "warning == true">Sorry, No values greater than $500</h5>
-       <h5 class = "amountWarning" ng-show = "totalWarning == true">Sorry, No values greater than your balance: ${{totalValue}}</h5>
+       <h5 class = "amountWarning" ng-show = "warning == true">Please stay within $500</h5>
+       <h5 class = "amountWarning" ng-show = "totalWarning == true">Please stay within your ${{totalValue}} balance</h5>
    </div>
 
     <!-- Our table for spending, the dialpad -->
@@ -44,7 +44,7 @@
                 </div>
             </td>
             <td>
-			<div my-touchstart="pressButton(0, $event);" my-touchend="pressButton(-1, $event);" style="background-position: -{{i*100}}px 0px;" class="dialButton dialSheet"></div>
+			<div my-touchstart="pressButton(0, $event);" my-touchend="pressButton(-1, $event);" style="background-position: -0px 0px;" class="dialButton dialSheet"></div>
             </td>
             <td class = "center">
                 <div class = "dialBackSpace">
