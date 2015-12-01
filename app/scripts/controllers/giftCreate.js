@@ -208,9 +208,9 @@ angular.module('angularLocalightApp')
 
                         $scope.showCard = false;
 
-                        if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
-                            event.target.blur();
-                        }, 20);
+                        // if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
+                        //     event.target.blur();
+                        // }, 20);
 
                         //Scroll to the requested element
                         //Now done by the flip card
@@ -218,6 +218,11 @@ angular.module('angularLocalightApp')
 
                         //And set the active field to the occasions
                         $scope.setActiveField(document.getElementById("clique_input_code").getAttribute("nextId"));
+
+                        //Blur the code input field
+                        $timeout(function () {
+                                document.getElementById("clique_input_code").blur();
+                        }, 100);
                     }, function(err){
 
                         //Stop Loading
