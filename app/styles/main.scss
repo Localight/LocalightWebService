@@ -118,8 +118,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .currentInput {
-  -webkit-transition: background-color linear 0.25s;
-  transition: background-color linear 0.25s;
+    @include transition(background-color linear 0.25s);
   border-radius: 7px !important;
   opacity: 1 !important;
 
@@ -142,8 +141,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .currentInputNoBorder {
-  -webkit-transition: background-color linear 0.25s;
-  transition: background-color linear 0.25s;
+  @include transition(background-color linear 0.25s);
   opacity: 1 !important;
 
   &.ng-hide {
@@ -153,8 +151,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .waterfall {
-  -webkit-transition: opacoty linear 0.25s;
-  transition: opacity linear 0.25s;
+  @include transition(opacity linear 0.25s);
   opacity: 1 !important;
 
   &.ng-hide {
@@ -425,9 +422,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .giftcardButtonSave {
-  -webkit-border-radius: 10;
-  -moz-border-radius: 10;
-  border-radius: 10px;
+  @include borderRadius(10px);
   font-size: 18px;
   font-weight: 600;
   background: $inverseStandard;
@@ -737,12 +732,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-left: auto;
 }
 
-@keyframes play {
-    from { background-position:    0px; }
-    to { background-position: 2130px; }
-}
-
-@-webkit-keyframes play {
+@include keyframes(play) {
     from { background-position:    0px; }
     to { background-position: 2130px; }
 }
@@ -814,28 +804,28 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     animation-timing-function: linear;
 }
 
-@-webkit-keyframes shake {
-    0% { -webkit-transform: translate(8px, 0px) rotate(180deg); }
-    5% { -webkit-transform: translate(-2px, 0px) rotate(180deg); }
-    10% { -webkit-transform: translate(-1px, 0px) rotate(180deg); }
-    15% { -webkit-transform: translate(8px, 0px) rotate(180deg); }
-    20% { -webkit-transform: translate(-3px, 0px) rotate(180deg); }
-    25% { -webkit-transform: translate(8px, 0px) rotate(180deg); }
-    30% { -webkit-transform: translate(1px, 0px) rotate(180deg); }
-    35% { -webkit-transform: translate(-3px, 0px) rotate(180deg); }
-    40% { -webkit-transform: translate(1px, 0px) rotate(180deg); }
-    45% { -webkit-transform: translate(4px, 0px) rotate(180deg); }
-    50% { -webkit-transform: translate(-1px, 0px) rotate(180deg); }
-    55% { -webkit-transform: translate(8px, 0px) rotate(180deg); }
-    60% { -webkit-transform: translate(-8px, 0px) rotate(180deg); }
-    65% { -webkit-transform: translate(8px, 0px) rotate(180deg); }
-    70% { -webkit-transform: translate(2px, 0px) rotate(180deg); }
-    75% { -webkit-transform: translate(-3px, 0px) rotate(180deg); }
-    80% { -webkit-transform: translate(-2px, 0px) rotate(180deg); }
-    85% { -webkit-transform: translate(8px, 0px) rotate(180deg); }
-    90% { -webkit-transform: translate(2px, 0px) rotate(180deg); }
-    0% { -webkit-transform: translate(-4px, 0px) rotate(180deg); }
-    100% { -webkit-transform: translate(4px, 0px) rotate(180deg); }
+@keyframes(shake) {
+    0% { @include transform(translate(8px, 0px) rotate(180deg))}
+    5% { @include transform(translate(-2px, 0px) rotate(180deg));}
+    10% { @include transform(translate(-1px, 0px) rotate(180deg));}
+    15% { @include transform(translate(8px, 0px) rotate(180deg));}
+    20% { @include transform(translate(-3px, 0px) rotate(180deg));}
+    25% { @include transform(translate(8px, 0px) rotate(180deg))}
+    30% { @include transform(translate(1px, 0px) rotate(180deg));}
+    35% { @include transform(translate(-3px, 0px) rotate(180deg));}
+    40% { @include transform(translate(1px, 0px) rotate(180deg));}
+    45% { @include transform(translate(4px, 0px) rotate(180deg));}
+    50% { @include transform(translate(-1px, 0px) rotate(180deg));}
+    55% { @include transform(translate(8px, 0px) rotate(180deg));}
+    60% { @include transform(translate(-8px, 0px) rotate(180deg));}
+    65% { @include transform(translate(8px, 0px) rotate(180deg));}
+    70% { @include transform(translate(2px, 0px) rotate(180deg));}
+    75% { @include transform(translate(-3px, 0px) rotate(180deg));}
+    80% { @include transform(translate(-2px, 0px) rotate(180deg));}
+    85% { @include transform(translate(8px, 0px) rotate(180deg));}
+    90% { @include transform(translate(2px, 0px) rotate(180deg));}
+    0% { @include transform(translate(-4px, 0px) rotate(180deg));}
+    100% { @include transform(translate(4px, 0px) rotate(180deg));}
 }
 
 /**

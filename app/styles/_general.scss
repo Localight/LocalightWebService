@@ -68,6 +68,11 @@ body, html {
 ***********************
 **/
 
+@include keyframes(rotation) {
+    from {@include transform(rotate(0deg));}
+    to {@include transform(rotate(359deg));}
+}
+
 .loadContainer {
 
 
@@ -86,10 +91,7 @@ body, html {
        height:60px;
        width:60px;
        margin:0px auto;
-       -webkit-animation: rotation .6s infinite linear;
-       -moz-animation: rotation .6s infinite linear;
-       -o-animation: rotation .6s infinite linear;
-       animation: rotation .6s infinite linear;
+       @include animation(rotation .6s infinite linear);
        border-left:6px solid $spinnerLight;
        border-right:6px solid $spinnerLight;
        border-bottom:6px solid $spinnerLight;
@@ -115,11 +117,6 @@ body, html {
     }
 }
 
-@include keyframes(rotation) {
-    from {-webkit-transform: rotate(0deg);}
-    to {-webkit-transform: rotate(359deg);}
-}
-
 *:focus {
   outline: 0; /* remove border around focused elements, especially on Google Chrome */
 }
@@ -133,9 +130,7 @@ textarea {
     border: 0;
     background-color: transparent;
     background-image: none; /* remove inset gradient on Firefox mobile */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    @include boxSizing(border-box);
     width: 100%;
 }
 
@@ -176,9 +171,7 @@ input {
 }
 
 .upside {
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
+    @include transform(rotate(180deg));
 }
 
 .textRightAlign {

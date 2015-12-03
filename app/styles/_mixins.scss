@@ -1,4 +1,4 @@
-//Creating keyframe animations
+//Creating keyframe animations, Vendor Independent
 @mixin keyframes($animation-name) {
     @-webkit-keyframes #{$animation-name} {
         @content;
@@ -17,7 +17,7 @@
     }
 }
 
-//Using keyframe animations
+//Using keyframe animations, Vendor Independent
 @mixin animation($str) {
   -webkit-animation: #{$str};
   -moz-animation: #{$str};
@@ -26,7 +26,7 @@
   animation: #{$str};
 }
 
-//Transisition animations
+//Transisition animations, Vendor Independent
 @mixin transition($args...) {
   -webkit-transition: $args;
   -moz-transition: $args;
@@ -35,7 +35,7 @@
   transition: $args;
 }
 
-//Transform animations
+//Transform animations, Vendor Independent
 @mixin transform($args) {
   -webkit-transform: $args;
   -moz-transform: $args;
@@ -44,7 +44,7 @@
   transform: $args;
 }
 
-//Zoom
+//Zoom, Vendor Independent
 @mixin zoom($args...) {
   -moz-zoom: $args;
   -ms-zoom: $args;
@@ -52,15 +52,7 @@
   zoom: $args;
 }
 
-//Text size adjust
-@mixin textSizeAdjust($args...) {
-  -moz-zoom: $args;
-  -ms-zoom: $args;
-  -o-zoom: $args;
-  zoom: $args;
-}
-
-//Backface Visibility
+//Backface Visibility, Vendor Independent
 @mixin backFaceVisibility($args...) {
   -webkit-backface-visibility: $args;
   -moz-backface-visibility: $args;
@@ -69,8 +61,34 @@
   backface-visibility: $args;
 }
 
+//Box Sizing, Vendor Independent
+@mixin boxSizing($args...) {
+  -webkit-box-sizing: $args;
+  -moz-box-sizing: $args;
+  -ms-box-sizing: $args;
+  -o-box-sizing: $args;
+  box-sizing: $args;
+}
 
-//Mixin for placeholder text in the app
+//Perspective, Vendor Independent
+@mixin perspective($args...) {
+  -webkit-perspective: $args;
+  -moz-perspective: $args;
+  -ms-perspective: $args;
+  -o-perspective: $args;
+  perspective: $args;
+}
+
+//Border-Radius, Vendor Independent
+@mixin borderRadius($args...) {
+  -webkit-border-radius: $args;
+  -moz-border-radius: $args;
+  -ms-border-radius: $args;
+  -o-border-radius: $args;
+  border-radius: $args;
+}
+
+//Mixin for placeholder text in the app, Vendor Independent
 
 $placeHolderSpeed: .15s;
 @mixin darkPlaceholder {
@@ -100,7 +118,7 @@ $placeHolderSpeed: .15s;
 
 }
 
-//Mixin for placeholder text in the app
+//Mixin for placeholder text in the app, Vendor Independent
 @mixin lightPlaceholder {
 
   &::-webkit-input-placeholder {

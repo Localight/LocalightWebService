@@ -122,10 +122,7 @@ label.inputlabel {
   margin: auto;
   position: relative;
 
-  perspective: 750px;
-  -webkit-perspective: 750px;
-  -o-perspective: 750px;
-  -ms-perspective: 750px;
+  @include perspective(750px);
 }
 
 /* use dummy container to set aspect ration of card */
@@ -195,7 +192,7 @@ label.inputlabel {
 
   /* somehow needed for Google Chrome to display the flip card correctly */
   @include backFaceVisibility(hidden);
-  
+
 }
 
 #clique_code_message > div {
