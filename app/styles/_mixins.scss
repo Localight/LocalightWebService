@@ -35,13 +35,70 @@
   transition: $args;
 }
 
+//Transform animations
+@mixin transform($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
 
-//Mixin to place next our placeholder text
-@mixin placeholder {
-  &:-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
-  &:-ms-input-placeholder      {@content}
-  &:-o-input-placeholder      {@content}
-  &:input-placeholder      {@content}
+
+//Mixin for placeholder text in the app
+
+$placeHolderSpeed: .15s;
+@mixin darkPlaceholder {
+
+  &:-webkit-input-placeholder {
+      color: $standard;
+      @include transition(color $placeHolderSpeed ease);
+  }
+
+  &:-moz-placeholder {
+      color: $standard;
+      @include transition(color $placeHolderSpeed ease);
+  }
+  &:-ms-input-placeholder {
+      color: $standard;
+      @include transition(color $placeHolderSpeed ease);
+  }
+
+  &:-o-input-placeholder {
+      color: $standard;
+      @include transition(color $placeHolderSpeed ease);
+  }
+  &:input-placeholder {
+      color: $standard;
+      @include transition(color $placeHolderSpeed ease);
+  }
+
+}
+
+//Mixin for placeholder text in the app
+@mixin lightPlaceholder {
+
+  &:-webkit-input-placeholder {
+      color: $placeHolder;
+      @include transition(color $placeHolderSpeed ease);
+  }
+
+  &:-moz-placeholder {
+      color: $placeHolder;
+      @include transition(color $placeHolderSpeed ease);
+  }
+  &:-ms-input-placeholder {
+      color: $placeHolder;
+      @include transition(color $placeHolderSpeed ease);
+  }
+
+  &:-o-input-placeholder {
+      color: $placeHolder;
+      @include transition(color $placeHolderSpeed ease);
+  }
+  &:input-placeholder {
+      color: $placeHolder;
+      @include transition(color $placeHolderSpeed ease);
+  }
 
 }

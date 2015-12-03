@@ -115,10 +115,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     @extend .blackText;
 
     width: calc(75% - (40px + 25px));
-
-    @include placeholder {
-        font-size: .95em;
-    }
 }
 
 .currentInput {
