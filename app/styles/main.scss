@@ -14,6 +14,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     //Import the font families
     @import 'fonts';
 
+    //Import mixins
+    @import 'mixins';
+
     //Import the default yeoman sass
     @import 'yeomanstyles';
 

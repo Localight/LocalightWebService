@@ -4,17 +4,6 @@
 ***********************
 **/
 
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
 body {
     z-index: -1;
     background: transparent;
@@ -61,13 +50,14 @@ body, html {
     z-index: -2;
 }
 
+@include keyframes(fadein) {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 .container{
     position:relative !important;
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-         -moz-animation: fadein 2s; /* Firefox < 16 */
-          -ms-animation: fadein 2s; /* Internet Explorer */
-           -o-animation: fadein 2s; /* Opera < 12.1 */
-              animation: fadein 2s;
+    @include animation('fadein 2s');
 }
 
 .container, .fn-app {
@@ -128,28 +118,9 @@ body, html {
     }
 }
 
-@-webkit-keyframes rotation {
-   from {-webkit-transform: rotate(0deg);}
-   to {-webkit-transform: rotate(359deg);}
-}
-@-moz-keyframes rotation {
-   from {-moz-transform: rotate(0deg);}
-   to {-moz-transform: rotate(359deg);}
-}
-@-o-keyframes rotation {
-   from {-o-transform: rotate(0deg);}
-   to {-o-transform: rotate(359deg);}
-}
-@keyframes rotation {
-   from {transform: rotate(0deg);}
-   to {transform: rotate(359deg);}
-}
-
-@mixin placeholder {
-  &::-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
-  &::-moz-placeholder          {@content}
-  &:-ms-input-placeholder      {@content}
+@include keyframes(rotation) {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(359deg);}
 }
 
 *:focus {
