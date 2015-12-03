@@ -36,12 +36,37 @@
 }
 
 //Transform animations
-@mixin transform($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+@mixin transform($args) {
+  -webkit-transform: $args;
+  -moz-transform: $args;
+  -ms-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+//Zoom
+@mixin zoom($args...) {
+  -moz-zoom: $args;
+  -ms-zoom: $args;
+  -o-zoom: $args;
+  zoom: $args;
+}
+
+//Text size adjust
+@mixin textSizeAdjust($args...) {
+  -moz-zoom: $args;
+  -ms-zoom: $args;
+  -o-zoom: $args;
+  zoom: $args;
+}
+
+//Backface Visibility
+@mixin backFaceVisibility($args...) {
+  -webkit-backface-visibility: $args;
+  -moz-backface-visibility: $args;
+  -ms-backface-visibility: $args;
+  -o-backface-visibility: $args;
+  backface-visibility: $args;
 }
 
 
@@ -50,27 +75,27 @@
 $placeHolderSpeed: .15s;
 @mixin darkPlaceholder {
 
-  &:-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
       color: $standard;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
 
-  &:-moz-placeholder {
+  &::-moz-placeholder {
       color: $standard;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
-  &:-ms-input-placeholder {
+  &::-ms-input-placeholder {
       color: $standard;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
 
-  &:-o-input-placeholder {
+  &::-o-input-placeholder {
       color: $standard;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease$placeHolderSpeed);
   }
-  &:input-placeholder {
+  &::input-placeholder {
       color: $standard;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed );
   }
 
 }
@@ -78,27 +103,27 @@ $placeHolderSpeed: .15s;
 //Mixin for placeholder text in the app
 @mixin lightPlaceholder {
 
-  &:-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
       color: $placeHolder;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
 
-  &:-moz-placeholder {
+  &::-moz-placeholder {
       color: $placeHolder;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
-  &:-ms-input-placeholder {
+  &::-ms-input-placeholder {
       color: $placeHolder;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
 
-  &:-o-input-placeholder {
+  &::-o-input-placeholder {
       color: $placeHolder;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
-  &:input-placeholder {
+  &::input-placeholder {
       color: $placeHolder;
-      @include transition(color $placeHolderSpeed ease);
+      @include transition(color ease $placeHolderSpeed);
   }
 
 }

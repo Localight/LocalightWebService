@@ -860,6 +860,4 @@ angular.module('angularLocalightApp')
         //Optimize
         $scope.setActiveField('clique_to');
 
-        $scope.showPage2 = true;
-
     });
