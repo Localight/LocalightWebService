@@ -47,18 +47,47 @@ body, html {
 }
 
 .bgFade {
-    -webkit-transition: background 500ms ease-in 400ms; /* property duration timing-function delay */
+
+    -webkit-transition: background 500ms ease-in ; /* property duration timing-function delay */
     -moz-transition: background 500ms ease-in 400ms;
     -o-transition: background 500ms ease-in 400ms;
     transition: background 500ms ease-in 400ms;
+
     background-image: url('../images/local-street-bg-blur.png');
 }
 
 .darkBlurBodyBg {
+
+    animation-name: color_change;
+	animation-duration: 0.5s;
+	animation-iteration-count: 1;
+	animation-direction: alternate;
+
     background-color: $standardAlphaDark;
     height: calc(100% + 88px);
     width: 100%;
     z-index: -2;
+}
+
+@-webkit-keyframes color_change {
+	from { background-color: $standardAlphaLight; }
+	to { background-color: $standardAlphaDark; }
+}
+@-moz-keyframes color_change {
+	from { background-color: $standardAlphaLight; }
+	to { background-color: $standardAlphaDark; }
+}
+@-ms-keyframes color_change {
+	from { background-color: $standardAlphaLight; }
+	to { background-color: $standardAlphaDark; }
+}
+@-o-keyframes color_change {
+	from { background-color: $standardAlphaLight; }
+	to { background-color: $standardAlphaDark; }
+}
+@keyframes color_change {
+	from { background-color: $standardAlphaLight; }
+	to { background-color: $standardAlphaDark; }
 }
 
 .container{
