@@ -146,7 +146,7 @@ angular
                   if(config.url.indexOf("http://") > -1 ||
                   config.url.indexOf("https://") > -1) {
 
-                      //Get our Route
+                      //Get our Server Route
                       var route = config.url.substring(config.url.indexOf("/", 8))
 
                      //Start loading
