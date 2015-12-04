@@ -141,13 +141,25 @@ angular
 
               //Called when a request is made to a server
               'request': function(config) {
-                 // do something on success
-                 console.log(config);
+
+                  //First check if it is to a backend or external site
+                  if(config.url.indexOf("http://") > -1 ||
+                  config.url.indexOf("https://") > -1) {
+
+                      //Get our Route
+                      var route = config.url.substring(config.url.indexOf("/", 8))
+
+                     //Start loading
+                     loadingSpinner.load(loadingSpinner.getMessage(route), route);
+                  }
+
+                  //Return the config to complete the request
                  return config;
                },
 
             //Errors, Called when error happens
             'responseError': function(response) {
+                console.log(response);
               if (response.status == 401) {
                   //Handle 401 error code
 
@@ -164,8 +176,8 @@ angular
                   //Handle General Error
 
                   //An unexpected error has occured, log into console
-                  loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
-                  "Status: " + err.status + " " + err.data.msg);
+                  loadingSpinner.showError("Status: " + response.status + " Something went wrong, please contact the developers",
+                  "Status: " + response.status + " Something went wrong, please contact the developers");
               }
 
               // Always reject (or resolve) the deferred you're given

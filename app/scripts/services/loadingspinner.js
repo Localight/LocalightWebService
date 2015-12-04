@@ -11,7 +11,8 @@ angular.module('angularLocalightApp')
   .service('loadingSpinner', function ($timeout) {
 
       //The super cool loading stack system!
-      var loadingStack = [];
+      var loadingStack = {};
+      var messageStack = {};
       var errorStack = [];
 
       //Function to push onto the error stack
@@ -36,35 +37,28 @@ angular.module('angularLocalightApp')
           //Function to push onto the loading stack and error stack
           //Param: Message of what is loading
           //Param: noError, signifies error handling is handled somewhere else
-          load: function(message, noError) {
+          load: function(message, requestUrl) {
 
-              //Create an object Id
-              var randomId = "loading" + loadingStack.length + Math.floor(Math.random() * (9999 - 1000) + 1000);
+              //Check if the function is doing it's own error checking
+              var errorCheck = false;
+              if(message.noError) errorCheck = true;
 
               //Set up the loading!
-              if(noError) {
-                  loadingStack.push(
-                      {
-                          request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server may be down." +
-                          " If this persists, please try again at a later time",
-                          "The server never gave a response"),
-                          msg: message,
-                          id: randomId,
-                          noError: true
-                      });
-              }
-              else {
-                  loadingStack.push(
-                      {
-                          request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server may be down." +
-                          " If this persists, please try again at a later time",
-                          "The server never gave a response"),
-                          msg: message,
-                          id: randomId
-                      });
-              }
+              loadingStack[requestUrl] =
+                  {
+                      request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server may be down." +
+                      " If this persists, please try again at a later time",
+                      "The server never gave a response"),
+                      msg: message,
+                      noError: errorCheck
+                  };
 
-             return randomId;
+
+                  //delete
+                  delete loadingStack[requestUrl];
+
+                  //Find
+                  if(loadingStack[requestUrl]) return
          },
 
           //Function to push onto the error stack
@@ -82,8 +76,14 @@ angular.module('angularLocalightApp')
           },
 
           //Function to pop off of the loading stack
-          stopLoading: function(loadingId) {
-
+          stopLoading: function(loadingId, url) {
+            //   url.
+            //   var keys = loadingStack.keys()
+            //   for(var i; i<keys.length;i++){
+            //       if(keys[i].indexOf(url) > -1) return loadingStack[keys[i]];
+            //   }
+            //   find loadingStack[if(requesturl.indexOf(url) > -1)]
+            //   loadingStack[regex];
               //Search through the stack and pop the error
               for(var i = 0; i < loadingStack.length; i++) {
 
@@ -96,6 +96,19 @@ angular.module('angularLocalightApp')
                   }
 
               }
+          },
+
+          //Function to put on our messages array
+          setMessage: function(routeUrl, message, noError) {
+              messageStack[routeUrl] = {
+                  msg: message,
+                  noError: noError
+              };
+          },
+
+          //Function to get a message from the messages array
+          getMessage: function(url) {
+              return messageStack[url];
           },
 
           //Function to return the loading stack
