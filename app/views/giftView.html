@@ -43,7 +43,7 @@
               <div class = "smallDollar">$</div>
               {{(giftcard.origAmount / 100)}}
           </div>
-          <img class = "featuredImage" ng-src="{{merchants[0].image}}" alt="Merchant Image" height="50%" width="100%" />
+          <img class = "featuredImage" ng-src="../images/feature-card-made.jpg" alt="Merchant Image" height="50%" width="100%" />
       </div>
 
     </div>
@@ -54,8 +54,27 @@
         <!-- amount to use at which merchant section -->
         <div class="text-center merchantInfo blackText">
           <h4 class="center giftcardAmount" id="useAmount">Use this ${{giftcard.origAmount / 100}} gift at</h4>
-          <h2 class="center giftcardMerchant">{{merchants[0].name}}</h2>
-          <h5 class="center giftcardAddress">{{merchants[0].address}}</h5>
+          <h2 class="center giftcardMerchant">{{giftcard.location.locationId.name}}</h2>
+          <h5 class="center giftcardAddress" ng-if = "giftcard.location.locationId.address2">
+              {{giftcard.location.locationId.address1
+              + " " +
+              giftcard.location.locationId.address2
+              + ", " +
+              giftcard.location.locationId.city
+              + ", " +
+              giftcard.location.locationId.state
+              + " " +
+              giftcard.location.locationId.zipcode}}
+          </h5>
+          <h5 class="center giftcardAddress" ng-if = "!giftcard.location.locationId.address2">
+              {{giftcard.location.locationId.address1
+              + ", " +
+              giftcard.location.locationId.city
+              + ", " +
+              giftcard.location.locationId.state
+              + " " +
+              giftcard.location.locationId.zipcode}}
+          </h5>
         </div>
 
           <!-- use it now/later section -->
@@ -88,8 +107,28 @@
       <!-- Used at and when -->
       <div class="text-center merchantInfo blackText">
         <h4 class="center giftcardAmount">This gift was used at</h4>
-        <h2 class="center viewGiftMerchantName">{{merchants[0].name}}</h2>
-        <h4 class="center viewGiftAddress">{{merchants[0].address}}</h4>
+        <h2 class="center viewGiftMerchantName">{{giftcard.location.locationId.name}}</h2>
+        <h5 class="center viewGiftAddress" ng-if = "giftcard.location.locationId.address2">
+            {{giftcard.location.locationId.address1
+            + " " +
+            giftcard.location.locationId.address2
+            + ", " +
+            giftcard.location.locationId.city
+            + ", " +
+            giftcard.location.locationId.state
+            + " " +
+            giftcard.location.locationId.zipcode}}
+        </h5>
+
+        <h5 class="center viewGiftAddress" ng-if = "!giftcard.location.locationId.address2">
+            {{giftcard.location.locationId.address1
+            + ", " +
+            giftcard.location.locationId.city
+            + ", " +
+            giftcard.location.locationId.state
+            + " " +
+            giftcard.location.locationId.zipcode}}
+        </h5>
       </div>
 
       <!-- Send another gift -->
