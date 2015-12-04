@@ -127,15 +127,15 @@ angular.module('angularLocalightApp')
     return {
 
         //Get all the occasions
-        'getAllOccasions': function() {
+        getAllOccasions: function() {
             return occasions;
-        }
+        },
 
         //Return an occasion by it's id
-        'getOccasionsById': function(Id) {
+        getOccasionsById: function(Id) {
 
             //Loop through and find the occasions with the specified Id
-            for(var i = 0; i < occasions.lenght; i++)
+            for(var i = 0; i < occasions.length; i++)
             {
                 if(occasions[i].images.iconId == Id) {
                     return occasions[i];
