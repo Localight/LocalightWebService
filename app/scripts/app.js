@@ -20,7 +20,9 @@ angular
     'envConfig',
     'angular-datepicker'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $httpProvider) {
+
+    //Our Routes for the app
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -130,4 +132,25 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+
+
+      //Our Error Handler
+      $httpProvider.interceptors.push(function($q) {
+          return {
+            'responseError': function(response) {
+              if (response.status == 401) {
+                // Handle 401 error code
+              }
+              if (response.status == 500) {
+                // Handle 500 error code
+              }
+
+              // Always reject (or resolve) the deferred you're given
+              return $q.reject(response);
+            }
+          };
+        });
+
+
   });
