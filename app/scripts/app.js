@@ -136,19 +136,43 @@ angular
 
 
       //Our Error Handler
-      $httpProvider.interceptors.push(function($q) {
+      $httpProvider.interceptors.push(function($q, loadingSpinner) {
           return {
+
+              //Called when a request is made to a server
+              'request': function(config) {
+                 // do something on success
+                 console.log(config);
+                 return config;
+               },
+
+            //Errors, Called when error happens
             'responseError': function(response) {
               if (response.status == 401) {
-                // Handle 401 error code
+                  //Handle 401 error code
+
+                  //Session is invalid! Redirect to 404
+                  $location.path("/");
+
+                  //Show an error
+                  loadingSpinner.showError("No Session Found!","Session Token is invalid");
               }
-              if (response.status == 500) {
+              else if (response.status == 500) {
                 // Handle 500 error code
+              }
+              else {
+                  //Handle General Error
+
+                  //An unexpected error has occured, log into console
+                  loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
+                  "Status: " + err.status + " " + err.data.msg);
               }
 
               // Always reject (or resolve) the deferred you're given
               return $q.reject(response);
             }
+
+
           };
         });
 

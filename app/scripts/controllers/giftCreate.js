@@ -194,7 +194,7 @@ angular.module('angularLocalightApp')
                 if ($scope.gc.code.toString().length == 5) {
 
                     //Start loading
-                    var loadRequest = loadingSpinner.load("Getting Location Code...");
+                    var loadRequest = loadingSpinner.load("Getting Location Code...", true);
 
                     LocationByCode.get({
                         code: $scope.gc.code

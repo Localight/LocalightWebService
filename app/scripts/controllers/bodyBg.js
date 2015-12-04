@@ -22,7 +22,7 @@ angular.module('angularLocalightApp')
 
     //Redirect function for invalid devices
     var invalidDevice = function(){
-        window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        //window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
 
     //Check if this is not a mobile device
