@@ -85,11 +85,13 @@
 
       <div id="clique_code" class="createCode" ng-hide = "location.name">
         <label for="Code" class="inputlabel">Code</label>
-        <input ng-model="gc.code" type="number" name="clique_input_code" id="clique_input_code" class="profont rightColumn number" ng-click="$event.preventDefault();setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
-
+        <input ng-model="gc.code" type="number"
+        name="clique_input_code" id="clique_input_code"
+        class="profont rightColumn number"
+        ng-click="$event.preventDefault();setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
         placeholder="XXXXX" size="3" ng-keyup="codeValidate($event)"
         nextId="clique_occasion_selection"
-         pattern="\d*" required>
+        pattern="\d*" required>
       </div>
       <a class="center" href="" ng-hide="location.name" ng-click="gc.code = 10000;codeValidate($event);setSecondaryField(3);">I don't have a merchant code</a>
 

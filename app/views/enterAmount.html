@@ -8,23 +8,25 @@
        <tr>
            <td class="amountText">${{amount}}</td>
 
-           <td class = "enterPadding" ng-hide = "clicked == true">
-               <h5 class ="linkText"> Your total balance is ${{totalValue}}.</h5>
-               <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
+           <td class = "enterPadding" ng-show = "!clicked || warning || totalWarning">
+               <div ng-show = "!clicked">
+                   <h5 class ="linkText"> Your total balance is ${{totalValue}}.</h5>
+                   <h6 class ="linkText"> Enter the amount you would like to spend.</h6>
+               </div>
+               <!-- Warning no values greater than $500 -->
+               <div ng-show = "warning || totalWarning">
+                   <h5 class ="linkText"> Your total balance is ${{totalValue}}.</h5>
+                   <h6 class ="linkText" ng-show = "warning"> Please stay within $500</h6>
+                   <h6 class ="linkText" ng-show = "totalWarning"> Please stay within your ${{totalValue}} balance</h6>
+               </div>
            </td>
 
-           <td class="enteredAmount" ng-click="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked == true">
+           <td class="enteredAmount" ng-click="goTo('/merchants/{{Id}}/tilt')" ng-show="clicked && !warning && !totalWarning">
                 <p class="payText">Pay</p>
                <img class="payArrow" src="../images/auth-rt-arrow.png">
            </td>
        <tr>
    </table>
-
-   <!-- Warning no values greater than $500 -->
-   <div class = "amountWarningContainer">
-       <h5 class = "amountWarning" ng-show = "warning == true">Please stay within $500</h5>
-       <h5 class = "amountWarning" ng-show = "totalWarning == true">Please stay within your ${{totalValue}} balance</h5>
-   </div>
 
     <!-- Our table for spending, the dialpad -->
     <table class="dialPad" align="center">
