@@ -66,11 +66,15 @@
     display: inline-block;
 }
 
+.triconPage {
+    height: 100%;
+}
+
 .triconHeader {
     @extend .center;
 
     color: $inverseStandard;
-    height: 70px;
+    height: 56px;
     margin-bottom: 0px;
     margin-top: 5px;
 }
@@ -150,15 +154,18 @@
     }
 }
 
+.codeContainer {
+    height: 80px;
+}
+
 .confirmCode {
     @extend .locationTriconContainer;
 
     height: 70px;
     display: inline-flex;
 
-    margin-left: -25px;
-    margin-right: -25px;
-    margin-bottom: -20px;
+    margin-left: -10px;
+    margin-right: -10px;
 
     .locationTricon {
 

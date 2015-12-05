@@ -48,9 +48,13 @@ body, html {
 	animation-direction: alternate;
 
     background-color: $standardAlphaDark;
-    height: calc(100% + 88px);
+    height: 10000000px;
     width: 100%;
     z-index: -2;
+}
+
+@include keyframes(color_change) {
+    from { background-color: $standardAlphaLight; }	to { background-color: $standardAlphaDark; }
 }
 
 @include keyframes(fadein) {
