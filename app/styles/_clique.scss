@@ -122,8 +122,7 @@ label.inputlabel {
   margin: auto;
   position: relative;
 
-  perspective: 750px;
-  -webkit-perspective: 750px;
+  @include perspective(750px);
 }
 
 /* use dummy container to set aspect ration of card */
@@ -144,11 +143,8 @@ label.inputlabel {
   border-radius: 12px;
   background-color: $inverseStandardAlphaLight; /* translucent background */
 
-  transition: transform 1.5s;
-  -webkit-transition: -webkit-transform 1.5s;
-
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+   @include transition(transform 1.5s);
+   @include backFaceVisibility(hidden);
 }
 
 #front {
@@ -159,13 +155,11 @@ label.inputlabel {
 }
 
 #front.flipped {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+  @include transform(rotateY(180deg));
 }
 
 #back {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+  @include transform(rotateY(180deg));
 }
 
 .blackstrip {
@@ -190,16 +184,15 @@ label.inputlabel {
 }
 
 #back.flipped {
-  transform: rotateY(360deg);
-  -webkit-transform: rotateY(360deg);
+  @include transform(rotateY(360deg));
 }
 
 #clique_code {
   position: relative;
 
   /* somehow needed for Google Chrome to display the flip card correctly */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  @include backFaceVisibility(hidden);
+
 }
 
 #clique_code_message > div {
@@ -332,8 +325,7 @@ label.inputlabel {
   opacity: 0.5;
   display: table;
   text-align: center;
-  transition: opacity 2s;
-  -webkit-transition: opacity 2s;
+  @include transition(opacity 2s);
 
   .complete {
       opacity: 0.9;

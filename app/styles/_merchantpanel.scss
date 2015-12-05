@@ -143,9 +143,8 @@
 
     .locationTricon {
         //Radical and awesome css zooming to resize the tricons
-        zoom: 0.5;
-        -moz-transform: scale(0.5);
-        -moz-transform-origin: 0 0;
+        @include zoom(0.5);
+        @include transform(rotate(180deg) scale(0.5));
     }
 }
 
@@ -157,9 +156,8 @@
 
     .locationTricon {
         //Radical and awesome css zooming to resize the tricons
-        zoom: 0.65;
-        -moz-transform: scale(0.65);
-        -moz-transform-origin: 0 0;
+        @include zoom(0.65);
+        @include transform(rotate(180deg) scale(0.65));
     }
 }
 
