@@ -44,14 +44,6 @@
   transform: $args;
 }
 
-//Zoom, Vendor Independent
-@mixin zoom($args...) {
-  -moz-zoom: $args;
-  -ms-zoom: $args;
-  -o-zoom: $args;
-  zoom: $args;
-}
-
 //Backface Visibility, Vendor Independent
 @mixin backFaceVisibility($args...) {
   -webkit-backface-visibility: $args;
