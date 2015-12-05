@@ -119,7 +119,7 @@ angular.module('angularLocalightApp')
             GiftcardById.get(payload,
             function(data, status) {
                 ///Success save giftcards in scope
-                $scope.giftcard = data;
+                $scope.giftcard = data; 
 
                 //Check if the giftcard can be used, aka non-zero amount
                 if($scope.giftcard.amount > 0) $scope.isValid = true;
