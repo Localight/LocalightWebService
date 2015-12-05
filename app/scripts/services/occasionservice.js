@@ -111,13 +111,13 @@ angular.module('angularLocalightApp')
         text: 'You’re the best! You deserve some retail therapy.'
       },
       {
-        name: 'custom',
+        name: 'holiday',
         images: {
           normal: '../images/occasion-custom-icon-wht.png',
           selected: '../images/occasion-custom-icon-blk.png',
           iconId: "9"
         },
-        alt: 'Custom',
+        alt: 'Holiday',
         text: 'If you want to be loved for who you are, just be yourself.'
       }
     ];
