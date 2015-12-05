@@ -695,7 +695,17 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .tiltSpacing {
-    margin-top: 25%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.tiltArrow {
+    width: 80px;
+    height: auto;
+}
+
+.tiltMerchant {
+    margin-bottom: 5px;
 }
 
 .tiltLocalight {
@@ -762,8 +772,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .triconArrow {
-    width: 60px;
-    height: auto;
+    @extend .tiltArrow;
 }
 
 .triconStar {
