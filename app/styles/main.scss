@@ -749,9 +749,21 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 ***********************
 **/
 
+.merchantTricon {
+    h2 {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+}
+
 .triconMessageContainer {
     height: 30px;
     margin-bottom: 10px;
+}
+
+.triconArrow {
+    width: 60px;
+    height: auto;
 }
 
 .triconStar {
