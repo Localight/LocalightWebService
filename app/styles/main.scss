@@ -695,7 +695,18 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .tiltSpacing {
-    margin-top: 25%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.tiltArrow {
+    width: 80px;
+    height: auto;
+}
+
+.tiltMerchant {
+    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 .tiltLocalight {
@@ -749,9 +760,20 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 ***********************
 **/
 
+.merchantTricon {
+    h2 {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+}
+
 .triconMessageContainer {
     height: 30px;
     margin-bottom: 10px;
+}
+
+.triconArrow {
+    @extend .tiltArrow;
 }
 
 .triconStar {
@@ -795,17 +817,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-left: 55%;
 }
 
-.friendlyShake {
-
-    animation-name: shake;
-    animation-duration: 0.8s;
-    transform-origin:50% 50%;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
-@keyframes(shake) {
-    0% { @include transform(translate(8px, 0px) rotate(180deg))}
+@include keyframes(shake) {
+    0% { @include transform(translate(8px, 0px) rotate(180deg));}
     5% { @include transform(translate(-2px, 0px) rotate(180deg));}
     10% { @include transform(translate(-1px, 0px) rotate(180deg));}
     15% { @include transform(translate(8px, 0px) rotate(180deg));}
@@ -826,6 +839,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     90% { @include transform(translate(2px, 0px) rotate(180deg));}
     0% { @include transform(translate(-4px, 0px) rotate(180deg));}
     100% { @include transform(translate(4px, 0px) rotate(180deg));}
+}
+
+.friendlyShake {
+
+    @include animation('shake 0.8s linear infinite');
+    transform-origin:50% 50%;
 }
 
 /**

@@ -66,12 +66,17 @@
     display: inline-block;
 }
 
+.triconPage {
+    height: 100%;
+}
+
 .triconHeader {
     @extend .center;
 
     color: $inverseStandard;
-    height: 80px;
-    margin-bottom: 2px;
+    height: 56px;
+    margin-bottom: 0px;
+    margin-top: 5px;
 }
 
 .triconBreak {
@@ -140,24 +145,32 @@
 
 .locationTriconContainer {
     display: inline-block;
-
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -20px;
     .locationTricon {
         //Radical and awesome css zooming to resize the tricons
-        @include zoom(0.5);
-        @include transform(rotate(180deg) scale(0.5));
+        @include transform(rotate(180deg) scale(0.675));
     }
+}
+
+.codeContainer {
+    height: 80px;
 }
 
 .confirmCode {
     @extend .locationTriconContainer;
 
-    height: 65px;
+    height: 70px;
     display: inline-flex;
 
+    margin-left: -10px;
+    margin-right: -10px;
+
     .locationTricon {
+
         //Radical and awesome css zooming to resize the tricons
-        @include zoom(0.65);
-        @include transform(rotate(180deg) scale(0.65));
+        @include transform(rotate(180deg) scale(0.675));
     }
 }
 

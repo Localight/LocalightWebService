@@ -48,9 +48,13 @@ body, html {
 	animation-direction: alternate;
 
     background-color: $standardAlphaDark;
-    height: calc(100% + 88px);
+    height: 10000000px;
     width: 100%;
     z-index: -2;
+}
+
+@include keyframes(color_change) {
+    from { background-color: $standardAlphaLight; }	to { background-color: $standardAlphaDark; }
 }
 
 @include keyframes(fadein) {
@@ -60,7 +64,7 @@ body, html {
 
 .container{
     position:relative !important;
-    @include animation('fadein 2s');
+    @include animation('fadein 3s');
 }
 
 .container, .fn-app {
@@ -230,9 +234,11 @@ input {
 
 /* DialPad Buttons */
 
+//Variable for the scaling of our dialpad
+$dialScale: 0.85;
 .dialPad {
     border-collapse: separate;
-    border-spacing: 10px;
+    border-spacing: 0px;
 }
 
 @media (max-width: 340px) {
@@ -247,6 +253,12 @@ input {
     background-size: contain;
     height: 100px;
     width: 100px;
+
+    //Make the dialpad smaller
+    margin-left: -4px;
+    margin-right: -4px;
+    margin-top: -8px;
+    @include transform(scale($dialScale, $dialScale));
 }
 
 .buttonDel {
@@ -255,6 +267,7 @@ input {
     background-size: contain;
     height: 55px;
     width: 75px;
+    @include transform(scale($dialScale, $dialScale));
 }
 
 .triconButton {
