@@ -23,6 +23,8 @@ angular.module('angularLocalightApp')
       }, false);
 
       return {
+
+          //Function to reset the alert
           reset: function () {
               //Reset the Boolean
               rotateAlert = false;

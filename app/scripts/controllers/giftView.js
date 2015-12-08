@@ -61,16 +61,6 @@ angular.module('angularLocalightApp')
             $location.path("#/");
         }
 
-		//Src to our merchant imgaes
-		$scope.merchants =
-		[
-            {
-                "name": "MADE In Long Beach",
-                "image": "../images/feature-card-made.jpg",
-                "address": "240 Pine Ave, Long Beach, CA"
-            }
-		]
-
         // Find a list of Giftcards (For our total value)
     	$scope.getGiftcards = function() {
 
@@ -129,7 +119,7 @@ angular.module('angularLocalightApp')
             GiftcardById.get(payload,
             function(data, status) {
                 ///Success save giftcards in scope
-                $scope.giftcard = data;
+                $scope.giftcard = data; 
 
                 //Check if the giftcard can be used, aka non-zero amount
                 if($scope.giftcard.amount > 0) $scope.isValid = true;
