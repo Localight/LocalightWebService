@@ -62,7 +62,7 @@ angular.module('angularLocalightApp')
         }
 
         //Amount selection slider amount options
-        $scope.prices = [25, 50, 75, 100, 150, 250, 500];
+        $scope.prices = [10, 25, 50, 75, 100, 150, 250, 500];
 
         //Secondary form field highlighting (form field suggestions)
         $scope.secondaryField = null;
@@ -208,9 +208,9 @@ angular.module('angularLocalightApp')
 
                         $scope.showCard = false;
 
-                        if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
-                            event.target.blur();
-                        }, 20);
+                        // if (event && (event.target.id === 'clique_input_code')) setTimeout(function() {
+                        //     event.target.blur();
+                        // }, 20);
 
                         //Scroll to the requested element
                         //Now done by the flip card
@@ -218,6 +218,11 @@ angular.module('angularLocalightApp')
 
                         //And set the active field to the occasions
                         $scope.setActiveField(document.getElementById("clique_input_code").getAttribute("nextId"));
+
+                        //Blur the code input field
+                        $timeout(function () {
+                                document.getElementById("clique_input_code").blur();
+                        }, 100);
                     }, function(err){
 
                         //Stop Loading
@@ -236,7 +241,7 @@ angular.module('angularLocalightApp')
         ****/
 
         //Get OccasionService array containing all possible occasion presets
-        $scope.occasions = OccasionService;
+        $scope.occasions = OccasionService.getAllOccasions();
 
         //Flag for occasion Selector
         $scope.occasionSelectionFlag = true;
@@ -679,7 +684,7 @@ angular.module('angularLocalightApp')
         */
 
         //Setting our stripe key
-        Stripe.setPublishableKey('pk_live_nmmbFLzXS86bqZ4XYV6hpAAR');
+        Stripe.setPublishableKey('pk_test_oaWeW8CRcbIpTqz70F5OsbKG');
 
         /**
          * Assembles CC info and creates a token with Stripe
