@@ -56,15 +56,27 @@ angular.module('angularLocalightApp')
 
           //Function to push onto the error stack
           //Param: Message to display to the user, Message to output into the console
-          showError: function (userMessage, consoleMessage) {
-              //Push our error onto the stack
-              errorTimeout(userMessage, consoleMessage);
+          showError: function (userMessage, consoleMessage, route) {
 
-              //Then Pop off all of the loading requests, to simply show the error
-              for(var i = 0; i < loadingStack.length; i++)
+              //First check if we are supposed to
+              //Stop the loading and check for noError
+              if(route && !loadingStack[route].noError)
               {
-                  $timeout.cancel(loadingStack[i].request);
-                  loadingStack.splice(i, 1);
+                  //Push our error onto the stack
+                  errorTimeout(userMessage, consoleMessage);
+
+                  //Then Pop off all of the loading requests, to simply show the error
+                  var keys = Object.keys(loadingStack);
+                  for(var i = 0; i < keys.length; i++)
+                  {
+                      $timeout.cancel(loadingStack[keys[i]].request);
+                      delete loadingStack[keys[i]];
+                  }
+              }
+              else {
+                  //Simply just pop the noError from the loading
+                  $timeout.cancel(loadingStack[route].request);
+                  delete loadingStack[route];
               }
           },
 
@@ -76,12 +88,6 @@ angular.module('angularLocalightApp')
                   $timeout.cancel(loadingStack[url].request);
                   delete loadingStack[url];
               }
-
-              //delete
-              //delete loadingStack[requestUrl];
-
-              //Find
-              //if(loadingStack[requestUrl]) return
           },
 
           //Function to put on our messages array
@@ -94,7 +100,11 @@ angular.module('angularLocalightApp')
 
           //Function to get a message from the messages array
           getMessage: function(url) {
-              return messageStack[url];
+
+              //Get the message, delete it, and then return
+              var tempMessage = messageStack[url];
+              delete messageStack[url];
+              return tempMessage;
           },
 
           //Function to return the loading stack
