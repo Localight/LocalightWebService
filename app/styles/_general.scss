@@ -22,6 +22,7 @@ body, html {
 
 .localCity {
     background-image: url('../images/local-street-bg.png');
+    opacity: .90;
     background-repeat: no-repeat;
     top: 0;
     right: 0;
@@ -230,6 +231,21 @@ input {
     color: black;
     font-size: 25px;
     vertical-align: middle;
+}
+
+.noHover {
+
+    &:hover {
+        background-color: $standardAlphaLight !important;
+    }
+
+    &:active {
+        background-color: $standardAlphaLight !important;
+    }
+
+    &:focus {
+        background-color: $standardAlphaLight !important;
+    }
 }
 
 /* DialPad Buttons */
