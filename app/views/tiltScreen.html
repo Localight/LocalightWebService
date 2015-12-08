@@ -2,17 +2,17 @@
 <div ng-include src = "'views/loadingSpinner.html'"></div>
 
 <section>
+
 	<!-- div that will be displayed upside down -->
 	<div class = "upside">
 		<!-- The amount entered -->
 		<h2 class = "linkText center">${{getAmount()}}</h2>
 
 		<!-- down arrow -->
-		<img class = "center upside" src = "../images/up-arrow-aqua.png">
+		<img class = "center upside tiltArrow" src = "../images/up-arrow-aqua.png">
 
-		<br>
 		<!--Merchants name -->
-		<h2 class = "linkText center">{{merchantLocation.name}}</h2>
+		<h2 class = "linkText center tiltMerchant">{{merchantLocation.name}}</h2>
 
 		<div class = "lockBorder upside">
 			<div id = "theLock" class = "center swipeLock upside" my-touchend= "goTo('/merchants/{{Id}}/tricon')" ng-swipe-left = "goTo('/merchants/{{Id}}/tricon')" ng-swipe-right = "goTo('/merchants/{{Id}}/tricon')">
