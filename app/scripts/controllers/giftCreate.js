@@ -241,7 +241,7 @@ angular.module('angularLocalightApp')
         ****/
 
         //Get OccasionService array containing all possible occasion presets
-        $scope.occasions = OccasionService;
+        $scope.occasions = OccasionService.getAllOccasions();
 
         //Flag for occasion Selector
         $scope.occasionSelectionFlag = true;

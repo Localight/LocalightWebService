@@ -40,11 +40,11 @@
 
         <!--spendable giftcards -->
         <h4 class = "giftSection">Recent</h4>
-        <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | filter: isNotSpent | orderBy:'+':true" data-ng-href="#/giftcards/{{giftcard._id}}">
+        <a class="list-group-item flatRowListItem" data-ng-repeat="giftcard in giftcards | filter: isNotSpent | orderBy:'+'" data-ng-href="#/giftcards/{{giftcard._id}}">
         <!-- Line breaks to space the list so it's easier to click -->
             <table>
                 <tr>
-                    <td class="fromText"><img ng-src = "{{icons[giftcard.iconId]}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                    <td class="fromText"><img ng-src = "{{getOccasion(giftcard.iconId).images.normal}}" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                     <td class="textRightAlign tableCell">
                         <div class="giftlistAmount">${{giftcard.origAmount / 100}}</div></td>
                 </tr>
@@ -59,11 +59,11 @@
         <!--spent giftcards -->
         <div ng-if = "giftcards[giftcards.length - 1].amount <= 0">
             <h4 class = "giftSection">Used</h4>
-            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -5 | orderBy:'+':true" ng-href="#/giftcards/{{giftcard._id}}">
+            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in giftcards | filter: isSpent | limitTo: -5 | orderBy:'+'" ng-href="#/giftcards/{{giftcard._id}}">
             <!-- Line breaks to space the list so it's easier to click -->
                 <table>
                     <tr>
-                        <td class="fromTextSpent"><img ng-src = "{{icons[giftcard.iconId]}}" class = "fromIconSpent" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
+                        <td class="fromTextSpent"><img ng-src = "{{getOccasion(giftcard.iconId).images.normal}}" class = "fromIconSpent" width= "35px" height = "35px">{{giftcard.fromId.name}}</td>
                         <td class="textRightAlign tableCell">
                             <div class="giftlistAmountSpent">${{giftcard.origAmount / 100}}</div></td>
                     </tr>
@@ -79,11 +79,11 @@
         <!--sent giftcards -->
         <div ng-if = "sentGiftcards">
             <h4 class = "giftSection">Sent</h4>
-            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in sentGiftcards | limitTo: -5 | orderBy:'+':true">
+            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in sentGiftcards | limitTo: -5 | orderBy:'+'">
             <!-- Line breaks to space the list so it's easier to click -->
                 <table>
                     <tr>
-                        <td class="fromTextSent"><img ng-src = "{{icons[giftcard.iconId]}}" class = "fromIconSent" width= "35px" height = "35px">To: {{giftcard.toId.name}}</td>
+                        <td class="fromTextSent"><img ng-src = "{{getOccasion(giftcard.iconId).images.normal}}" class = "fromIconSent" width= "35px" height = "35px">To: {{giftcard.toId.name}}</td>
                         <td class="textRightAlign tableCell">
                             <div class="giftlistAmountSent">${{giftcard.origAmount / 100}}</div></td>
                     </tr>

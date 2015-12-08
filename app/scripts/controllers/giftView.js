@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards, rotationCheck, $location, loadingSpinner) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards,
+      rotationCheck, $location, loadingSpinner, OccasionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -167,31 +168,11 @@ angular.module('angularLocalightApp')
             $location.path("/merchants").search({merchant: $scope.giftcard.location.locationId._id});
         }
 
-		//Array of occasion Icons, simply a link to their icon
-		$scope.icons =
-		[
-			//Anniversary
-			"../images/occasion-anniversary-icon-wht.png",
-			//Baby
-			"../images/occasion-baby-icon-wht.png",
-			//Birthday
-			"../images/occasion-birthday-icon-wht.png",
-			//Congrats
-			"../images/occasion-congrats-icon-wht.png",
-			//Present (Custom Icon)
-			"../images/occasion-custom-icon-wht.png",
-			//Get Well Soon
-			"../images/occasion-getwell-icon-wht.png",
-			//Love
-			"../images/occasion-love-icon-wht.png",
-			//Sympathy
-			"../images/occasion-sympathy-icon-wht.png",
-			//Thank You
-			"../images/occasion-thankyou-icon-wht.png",
-			//Wedding
-			"../images/occasion-wedding-icon-wht.png"
-		]
 
+        //Return an occasion icon
+        $scope.getOccasion = function(Id) {
+            return OccasionService.getOccasionsById(Id);
+        }
 
 
         //Init

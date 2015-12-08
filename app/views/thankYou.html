@@ -18,7 +18,7 @@
 	</table>
 
 	<!-- Occasion Icon -->
-	<img class = "center headerIcon" ng-src = "{{icons[sender.icon]}}" width= "75px" height = "75px">
+	<img class = "center headerIcon" ng-src = "{{getOccasion(sender.icon).images.normal}}" width= "75px" height = "75px">
 
 	<!-- Our occasion Heading -->
 	<h1 class = "center heart headerOccasion">{{iconHeaders[sender.icon]}}</h1>
