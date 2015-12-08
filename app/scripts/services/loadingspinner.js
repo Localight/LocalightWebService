@@ -45,20 +45,13 @@ angular.module('angularLocalightApp')
 
               //Set up the loading!
               loadingStack[requestUrl] =
-                  {
-                      request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server may be down." +
-                      " If this persists, please try again at a later time",
-                      "The server never gave a response"),
-                      msg: message,
-                      noError: errorCheck
-                  };
-
-
-                  //delete
-                  delete loadingStack[requestUrl];
-
-                  //Find
-                  if(loadingStack[requestUrl]) return
+              {
+                  request: errorTimeout("Sorry, but the server is not giving us a response. Please check your internet connection, or the server may be down." +
+                  " If this persists, please try again at a later time",
+                  "The server never gave a response"),
+                  msg: message,
+                  noError: errorCheck
+              };
          },
 
           //Function to push onto the error stack
@@ -76,26 +69,19 @@ angular.module('angularLocalightApp')
           },
 
           //Function to pop off of the loading stack
-          stopLoading: function(loadingId, url) {
-            //   url.
-            //   var keys = loadingStack.keys()
-            //   for(var i; i<keys.length;i++){
-            //       if(keys[i].indexOf(url) > -1) return loadingStack[keys[i]];
-            //   }
-            //   find loadingStack[if(requesturl.indexOf(url) > -1)]
-            //   loadingStack[regex];
-              //Search through the stack and pop the error
-              for(var i = 0; i < loadingStack.length; i++) {
+          stopLoading: function(url) {
 
-                  //If the id is correct, Pop it from the stack and break
-                  if(loadingStack[i].id == loadingId){
-
-                      $timeout.cancel(loadingStack[i].request);
-                      loadingStack.splice(i, 1);
-                      break;
-                  }
-
+              //Cancel the timeout, and delete the loading object
+              if(url) {
+                  $timeout.cancel(loadingStack[url].request);
+                  delete loadingStack[url];
               }
+
+              //delete
+              //delete loadingStack[requestUrl];
+
+              //Find
+              //if(loadingStack[requestUrl]) return
           },
 
           //Function to put on our messages array

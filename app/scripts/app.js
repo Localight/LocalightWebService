@@ -147,7 +147,7 @@ angular
                   config.url.indexOf("https://") > -1) {
 
                       //Get our Server Route
-                      var route = config.url.substring(config.url.indexOf("/", 8))
+                      var route = config.url.substring(config.url.indexOf("/", 8));
 
                      //Start loading
                      loadingSpinner.load(loadingSpinner.getMessage(route), route);
@@ -157,35 +157,59 @@ angular
                  return config;
                },
 
-            //Errors, Called when error happens
-            'responseError': function(response) {
-                console.log(response);
-              if (response.status == 401) {
-                  //Handle 401 error code
+                 // Called When we get a successful response
+                 'response': function(response) {
 
-                  //Session is invalid! Redirect to 404
-                  $location.path("/");
+                     //Stop loading the request
 
-                  //Show an error
-                  loadingSpinner.showError("No Session Found!","Session Token is invalid");
-              }
-              else if (response.status == 500) {
-                // Handle 500 error code
-              }
-              else {
-                  //Handle General Error
+                     if(response.config.url.indexOf("http://") > -1 ||
+                     response.config.url.indexOf("https://") > -1) {
+                         //Get our Server Route
+                         var route = response.config.url.substring(response.config.url.indexOf("/", 8));
 
-                  //An unexpected error has occured, log into console
-                  loadingSpinner.showError("Status: " + response.status + " Something went wrong, please contact the developers",
-                  "Status: " + response.status + " Something went wrong, please contact the developers");
-              }
+                         //Stop Loading
+                         loadingSpinner.stopLoading(route);
+                     }
 
-              // Always reject (or resolve) the deferred you're given
-              return $q.reject(response);
-            }
+                     //Return the response to the applicatrion
+                    return response;
+                 },
+
+                //Errors, Called when error happens
+                'responseError': function(response) {
+
+                    //Get our Server Route
+                    var route = response.config.url.substring(config.url.indexOf("/", 8));
+
+                    //Stop Loading
+                    loadingSpinner.stopLoading(route);
+
+                  if (response.status == 401) {
+                      //Handle 401 error code
+
+                      //Session is invalid! Redirect to 404
+                      $location.path("/");
+
+                      //Show an error
+                      loadingSpinner.showError("No Session Found!","Session Token is invalid");
+                  }
+                  else if (response.status == 500) {
+                    // Handle 500 error code
+                  }
+                  else {
+                      //Handle General Error
+
+                      //An unexpected error has occured, log into console
+                      loadingSpinner.showError("Status: " + response.status + " Something went wrong, please contact the developers",
+                      "Status: " + response.status + " Something went wrong, please contact the developers");
+                  }
+
+                  // Always reject (or resolve) the deferred you're given
+                  return $q.reject(response);
+                }
 
 
-          };
+              };
         });
 
 
