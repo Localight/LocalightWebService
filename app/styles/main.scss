@@ -459,7 +459,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     @extend .whiteText;
 
     margin-top: 0px;
-    font-size: 1.15em;
+    font-size: 1.10em;
     text-align: left;
 }
 
@@ -471,6 +471,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     font-size: 1.75em;
     padding-right: 10px;
     margin-top: 0px;
+    margin-bottom: 2px;
 }
 
 .featuredImage {
@@ -479,11 +480,33 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     border-radius: 15px;
     border-top: 2px solid $inverseStandard;
     border-left: 2px solid $inverseStandard;
-    max-width:400px;
+    max-width: 315px;
+    height: auto;
+}
+
+.giftAmount {
+    position: absolute;
+    font-size: 30px;
+    left: 32px;
+    margin-top: 13px;
+    width: 66px;
+    text-align: center;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: $inverseStandard;
+    border-width: 1px;
+    margin-left: 10px;
+
+    .smallDollar {
+        font-size: 15px;
+        margin-right: -7px;
+        vertical-align: super;
+        display: inline-block;
+    }
 }
 
 .giftcardAmount {
-    margin-top: 20px;
+    margin-top: 15px;
     margin-bottom: 0px;
     font-size: 1.15em;
 }
@@ -492,12 +515,19 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
     margin-top: 0px;
     font-weight: 400;
+    font-size: 26px;
     margin-bottom: 0px;
 }
 
 .giftcardAddress {
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.viewPresent {
+    margin-top: 5px;
+    font-size: 14px;
+    margin-bottom: 0px;
 }
 
 .viewBackText {
@@ -864,27 +894,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
     padding-bottom: 30%;
     margin-top: 40%;
-}
-
-.giftAmount {
-    position: absolute;
-    font-size: 30px;
-    left: 32px;
-    margin-top: 13px;
-    width: 66px;
-    text-align: center;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: $inverseStandard;
-    border-width: 1px;
-    margin-left: -2px;
-
-    .smallDollar {
-        font-size: 15px;
-        margin-right: -7px;
-        vertical-align: super;
-        display: inline-block;
-    }
 }
 
 .phoneEmailCheck {
