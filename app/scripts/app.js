@@ -179,10 +179,7 @@ angular
                 'responseError': function(response) {
 
                     //Get our Server Route
-                    var route = response.config.url.substring(config.url.indexOf("/", 8));
-
-                    //Stop Loading
-                    loadingSpinner.stopLoading(route);
+                    var route = response.config.url.substring(response.config.url.indexOf("/", 8));
 
                   if (response.status == 401) {
                       //Handle 401 error code
@@ -191,7 +188,8 @@ angular
                       $location.path("/");
 
                       //Show an error
-                      loadingSpinner.showError("No Session Found!","Session Token is invalid");
+                      loadingSpinner.showError("No Session Found!",
+                      "Session Token is invalid", route);
                   }
                   else if (response.status == 500) {
                     // Handle 500 error code
@@ -201,7 +199,8 @@ angular
 
                       //An unexpected error has occured, log into console
                       loadingSpinner.showError("Status: " + response.status + " Something went wrong, please contact the developers",
-                      "Status: " + response.status + " Something went wrong, please contact the developers");
+                      "Status: " + response.status + " Something went wrong, please contact the developers",
+                      route);
                   }
 
                   // Always reject (or resolve) the deferred you're given

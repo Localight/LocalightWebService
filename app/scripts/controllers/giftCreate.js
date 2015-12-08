@@ -193,15 +193,12 @@ angular.module('angularLocalightApp')
             if($scope.gc.code != null){
                 if ($scope.gc.code.toString().length == 5) {
 
-                    //Start loading
-                    var loadRequest = loadingSpinner.load("Getting Location Code...", true);
+                    //Set our message for the loading spinner
+                    loadingSpinner.setMessage("/locations/code", "Getting Location Code...", true);
 
                     LocationByCode.get({
                         code: $scope.gc.code
                     }, function(data, status){
-
-                        //Stop Loading
-                        loadingSpinner.stopLoading(loadRequest);
 
                         $scope.location.name = data.name;
                         $scope.location = data;
@@ -225,10 +222,7 @@ angular.module('angularLocalightApp')
                         }, 100);
                     }, function(err){
 
-                        //Stop Loading
-                        loadingSpinner.stopLoading(loadRequest);
-
-
+                        //Show an alert to the user
                         alert("Wrong code, please check the code you entered, or try another.");
                     });
 
@@ -691,8 +685,8 @@ angular.module('angularLocalightApp')
          */
         $scope.tokenizeInfo = function() {
 
-            //Start loading
-            var loadRequest = loadingSpinner.load("Checking Card...");
+            //Manually load the process
+            loadingSpinner.load("Checking Card...", "stripe");
 
             //Disable button while tokenzing the card
             $scope.tokenzing = true;
@@ -709,21 +703,22 @@ angular.module('angularLocalightApp')
             }, function(status, response) {
                 if (response.error) {
 
-                    //Stop Loading
-                    loadingSpinner.stopLoading(loadRequest);
+                    //Stop loading
+                    loadingSpinner.stopLoading("stripe");
 
                     //Display card error message
                     $scope.tokenizeFailure = true;
                 } else {
+
+                    //Stop loading
+                    loadingSpinner.stopLoading("stripe");
+
                     //Get the token to be submitted later, after the second page
                     // response contains id and card, which contains additional card details
                     $scope.stripeToken = response.id;
 
                     //Show the next page
                     $scope.showPage2 = true;
-
-                    //Stop Loading
-                    loadingSpinner.stopLoading(loadRequest);
 
                     //timeout and focus on the phone field
                     $timeout(function() {
@@ -745,9 +740,8 @@ angular.module('angularLocalightApp')
         //Finally SUBMIT EVERYTHING to the backend!
         $scope.submitGiftcard = function() {
 
-            //Start loading
-            var loadRequest = loadingSpinner.load("Create Giftcard...");
-
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/users", "Creating Giftcard...");
 
             //Creating the users Json
             var payload = {
@@ -799,14 +793,8 @@ angular.module('angularLocalightApp')
 
                         //Go to the sent page
                         $location.path("/sent");
-
-                        //Stop Loading
-                        loadingSpinner.stopLoading(loadRequest);
                 },
                 function(err) {
-
-                    //Stop Loading
-                    loadingSpinner.stopLoading(loadRequest);
 
                     //Error, Inform the user of the status
                     console.log("Status: " + err.status + " " + err.data.msg);
@@ -836,9 +824,6 @@ angular.module('angularLocalightApp')
                 });
             },
             function(err) {
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
 
                 //Re enable the submit button
                 $scope.giftSubmit = false;

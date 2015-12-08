@@ -34,6 +34,25 @@ angular.module('angularLocalightApp')
       //Our functions to be returned from the service
       return {
 
+          //Function to put on our messages array
+          //Param: the url route or key to serve as the loading identifier
+          setMessage: function(routeUrl, message, noError) {
+              messageStack[routeUrl] = {
+                  msg: message,
+                  noError: noError
+              };
+          },
+
+          //Function to get a message from the messages array
+          //Param: the url route or key to serve as the loading identifier
+          getMessage: function(url) {
+
+              //Get the message, delete it, and then return
+              var tempMessage = messageStack[url];
+              delete messageStack[url];
+              return tempMessage;
+          },
+
           //Function to push onto the loading stack and error stack
           //Param: Message of what is loading
           //Param: noError, signifies error handling is handled somewhere else
@@ -52,6 +71,17 @@ angular.module('angularLocalightApp')
                   msg: message,
                   noError: errorCheck
               };
+         },
+
+         //Function to pop off of the loading stack
+         //Param: the url route or key to serve as the loading identifier
+         stopLoading: function(url) {
+
+             //Cancel the timeout, and delete the loading object
+             if(url) {
+                 $timeout.cancel(loadingStack[url].request);
+                 delete loadingStack[url];
+             }
          },
 
           //Function to push onto the error stack
@@ -78,33 +108,6 @@ angular.module('angularLocalightApp')
                   $timeout.cancel(loadingStack[route].request);
                   delete loadingStack[route];
               }
-          },
-
-          //Function to pop off of the loading stack
-          stopLoading: function(url) {
-
-              //Cancel the timeout, and delete the loading object
-              if(url) {
-                  $timeout.cancel(loadingStack[url].request);
-                  delete loadingStack[url];
-              }
-          },
-
-          //Function to put on our messages array
-          setMessage: function(routeUrl, message, noError) {
-              messageStack[routeUrl] = {
-                  msg: message,
-                  noError: noError
-              };
-          },
-
-          //Function to get a message from the messages array
-          getMessage: function(url) {
-
-              //Get the message, delete it, and then return
-              var tempMessage = messageStack[url];
-              delete messageStack[url];
-              return tempMessage;
           },
 
           //Function to return the loading stack
