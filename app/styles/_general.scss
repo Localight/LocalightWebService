@@ -232,6 +232,21 @@ input {
     vertical-align: middle;
 }
 
+.noHover {
+
+    &:hover {
+        background-color: $standardAlphaLight !important;
+    }
+
+    &:active {
+        background-color: $standardAlphaLight !important;
+    }
+
+    &:focus {
+        background-color: $standardAlphaLight !important;
+    }
+}
+
 /* DialPad Buttons */
 
 //Variable for the scaling of our dialpad
