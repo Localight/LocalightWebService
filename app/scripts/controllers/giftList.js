@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, rotationCheck, $location, GivenGifts, loadingSpinner) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, rotationCheck,
+      $location, GivenGifts, loadingSpinner, OccasionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -100,31 +101,6 @@ angular.module('angularLocalightApp')
             $scope.totalValue = (parseInt(total) / 100).toFixed(2);
         }
 
-		//Array of occasion Icons, simply a link to their icon
-		$scope.icons =
-		[
-			//Anniversary
-			"/../images/occasion-anniversary-icon-wht.png",
-			//Baby
-			"/../images/occasion-baby-icon-wht.png",
-			//Birthday
-			"/../images/occasion-birthday-icon-wht.png",
-			//Congrats
-			"/../images/occasion-congrats-icon-wht.png",
-			//Present (Custom Icon)
-			"/../images/occasion-custom-icon-wht.png",
-			//Get Well Soon
-			"/../images/occasion-getwell-icon-wht.png",
-			//Love
-			"/../images/occasion-love-icon-wht.png",
-			//Sympathy
-			"/../images/occasion-sympathy-icon-wht.png",
-			//Thank You
-			"/../images/occasion-thankyou-icon-wht.png",
-			//Wedding
-			"/../images/occasion-wedding-icon-wht.png"
-		]
-
         //function to return if a giftcard is spent
         $scope.isSpent = function(giftcard)
         {
@@ -154,6 +130,11 @@ angular.module('angularLocalightApp')
 			    $location.path(place);
             }
 		}
+
+        //Return an occasion icon
+        $scope.getOccasion = function(Id) {
+            return OccasionService.getOccasionsById(Id);
+        }
 
 
 

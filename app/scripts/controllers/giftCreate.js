@@ -241,7 +241,7 @@ angular.module('angularLocalightApp')
         ****/
 
         //Get OccasionService array containing all possible occasion presets
-        $scope.occasions = OccasionService;
+        $scope.occasions = OccasionService.getAllOccasions();
 
         //Flag for occasion Selector
         $scope.occasionSelectionFlag = true;
@@ -684,7 +684,7 @@ angular.module('angularLocalightApp')
         */
 
         //Setting our stripe key
-        Stripe.setPublishableKey('pk_live_nmmbFLzXS86bqZ4XYV6hpAAR');
+        Stripe.setPublishableKey('pk_test_oaWeW8CRcbIpTqz70F5OsbKG');
 
         /**
          * Assembles CC info and creates a token with Stripe

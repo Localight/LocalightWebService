@@ -17,6 +17,8 @@
 
 angular.module('angularLocalightApp')
   .service('OccasionService', function(){
+
+  //Our array of occasions
   var occasions = [
       {
         name: 'birthday',
@@ -109,15 +111,39 @@ angular.module('angularLocalightApp')
         text: 'You’re the best! You deserve some retail therapy.'
       },
       {
-        name: 'custom',
+        name: 'holiday',
         images: {
           normal: '../images/occasion-custom-icon-wht.png',
           selected: '../images/occasion-custom-icon-blk.png',
           iconId: "9"
         },
-        alt: 'Custom',
+        alt: 'Holiday',
         text: 'If you want to be loved for who you are, just be yourself.'
       }
     ];
-    return occasions;
+
+
+    //Return our occasions by ID and  or the entire array
+    return {
+
+        //Get all the occasions
+        getAllOccasions: function() {
+            return occasions;
+        },
+
+        //Return an occasion by it's id
+        getOccasionsById: function(Id) {
+
+            //Loop through and find the occasions with the specified Id
+            for(var i = 0; i < occasions.length; i++)
+            {
+                if(occasions[i].images.iconId == Id) {
+                    return occasions[i];
+                }
+            }
+
+            //If nothing is returned, just return the custom occasion
+            return occasions[9];
+        }
+    }
  });

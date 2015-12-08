@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards, rotationCheck, $location, loadingSpinner) {
+  .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards,
+      rotationCheck, $location, loadingSpinner, OccasionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -60,16 +61,6 @@ angular.module('angularLocalightApp')
             //Redirect them to a 404
             $location.path("#/");
         }
-
-		//Src to our merchant imgaes
-		$scope.merchants =
-		[
-            {
-                "name": "MADE In Long Beach",
-                "image": "../images/feature-card-made.jpg",
-                "address": "240 Pine Ave, Long Beach, CA"
-            }
-		]
 
         // Find a list of Giftcards (For our total value)
     	$scope.getGiftcards = function() {
@@ -129,7 +120,7 @@ angular.module('angularLocalightApp')
             GiftcardById.get(payload,
             function(data, status) {
                 ///Success save giftcards in scope
-                $scope.giftcard = data;
+                $scope.giftcard = data; 
 
                 //Check if the giftcard can be used, aka non-zero amount
                 if($scope.giftcard.amount > 0) $scope.isValid = true;
@@ -177,31 +168,11 @@ angular.module('angularLocalightApp')
             $location.path("/merchants").search({merchant: $scope.giftcard.location.locationId._id});
         }
 
-		//Array of occasion Icons, simply a link to their icon
-		$scope.icons =
-		[
-			//Anniversary
-			"../images/occasion-anniversary-icon-wht.png",
-			//Baby
-			"../images/occasion-baby-icon-wht.png",
-			//Birthday
-			"../images/occasion-birthday-icon-wht.png",
-			//Congrats
-			"../images/occasion-congrats-icon-wht.png",
-			//Present (Custom Icon)
-			"../images/occasion-custom-icon-wht.png",
-			//Get Well Soon
-			"../images/occasion-getwell-icon-wht.png",
-			//Love
-			"../images/occasion-love-icon-wht.png",
-			//Sympathy
-			"../images/occasion-sympathy-icon-wht.png",
-			//Thank You
-			"../images/occasion-thankyou-icon-wht.png",
-			//Wedding
-			"../images/occasion-wedding-icon-wht.png"
-		]
 
+        //Return an occasion icon
+        $scope.getOccasion = function(Id) {
+            return OccasionService.getOccasionsById(Id);
+        }
 
 
         //Init
