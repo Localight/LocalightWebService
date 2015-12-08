@@ -60,7 +60,7 @@ angular.module('angularLocalightApp')
 
               //Check if the function is doing it's own error checking
               var errorCheck = false;
-              if(message.noError) errorCheck = true;
+              if(message.noError != null && message.noError) errorCheck = true;
 
               //Set up the loading!
               loadingStack[requestUrl] =

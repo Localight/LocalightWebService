@@ -20,6 +20,7 @@ angular.module('angularLocalightApp')
     //Initialize the loading service
     $scope.loadHandler = loadingSpinner.loading;
     $scope.errorHandler = loadingSpinner.error;
+    $scope.keys = Object.keys;
 
     //Reset the rotation alert boolean
     rotationCheck.reset();
@@ -80,7 +81,7 @@ angular.module('angularLocalightApp')
             //Query the backend using our session token
             GivenGifts.get(payload,
             function(data, status) {
-                
+
                 ///Success save giftcards in scope
                 $scope.sentGiftcards = data;
             });

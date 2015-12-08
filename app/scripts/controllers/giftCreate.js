@@ -22,6 +22,7 @@ angular.module('angularLocalightApp')
         //Initialize the loading service
         $scope.loadHandler = loadingSpinner.loading;
         $scope.errorHandler = loadingSpinner.error;
+        $scope.keys = Object.keys;
 
         //****
         //Page initialization
@@ -776,6 +777,9 @@ angular.module('angularLocalightApp')
                     "message": $scope.gc.occasion,
                     "stripeCardToken": $scope.stripeToken
                 }
+
+                //Set our message for the loading spinner
+                loadingSpinner.setMessage("/giftcards", "Creating Giftcard...");
 
                 //Send the giftcard to the backend to be created
                 var newGiftcard;
