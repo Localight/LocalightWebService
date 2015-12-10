@@ -18,15 +18,19 @@
 	</table>
 
 	<!-- Send another gift header -->
-	<h2 class = "heart blackText center">Send another gift!</h2>
-
+	<div>
+		<div class = "sendArrow">
+			<img src = "../images/arrows/send-gift-arrow.png" width = "100%" height = "100%">
+		</div>
+		<h2 class = "heart blackText center sendAnotherText">Send another gift!</h2>
+	</div>
 	<!-- Thank you/ Reminder -->
 	<div ng-if="sentThanks">
-		<h3 class = "heart blackText center">Sent your thanks!</h2>
+		<h3 class = "blackText center">Sent your thanks!</h2>
 	</div>
 
 	<div ng-if="!sentThanks">
-		<h3 class = "heart blackText center">Reminder set!</h2>
+		<h3 class = "blackText center">Reminder could not be set. (Sorry!) Reminders Coming Soon!</h2>
 	</div>
 
 	<!-- Product of localism -->
