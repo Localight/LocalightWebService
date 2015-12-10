@@ -21,7 +21,7 @@ body, html {
 }
 
 .localCity {
-    background-image: url('../images/local-street-bg.png');
+    background-image: url('../images/backgrounds/local-street-low2.png');
     background-repeat: no-repeat;
     top: 0;
     right: 0;
@@ -37,7 +37,7 @@ body, html {
 
 .bgFade {
     @include transition(background 500ms ease-in 400ms);
-    background-image: url('../images/local-street-bg-blur.png');
+    background-image: url('../images/backgrounds/local-street-bg-blur7.png');
 }
 
 .darkBlurBodyBg {
@@ -168,7 +168,7 @@ input {
 }
 
 .darkerCity {
-    background-image: url("../images/auth-bg.png");
+    background-image: url("../images/backgrounds/auth-bg.png");
     background-repeat:no-repeat;
     background-size: 100% 100%;
 }
@@ -262,7 +262,7 @@ $dialScale: 0.85;
 }
 
 .buttonDel {
-    background-image: url("../images/auth-delete-btn-aqua.png");
+    background-image: url("../images/variousIcons/auth-delete-btn-aqua.png");
     background-repeat: no-repeat;
     background-size: contain;
     height: 55px;

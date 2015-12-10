@@ -646,7 +646,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .dialSheet {
-    background-image: url("../images/auth-aqua-sheet.png");
+    background-image: url("../images/dialpadIcons/auth-aqua-sheet.png");
     background-size: 1000px;
 }
 
@@ -720,7 +720,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .swipeLock {
     width: 71px;
     height: 71px;
-    background: url('../images/lock-anim-sprite-wht.png') left bottom;
+    background: url('../images/animations/lock-anim-sprite-wht.png') left bottom;
     background-size: auto 71px;
     transition: none;
     margin-top:5px;
@@ -794,7 +794,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .triconSheet {
-    background-image: url("../images/eatery-tricons-aqua-filled.png");
+    background-image: url("../images/triconIcons/eatery-tricons-aqua-filled.png");
     background-size: 897px;
 }
 
