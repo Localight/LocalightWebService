@@ -241,6 +241,18 @@ input {
     padding-top: 6px;
 }
 
+.authArrowContainer {
+    height: 50px;
+    width: 35px;
+    display: inline-block;
+}
+
+//Simply for up and down arrows
+.authArrowContainerWide {
+    height: 40px;
+    width: 65px;
+}
+
 /* DialPad Buttons */
 
 //Variable for the scaling of our dialpad

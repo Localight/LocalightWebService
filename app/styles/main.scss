@@ -598,7 +598,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .enteredAmount {
     text-align: right;
     padding-right: 10px;
-    padding-top: 15px;
+    padding-top: 10px;
 }
 
 .enterPadding {
@@ -614,15 +614,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .payText {
     font-size: 1.3em;
-    vertical-align: text-bottom;
     color: $darkOverlay;
     display: inline;
     padding-left: 10px;
-}
-
-.payArrow {
-    display: inline;
-    vertical-align: text-bottom;
 }
 
 .amountWarningContainer {
@@ -649,10 +643,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .dialBack {
     @extend .center;
     padding-top: 5%;
-
-    .dialBackImg {
-        display: inline;
-    }
 
     .dialBackText {
         color: $danger;

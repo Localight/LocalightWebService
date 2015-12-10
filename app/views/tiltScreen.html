@@ -10,11 +10,15 @@
 
 		<!-- down arrow -->
 		<div class = "upside">
-			<img class = "center tiltArrow" src = "../images/arrows/up-arrow-aqua.png">
+			<div class = "authArrowContainerWide center">
+				<img src = "../images/arrows/up-facing-arrow-blu.png" height = "100%" width = "100%">
+			</div>
 		</div>
 
-		<!--Merchants name -->
-		<h2 class = "linkText center tiltMerchant">{{merchantLocation.name}}</h2>
+		<!--Merchants name (Outer upside to fix css bug) -->
+		<div class = "upside">
+			<h2 class = "linkText center upside tiltMerchant">{{merchantLocation.name}}</h2>
+		</div>
 
 		<div class = "lockBorder upside">
 			<div id = "theLock" class = "center swipeLock upside" my-touchend= "goTo('/merchants/{{Id}}/tricon')" ng-swipe-left = "goTo('/merchants/{{Id}}/tricon')" ng-swipe-right = "goTo('/merchants/{{Id}}/tricon')">
