@@ -266,7 +266,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     }
 
     &.totalAmount {
-        background-color: rgba(255,255,255,1);
+        background-color: rgba(255,255,255,.85);
     }
 
     &.totalAmount:hover {
@@ -278,12 +278,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
         margin-left: 2px;
     }
 
-    .dollarGlyphicon {
-        @extend .glyphicon;
+    .dollarArrowSolidContainer {
 
-        padding-top: 10px;
-        color: $standard;
-        font-size: 40px;
+        height: 40px;
+        width: 32px;
+        position: absolute;
+        right: 20px;
+        top: calc(50% - 20px);
     }
 
     .fromText {
