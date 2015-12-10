@@ -8,10 +8,10 @@
         <table class = "sub-header">
             <tr>
                 <td class="navCell"><a ng-href="/#/giftcards/create">
-                    <img class = "navBowTie" ng-src="/../images/bowtie.png" alt="Give Icon">
+                    <img class = "navBowTie" ng-src="../images/variousIcons/bowtie.png" alt="Give Icon">
                     Give</a></td>
                     <td class = "localightImg">
-                        <img ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+                        <img ng-src="../images/variousIcons/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
                     </td>
                     <td class = "textRightAlign navCell">${{totalValue}}</td>
                     <tr>
@@ -20,7 +20,7 @@
         <!-- div for our user -->
         <div class = "listName">
             <h1 class="listUserName heart">{{giftcards[0].toId.name}}</h1>
-            <img ng-src="/../images/account-icon.png" class = "listProfileIcon" alt="Profile Icon">
+            <img ng-src="/../images/variousIcons/account-icon.png" class = "listProfileIcon" alt="Profile Icon">
         </div>
         <h3 class="listSectionHeader">Gifts received</h3>
     </div>
@@ -30,10 +30,13 @@
             <table>
                 <tr>
                     <td class="tableCell glyphAlign center">
-                        <img class = "dollarIcon" ng-src = "../images/dollar-circle-icon-blk.png" width= "35px" height = "35px">
+                        <img class = "dollarIcon" ng-src = "../images/variousIcons/dollar-circle-icon-blk.png" width= "35px" height = "35px">
                         You have ${{totalValue}} to spend
                     </td>
-                    <span class="dollarGlyphicon glyphicon-menu-right" aria-hidden="true">
+                    <div class = "dollarArrowSolidContainer">
+                        <img height = "100%" width = "100%"
+                        src = "../images/arrows/right-facing-triangle.png">
+                    </div>
                 </tr>
             </table>
         </a>

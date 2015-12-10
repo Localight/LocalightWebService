@@ -21,7 +21,8 @@ body, html {
 }
 
 .localCity {
-    background-image: url('../images/local-street-bg.png');
+
+    background-image: url('../images/backgrounds/local-street-low2.png');
     opacity: .90;
     background-repeat: no-repeat;
     top: 0;
@@ -38,7 +39,7 @@ body, html {
 
 .bgFade {
     @include transition(background 500ms ease-in 400ms);
-    background-image: url('../images/local-street-bg-blur.png');
+    background-image: url('../images/backgrounds/local-street-bg-blur7.png');
 }
 
 .darkBlurBodyBg {
@@ -160,6 +161,7 @@ input {
 
     padding-left: 10px;
     padding-right: 10px;
+    vertical-align: top;
 }
 
 
@@ -169,7 +171,7 @@ input {
 }
 
 .darkerCity {
-    background-image: url("../images/auth-bg.png");
+    background-image: url("../images/backgrounds/auth-bg.png");
     background-repeat:no-repeat;
     background-size: 100% 100%;
 }
@@ -233,6 +235,26 @@ input {
     vertical-align: middle;
 }
 
+.arrowContainer {
+
+    height: 30px;
+    width: 20px;
+    display: inline-block;
+    padding-top: 6px;
+}
+
+.authArrowContainer {
+    height: 50px;
+    width: 35px;
+    display: inline-block;
+}
+
+//Simply for up and down arrows
+.authArrowContainerWide {
+    height: 40px;
+    width: 100px;
+}
+
 .noHover {
 
     &:hover {
@@ -278,7 +300,7 @@ $dialScale: 0.85;
 }
 
 .buttonDel {
-    background-image: url("../images/auth-delete-btn-aqua.png");
+    background-image: url("../images/variousIcons/auth-delete-btn-aqua.png");
     background-repeat: no-repeat;
     background-size: contain;
     height: 55px;

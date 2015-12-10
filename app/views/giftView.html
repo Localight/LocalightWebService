@@ -8,12 +8,15 @@
        <tr>
            <td class = "navCell">
                <a href = "#/giftcards">
-                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                   <div class = "arrowContainer">
+                       <img height = "100%" width = "100%"
+                       src = "../images/arrows/left-facing-arrow.png">
+                   </div>
                    <p class = "merchantBackText">Back</p>
                </a>
            </td>
            <td class = "localightImg center">
-               <img ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+               <img ng-src="../images/variousIcons/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
            </td>
            <td class = "textRightAlign navCell">${{totalValue}}</td>
        <tr>
@@ -43,7 +46,10 @@
               <div class = "smallDollar">$</div>
               {{(giftcard.origAmount / 100)}}
           </div>
-          <img class = "featuredImage" ng-src="../images/feature-card-made.jpg" alt="Merchant Image" height="50%" width="100%" />
+          <div class = "giftBow">
+              <img src = "../images/giftAmountIcons/bow-gift-wht-shad.png" height = "100%" width = "100%">
+          </div>
+          <img class = "featuredImage" ng-src="../images/featuredMerchants/feature-card-made.jpg" alt="Merchant Image" height="50%" width="100%" />
       </div>
 
     </div>
