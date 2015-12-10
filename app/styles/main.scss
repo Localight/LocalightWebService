@@ -256,15 +256,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
         margin-top: 0px;
     }
 
-    .glyphicon {
-        position: absolute;
-        color: $standard;
-        right: 0;
-        top: calc(50% - 25px);
-        padding-right: 5px;
-        font-size: 50px;
-    }
-
     &.totalAmount {
         background-color: rgba(255,255,255,.85);
     }
@@ -330,6 +321,15 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
         opacity: .3;
         margin-bottom: 4px
     }
+
+    .merchantArrowContainer {
+
+        height: 50px;
+        width: 35px;
+        right: 20px;
+        position: absolute;
+        top: calc(50% - 25px);
+    }
 }
 
 .flatRowListDarker {
@@ -337,10 +337,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
     background-color: $standardAlphaDark;
     z-index: 0;
-
-    .glyphicon {
-        color: $inverseStandard;
-    }
 }
 
 .giftlistAmount {
@@ -571,11 +567,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .merchantBackText {
     @extend .navText;
 
-    margin-left: -5px;
-    display: inline;
+    display: inline-block;
     color: $standard;
     font-size: 21px;
-    vertical-align:text-bottom;
+    vertical-align: -webkit-baseline-middle;
 }
 
 .whiteHeader{
