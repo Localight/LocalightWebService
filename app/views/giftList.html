@@ -82,7 +82,7 @@
         <!--sent giftcards -->
         <div ng-if = "sentGiftcards">
             <h4 class = "giftSection">Sent</h4>
-            <a class="list-group-item flatRowListItem" ng-repeat="giftcard in sentGiftcards | limitTo: -5 | orderBy:'+'">
+            <a class="list-group-item flatRowListItem noHover" ng-repeat="giftcard in sentGiftcards | limitTo: -5 | orderBy:'+'">
             <!-- Line breaks to space the list so it's easier to click -->
                 <table>
                     <tr>

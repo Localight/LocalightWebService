@@ -21,7 +21,9 @@ body, html {
 }
 
 .localCity {
+
     background-image: url('../images/backgrounds/local-street-low2.png');
+    opacity: .90;
     background-repeat: no-repeat;
     top: 0;
     right: 0;
@@ -251,6 +253,21 @@ input {
 .authArrowContainerWide {
     height: 40px;
     width: 100px;
+}
+
+.noHover {
+
+    &:hover {
+        background-color: $standardAlphaLight !important;
+    }
+
+    &:active {
+        background-color: $standardAlphaLight !important;
+    }
+
+    &:focus {
+        background-color: $standardAlphaLight !important;
+    }
 }
 
 /* DialPad Buttons */
