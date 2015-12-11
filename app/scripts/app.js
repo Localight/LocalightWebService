@@ -18,7 +18,7 @@ angular
     'ngTouch',
     'duScroll',
     'envConfig',
-    'angular-datepicker'
+    'angular-datepicker',
   ])
   .config(function ($routeProvider, $httpProvider) {
 
@@ -198,8 +198,8 @@ angular
                       //Handle General Error
 
                       //An unexpected error has occured, log into console
-                      loadingSpinner.showError("Status: " + response.status + " Something went wrong, please contact the developers",
-                      "Status: " + response.status + " Something went wrong, please contact the developers",
+                      loadingSpinner.showError("Status: " + response.status + ", Something went wrong, please contact the developers",
+                      "Status: " + response.status + ", Something went wrong, please contact the developers",
                       route);
                   }
 

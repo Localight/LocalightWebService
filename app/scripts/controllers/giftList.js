@@ -17,11 +17,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-    $scope.keys = Object.keys;
-
     //Reset the rotation alert boolean
     rotationCheck.reset();
 
