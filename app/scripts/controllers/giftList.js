@@ -70,7 +70,6 @@ angular.module('angularLocalightApp')
                 "sessionToken" : sessionToken
             }
 
-            //Set our message for the loading spinner
             loadingSpinner.setMessage("/giftcards/given", "Getting Given Giftcards...");
 
             //Query the backend using our session token

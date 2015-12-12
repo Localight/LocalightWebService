@@ -19,11 +19,6 @@ angular.module('angularLocalightApp')
 
         $scope.cc = {};
 
-        //Initialize the loading service
-        $scope.loadHandler = loadingSpinner.loading;
-        $scope.errorHandler = loadingSpinner.error;
-        $scope.keys = Object.keys;
-
         //****
         //Page initialization
         //****
@@ -687,7 +682,12 @@ angular.module('angularLocalightApp')
         $scope.tokenizeInfo = function() {
 
             //Manually load the process
-            loadingSpinner.load("Checking Card...", "stripe");
+            //Set our message for the loading spinner
+            var message = {
+                msg: "Checking Card...",
+                noError: true
+            }
+            loadingSpinner.load(message, "stripe");
 
             //Disable button while tokenzing the card
             $scope.tokenzing = true;
@@ -779,7 +779,7 @@ angular.module('angularLocalightApp')
                 }
 
                 //Set our message for the loading spinner
-                loadingSpinner.setMessage("/giftcards", "Creating Giftcard...");
+                loadingSpinner.setMessage("/giftcards", "Creating Giftcard...", true);
 
                 //Send the giftcard to the backend to be created
                 var newGiftcard;
