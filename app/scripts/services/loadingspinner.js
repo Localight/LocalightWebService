@@ -167,7 +167,7 @@ angular.module('angularLocalightApp')
                   load: loadingStack,
                   error: errorStack
               }
-              
+
               //Return the object
               return stacks;
           },

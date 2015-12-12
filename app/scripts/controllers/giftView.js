@@ -17,10 +17,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-        //Initialize the loading service
-        $scope.loadHandler = loadingSpinner.loading;
-        $scope.errorHandler = loadingSpinner.error;
-
         //Reset the rotation alert boolean
         rotationCheck.reset();
 
@@ -65,8 +61,8 @@ angular.module('angularLocalightApp')
         // Find a list of Giftcards (For our total value)
     	$scope.getGiftcards = function() {
 
-            //Start loading
-            var loadRequest = loadingSpinner.load("Getting Giftcards...");
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/giftcards", "Getting Giftcards...");
 
             //First set up some JSON for the session token
             var payload = {
@@ -81,29 +77,6 @@ angular.module('angularLocalightApp')
 
                 //Also get the total value
                 $scope.getTotalValue();
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
-            },
-
-            function(err)
-            {
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
-
-                //Error, Inform the user of the status
-                if (err.status == 401) {
-                   //Session is invalid! Redirect to 404
-                   $location.path("/");
-
-                   //Show an error
-                   loadingSpinner.showError("No Session Found!","Session Token is invalid");
-                } else {
-
-                    //An unexpected error has occured, log into console
-                    loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
-                    "Status: " + err.status + " " + err.data.msg);
-                }
             });
     	}
 
@@ -116,29 +89,20 @@ angular.module('angularLocalightApp')
                 "id": giftcardId
             }
 
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/giftcards/" + giftcardId, "Getting Received Giftcard...");
+
             //Query the backend using our session token
             GiftcardById.get(payload,
             function(data, status) {
                 ///Success save giftcards in scope
-                $scope.giftcard = data; 
+                $scope.giftcard = data;
 
                 //Check if the giftcard can be used, aka non-zero amount
                 if($scope.giftcard.amount > 0) $scope.isValid = true;
 
                 //Now get all of the giftcards
                 $scope.getGiftcards();
-            },
-
-            function(err)
-            {
-                //Error, Inform the user of the status
-                if (err.status == 401) {
-                   //Session is invalid! Redirect to 404
-                   $location.path("/");
-                } else {
-                   //An unexpected error has occured, log into console
-                   console.log("Status: " + err.status + " " + err.data.msg);
-                }
             });
     	}
 
