@@ -16,10 +16,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //get our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
 
@@ -56,6 +52,9 @@ angular.module('angularLocalightApp')
             "sessionToken" : $scope.sessionToken
         }
 
+        //Set our message for the loading spinner
+        loadingSpinner.setMessage("/locations/" + $routeParams.locationId, "Getting Location...");
+
         //Send the payload to the backend
         LocationById.get(payload,
 
@@ -74,19 +73,6 @@ angular.module('angularLocalightApp')
 
                 //Stop Loading
                 loadingSpinner.stopLoading(loadRequest);
-        },
-        function(err)
-        {
-            //Error, Inform the user of the status
-            if (err.status == 401) {
-               //Session is invalid! Redirect to 404
-               $location.path("/");
-            } else {
-
-                //An unexpected error has occured, log into console
-                loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
-                "Status: " + err.status + " " + err.data.msg);
-            }
         })
      };
 
@@ -216,6 +202,9 @@ angular.module('angularLocalightApp')
            "state": $scope.formData.state,
            "zipcode": $scope.formData.zipcode
        };
+
+       //Set our message for the loading spinner
+       loadingSpinner.setMessage("/locations/" + $routeParams.locationId, "Updating Location...", true);
 
         $scope.newLocation = LocationById.update(payload,
 

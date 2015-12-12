@@ -15,10 +15,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Boolean for if we receive errors
     $scope.submitError;
 
@@ -55,8 +51,8 @@ angular.module('angularLocalightApp')
                "stripeCustomerId": "0"
             }
 
-            //Start loading
-            var loadRequest = loadingSpinner.load("Creating your account...");
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/owners/join", "Creating Your Account...", true);
 
             JoinOwner.submit(payload,
             function(data, status){
@@ -68,9 +64,6 @@ angular.module('angularLocalightApp')
 
                 //Finally redirect to the main page
                 $location.path("/dashboard/followup");
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
             },
             function(err)
             {

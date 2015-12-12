@@ -26,43 +26,20 @@ angular.module('angularLocalightApp')
     //Update the owner
     $scope.updateOwner = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Updating your account...");
-
         //Create the payload
         var payload = {
             token : sessionToken,
             dob: $scope.formData.dob
         };
 
+        //Set our message for the loading spinner
+        loadingSpinner.setMessage("/owners", "Updating Your Account...");
+
         //Send the payload to update the owner
         Owners.update(payload, function(data, status) {
 
             //Everything is good, redirect to the location create page
             $location.path("/dashboard/createlocation");
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
-        }, function(err) {
-
-            //Create the error object
-            $scope.error = {
-                isError : true,
-                text: ""
-            };
-
-            //Error, Inform the user of the status
-            if (err.status == 401) {
-               //Session is invalid! Redirect to 404
-               $scope.error.text = "Sorry, your sessiont token is not valid, please log in again";
-            } else {
-               //An unexpected error has occured, inform user, log into console
-               console.log("Status: " + err.status + " " + err.data.msg);
-               $scope.error.text = "Sorry, an error has occured connecting to the database";
-            }
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
         });
     }
 
