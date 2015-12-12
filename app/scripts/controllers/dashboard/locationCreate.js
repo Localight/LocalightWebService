@@ -187,9 +187,6 @@ angular.module('angularLocalightApp')
                    console.log("Status: " + err.status + " " + err.data.msg);
                    $scope.error.text = "Sorry, an error has occured connecting to the database";
                 }
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
             });
     }
 

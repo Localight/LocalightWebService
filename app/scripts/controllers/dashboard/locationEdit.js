@@ -43,9 +43,6 @@ angular.module('angularLocalightApp')
     //Initialized function to get location info to auto fill old data
     $scope.getLocation = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Getting Location...");
-
         //First set up some JSON for the session token
         var payload = {
             "id" : $routeParams.locationId,
@@ -70,9 +67,6 @@ angular.module('angularLocalightApp')
                 $scope.theForm.city = $scope.merchantLocation.city;
                 $scope.theForm.state = $scope.merchantLocation.state;
                 $scope.theForm.zipcode= $scope.merchantLocation.zipcode;
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
         })
      };
 
@@ -187,9 +181,6 @@ angular.module('angularLocalightApp')
     //Update the location
     $scope.updateLocation = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Updating Location...");
-
         //First set up some JSON for the session token
         var payload = {
            "id": $routeParams.locationId,
@@ -212,9 +203,6 @@ angular.module('angularLocalightApp')
 
             //Success! Redirect back to the main page
             $location.path("/dashboard/main");
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
         },
 
         function(err) {
@@ -234,9 +222,6 @@ angular.module('angularLocalightApp')
                console.log("Status: " + err.status + " " + err.data.msg);
                $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
         });
     }
 
