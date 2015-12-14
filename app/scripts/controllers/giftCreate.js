@@ -406,11 +406,11 @@ angular.module('angularLocalightApp')
         //Icon URLs for CCs
         //Default, Visa, Mastercard, Amex, Discover
         var cardIcons = [
-            "../images/cc-basic-blk.png",
-            "../images/cc-visa-blk.png",
-            "../images/cc-mastercard-blk.png",
-            "../images/cc-amex-blk.png",
-            "../images/cc-discover-blk.png"
+            "../images/ccIcons/cc-basic-blk.png",
+            "../images/ccIcons/cc-visa-blk.png",
+            "../images/ccIcons/cc-mastercard-blk.png",
+            "../images/ccIcons/cc-amex-blk.png",
+            "../images/ccIcons/cc-discover-blk.png"
         ]
         //Set starter icon to be blank
         $scope.cardIcon = cardIcons[0];

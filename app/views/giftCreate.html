@@ -7,7 +7,7 @@
     <div class="wrapper">
 
       <!-- logo -->
-      <div class="clique_logo_wrapper"><img class="clique_logo" src="../images/logo-local-gift-card-blk.png"></div>
+      <img class="clique_logo" src="../images/giftcardLogos/long-beach-giftcard-blk2.png">
 
       <!-- To, remove ng click to fix functionality -->
       <div id="clique_to" class = "currentInput createTo">
@@ -79,7 +79,7 @@
         <div id="front" class="card"></div>
         <div id="back" class="card">
           <div class="profont blackstrip" id = "cardCodeStrip">XXXXX</div>
-          <img src="../images/circle-outline.png" alt="Clique Code Outline">
+          <img src="../images/animations/circle-outline.png" alt="Clique Code Outline">
         </div>
       </div>
 
@@ -97,7 +97,7 @@
 
       <div id="clique_code_message" ng-show = "location.name">
         <label class="inputlabel">
-          <img src="../images/at-icon-blk.png" >
+          <img src="../images/variousIcons/at-icon-blk.png" >
         </label>
         <div class="createCodeMessage">
           Good at
@@ -205,7 +205,7 @@
                 ng-keyup="formatCC($event)">
             <!-- Checkmark box to the right -->
             <img class = "creditCardCheck"
-            src = "../images/checkmark-blk.png"
+            src = "../images/variousIcons/checkmark-blk.png"
             ng-show = "validCC"
             ng-click = "ccDateSwitch();">
           </div>
@@ -266,7 +266,7 @@
                 pattern="\d*"
                 ng-model="cc.ZIPcode"
                 ng-focus="expiryFocus();setActiveField('creditcardinfo');">
-            <img class = "creditCardCheck" src = "../images/checkmark-blk.png" ng-show = "dateValidated && cvcValidated && zipValidated">
+            <img class = "creditCardCheck" src = "../images/variousIcons/checkmark-blk.png" ng-show = "dateValidated && cvcValidated && zipValidated">
           </div>
         </div>
 
@@ -341,7 +341,7 @@
       <!--Amount-->
       <div class="summaryordertotal">
         <label class="inputlabel">
-          <img alt="Bowtie" src="../images/bowtie.png" />
+          <img alt="Bowtie" src="../images/variousIcons/bowtie.png" />
         </label>
         <div class="rightColumn helveticaText">
           Send this gift of
@@ -356,7 +356,7 @@
       <!--Phone Number-->
       <div id="clique_phonenumber" class = "createGiftCardWidth currentInput" ng-class="{nextInput: !dirty.PhoneNumber}">
         <label class="inputlabel" for="clique_input_phonenumber">
-          <img alt="Enter Phone Number" src="../images/phone.png" />
+          <img alt="Enter Phone Number" src="../images/variousIcons/phone.png" />
         </label>
 
         <input type="tel"
@@ -369,7 +369,7 @@
         maxlength="18" minlength="13"
         ng-model="gc.phoneNumber">
 
-        <img class = "phoneEmailCheck" src = "../images/checkmark-blk.png" ng-show = "giftcardForm2.clique_input_phonenumber.$valid && gc.phoneNumber">
+        <img class = "phoneEmailCheck" src = "../images/variousIcons/checkmark-blk.png" ng-show = "giftcardForm2.clique_input_phonenumber.$valid && gc.phoneNumber">
       </div>
 
       <!-- Waterfall the next part -->
@@ -391,10 +391,10 @@
           <!--Email-->
           <div id="clique_email" class = "createGiftCardWidth" ng-class="{nextInput: !dirty.Email}">
             <label class="inputlabel">
-              <img alt="Enter Email Address" src="../images/emailsign_blk.png" />
+              <img alt="Enter Email Address" src="../images/variousIcons/emailsign_blk.png" />
             </label>
             <input type="email" name="clique_input_email" id="clique_input_email" class="PageTwoInput" ng-focus="setActiveField('clique_email')" placeholder="you@email.com" ng-model="gc.email" required>
-            <img class = "phoneEmailCheck" src = "../images/checkmark-blk.png" ng-show = "validateEmail()">
+            <img class = "phoneEmailCheck" src = "../images/variousIcons/checkmark-blk.png" ng-show = "validateEmail()">
          </div>
 
           <!--Schedule Gift-->
