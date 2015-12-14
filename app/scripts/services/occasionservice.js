@@ -118,7 +118,7 @@ angular.module('angularLocalightApp')
           iconId: "9"
         },
         alt: 'Holiday',
-        text: 'If you want to be loved for who you are, just be yourself.'
+        text: "Here's wishing you Happy Holidays and a prosperous New Year!"
       }
     ];
 
