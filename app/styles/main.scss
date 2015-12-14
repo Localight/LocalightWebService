@@ -471,65 +471,50 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-bottom: 2px;
 }
 
-.featuredImage {
+.featuredImageContainer {
     @extend .center;
 
-    border-radius: 15px;
-    border-top: 2px solid $inverseStandard;
-    border-left: 2px solid $inverseStandard;
     max-width: 315px;
-    height: auto;
-}
 
-.giftAmount {
-    position: absolute;
-    font-size: 30px;
-    left: 32px;
-    margin-top: 13px;
-    width: 66px;
-    text-align: center;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: $inverseStandard;
-    border-width: 1px;
-    margin-left: 10px;
+    .featuredImage {
+        @extend .center;
 
-    .smallDollar {
-        font-size: 15px;
-        margin-right: -7px;
-        vertical-align: super;
-        display: inline-block;
+        border-radius: 15px;
+        border-top: 2px solid $inverseStandard;
+        border-left: 2px solid $inverseStandard;
+        width: 100%;
+        max-width: 315px;
+        height: auto;
     }
-}
 
-.giftAmount {
-    position: absolute;
-    font-size: 30px;
-    left: 32px;
-    margin-top: 15px;
-    width: 66px;
-    text-align: center;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: $inverseStandard;
-    border-width: 1px;
-    margin-left: -2px;
+    .giftAmount {
+        position: absolute;
+        font-size: 30px;
+        margin-top: 15px;
+        width: 66px;
+        text-align: center;
+        border-radius: 5px;
+        border-style: solid;
+        border-color: $inverseStandard;
+        border-width: 1px;
 
-    .smallDollar {
-        font-size: 15px;
-        margin-right: -7px;
-        vertical-align: super;
-        display: inline-block;
+        margin-left: 20px;
+
+        .smallDollar {
+            font-size: 15px;
+            margin-right: -7px;
+            vertical-align: super;
+            display: inline-block;
+        }
     }
-}
 
-.giftBow {
-    width: 40px;
-    height: 33px;
-    position: absolute;
-    left: 77px;
-    margin-top: 1px;
-    margin-left: -2px;
+    .giftBow {
+        width: 40px;
+        height: 33px;
+        position: absolute;
+        margin-top: 1px;
+        margin-left: 66px;
+    }
 }
 
 .giftcardAmount {
