@@ -1,13 +1,16 @@
 <!-- The Loading Spinner that will show on page load -->
-<div ng-class = "{spinner: loading}">
-</div>
+<loading-spinner></loading-spinner>
 
 <section class = "upside merchantTricon" ng-class = "{friendlyShake: shaky}">
 	<!-- The amount entered -->
 	<h2 class="whiteText center">${{getAmount()}}</h2>
 
 	<!-- down arrow -->
-	<img class="center upside triconArrow" src="../images/up-arrow-wht.png">
+	<div class = "upside">
+		<div class = "authArrowContainerWide center">
+			<img src = "../images/arrows/up-facing-arrow-E9EEF6.png" height = "100%" width = "100%">
+		</div>
+	</div>
 
 	<!--Merchants name, upside container to fix a bug -->
 	<div class = "upside">
@@ -40,15 +43,15 @@
 	<table class = "sub-header triconForceBottom upside">
 		<tr>
 			<td class = "triconFooterContainer upside"><a class="blackText navText" ng-click = "senderId()">
-				<img class = "cancelIcon" ng-src="/../images/cancel-btn-orange.png" alt="Cancel Icon" height="25px" width="25px"></a>
+				<img class = "cancelIcon" ng-src="../images/variousIcons/cancel-btn-orange.png" alt="Cancel Icon" height="25px" width="25px"></a>
 			</td>
 
 			<td class = "localightImg center upside">
-				<img ng-src="/../images/logo-localight-outline-wht.png" alt="Localight" height="45px" width="45px">
+				<img ng-src="../images/variousIcons/logo-localight-outline-wht.png" alt="Localight" height="45px" width="45px">
 			</td>
 
 			<td class = "triconFooterContainer upside"><a class="blackText navText" ng-href="/#/giftcards">
-				<img class = "infoIcon" ng-src="/../images/info-btn-aqua.png" alt="Info Icon" height="25px" width="25px"></a>
+				<img class = "infoIcon" ng-src="../images/variousIcons/info-btn-aqua.png" alt="Info Icon" height="25px" width="25px"></a>
 			</td>
 
 		<tr>

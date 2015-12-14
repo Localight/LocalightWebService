@@ -17,10 +17,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Reset the rotation alert boolean
     rotationCheck.reset();
 
@@ -44,21 +40,18 @@ angular.module('angularLocalightApp')
         // Find a list of Giftcards
     	$scope.getGiftcards = function() {
 
-            //Start loading
-            var loadRequest = loadingSpinner.load("Getting Giftcards...");
-
             //First set up some JSON for the session token
             var payload = {
                 "sessionToken" : sessionToken
             }
 
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/giftcards", "Getting Giftcards...");
+
             //Query the backend using our session token
             Giftcards.get(payload, function(data, status) {
 
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
-
-                ///Success save giftcards in scope
+                //Success save giftcards in scope
                 $scope.giftcards = data;
 
                 //Also get the total value
@@ -66,67 +59,25 @@ angular.module('angularLocalightApp')
 
                 //Get the user's sent giftcards
                 $scope.getSentGiftcards();
-            },
-
-            function(err)
-            {
-                //Stop the loading spinner
-                loadingSpinner.stopLoading(loadRequest);
-
-                //Error, Inform the user of the status
-                if (err.status == 401) {
-
-                   //Session is invalid! Redirect to 404
-                   $location.path("/");
-
-                   //Show an error
-                   loadingSpinner.showError("No Session Found!","Session Token is invalid");
-
-                } else {
-
-                   //An unexpected error has occured, log into console
-                   loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
-                   "Status: " + err.status + " " + err.data.msg);
-                }
             });
     	}
 
         // Find a list of the given Giftcards
     	$scope.getSentGiftcards = function() {
 
-            //Start loading
-            var loadRequest = loadingSpinner.load("Getting Sent Giftcards...");
-
             //First set up some JSON for the session token
             var payload = {
                 "sessionToken" : sessionToken
             }
 
+            loadingSpinner.setMessage("/giftcards/given", "Getting Given Giftcards...");
+
             //Query the backend using our session token
             GivenGifts.get(payload,
             function(data, status) {
 
-                //Stop the loading spinner
-                loadingSpinner.stopLoading(loadRequest);
-
                 ///Success save giftcards in scope
                 $scope.sentGiftcards = data;
-            },
-
-            function(err)
-            {
-                //Error, Inform the user of the status
-                if (err.status == 401) {
-                   //Session is invalid! Redirect to 404
-                   $location.path("/");
-
-                   //Show an error
-                   loadingSpinner.showError("No Session Found!","Session Token is invalid");
-                } else {
-                   //An unexpected error has occured, log into console
-                   loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
-                   "Status: " + err.status + " " + err.data.msg);
-                }
             });
     	}
 

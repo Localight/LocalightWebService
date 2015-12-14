@@ -23,8 +23,8 @@ angular.module('angularLocalightApp')
       {
         name: 'birthday',
         images: {
-          normal: '../images/occasion-birthday-icon-wht.png',
-          selected: '../images/occasion-birthday-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-birthday-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-birthday-icon-blk.png',
           iconId: "0"
         },
         alt: 'Birthday',
@@ -33,8 +33,8 @@ angular.module('angularLocalightApp')
       {
         name: 'anniversary',
         images: {
-          normal: '../images/occasion-anniversary-icon-wht.png',
-          selected: '../images/occasion-anniversary-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-anniversary-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-anniversary-icon-blk.png',
           iconId: "1"
         },
         alt: 'Anniversary',
@@ -43,8 +43,8 @@ angular.module('angularLocalightApp')
       {
         name: 'love',
         images: {
-          normal: '../images/occasion-love-icon-wht.png',
-          selected: '../images/occasion-love-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-love-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-love-icon-blk.png',
           iconId: "2"
         },
         alt: 'I Love You',
@@ -53,8 +53,8 @@ angular.module('angularLocalightApp')
       {
         name: 'getwell',
         images: {
-          normal: '../images/occasion-getwell-icon-wht.png',
-          selected: '../images/occasion-getwell-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-getwell-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-getwell-icon-blk.png',
           iconId: "3"
         },
         alt: 'Get Well',
@@ -63,8 +63,8 @@ angular.module('angularLocalightApp')
       {
         name: 'congrats',
         images: {
-          normal: '../images/occasion-congrats-icon-wht.png',
-          selected: '../images/occasion-congrats-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-congrats-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-congrats-icon-blk.png',
           iconId: "4"
         },
         alt: 'Congrats',
@@ -73,8 +73,8 @@ angular.module('angularLocalightApp')
       {
         name: 'wedding',
         images: {
-          normal: '../images/occasion-wedding-icon-wht.png',
-          selected: '../images/occasion-wedding-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-wedding-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-wedding-icon-blk.png',
           iconId: "5"
         },
         alt: 'Wedding',
@@ -83,8 +83,8 @@ angular.module('angularLocalightApp')
       {
         name: 'baby',
         images: {
-          normal: '../images/occasion-baby-icon-wht.png',
-          selected: '../images/occasion-baby-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-baby-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-baby-icon-blk.png',
           iconId: "6"
         },
         alt: 'Baby',
@@ -93,8 +93,8 @@ angular.module('angularLocalightApp')
       {
         name: 'sympathy',
         images: {
-          normal: '../images/occasion-sympathy-icon-wht.png',
-          selected: '../images/occasion-sympathy-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-sympathy-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-sympathy-icon-blk.png',
           iconId: "7"
         },
         alt: 'Sympathy',
@@ -103,8 +103,8 @@ angular.module('angularLocalightApp')
       {
         name: 'thankyou',
         images: {
-          normal: '../images/occasion-thankyou-icon-wht.png',
-          selected: '../images/occasion-thankyou-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-thankyou-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-thankyou-icon-blk.png',
           iconId: "8"
         },
         alt: 'Thank You',
@@ -113,12 +113,12 @@ angular.module('angularLocalightApp')
       {
         name: 'holiday',
         images: {
-          normal: '../images/occasion-custom-icon-wht.png',
-          selected: '../images/occasion-custom-icon-blk.png',
+          normal: '../images/occasionIcons/occasion-custom-icon-wht.png',
+          selected: '../images/occasionIcons/occasion-custom-icon-blk.png',
           iconId: "9"
         },
         alt: 'Holiday',
-        text: 'If you want to be loved for who you are, just be yourself.'
+        text: "Here's wishing you Happy Holidays and a prosperous New Year!"
       }
     ];
 

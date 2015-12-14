@@ -16,10 +16,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //get our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
 
@@ -47,14 +43,14 @@ angular.module('angularLocalightApp')
     //Initialized function to get location info to auto fill old data
     $scope.getLocation = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Getting Location...");
-
         //First set up some JSON for the session token
         var payload = {
             "id" : $routeParams.locationId,
             "sessionToken" : $scope.sessionToken
         }
+
+        //Set our message for the loading spinner
+        loadingSpinner.setMessage("/locations/" + $routeParams.locationId, "Getting Location...");
 
         //Send the payload to the backend
         LocationById.get(payload,
@@ -71,22 +67,6 @@ angular.module('angularLocalightApp')
                 $scope.theForm.city = $scope.merchantLocation.city;
                 $scope.theForm.state = $scope.merchantLocation.state;
                 $scope.theForm.zipcode= $scope.merchantLocation.zipcode;
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
-        },
-        function(err)
-        {
-            //Error, Inform the user of the status
-            if (err.status == 401) {
-               //Session is invalid! Redirect to 404
-               $location.path("/");
-            } else {
-
-                //An unexpected error has occured, log into console
-                loadingSpinner.showError("Status: " + err.status + " " + err.data.msg,
-                "Status: " + err.status + " " + err.data.msg);
-            }
         })
      };
 
@@ -201,9 +181,6 @@ angular.module('angularLocalightApp')
     //Update the location
     $scope.updateLocation = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Updating Location...");
-
         //First set up some JSON for the session token
         var payload = {
            "id": $routeParams.locationId,
@@ -217,15 +194,15 @@ angular.module('angularLocalightApp')
            "zipcode": $scope.formData.zipcode
        };
 
+       //Set our message for the loading spinner
+       loadingSpinner.setMessage("/locations/" + $routeParams.locationId, "Updating Location...", true);
+
         $scope.newLocation = LocationById.update(payload,
 
         function(data, status) {
 
             //Success! Redirect back to the main page
             $location.path("/dashboard/main");
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
         },
 
         function(err) {
@@ -245,9 +222,6 @@ angular.module('angularLocalightApp')
                console.log("Status: " + err.status + " " + err.data.msg);
                $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
         });
     }
 

@@ -6,15 +6,20 @@
 
 /* Clique Logo */
 .clique_logo {
-  margin: 10px auto 5%;
-  height: 73px;
-  max-width: 300px;
-  display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    height: auto;
+    max-width: 225px;
+    display: block;
 }
+
+//An uneeded wrapper
 .clique_logo_wrapper {
   margin: 10px auto 5%;
-  height: 73px;
-  max-width: 300px;
+  height: auto;
+  max-width: 400px;
   display: block;
 }
 /* End Clique Logo */
@@ -126,10 +131,9 @@ label.inputlabel {
 }
 
 /* use dummy container to set aspect ration of card */
+/* See http://www.mademyday.de/css-height-equals-width-with-pure-css.html about setting fixed aspect ratios */
 .dummy {
   padding-top: 60%;
-  /* Credit card dimensions are 85.60 × 53.98 mm. 53.98/85.60 = 0.63 */
-  /* See http://www.mademyday.de/css-height-equals-width-with-pure-css.html about setting fixed aspect ratios */
 }
 
 .card {
@@ -148,7 +152,7 @@ label.inputlabel {
 }
 
 #front {
-  background-image: url('../images/logo-local-gift-card-wht.png');
+  background-image: url('../images/giftcardLogos/long-beach-giftcard-blk2.png');
   background-position: center;
   background-size: 70%;
   background-repeat: no-repeat;

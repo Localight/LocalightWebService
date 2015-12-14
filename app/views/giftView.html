@@ -1,5 +1,5 @@
 <!-- The Loading Spinner that will show on page load -->
-<div ng-include src = "'views/loadingSpinner.html'"></div>
+<loading-spinner></loading-spinner>
 
 <div class="container-fluid wrapper">
 
@@ -8,12 +8,15 @@
        <tr>
            <td class = "navCell">
                <a href = "#/giftcards">
-                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                   <div class = "arrowContainer">
+                       <img height = "100%" width = "100%"
+                       src = "../images/arrows/left-facing-arrow.png">
+                   </div>
                    <p class = "merchantBackText">Back</p>
                </a>
            </td>
            <td class = "localightImg center">
-               <img ng-src="/../images/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+               <img ng-src="../images/variousIcons/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
            </td>
            <td class = "textRightAlign navCell">${{totalValue}}</td>
        <tr>
@@ -43,7 +46,10 @@
               <div class = "smallDollar">$</div>
               {{(giftcard.origAmount / 100)}}
           </div>
-          <img class = "featuredImage" ng-src="../images/feature-card-made.jpg" alt="Merchant Image" height="50%" width="100%" />
+          <div class = "giftBow">
+              <img src = "../images/giftAmountIcons/bow-gift-wht-shad.png" height = "100%" width = "100%">
+          </div>
+          <img class = "featuredImage" ng-src="../images/featuredMerchants/feature-card-made.jpg" alt="Merchant Image" height="50%" width="100%" />
       </div>
 
     </div>
@@ -54,7 +60,7 @@
         <!-- amount to use at which merchant section -->
         <div class="text-center merchantInfo blackText">
           <h4 class="center giftcardAmount" id="useAmount">Use this ${{giftcard.origAmount / 100}} gift at</h4>
-          <h2 class="center giftcardMerchant">{{giftcard.location.locationId.name}}</h2>
+          <h3 class="center giftcardMerchant">{{giftcard.location.locationId.name}}</h3>
           <h5 class="center giftcardAddress" ng-if = "giftcard.location.locationId.address2">
               {{giftcard.location.locationId.address1
               + " " +
@@ -85,7 +91,7 @@
 
       <!-- for beta -->
       <div class="col-xs-12 text-center nearbyMerchant">
-        <h4 class = "blackText">Present this giftcard when you visit this merchant</h4>
+        <h4 class = "blackText viewPresent">Present this giftcard when you visit this merchant</h4>
       </div>
       <div class=""></div>
       <div class="col-xs-4 merchantArrow" ng-click="showMerchantList()"></div>
@@ -107,7 +113,7 @@
       <!-- Used at and when -->
       <div class="text-center merchantInfo blackText">
         <h4 class="center giftcardAmount">This gift was used at</h4>
-        <h2 class="center viewGiftMerchantName">{{giftcard.location.locationId.name}}</h2>
+        <h3 class="center viewGiftMerchantName">{{giftcard.location.locationId.name}}</h3>
         <h5 class="center viewGiftAddress" ng-if = "giftcard.location.locationId.address2">
             {{giftcard.location.locationId.address1
             + " " +

@@ -1,5 +1,5 @@
 <!-- The Loading Spinner that will show on page load -->
-<div ng-include src = "'views/loadingSpinner.html'"></div>
+<loading-spinner></loading-spinner>
 
 
 <!-- Part one of the creat location -->
@@ -103,7 +103,9 @@
         <div class = "dialBack locationButtonLeft"
         ng-disabled = "triconArray.length < 1"
         ng-click = "deleteTricon()">
-            <img class = "dialBackImg" src = "../images/auth-lft-arrow.png">
+            <div class = "authArrowContainer">
+                <img src = "../images/arrows/left-facing-arrow-red.png" width = "100%" height = "100%">
+            </div>
             <p class = "dialBackText">Delete</p>
         </div>
 
@@ -112,7 +114,9 @@
             ng-hide = "!confirmedCode || loading"
             ng-click = "submitLocation()">
              <p class="payText">Continue</p>
-            <img class="payArrow" src="../images/auth-rt-arrow.png">
+             <div class = "authArrowContainer">
+                 <img src = "../images/arrows/right-facing-arrow-blu.png" width = "100%" height = "100%">
+             </div>
         </div>
     </div>
 
