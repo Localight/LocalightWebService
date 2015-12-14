@@ -13,10 +13,6 @@ angular.module('angularLocalightApp')
     //get our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Duplicate form scope
     $scope.theForm = {};
     $scope.formData = {};
@@ -151,9 +147,6 @@ angular.module('angularLocalightApp')
     //Create the location
     $scope.submitLocation = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Creating Location...");
-
         //First set up some JSON for the session token
         var payload = {
            "sessionToken" : sessionToken,
@@ -166,6 +159,9 @@ angular.module('angularLocalightApp')
            "zipcode" : $scope.formData.zipcode
        };
 
+       //Set our message for the loading spinner
+       loadingSpinner.setMessage("/locations", "Creating Location...", true);
+
         //Send the payload to the backend
         Locations.create(payload,
             function(data, status) {
@@ -173,9 +169,6 @@ angular.module('angularLocalightApp')
                 //Success, redirect back to the main page, add data to scope
                 $scope.newLocation = data;
                 $location.path("/dashboard/main");
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
             },
             function(err) {
 
@@ -194,9 +187,6 @@ angular.module('angularLocalightApp')
                    console.log("Status: " + err.status + " " + err.data.msg);
                    $scope.error.text = "Sorry, an error has occured connecting to the database";
                 }
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
             });
     }
 

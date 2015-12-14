@@ -18,9 +18,11 @@ angular
     'ngTouch',
     'duScroll',
     'envConfig',
-    'angular-datepicker'
+    'angular-datepicker',
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $httpProvider) {
+
+    //Our Routes for the app
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -130,4 +132,87 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+
+
+      //Our Error Handler
+      $httpProvider.interceptors.push(function($q, $location, loadingSpinner) {
+          return {
+
+              //Called when a request is made to a server
+              'request': function(config) {
+
+                  //First check if it is to a backend or external site
+                  if(config.url.indexOf("http://") > -1 ||
+                  config.url.indexOf("https://") > -1) {
+
+                      //Get our Server Route
+                      var route = config.url.substring(config.url.indexOf("/", 8));
+
+                     //Start loading
+                     loadingSpinner.load(loadingSpinner.getMessage(route), route);
+                  }
+
+                  //Return the config to complete the request
+                 return config;
+               },
+
+                 // Called When we get a successful response
+                 'response': function(response) {
+
+                     //Stop loading the request
+
+                     if(response.config.url.indexOf("http://") > -1 ||
+                     response.config.url.indexOf("https://") > -1) {
+                         //Get our Server Route
+                         var route = response.config.url.substring(response.config.url.indexOf("/", 8));
+
+                         //Stop Loading
+                         loadingSpinner.stopLoading(route);
+                     }
+
+                     //Return the response to the applicatrion
+                    return response;
+                 },
+
+                //Errors, Called when error happens
+                'responseError': function(response) {
+
+                    //Get our Server Route
+                    var route = response.config.url.substring(response.config.url.indexOf("/", 8));
+
+                  if (response.status == 401) {
+                      //Handle 401 error code
+
+                      //Session is invalid! Redirect to 404, only if not a login page
+                      if(route.indexOf("/login") == -1) $location.path("/");
+
+                      //Show an error
+                      loadingSpinner.showError("No Session Found!",
+                      "Session Token is invalid", route);
+                  }
+                  else if (response.status == 500) {
+                    // Handle 500 error code
+                    loadingSpinner.showError("Status: " + response.status + ", The server had an error, or you've been directed to an incorrect page",
+                    "Status: " + response.status + ", The server had an error, or you've been directed to an incorrect page",
+                    route);
+                  }
+                  else {
+                      //Handle General Error
+
+                      //An unexpected error has occured, log into console
+                      loadingSpinner.showError("Status: " + response.status + ", Something went wrong, please contact the developers",
+                      "Status: " + response.status + ", Something went wrong, please contact the developers",
+                      route);
+                  }
+
+                  // Always reject (or resolve) the deferred you're given
+                  return $q.reject(response);
+                }
+
+
+              };
+        });
+
+
   });

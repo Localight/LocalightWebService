@@ -15,10 +15,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Boolean for if we receive errors
     $scope.submitError;
 
@@ -26,7 +22,7 @@ angular.module('angularLocalightApp')
     $scope.signUp = function() {
 
         //First check if their passwords match
-        if($scope.formData.password.indexOf($scope.formData.confirmPassword) < 0)
+        if($scope.formData.confirmPassword.indexOf($scope.formData.password) < 0)
         {
             $scope.submitError = true;
             $scope.theError = "Passwords do not match!";
@@ -55,8 +51,8 @@ angular.module('angularLocalightApp')
                "stripeCustomerId": "0"
             }
 
-            //Start loading
-            var loadRequest = loadingSpinner.load("Creating your account...");
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/owners/join", "Creating Your Account...", true);
 
             JoinOwner.submit(payload,
             function(data, status){
@@ -68,9 +64,6 @@ angular.module('angularLocalightApp')
 
                 //Finally redirect to the main page
                 $location.path("/dashboard/followup");
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
             },
             function(err)
             {
@@ -90,9 +83,6 @@ angular.module('angularLocalightApp')
                 else {
                     $scope.error.text = "Sorry, an error has occured connecting to the database";
                 }
-
-                //Stop Loading
-                loadingSpinner.stopLoading(loadRequest);
             });
         }
 

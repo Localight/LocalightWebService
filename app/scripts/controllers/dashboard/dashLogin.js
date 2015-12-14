@@ -15,25 +15,20 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Boolean to show an error to the user
     $scope.submitError;
 
     //Log in our owner!
     $scope.login = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Loggin you in...");
-
-
         //First set up some JSON for the session token
         var payload = {
            "email" : $scope.email,
            "password" : $scope.password
         }
+
+        //Set our message for the loading spinner
+        loadingSpinner.setMessage("/owners/login", "Logging You In...", true);
 
         //Login the user, submit the payload to the backend
         LoginOwner.submit(payload,
@@ -63,9 +58,6 @@ angular.module('angularLocalightApp')
                     $location.path("/dashboard/additionalinfo");
                 }
             }
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
         },
         function(err) {
 
@@ -82,9 +74,6 @@ angular.module('angularLocalightApp')
             else {
                 $scope.error.text = "Sorry, an error has occured connecting to the database";
             }
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
         });
     }
 

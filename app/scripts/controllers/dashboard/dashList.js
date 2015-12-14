@@ -16,29 +16,22 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Grab our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
 
     //Get our owner info on page load
     $scope.getOwner = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Getting Owner Info...");
-
         //First set up some JSON for the session token
         var payload = {
            "sessionToken" : sessionToken
         }
 
+        //Set our message for the loading spinner
+        loadingSpinner.setMessage("/owners", "Getting Owner Info...");
+
         Owners.get(payload,
         function(data, status){
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
 
             //Success, save the data to scope
             $scope.owner = data;
@@ -53,31 +46,6 @@ angular.module('angularLocalightApp')
                 //Get the locations
                 $scope.getLocations();
             }
-        },
-        //check for errors
-        function(err)
-        {
-
-            //Stop the loading spinner
-            loadingSpinner.stopLoading(loadRequest);
-
-            //Create the error object
-            $scope.error = {
-                isError : true,
-                text: ""
-            };
-
-            //Error, Inform the user of the status
-            if(err.status == 401)
-            {
-                //Session is invalid! Redirect to 404
-                $scope.error.text = "Sorry, the entered account information is incorrect.";
-            }
-            else
-            {
-                //An unexpected error has occured, log into console
-                $scope.error.text = "Sorry, an error has occured connecting to the database";
-            }
         });
 
     }
@@ -85,47 +53,19 @@ angular.module('angularLocalightApp')
     //get the locations from the backend
     $scope.getLocations = function() {
 
-        //Start loading
-        var loadRequest = loadingSpinner.load("Getting Locations...");
-
         //Json to send to the backend
         var payload = {
             "id" : $scope.owner._id
         }
+
+        //Set our message for the loading spinner
+        loadingSpinner.setMessage("/locations/owner/" + $scope.owner._id, "Getting Locations...");
 
         LocationByOwner.get(payload,
         function(data, status) {
 
             //Success, save the data from the backend in scope
             $scope.locations = data;
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
-        },
-        function(err)
-        {
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
-
-            //Error, Create the error object
-            $scope.error = {
-                isError : true,
-                text: "",
-                noLocations: false
-            };
-
-            if(err.status == 401)
-            {
-                $scope.error.text = "Sorry, the entered account information is incorrect.";
-            }
-            if(err.status == 404)
-            {
-                $scope.error.noLocations = true;
-            }
-            else {
-                $scope.error.text = "Sorry, an error has occured connecting to the database";
-            }
         });
     }
 
@@ -170,64 +110,11 @@ angular.module('angularLocalightApp')
         return triconArray;
     }
 
-    //Delete a location
-    $scope.deleteLocation = function(theLocation) {
-
-        //Start loading
-        var loadRequest = loadingSpinner.load("Deleting Location...");
-
-        console.log("THIS DOESNT WORK YET, BACKEND IS NOT READY :(");
-
-        //First set up some JSON for the session token
-        var payload = {
-           "sessionToken" : sessionToken
-        }
-
-        Owners.get(payload,
-        function(data, status) {
-
-            //Success, save the data from the backend to scope
-            $scope.owner = data;
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
-        },
-        function(err)
-        {
-
-            //Stop Loading
-            loadingSpinner.stopLoading(loadRequest);
-
-            //Error, Create the error object
-            $scope.error = {
-                isError : true,
-                text: "",
-                noLocations: false
-            };
-
-            if(err.status == 401)
-            {
-                $scope.error.text = "Sorry, the entered account information is incorrect.";
-            }
-            if(err.status == 404)
-            {
-                $scope.error.noLocations = true;
-            }
-            else {
-                $scope.error.text = "Sorry, an error has occured connecting to the database";
-            }
-        });
-    }
-
     //create a location
     $scope.redirectCreate = function() {
         //redirect to the create a location page
-        $location.path("/dashboard/createlocation")
+        $location.path("/dashboard/createlocation");
     }
-
-
-
-
 
     //Init
     $scope.getOwner();
