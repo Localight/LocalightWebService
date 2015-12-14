@@ -136,7 +136,7 @@ angular
 
 
       //Our Error Handler
-      $httpProvider.interceptors.push(function($q, loadingSpinner) {
+      $httpProvider.interceptors.push(function($q, $location, loadingSpinner) {
           return {
 
               //Called when a request is made to a server
@@ -184,8 +184,8 @@ angular
                   if (response.status == 401) {
                       //Handle 401 error code
 
-                      //Session is invalid! Redirect to 404
-                      $location.path("/");
+                      //Session is invalid! Redirect to 404, only if not a login page
+                      if(route.indexOf("/login") == -1) $location.path("/");
 
                       //Show an error
                       loadingSpinner.showError("No Session Found!",
@@ -193,6 +193,9 @@ angular
                   }
                   else if (response.status == 500) {
                     // Handle 500 error code
+                    loadingSpinner.showError("Status: " + response.status + ", The server had an error, or you've been directed to an incorrect page",
+                    "Status: " + response.status + ", The server had an error, or you've been directed to an incorrect page",
+                    route);
                   }
                   else {
                       //Handle General Error

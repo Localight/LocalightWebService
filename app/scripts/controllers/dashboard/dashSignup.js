@@ -22,7 +22,7 @@ angular.module('angularLocalightApp')
     $scope.signUp = function() {
 
         //First check if their passwords match
-        if($scope.formData.password.indexOf($scope.formData.confirmPassword) < 0)
+        if($scope.formData.confirmPassword.indexOf($scope.formData.password) < 0)
         {
             $scope.submitError = true;
             $scope.theError = "Passwords do not match!";

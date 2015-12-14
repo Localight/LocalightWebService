@@ -75,6 +75,16 @@ angular.module('angularLocalightApp')
                       break;
                   }
               }
+
+              //If no message is found, simply return loading
+              if(!tempMessage.msg) {
+                  tempMessage = {
+                      key: "loading",
+                      msg: "Loading...",
+                      noError: false
+                  }
+              }
+
               return tempMessage;
           },
 

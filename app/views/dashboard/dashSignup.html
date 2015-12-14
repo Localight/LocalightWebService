@@ -49,6 +49,7 @@
     !joinForm.lName.$valid ||
     !joinForm.email.$valid ||
     !joinForm.password.$valid ||
-    !joinForm.confirmPassword.$valid">Submit</button>
-    {{}}
+    !joinForm.confirmPassword.$valid ||
+    (formData.confirmPassword != formData.password)">Submit</button>
+
 </form>
