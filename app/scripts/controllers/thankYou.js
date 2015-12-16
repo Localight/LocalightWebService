@@ -210,26 +210,26 @@ angular.module('angularLocalightApp')
     //Array of Occasion headings
 	$scope.iconHeaders =
 	[
-		//Anniversary
+        //Birthday
+		"Happy Birthday!",
+        //Anniversary
 		"Happy Anniversary!",
+        //Love
+		"Thank you!",
+        //Get Well Soon
+		"Get Well Soon!",
+        //Congrats
+		"Congratulations!",
+        //Wedding
+		"Congratulations on the Wedding!",
 		//Baby
 		"Congratulations on the Baby!",
-		//Birthday
-		"Happy Birthday!",
-		//Congrats
-		"Congratulations!",
-		//Present (Custom Icon)
-		"Enjoy Your Gift!",
-		//Get Well Soon
-		"Get Well Soon!",
-		//Love
-		"Love You!",
-		//Sympathy
+        //Sympathy
 		"Feel Better Soon!",
-		//Thank You
+        //Thank You
 		"Thank You!",
-		//Wedding
-		"Congratulations on the Wedding!"
+		//Present (Custom Icon)
+		"Thank you!"
 	]
 
 
