@@ -71,7 +71,7 @@ angular.module('angularLocalightApp')
                 } else {
                     //Initialize our thanks message
                     $scope.thanksMessage = $scope.sender.name +
-                    " I used the Local Giftcard at " + $scope.merchantLocation.name +
+                    ", I used the Local Giftcard at " + $scope.merchantLocation.name +
                     " to get ...";
                     $scope.thanksHeader = " a thank you to ";
                 }
