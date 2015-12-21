@@ -1,4 +1,4 @@
-# LocalLight
+# Localight
 
 This project is a local giftcard. Our objective is to make a community where you can electronically send giftcards to your friends, and use those giftcards at local shops.
 This will encourage community, and help people become more involved in local shops.
