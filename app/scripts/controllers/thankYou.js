@@ -206,34 +206,7 @@ angular.module('angularLocalightApp')
     $scope.getOccasion = function(Id) {
         return OccasionService.getOccasionsById(Id);
     }
-
-    //Array of Occasion headings
-	$scope.iconHeaders =
-	[
-        //Birthday
-		"Happy Birthday!",
-        //Anniversary
-		"Happy Anniversary!",
-        //Love
-		"Thank you!",
-        //Get Well Soon
-		"Get Well Soon!",
-        //Congrats
-		"Congratulations!",
-        //Wedding
-		"Congratulations on the Wedding!",
-		//Baby
-		"Congratulations on the Baby!",
-        //Sympathy
-		"Feel Better Soon!",
-        //Thank You
-		"Thank You!",
-		//Present (Custom Icon)
-		"Thank you!"
-	]
-
-
-
+    
     //Init
     $scope.getGiftcards();
     $scope.countCharacters();
