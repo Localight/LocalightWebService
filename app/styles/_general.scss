@@ -137,6 +137,17 @@ background-position: 100% 200px;
     }
 }
 
+.loadDarkBody {
+    @extend .darkBlurBodyBg;
+
+    z-index: 1;
+
+    //Move it to fit the screen
+    width: 110%;
+    margin-left: -5%;
+    margin-top: -5%;
+}
+
 *:focus {
   outline: 0; /* remove border around focused elements, especially on Google Chrome */
 }

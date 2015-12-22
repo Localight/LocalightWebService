@@ -37,7 +37,7 @@ angular.module('angularLocalightApp')
     //Set the position of the background to be the device height
     //We want only a fraction of the screen height of blue space so use that for our y position
     //Using availHeight since it will return the height after ui bars hide
-    backGround.style.backgroundPosition = "100% " + (window.screen.availHeight * .3485) + "px";
+    backGround.style.backgroundPosition = "100% " + (window.screen.availHeight * .3495) + "px";
 
     $timeout(function(){
         backGround.className = backGround.className + " bgFade";

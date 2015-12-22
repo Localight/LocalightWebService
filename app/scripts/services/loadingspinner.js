@@ -30,7 +30,7 @@ angular.module('angularLocalightApp')
 
                   return false;
 
-              }, 10000);
+              }, 25000);
           }
 
           //No Timeout, simply show error
