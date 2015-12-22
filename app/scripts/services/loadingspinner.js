@@ -189,7 +189,17 @@ angular.module('angularLocalightApp')
           error: errorStack,
 
           //Function to return the message stack
-          message: messageStack
+          message: messageStack,
+
+          //Function to return the number of requests
+          numRequests: loadingStack.length + errorStack.length + messageStack.length,
+
+          //Function to reset all of our stacks
+          reset: function() {
+              loadingStack = [];
+              messageStack = [];
+              errorStack = [];
+          }
       }
 
   });

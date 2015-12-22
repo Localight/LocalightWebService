@@ -24,5 +24,10 @@ spinner.error.length > 0">
 
         </div>
 
+        <!-- Refresh the page button -->
+        <button class = "authButton center spinnerRefresh"
+        ng-if = "spinner.error.length > 0"
+        ng-click = "refresh()">Refresh</button>
+
     </div>
 </div>

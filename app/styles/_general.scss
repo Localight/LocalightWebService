@@ -82,6 +82,10 @@ background-position: 100% 200px;
     padding: 0px !important;
 }
 
+.noClick {
+    pointer-events: none !important;
+}
+
 /**
 ***********************
   LOADING SPINNER
@@ -111,7 +115,6 @@ background-position: 100% 200px;
     height: 1000px;
     left: 0;
     top: 0;
-    pointer-events: none;
 
     .loadContainer {
 
@@ -138,6 +141,11 @@ background-position: 100% 200px;
            border-top:6px solid $spinnerDark;
            border-radius:100%;
            z-index: 2;
+        }
+
+        .spinnerRefresh {
+            display: block;
+            margin-top: 25px;
         }
 
         .handlerContainer {

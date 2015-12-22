@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('BodyCtrl', function ($scope, $location, $timeout) {
+  .controller('BodyCtrl', function ($scope, $location, $timeout, loadingSpinner) {
 
     //Our backGround tag
     var html = document.documentElement;
@@ -18,6 +18,12 @@ angular.module('angularLocalightApp')
     //it will switch the body ng-class
     $scope.isDark = function(route) {
       return ($location.path().indexOf(route) > -1);
+    }
+
+    //Checks the spinner to see if we can click
+    $scope.canClick = function () {
+        if(loadingSpinner.numRequests > 0) return true;
+        else return false;
     }
 
     //Redirect function for invalid devices
