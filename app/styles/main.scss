@@ -487,11 +487,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
         @extend .center;
 
         border-radius: 15px;
-        border-top: 2px solid $inverseStandard;
-        border-left: 2px solid $inverseStandard;
         width: 100%;
         max-width: 315px;
         height: auto;
+        -webkit-box-shadow: -3px -3px 2px -1px rgba(242,237,227,0.95);
+        -moz-box-shadow: -3px -3px 2px -1px rgba(242,237,227,0.95);
+        box-shadow: -3px -3px 2px -1px rgba(242,237,227,0.95);
     }
 
     .giftAmount {
