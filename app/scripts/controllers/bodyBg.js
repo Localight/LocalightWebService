@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('BodyCtrl', function ($scope, $location, $timeout) {
+  .controller('BodyCtrl', function ($scope, $location, $timeout, loadingSpinner) {
 
     //Our backGround tag
     var html = document.documentElement;
@@ -20,9 +20,15 @@ angular.module('angularLocalightApp')
       return ($location.path().indexOf(route) > -1);
     }
 
+    //Checks the spinner to see if we can click
+    $scope.canClick = function () {
+        if(loadingSpinner.numRequests > 0) return true;
+        else return false;
+    }
+
     //Redirect function for invalid devices
     var invalidDevice = function(){
-        window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        //window.location = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
 
     //Check if this is not a mobile device
@@ -37,7 +43,7 @@ angular.module('angularLocalightApp')
     //Set the position of the background to be the device height
     //We want only a fraction of the screen height of blue space so use that for our y position
     //Using availHeight since it will return the height after ui bars hide
-    backGround.style.backgroundPosition = "100% " + (window.screen.availHeight * .3485) + "px";
+    backGround.style.backgroundPosition = "100% " + (window.screen.availHeight * .34) + "px";
 
     $timeout(function(){
         backGround.className = backGround.className + " bgFade";

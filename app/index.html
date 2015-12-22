@@ -70,7 +70,8 @@ ng-controller="BodyCtrl">
 
   <!-- Our View -->
   <div class="fn-app">
-    <div class="container" id="content">
+    <div class="container" id="content"
+    ng-class="{noClick: canClick()}">
       <div ng-view=""></div>
     </div>
   </div>

@@ -220,6 +220,9 @@ angular.module('angularLocalightApp')
 
                         //Show an alert to the user
                         alert("Wrong code, please check the code you entered, or try another.");
+
+                        //Empty the code field
+                        $scope.gc.code = "";
                     });
 
                 }
@@ -454,8 +457,12 @@ angular.module('angularLocalightApp')
             if(Stripe.card.validateCardNumber(cardNumber) && (cardNumber.length == 13 || cardNumber.length == 15 || cardNumber.length == 16)) {
                 $scope.validCC = true;
 
-                //Jump to the date field
-                $scope.ccDateSwitch();
+                //Jump to the date field, if not the dev number
+                if(cardNumber.indexOf("424242424242") != 0
+                || cardNumber.length == 16)
+                {
+                    $scope.ccDateSwitch();
+                }
             }
             else {
                 $scope.validCC = false;
