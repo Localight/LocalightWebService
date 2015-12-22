@@ -141,4 +141,32 @@ angular.module('angularLocalightApp')
 
         //Init
         $scope.getGiftcard();
+        //Init giftcard with fake data to avoid
+        //displaying alot of broken weirdness
+        $scope.giftcard = {
+            _id: "0",
+            fromId: {
+                name: "From"
+            },
+            toId: {
+                name: "To"
+            },
+            amount: 0,
+            origAmount: 7500,
+            iconId: 9,
+            message: "Enjoy your gift!",
+            thanked: false,
+            created: "2015-12-15T18:41:07.137Z",
+            location: {
+                locationId: {
+                    _id: "0",
+                    address1: "240 Pine Ave",
+                    city: "Long Beach",
+                    name: "MADE in Long Beach",
+                    state: "CA",
+                    subs: [],
+                    zipcode: "90802"
+                }
+            }
+        };
   });
