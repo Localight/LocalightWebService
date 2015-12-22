@@ -455,7 +455,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://jnode.ngrok.kondeo.com:8080'
+            API_BASE: 'http://dev.localight.com:3001'
           }
         }
       },
