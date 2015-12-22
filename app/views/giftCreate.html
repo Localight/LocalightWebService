@@ -319,7 +319,11 @@
 
       <button class="proceed_button" id="continue_button"
           ng-disabled="!(giftcardForm.$valid && gc.amount && gc.occasion && cardValidated) || loading"
-          ng-click="tokenizeInfo();backendError = false;">Continue</button>
+          ng-click="tokenizeInfo();backendError = false;">Continue
+      </button>
+
+      <img ng-src="../images/variousIcons/logo-localight-outline-blk.png" alt="Localight" height="45px" width="45px">
+
     </div>
 
     <div data-ng-show="error" class="text-danger">
