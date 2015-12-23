@@ -88,7 +88,7 @@
         <input ng-model="gc.code" type="number"
         name="clique_input_code" id="clique_input_code"
         class="profont rightColumn number"
-        ng-click="$event.preventDefault();setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
+        ng-focus="setActiveField('clique_code');setSecondaryField(3);showCard = true;flipCard();"
         placeholder="XXXXX" size="3" ng-keyup="codeValidate($event)"
         nextId="clique_occasion_selection"
         pattern="\d*" required>
