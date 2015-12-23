@@ -29,6 +29,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/expired', {
+        templateUrl: 'views/expired.html',
+        controller: 'ExpiredCtrl',
+        controllerAs: 'expired'
+      })
       .when('/giftcards/create', {
         templateUrl: 'views/giftCreate.html',
         controller: 'CreategiftcardCtrl',
@@ -128,11 +133,6 @@ angular
         templateUrl: 'views/terms.html',
         controller: 'TermsCtrl',
         controllerAs: 'terms'
-      })
-      .when('/expired', {
-        templateUrl: 'views/textorlist.html',
-        controller: 'TextorlistCtrl',
-        controllerAs: 'textOrList'
       })
       .otherwise({
         redirectTo: '/'

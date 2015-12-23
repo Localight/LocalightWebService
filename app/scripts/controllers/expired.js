@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TextorlistCtrl', function ($scope, rotationCheck) {
+  .controller('ExpiredCtrl', function ($scope, rotationCheck) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
