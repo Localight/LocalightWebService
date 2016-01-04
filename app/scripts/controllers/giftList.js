@@ -23,7 +23,15 @@ angular.module('angularLocalightApp')
         //get our session token from the cookies
         var sessionToken;
 
-        if($cookies.get("sessionToken"))
+        if($location.search().token)
+        {
+            //get our session token
+            sessionToken = $location.search().token;
+
+            //Place the session token in the cookies
+            $cookies.put("sessionToken", sessionToken);
+        }
+        else if($cookies.get("sessionToken"))
         {
             sessionToken = $cookies.get("sessionToken");
         }
