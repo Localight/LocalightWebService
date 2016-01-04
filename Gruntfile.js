@@ -156,7 +156,7 @@ module.exports = function(grunt) {
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['last 1 version']
+        browsers: ['last 5 versions']
       },
       server: {
         options: {
@@ -455,7 +455,7 @@ module.exports = function(grunt) {
         },
         constants: {
           ENV: {
-            API_BASE: 'http://jnode.ngrok.kondeo.com:8080'
+            API_BASE: 'http://dev.localight.com:3001'
           }
         }
       },

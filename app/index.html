@@ -70,7 +70,8 @@ ng-controller="BodyCtrl">
 
   <!-- Our View -->
   <div class="fn-app">
-    <div class="container" id="content">
+    <div class="container" id="content"
+    ng-class="{noClick: canClick()}">
       <div ng-view=""></div>
     </div>
   </div>
@@ -152,6 +153,7 @@ ng-controller="BodyCtrl">
   <script src="scripts/controllers/dashboard/additionalinfo.js"></script>
   <script src="scripts/controllers/terms.js"></script>
   <script src="scripts/directives/loadingspinner.js"></script>
+  <script src="scripts/controllers/expired.js"></script>
   <!-- endbuild -->
 
   <script src="/scripts/config/env.js"></script>

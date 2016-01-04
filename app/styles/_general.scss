@@ -22,7 +22,7 @@ body, html {
 
 .localCity {
 
-    background-image: url('../images/backgrounds/local-street-low2.png');
+    background-image: url('../images/backgrounds/local-street-bg-2.png');
     opacity: .90;
     background-repeat: no-repeat;
     top: 0;
@@ -35,10 +35,18 @@ body, html {
     position: fixed !important;
     background-size: contain;
     //Background position covered in JS
+//Going to have a general guess of the background on page load,
+//and then move it into position once page is fully loaded
+background-position: 100% 200px;
+
+//Background transition downward from the top
+@include transition(background-position 750ms ease 250ms);
+
+
 }
 
 .bgFade {
-    @include transition(background 500ms ease-in 400ms);
+    @include transition(background 750ms ease 250ms);
     background-image: url('../images/backgrounds/local-street-bg-blur7.png');
 }
 
@@ -50,7 +58,7 @@ body, html {
 	animation-direction: alternate;
 
     background-color: $standardAlphaDark;
-    height: 10000000px;
+    height: 10000px;
     width: 100%;
     z-index: -2;
 }
@@ -74,58 +82,87 @@ body, html {
     padding: 0px !important;
 }
 
+.noClick {
+    pointer-events: none !important;
+}
+
 /**
 ***********************
   LOADING SPINNER
 ***********************
 **/
 
+@include keyframes(color_change_loading) {
+    from { background-color: $transparent; }	to { background-color: $standardAlphaLight; }
+}
+
 @include keyframes(rotation) {
     from {@include transform(rotate(0deg));}
     to {@include transform(rotate(359deg));}
 }
 
-.loadContainer {
+.loadDarkBody {
+    @extend .darkBlurBodyBg;
+
+    z-index: 100;
+    background-color: $standardAlphaLight;
+    position: absolute;
+    animation-name: color_change_loading;
+    animation-duration: 0.25s;
+
+    //Move it to fit the screen
+    width: 100%;
+    height: 1000px;
+    left: 0;
+    top: 0;
+
+    .loadContainer {
 
 
-    position: fixed;
-    top: calc(33%);
-    left: calc(50% - 45%);
-    z-index: 2;
-    background-color: $container;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 0px;
-    width: 90%;
-    color: $inverseStandard;
-
-    .spinner {
-       height:60px;
-       width:60px;
-       margin:0px auto;
-       @include animation(rotation .6s infinite linear);
-       border-left:6px solid $spinnerLight;
-       border-right:6px solid $spinnerLight;
-       border-bottom:6px solid $spinnerLight;
-       border-top:6px solid $spinnerDark;
-       border-radius:100%;
-       z-index: 2;
-    }
-
-    .handlerContainer {
+        position: fixed;
+        top: calc(33%);
+        left: calc(50% - 45%);
+        z-index: 101;
+        background-color: $standard;
+        border-radius: 5px;
         padding: 10px;
-        width: 100%;
-        height: auto;
-        text-align: center;
-        z-index: 2;
+        margin: 0px;
+        width: 90%;
+        color: $inverseStandard;
 
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
+        .spinner {
+           height:60px;
+           width:60px;
+           margin:0px auto;
+           @include animation(rotation .6s infinite linear);
+           border-left:6px solid $spinnerLight;
+           border-right:6px solid $spinnerLight;
+           border-bottom:6px solid $spinnerLight;
+           border-top:6px solid $spinnerDark;
+           border-radius:100%;
+           z-index: 2;
+        }
 
-    h3 {
-        margin-top: 0px;
-        margin-bottom: 0px;
+        .spinnerRefresh {
+            display: block;
+            margin-top: 25px;
+        }
+
+        .handlerContainer {
+            padding: 10px;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            z-index: 2;
+
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
     }
 }
 
