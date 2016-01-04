@@ -135,8 +135,8 @@ angular
 
 
 
-      //Our Error Handler for https requests, and rotation check resetter
-      $httpProvider.interceptors.push(function($q, $location, loadingSpinner, rotationCheck) {
+      //Our Error Handler for https requests
+      $httpProvider.interceptors.push(function($q, $location, loadingSpinner) {
           return {
 
               //Called when a request is made to a server
@@ -151,9 +151,6 @@ angular
 
                      //Start loading
                      loadingSpinner.load(loadingSpinner.getMessage(route), route);
-                  }
-                  else {
-                      //Reset the rotation check
                   }
 
                   //Return the config to complete the request
