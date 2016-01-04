@@ -29,6 +29,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/expired', {
+        templateUrl: 'views/expired.html',
+        controller: 'ExpiredCtrl',
+        controllerAs: 'expired'
+      })
       .when('/giftcards/create', {
         templateUrl: 'views/giftCreate.html',
         controller: 'CreategiftcardCtrl',
