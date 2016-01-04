@@ -28,7 +28,7 @@ angular.module('angularLocalightApp')
 
         //Create the payload
         var payload = {
-            token : sessionToken,
+            sessionToken : sessionToken,
             dob: $scope.formData.dob
         };
 
