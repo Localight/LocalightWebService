@@ -8,11 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $timeout, $location, $window, rotationCheck,
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $timeout, $location, $window,
       Giftcards, LocationById, Thanks, loadingSpinner, OccasionService) {
-
-      //Reset the rotation alert boolean
-      rotationCheck.reset();
 
       //Initialize our giftcards in scope
       $scope.giftcards;
@@ -206,7 +203,7 @@ angular.module('angularLocalightApp')
     $scope.getOccasion = function(Id) {
         return OccasionService.getOccasionsById(Id);
     }
-    
+
     //Init
     $scope.getGiftcards();
     $scope.countCharacters();

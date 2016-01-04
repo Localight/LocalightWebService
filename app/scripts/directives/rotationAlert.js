@@ -27,6 +27,13 @@ angular.module('angularLocalightApp')
               }
           }, false);
 
+          //Check for route change
+          $scope.$on('$locationChangeStart', function(event) {
+              //Reset the alert variables
+              $scope.rotateAlert = false;
+              $scope.closedAlert = false;
+          });
+
           //Function to close the alert
           $scope.closeAlert = function () {
               $scope.closedAlert = true;

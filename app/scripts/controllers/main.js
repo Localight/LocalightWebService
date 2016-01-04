@@ -8,7 +8,5 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MainCtrl', function ($scope, rotationCheck) {
-      //Reset the rotation alert boolean
-      rotationCheck.reset();
+  .controller('MainCtrl', function ($scope) {
   });

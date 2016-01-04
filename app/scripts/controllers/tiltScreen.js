@@ -8,16 +8,14 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, $timeout, LocationById, rotationCheck, loadingSpinner) {
+  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies,
+      $timeout, LocationById, loadingSpinner) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-
-        //Reset the rotation alert boolean
-        rotationCheck.reset();
 
 		//Get our merchant ID from the url
 		$scope.Id = $routeParams.merchantId;

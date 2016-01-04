@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ConfirmationTimeoutCtrl', function ($scope, $timeout, $location, $routeParams, $cookies, LocationById, loadingSpinner) {
+  .controller('ConfirmationTimeoutCtrl', function ($scope, $timeout, $location,
+      $cookies, LocationById, loadingSpinner, $routeParams) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
