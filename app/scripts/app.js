@@ -79,6 +79,11 @@ angular
         controller: 'ThankyouCtrl',
         controllerAs: 'thankyou'
       })
+      .when('/thankyou', {
+        templateUrl: 'views/thankYou.html',
+        controller: 'ThankyouCtrl',
+        controllerAs: 'thankyou'
+      })
       .when('/localism', {
         templateUrl: 'views/localism.html',
         controller: 'LocalismCtrl',

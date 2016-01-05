@@ -24,7 +24,7 @@ angular.module('angularLocalightApp')
         if($cookies.get("thankYou-sentThanks"))
         {
             $scope.sentThanks = true;
-            $cookies.remove("thanks");
+            $cookies.remove("thankYou-sentThanks");
         }
 
 		//Initialize scope.giftcards
