@@ -21,7 +21,7 @@ angular.module('angularLocalightApp')
       $scope.purchaseValue;
 
       //Get our merchant ID
-      $scope.Id = $routeParams.merchantId;
+      $scope.merchantId = $routeParams.merchantId;
 
       //Get our amount
       $scope.spentAmount = (parseInt($cookies.get("enterAmount-inputAmount")) / 100).toFixed(2);
@@ -30,7 +30,15 @@ angular.module('angularLocalightApp')
       //get our session token from the cookies
       var sessionToken;
 
-      if($cookies.get("sessionToken"))
+      if($location.search().token)
+      {
+          //get our session token
+          sessionToken = $location.search().token;
+
+          //Place the session token in the cookies
+          $cookies.put("sessionToken", sessionToken);
+      }
+      else if($cookies.get("sessionToken"))
       {
           sessionToken = $cookies.get("sessionToken");
       }
@@ -40,17 +48,42 @@ angular.module('angularLocalightApp')
           $location.path("#/");
       }
 
+      //Prepare our text area, called in location or get giftcard
+      function setTextArea ()
+      {
+          $timeout(function(){
+              if($scope.sender.name == "Localight"){
+                  //Initialize our thanks message
+                  $scope.thanksMessage = $scope.sender.name +
+                  ", make this app experience better by adding/improving...";
+                  $scope.thanksHeader = " a suggestion to ";
+              }
+              else if(!$scope.merchantId) {
+                  //Initialize our thanks message
+                  $scope.thanksMessage = $scope.sender.name +
+                  ", I used the Local Giftcard to get ...";
+              }
+              else {
+                  //Initialize our thanks message
+                  $scope.thanksMessage = $scope.sender.name +
+                  ", I used the Local Giftcard at " + $scope.merchantLocation.name +
+                  " to get ...";
+                  $scope.thanksHeader = " a thank you to ";
+              }
+          }, 200);
+      }
+
     //Get our location
     $scope.getLocation = function() {
 
         //First set up some JSON for the session token
         var payload = {
-            "id" : $scope.Id,
+            "id" : $scope.merchantId,
             "sessionToken" : sessionToken
         }
 
         //Set our message for the loading spinner
-        loadingSpinner.setMessage("/locations/" + $scope.Id, "Getting Location...");
+        loadingSpinner.setMessage("/locations/" + $scope.merchantId, "Getting Location...");
 
         //Send the payload to the backend
         LocationById.get(payload,
@@ -59,33 +92,11 @@ angular.module('angularLocalightApp')
             //Success! Save the response to our scope!
             $scope.merchantLocation = data;
 
-            $timeout(function(){
-                if($scope.sender.name == "Localight"){
-                    //Initialize our thanks message
-                    $scope.thanksMessage = $scope.sender.name +
-                    ", make this app experience better by adding/improving...";
-                    $scope.thanksHeader = " a suggestion to ";
-                } else {
-                    //Initialize our thanks message
-                    $scope.thanksMessage = $scope.sender.name +
-                    ", I used the Local Giftcard at " + $scope.merchantLocation.name +
-                    " to get ...";
-                    $scope.thanksHeader = " a thank you to ";
-                }
-            }, 200);
+            //Set the text are Message
+            setTextArea();
 
         });
     }
-
-
-	//Prepare our text area
-	$scope.setTextArea = function ()
-	{
-		//Set the default value of our text area
-		document.getElementById("thankYouNote").value = sender.name +
-        ", I used the Local Giftcard at " +
-        $scope.merchantLocation.name + " to get...";
-	}
 
 	//Count our text area characters
 	$scope.countCharacters = function()
@@ -146,7 +157,9 @@ angular.module('angularLocalightApp')
             }
 
             //Now query the backend for the location
-            $scope.getLocation();
+            //Else, simply set the thanks message
+            if($scope.merchantId) $scope.getLocation();
+            else setTextArea();
 
         });
 	}

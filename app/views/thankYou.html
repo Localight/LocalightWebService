@@ -21,8 +21,11 @@
 	<h1 class = "center heart headerOccasion">{{getOccasion(sender.icon).header}}</h1>
 
 	<!-- Our message -->
-	<h4 class = "center">${{spentAmount}} was successfully transferred.
+	<h4 class = "center" ng-if="merchantId">${{spentAmount}} was successfully transferred.
 		Wanna send {{thanksHeader}} {{sender.name}}?</h4>
+
+		<h4 class = "center" ng-if="!merchantId"> We hope you enjoy your gift!
+			Wanna send a thank you to {{sender.name}}?</h4>
 
 	<!-- div to enter thank you note -->
 	<form>
