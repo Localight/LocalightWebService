@@ -21,7 +21,7 @@ angular.module('angularLocalightApp')
 
         //Get our thanks
         $scope.sentThanks = false;
-        if($cookies.get("thanks"))
+        if($cookies.get("thankYou-sentThanks"))
         {
             $scope.sentThanks = true;
             $cookies.remove("thanks");

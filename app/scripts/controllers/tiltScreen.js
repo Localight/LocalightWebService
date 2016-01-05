@@ -58,7 +58,7 @@ angular.module('angularLocalightApp')
 		$scope.getAmount = function()
 		{
 			//Retrive the cookie with our amount
-			var amount = $cookies.get("igosdmbmtv");
+			var amount = $cookies.get("enterAmount-inputAmount");
 			if(!amount)
 			{
 				$scope.goTo("/merchants/" + $scope.Id + "/amount");

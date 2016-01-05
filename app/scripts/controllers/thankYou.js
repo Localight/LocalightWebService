@@ -24,7 +24,7 @@ angular.module('angularLocalightApp')
       $scope.Id = $routeParams.merchantId;
 
       //Get our amount
-      $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
+      $scope.spentAmount = (parseInt($cookies.get("enterAmount-inputAmount")) / 100).toFixed(2);
       $cookies.remove("igosdmbmtv");
 
       //get our session token from the cookies
@@ -115,12 +115,12 @@ angular.module('angularLocalightApp')
 
             //Get our user who sent the giftcard
             $scope.sender = {};
-            if($cookies.get("senderName"))
+            if($cookies.get("giftView-senderName"))
             {
                 $scope.sender = {
-                    "name": $cookies.get("senderName"),
-                    "id": $cookies.get("senderId"),
-                    "icon": $cookies.get("senderIcon")
+                    "name": $cookies.get("giftView-senderName"),
+                    "id": $cookies.get("giftView-senderId"),
+                    "icon": $cookies.get("giftView-senderIcon")
                 }
 
                 $cookies.remove("senderName");
@@ -192,7 +192,7 @@ angular.module('angularLocalightApp')
             $scope.thankResponse = data;
 
             //save a thanks cookies
-            $cookies.put("thanks", true);
+            $cookies.put("thankYou-sentThanks", true);
 
             //Finally redirect to the localism page
             $location.path("/localism");
