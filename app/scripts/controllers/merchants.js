@@ -8,16 +8,14 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MerchantsCtrl', function ($scope, rotationCheck, Giftcards, Locations, $cookies, $location, loadingSpinner) {
+  .controller('MerchantsCtrl', function ($scope, Giftcards, Locations,
+      $cookies, $location, loadingSpinner) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-
-    //Reset the rotation alert boolean
-    rotationCheck.reset();
 
 	//Initialize our giftcards in scope
 	$scope.giftcards;

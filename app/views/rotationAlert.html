@@ -1,0 +1,16 @@
+<!-- The Rotation Alert that will show on device rotation -->
+
+<div class = "loadDarkBody"
+ng-if="rotateAlert && !closedAlert">
+    <div class = "loadContainer">
+
+        <div class = "handlerContainer">
+            <h3>Please disable device rotation, this application is meant to be used in portrait mode. You could risk spending a giftcard incorrectly, or losing your data.</h3>
+        </div>
+
+        <!-- Close the alert -->
+        <button class = "authButton center spinnerRefresh"
+        ng-click = "closeAlert()">OK</button>
+
+    </div>
+</div>

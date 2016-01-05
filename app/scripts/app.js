@@ -140,7 +140,7 @@ angular
 
 
 
-      //Our Error Handler
+      //Our Error Handler for https requests
       $httpProvider.interceptors.push(function($q, $location, loadingSpinner) {
           return {
 

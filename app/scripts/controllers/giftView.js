@@ -9,16 +9,13 @@
  */
 angular.module('angularLocalightApp')
   .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards,
-      rotationCheck, $location, loadingSpinner, OccasionService) {
+      $location, loadingSpinner, OccasionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-
-        //Reset the rotation alert boolean
-        rotationCheck.reset();
 
         //Boolean if the giftcard can be spent
         $scope.isValid;

@@ -16,10 +16,6 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Grab our session token from the cookies
     var sessionToken = $cookies.get("sessionToken");
 

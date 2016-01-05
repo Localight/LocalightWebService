@@ -8,7 +8,7 @@
 * Controller of the angularLocalightApp
 */
 angular.module('angularLocalightApp')
-.controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, rotationCheck, $timeout,
+.controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, $timeout,
     $log, $q, $cookies, OccasionService, Users, Join, Giftcards, LocationByCode, $document, loadingSpinner) {
 
         this.awesomeThings = [
@@ -22,9 +22,6 @@ angular.module('angularLocalightApp')
         //****
         //Page initialization
         //****
-
-        //Reset the rotation alert boolean
-        rotationCheck.reset();
 
         //Giftcard form object
         $scope.gc = {};

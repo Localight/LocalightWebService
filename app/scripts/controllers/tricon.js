@@ -9,10 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('TriconCtrl', function ($scope, $routeParams, $location,
-      rotationCheck, $cookies, LocationById, Spend, $timeout, loadingSpinner) {
-
-    //Reset the rotation alert boolean
-    rotationCheck.reset();
+      $cookies, LocationById, Spend, $timeout, loadingSpinner) {
 
     //Boolean to display an error message
     $scope.errorMsg
