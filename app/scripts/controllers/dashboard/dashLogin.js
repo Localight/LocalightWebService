@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('LoginpanelCtrl', function ($scope, $cookies, $location, LoginOwner, loadingSpinner) {
+  .controller('LoginpanelCtrl', function ($scope, $cookies, $location,
+      LoginOwner, loadingSpinner) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

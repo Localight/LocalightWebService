@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('EditlocationCtrl', function ($scope, $cookies, $location, $route, $routeParams, Owners, LocationById, loadingSpinner) {
+  .controller('EditlocationCtrl', function ($scope, $cookies, $location, $route, $routeParams,
+      Owners, LocationById, loadingSpinner, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -17,7 +18,7 @@ angular.module('angularLocalightApp')
     ];
 
     //get our session token from the cookies
-    var sessionToken = $cookies.get("sessionToken");
+    var sessionToken = sessionService.getToken;
 
     //Duplicate form scope
     $scope.theForm = {};

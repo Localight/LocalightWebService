@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('ConfirmationTimeoutCtrl', function ($scope, $timeout, $location,
-      $cookies, LocationById, loadingSpinner, $routeParams) {
+      $cookies, LocationById, loadingSpinner, $routeParams, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -18,7 +18,7 @@ angular.module('angularLocalightApp')
     ];
 
     //get our session token from the cookies
-    var sessionToken = $cookies.get("sessionToken");
+    var sessionToken = sessionService.getToken;
 
     //Get our merchant ID
     var merchantId = $routeParams.merchantId;

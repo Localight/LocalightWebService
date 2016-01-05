@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies,
-      Giftcards, loadingSpinner) {
+      Giftcards, loadingSpinner, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -18,17 +18,7 @@ angular.module('angularLocalightApp')
     ];
 
     //get our session token from the cookies
-    var sessionToken;
-
-    if($cookies.get("sessionToken"))
-    {
-        sessionToken = $cookies.get("sessionToken");
-    }
-    else
-    {
-        //Redirect them to a 404
-        $location.path("#/");
-    }
+    var sessionToken = sessionService.getToken;
 
 	//Get our merchant ID from the url
 	$scope.Id = $routeParams.merchantId;

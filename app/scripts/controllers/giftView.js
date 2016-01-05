@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards,
-      $location, loadingSpinner, OccasionService) {
+      $location, loadingSpinner, OccasionService, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -27,33 +27,10 @@ angular.module('angularLocalightApp')
         var giftcardId = $routeParams.giftcardId;
 
         //Get the session token from the cookies
-        var sessionToken;
+        var sessionToken = sessionService.getToken;
+
         //Scope session token for going to the giftcard create page
-        $scope.sessionToken = "";
-
-        if($location.search().token)
-        {
-            //get our session token
-            sessionToken = $location.search().token;
-
-            //also save in scope
-            $scope.sessionToken = sessionToken;
-
-            //Place the session token in the cookies
-            $cookies.put("sessionToken", sessionToken);
-        }
-        else if($cookies.get("sessionToken"))
-        {
-            //get our session token from the cookies
-            sessionToken = $cookies.get("sessionToken");
-
-            //also save in scope
-            $scope.sessionToken = sessionToken;
-        }
-        else {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+        $scope.sessionToken = sessionToken;
 
         // Find a list of Giftcards (For our total value)
     	$scope.getGiftcards = function() {
