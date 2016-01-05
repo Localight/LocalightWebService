@@ -124,9 +124,9 @@ angular.module('angularLocalightApp')
         //Save the sender's id for the thank you page
         $scope.senderId = function () {
             //put the sender into cookies to retrieve later
-            $cookies.put('senderName', $scope.giftcard.fromId.name);
-            $cookies.put('senderId', $scope.giftcard.fromId._id);
-            $cookies.put('senderIcon', $scope.giftcard.iconId);
+            $cookies.put('giftView-senderName', $scope.giftcard.fromId.name);
+            $cookies.put('giftView-senderId', $scope.giftcard.fromId._id);
+            $cookies.put('giftView-senderIcon', $scope.giftcard.iconId);
 
             //Change locations to the merchants page, and include the location id
             $location.path("/merchants").search({merchant: $scope.giftcard.location.locationId._id});

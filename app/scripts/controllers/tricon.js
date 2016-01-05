@@ -107,7 +107,7 @@ angular.module('angularLocalightApp')
                 var payload = {
                     "id" : $scope.Id,
                     "sessionToken" : sessionToken,
-                    "amount" : $cookies.get("igosdmbmtv"),
+                    "amount" : $cookies.get("enterAmount-inputAmount"),
                     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
                 }
 
@@ -197,7 +197,7 @@ angular.module('angularLocalightApp')
 		$scope.getAmount = function()
 		{
 			//Retrive the cookie with our amount
-			var amount = $cookies.get("igosdmbmtv");
+			var amount = $cookies.get("enterAmount-inputAmount");
 			if(!amount)
 			{
 				$scope.goTo("/merchants/" + $scope.Id + "/amount");

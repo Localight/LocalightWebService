@@ -264,7 +264,7 @@ angular.module('angularLocalightApp')
 
 		//Save our final amount if the path is to pay
 		if(place == "/merchants/" + $scope.Id + "/tilt") {
-			$cookies.put('igosdmbmtv', $scope.trueAmount);
+			$cookies.put('enterAmount-inputAmount', $scope.trueAmount);
             $location.path(place);
 		}
         else if(place == "/merchants")

@@ -800,8 +800,8 @@ angular.module('angularLocalightApp')
                         $scope.disableSubmit = true;
 
                         //Success, Store the phone number and email in the cookies
-                        $cookies.put("phone", $scope.gc.phoneNumber);
-                        $cookies.put("email", $scope.gc.email);
+                        $cookies.put("giftCreate-phoneNum", $scope.gc.phoneNumber);
+                        $cookies.put("giftCreate-email", $scope.gc.email);
 
                         //Go to the sent page
                         $location.path("/sent");
