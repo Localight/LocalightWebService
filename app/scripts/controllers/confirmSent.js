@@ -18,8 +18,8 @@ angular.module('angularLocalightApp')
         $scope.email = $cookies.get("giftCreate-email");
 
         //Remove the cookies
-        $cookies.remove("phone");
-        $cookies.remove("email");
+        $cookies.remove("giftCreate-phoneNum");
+        $cookies.remove("giftCreate-email");
     }
 
     //Init
