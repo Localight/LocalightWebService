@@ -25,7 +25,7 @@ angular.module('angularLocalightApp')
 
       //Get our amount
       $scope.spentAmount = (parseInt($cookies.get("enterAmount-inputAmount")) / 100).toFixed(2);
-      $cookies.remove("igosdmbmtv");
+      $cookies.remove("enterAmount-inputAmount");
 
       //get our session token from the cookies
       var sessionToken;
@@ -123,9 +123,9 @@ angular.module('angularLocalightApp')
                     "icon": $cookies.get("giftView-senderIcon")
                 }
 
-                $cookies.remove("senderName");
-                $cookies.remove("senderId");
-                $cookies.remove("senderIcon");
+                $cookies.remove("giftView-senderName");
+                $cookies.remove("giftView-senderId");
+                $cookies.remove("giftView-senderIcon");
             }
             else {
                 //Make the oldest, non thanked giftcard the sender since its the one we spent
