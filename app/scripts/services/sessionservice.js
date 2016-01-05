@@ -16,25 +16,37 @@ angular.module('angularLocalightApp')
     //Application
     var entryRoutes = [
         //Both giftCreate and giftView
-        "/#/giftcards/",
-        "/#/thankYou"
+        "/giftcards/",
+        "/thankYou"
     ]
 
     //Get the session token
     var sessionToken;
 
-    if($location.search().token)
+    if($cookies.get("sessionToken"))
     {
-        //get our session token
-        sessionToken = $location.search().token;
-
-        //Place the session token in the cookies
-        $cookies.put("sessionToken", sessionToken);
-    }
-    else if($cookies.get("sessionToken"))
-    {
+        
         //get our session token from the cookies
         sessionToken = $cookies.get("sessionToken");
+    }
+    else if($location.search().token)
+    {
+        //Loop through and check the entry routes
+        for(var i = 0; i < entryRoutes.length; i++) {
+
+            //If it is an entry route
+            if($location.path().indexOf(entryRoutes[i]) > -1) {
+
+                //get our session token
+                sessionToken = $location.search().token;
+
+                //Place the session token in the cookies
+                $cookies.put("sessionToken", sessionToken);
+
+                //Break Out of everything
+                break;
+            }
+        }
     }
     else {
         //Redirect them to a 404
@@ -48,4 +60,5 @@ angular.module('angularLocalightApp')
         //Function to return the sessionToken
         getToken: sessionToken,
     }
+
   });

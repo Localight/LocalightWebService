@@ -10,7 +10,7 @@
 angular.module('angularLocalightApp')
 .controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, $timeout,
     $log, $q, $cookies, OccasionService, Users, Join, Giftcards,
-    LocationByCode, $document, loadingSpinner, sessionToken) {
+    LocationByCode, $document, loadingSpinner, sessionService) {
 
         this.awesomeThings = [
             'HTML5 Boilerplate',
