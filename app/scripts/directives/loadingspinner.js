@@ -12,7 +12,7 @@ angular.module('angularLocalightApp')
       replace: false,
       restrict: 'E',
       templateUrl: 'views/loadingSpinner.html',
-      controller: function ($scope, loadingSpinner, $route) {
+      controller: function ($scope, loadingSpinner, $window) {
 
           //Initialize the loading service
           $scope.spinner = loadingSpinner.init();
@@ -24,7 +24,8 @@ angular.module('angularLocalightApp')
               //Refresh the spinner
               loadingSpinner.reset();
 
-              $route.reload();
+              //Refresh the page entirely
+              $window.location.reload();
 
           }
 
