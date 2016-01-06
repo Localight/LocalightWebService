@@ -17,7 +17,7 @@ angular.module('angularLocalightApp')
         ];
 
         //get our session token from the cookies
-        var sessionToken = sessionService.getToken;
+        var sessionToken = sessionService.getToken("user");
 
         //Get our thanks
         $scope.sentThanks = false;

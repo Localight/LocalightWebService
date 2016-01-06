@@ -12,7 +12,7 @@ angular.module('angularLocalightApp')
       Owners, Locations, loadingSpinner, sessionService) {
 
     //get our session token from the cookies
-    var sessionToken = sessionService.getToken;
+    var sessionToken = sessionService.getToken("owner");
 
     //Duplicate form scope
     $scope.theForm = {};

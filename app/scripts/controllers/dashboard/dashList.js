@@ -18,7 +18,7 @@ angular.module('angularLocalightApp')
     ];
 
     //Grab our session token from the cookies
-    var sessionToken = sessionService.getToken;
+    var sessionToken = sessionService.getToken("owner");
 
     //Get our owner info on page load
     $scope.getOwner = function() {

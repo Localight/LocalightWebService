@@ -8,60 +8,122 @@
  * Service in the angularLocalightApp.
  */
 angular.module('angularLocalightApp')
-  .service('sessionService', function ($location, $cookies) {
+  .service('sessionService', function ($location, $cookies, Users, Owners, loadingSpinner) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
-    //Array of routes that are allowed as
-    //Query Param Entry Points into the
-    //Application
-    var entryRoutes = [
-        //Both giftCreate and giftView
-        "/giftcards/",
-        "/thankYou"
-    ]
-
-    //Get the session token
+    //Session Token Variable
     var sessionToken;
 
-    if($cookies.get("sessionToken"))
-    {
+    //function to validate a sessionToken
+    function validateToken(role, token) {
 
-        //get our session token from the cookies
-        sessionToken = $cookies.get("sessionToken");
-    }
-    else if($location.search().token)
-    {
-        //Loop through and check the entry routes
-        for(var i = 0; i < entryRoutes.length; i++) {
+        var payload = {
+            "sessionToken": sessionToken
+        }
 
-            //If it is an entry route
-            if($location.path().indexOf(entryRoutes[i]) > -1) {
+        if(role == "user") {
 
-                //get our session token
-                sessionToken = $location.search().token;
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/users", "Validating Session...", true);
 
-                //Get the User from the backend to check if the sessionToken Works
-                
+            //Send the session token to the backend
+            Users.get(payload, function(data, status) {
 
-                //Place the session token in the cookies
-                $cookies.put("sessionToken", sessionToken);
+                //Everything went great, return true
+                return true;
+            },
+            //Error Checking
+            function (err) {
+                if(err.status == 412) {
 
-                //Break Out of everything
-                break;
-            }
+                    //They are unauthenticated, return false
+                    return false;
+                }
+                else {
+
+                    //Show an error
+                    loadingSpinner.showError("Status: " + err.status + "An error occurred validating your session",
+                    "Status: " + err.status + "Error with the session service validating token",
+                    "/users")
+                }
+            })
+        }
+        else if(role == "owner") {
+
+            //Set our message for the loading spinner
+            loadingSpinner.setMessage("/owners", "Validating Session...", true);
+
+            //Send the session token to the backend
+            Owners.get(payload, function(data, status) {
+
+                //Everything went great, return true
+                return true;
+            },
+            //Error Checking
+            function (err) {
+                if(err.status == 412) {
+
+                    //They are unauthenticated, return false
+                    return false;
+                }
+                else {
+
+                    //Show an error
+                    loadingSpinner.showError("Status: " + err.status + "An error occurred validating your session",
+                    "Status: " + err.status + "Error with the session service validating token",
+                    "/owners");
+                }
+            })
         }
     }
-    else {
-        //Redirect them to a 404
-        $location.path("#/");
-    }
-
 
 
     //Our functions to be returned from the service
     return {
+
         //Function to return the sessionToken
-        getToken: sessionToken,
+        //Role = is the session token for users or owners
+        //validate = should we ping the backend to check the sessionToken
+        getToken: function(role, validate) {
+
+            if((role == "user" && $cookies.get("sessionToken")) ||
+            (role == "owner" && $cookies.get("sessionToken-owner")))
+            {
+
+                //get our session token from the cookies
+                if(role == "user")sessionToken = $cookies.get("sessionToken");
+                else sessionToken = $cookies.get("sessionToken-owner");
+
+                // Check if we need to validate the session token
+                if(!validate ||
+                    (validate && validateToken(role, sessionToken))) {
+                    return sessionToken;
+                }
+                //Redirect them to a 404
+                else $location.path("#/");
+            }
+            else if($location.search().token)
+            {
+                //get our session token
+                sessionToken = $location.search().token;
+
+                //Place the session token in the cookies
+                if(role == "user")$cookies.put("sessionToken", sessionToken);
+                else $cookies.put("sessionToken-owner", sessionToken);
+
+                // Check if we need to validate the session token
+                if(!validate ||
+                    (validate && validateToken(role, sessionToken))) {
+                    return sessionToken;
+                }
+                //Redirect them to a 404
+                else $location.path("#/");
+            }
+            else {
+                //Redirect them to a 404
+                $location.path("#/");
+            }
+        }
     }
 
   });

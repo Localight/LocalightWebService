@@ -28,7 +28,7 @@ angular.module('angularLocalightApp')
       $cookies.remove("igosdmbmtv");
 
       //get our session token from the cookies
-      var sessionToken = sessionService.getToken;
+      var sessionToken = sessionService.getToken("user", true);
 
     //Get our location
     $scope.getLocation = function() {

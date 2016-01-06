@@ -18,7 +18,7 @@ angular.module('angularLocalightApp')
     ];
 
         //get our session token from the cookies
-        var sessionToken = sessionService.getToken;
+        var sessionToken = sessionService.getToken("user");
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;

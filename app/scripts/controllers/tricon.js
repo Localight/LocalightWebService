@@ -18,7 +18,7 @@ angular.module('angularLocalightApp')
     $scope.Id = $routeParams.merchantId;
 
     //get our session token from the cookies
-    var sessionToken = sessionService.getToken;
+    var sessionToken = sessionService.getToken("user");
 		//The string to diplay the *** to the users on tricon enter
 		$scope.pressedTricon = "";
 

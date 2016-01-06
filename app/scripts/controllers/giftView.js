@@ -27,7 +27,7 @@ angular.module('angularLocalightApp')
         var giftcardId = $routeParams.giftcardId;
 
         //Get the session token from the cookies
-        var sessionToken = sessionService.getToken;
+        var sessionToken = sessionService.getToken("user", true);
 
         //Scope session token for going to the giftcard create page
         $scope.sessionToken = sessionToken;
