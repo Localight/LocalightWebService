@@ -126,20 +126,9 @@ angular.module('angularLocalightApp')
         //validate = should we ping the backend to check the sessionToken
         getToken: function(role, validate) {
 
-            if((role == "user" && $cookies.get("sessionToken")) ||
-            (role == "owner" && $cookies.get("sessionToken-owner")))
-            {
-
-                //get our session token from the cookies
-                if(role == "user")sessionToken = $cookies.get("sessionToken");
-                else sessionToken = $cookies.get("sessionToken-owner");
-
-                // Check if we need to validate the session token
-                if(validate) return validateToken(role, sessionToken);
-                else return sessionToken;
-
-            }
-            else if($location.search().token)
+            //First check the query params (Since if we dont, a cookie will override the query call)
+            //Then check cookies, then redirect to a 404
+            if($location.search().token)
             {
                 //get our session token
                 sessionToken = $location.search().token;
@@ -152,6 +141,19 @@ angular.module('angularLocalightApp')
                 // Check if we need to validate the session token
                 if(validate) return validateToken(role, sessionToken);
                 else return sessionToken;
+            }
+            else if((role == "user" && $cookies.get("sessionToken")) ||
+            (role == "owner" && $cookies.get("sessionToken-owner")))
+            {
+
+                //get our session token from the cookies
+                if(role == "user")sessionToken = $cookies.get("sessionToken");
+                else sessionToken = $cookies.get("sessionToken-owner");
+
+                // Check if we need to validate the session token
+                if(validate) return validateToken(role, sessionToken);
+                else return sessionToken;
+
             }
             else {
                 //Redirect them to a 404
