@@ -6,6 +6,36 @@
  * @description
  * # sessionToken
  * Service in the angularLocalightApp.
+ *
+ * HOW TO USE THIS SERVICE
+ *
+ * Example Calls (Differ between Validation)
+ *
+ * First Param is role (Type of user, consumer (user), location Owner (owner))
+ * This is to check what kind of token we are using
+ *
+ * Second Param is if you want to validate the token, which then needs a promise .then()
+ *
+ *(No Token Validation)
+ * var sessionToken = sessionService.getToken("user");
+ *
+ *(Token Validation)
+ *
+ * var sessionToken;
+ * sessionService.getToken("user", true).then(function(token) {
+ *
+ *     //Check that everything went through alright
+ *     if(token) {
+ *
+ *         //Capture our sessionToken
+ *         sessionToken = token;
+ *         $scope.sessionToken = sessionToken;
+ *
+ *         //Init our controller
+ *         $scope.getGiftcard();
+ *     }
+ *  });
+ *
  */
 angular.module('angularLocalightApp')
   .service('sessionService', function ($location, $cookies, Users, Owners, loadingSpinner) {
