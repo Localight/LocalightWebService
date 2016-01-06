@@ -35,7 +35,17 @@ angular.module('angularLocalightApp')
         $scope.backendRes = "";
 
         //Get the session token
-        var sessionToken = sessionService.getToken("user", true);
+        var sessionToken;
+
+        sessionService.getToken("user", true).then(function(token) {
+
+            //Check that everything went through alright
+            if(token) {
+
+                //Capture our sessionToken
+                sessionToken = token;
+            }
+        });
 
         //Amount selection slider amount options
         $scope.prices = [10, 25, 50, 75, 100, 150, 250, 500];

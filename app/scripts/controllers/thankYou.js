@@ -28,7 +28,21 @@ angular.module('angularLocalightApp')
       $cookies.remove("igosdmbmtv");
 
       //get our session token from the cookies
-      var sessionToken = sessionService.getToken("user", true);
+      var sessionToken;
+      sessionService.getToken("user", true).then(function(token) {
+
+          //Check that everything went through alright
+          if(token) {
+
+              //Capture our sessionToken
+              sessionToken = token;
+
+              //Init our controller
+              $scope.getGiftcards();
+              $scope.countCharacters();
+              $scope.loading = true;
+          }
+      });
 
     //Get our location
     $scope.getLocation = function() {
@@ -193,10 +207,5 @@ angular.module('angularLocalightApp')
     $scope.getOccasion = function(Id) {
         return OccasionService.getOccasionsById(Id);
     }
-
-    //Init
-    $scope.getGiftcards();
-    $scope.countCharacters();
-    $scope.loading = true;
 
   });

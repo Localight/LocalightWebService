@@ -18,7 +18,7 @@ angular.module('angularLocalightApp')
     function validateToken(role, token) {
 
         var payload = {
-            "sessionToken": sessionToken
+            "sessionToken": token
         }
 
         if(role == "user") {
@@ -27,26 +27,30 @@ angular.module('angularLocalightApp')
             loadingSpinner.setMessage("/users", "Validating Session...", true);
 
             //Send the session token to the backend
-            Users.get(payload, function(data, status) {
+            return Users.get(payload).$promise.then(function(data, status) {
 
-                //Everything went great, return true
-                return true;
+                //Everything went great
+                //return the session Token
+                return token;
             },
             //Error Checking
             function (err) {
+
                 if(err.status == 412) {
 
                     //They are unauthenticated, return false
-                    return false;
+                    $location.path("#/");
+                    loadingSpinner.reset();
                 }
                 else {
 
                     //Show an error
                     loadingSpinner.showError("Status: " + err.status + "An error occurred validating your session",
                     "Status: " + err.status + "Error with the session service validating token",
-                    "/users")
                 }
-            })
+
+                return false;
+            });
         }
         else if(role == "owner") {
 
@@ -54,17 +58,20 @@ angular.module('angularLocalightApp')
             loadingSpinner.setMessage("/owners", "Validating Session...", true);
 
             //Send the session token to the backend
-            Owners.get(payload, function(data, status) {
+            return Owners.get(payload).$promise.then(function(data, status) {
 
-                //Everything went great, return true
-                return true;
+                //Everything went great
+                //return the session Token
+                return token;
             },
             //Error Checking
             function (err) {
+
                 if(err.status == 412) {
 
                     //They are unauthenticated, return false
-                    return false;
+                    $location.path("#/");
+                    loadingSpinner.reset();
                 }
                 else {
 
@@ -73,7 +80,9 @@ angular.module('angularLocalightApp')
                     "Status: " + err.status + "Error with the session service validating token",
                     "/owners");
                 }
-            })
+
+                return false;
+            });
         }
     }
 
@@ -95,29 +104,23 @@ angular.module('angularLocalightApp')
                 else sessionToken = $cookies.get("sessionToken-owner");
 
                 // Check if we need to validate the session token
-                if(!validate ||
-                    (validate && validateToken(role, sessionToken))) {
-                    return sessionToken;
-                }
-                //Redirect them to a 404
-                else $location.path("#/");
+                if(validate) return validateToken(role, sessionToken);
+                else return sessionToken;
+
             }
             else if($location.search().token)
             {
                 //get our session token
                 sessionToken = $location.search().token;
 
+
                 //Place the session token in the cookies
                 if(role == "user")$cookies.put("sessionToken", sessionToken);
                 else $cookies.put("sessionToken-owner", sessionToken);
 
                 // Check if we need to validate the session token
-                if(!validate ||
-                    (validate && validateToken(role, sessionToken))) {
-                    return sessionToken;
-                }
-                //Redirect them to a 404
-                else $location.path("#/");
+                if(validate) return validateToken(role, sessionToken);
+                else return sessionToken;
             }
             else {
                 //Redirect them to a 404

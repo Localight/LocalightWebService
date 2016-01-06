@@ -27,10 +27,20 @@ angular.module('angularLocalightApp')
         var giftcardId = $routeParams.giftcardId;
 
         //Get the session token from the cookies
-        var sessionToken = sessionService.getToken("user", true);
+        var sessionToken;
+        sessionService.getToken("user", true).then(function(token) {
 
-        //Scope session token for going to the giftcard create page
-        $scope.sessionToken = sessionToken;
+            //Check that everything went through alright
+            if(token) {
+
+                //Capture our sessionToken
+                sessionToken = token;
+                $scope.sessionToken = sessionToken;
+
+                //Init our controller
+                $scope.getGiftcard();
+            }
+        });
 
         // Find a list of Giftcards (For our total value)
     	$scope.getGiftcards = function() {
@@ -112,9 +122,6 @@ angular.module('angularLocalightApp')
             return OccasionService.getOccasionsById(Id);
         }
 
-
-        //Init
-        $scope.getGiftcard();
         //Init giftcard with fake data to avoid
         //displaying alot of broken weirdness
         $scope.giftcard = {
