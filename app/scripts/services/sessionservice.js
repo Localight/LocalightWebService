@@ -77,6 +77,7 @@ angular.module('angularLocalightApp')
                     //Show an error
                     loadingSpinner.showError("Status: " + err.status + "An error occurred validating your session",
                     "Status: " + err.status + "Error with the session service validating token",
+                    "/owners");
                 }
 
                 return false;
