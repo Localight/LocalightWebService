@@ -47,7 +47,7 @@ angular.module('angularLocalightApp')
             else {
 
                 //Save their session token
-                $cookies.put("sessionToken", $scope.owner.token);
+                $cookies.put("sessionToken-owner", $scope.owner.token);
 
                 //Check if they have completed additional info
                 if($scope.owner.dob) {
