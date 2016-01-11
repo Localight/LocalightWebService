@@ -211,7 +211,7 @@
             ng-click = "ccDateSwitch();">
           </div>
           <!-- lower box that within same box but differnet background -->
-          <div id="creditcardinfo" class="paymentcontainer currentInputNoBorder">
+          <div id="creditcardinfo" class="paymentcontainerInfo currentInputNoBorder">
             <!-- Date input for credit card -->
             <input
                 type="number"
@@ -221,24 +221,36 @@
                 ng-keyup = "validateDate()"
                 ng-keydown="maxLength($event, 2)"
                 placeholder="MM"
-                size="5"
+                max="12"
+                min="01"
                 pattern="\d*"
                 ng-model="cc.ExpiryM"
                 ng-focus="expiryFocus();setActiveField('creditcardinfo');"
-                onKeyUp="if(document.getElementById('clique_input_expiry_m').value.length > 1){document.getElementById('clique_input_expiry_y').focus();}">
+                onKeyUp="if(event.keyCode != 8 &&
+                (document.getElementById('clique_input_expiry_m').value > 2 ||
+                document.getElementById('clique_input_expiry_m').value.length > 1))
+                {document.getElementById('clique_input_expiry_y').focus();
+                if(document.getElementById('clique_input_expiry_m').value.length == 1)
+                {document.getElementById('clique_input_expiry_m').value = '0' +
+                document.getElementById('clique_input_expiry_m').value;}}">
+
+                <!--Slash to seprate Month And Year -->
+                <div class="profont currentInput expirySlash">/</div>
             <input
                 type="number"
                 name="clique_input_expiry_y"
                 id="clique_input_expiry_y"
                 class="profont currentInput expiryY"
                 ng-keyup = "validateDate()"
-                ng-keydown="maxLength($event, 4)"
-                placeholder="YYYY"
-                size="5"
+                ng-keydown="maxLength($event, 2)"
+                placeholder="YY"
+                max="99"
+                min="01"
                 pattern="\d*"
                 ng-model="cc.ExpiryY"
                 ng-focus="expiryFocus();setActiveField('creditcardinfo');"
-                onKeyUp="if(document.getElementById('clique_input_expiry_y').value.length > 3){document.getElementById('clique_input_cvv').focus();}">
+                onKeyUp="if(event.keyCode != 8 && document.getElementById('clique_input_expiry_y').value.length > 1)
+                {document.getElementById('clique_input_cvv').focus();}">
             <!-- CVV for Credit Card -->
             <!-- TODO: Come back and split up the month and year -->
             <input
@@ -253,7 +265,8 @@
                 pattern="\d*"
                 ng-model="cc.cvc"
                 ng-focus="expiryFocus();setActiveField('creditcardinfo');"
-                onKeyUp="if(document.getElementById('clique_input_cvv').value.length > 2){document.getElementById('clique_input_zip').focus();}">
+                onKeyUp="if(event.keyCode != 8 && document.getElementById('clique_input_cvv').value.length > 2)
+                {document.getElementById('clique_input_zip').focus();}">
             <!-- Zip for credit card -->
             <input
                 type="number"

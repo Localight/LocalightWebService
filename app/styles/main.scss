@@ -79,6 +79,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 }
 
+.paymentcontainerInfo {
+    @extend .paymentcontainer;
+
+    padding-left: 20px;
+}
+
 .nextInput {
   border-radius: 7px;
   background-color: $inverseStandardAlphaLight;
@@ -203,15 +209,21 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   line-height: 45px;
 }
 
-.expiryY {
+.expirySlash {
     @extend .expiryM;
 
-    width: 45px;
+    width: 10px;
+    margin-left: -5px !important;
+    display: inline-flex !important;
+}
+
+.expiryY {
+    @extend .expiryM;
 }
 
 .cvv {
     @extend .expiryM;
-    margin-left: 10px;
+    margin-left: 5px;
     width: 37px;
 }
 
