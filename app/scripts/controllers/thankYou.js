@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $timeout, $location, $window,
-      Giftcards, LocationById, Thanks, loadingSpinner, OccasionService) {
+      Giftcards, LocationById, Thanks, loadingSpinner, OccasionService, sessionService) {
 
       //Initialize our giftcards in scope
       $scope.giftcards;
@@ -29,16 +29,20 @@ angular.module('angularLocalightApp')
 
       //get our session token from the cookies
       var sessionToken;
+      sessionService.getToken("user", true).then(function(token) {
 
-      if($cookies.get("sessionToken"))
-      {
-          sessionToken = $cookies.get("sessionToken");
-      }
-      else
-      {
-          //Redirect them to a 404
-          $location.path("#/");
-      }
+          //Check that everything went through alright
+          if(token) {
+
+              //Capture our sessionToken
+              sessionToken = token;
+
+              //Init our controller
+              $scope.getGiftcards();
+              $scope.countCharacters();
+              $scope.loading = true;
+          }
+      });
 
     //Get our location
     $scope.getLocation = function() {
@@ -203,10 +207,5 @@ angular.module('angularLocalightApp')
     $scope.getOccasion = function(Id) {
         return OccasionService.getOccasionsById(Id);
     }
-
-    //Init
-    $scope.getGiftcards();
-    $scope.countCharacters();
-    $scope.loading = true;
 
   });

@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies,
-      $timeout, LocationById, loadingSpinner) {
+      $timeout, LocationById, loadingSpinner, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -21,17 +21,7 @@ angular.module('angularLocalightApp')
 		$scope.Id = $routeParams.merchantId;
 
         //get our session token from the cookies
-        var sessionToken;
-
-        if($cookies.get("sessionToken"))
-        {
-            sessionToken = $cookies.get("sessionToken");
-        }
-        else
-        {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+        var sessionToken = sessionService.getToken("user");
 
         //Get our location
         $scope.getLocation = function() {

@@ -9,7 +9,8 @@
 */
 angular.module('angularLocalightApp')
 .controller('CreategiftcardCtrl', function($scope, $http, $routeParams, $location, $window, $timeout,
-    $log, $q, $cookies, OccasionService, Users, Join, Giftcards, LocationByCode, $document, loadingSpinner) {
+    $log, $q, $cookies, OccasionService, Users, Join, Giftcards,
+    LocationByCode, $document, loadingSpinner, sessionService) {
 
         this.awesomeThings = [
             'HTML5 Boilerplate',
@@ -36,23 +37,15 @@ angular.module('angularLocalightApp')
         //Get the session token
         var sessionToken;
 
-        if($location.search().token)
-        {
-            //get our session token
-            sessionToken = $location.search().token;
+        sessionService.getToken("user", true).then(function(token) {
 
-            //Place the session token in the cookies
-            $cookies.put("sessionToken", sessionToken);
-        }
-        else if($cookies.get("sessionToken"))
-        {
-            //get our session token from the cookies
-            sessionToken = $cookies.get("sessionToken");
-        }
-        else {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+            //Check that everything went through alright
+            if(token) {
+
+                //Capture our sessionToken
+                sessionToken = token;
+            }
+        });
 
         //Amount selection slider amount options
         $scope.prices = [10, 25, 50, 75, 100, 150, 250, 500];

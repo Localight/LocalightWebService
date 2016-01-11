@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards,
-      $location, GivenGifts, loadingSpinner, OccasionService) {
+      $location, GivenGifts, loadingSpinner, OccasionService, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -18,25 +18,7 @@ angular.module('angularLocalightApp')
     ];
 
         //get our session token from the cookies
-        var sessionToken;
-
-        if($location.search().token)
-        {
-            //get our session token
-            sessionToken = $location.search().token;
-
-            //Place the session token in the cookies
-            $cookies.put("sessionToken", sessionToken);
-        }
-        else if($cookies.get("sessionToken"))
-        {
-            sessionToken = $cookies.get("sessionToken");
-        }
-        else
-        {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+        var sessionToken = sessionService.getToken("user");
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;

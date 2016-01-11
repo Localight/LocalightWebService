@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards,
-      $location, loadingSpinner, OccasionService) {
+      $location, loadingSpinner, OccasionService, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -28,32 +28,19 @@ angular.module('angularLocalightApp')
 
         //Get the session token from the cookies
         var sessionToken;
-        //Scope session token for going to the giftcard create page
-        $scope.sessionToken = "";
+        sessionService.getToken("user", true).then(function(token) {
 
-        if($location.search().token)
-        {
-            //get our session token
-            sessionToken = $location.search().token;
+            //Check that everything went through alright
+            if(token) {
 
-            //also save in scope
-            $scope.sessionToken = sessionToken;
+                //Capture our sessionToken
+                sessionToken = token;
+                $scope.sessionToken = sessionToken;
 
-            //Place the session token in the cookies
-            $cookies.put("sessionToken", sessionToken);
-        }
-        else if($cookies.get("sessionToken"))
-        {
-            //get our session token from the cookies
-            sessionToken = $cookies.get("sessionToken");
-
-            //also save in scope
-            $scope.sessionToken = sessionToken;
-        }
-        else {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+                //Init our controller
+                $scope.getGiftcard();
+            }
+        });
 
         // Find a list of Giftcards (For our total value)
     	$scope.getGiftcards = function() {
@@ -135,9 +122,6 @@ angular.module('angularLocalightApp')
             return OccasionService.getOccasionsById(Id);
         }
 
-
-        //Init
-        $scope.getGiftcard();
         //Init giftcard with fake data to avoid
         //displaying alot of broken weirdness
         $scope.giftcard = {

@@ -9,7 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('TriconCtrl', function ($scope, $routeParams, $location,
-      $cookies, LocationById, Spend, $timeout, loadingSpinner) {
+      $cookies, LocationById, Spend, $timeout, loadingSpinner, sessionService) {
 
     //Boolean to display an error message
     $scope.errorMsg
@@ -18,18 +18,7 @@ angular.module('angularLocalightApp')
     $scope.Id = $routeParams.merchantId;
 
     //get our session token from the cookies
-    var sessionToken;
-
-    if($cookies.get("sessionToken"))
-    {
-        sessionToken = $cookies.get("sessionToken");
-    }
-    else
-    {
-        //Redirect them to a 404
-        $location.path("#/");
-    }
-
+    var sessionToken = sessionService.getToken("user");
 		//The string to diplay the *** to the users on tricon enter
 		$scope.pressedTricon = "";
 
