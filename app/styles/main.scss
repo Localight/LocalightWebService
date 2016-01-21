@@ -779,19 +779,16 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .swipeLock {
+    margin-top: 5px;
     width: 67px;
     height: 67px;
-    background: url('../images/animations/lock-anim-sprite-wht.png') left bottom;
-    background-size: auto 67px;
-    transition: none;
-    margin-top:5px;
-
+    background: url('../images/animations/lock-anim-sprite-wht.png') left center;
+    background-size: 1005px 67px;
 }
 
 .animateLock {
-    animation: play 2.5s steps(15, end);
-    animation-direction: reverse;
-    animation-iteration-count: 1
+    animation: play 1.35s steps(15, end);
+    animation-iteration-count: 1;
 }
 
 .lockBorder {
@@ -804,9 +801,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
     margin-left: auto;
 }
 
+
 @include keyframes(play) {
-    from { background-position:    0px; }
-    to { background-position: 2130px; }
+    from { background-position: 1005px; }
+    to { background-position: 0px; }
 }
 
 /**
