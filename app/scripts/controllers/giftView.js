@@ -9,16 +9,13 @@
  */
 angular.module('angularLocalightApp')
   .controller('ViewgiftcardCtrl', function ($scope, $routeParams, $cookies, GiftcardById, Giftcards,
-      rotationCheck, $location, loadingSpinner, OccasionService) {
+      $location, loadingSpinner, OccasionService, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-
-        //Reset the rotation alert boolean
-        rotationCheck.reset();
 
         //Boolean if the giftcard can be spent
         $scope.isValid;
@@ -31,32 +28,19 @@ angular.module('angularLocalightApp')
 
         //Get the session token from the cookies
         var sessionToken;
-        //Scope session token for going to the giftcard create page
-        $scope.sessionToken = "";
+        sessionService.getToken("user", true).then(function(token) {
 
-        if($location.search().token)
-        {
-            //get our session token
-            sessionToken = $location.search().token;
+            //Check that everything went through alright
+            if(token) {
 
-            //also save in scope
-            $scope.sessionToken = sessionToken;
+                //Capture our sessionToken
+                sessionToken = token;
+                $scope.sessionToken = sessionToken;
 
-            //Place the session token in the cookies
-            $cookies.put("sessionToken", sessionToken);
-        }
-        else if($cookies.get("sessionToken"))
-        {
-            //get our session token from the cookies
-            sessionToken = $cookies.get("sessionToken");
-
-            //also save in scope
-            $scope.sessionToken = sessionToken;
-        }
-        else {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+                //Init our controller
+                $scope.getGiftcard();
+            }
+        });
 
         // Find a list of Giftcards (For our total value)
     	$scope.getGiftcards = function() {
@@ -124,9 +108,9 @@ angular.module('angularLocalightApp')
         //Save the sender's id for the thank you page
         $scope.senderId = function () {
             //put the sender into cookies to retrieve later
-            $cookies.put('senderName', $scope.giftcard.fromId.name);
-            $cookies.put('senderId', $scope.giftcard.fromId._id);
-            $cookies.put('senderIcon', $scope.giftcard.iconId);
+            $cookies.put('giftView-senderName', $scope.giftcard.fromId.name);
+            $cookies.put('giftView-senderId', $scope.giftcard.fromId._id);
+            $cookies.put('giftView-senderIcon', $scope.giftcard.iconId);
 
             //Change locations to the merchants page, and include the location id
             $location.path("/merchants").search({merchant: $scope.giftcard.location.locationId._id});
@@ -138,9 +122,6 @@ angular.module('angularLocalightApp')
             return OccasionService.getOccasionsById(Id);
         }
 
-
-        //Init
-        $scope.getGiftcard();
         //Init giftcard with fake data to avoid
         //displaying alot of broken weirdness
         $scope.giftcard = {

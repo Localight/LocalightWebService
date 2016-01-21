@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies, Giftcards, rotationCheck, loadingSpinner) {
+  .controller('EnterAmountCtrl', function ($scope, $location, $routeParams, $cookies,
+      Giftcards, loadingSpinner, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,21 +17,8 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Reset the rotation alert boolean
-    rotationCheck.reset();
-
     //get our session token from the cookies
-    var sessionToken;
-
-    if($cookies.get("sessionToken"))
-    {
-        sessionToken = $cookies.get("sessionToken");
-    }
-    else
-    {
-        //Redirect them to a 404
-        $location.path("#/");
-    }
+    var sessionToken = sessionService.getToken("user");
 
 	//Get our merchant ID from the url
 	$scope.Id = $routeParams.merchantId;
@@ -264,7 +252,7 @@ angular.module('angularLocalightApp')
 
 		//Save our final amount if the path is to pay
 		if(place == "/merchants/" + $scope.Id + "/tilt") {
-			$cookies.put('igosdmbmtv', $scope.trueAmount);
+			$cookies.put('enterAmount-inputAmount', $scope.trueAmount);
             $location.path(place);
 		}
         else if(place == "/merchants")

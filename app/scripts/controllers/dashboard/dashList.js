@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('MainpanelCtrl', function ($scope, $cookies, $location, Owners, LocationByOwner, loadingSpinner) {
+  .controller('MainpanelCtrl', function ($scope, $cookies, $location,
+      Owners, LocationByOwner, loadingSpinner, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -17,7 +18,7 @@ angular.module('angularLocalightApp')
     ];
 
     //Grab our session token from the cookies
-    var sessionToken = $cookies.get("sessionToken");
+    var sessionToken = sessionService.getToken("owner");
 
     //Get our owner info on page load
     $scope.getOwner = function() {

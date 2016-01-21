@@ -72,6 +72,13 @@ ng-controller="BodyCtrl">
   <div class="fn-app">
     <div class="container" id="content"
     ng-class="{noClick: canClick()}">
+
+    <!-- The Loading Spinner that will show on page load -->
+    <loading-spinner></loading-spinner>
+
+    <!-- The Rotation Alert that will show on device rotation -->
+    <rotation-alert></rotation-alert>
+
       <div ng-view=""></div>
     </div>
   </div>
@@ -146,14 +153,15 @@ ng-controller="BodyCtrl">
   <script src="scripts/services/owners.js"></script>
   <script src="scripts/controllers/dashboard/locationCreate.js"></script>
   <script src="scripts/controllers/dashboard/locationEdit.js"></script>
-  <script src="scripts/services/rotateservice.js"></script>
   <script src="scripts/controllers/dashboard/dashHome.js"></script>
   <script src="scripts/services/loadingspinner.js"></script>
   <script src="scripts/controllers/dashboard/followup.js"></script>
   <script src="scripts/controllers/dashboard/additionalinfo.js"></script>
   <script src="scripts/controllers/terms.js"></script>
   <script src="scripts/directives/loadingspinner.js"></script>
+  <script src="scripts/directives/rotationAlert.js"></script>
   <script src="scripts/controllers/expired.js"></script>
+  <script src="scripts/services/sessionservice.js"></script>
   <!-- endbuild -->
 
   <script src="/scripts/config/env.js"></script>

@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('AdditionalinfoCtrl', function ($scope, $cookies, $location, $timeout, Owners, loadingSpinner) {
+  .controller('AdditionalinfoCtrl', function ($scope, $cookies, $location, $timeout, Owners, loadingSpinner, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,19 +16,15 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Initialize the loading service
-    $scope.loadHandler = loadingSpinner.loading;
-    $scope.errorHandler = loadingSpinner.error;
-
     //Grab our session token from the cookies
-    var sessionToken = $cookies.get("sessionToken");
+    var sessionToken = sessionService.getToken("owner");
 
     //Update the owner
     $scope.updateOwner = function() {
 
         //Create the payload
         var payload = {
-            token : sessionToken,
+            sessionToken : sessionToken,
             dob: $scope.formData.dob
         };
 

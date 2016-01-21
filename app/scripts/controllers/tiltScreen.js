@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies, $timeout, LocationById, rotationCheck, loadingSpinner) {
+  .controller('TiltScreenCtrl', function ($scope, $location, $routeParams, $cookies,
+      $timeout, LocationById, loadingSpinner, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -16,24 +17,11 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-        //Reset the rotation alert boolean
-        rotationCheck.reset();
-
 		//Get our merchant ID from the url
 		$scope.Id = $routeParams.merchantId;
 
         //get our session token from the cookies
-        var sessionToken;
-
-        if($cookies.get("sessionToken"))
-        {
-            sessionToken = $cookies.get("sessionToken");
-        }
-        else
-        {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+        var sessionToken = sessionService.getToken("user");
 
         //Get our location
         $scope.getLocation = function() {
@@ -60,7 +48,7 @@ angular.module('angularLocalightApp')
 		$scope.getAmount = function()
 		{
 			//Retrive the cookie with our amount
-			var amount = $cookies.get("igosdmbmtv");
+			var amount = $cookies.get("enterAmount-inputAmount");
 			if(!amount)
 			{
 				$scope.goTo("/merchants/" + $scope.Id + "/amount");

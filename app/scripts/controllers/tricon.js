@@ -9,10 +9,7 @@
  */
 angular.module('angularLocalightApp')
   .controller('TriconCtrl', function ($scope, $routeParams, $location,
-      rotationCheck, $cookies, LocationById, Spend, $timeout, loadingSpinner) {
-
-    //Reset the rotation alert boolean
-    rotationCheck.reset();
+      $cookies, LocationById, Spend, $timeout, loadingSpinner, sessionService) {
 
     //Boolean to display an error message
     $scope.errorMsg
@@ -21,18 +18,7 @@ angular.module('angularLocalightApp')
     $scope.Id = $routeParams.merchantId;
 
     //get our session token from the cookies
-    var sessionToken;
-
-    if($cookies.get("sessionToken"))
-    {
-        sessionToken = $cookies.get("sessionToken");
-    }
-    else
-    {
-        //Redirect them to a 404
-        $location.path("#/");
-    }
-
+    var sessionToken = sessionService.getToken("user");
 		//The string to diplay the *** to the users on tricon enter
 		$scope.pressedTricon = "";
 
@@ -107,7 +93,7 @@ angular.module('angularLocalightApp')
                 var payload = {
                     "id" : $scope.Id,
                     "sessionToken" : sessionToken,
-                    "amount" : $cookies.get("igosdmbmtv"),
+                    "amount" : $cookies.get("enterAmount-inputAmount"),
                     "triconKey" : triconArray[0] + "" + triconArray[1] + "" + triconArray[2]
                 }
 
@@ -197,7 +183,7 @@ angular.module('angularLocalightApp')
 		$scope.getAmount = function()
 		{
 			//Retrive the cookie with our amount
-			var amount = $cookies.get("igosdmbmtv");
+			var amount = $cookies.get("enterAmount-inputAmount");
 			if(!amount)
 			{
 				$scope.goTo("/merchants/" + $scope.Id + "/amount");
@@ -215,9 +201,9 @@ angular.module('angularLocalightApp')
         //Remove the sender's id for the thank you page
         $scope.senderId = function () {
             //Remove the cookies since this info is no longer valid
-            $cookies.remove('senderName');
-            $cookies.remove('senderId');
-            $cookies.remove('senderIcon');
+            $cookies.remove('giftView-senderName');
+            $cookies.remove('giftView-senderId');
+            $cookies.remove('giftView-senderIcon');
 
             //Change locations to the merchants page
             $location.path("/giftcards");

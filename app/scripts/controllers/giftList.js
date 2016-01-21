@@ -8,8 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards, rotationCheck,
-      $location, GivenGifts, loadingSpinner, OccasionService) {
+  .controller('ListgiftcardsCtrl', function ($scope, $cookies, Giftcards,
+      $location, GivenGifts, loadingSpinner, OccasionService, sessionService) {
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
@@ -17,21 +17,8 @@ angular.module('angularLocalightApp')
       'Karma'
     ];
 
-    //Reset the rotation alert boolean
-    rotationCheck.reset();
-
         //get our session token from the cookies
-        var sessionToken;
-
-        if($cookies.get("sessionToken"))
-        {
-            sessionToken = $cookies.get("sessionToken");
-        }
-        else
-        {
-            //Redirect them to a 404
-            $location.path("#/");
-        }
+        var sessionToken = sessionService.getToken("user");
 
 		//Initialize scope.giftcards
 		$scope.giftcards = null;

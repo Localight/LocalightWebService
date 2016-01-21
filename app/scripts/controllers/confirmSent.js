@@ -14,12 +14,12 @@ angular.module('angularLocalightApp')
     $scope.getInit = function()
     {
         //Place our cookies in scope variables and then remove the cookies
-        $scope.phoneNum = $cookies.get("phone");
-        $scope.email = $cookies.get("email");
+        $scope.phoneNum = $cookies.get("giftCreate-phoneNum");
+        $scope.email = $cookies.get("giftCreate-email");
 
         //Remove the cookies
-        $cookies.remove("phone");
-        $cookies.remove("email");
+        $cookies.remove("giftCreate-phoneNum");
+        $cookies.remove("giftCreate-email");
     }
 
     //Init

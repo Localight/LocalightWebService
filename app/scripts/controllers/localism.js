@@ -8,7 +8,7 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('LocalismCtrl', function ($scope, $cookies, rotationCheck, Giftcards, loadingSpinner) {
+  .controller('LocalismCtrl', function ($scope, $cookies, Giftcards, loadingSpinner, sessionService) {
 
         this.awesomeThings = [
           'HTML5 Boilerplate',
@@ -16,18 +16,15 @@ angular.module('angularLocalightApp')
           'Karma'
         ];
 
-        //Reset the rotation alert boolean
-        rotationCheck.reset();
-
         //get our session token from the cookies
-        var sessionToken = $cookies.get("sessionToken");
+        var sessionToken = sessionService.getToken("user");
 
         //Get our thanks
         $scope.sentThanks = false;
-        if($cookies.get("thanks"))
+        if($cookies.get("thankYou-sentThanks"))
         {
             $scope.sentThanks = true;
-            $cookies.remove("thanks");
+            $cookies.remove("thankYou-sentThanks");
         }
 
 		//Initialize scope.giftcards

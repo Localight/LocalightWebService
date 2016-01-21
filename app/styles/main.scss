@@ -79,6 +79,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 }
 
+.paymentcontainerInfo {
+    @extend .paymentcontainer;
+
+    padding-left: 20px;
+}
+
 .nextInput {
   border-radius: 7px;
   background-color: $inverseStandardAlphaLight;
@@ -203,15 +209,21 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
   line-height: 45px;
 }
 
-.expiryY {
+.expirySlash {
     @extend .expiryM;
 
-    width: 45px;
+    width: 10px;
+    margin-left: -5px !important;
+    display: inline-flex !important;
+}
+
+.expiryY {
+    @extend .expiryM;
 }
 
 .cvv {
     @extend .expiryM;
-    margin-left: 10px;
+    margin-left: 5px;
     width: 37px;
 }
 
@@ -223,6 +235,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .createBackendError {
     padding: 5px;
+}
+
+.giftCreateLocalightLogo {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 /**
@@ -727,23 +745,29 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 **/
 
 .tiltText {
-    padding-left: 25%;
-    padding-right: 25%;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 .tiltSpacing {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    height: 25px !important;
+}
+
+//At least the height of iphone 5
+@media only screen and (min-height: 520px) {
+    .tiltSpacing {
+        height: 75px !important;
+    }
 }
 
 .tiltArrow {
     width: 80px;
-    height: auto;
+    height: 32px;
 }
 
 .tiltMerchant {
-    margin-bottom: 8px;
-    margin-top: 8px;
+    margin-bottom: 13px;
+    margin-top: 13px;
 }
 
 .tiltLocalight {
@@ -755,34 +779,32 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 .swipeLock {
-    width: 71px;
-    height: 71px;
-    background: url('../images/animations/lock-anim-sprite-wht.png') left bottom;
-    background-size: auto 71px;
-    transition: none;
-    margin-top:5px;
-
+    margin-top: 5px;
+    width: 67px;
+    height: 67px;
+    background: url('../images/animations/lock-anim-sprite-wht.png') left center;
+    background-size: 1005px 67px;
 }
 
 .animateLock {
-    animation: play 2.5s steps(15, end);
-    animation-direction: reverse;
-    animation-iteration-count: 1
+    animation: play 1.35s steps(15, end);
+    animation-iteration-count: 1;
 }
 
 .lockBorder {
     border-style: solid;
-    border-radius: 45px;
+    border-radius: 60px;
     border-color: $darkOverlay;
-    width: 90px;
-    height: 90px;
+    width: 85px;
+    height: 85px;
     margin-right: auto;
     margin-left: auto;
 }
 
+
 @include keyframes(play) {
-    from { background-position:    0px; }
-    to { background-position: 2130px; }
+    from { background-position: 1005px; }
+    to { background-position: 0px; }
 }
 
 /**

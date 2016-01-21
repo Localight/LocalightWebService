@@ -8,11 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $timeout, $location, $window, rotationCheck,
-      Giftcards, LocationById, Thanks, loadingSpinner, OccasionService) {
-
-      //Reset the rotation alert boolean
-      rotationCheck.reset();
+  .controller('ThankyouCtrl', function ($scope, $routeParams, $cookies, $timeout, $location, $window,
+      Giftcards, LocationById, Thanks, loadingSpinner, OccasionService, sessionService) {
 
       //Initialize our giftcards in scope
       $scope.giftcards;
@@ -27,21 +24,25 @@ angular.module('angularLocalightApp')
       $scope.Id = $routeParams.merchantId;
 
       //Get our amount
-      $scope.spentAmount = (parseInt($cookies.get("igosdmbmtv")) / 100).toFixed(2);
-      $cookies.remove("igosdmbmtv");
+      $scope.spentAmount = (parseInt($cookies.get("enterAmount-inputAmount")) / 100).toFixed(2);
+      $cookies.remove("enterAmount-inputAmount");
 
       //get our session token from the cookies
       var sessionToken;
+      sessionService.getToken("user", true).then(function(token) {
 
-      if($cookies.get("sessionToken"))
-      {
-          sessionToken = $cookies.get("sessionToken");
-      }
-      else
-      {
-          //Redirect them to a 404
-          $location.path("#/");
-      }
+          //Check that everything went through alright
+          if(token) {
+
+              //Capture our sessionToken
+              sessionToken = token;
+
+              //Init our controller
+              $scope.getGiftcards();
+              $scope.countCharacters();
+              $scope.loading = true;
+          }
+      });
 
     //Get our location
     $scope.getLocation = function() {
@@ -118,17 +119,17 @@ angular.module('angularLocalightApp')
 
             //Get our user who sent the giftcard
             $scope.sender = {};
-            if($cookies.get("senderName"))
+            if($cookies.get("giftView-senderName"))
             {
                 $scope.sender = {
-                    "name": $cookies.get("senderName"),
-                    "id": $cookies.get("senderId"),
-                    "icon": $cookies.get("senderIcon")
+                    "name": $cookies.get("giftView-senderName"),
+                    "id": $cookies.get("giftView-senderId"),
+                    "icon": $cookies.get("giftView-senderIcon")
                 }
 
-                $cookies.remove("senderName");
-                $cookies.remove("senderId");
-                $cookies.remove("senderIcon");
+                $cookies.remove("giftView-senderName");
+                $cookies.remove("giftView-senderId");
+                $cookies.remove("giftView-senderIcon");
             }
             else {
                 //Make the oldest, non thanked giftcard the sender since its the one we spent
@@ -195,7 +196,7 @@ angular.module('angularLocalightApp')
             $scope.thankResponse = data;
 
             //save a thanks cookies
-            $cookies.put("thanks", true);
+            $cookies.put("thankYou-sentThanks", true);
 
             //Finally redirect to the localism page
             $location.path("/localism");
@@ -206,10 +207,5 @@ angular.module('angularLocalightApp')
     $scope.getOccasion = function(Id) {
         return OccasionService.getOccasionsById(Id);
     }
-    
-    //Init
-    $scope.getGiftcards();
-    $scope.countCharacters();
-    $scope.loading = true;
 
   });

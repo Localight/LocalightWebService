@@ -8,7 +8,8 @@
  * Controller of the angularLocalightApp
  */
 angular.module('angularLocalightApp')
-  .controller('LoginpanelCtrl', function ($scope, $cookies, $location, LoginOwner, loadingSpinner) {
+  .controller('LoginpanelCtrl', function ($scope, $cookies, $location,
+      LoginOwner, loadingSpinner) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -46,7 +47,7 @@ angular.module('angularLocalightApp')
             else {
 
                 //Save their session token
-                $cookies.put("sessionToken", $scope.owner.token);
+                $cookies.put("sessionToken-owner", $scope.owner.token);
 
                 //Check if they have completed additional info
                 if($scope.owner.dob) {
